@@ -11,6 +11,8 @@ Jsi sešna **B (obsah a nástroje)**. Vyrábíš data ve formátu xSpace a nást
 4. Načti skilly `xengine`, `blender-skills` (oddíly 0, 13, 14), `arena-assety` (oddíly 1, 4), `herni-data-zestihleni`, `headless-webgl-testing`. Kde se skill `xengine` liší od repa, platí repo. Přečti i `docs/DECISIONS.md` D-022 (světlo po vrcholech) a `docs/06_ROZPOCTY.md`.
 5. `npm install && npm test`. Musí projít (T0 41, T1 118, T4 46, T2 15, T3 8).
 
+**Přechod ze znění 1.** Sešna B začala ze znění 1 (`a2ce175`). Než budeš pokračovat: `git fetch origin && git merge origin/zaklad-1` (zkušební sloučení u svodné sešny proběhlo bez konfliktů, testy základu zůstaly zelené). Pro tebe se mění úkol B1.3 a přibyly `brushLightMesh` a `lightIrradiance` v `src/xspace`; Shell je v `src/shell`. `B_STAV.md` vyplňuj po každém uzavřeném kroku, zatím je v něm jen šablona.
+
 ## 1. Cíl
 
 Nástroje, které z parametrů a seedu vyrobí platný level a platné prefaby, a první sada obsahu, na které se dá engine zkoušet. Měřítkem není počet řádků, ale to, že **200 různých seedů projde validátorem bez jediného nálezu** a že prefaby vypadají na galerii jako to, čím mají být.

@@ -32,6 +32,19 @@ Vlna 1 se do jedné sešny nevejde. Počítej s tímto řezem:
 
 A1.7 (ořez pohledem po buňkách a portálech) je přesunuto do vlny 2 (D-027). Po každém úkolu: testy, `A_STAV.md`, commit, push.
 
+## 2a. Přechod ze znění 1 (pro sešnu, která už běží)
+
+Sešna A začala 22. 11. 2026 ve 02:44 ze znění 1 (`a2ce175`) a má hotové A1.1 až A1.4 (commit `949d478`). Než budeš pokračovat:
+
+1. `git fetch origin && git merge origin/zaklad-1`. Zkušební sloučení u svodné sešny proběhlo bez konfliktů.
+2. **Shell se přestěhoval.** V `src/app/main.js` změň dva importy z `../../vendor/shell/…` na `../shell/…`. V `test/a_00_build.mjs` uprav rozpad velikosti: `vendor/` už neexistuje, Shell je `src/shell/`.
+3. **Nejdřív zelená.** Na commitu `949d478` u svodné sešny selhávají 3 sady z 9: `a_12_view` (52 volání kreslení proti 17 dvojicím; snímek proti xView s rozdílem 5,15 z 255), `a_12_world` (29 dávek místo počtu dvojic), `a_13_walk` („šipka dolů couvá“, 0,29 → 0,33). Testy kroku A1.2 zjevně nepočítají s prefaby z A1.4. Oprav testy nebo kód a do stavu napiš, co z toho bylo co. `A_STAV.md` uvádí tyto sady jako prošlé; počty ve stavu piš z posledního běhu celé skupiny, ne z doby, kdy krok vznikl.
+4. **Převeď vykreslení na světlo po vrcholech** (A1.2 v tomto znění, D-022). Síť z `brushLightMesh`, vrstvy světla z `lightIrradiance`, `MeshBasicMaterial` s barvou vrcholů. Zásobník `PointLight` a `MeshLambertMaterial` ze `src/render` zmizí, nastavení „počet světel za běhu“ také. Důvod: na T460 stojí 4 bodová světla 14,0 ms a scéna bez výpočtu světel 2,35 ms; tvoje snímky běží s 12 světly.
+5. **Vnitřní rozlišení** (D-023): `setPixelRatio(1)` a pevný počet řádků 576, 768, 1080. Teď se velikost obrazu odvozuje z `devicePixelRatio`, který je na T460 1,25. Vyhlazování hran (`antialias`) ve výchozím stavu vypni a dej ho do nastavení; jeho cena na T460 není změřená.
+6. **Doplň k A1.4:** oddíl „Rozhraní entit“ v `A_STAV.md` (popiš, co už existuje), zablokovaný pohyb dveří (D-025), světlo dílů po stěnách.
+7. Snímky proti xView po převodu světla porovnej znovu. xView svítí po pixelech, shoda proto bude horší než dosud; zapiš novou hodnotu a nastav podle ní práh.
+8. Potom A1.5 podle tohoto znění.
+
 ## 3. Úkoly
 
 ### A1.1 Kostra aplikace

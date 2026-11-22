@@ -3,7 +3,9 @@
 **Verze:** základ 1, znění 2 · 22. 11. 2026 · větev `zaklad-1` (shodná s `main`)
 **Další krok:** vlna 1, sešny A a B souběžně podle `docs/sesny/START_A.md` a `START_B.md`.
 
-Znění 2 vzniklo před startem sešen: měření T460, tři Ondřejova rozhodnutí a z nich plynoucí změny (D-006, D-011, D-016, D-022 až D-027). Žádná sešna z dřívějšího znění nevycházela.
+Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynoucí změny (D-006, D-011, D-016, D-022 až D-027).
+
+**Sešny A a B začaly ze znění 1** (`a2ce175`): A 22. 11. 2026 ve 02:44, B téhož dne. Znění 2 přebírají sloučením `origin/zaklad-1` do své větve; postup je v `START_A.md` oddíl 2a a v `START_B.md` oddíl 0. Zkušební sloučení u svodné sešny (22. 11. 2026) proběhlo u obou větví bez konfliktů; sešna A musí změnit dva importy Shellu.
 
 ## Co je hotové (základ 1)
 
@@ -40,7 +42,7 @@ Znění 2 vzniklo před startem sešen: měření T460, tři Ondřejova rozhodnu
 
 ## Otevřené pro Ondřeje
 
-1. Spustit sešny A a B (startovní zprávy v balíku, soubor `00_CTI_ME.md`).
+1. Předat sešnám A a B pokyn ke sloučení znění 2.
 2. Říct, zda smím do `vibe-game-frameworks` zapsat, že Shell má domov v xEngine.
 3. Až bude xBench 0.2: pustit ho na T460.
 
