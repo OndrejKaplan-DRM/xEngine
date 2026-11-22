@@ -11,6 +11,8 @@ import { createHud } from './hud.js';
 import { settingsDefs } from './settings.js';
 import { installHook } from './hook.js';
 import { createDev } from './dev.js';
+import { createBench } from './bench.js';
+import { ROWS } from '../render/rows.js';
 
 const BOUNCE_MS = 350; // Esc, kterým prohlížeč uvolnil zámek, nesmí vzápětí hru zase spustit
 
@@ -49,6 +51,7 @@ async function boot() {
     },
   });
   if (params.has('nolock')) lock.disable();
+  const bench = createBench({ game, lock, root: document.body });
 
   /** Vstup do hry: nejdřív zámek kurzoru (voláno z kliknutí), pak teprve režim. */
   async function enter(fresh) {
@@ -143,6 +146,15 @@ async function boot() {
       e.preventDefault();
       return;
     }
+    // F9: měření skutečné hry (totéž co adresa ?bench); funguje z menu i ze hry
+    if (e.code === 'F9' && !e.repeat) {
+      e.preventDefault();
+      if (!bench.active) {
+        lock.release();
+        bench.run();
+      }
+      return;
+    }
     if (E.mode !== 'playing') return;
     const known = e.repeat ? false : input.key(e.code, true);
     if (known || PREVENT_DEFAULT.has(e.code)) e.preventDefault();
@@ -174,8 +186,13 @@ async function boot() {
   addEventListener('blur', () => input.releaseAll());
   addEventListener('resize', () => render.resize());
 
-  installHook({ game, lock, shell, hud, adapter, devTools });
+  installHook({ game, lock, shell, hud, adapter, devTools, bench });
   E.run();
+  // ?bench: měření skutečné hry hned po načtení; volitelně &rows=576|768|1080, &aa=1, &quick (jen první dvě buňky)
+  if (params.has('bench')) {
+    const rows = Number(params.get('rows'));
+    setTimeout(() => bench.run({ rows: ROWS.includes(rows) ? rows : undefined, aa: params.has('aa') ? params.get('aa') !== '0' : undefined, quick: params.has('quick') }), 600);
+  }
 }
 
 boot().catch((err) => {

@@ -1,7 +1,7 @@
 // Háček pro testy: window.__xe podle kontraktu (docs/02_KONTRAKTY.md, oddíl 1). Minimum z kontraktu se nesmí
 // ubírat; co je navíc, je označené. Testy řídí simulaci, ne snímky: sim() nečeká na skutečný čas.
 
-export function installHook({ game, lock, shell, hud, adapter, devTools }) {
+export function installHook({ game, lock, shell, hud, adapter, devTools, bench }) {
   const { E, input, render } = game;
   const xe = {
     ready: true,
@@ -45,6 +45,8 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
       };
     },
     snapshot: () => E.snapshot(),
+    /** Měření skutečné hry (stejné jako adresa ?bench). opts: { rows, aa, quick }. Vrací Promise s výsledkem. */
+    bench: (opts) => bench.run(opts),
     /** Zastínění světla a brány dveří zapnout nebo vypnout (level se načte znovu). Vypnuté = jako xView: světlo prochází vším. */
     shadows(on) {
       game.light.shadows = !!on;
