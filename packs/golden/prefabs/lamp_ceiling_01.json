@@ -1,0 +1,26 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lamp_ceiling_01",
+  "title": "Svítidlo závěsné",
+  "category": "prop.light",
+  "bounds": { "min": [-0.18, -0.4, -0.18], "max": [0.18, 0, 0.18] },
+  "rig": {
+    "nodes": [
+      { "id": "mount" }
+    ]
+  },
+  "parts": [
+    { "node": "mount", "shape": "cyl", "center": [0, -0.02, 0], "radius": 0.06, "height": 0.04, "axis": "y", "mat": "metal_dark" },
+    { "node": "mount", "shape": "box", "min": [-0.01, -0.3, -0.01], "max": [0.01, -0.04, 0.01], "mat": "metal_dark" },
+    { "node": "mount", "shape": "cyl", "center": [0, -0.34, 0], "radius": 0.18, "height": 0.08, "axis": "y", "mat": "metal_dark" },
+    { "node": "mount", "shape": "cyl", "center": [0, -0.385, 0], "radius": 0.12, "height": 0.01, "axis": "y", "mat": "light_panel" }
+  ],
+  "components": {
+    "light": { "type": "point", "color": [1, 0.92, 0.8], "intensity": 60, "range": 12, "node": "mount", "cast": false, "style": "steady", "on": false }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle", "setLevel"],
+  "outputs": ["on", "off"],
+  "tris": 204,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

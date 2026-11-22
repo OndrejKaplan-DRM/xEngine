@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "button_wall_01",
+  "title": "Tlačítko nástěnné",
+  "category": "device.control",
+  "bounds": { "min": [-0.06, -0.06, 0], "max": [0.06, 0.06, 0.04] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "cap", "parent": "base", "pos": [0, 0, 0.02] }
+    ],
+    "joints": [
+      {
+        "id": "press",
+        "node": "cap",
+        "type": "slider",
+        "axis": [0, 0, -1],
+        "min": 0,
+        "max": 0.015,
+        "rest": 0,
+        "spring": 400,
+        "damping": 20,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.06, -0.06, 0], "max": [0.06, 0.06, 0.02], "mat": "metal_dark" },
+    { "node": "cap", "shape": "cyl", "center": [0, 0, 0.01], "radius": 0.035, "height": 0.02, "axis": "z", "mat": "button_red" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.06, -0.06, 0], "max": [0.06, 0.06, 0.04], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "button", "joint": "press", "prompt": "Stisknout", "range": 1.6 }
+  },
+  "inputs": ["press", "lock", "unlock"],
+  "outputs": ["pressed", "released"],
+  "tris": 76,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

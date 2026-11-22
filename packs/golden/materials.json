@@ -1,0 +1,22 @@
+{
+  "xspace": 1,
+  "kind": "materials",
+  "materials": {
+    "concrete_floor": { "model": "lit", "color": [0.42, 0.42, 0.4], "rough": 0.9, "metal": 0, "uvScale": 2, "surface": "concrete" },
+    "concrete_wall": { "model": "lit", "color": [0.55, 0.54, 0.5], "rough": 0.9, "metal": 0, "uvScale": 2, "surface": "concrete" },
+    "plaster_white": { "model": "lit", "color": [0.82, 0.82, 0.78], "rough": 0.9, "metal": 0, "uvScale": 1, "surface": "concrete" },
+    "plaster_ceiling": { "model": "lit", "color": [0.7, 0.7, 0.68], "rough": 0.9, "metal": 0, "uvScale": 1, "surface": "concrete" },
+    "tile_lab": { "model": "lit", "color": [0.62, 0.7, 0.72], "rough": 0.35, "metal": 0, "uvScale": 0.6, "surface": "tile" },
+    "metal_plate": { "model": "lit", "color": [0.38, 0.4, 0.43], "rough": 0.5, "metal": 0.8, "uvScale": 1, "surface": "metal" },
+    "metal_dark": { "model": "lit", "color": [0.16, 0.17, 0.19], "rough": 0.55, "metal": 0.8, "uvScale": 1, "surface": "metal" },
+    "steel": { "model": "lit", "color": [0.62, 0.64, 0.66], "rough": 0.3, "metal": 1, "uvScale": 1, "surface": "metal" },
+    "wood_dark": { "model": "lit", "color": [0.3, 0.2, 0.12], "rough": 0.7, "metal": 0, "uvScale": 1, "surface": "wood" },
+    "wood_crate": { "model": "lit", "color": [0.55, 0.4, 0.22], "rough": 0.85, "metal": 0, "uvScale": 1, "surface": "wood" },
+    "plastic_white": { "model": "lit", "color": [0.88, 0.88, 0.85], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
+    "plastic_black": { "model": "lit", "color": [0.06, 0.06, 0.07], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
+    "button_red": { "model": "lit", "color": [0.75, 0.08, 0.06], "rough": 0.4, "metal": 0, "uvScale": 1, "surface": "plastic" },
+    "hazard_yellow": { "model": "lit", "color": [0.9, 0.72, 0.05], "rough": 0.6, "metal": 0, "uvScale": 1, "surface": "metal" },
+    "light_panel": { "model": "emissive", "color": [1, 0.95, 0.85], "emissive": [1, 0.92, 0.8], "emissiveStrength": 4, "surface": "glass" },
+    "screen_glow": { "model": "emissive", "color": [0.1, 0.5, 0.35], "emissive": [0.15, 0.9, 0.6], "emissiveStrength": 2, "surface": "glass" }
+  }
+}

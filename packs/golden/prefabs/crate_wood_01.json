@@ -1,0 +1,27 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "crate_wood_01",
+  "title": "Bedna dřevěná 0,8 m",
+  "category": "prop.container",
+  "bounds": { "min": [-0.4, 0, -0.4], "max": [0.4, 0.8, 0.4] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.4], "max": [0.4, 0.8, 0.4], "mat": "wood_crate" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.4], "max": [0.4, 0.8, 0.4], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "dynamic", "mass": 60, "friction": 0.7, "restitution": 0.1 },
+    "health": { "hp": 100, "surface": "wood" }
+  },
+  "inputs": ["break"],
+  "outputs": ["damaged", "broken"],
+  "tris": 12,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

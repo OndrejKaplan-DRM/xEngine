@@ -1,0 +1,30 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pickup_medkit_01",
+  "title": "Lékárnička",
+  "category": "item.health",
+  "bounds": { "min": [-0.15, 0, -0.1], "max": [0.15, 0.125, 0.1] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.1], "max": [0.15, 0.12, 0.1], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.02, 0.12, -0.06], "max": [0.02, 0.125, 0.06], "mat": "button_red" },
+    { "node": "body", "shape": "box", "min": [-0.06, 0.12, -0.02], "max": [0.06, 0.125, 0.02], "mat": "button_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.1], "max": [0.15, 0.125, 0.1], "group": "trigger" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "interact": { "kind": "pickup", "prompt": "Sebrat lékárničku", "range": 1.6 },
+    "pickup": { "item": "health", "amount": 25 }
+  },
+  "inputs": ["enable", "disable"],
+  "outputs": ["picked"],
+  "tris": 36,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

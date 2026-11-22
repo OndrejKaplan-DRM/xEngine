@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "valve_wheel_01",
+  "title": "Ventil s kolem",
+  "category": "device.control",
+  "bounds": { "min": [-0.14, -0.14, 0], "max": [0.14, 0.14, 0.14] },
+  "rig": {
+    "nodes": [
+      { "id": "stem" },
+      { "id": "wheel", "parent": "stem", "pos": [0, 0, 0.12] }
+    ],
+    "joints": [
+      { "id": "turn", "node": "wheel", "type": "hinge", "axis": [0, 0, 1], "min": 0, "max": 1080, "rest": 0, "damping": 8, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "stem", "shape": "cyl", "center": [0, 0, 0.06], "radius": 0.02, "height": 0.12, "axis": "z", "mat": "steel" },
+    { "node": "wheel", "shape": "cyl", "center": [0, 0, 0], "radius": 0.14, "height": 0.025, "axis": "z", "mat": "button_red" },
+    { "node": "wheel", "shape": "box", "min": [-0.13, -0.012, 0.0125], "max": [0.13, 0.012, 0.02], "mat": "steel" }
+  ],
+  "colliders": [
+    { "node": "wheel", "shape": "box", "min": [-0.14, -0.14, -0.0125], "max": [0.14, 0.14, 0.02], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "valve", "joint": "turn", "prompt": "Točit ventilem", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["setLevel"],
+  "outputs": ["changed", "opened", "closed"],
+  "tris": 140,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

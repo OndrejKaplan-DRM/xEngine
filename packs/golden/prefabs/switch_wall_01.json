@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "switch_wall_01",
+  "title": "Vypínač kolébkový",
+  "category": "device.control",
+  "bounds": { "min": [-0.04, -0.06, 0], "max": [0.04, 0.06, 0.03] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "rocker", "parent": "base", "pos": [0, 0, 0.012] }
+    ],
+    "joints": [
+      {
+        "id": "rock",
+        "node": "rocker",
+        "type": "hinge",
+        "axis": [1, 0, 0],
+        "min": -15,
+        "max": 15,
+        "rest": -15,
+        "detents": [-15, 15],
+        "damping": 2,
+        "drive": "both"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.06, 0], "max": [0.04, 0.06, 0.012], "mat": "plastic_white" },
+    { "node": "rocker", "shape": "box", "min": [-0.02, -0.035, 0], "max": [0.02, 0.035, 0.012], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.06, 0], "max": [0.04, 0.06, 0.03], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "switch", "joint": "rock", "prompt": "Přepnout", "range": 1.6 }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle"],
+  "outputs": ["on", "off"],
+  "tris": 24,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

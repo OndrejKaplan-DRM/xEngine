@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cabinet_drawer_01",
+  "title": "Skříňka se zásuvkou",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.4, 0, -0.25], "max": [0.4, 0.9, 0.66] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "drawer", "parent": "body", "pos": [0, 0.5, 0] }
+    ],
+    "joints": [
+      { "id": "pull", "node": "drawer", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.38, "rest": 0, "damping": 10, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.25], "max": [-0.38, 0.9, 0.25], "mat": "metal_plate" },
+    { "node": "body", "shape": "box", "min": [0.38, 0, -0.25], "max": [0.4, 0.9, 0.25], "mat": "metal_plate" },
+    { "node": "body", "shape": "box", "min": [-0.38, 0, -0.25], "max": [0.38, 0.9, -0.23], "mat": "metal_plate" },
+    { "node": "body", "shape": "box", "min": [-0.38, 0.88, -0.23], "max": [0.38, 0.9, 0.25], "mat": "metal_plate" },
+    { "node": "body", "shape": "box", "min": [-0.38, 0, -0.23], "max": [0.38, 0.02, 0.25], "mat": "metal_plate" },
+    { "node": "body", "shape": "box", "min": [-0.37, 0.03, 0.23], "max": [0.37, 0.48, 0.25], "mat": "metal_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.37, 0, 0.23], "max": [0.37, 0.36, 0.25], "mat": "metal_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.36, 0, -0.2], "max": [0.36, 0.02, 0.23], "mat": "metal_plate" },
+    { "node": "drawer", "shape": "box", "min": [-0.08, 0.16, 0.25], "max": [0.08, 0.19, 0.28], "mat": "steel" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.25], "max": [0.4, 0.9, 0.23], "group": "world" },
+    { "node": "drawer", "shape": "box", "min": [-0.37, 0, 0.23], "max": [0.37, 0.36, 0.28], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "drawer", "joint": "pull", "prompt": "Vysunout zásuvku", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 108,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

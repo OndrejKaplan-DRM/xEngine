@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "door_slide_01",
+  "title": "Dveře posuvné 1,0 × 2,1 m",
+  "category": "arch.door",
+  "bounds": { "min": [-0.5, 0, -0.04], "max": [1.48, 2.1, 0.04] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "leaf", "parent": "frame" }
+    ],
+    "joints": [
+      { "id": "slide", "node": "leaf", "type": "slider", "axis": [1, 0, 0], "min": 0, "max": 0.98, "rest": 0, "speed": 1.6, "drive": "motor" }
+    ]
+  },
+  "parts": [
+    { "node": "leaf", "shape": "box", "min": [-0.5, 0, -0.03], "max": [0.5, 2.1, 0.03], "mat": "metal_dark" },
+    { "node": "leaf", "shape": "box", "min": [-0.5, 1, -0.035], "max": [0.5, 1.1, 0.035], "mat": "hazard_yellow" }
+  ],
+  "colliders": [
+    { "node": "leaf", "shape": "box", "min": [-0.5, 0, -0.03], "max": [0.5, 2.1, 0.03], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "slide", "prompt": "Otevřít", "range": 1.8 }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 24,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

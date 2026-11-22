@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "door_hinged_01",
+  "title": "Dveře otočné 1,0 × 2,1 m",
+  "category": "arch.door",
+  "bounds": { "min": [-0.5, 0, -1], "max": [0.5, 2.1, 1] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "leaf", "parent": "frame", "pos": [-0.5, 0, 0] }
+    ],
+    "joints": [
+      { "id": "hinge", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 105, "rest": 0, "damping": 4, "speed": 120, "drive": "both" }
+    ]
+  },
+  "parts": [
+    { "node": "leaf", "shape": "box", "min": [0.01, 0.01, -0.02], "max": [0.99, 2.09, 0.02], "mat": "wood_dark" },
+    { "node": "leaf", "shape": "box", "min": [0.86, 1, 0.02], "max": [0.94, 1.04, 0.08], "mat": "steel" },
+    { "node": "leaf", "shape": "box", "min": [0.86, 1, -0.08], "max": [0.94, 1.04, -0.02], "mat": "steel" }
+  ],
+  "colliders": [
+    { "node": "leaf", "shape": "box", "min": [0.01, 0.01, -0.02], "max": [0.99, 2.09, 0.02], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "hinge", "prompt": "Otevřít", "range": 1.8, "manipulate": true },
+    "health": { "hp": 250, "surface": "wood" }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 36,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

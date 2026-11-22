@@ -1,0 +1,30 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "target_01",
+  "title": "Terč na stojanu",
+  "category": "prop.training",
+  "bounds": { "min": [-0.3, 0, -0.03], "max": [0.3, 1.75, 0.03] },
+  "rig": {
+    "nodes": [
+      { "id": "post" }
+    ]
+  },
+  "parts": [
+    { "node": "post", "shape": "box", "min": [-0.03, 0, -0.03], "max": [0.03, 1.2, 0.03], "mat": "steel" },
+    { "node": "post", "shape": "cyl", "center": [0, 1.45, 0], "radius": 0.3, "height": 0.04, "axis": "z", "mat": "hazard_yellow" },
+    { "node": "post", "shape": "cyl", "center": [0, 1.45, 0.021], "radius": 0.1, "height": 0.01, "axis": "z", "mat": "button_red" }
+  ],
+  "colliders": [
+    { "node": "post", "shape": "box", "min": [-0.03, 0, -0.03], "max": [0.03, 1.2, 0.03], "group": "world" },
+    { "node": "post", "shape": "cyl", "center": [0, 1.45, 0], "radius": 0.3, "height": 0.04, "axis": "z", "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "health": { "hp": 100000, "surface": "metal" }
+  },
+  "inputs": ["reset"],
+  "outputs": ["hit"],
+  "tris": 140,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

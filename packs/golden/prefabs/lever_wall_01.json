@@ -1,0 +1,45 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lever_wall_01",
+  "title": "Páka nástěnná",
+  "category": "device.control",
+  "bounds": { "min": [-0.08, -0.25, 0], "max": [0.08, 0.25, 0.33] },
+  "rig": {
+    "nodes": [
+      { "id": "plate" },
+      { "id": "arm", "parent": "plate", "pos": [0, 0, 0.03] }
+    ],
+    "joints": [
+      {
+        "id": "swing",
+        "node": "arm",
+        "type": "hinge",
+        "axis": [1, 0, 0],
+        "min": -40,
+        "max": 40,
+        "rest": -40,
+        "detents": [-40, 40],
+        "damping": 6,
+        "drive": "both"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "plate", "shape": "box", "min": [-0.08, -0.15, 0], "max": [0.08, 0.15, 0.03], "mat": "metal_dark" },
+    { "node": "arm", "shape": "box", "min": [-0.015, -0.015, 0], "max": [0.015, 0.015, 0.25], "mat": "steel" },
+    { "node": "arm", "shape": "cyl", "center": [0, 0, 0.27], "radius": 0.03, "height": 0.05, "axis": "z", "mat": "button_red" }
+  ],
+  "colliders": [
+    { "node": "plate", "shape": "box", "min": [-0.08, -0.15, 0], "max": [0.08, 0.15, 0.03], "group": "world" },
+    { "node": "arm", "shape": "box", "min": [-0.03, -0.03, 0], "max": [0.03, 0.03, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "lever", "joint": "swing", "prompt": "Přehodit páku", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle"],
+  "outputs": ["on", "off", "changed"],
+  "tris": 88,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

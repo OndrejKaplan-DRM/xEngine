@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xBench: měření stroje pro xEngine</title>
+<style>
+html,body{margin:0;background:#0b0d12;color:#d8dbe2;font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;font-weight:600;margin:0 0 2px;color:#fff}
+#ver{color:#8b93a5;font-size:13px}
+ol{margin:12px 0;padding-left:22px}
+button{background:#12352b;color:#fff;border:1px solid #5dcaa5;border-radius:8px;padding:9px 18px;font:inherit;cursor:pointer}
+button:disabled{opacity:.45;cursor:default}
+#copy{background:#1a1f2b;border-color:#2f3647}
+#status{margin:14px 0;min-height:24px}
+#env{color:#8b93a5;font-size:13px;margin-bottom:8px}
+canvas{width:100%;max-width:480px;aspect-ratio:16/9;display:block;border:1px solid #2a3040;border-radius:8px;background:#000}
+table{border-collapse:collapse;width:100%;margin-top:14px;font-size:14px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid #1f2533}
+th{color:#8b93a5;font-weight:500}
+.good{color:#5dcaa5}.mid{color:#fac775}.bad{color:#f09595}
+textarea{width:100%;height:90px;margin-top:12px;background:#11141c;color:#aab2c2;border:1px solid #2a3040;border-radius:8px;font:12px/1.4 ui-monospace,Consolas,monospace;box-sizing:border-box;padding:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+</style>
+</head>
+<body>
+<main>
+  <h1>xBench: měření stroje pro xEngine</h1>
+  <div id="ver"></div>
+  <ol>
+    <li>Připoj napájení a zavři ostatní karty a programy.</li>
+    <li>Nech tuhle kartu po celou dobu na popředí. Měření trvá asi minutu.</li>
+    <li>Po skončení klikni na „Zkopírovat výsledek“ a vlož ho do chatu.</li>
+  </ol>
+  <div class="row"><button id="start">Spustit měření</button><button id="copy" disabled>Zkopírovat výsledek</button></div>
+  <div id="status">Připraveno.</div>
+  <div id="env"></div>
+  <canvas id="c"></canvas>
+  <table>
+    <thead><tr><th>Skupina</th><th>Případ</th><th>Volání</th><th>△</th><th>Obraz</th><th>Snímek (medián)</th><th>Snímek (95 %)</th><th>Snímků/s</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <textarea id="out" readonly aria-label="Výsledek měření jako JSON"></textarea>
+</main>
+<script>/*__DATA__*/</script>
+<script>/*__JS__*/</script>
+</body>
+</html>

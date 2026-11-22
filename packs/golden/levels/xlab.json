@@ -1,0 +1,264 @@
+{
+  "xspace": 1,
+  "kind": "level",
+  "id": "xlab",
+  "title": "xLab: zkušební komora",
+  "profile": "real",
+  "env": {
+    "ambient": [0.06, 0.065, 0.08],
+    "exposure": 0.6,
+    "fog": { "color": [0.02, 0.02, 0.03], "density": 0.004 }
+  },
+  "cells": [
+    {
+      "id": "c_start",
+      "name": "Startovní místnost",
+      "bounds": { "min": [0, 0, 0], "max": [6, 3, 6] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr",
+      "name": "Chodba",
+      "bounds": { "min": [2, 0, -8.2], "max": [4, 3, -0.2] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store",
+      "name": "Sklad",
+      "bounds": { "min": [-3.8, 0, -6.2], "max": [1.8, 3, -2.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_lab",
+      "name": "Laboratoř",
+      "bounds": { "min": [4.2, 0, -8.2], "max": [12.2, 3, -2.2] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_hall",
+      "name": "Hala (aréna a zkušební dráha)",
+      "bounds": { "min": [-6, 0, -28.4], "max": [12.2, 6, -8.4] },
+      "zone": "hall"
+    }
+  ],
+  "portals": [
+    {
+      "id": "p_start_corr",
+      "a": "c_start",
+      "b": "c_corr",
+      "quad": [[2.5, 0, -0.1], [3.5, 0, -0.1], [3.5, 2.1, -0.1], [2.5, 2.1, -0.1]],
+      "door": "e_door_start"
+    },
+    {
+      "id": "p_corr_store",
+      "a": "c_corr",
+      "b": "c_store",
+      "quad": [[1.9, 0, -4.7], [1.9, 0, -3.7], [1.9, 2.1, -3.7], [1.9, 2.1, -4.7]]
+    },
+    {
+      "id": "p_corr_lab",
+      "a": "c_corr",
+      "b": "c_lab",
+      "quad": [[4.1, 0, -6], [4.1, 0, -5], [4.1, 2.1, -5], [4.1, 2.1, -6]],
+      "door": "e_door_lab"
+    },
+    {
+      "id": "p_corr_hall",
+      "a": "c_corr",
+      "b": "c_hall",
+      "quad": [[2.25, 0, -8.3], [3.75, 0, -8.3], [3.75, 2.4, -8.3], [2.25, 2.4, -8.3]]
+    }
+  ],
+  "brushes": [
+    { "id": "b_floor_001", "cell": "c_start", "min": [0, -0.2, 0], "max": [6, 0, 6], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_ceiling_002", "cell": "c_start", "min": [0, 3, 0], "max": [6, 3.2, 6], "mat": "plaster_ceiling", "tag": "ceiling" },
+    { "id": "b_floor_003", "cell": "c_corr", "min": [2, -0.2, -8.2], "max": [4, 0, -0.2], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_ceiling_004", "cell": "c_corr", "min": [2, 3, -8.2], "max": [4, 3.2, -0.2], "mat": "plaster_ceiling", "tag": "ceiling" },
+    { "id": "b_floor_005", "cell": "c_store", "min": [-3.8, -0.2, -6.2], "max": [1.8, 0, -2.2], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_ceiling_006", "cell": "c_store", "min": [-3.8, 3, -6.2], "max": [1.8, 3.2, -2.2], "mat": "plaster_ceiling", "tag": "ceiling" },
+    { "id": "b_floor_007", "cell": "c_lab", "min": [4.2, -0.2, -8.2], "max": [12.2, 0, -2.2], "mat": "tile_lab", "tag": "floor" },
+    { "id": "b_ceiling_008", "cell": "c_lab", "min": [4.2, 3, -8.2], "max": [12.2, 3.2, -2.2], "mat": "plaster_ceiling", "tag": "ceiling" },
+    { "id": "b_floor_009", "cell": "c_hall", "min": [-6, -0.2, -28.4], "max": [12.2, 0, -8.4], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_ceiling_010", "cell": "c_hall", "min": [-6, 6, -28.4], "max": [12.2, 6.2, -8.4], "mat": "plaster_ceiling", "tag": "ceiling" },
+    { "id": "b_wall_011", "cell": "c_start", "min": [-0.2, 0, -0.2], "max": [2.5, 3, 0], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_012", "cell": "c_start", "min": [2.5, 2.1, -0.2], "max": [3.5, 3, 0], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_floor_013", "cell": "c_start", "min": [2.5, -0.2, -0.2], "max": [3.5, 0, 0], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_wall_014", "cell": "c_start", "min": [3.5, 0, -0.2], "max": [6.2, 3, 0], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_015", "cell": "c_start", "min": [-0.2, 0, 6], "max": [6.2, 3, 6.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_016", "cell": "c_start", "min": [-0.2, 0, 0], "max": [0, 3, 6], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_017", "cell": "c_start", "min": [6, 0, 0], "max": [6.2, 3, 6], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_018", "cell": "c_corr", "min": [1.8, 0, -8.2], "max": [2, 3, -4.7], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_019", "cell": "c_corr", "min": [1.8, 2.1, -4.7], "max": [2, 3, -3.7], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_floor_020", "cell": "c_corr", "min": [1.8, -0.2, -4.7], "max": [2, 0, -3.7], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_wall_021", "cell": "c_corr", "min": [1.8, 0, -3.7], "max": [2, 3, -0.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_022", "cell": "c_corr", "min": [4, 0, -8.2], "max": [4.2, 3, -6], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_023", "cell": "c_corr", "min": [4, 2.1, -6], "max": [4.2, 3, -5], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_floor_024", "cell": "c_corr", "min": [4, -0.2, -6], "max": [4.2, 0, -5], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_wall_025", "cell": "c_corr", "min": [4, 0, -5], "max": [4.2, 3, -0.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_026", "cell": "c_store", "min": [-4, 0, -6.4], "max": [1.8, 3, -6.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_027", "cell": "c_store", "min": [-4, 0, -2.2], "max": [1.8, 3, -2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_028", "cell": "c_store", "min": [-4, 0, -6.2], "max": [-3.8, 3, -2.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_029", "cell": "c_lab", "min": [4.2, 0, -2.2], "max": [12.4, 3, -2], "mat": "plaster_white", "tag": "wall" },
+    { "id": "b_wall_030", "cell": "c_lab", "min": [12.2, 0, -8.2], "max": [12.4, 3, -2.2], "mat": "plaster_white", "tag": "wall" },
+    { "id": "b_wall_031", "cell": "c_hall", "min": [-6.2, 0, -8.4], "max": [2.25, 6, -8.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_032", "cell": "c_hall", "min": [2.25, 2.4, -8.4], "max": [3.75, 6, -8.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_floor_033", "cell": "c_hall", "min": [2.25, -0.2, -8.4], "max": [3.75, 0, -8.2], "mat": "concrete_floor", "tag": "floor" },
+    { "id": "b_wall_034", "cell": "c_hall", "min": [3.75, 0, -8.4], "max": [12.4, 6, -8.2], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_035", "cell": "c_hall", "min": [-6.2, 0, -28.6], "max": [12.4, 6, -28.4], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_036", "cell": "c_hall", "min": [-6.2, 0, -28.4], "max": [-6, 6, -8.4], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_wall_037", "cell": "c_hall", "min": [12.2, 0, -28.4], "max": [12.4, 6, -8.4], "mat": "concrete_wall", "tag": "wall" },
+    { "id": "b_step_038", "cell": "c_hall", "min": [-5, 0, -14], "max": [-2, 0.3, -11], "mat": "metal_plate", "tag": "step" },
+    { "id": "b_stair_039", "cell": "c_hall", "min": [8, 0, -12.3], "max": [10, 0.25, -12], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_stair_040", "cell": "c_hall", "min": [8, 0, -12.6], "max": [10, 0.5, -12.3], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_stair_041", "cell": "c_hall", "min": [8, 0, -12.9], "max": [10, 0.75, -12.6], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_stair_042", "cell": "c_hall", "min": [8, 0, -13.2], "max": [10, 1, -12.9], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_stair_043", "cell": "c_hall", "min": [8, 0, -13.5], "max": [10, 1.25, -13.2], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_stair_044", "cell": "c_hall", "min": [8, 0, -13.8], "max": [10, 1.5, -13.5], "mat": "metal_plate", "tag": "stair" },
+    { "id": "b_gallery_045", "cell": "c_hall", "min": [8, 1.3, -17.8], "max": [12.2, 1.5, -13.8], "mat": "metal_plate", "tag": "gallery" },
+    {
+      "id": "b_ramp_046",
+      "cell": "c_hall",
+      "min": [-5, 0, -20],
+      "max": [-2.4, 1.5, -18],
+      "mat": "metal_plate",
+      "tag": "ramp",
+      "shape": "wedge",
+      "rise": "+x"
+    },
+    { "id": "b_platform_047", "cell": "c_hall", "min": [-2.4, 0, -20], "max": [0, 1.5, -18], "mat": "concrete_wall", "tag": "platform" },
+    {
+      "id": "b_ramp_048",
+      "cell": "c_hall",
+      "min": [-5, 0, -24.2586],
+      "max": [-3, 1.5, -23],
+      "mat": "hazard_yellow",
+      "tag": "ramp",
+      "shape": "wedge",
+      "rise": "-z"
+    },
+    { "id": "b_platform_049", "cell": "c_hall", "min": [-5, 0, -26], "max": [-3, 1.5, -24.2586], "mat": "concrete_wall", "tag": "platform" },
+    { "id": "b_pillar_050", "cell": "c_hall", "min": [-0.4, 0, -14.4], "max": [0.4, 6, -13.6], "mat": "concrete_wall", "tag": "pillar" },
+    { "id": "b_pillar_051", "cell": "c_hall", "min": [5.6, 0, -14.4], "max": [6.4, 6, -13.6], "mat": "concrete_wall", "tag": "pillar" },
+    { "id": "b_pillar_052", "cell": "c_hall", "min": [-0.4, 0, -23.4], "max": [0.4, 6, -22.6], "mat": "concrete_wall", "tag": "pillar" },
+    { "id": "b_pillar_053", "cell": "c_hall", "min": [5.6, 0, -23.4], "max": [6.4, 6, -22.6], "mat": "concrete_wall", "tag": "pillar" },
+    { "id": "b_cover_054", "cell": "c_hall", "min": [2, 0, -18.5], "max": [4, 1.2, -18.1], "mat": "concrete_wall", "tag": "cover" }
+  ],
+  "entities": [
+    { "id": "e_door_start", "prefab": "door_hinged_01", "cell": "c_start", "pos": [3, 0, -0.1], "rot": [0, 0, 0] },
+    {
+      "id": "e_switch_start",
+      "prefab": "switch_wall_01",
+      "cell": "c_start",
+      "pos": [4.2, 1.3, 0],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_start", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_start", "input": "turnOff" }
+      ]
+    },
+    { "id": "e_lamp_start", "prefab": "lamp_ceiling_01", "cell": "c_start", "pos": [3, 3, 3], "rot": [0, 0, 0] },
+    {
+      "id": "e_btn_lab",
+      "prefab": "button_wall_01",
+      "cell": "c_corr",
+      "pos": [4, 1.3, -4.6],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_lab", "input": "open" }
+      ]
+    },
+    {
+      "id": "e_door_lab",
+      "prefab": "door_slide_01",
+      "cell": "c_corr",
+      "pos": [4.1, 0, -5.5],
+      "rot": [0, 90, 0],
+      "props": { "locked": false },
+      "io": [
+        { "on": "opened", "target": "e_lamp_lab", "input": "turnOn", "delay": 0.3 }
+      ]
+    },
+    { "id": "e_lamp_lab", "prefab": "lamp_ceiling_01", "cell": "c_lab", "pos": [8.2, 3, -5.2], "rot": [0, 0, 0] },
+    {
+      "id": "e_desk",
+      "prefab": "desk_terminal_01",
+      "cell": "c_lab",
+      "pos": [11.4, 0, -5.2],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "command", "target": "e_lamp_hall_a", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_lever",
+      "prefab": "lever_wall_01",
+      "cell": "c_lab",
+      "pos": [7, 1.3, -2.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_hall_a", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_hall_a", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_valve",
+      "prefab": "valve_wheel_01",
+      "cell": "c_lab",
+      "pos": [9, 1.2, -2.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "changed", "target": "e_lamp_lab", "input": "setLevel" }
+      ]
+    },
+    { "id": "e_cabinet", "prefab": "cabinet_drawer_01", "cell": "c_lab", "pos": [6, 0, -7.9], "rot": [0, 0, 0] },
+    { "id": "e_crate_s1", "prefab": "crate_wood_01", "cell": "c_store", "pos": [-2, 0, -4], "rot": [0, 0, 0] },
+    { "id": "e_crate_s2", "prefab": "crate_wood_01", "cell": "c_store", "pos": [-2, 0.8, -4], "rot": [0, 20, 0] },
+    { "id": "e_crate_s3", "prefab": "crate_wood_01", "cell": "c_store", "pos": [-0.9, 0, -5.2], "rot": [0, 35, 0] },
+    { "id": "e_medkit", "prefab": "pickup_medkit_01", "cell": "c_store", "pos": [-3, 0, -3], "rot": [0, 0, 0] },
+    { "id": "e_crate_h1", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9, 0, -20], "rot": [0, 0, 0] },
+    { "id": "e_crate_h2", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9.9, 0, -20.2], "rot": [0, 12, 0] },
+    { "id": "e_crate_h3", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9.4, 0.8, -20.1], "rot": [0, 40, 0] },
+    {
+      "id": "e_target",
+      "prefab": "target_01",
+      "cell": "c_hall",
+      "pos": [3, 0, -27.5],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "hit", "target": "e_lamp_hall_b", "input": "toggle" }
+      ]
+    },
+    { "id": "e_lamp_hall_a", "prefab": "lamp_ceiling_01", "cell": "c_hall", "pos": [-1, 6, -13], "rot": [0, 0, 0] },
+    { "id": "e_lamp_hall_b", "prefab": "lamp_ceiling_01", "cell": "c_hall", "pos": [8, 6, -23], "rot": [0, 0, 0] }
+  ],
+  "lights": [
+    { "id": "l_start", "cell": "c_start", "type": "point", "pos": [3, 2.7, 3], "color": [1, 0.9, 0.75], "intensity": 12, "range": 9, "cast": true },
+    { "id": "l_corr_1", "cell": "c_corr", "type": "point", "pos": [3, 2.7, -2.5], "color": [1, 0.9, 0.75], "intensity": 20, "range": 8, "cast": true },
+    { "id": "l_corr_2", "cell": "c_corr", "type": "point", "pos": [3, 2.7, -6.5], "color": [1, 0.9, 0.75], "intensity": 20, "range": 8, "cast": true },
+    { "id": "l_store", "cell": "c_store", "type": "point", "pos": [-1, 2.7, -4.2], "color": [1, 0.9, 0.75], "intensity": 10, "range": 8, "cast": true },
+    { "id": "l_lab_1", "cell": "c_lab", "type": "point", "pos": [6.5, 2.8, -5.2], "color": [0.85, 0.93, 1], "intensity": 30, "range": 9, "cast": true },
+    { "id": "l_lab_2", "cell": "c_lab", "type": "point", "pos": [10, 2.8, -5.2], "color": [0.85, 0.93, 1], "intensity": 30, "range": 9, "cast": true },
+    { "id": "l_hall_1", "cell": "c_hall", "type": "point", "pos": [-1, 5.5, -13], "color": [0.85, 0.93, 1], "intensity": 140, "range": 18, "cast": true },
+    { "id": "l_hall_2", "cell": "c_hall", "type": "point", "pos": [8, 5.5, -13], "color": [0.85, 0.93, 1], "intensity": 140, "range": 18, "cast": true },
+    { "id": "l_hall_3", "cell": "c_hall", "type": "point", "pos": [-1, 5.5, -23], "color": [0.85, 0.93, 1], "intensity": 140, "range": 18, "cast": true },
+    { "id": "l_hall_4", "cell": "c_hall", "type": "point", "pos": [8, 5.5, -23], "color": [0.85, 0.93, 1], "intensity": 140, "range": 18, "cast": true }
+  ],
+  "triggers": [
+    {
+      "id": "t_hall_enter",
+      "cell": "c_hall",
+      "min": [2, 0, -9.6],
+      "max": [4, 2.4, -8.6],
+      "once": true,
+      "io": [
+        { "on": "enter", "target": "@level", "input": "checkpoint" },
+        { "on": "enter", "target": "e_lamp_hall_b", "input": "turnOn" }
+      ]
+    }
+  ],
+  "spawns": [
+    { "id": "sp_player", "kind": "player", "pos": [3, 0, 4.5], "yaw": 0 },
+    { "id": "sp_enemy_1", "kind": "enemy", "pos": [3, 0, -21], "yaw": 180, "what": "dummy" }
+  ],
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}

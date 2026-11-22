@@ -1,0 +1,27 @@
+{
+  "name": "xengine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "xEngine a xEcosystem: engine pro 3D z pohledu první osoby, datový formát xSpace a nástroje kolem něj",
+  "scripts": {
+    "golden": "node tools/golden/make.mjs",
+    "check": "node tools/xspace-check.mjs packs/golden",
+    "build": "node build.mjs",
+    "test:node": "node test/t0_kernel.mjs && node test/t1_xspace.mjs && node tools/xspace-doc.mjs --check && node tools/vendor-check.mjs",
+    "test:browser": "node test/t2_xview.cjs && node test/t3_xbench.cjs",
+    "test": "npm run test:node && npm run build && npm run test:browser",
+    "doc": "node tools/xspace-doc.mjs",
+    "test:a": "node tools/run-tests.mjs a",
+    "test:b": "node tools/run-tests.mjs b",
+    "test:all": "npm test && npm run test:a && npm run test:b"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "three": "0.187.0",
+    "three-mesh-bvh": "0.9.18"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

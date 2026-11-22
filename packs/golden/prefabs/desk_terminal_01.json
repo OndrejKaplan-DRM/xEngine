@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "desk_terminal_01",
+  "title": "Stůl s terminálem",
+  "category": "device.lab",
+  "bounds": { "min": [-0.7, 0, -0.35], "max": [0.7, 1.14, 0.35] },
+  "rig": {
+    "nodes": [
+      { "id": "desk" },
+      { "id": "screen", "parent": "desk", "pos": [0, 0.95, -0.15] }
+    ]
+  },
+  "parts": [
+    { "node": "desk", "shape": "box", "min": [-0.7, 0.72, -0.35], "max": [0.7, 0.75, 0.35], "mat": "wood_dark" },
+    { "node": "desk", "shape": "box", "min": [-0.68, 0, -0.33], "max": [-0.63, 0.72, -0.28], "mat": "steel" },
+    { "node": "desk", "shape": "box", "min": [0.63, 0, -0.33], "max": [0.68, 0.72, -0.28], "mat": "steel" },
+    { "node": "desk", "shape": "box", "min": [-0.68, 0, 0.28], "max": [-0.63, 0.72, 0.33], "mat": "steel" },
+    { "node": "desk", "shape": "box", "min": [0.63, 0, 0.28], "max": [0.68, 0.72, 0.33], "mat": "steel" },
+    { "node": "desk", "shape": "box", "min": [-0.04, 0.75, -0.19], "max": [0.04, 0.8, -0.11], "mat": "plastic_black" },
+    { "node": "desk", "shape": "box", "min": [-0.2, 0.75, 0.05], "max": [0.2, 0.765, 0.2], "mat": "plastic_black" },
+    { "node": "screen", "shape": "box", "min": [-0.26, -0.17, -0.02], "max": [0.26, 0.17, 0.02], "mat": "plastic_black" },
+    { "node": "screen", "shape": "box", "min": [-0.24, -0.15, 0.02], "max": [0.24, 0.15, 0.022], "mat": "screen_glow" }
+  ],
+  "colliders": [
+    { "node": "desk", "shape": "box", "min": [-0.7, 0, -0.35], "max": [0.7, 0.75, 0.35], "group": "world" },
+    { "node": "screen", "shape": "box", "min": [-0.26, -0.17, -0.02], "max": [0.26, 0.17, 0.02], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "interact": {
+      "kind": "terminal",
+      "prompt": "Použít terminál",
+      "range": 1.8,
+      "station": { "eye": [0, 1.15, 0.55], "look": [0, 0.95, -0.15], "fov": 50 }
+    },
+    "screen": { "node": "screen", "size": [0.48, 0.3], "res": [640, 400], "app": "lab_console" }
+  },
+  "inputs": ["print", "lock", "unlock"],
+  "outputs": ["used", "left", "command"],
+  "tris": 108,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}
