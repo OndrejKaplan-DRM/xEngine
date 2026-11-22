@@ -22,6 +22,12 @@ export function portalInfo(level, p) {
   return { k, o, plane: ext[k][0], lo, hi, c0: ext[o][0], c1: ext[o][1], sill: ext[1][0], top: ext[1][1], A, B };
 }
 
+/** Entity dveří stojící ve středu prahu portálu (dvoukřídlé dveře jsou dvě; pole portal.door se k tomu nepoužívá). */
+export function portalDoors(level, catalog, p, f = portalInfo(level, p)) {
+  if (f.k === undefined) return [];
+  return level.entities.filter((e) => isDoor(catalog, e) && Math.abs(e.pos[f.k] - f.plane) < 0.011 && Math.abs(e.pos[f.o] - (f.c0 + f.c1) / 2) < 0.011 && Math.abs(e.pos[1] - f.sill) < 0.011);
+}
+
 /** Portály: uprostřed zdi, práh pod otvorem, volný průchod, dveře sedí do otvoru. */
 export function checkPortals(level, catalog) {
   const out = [];
@@ -53,8 +59,12 @@ export function checkPortals(level, catalog) {
       if (isDoor(catalog, e) && Math.abs(e.pos[f.k] - f.plane) < 0.01 && e.pos[f.o] > f.c0 && e.pos[f.o] < f.c1) continue;
       if (hit(restBox(catalog, e), pass)) out.push(`${p.id}: v průchodu stojí ${e.id}`);
     }
-    if (p.door) {
-      const d = entById.get(p.door);
+    const here = portalDoors(level, catalog, p, f);
+    if (p.door && !here.includes(entById.get(p.door))) out.push(`${p.id}: dveře ${p.door} nestojí ve středu prahu`);
+    if (here.length > 2) out.push(`${p.id}: v otvoru stojí ${here.length} dveří`);
+    if (here.length === 1 && !p.door) out.push(`${p.id}: jednokřídlé dveře ${here[0].id} nejsou zapsané jako dveře portálu`);
+    if (here.length === 2 && p.door) out.push(`${p.id}: jedno křídlo dvoukřídlých dveří je zapsané jako dveře portálu`);
+    for (const d of here) {
       const op = catalog.opening(d.prefab);
       if (Math.abs(d.pos[f.o] - (f.c0 + f.c1) / 2) > 0.001 || Math.abs(d.pos[1] - f.sill) > 0.001 || Math.abs(d.pos[f.k] - f.plane) > 0.001) out.push(`${p.id}: dveře ${d.id} nestojí ve středu prahu`);
       if (Math.abs(op.w / 100 - (f.c1 - f.c0)) > 0.011 || Math.abs(op.h / 100 - (f.top - f.sill)) > 0.011) out.push(`${p.id}: otvor ${(f.c1 - f.c0).toFixed(2)} × ${(f.top - f.sill).toFixed(2)} m nesedí na dveře ${d.prefab}`);

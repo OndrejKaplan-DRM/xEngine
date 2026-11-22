@@ -13,6 +13,7 @@ import { partTris, jointSamples, boundsAt } from '../tools/forge/lib.mjs';
 import { kitDoc } from '../tools/forge/doc.mjs';
 import { makeCatalog } from '../src/gen/index.js';
 import { makeChecker } from './b_lib/check.mjs';
+import { doorLeaks } from './b_lib/door-cover.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(root, 'packs/kit_base');
@@ -165,6 +166,23 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
   within('railing_steel_01', 'výška zábradlí', byId.get('railing_steel_01').source.params.height, 0.9, 1.1);
   within('barrel_steel_01', 'výška sudu 200 l', catalog.restBox('barrel_steel_01').max[1], 0.85, 0.9);
   ok(bad.length === 0, 'dveře, kliky, desky stolů, sedáky a zábradlí mají rozměry z reality', bad.slice(0, 3).join(' | '));
+}
+
+// ---- zavřené dveře zakrývají otvor (engine místnost za zavřenými dveřmi portálu nekreslí, N-107)
+{
+  const doors = prefabs.filter((p) => p.category === 'arch.door' && p.id !== 'gate_iron_01'); // mříž je průhledná z podstaty
+  const single = doors.filter((p) => !p.source.params.side);
+  const wings = doors.filter((p) => p.source.params.side);
+  const res1 = single.map((p) => [p.id, doorLeaks([p], p.source.params.width, p.source.params.height)]);
+  const leaky = res1.filter(([, r]) => r.leaks.length);
+  ok(single.length >= 4 && leaky.length === 0, 'zavřené jednokřídlé a posuvné dveře zakryjí celý otvor (zkouška paprsky)', leaky.map(([id, r]) => `${id}: ${r.leaks.length} paprsků, ${r.text}`).join(' | ') || `${single.length} druhů dveří, ${res1.reduce((n, [, r]) => n + r.rays, 0)} paprsků, žádný neprošel`);
+  const pair = doorLeaks(wings, wings[0].source.params.width, wings[0].source.params.height);
+  ok(wings.length === 2 && pair.leaks.length === 0, 'dvoukřídlé dveře: obě křídla spolu zakryjí celý otvor', pair.text || `${pair.rays} paprsků`);
+  const alone = wings.map((p) => doorLeaks([p], p.source.params.width, p.source.params.height).leaks.length);
+  ok(alone.every((n) => n > 0), 'dvoukřídlé dveře: jedno křídlo samo otvor nezakryje (proto není dveřmi portálu)', alone.join(' a ') + ' paprsků projde');
+  const sillOk = doors.every((p) => p.parts.some((q) => q.node === 'frame' && q.shape === 'box' && q.min[1] === 0 && q.max[1] <= 0.015 && q.max[1] > 0.01));
+  const noCol = doors.every((p) => (p.colliders || []).every((c) => !(c.node === 'frame' && c.max[1] <= 0.015)));
+  ok(sillOk && noCol, 'prahová lišta je nejvýš 15 mm vysoká a nemá kolizi (postava ji přejde)');
 }
 
 // ---- původ, licence, materiály, jména

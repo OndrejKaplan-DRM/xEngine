@@ -246,7 +246,9 @@ export function buildStructure(preset, P, plan, catalog, rng) {
         l.io = [{ on: 'opened', target: r.id, input: 'open' }, { on: 'closed', target: r.id, input: 'close' }];
         r.io = [{ on: 'opened', target: l.id, input: 'open' }, { on: 'closed', target: l.id, input: 'close' }];
       }
-      portal.door = o.doorIds[0];
+      // Dveřmi portálu smí být jen entita, která otvor zakryje sama: engine podle ní portál zavírá pro pohled (N-107).
+      // Jedno křídlo dvoukřídlých dveří zakryje půlku, takže jejich portál zůstává pro pohled otevřený (do N-002).
+      if (o.doorIds.length === 1) portal.door = o.doorIds[0];
     }
     S.portals.push(portal);
     for (const [X, face, n] of [[A, s.b0, -1], [B, s.b1, 1]]) {

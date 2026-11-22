@@ -2,16 +2,16 @@
 
 Generováno příkazem `node tools/forge/make-kit.mjs`. Neupravovat ručně; zdroj je `tools/forge/kit/*.mjs`.
 
-Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 8276
+Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 8564
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
-| `door_wood_01` | Dveře otočné dřevěné 1,0 × 2,1 m | arch.door | 1,1 × 2,1 × 1,01 | 204 | swing: 0° až 95°; latch: 0° až 30° | door |
-| `door_steel_01` | Dveře otočné ocelové 1,0 × 2,1 m | arch.door | 1,17 × 2,1 × 1,01 | 192 | swing: 0° až 100°; latch: 0° až 30° | door |
-| `door_plank_01` | Dveře prkenné s kováním 0,9 × 2,0 m | arch.door | 1,01 × 2 × 0,91 | 272 | swing: 0° až 100° | door |
-| `door_sliding_01` | Dveře posuvné na pohon 1,0 × 2,1 m | arch.door | 1,88 × 2,1 × 0,23 | 108 | slide: 0 až 0,9 m | door |
-| `door_dleft_01` | Dveře dvoukřídlé 1,8 × 2,1 m, levé křídlo | arch.door | 0,98 × 2,1 × 0,96 | 144 | swing: 0° až 95° | door |
-| `door_dright_01` | Dveře dvoukřídlé 1,8 × 2,1 m, pravé křídlo | arch.door | 0,98 × 2,1 × 0,96 | 144 | swing: 0° až 95° | door |
+| `door_wood_01` | Dveře otočné dřevěné 1,0 × 2,1 m | arch.door | 1,1 × 2,1 × 1,01 | 252 | swing: 0° až 95°; latch: 0° až 30° | door |
+| `door_steel_01` | Dveře otočné ocelové 1,0 × 2,1 m | arch.door | 1,17 × 2,1 × 1,01 | 240 | swing: 0° až 100°; latch: 0° až 30° | door |
+| `door_plank_01` | Dveře prkenné s kováním 1,0 × 2,0 m | arch.door | 1,13 × 2 × 1,01 | 332 | swing: 0° až 100° | door |
+| `door_sliding_01` | Dveře posuvné na pohon 1,0 × 2,1 m | arch.door | 1,88 × 2,1 × 0,23 | 156 | slide: 0 až 0,9 m | door |
+| `door_dleft_01` | Dveře dvoukřídlé 1,8 × 2,1 m, levé křídlo | arch.door | 0,98 × 2,1 × 0,96 | 180 | swing: 0° až 95° | door |
+| `door_dright_01` | Dveře dvoukřídlé 1,8 × 2,1 m, pravé křídlo | arch.door | 0,99 × 2,1 × 0,97 | 192 | swing: 0° až 95° | door |
 | `gate_iron_01` | Brána mřížová 1,0 × 2,1 m | arch.door | 1,28 × 1,98 × 0,97 | 156 | swing: 0° až 110° | door |
 | `window_sash_01` | Okno s otvíravým křídlem 1,2 × 1,2 m | arch.window | 1,25 × 1,2 × 1,26 | 132 | swing: 0° až 90°; latch: 0° až 90° | door |
 | `button_round_01` | Tlačítko hřibové | device.control | 0,1 × 0,1 × 0,06 | 140 | press: 0 až 0,008 m | button |

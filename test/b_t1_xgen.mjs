@@ -12,7 +12,8 @@ import { validatePack, mergePacks } from '../src/xspace/index.js';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
 import { kitAsPack } from '../tools/forge/kit/index.mjs';
 import { makeChecker, span } from './b_lib/check.mjs';
-import { inspectLevel } from './b_lib/level-checks.mjs';
+import { inspectLevel, portalDoors } from './b_lib/level-checks.mjs';
+import { doorLeaks } from './b_lib/door-cover.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEEDS = Number(process.env.B_SEEDS || 200);
@@ -74,6 +75,7 @@ const RUNS = [
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
 ];
 let slowest = 0;
+const portalDoorPrefabs = new Set();
 const usedAll = new Set();
 for (const run of RUNS) {
   const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [] };
@@ -97,7 +99,8 @@ for (const run of RUNS) {
     const { level, info } = made;
     agg.ms.push(ms);
     agg.cells.push(level.cells.length);
-    agg.doors.push(level.portals.filter((p) => p.door).length);
+    agg.doors.push(level.portals.filter((p) => portalDoors(level, catalog, p).length > 0).length);
+    for (const p of level.portals) if (p.door) portalDoorPrefabs.add(level.entities.find((e) => e.id === p.door).prefab);
     agg.attempt.push(info.attempt);
     agg.entities.push(level.entities.length);
     agg.brushes.push(level.brushes.length);
@@ -131,6 +134,15 @@ for (const run of RUNS) {
   // okno a mřížová brána čekají na návrh N-003 (portál jen pro pohled); všechno ostatní ze sady generátor umí postavit
   const unused = catalog.ids.filter((id) => !usedAll.has(id));
   ok(unused.every((id) => ['window_sash_01', 'gate_iron_01'].includes(id)), 'generátory dohromady použijí každý prefab sady kromě těch, které čekají na N-003', `nepoužité: ${unused.join(', ') || 'žádné'}`);
+}
+
+{
+  // engine zavřenými dveřmi portálu zavírá pohled (N-107): entita zapsaná v portal.door musí otvor zakrýt sama
+  const bad = [...portalDoorPrefabs].filter((id) => {
+    const op = catalog.opening(id);
+    return doorLeaks([catalog.get(id)], op.w / 100, op.h / 100).leaks.length > 0;
+  });
+  ok(portalDoorPrefabs.size > 0 && bad.length === 0, 'každé dveře zapsané v portal.door zakryjí otvor samy (zkouška paprsky)', bad.join(' ') || [...portalDoorPrefabs].sort().join(' '));
 }
 
 // ---- 50 místností do 1 s ---------------------------------------------------------------------

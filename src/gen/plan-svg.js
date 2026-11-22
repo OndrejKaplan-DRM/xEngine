@@ -64,12 +64,16 @@ export function planSvg(level, catalog, o = {}) {
       const fill = (CAT_FILL.find(([p]) => pf.category.startsWith(p)) || [0, '#9aa3b5'])[1];
       out.push(rect(box, off, fill, `fill-opacity="${pf.category === 'prop.light' ? 0.55 : 0.9}"`));
     }
+    // dveře v otvoru: entita dveří ve středu prahu (dvoukřídlé dveře nejsou zapsané v portal.door)
+    const doorEnts = catalog ? (level.entities || []).filter((e) => catalog.get(e.prefab).category === 'arch.door') : [];
+    const mid = (p, k) => (Math.min(...p.quad.map((q) => q[k])) + Math.max(...p.quad.map((q) => q[k]))) / 2;
+    const hasDoor = (p) => Boolean(p.door) || doorEnts.some((e) => Math.abs(e.pos[0] - mid(p, 0)) < 0.02 && Math.abs(e.pos[2] - mid(p, 2)) < 0.02 && Math.abs(e.pos[1] - Math.min(...p.quad.map((q) => q[1]))) < 0.02);
     for (const p of level.portals || []) {
       const ys = p.quad.map((q) => q[1]);
       if (Math.min(...ys) < F - 0.05 || Math.min(...ys) > F + 0.05) continue;
       const xs = p.quad.map((q) => (q[0] - x0) * S);
       const zs = p.quad.map((q) => (q[2] - z0) * S + off);
-      out.push(`<line x1="${Math.min(...xs).toFixed(1)}" y1="${Math.min(...zs).toFixed(1)}" x2="${Math.max(...xs).toFixed(1)}" y2="${Math.max(...zs).toFixed(1)}" stroke="${p.door ? '#ef9f27' : '#5dcaa5'}" stroke-width="2.2"/>`);
+      out.push(`<line x1="${Math.min(...xs).toFixed(1)}" y1="${Math.min(...zs).toFixed(1)}" x2="${Math.max(...xs).toFixed(1)}" y2="${Math.max(...zs).toFixed(1)}" stroke="${hasDoor(p) ? '#ef9f27' : '#5dcaa5'}" stroke-width="2.2"/>`);
     }
     for (const l of level.lights || []) {
       if (l.pos[1] < F || l.pos[1] > F + 6.5 || (floors[k + 1] !== undefined && l.pos[1] > floors[k + 1] - 0.3)) continue;

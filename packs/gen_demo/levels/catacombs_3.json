@@ -310,7 +310,7 @@
       "id": "p_20",
       "a": "c_cellar_03",
       "b": "c_corr_05",
-      "quad": [[15.3, 0, 2.65], [15.3, 0, 3.55], [15.3, 2, 3.55], [15.3, 2, 2.65]],
+      "quad": [[15.3, 0, 2.55], [15.3, 0, 3.55], [15.3, 2, 3.55], [15.3, 2, 2.55]],
       "door": "e_door_01"
     },
     {
@@ -347,7 +347,7 @@
       "id": "p_26",
       "a": "c_corr_04",
       "b": "c_cellar_06",
-      "quad": [[10, 0, 6.8], [10, 0, 7.7], [10, 2, 7.7], [10, 2, 6.8]],
+      "quad": [[10, 0, 6.75], [10, 0, 7.75], [10, 2, 7.75], [10, 2, 6.75]],
       "door": "e_door_02"
     },
     {
@@ -360,14 +360,14 @@
       "id": "p_28",
       "a": "c_cellar_08",
       "b": "c_corr_09",
-      "quad": [[4.7, 0, 16.9], [4.7, 0, 17.8], [4.7, 2, 17.8], [4.7, 2, 16.9]],
+      "quad": [[4.7, 0, 16.85], [4.7, 0, 17.85], [4.7, 2, 17.85], [4.7, 2, 16.85]],
       "door": "e_door_03"
     },
     {
       "id": "p_29",
       "a": "c_corr_02",
       "b": "c_chamber_02",
-      "quad": [[4.6, 0, 0.4], [4.6, 0, 1.3], [4.6, 2, 1.3], [4.6, 2, 0.4]],
+      "quad": [[4.6, 0, 0.35], [4.6, 0, 1.35], [4.6, 2, 1.35], [4.6, 2, 0.35]],
       "door": "e_door_04"
     },
     {
@@ -380,7 +380,7 @@
       "id": "p_31",
       "a": "c_corr_01",
       "b": "c_cellar_01",
-      "quad": [[0.5, 0, 6.1], [1.4, 0, 6.1], [1.4, 2, 6.1], [0.5, 2, 6.1]],
+      "quad": [[0.45, 0, 6.1], [1.45, 0, 6.1], [1.45, 2, 6.1], [0.45, 2, 6.1]],
       "door": "e_door_05"
     },
     {
@@ -393,7 +393,7 @@
       "id": "p_33",
       "a": "c_corr_06",
       "b": "c_chamber_03",
-      "quad": [[20.2, 0, 6.3], [21.1, 0, 6.3], [21.1, 2, 6.3], [20.2, 2, 6.3]],
+      "quad": [[20.15, 0, 6.3], [21.15, 0, 6.3], [21.15, 2, 6.3], [20.15, 2, 6.3]],
       "door": "e_door_06"
     }
   ],
@@ -1098,7 +1098,7 @@
       "id": "b_wall_0145",
       "cell": "c_corr_04",
       "min": [9.9, -0.2, 6.4],
-      "max": [10.1, 3.2, 6.8],
+      "max": [10.1, 3.2, 6.75],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1106,17 +1106,17 @@
     {
       "id": "b_wall_0146",
       "cell": "c_corr_04",
-      "min": [9.9, 2, 6.8],
-      "max": [10.1, 3.2, 7.7],
+      "min": [9.9, 2, 6.75],
+      "max": [10.1, 3.2, 7.75],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
-    { "id": "b_floor_0147", "cell": "c_corr_04", "min": [9.9, -0.2, 6.8], "max": [10.1, 0, 7.7], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0147", "cell": "c_corr_04", "min": [9.9, -0.2, 6.75], "max": [10.1, 0, 7.75], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0148",
       "cell": "c_corr_04",
-      "min": [9.9, -0.2, 7.7],
+      "min": [9.9, -0.2, 7.75],
       "max": [10.1, 3.2, 8.8],
       "mat": "stone_rough",
       "tag": "wall",
@@ -1227,7 +1227,7 @@
       "id": "b_wall_0162",
       "cell": "c_corr_02",
       "min": [4.5, -0.2, 0],
-      "max": [4.7, 2.8, 0.4],
+      "max": [4.7, 2.8, 0.35],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_rough" }
@@ -1235,17 +1235,17 @@
     {
       "id": "b_wall_0163",
       "cell": "c_corr_02",
-      "min": [4.5, 2, 0.4],
-      "max": [4.7, 2.8, 1.3],
+      "min": [4.5, 2, 0.35],
+      "max": [4.7, 2.8, 1.35],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
-    { "id": "b_floor_0164", "cell": "c_corr_02", "min": [4.5, -0.2, 0.4], "max": [4.7, 0, 1.3], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0164", "cell": "c_corr_02", "min": [4.5, -0.2, 0.35], "max": [4.7, 0, 1.35], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0165",
       "cell": "c_corr_02",
-      "min": [4.5, -0.2, 1.3],
+      "min": [4.5, -0.2, 1.35],
       "max": [4.7, 2.8, 3.6],
       "mat": "stone_rough",
       "tag": "wall",
@@ -1337,7 +1337,7 @@
       "id": "b_wall_0176",
       "cell": "c_corr_01",
       "min": [0, -0.2, 6],
-      "max": [0.5, 3.1, 6.2],
+      "max": [0.45, 3.1, 6.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
@@ -1345,17 +1345,17 @@
     {
       "id": "b_wall_0177",
       "cell": "c_corr_01",
-      "min": [0.5, 2, 6],
-      "max": [1.4, 3.1, 6.2],
+      "min": [0.45, 2, 6],
+      "max": [1.45, 3.1, 6.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
     },
-    { "id": "b_floor_0178", "cell": "c_corr_01", "min": [0.5, -0.2, 6], "max": [1.4, 0, 6.2], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0178", "cell": "c_corr_01", "min": [0.45, -0.2, 6], "max": [1.45, 0, 6.2], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0179",
       "cell": "c_corr_01",
-      "min": [1.4, -0.2, 6],
+      "min": [1.45, -0.2, 6],
       "max": [2.6, 3.1, 6.2],
       "mat": "stone_rough",
       "tag": "wall",
@@ -1660,7 +1660,7 @@
       "id": "b_wall_0219",
       "cell": "c_corr_06",
       "min": [19.3, -0.2, 6.2],
-      "max": [20.2, 3, 6.4],
+      "max": [20.15, 3, 6.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_rough" }
@@ -1668,17 +1668,17 @@
     {
       "id": "b_wall_0220",
       "cell": "c_corr_06",
-      "min": [20.2, 2, 6.2],
-      "max": [21.1, 3, 6.4],
+      "min": [20.15, 2, 6.2],
+      "max": [21.15, 3, 6.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_rough" }
     },
-    { "id": "b_floor_0221", "cell": "c_corr_06", "min": [20.2, -0.2, 6.2], "max": [21.1, 0, 6.4], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0221", "cell": "c_corr_06", "min": [20.15, -0.2, 6.2], "max": [21.15, 0, 6.4], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0222",
       "cell": "c_corr_06",
-      "min": [21.1, -0.2, 6.2],
+      "min": [21.15, -0.2, 6.2],
       "max": [21.8, 3, 6.4],
       "mat": "stone_rough",
       "tag": "wall",
@@ -1688,7 +1688,7 @@
       "id": "b_wall_0223",
       "cell": "c_cellar_03",
       "min": [15.2, -0.2, 0],
-      "max": [15.4, 3, 2.65],
+      "max": [15.4, 3, 2.55],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
@@ -1696,13 +1696,13 @@
     {
       "id": "b_wall_0224",
       "cell": "c_cellar_03",
-      "min": [15.2, 2, 2.65],
+      "min": [15.2, 2, 2.55],
       "max": [15.4, 3, 3.55],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
     },
-    { "id": "b_floor_0225", "cell": "c_cellar_03", "min": [15.2, -0.2, 2.65], "max": [15.4, 0, 3.55], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_floor_0225", "cell": "c_cellar_03", "min": [15.2, -0.2, 2.55], "max": [15.4, 0, 3.55], "mat": "dirt_packed", "tag": "floor" },
     {
       "id": "b_wall_0226",
       "cell": "c_cellar_03",
@@ -1870,7 +1870,7 @@
       "id": "b_wall_0245",
       "cell": "c_cellar_08",
       "min": [4.6, -0.2, 16.1],
-      "max": [4.8, 3, 16.9],
+      "max": [4.8, 3, 16.85],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
@@ -1878,17 +1878,17 @@
     {
       "id": "b_wall_0246",
       "cell": "c_cellar_08",
-      "min": [4.6, 2, 16.9],
-      "max": [4.8, 3, 17.8],
+      "min": [4.6, 2, 16.85],
+      "max": [4.8, 3, 17.85],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
     },
-    { "id": "b_floor_0247", "cell": "c_cellar_08", "min": [4.6, -0.2, 16.9], "max": [4.8, 0, 17.8], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_floor_0247", "cell": "c_cellar_08", "min": [4.6, -0.2, 16.85], "max": [4.8, 0, 17.85], "mat": "dirt_packed", "tag": "floor" },
     {
       "id": "b_wall_0248",
       "cell": "c_cellar_08",
-      "min": [4.6, -0.2, 17.8],
+      "min": [4.6, -0.2, 17.85],
       "max": [4.8, 3, 18.9],
       "mat": "stone_rough",
       "tag": "wall",
@@ -2262,7 +2262,7 @@
     { "id": "b_stair_0318", "cell": "c_crypt_04", "min": [18.05, -0.54, 13.5], "max": [19.75, -0.18, 13.78], "mat": "stone_slab", "tag": "stair" }
   ],
   "entities": [
-    { "id": "e_door_01", "prefab": "door_plank_01", "cell": "c_cellar_03", "pos": [15.3, 0, 3.1], "rot": [0, 90, 0] },
+    { "id": "e_door_01", "prefab": "door_plank_01", "cell": "c_cellar_03", "pos": [15.3, 0, 3.05], "rot": [0, 90, 0] },
     { "id": "e_door_02", "prefab": "door_plank_01", "cell": "c_corr_04", "pos": [10, 0, 7.25], "rot": [0, -90, 0] },
     { "id": "e_door_03", "prefab": "door_plank_01", "cell": "c_cellar_08", "pos": [4.7, 0, 17.35], "rot": [0, 90, 0] },
     { "id": "e_door_04", "prefab": "door_plank_01", "cell": "c_corr_02", "pos": [4.6, 0, 0.85], "rot": [0, -90, 0] },
