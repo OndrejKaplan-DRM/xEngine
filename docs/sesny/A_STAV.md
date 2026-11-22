@@ -2,6 +2,77 @@
 
 **Vlna:** 1 · **Větev:** `sesna-a` (ze `zaklad-1`, `a2ce175`) · **Datum:** 22. 11. 2026
 
+## Navázání A02 (22. 11. 2026, 21:10): nic nestavěno
+
+- `origin/zaklad-1` = `origin/main` = `a2ce175` (`git ls-remote`, 21:03). Znění 2 základu na GitHubu není; `docs/00_ZADANI.md` neexistuje v žádné větvi a `START_A.md` nemá oddíl 2a. Podle zadání A02 jsem proto nic nestavěla, jen zapsala tento oddíl.
+- Čistý klon `sesna-a` (`7d3bec6`): `npm test` 165 kontrol, `npm run test:a` 16 sad z 16, vše zeleně. `dist/xlab.html` z čistého klonu má stejný otisk jako soubor `xLab_vlna1_2026-11-22.html`, který má Ondřej (SHA-256 `fb95f9a5bdf6…`).
+- Předávku sešny A01 nemám (v projektu, kde běží A02, ji hledání v konverzacích nenašlo); vycházím z tohoto dokumentu a z kódu.
+
+### Ondřejovy odpovědi na otázky A01
+
+| # | Otázka | Volba | Důsledek |
+|---|---|---|---|
+| 1 | ventil | a | beze změny |
+| 2 | světlo a zavřené dveře | a | beze změny |
+| 3 | skok v profilu `arena` | **b** | změna: každý výskok na nový stisk (`jumpHold` v `src/play/profiles.js`); robot v T2 (`a_13_player`) musí mačkat znovu. **Neuděláno.** |
+| 4 | lékárnička | a | beze změny |
+| 5 | scissor | a | čekat na měření; měření přišlo, viz výklad níže |
+
+### Měření T460: xBench 0.2, 22. 11. 2026, 20:57
+
+Stroj: Intel HD Graphics 520 (ANGLE, Direct3D 11), Chrome 157, 4 vlákna, 8 GB, displej 1536 × 864 při zvětšení 1,25 (= 1920 × 1080 bodů), WebGL 2 ano, WebGPU ano, textury S3TC a BPTC ano, ETC2 a ASTC ne, největší textura 16 384 px. **Jeden běh.** Metoda: vykreslení a `readPixels` jednoho bodu (čeká na grafiku), 2,5 s na případ, medián a 95. percentil; obraz mimo displej v uvedené velikosti.
+
+| Případ | Volání | △ (tis.) | Světla | Obraz | Materiál a příznaky | Medián (ms) | 95 % (ms) |
+|---|---|---|---|---|---|---|---|
+| `zaklad` | 101 | 102 | 0 | 1366 × 768 | Lambert | 1,91 | 2,65 |
+| `volani_200` | 201 | 97 | 0 | 1366 × 768 | Lambert | 1,91 | 3,88 |
+| `volani_400` | 401 | 102 | 0 | 1366 × 768 | Lambert | 2,76 | 3,63 |
+| `volani_800` | 801 | 106 | 0 | 1366 × 768 | Lambert | 4,63 | 6,95 |
+| `tris_300` | 201 | 296 | 0 | 1366 × 768 | Lambert | 3,83 | 6,30 |
+| `tris_600` | 201 | 594 | 0 | 1366 × 768 | Lambert | 6,13 | 9,20 |
+| `tris_1200` | 201 | 1201 | 0 | 1366 × 768 | Lambert | 14,50 | 15,50 |
+| `svetla_4` | 201 | 205 | 4 | 1366 × 768 | Lambert | 6,80 | 10,50 |
+| `svetla_8` | 201 | 205 | 8 | 1366 × 768 | Lambert | 12,05 | 14,20 |
+| `svetla_16` | 201 | 205 | 16 | 1366 × 768 | Lambert | 23,10 | 24,90 |
+| `pbr_8` | 201 | 205 | 8 | 1366 × 768 | fyzikální | 22,50 | 23,90 |
+| `zapecene` | 201 | 205 | 0 | 1366 × 768 | bez světel (basic) | 2,00 | 3,70 |
+| `stin_2048` | 201 | 205 | 4 | 1366 × 768 | Lambert, stín 2048 | 24,60 | 28,30 |
+| `meritko_75` | 201 | 205 | 8 | 1025 × 576 | Lambert | 10,35 | 14,90 |
+| `meritko_50` | 201 | 205 | 8 | 683 × 384 | Lambert | 5,50 | 8,90 |
+| `fhd_8` | 201 | 205 | 8 | 1920 × 1080 | Lambert | 22,70 | 24,60 |
+| `svetla_0` | 201 | 205 | 0 | 1366 × 768 | Lambert | 2,38 | 4,59 |
+| `svetla_1` | 201 | 205 | 1 | 1366 × 768 | Lambert | 4,52 | 7,05 |
+| `svetla_2` | 201 | 205 | 2 | 1366 × 768 | Lambert | 6,60 | 9,40 |
+| `vrcholy` | 201 | 205 | 0 | 1366 × 768 | bez světel (basic), barva vrcholů | 2,06 | 4,44 |
+| `vrcholy_fhd` | 201 | 205 | 0 | 1920 × 1080 | bez světel (basic), barva vrcholů | 3,45 | 6,63 |
+| `interier` | 202 | 207 | 0 | 1366 × 768 | bez světel (basic), barva vrcholů, interiér | 2,41 | 4,18 |
+| `interier_576` | 202 | 207 | 0 | 1025 × 576 | bez světel (basic), barva vrcholů, interiér | 2,05 | 4,18 |
+| `interier_fhd` | 202 | 207 | 0 | 1920 × 1080 | bez světel (basic), barva vrcholů, interiér | 3,80 | 4,40 |
+| `interier_tex` | 202 | 207 | 0 | 1366 × 768 | bez světel (basic), barva vrcholů, interiér, textura | 2,98 | 6,27 |
+| `interier_aa` | 202 | 207 | 0 | 1366 × 768 | bez světel (basic), barva vrcholů, interiér, vyhlazování | 6,80 | 7,80 |
+| `interier_1` | 202 | 207 | 1 | 1366 × 768 | Lambert, barva vrcholů, interiér | 4,65 | 5,00 |
+| `interier_4` | 202 | 207 | 4 | 1366 × 768 | Lambert, interiér | 9,85 | 11,15 |
+
+Verdikt nástroje: rozpočet vykreslení 10 ms ze 16,6 ms; vejde se 801 volání a 594 tis. △.
+
+### Co z měření čtu pro běh (výklad, ne měření)
+
+1. **Volání a trojúhelníky nejsou úzké hrdlo.** 801 volání 4,6 ms (asi 4,5 µs na volání), 594 tis. △ 6,1 ms. xLab má 9 až 57 volání; levely sešny B měly v kouřové zkoušce nejvýš 72 volání a celý level má nejvýš 88 tis. △. Buňky a portály (A1.7) tedy na T460 nešetří volání, ale světla: méně viditelných buněk = méně světel po pixelech.
+2. **Úzké hrdlo je světlo počítané po pixelech.** Interiér přes celý obraz při 1366 × 768: bez světel 2,4 ms, jedno světlo 4,7 ms, čtyři 9,9 ms. Stín 2 048 px +17,8 ms, fyzikální materiál s 8 světly 22,5 ms, vyhlazování hran +4,4 ms, textura +0,6 ms, 1920 × 1080 s barvou vrcholů 3,8 ms.
+3. **xLab z vlny 1 je na T460 ve výchozím nastavení nejspíš pod 60 snímky/s.** Kreslí v rozlišení okna × 1,25 (na celé obrazovce 1920 × 1080), s vyhlazováním hran (`antialias` zapnutý, vypíná jen `?aa=0`) a s rozpočtem 8 světel po pixelech (`MeshLambertMaterial`). Nejbližší změřený případ `fhd_8` má 22,7 ms, a to bez vyhlazování a bez plného pokrytí obrazu. **Neověřeno:** čísla z F3 na T460 nemám.
+4. Komentář v `src/render/materials.js` („Lambert, levný na integrované grafice“) měření vyvrací; three 0.187 počítá Lambert po pixelech.
+5. **Scissor (otázka 5):** xBench neměří překreslování, takže přímo nerozhoduje. Nepřímo: bod navíc stojí při barvě vrcholů asi 1,4 ms na milion bodů, ořez by ušetřil zlomky ms. Doporučení: do vlny 2 nedávat; vrátit se k němu, jen když F3 na T460 po zapečeném světle ukáže problém s body.
+6. **Spolehlivost.** Jeden běh, případy za sebou bez přestávky. Nesrovnalosti: 2 světla 6,6 ms × 4 světla 6,8 ms (měřeno v různých částech běhu); měřítko 75 % s 8 světly 10,35 ms, kde úměra k počtu bodů (z případů `svetla_8` a `fhd_8`) dává asi 7,3 ms; `B_STAV.md` uvádí z xBench 0.1 „4 světla 14,0 ms“, teď 6,8 ms (metoda měření je v 0.1 i 0.2 stejná; výsledek 0.1 nemám). Závěrům o násobcích věřím, rozdílům pod asi 2 ms ne. Druhý běh by ukázal rozptyl.
+
+### Co čeká
+
+| Co | Na kom |
+|---|---|
+| push znění 2 základu do `zaklad-1`; potom `git merge origin/zaklad-1`, `CLAUDE.md`, `docs/00_ZADANI.md`, `START_A.md` oddíl 2a | Ondřej + svodná |
+| skok 3b | A, nezávisí na základu |
+| výchozí nastavení pro T460 (vyhlazování vypnuté, rozpočet světel 0, 1, 2, 4 místo 4, 6, 8, 12, strop rozlišení) | A, nezávisí na základu; čeká na Ondřejovo slovo, protože zadání vlny 2 neznám |
+| čísla z F3 v xLabu na T460 (start se zavřenými dveřmi, chodba s rozsvícenými lampami) | Ondřej |
+
 ## Hotovo × neuděláno
 
 | Úkol | Stav | Test | Poznámka |
