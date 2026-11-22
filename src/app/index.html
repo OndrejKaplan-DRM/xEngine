@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xEngine: xLab</title>
+<style>
+html,body{margin:0;height:100%;background:#0b0d12;color:#d8dbe2;overflow:hidden;font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif}
+[hidden]{display:none!important}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none}
+#shell{z-index:2}
+#hud{position:absolute;inset:0;pointer-events:none;z-index:3;user-select:none;-webkit-user-select:none}
+.hud-cross{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 0 1px rgba(0,0,0,.55)}
+.hud-prompt{position:absolute;left:50%;top:56%;transform:translateX(-50%);padding:4px 12px;border-radius:3px;background:rgba(10,14,20,.72);border:1px solid rgba(255,255,255,.22);color:#e8eef5;font-size:clamp(13px,1.5vw,18px);white-space:nowrap}
+.hud-notice{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);max-width:80vw;padding:6px 14px;border-radius:3px;background:rgba(10,14,20,.85);border:1px solid #f2a33a;color:#f6e3c4;font-size:clamp(13px,1.5vw,18px);text-align:center}
+.hud-dev{position:absolute;left:8px;top:8px;padding:6px 9px;background:rgba(10,14,20,.78);border:1px solid rgba(255,255,255,.18);color:#bfe9d6;font:12px/1.35 ui-monospace,Consolas,monospace;white-space:pre}
+#fail{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8vw;text-align:center;color:#f09595;font-size:18px;z-index:9}
+</style>
+</head>
+<body>
+<canvas id="c" tabindex="-1"></canvas>
+<div id="shell"></div>
+<div id="hud"></div>
+<div id="fail" hidden></div>
+<script>/*__DATA__*/</script>
+<script>/*__JS__*/</script>
+</body>
+</html>
