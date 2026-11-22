@@ -145,6 +145,79 @@ export function brushMesh(b) {
  * Kolizní tvar: box → kvádr (střed a polorozměry), klín → konvexní obal ze 6 bodů.
  * { type: 'cuboid', center, half } | { type: 'hull', points: [[x,y,z]…] }
  */
+/** Výchozí buňka mřížky světla v metrech (Half-Life měl jeden vzorek světla na 16 jednotek, tedy zhruba 0,4 m). */
+export const LIGHT_CELL = 0.5;
+const LIGHT_SEG_MAX = 64;
+
+/**
+ * Síť kvádru nebo klínu pro světlo po vrcholech: tytéž plochy jako brushMesh, každá rozdělená na mřížku
+ * s buňkou nejvýš `cell` metrů. Vrcholy této sítě jsou vzorky světla.
+ * POŘADÍ VRCHOLŮ JE KONTRAKT: zapékání ukládá hodnoty v tomto pořadí a běh je v něm čte (02_KONTRAKTY, Světlo).
+ * Čtyřúhelník: řádky podél hrany p0→p3, v řádku podél p0→p1. Trojúhelník: řádky podél p0→p2, v řádku podél p0→p1.
+ */
+export function brushLightMesh(b, cell = LIGHT_CELL) {
+  const src = brushMesh(b);
+  const out = { positions: [], normals: [], uvs: [], indices: [], groups: [] };
+  const seg = (len) => Math.min(LIGHT_SEG_MAX, Math.max(1, Math.ceil(len / cell - 1e-6)));
+  const P = (i) => [src.positions[i * 3], src.positions[i * 3 + 1], src.positions[i * 3 + 2]];
+  const U = (i) => [src.uvs[i * 2], src.uvs[i * 2 + 1]];
+  const dist = (a, c) => Math.hypot(c[0] - a[0], c[1] - a[1], c[2] - a[2]);
+  let v = 0;
+  for (const g of src.groups) {
+    const base = out.positions.length / 3;
+    const start = out.indices.length;
+    const nx = src.normals[v * 3];
+    const ny = src.normals[v * 3 + 1];
+    const nz = src.normals[v * 3 + 2];
+    if (g.count === 6) {
+      const p = [P(v), P(v + 1), P(v + 2), P(v + 3)];
+      const u = [U(v), U(v + 1), U(v + 2), U(v + 3)];
+      const nu = seg(dist(p[0], p[1]));
+      const nv = seg(dist(p[0], p[3]));
+      for (let j = 0; j <= nv; j++) {
+        const t = j / nv;
+        for (let i = 0; i <= nu; i++) {
+          const s = i / nu;
+          const w = [(1 - s) * (1 - t), s * (1 - t), s * t, (1 - s) * t];
+          for (let k = 0; k < 3; k++) out.positions.push(w[0] * p[0][k] + w[1] * p[1][k] + w[2] * p[2][k] + w[3] * p[3][k]);
+          for (let k = 0; k < 2; k++) out.uvs.push(w[0] * u[0][k] + w[1] * u[1][k] + w[2] * u[2][k] + w[3] * u[3][k]);
+          out.normals.push(nx, ny, nz);
+        }
+      }
+      for (let j = 0; j < nv; j++) {
+        for (let i = 0; i < nu; i++) {
+          const a = base + j * (nu + 1) + i;
+          out.indices.push(a, a + 1, a + nu + 2, a, a + nu + 2, a + nu + 1);
+        }
+      }
+      v += 4;
+    } else {
+      const p = [P(v), P(v + 1), P(v + 2)];
+      const u = [U(v), U(v + 1), U(v + 2)];
+      const n = seg(Math.max(dist(p[0], p[1]), dist(p[0], p[2]), dist(p[1], p[2])));
+      for (let j = 0; j <= n; j++) {
+        for (let i = 0; i <= n - j; i++) {
+          const s = i / n;
+          const t = j / n;
+          for (let k = 0; k < 3; k++) out.positions.push(p[0][k] + (p[1][k] - p[0][k]) * s + (p[2][k] - p[0][k]) * t);
+          for (let k = 0; k < 2; k++) out.uvs.push(u[0][k] + (u[1][k] - u[0][k]) * s + (u[2][k] - u[0][k]) * t);
+          out.normals.push(nx, ny, nz);
+        }
+      }
+      const idx = (i, j) => base + j * (n + 1) - (j * (j - 1)) / 2 + i;
+      for (let j = 0; j < n; j++) {
+        for (let i = 0; i < n - j; i++) {
+          out.indices.push(idx(i, j), idx(i + 1, j), idx(i, j + 1));
+          if (i < n - j - 1) out.indices.push(idx(i + 1, j), idx(i + 1, j + 1), idx(i, j + 1));
+        }
+      }
+      v += 3;
+    }
+    out.groups.push({ face: g.face, start, count: out.indices.length - start });
+  }
+  return out;
+}
+
 export function brushCollider(b) {
   if ((b.shape || 'box') === 'box') {
     return {

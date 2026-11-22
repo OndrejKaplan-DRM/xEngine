@@ -56,16 +56,16 @@ Poučení, které není v tabulce: **enginy, které přežily, měly nástroje.*
 
 ## 4. Vykreslení na T460
 
-Strategie je „vzhled roku 2003 metodami roku 2026“:
+Strategie je „vzhled roku 2003 metodami roku 2003, kde to stroj vyžaduje“. Měření z 22. 11. 2026 (`06_ROZPOCTY`) rozhodlo takto:
 
-1. **Buňky a portály.** Level je rozdělený na buňky (místnosti). Kreslí se buňka kamery a ty, které jsou vidět skrz portály; zavřené dveře portál uzavírají. Pro interiéry z generátoru je to přirozené: generátor místnosti zná.
-2. **Statické dávky.** Kvádry a nepohyblivé prefaby se slučují po buňce a materiálu. Opakované prefaby jdou přes instance.
-3. **Zapečené světlo + rozpočet dynamických světel.** Pevná světla levelu zapéká xBake. Za běhu svítí jen světla, která se mění (lampy na vypínač, záblesky), a to nejvýš N nejbližších na buňku.
-4. **Jeden stín, nebo žádný.** Na T460 výchozí bez stínové mapy; stíny nese zapečené světlo.
-5. **Měřítko vykreslení.** Obraz se počítá v nižším rozlišení a zvětšuje; nastavení ze Shellu.
-6. **Druhý průchod pro zbraň** (invariant F5 z Level 1).
-
-Co z toho platí v číslech, rozhodne xBench. Do té doby jsou rozpočty odhad.
+1. **Světlo po vrcholech, po vrstvách.** Stroj unese hodně geometrie a málo výpočtu na pixel: scéna bez výpočtu světel 2,4 ms, tatáž se 4 bodovými světly 14,0 ms. Proto se světlo statického světa počítá na procesoru po vrcholech sítě s buňkou 0,5 m (`brushLightMesh`) a ukládá po vrstvách, jedna na světlo. Lampa na vypínač mění jen úroveň své vrstvy. Je to postup Half-Life (světelné styly) a volba „vertex lighting“ z Quake III pro slabé stroje. Ve vlně 1 se vrstvy spočítají při načtení levelu, od vlny 2 je dodá xBake včetně stínů a odraženého světla.
+2. **Materiály bez výpočtu světel.** Svět kreslí `MeshBasicMaterial` s barvou vrcholů. Ve scéně není bodové světlo, stínová mapa (změřeno +11 ms) ani fyzikální materiál (+5,5 ms).
+3. **Pohyblivé díly** (dveře, bedny, později zbraň a tvorové) se osvětlují týmž vzorcem po stěnách dílu, s přepočtem jen při pohybu nebo změně světla. Stín pod nimi je nanejvýš tmavá skvrna.
+4. **Jedno efektové světlo** (záblesk výstřelu, baterka) je otevřená otázka: cenu jednoho světla po pixelech xBench 0.1 neměřil. Do měření se s ním nepočítá.
+5. **Statické dávky.** Kvádry a nepohyblivé prefaby se slučují po buňce a materiálu. Volání kreslení jsou levná (800 volání 7,2 ms), mez je 400.
+6. **Pevné vnitřní rozlišení.** Obraz se počítá v 768 řádcích (volby 576, 768, 1080) a zvětšuje se na displej; nikdy podle `devicePixelRatio`.
+7. **Buňky a portály** zůstávají v datech a ve hře slouží od vlny 2 k ořezu pohledem. Na levelu velikosti xLabu ořez nic měřitelného nepřináší.
+8. **Druhý průchod pro zbraň** (invariant F5 z Level 1).
 
 ## 5. Dvě mutace a klidný režim
 
@@ -82,7 +82,7 @@ Tři úrovně interakce, všechny řízené daty prefabu:
 
 1. **Použít.** Paprsek z oka, klávesa. Tlačítko, vypínač, dveře na pohon.
 2. **Manipulovat.** Držení tlačítka myši a pohyb myší hýbe kloubem v jeho mezích. Páka, ventil, zásuvka, křídlo dveří.
-3. **Klidný režim.** Kamera se ukotví k místu (`station`), zámek kurzoru se uvolní a kurzor míří na obrazovku ve světě. Terminál, pracovní stůl, ovládací panel.
+3. **Klidný režim.** Kamera se ukotví k místu (`station`). Zámek kurzoru zůstává; pohyb myši vede vlastní kurzor po obrazovce ve světě, klik je „použít“ v místě kurzoru. Odchod klávesou „použít“ nebo krokem; Esc je všude pauza (D-024). Terminál, pracovní stůl, ovládací panel.
 
 ## 6. Kostra před tvarem
 

@@ -17,6 +17,12 @@ Jsi **svodná sešna**. Nepíšeš nové funkce. Slučuješ, ověřuješ, rozhod
 11. Napiš zadání další vlny (`START_A.md`, `START_B.md`) a nový balík pro sešny.
 12. Teprve teď navrhni úpravu skillu `xengine` z poznatků v obou `*_STAV.md`, vždy z čerstvě přečteného znění.
 
+## Dluhy základu před vlnou 2 (zapsáno 22. 11. 2026)
+
+1. **Shell se přestěhoval jen kódem** (D-006). Zbývá: přenést z `vibe-game-frameworks` zkoušky Shellu v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu (`t5_katalog`, bez části vázané na arkádu), rozhodnout, kde žije specifikace `02_SHELL`, a po Ondřejově slovu zapsat do `vibe-game-frameworks`, že Shell má domov tady.
+2. **xBench 0.2**: jedno a dvě světla po pixelech, scéna bez světel v 1080 řádcích, scéna přes celý obraz, barva vrcholů, jedna textura, přísnější verdikt. Výsledek rozhodne o efektovém světle (D-022).
+3. **Skill `xengine`** po sloučení vlny 1 srovnat s repem (světlo po vrcholech, `src/shell`, změřené rozpočty).
+
 ## Na co si dát pozor
 
 - „VŠE OK“ ve stavu sešny neber jako důkaz; pusť testy sama.

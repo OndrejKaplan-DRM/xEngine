@@ -25,7 +25,7 @@ packs/golden              zlatý vzorek: level xLab a 12 prefabů               
 tools/golden              generátor zlatého vzorku                                   základ
 tools/xview     xView     prohlížeč balíku                                           základ
 tools/xbench    xBench    měření stroje                                              základ
-vendor/         xShell    Shell z vibe-game-frameworks (připnutá kopie)              základ
+src/shell/     xShell    menu, pauza, nastavení (od 22. 11. 2026 je pravda tady)   základ
 src/world  src/render  src/phys  src/play  src/app     běh                           sešna A
 src/gen  tools/forge  tools/bake  tools/searcher       obsah a nástroje              sešna B
 test/           t* základ · a_* sešna A · b_* sešna B
@@ -40,4 +40,4 @@ Začni v `CLAUDE.md`. Zadání je v `docs/sesny/START_A.md`, `START_B.md` nebo `
 
 ## Licence a původ
 
-Kód a zlatý vzorek jsou vlastní dílo projektu. Knihovny: three (MIT), Rapier (Apache 2.0), three-mesh-bvh (MIT), esbuild (MIT). Shell ve `vendor/` pochází z repa `vibe-game-frameworks` téhož autora.
+Kód a zlatý vzorek jsou vlastní dílo projektu. Knihovny: three (MIT), Rapier (Apache 2.0), three-mesh-bvh (MIT), esbuild (MIT). Shell v `src/shell` pochází z repa `vibe-game-frameworks` téhož autora.
