@@ -1,0 +1,53 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "valve_ball_01",
+  "title": "Kohout kulový s pákou",
+  "category": "device.control",
+  "bounds": { "min": [-0.251, -0.051, -0.001], "max": [0.251, 0.081, 0.261] },
+  "rig": {
+    "nodes": [
+      { "id": "pipe" },
+      { "id": "handle", "parent": "pipe", "pos": [0, 0.06, 0.1] }
+    ],
+    "joints": [
+      {
+        "id": "turn",
+        "node": "handle",
+        "type": "hinge",
+        "axis": [0, 1, 0],
+        "min": 0,
+        "max": 90,
+        "rest": 0,
+        "detents": [0, 90],
+        "damping": 4,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "pipe", "shape": "cyl", "center": [0, 0, 0.1], "radius": 0.03, "height": 0.5, "axis": "x", "mat": "copper" },
+    { "node": "pipe", "shape": "box", "min": [-0.05, -0.04, 0.06], "max": [0.05, 0.04, 0.14], "mat": "brass" },
+    { "node": "pipe", "shape": "box", "min": [-0.22, -0.02, 0], "max": [-0.19, 0.02, 0.1], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "box", "min": [0.19, -0.02, 0], "max": [0.22, 0.02, 0.1], "mat": "steel_dark" },
+    { "node": "handle", "shape": "cyl", "center": [0, -0.01, 0], "radius": 0.012, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.012, 0, -0.012], "max": [0.012, 0.01, 0.16], "mat": "paint_red" }
+  ],
+  "colliders": [
+    { "node": "pipe", "shape": "box", "min": [-0.25, -0.05, 0], "max": [0.25, 0.08, 0.15], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "valve", "joint": "turn", "prompt": "Otočit kohoutem", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["setLevel"],
+  "outputs": ["changed", "opened", "closed"],
+  "tris": 176,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/controls.mjs#valveBall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lamp_desk_01",
+  "title": "Lampa stolní s kloubovým ramenem",
+  "category": "prop.light",
+  "bounds": { "min": [-0.087, -0.172, -0.172], "max": [0.087, 0.687, 0.48] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "rocker", "parent": "base", "pos": [0.04, 0.02, 0.045] },
+      { "id": "arm", "parent": "base", "pos": [0, 0.02, -0.03] },
+      { "id": "fore", "parent": "arm", "pos": [0, 0.3, 0] },
+      { "id": "head", "parent": "fore", "pos": [0, 0.28, 0], "rot": [50, 0, 0] },
+      { "id": "glow", "parent": "head", "pos": [0, 0.1, 0] }
+    ],
+    "joints": [
+      {
+        "id": "toggle",
+        "node": "rocker",
+        "type": "hinge",
+        "axis": [1, 0, 0],
+        "min": -10,
+        "max": 10,
+        "rest": -10,
+        "detents": [-10, 10],
+        "damping": 1,
+        "drive": "both"
+      },
+      { "id": "shoulder", "node": "arm", "type": "hinge", "axis": [1, 0, 0], "min": -20, "max": 50, "rest": 15, "damping": 6, "drive": "manual" },
+      { "id": "elbow", "node": "fore", "type": "hinge", "axis": [1, 0, 0], "min": 20, "max": 130, "rest": 80, "damping": 6, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.085, "height": 0.02, "axis": "y", "mat": "steel_dark" },
+    { "node": "rocker", "shape": "box", "min": [-0.012, 0, -0.016], "max": [0.012, 0.006, 0.016], "mat": "paint_red" },
+    { "node": "arm", "shape": "box", "min": [-0.008, 0, -0.008], "max": [0.008, 0.3, 0.008], "mat": "steel_brushed" },
+    { "node": "fore", "shape": "box", "min": [-0.008, 0, -0.008], "max": [0.008, 0.28, 0.008], "mat": "steel_brushed" },
+    { "node": "head", "shape": "cyl", "center": [0, 0.045, 0], "radius": 0.06, "height": 0.09, "axis": "y", "mat": "paint_green" },
+    { "node": "head", "shape": "cyl", "center": [0, 0.092, 0], "radius": 0.045, "height": 0.006, "axis": "y", "mat": "emit_warm" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.085, 0, -0.085], "max": [0.085, 0.04, 0.085], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "switch", "joint": "toggle", "prompt": "Rozsvítit", "range": 1.4 },
+    "light": { "type": "point", "color": [1, 0.9, 0.75], "intensity": 12, "range": 4, "node": "glow", "cast": false, "style": "steady", "on": false }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle"],
+  "outputs": ["on", "off"],
+  "tris": 228,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lights.mjs#lampDesk",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

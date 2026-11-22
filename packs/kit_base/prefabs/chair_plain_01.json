@@ -1,0 +1,42 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chair_plain_01",
+  "title": "Židle dřevěná",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.201, -0.001, -0.201], "max": [0.201, 0.851, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "seat" }
+    ]
+  },
+  "parts": [
+    { "node": "seat", "shape": "box", "min": [-0.2, 0, -0.2], "max": [-0.165, 0.43, -0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0, 0.165], "max": [-0.165, 0.43, 0.2], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [0.165, 0, -0.2], "max": [0.2, 0.43, -0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [0.165, 0, 0.165], "max": [0.2, 0.43, 0.2], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.43, -0.2], "max": [0.2, 0.46, 0.2], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.46, -0.2], "max": [-0.165, 0.85, -0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [0.165, 0.46, -0.2], "max": [0.2, 0.85, -0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.66, -0.2], "max": [0.2, 0.84, -0.175], "mat": "wood_pine" }
+  ],
+  "colliders": [
+    { "node": "seat", "shape": "box", "min": [-0.2, 0, -0.2], "max": [0.2, 0.46, 0.2], "group": "prop" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.46, -0.2], "max": [0.2, 0.85, -0.165], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "dynamic", "mass": 5, "friction": 0.6, "restitution": 0.1 },
+    "interact": { "kind": "grab", "prompt": "Vzít židli", "range": 1.6 },
+    "health": { "hp": 40, "surface": "wood" }
+  },
+  "outputs": ["grabbed", "dropped"],
+  "tris": 96,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#chairPlain",
+    "params": { "seat": 0.46 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "button_call_01",
+  "title": "Tlačítko dveří s kontrolkou",
+  "category": "device.control",
+  "bounds": { "min": [-0.041, -0.071, -0.001], "max": [0.041, 0.071, 0.025] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "cap", "parent": "base", "pos": [0, -0.02, 0.014] }
+    ],
+    "joints": [
+      {
+        "id": "press",
+        "node": "cap",
+        "type": "slider",
+        "axis": [0, 0, -1],
+        "min": 0,
+        "max": 0.004,
+        "rest": 0,
+        "spring": 800,
+        "damping": 30,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.07, 0], "max": [0.04, 0.07, 0.014], "mat": "steel_brushed" },
+    { "node": "cap", "shape": "box", "min": [-0.025, -0.025, 0], "max": [0.025, 0.025, 0.008], "mat": "plastic_dark" },
+    { "node": "base", "shape": "box", "min": [-0.015, 0.039, 0.013], "max": [0.015, 0.051, 0.017], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.07, 0], "max": [0.04, 0.07, 0.024], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "button", "joint": "press", "prompt": "Stisknout", "range": 1.6 }
+  },
+  "inputs": ["press", "lock", "unlock"],
+  "outputs": ["pressed", "released"],
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/controls.mjs#buttonCall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

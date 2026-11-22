@@ -1,0 +1,47 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "door_sliding_01",
+  "title": "Dveře posuvné na pohon 1,0 × 2,1 m",
+  "category": "arch.door",
+  "bounds": { "min": [-0.501, -0.001, -0.117], "max": [1.381, 2.101, 0.117] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "leaf", "parent": "frame" }
+    ],
+    "joints": [
+      { "id": "slide", "node": "leaf", "type": "slider", "axis": [1, 0, 0], "min": 0, "max": 0.9, "rest": 0, "speed": 1.2, "drive": "motor" }
+    ]
+  },
+  "parts": [
+    { "node": "frame", "shape": "box", "min": [-0.5, 0, -0.11], "max": [-0.45, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [0.45, 0, -0.11], "max": [0.5, 2.1, -0.035], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [0.45, 0, 0.035], "max": [0.5, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [-0.45, 2.05, -0.11], "max": [0.45, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [-0.06, 2.06, 0.11], "max": [0.06, 2.085, 0.116], "mat": "emit_green" },
+    { "node": "frame", "shape": "box", "min": [-0.06, 2.06, -0.116], "max": [0.06, 2.085, -0.11], "mat": "emit_green" },
+    { "node": "leaf", "shape": "box", "min": [-0.46, 0.01, -0.025], "max": [0.48, 2.04, 0.025], "mat": "steel_painted" },
+    { "node": "leaf", "shape": "box", "min": [-0.46, 0.98, -0.028], "max": [0.48, 1.1, 0.028], "mat": "paint_yellow" },
+    { "node": "leaf", "shape": "box", "min": [-0.12, 1.4, -0.027], "max": [0.12, 1.7, 0.027], "mat": "glass_pane" }
+  ],
+  "colliders": [
+    { "node": "leaf", "shape": "box", "min": [-0.46, 0.01, -0.025], "max": [0.48, 2.04, 0.025], "group": "world" },
+    { "node": "frame", "shape": "box", "min": [-0.5, 0, -0.11], "max": [-0.45, 2.1, 0.11], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "slide", "prompt": "Otevřít", "range": 1.8 }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/doors.mjs#doorSliding",
+    "params": { "width": 1, "height": 2.1 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

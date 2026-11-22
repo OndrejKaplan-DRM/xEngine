@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pipe_straight_01",
+  "title": "Potrubí rovné 2 m",
+  "category": "arch.pipe",
+  "bounds": { "min": [-1.001, -0.071, -0.001], "max": [1.001, 0.071, 0.191] },
+  "rig": {
+    "nodes": [
+      { "id": "pipe" }
+    ]
+  },
+  "parts": [
+    { "node": "pipe", "shape": "box", "min": [-0.72, -0.03, 0], "max": [-0.68, 0.03, 0.18], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "box", "min": [0.68, -0.03, 0], "max": [0.72, 0.03, 0.18], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "cyl", "center": [0, 0, 0.12], "radius": 0.05, "height": 2, "axis": "x", "mat": "steel_painted" },
+    { "node": "pipe", "shape": "cyl", "center": [-0.985, 0, 0.12], "radius": 0.068, "height": 0.03, "axis": "x", "mat": "steel_dark" },
+    { "node": "pipe", "shape": "cyl", "center": [0.985, 0, 0.12], "radius": 0.068, "height": 0.03, "axis": "x", "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "pipe", "shape": "box", "min": [-1, -0.07, 0], "max": [1, 0.07, 0.19], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 216,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#pipe",
+    "params": { "kind": "single", "length": 2 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

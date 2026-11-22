@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shelf_rack_01",
+  "title": "Regál kovový 1,0 × 2,0 m",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.501, -0.001, -0.201], "max": [0.501, 2.001, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "rack" }
+    ]
+  },
+  "parts": [
+    { "node": "rack", "shape": "box", "min": [-0.5, 0, -0.2], "max": [-0.46, 2, -0.16], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [-0.5, 0, 0.16], "max": [-0.46, 2, 0.2], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [0.46, 0, -0.2], "max": [0.5, 2, -0.16], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [0.46, 0, 0.16], "max": [0.5, 2, 0.2], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [-0.495, 0.1, -0.195], "max": [0.495, 0.13, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.495, 0.56, -0.195], "max": [0.495, 0.59, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.495, 1.02, -0.195], "max": [0.495, 1.05, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.495, 1.48, -0.195], "max": [0.495, 1.51, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.495, 1.94, -0.195], "max": [0.495, 1.97, 0.195], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "rack", "shape": "box", "min": [-0.5, 0, -0.2], "max": [0.5, 2, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#shelfRack",
+    "params": { "variant": 1 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

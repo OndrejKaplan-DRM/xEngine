@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "barrel_wood_01",
+  "title": "Sud dřevěný",
+  "category": "prop.container",
+  "bounds": { "min": [-0.357, -0.001, -0.357], "max": [0.357, 0.901, 0.357] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.45, 0], "radius": 0.31, "height": 0.9, "axis": "y", "mat": "wood_oak" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.45, 0], "radius": 0.345, "height": 0.45, "axis": "y", "mat": "wood_oak" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.12, 0], "radius": 0.318, "height": 0.04, "axis": "y", "mat": "iron_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.225, 0], "radius": 0.35, "height": 0.04, "axis": "y", "mat": "iron_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.675, 0], "radius": 0.35, "height": 0.04, "axis": "y", "mat": "iron_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.78, 0], "radius": 0.318, "height": 0.04, "axis": "y", "mat": "iron_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.45, 0], "radius": 0.345, "height": 0.9, "axis": "y", "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "dynamic", "mass": 45, "friction": 0.7, "restitution": 0.1 },
+    "health": { "hp": 120, "surface": "wood" }
+  },
+  "inputs": ["break"],
+  "outputs": ["damaged", "broken"],
+  "tris": 384,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#barrel",
+    "params": { "kind": "wood" },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

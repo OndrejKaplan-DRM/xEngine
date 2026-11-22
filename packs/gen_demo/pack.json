@@ -1,0 +1,11 @@
+{
+  "xspace": 1,
+  "kind": "pack",
+  "id": "gen_demo",
+  "title": "Ukázkové levely xGen",
+  "version": "0.1.0",
+  "free": true,
+  "requires": ["kit_base"],
+  "levels": ["levels/complex_7.json", "levels/complex_21.json", "levels/catacombs_3.json"],
+  "assets": []
+}

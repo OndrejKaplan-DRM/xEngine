@@ -1,0 +1,56 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "sarcophagus_01",
+  "title": "Sarkofág kamenný s víkem",
+  "category": "prop.crypt",
+  "bounds": { "min": [-1.101, -0.001, -0.501], "max": [1.101, 0.771, 0.931] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0, 0.62, 0] }
+    ],
+    "joints": [
+      {
+        "id": "slide",
+        "node": "lid",
+        "type": "slider",
+        "axis": [0, 0, 1],
+        "min": 0,
+        "max": 0.45,
+        "rest": 0,
+        "damping": 40,
+        "speed": 0.2,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-1.1, 0, -0.5], "max": [1.1, 0.12, 0.5], "mat": "stone_rough" },
+    { "node": "body", "shape": "box", "min": [-1.05, 0.12, 0.37], "max": [1.05, 0.62, 0.45], "mat": "stone_pale" },
+    { "node": "body", "shape": "box", "min": [-1.05, 0.12, -0.45], "max": [1.05, 0.62, -0.37], "mat": "stone_pale" },
+    { "node": "body", "shape": "box", "min": [-1.05, 0.12, -0.37], "max": [-0.97, 0.62, 0.37], "mat": "stone_pale" },
+    { "node": "body", "shape": "box", "min": [0.97, 0.12, -0.37], "max": [1.05, 0.62, 0.37], "mat": "stone_pale" },
+    { "node": "body", "shape": "box", "min": [-0.97, 0.12, -0.37], "max": [0.97, 0.16, 0.37], "mat": "stone_rough" },
+    { "node": "lid", "shape": "box", "min": [-1.08, 0, -0.48], "max": [1.08, 0.1, 0.48], "mat": "stone_pale" },
+    { "node": "lid", "shape": "box", "min": [-0.9, 0.1, -0.25], "max": [0.9, 0.15, 0.25], "mat": "stone_pale" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1.1, 0, -0.5], "max": [1.1, 0.62, 0.5], "group": "world" },
+    { "node": "lid", "shape": "box", "min": [-1.08, 0, -0.48], "max": [1.08, 0.1, 0.48], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "drawer", "joint": "slide", "prompt": "Odsunout víko", "range": 1.8, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 96,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#sarcophagus",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

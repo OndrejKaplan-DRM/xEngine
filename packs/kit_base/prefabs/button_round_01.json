@@ -1,0 +1,50 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "button_round_01",
+  "title": "Tlačítko hřibové",
+  "category": "device.control",
+  "bounds": { "min": [-0.051, -0.051, -0.001], "max": [0.051, 0.051, 0.056] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "cap", "parent": "base", "pos": [0, 0, 0.03] }
+    ],
+    "joints": [
+      {
+        "id": "press",
+        "node": "cap",
+        "type": "slider",
+        "axis": [0, 0, -1],
+        "min": 0,
+        "max": 0.008,
+        "rest": 0,
+        "spring": 500,
+        "damping": 20,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.05, -0.05, 0], "max": [0.05, 0.05, 0.03], "mat": "paint_yellow" },
+    { "node": "base", "shape": "cyl", "center": [0, 0, 0.032], "radius": 0.036, "height": 0.004, "axis": "z", "mat": "steel_dark" },
+    { "node": "cap", "shape": "cyl", "center": [0, 0, 0.012], "radius": 0.03, "height": 0.02, "axis": "z", "mat": "paint_red" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.05, -0.05, 0], "max": [0.05, 0.05, 0.055], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "button", "joint": "press", "prompt": "Stisknout", "range": 1.6 }
+  },
+  "inputs": ["press", "lock", "unlock"],
+  "outputs": ["pressed", "released"],
+  "tris": 140,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/controls.mjs#buttonRound",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

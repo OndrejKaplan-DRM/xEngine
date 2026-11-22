@@ -1,0 +1,4765 @@
+{
+  "xspace": 1,
+  "kind": "level",
+  "id": "complex_7",
+  "title": "Technický komplex · seed 7",
+  "profile": "real",
+  "env": {
+    "ambient": [0.05, 0.055, 0.065],
+    "exposure": 0.6,
+    "fog": { "color": [0.02, 0.02, 0.03], "density": 0.004 }
+  },
+  "cells": [
+    {
+      "id": "c_hall_01",
+      "name": "Hala 1 · obě patra",
+      "bounds": { "min": [13.5, 0, 11.6], "max": [25.8, 6.4, 22.2] },
+      "zone": "hall"
+    },
+    {
+      "id": "c_lab_01",
+      "name": "Laboratoř 1 · přízemí",
+      "bounds": { "min": [0, 0, 0], "max": [5.4, 3, 3] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_lab_02",
+      "name": "Laboratoř 2 · přízemí",
+      "bounds": { "min": [0, 0, 3.2], "max": [5.4, 3, 6.3] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_store_01",
+      "name": "Sklad 1 · přízemí",
+      "bounds": { "min": [0, 0, 6.5], "max": [5.4, 3, 10.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_01",
+      "name": "Kancelář 1 · přízemí",
+      "bounds": { "min": [0, 0, 11], "max": [5.4, 3, 14] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_01",
+      "name": "Strojovna 1 · přízemí",
+      "bounds": { "min": [0, 0, 14.2], "max": [5.4, 3, 17.1] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_02",
+      "name": "Kancelář 2 · přízemí",
+      "bounds": { "min": [0, 0, 17.3], "max": [5.4, 3, 22.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr_01",
+      "name": "Chodba 1 · přízemí",
+      "bounds": { "min": [5.6, 0, 0], "max": [7.5, 2.7, 22.2] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_lab_03",
+      "name": "Laboratoř 3 · přízemí",
+      "bounds": { "min": [7.7, 0, 0], "max": [13.3, 3, 3.9] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_lab_04",
+      "name": "Laboratoř 4 · přízemí",
+      "bounds": { "min": [7.7, 0, 4.1], "max": [13.3, 3, 8.4] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_corr_02",
+      "name": "Chodba 2 · přízemí",
+      "bounds": { "min": [7.7, 0, 8.6], "max": [13.3, 2.7, 10.5] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store_02",
+      "name": "Sklad 2 · přízemí",
+      "bounds": { "min": [7.7, 0, 10.7], "max": [13.3, 3, 16.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_03",
+      "name": "Kancelář 3 · přízemí",
+      "bounds": { "min": [7.7, 0, 16.4], "max": [13.3, 3, 19.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_03",
+      "name": "Sklad 3 · přízemí",
+      "bounds": { "min": [7.7, 0, 19.4], "max": [13.3, 3, 22.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_04",
+      "name": "Kancelář 4 · přízemí",
+      "bounds": { "min": [13.5, 0, 0], "max": [16.4, 3, 4.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_02",
+      "name": "Strojovna 2 · přízemí",
+      "bounds": { "min": [16.6, 0, 0], "max": [19.6, 3, 4.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_04",
+      "name": "Sklad 4 · přízemí",
+      "bounds": { "min": [19.8, 0, 0], "max": [22.7, 3, 4.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_03",
+      "name": "Strojovna 3 · přízemí",
+      "bounds": { "min": [22.9, 0, 0], "max": [25.8, 3, 4.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr_03",
+      "name": "Chodba 3 · přízemí",
+      "bounds": { "min": [13.5, 0, 5], "max": [25.8, 2.7, 6.9] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store_05",
+      "name": "Sklad 5 · přízemí",
+      "bounds": { "min": [13.5, 0, 7.1], "max": [16.7, 3, 11.4] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_06",
+      "name": "Sklad 6 · přízemí",
+      "bounds": { "min": [16.9, 0, 7.1], "max": [20.3, 3, 11.4] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_05",
+      "name": "Kancelář 5 · přízemí",
+      "bounds": { "min": [20.5, 0, 7.1], "max": [25.8, 3, 11.4] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_04",
+      "name": "Strojovna 4 · 1. patro",
+      "bounds": { "min": [0, 3.4, 0], "max": [3, 6.4, 5.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_05",
+      "name": "Strojovna 5 · 1. patro",
+      "bounds": { "min": [3.2, 3.4, 0], "max": [6.2, 6.4, 2.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_07",
+      "name": "Sklad 7 · 1. patro",
+      "bounds": { "min": [3.2, 3.4, 3], "max": [6.2, 6.4, 5.8] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_06",
+      "name": "Strojovna 6 · 1. patro",
+      "bounds": { "min": [0, 3.4, 6], "max": [3, 6.4, 10.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_06",
+      "name": "Kancelář 6 · 1. patro",
+      "bounds": { "min": [3.2, 3.4, 6], "max": [6.2, 6.4, 10.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr_04",
+      "name": "Chodba 4 · 1. patro",
+      "bounds": { "min": [0, 3.4, 10.4], "max": [6.2, 6.1, 12.5] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store_08",
+      "name": "Sklad 8 · 1. patro",
+      "bounds": { "min": [0, 3.4, 12.7], "max": [6.2, 6.4, 16.6] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_lab_05",
+      "name": "Laboratoř 5 · 1. patro",
+      "bounds": { "min": [0, 3.4, 16.8], "max": [3, 6.4, 22.2] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_office_07",
+      "name": "Kancelář 7 · 1. patro",
+      "bounds": { "min": [3.2, 3.4, 16.8], "max": [6.2, 6.4, 22.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr_05",
+      "name": "Chodba 5 · 1. patro",
+      "bounds": { "min": [6.4, 3.4, 0], "max": [8.2, 6.1, 22.2] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store_09",
+      "name": "Sklad 9 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 0], "max": [13.3, 6.4, 3.1] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_07",
+      "name": "Strojovna 7 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 3.3], "max": [13.3, 6.4, 6.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_10",
+      "name": "Sklad 10 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 6.4], "max": [13.3, 6.4, 9.7] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_11",
+      "name": "Sklad 11 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 9.9], "max": [13.3, 6.4, 12.9] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_lab_06",
+      "name": "Laboratoř 6 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 13.1], "max": [13.3, 6.4, 17.9] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_lab_07",
+      "name": "Laboratoř 7 · 1. patro",
+      "bounds": { "min": [8.4, 3.4, 18.1], "max": [13.3, 6.4, 22.2] },
+      "zone": "room_tiled"
+    },
+    {
+      "id": "c_store_12",
+      "name": "Sklad 12 · 1. patro",
+      "bounds": { "min": [13.5, 3.4, 0], "max": [18.8, 6.4, 4.7] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_tech_08",
+      "name": "Strojovna 8 · 1. patro",
+      "bounds": { "min": [19, 3.4, 0], "max": [22.3, 6.4, 4.7] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_13",
+      "name": "Sklad 13 · 1. patro",
+      "bounds": { "min": [22.5, 3.4, 0], "max": [25.8, 6.4, 4.7] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_corr_06",
+      "name": "Chodba 6 · 1. patro",
+      "bounds": { "min": [13.5, 3.4, 4.9], "max": [25.8, 6.1, 6.7] },
+      "zone": "corridor"
+    },
+    {
+      "id": "c_store_14",
+      "name": "Sklad 14 · 1. patro",
+      "bounds": { "min": [13.5, 3.4, 6.9], "max": [16.9, 6.4, 11.4] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_store_15",
+      "name": "Sklad 15 · 1. patro",
+      "bounds": { "min": [17.1, 3.4, 6.9], "max": [20.3, 6.4, 11.4] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_office_08",
+      "name": "Kancelář 8 · 1. patro",
+      "bounds": { "min": [20.5, 3.4, 6.9], "max": [25.8, 6.4, 11.4] },
+      "zone": "room_small"
+    }
+  ],
+  "portals": [
+    {
+      "id": "p_01",
+      "a": "c_corr_01",
+      "b": "c_corr_02",
+      "quad": [[7.6, 0, 8.85], [7.6, 0, 10.25], [7.6, 2.4, 10.25], [7.6, 2.4, 8.85]]
+    },
+    {
+      "id": "p_02",
+      "a": "c_corr_01",
+      "b": "c_lab_04",
+      "quad": [[7.6, 0, 6], [7.6, 0, 7], [7.6, 2.1, 7], [7.6, 2.1, 6]],
+      "door": "e_door_01"
+    },
+    {
+      "id": "p_03",
+      "a": "c_corr_01",
+      "b": "c_store_03",
+      "quad": [[7.6, 0, 20.6], [7.6, 0, 21.6], [7.6, 2.1, 21.6], [7.6, 2.1, 20.6]],
+      "door": "e_door_02"
+    },
+    {
+      "id": "p_04",
+      "a": "c_corr_02",
+      "b": "c_store_05",
+      "quad": [[13.4, 0, 9.15], [13.4, 0, 10.15], [13.4, 2.1, 10.15], [13.4, 2.1, 9.15]],
+      "door": "e_door_03"
+    },
+    {
+      "id": "p_05",
+      "a": "c_corr_03",
+      "b": "c_store_05",
+      "quad": [[14.45, 0, 7], [15.45, 0, 7], [15.45, 2.1, 7], [14.45, 2.1, 7]],
+      "door": "e_door_04"
+    },
+    {
+      "id": "p_06",
+      "a": "c_corr_03",
+      "b": "c_office_05",
+      "quad": [[20.95, 0, 7], [21.95, 0, 7], [21.95, 2.1, 7], [20.95, 2.1, 7]],
+      "door": "e_door_05"
+    },
+    {
+      "id": "p_07",
+      "a": "c_store_04",
+      "b": "c_corr_03",
+      "quad": [[21, 0, 4.9], [22, 0, 4.9], [22, 2.1, 4.9], [21, 2.1, 4.9]],
+      "door": "e_door_06"
+    },
+    {
+      "id": "p_08",
+      "a": "c_office_04",
+      "b": "c_corr_03",
+      "quad": [[14.75, 0, 4.9], [15.75, 0, 4.9], [15.75, 2.1, 4.9], [14.75, 2.1, 4.9]],
+      "door": "e_door_07"
+    },
+    {
+      "id": "p_09",
+      "a": "c_lab_02",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 4.2], [5.5, 0, 5.2], [5.5, 2.1, 5.2], [5.5, 2.1, 4.2]],
+      "door": "e_door_08"
+    },
+    {
+      "id": "p_10",
+      "a": "c_corr_01",
+      "b": "c_store_02",
+      "quad": [[7.6, 0, 12.75], [7.6, 0, 13.75], [7.6, 2.1, 13.75], [7.6, 2.1, 12.75]],
+      "door": "e_door_09"
+    },
+    {
+      "id": "p_11",
+      "a": "c_office_01",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 11.45], [5.5, 0, 12.45], [5.5, 2.1, 12.45], [5.5, 2.1, 11.45]],
+      "door": "e_door_10"
+    },
+    {
+      "id": "p_12",
+      "a": "c_tech_03",
+      "b": "c_corr_03",
+      "quad": [[24.5, 0, 4.9], [25.5, 0, 4.9], [25.5, 2.1, 4.9], [24.5, 2.1, 4.9]],
+      "door": "e_door_11"
+    },
+    {
+      "id": "p_13",
+      "a": "c_store_03",
+      "b": "c_hall_01",
+      "quad": [[13.4, 0, 20.2], [13.4, 0, 21.2], [13.4, 2.1, 21.2], [13.4, 2.1, 20.2]],
+      "door": "e_door_12"
+    },
+    {
+      "id": "p_14",
+      "a": "c_lab_01",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 1.55], [5.5, 0, 2.55], [5.5, 2.1, 2.55], [5.5, 2.1, 1.55]],
+      "door": "e_door_13"
+    },
+    {
+      "id": "p_15",
+      "a": "c_corr_03",
+      "b": "c_store_06",
+      "quad": [[17.2, 0, 7], [18.2, 0, 7], [18.2, 2.1, 7], [17.2, 2.1, 7]],
+      "door": "e_door_14"
+    },
+    {
+      "id": "p_16",
+      "a": "c_corr_01",
+      "b": "c_lab_03",
+      "quad": [[7.6, 0, 1], [7.6, 0, 2], [7.6, 2.1, 2], [7.6, 2.1, 1]],
+      "door": "e_door_15"
+    },
+    {
+      "id": "p_17",
+      "a": "c_corr_01",
+      "b": "c_office_03",
+      "quad": [[7.6, 0, 17.1], [7.6, 0, 18.1], [7.6, 2.1, 18.1], [7.6, 2.1, 17.1]],
+      "door": "e_door_16"
+    },
+    {
+      "id": "p_18",
+      "a": "c_store_01",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 9.05], [5.5, 0, 10.05], [5.5, 2.1, 10.05], [5.5, 2.1, 9.05]],
+      "door": "e_door_17"
+    },
+    {
+      "id": "p_19",
+      "a": "c_office_02",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 18.8], [5.5, 0, 19.8], [5.5, 2.1, 19.8], [5.5, 2.1, 18.8]],
+      "door": "e_door_18"
+    },
+    {
+      "id": "p_20",
+      "a": "c_tech_01",
+      "b": "c_corr_01",
+      "quad": [[5.5, 0, 15.75], [5.5, 0, 16.75], [5.5, 2.1, 16.75], [5.5, 2.1, 15.75]],
+      "door": "e_door_19"
+    },
+    {
+      "id": "p_21",
+      "a": "c_tech_02",
+      "b": "c_corr_03",
+      "quad": [[17.85, 0, 4.9], [18.85, 0, 4.9], [18.85, 2.1, 4.9], [17.85, 2.1, 4.9]],
+      "door": "e_door_20"
+    },
+    {
+      "id": "p_22",
+      "a": "c_store_14",
+      "b": "c_hall_01",
+      "quad": [[14.25, 3.4, 11.5], [15.25, 3.4, 11.5], [15.25, 5.5, 11.5], [14.25, 5.5, 11.5]],
+      "door": "e_door_21"
+    },
+    {
+      "id": "p_23",
+      "a": "c_corr_06",
+      "b": "c_store_14",
+      "quad": [[13.9, 3.4, 6.8], [14.9, 3.4, 6.8], [14.9, 5.5, 6.8], [13.9, 5.5, 6.8]],
+      "door": "e_door_22"
+    },
+    {
+      "id": "p_24",
+      "a": "c_tech_08",
+      "b": "c_corr_06",
+      "quad": [[20.1, 3.4, 4.8], [21.1, 3.4, 4.8], [21.1, 5.5, 4.8], [20.1, 5.5, 4.8]],
+      "door": "e_door_23"
+    },
+    {
+      "id": "p_25",
+      "a": "c_store_13",
+      "b": "c_corr_06",
+      "quad": [[23.45, 3.4, 4.8], [24.45, 3.4, 4.8], [24.45, 5.5, 4.8], [23.45, 5.5, 4.8]],
+      "door": "e_door_24"
+    },
+    {
+      "id": "p_26",
+      "a": "c_store_12",
+      "b": "c_corr_06",
+      "quad": [[15.85, 3.4, 4.8], [17.65, 3.4, 4.8], [17.65, 5.5, 4.8], [15.85, 5.5, 4.8]],
+      "door": "e_door_25"
+    },
+    {
+      "id": "p_27",
+      "a": "c_corr_06",
+      "b": "c_store_15",
+      "quad": [[17.35, 3.4, 6.8], [18.35, 3.4, 6.8], [18.35, 5.5, 6.8], [17.35, 5.5, 6.8]],
+      "door": "e_door_27"
+    },
+    {
+      "id": "p_28",
+      "a": "c_corr_06",
+      "b": "c_office_08",
+      "quad": [[20.95, 3.4, 6.8], [21.95, 3.4, 6.8], [21.95, 5.5, 6.8], [20.95, 5.5, 6.8]],
+      "door": "e_door_28"
+    },
+    {
+      "id": "p_29",
+      "a": "c_lab_07",
+      "b": "c_hall_01",
+      "quad": [[13.4, 3.4, 19.9], [13.4, 3.4, 20.9], [13.4, 5.5, 20.9], [13.4, 5.5, 19.9]],
+      "door": "e_door_29"
+    },
+    {
+      "id": "p_30",
+      "a": "c_corr_05",
+      "b": "c_lab_07",
+      "quad": [[8.3, 3.4, 20.8], [8.3, 3.4, 21.8], [8.3, 5.5, 21.8], [8.3, 5.5, 20.8]],
+      "door": "e_door_30"
+    },
+    {
+      "id": "p_31",
+      "a": "c_corr_04",
+      "b": "c_corr_05",
+      "quad": [[6.3, 3.4, 10.65], [6.3, 3.4, 12.25], [6.3, 5.8, 12.25], [6.3, 5.8, 10.65]]
+    },
+    {
+      "id": "p_32",
+      "a": "c_corr_05",
+      "b": "c_store_11",
+      "quad": [[8.3, 3.4, 10.2], [8.3, 3.4, 11.2], [8.3, 5.5, 11.2], [8.3, 5.5, 10.2]],
+      "door": "e_door_31"
+    },
+    {
+      "id": "p_33",
+      "a": "c_corr_05",
+      "b": "c_lab_06",
+      "quad": [[8.3, 3.4, 16.55], [8.3, 3.4, 17.55], [8.3, 5.5, 17.55], [8.3, 5.5, 16.55]],
+      "door": "e_door_32"
+    },
+    {
+      "id": "p_34",
+      "a": "c_tech_06",
+      "b": "c_corr_04",
+      "quad": [[0.95, 3.4, 10.3], [1.95, 3.4, 10.3], [1.95, 5.5, 10.3], [0.95, 5.5, 10.3]],
+      "door": "e_door_33"
+    },
+    {
+      "id": "p_35",
+      "a": "c_office_06",
+      "b": "c_corr_04",
+      "quad": [[3.65, 3.4, 10.3], [4.65, 3.4, 10.3], [4.65, 5.5, 10.3], [3.65, 5.5, 10.3]],
+      "door": "e_door_34"
+    },
+    {
+      "id": "p_36",
+      "a": "c_office_07",
+      "b": "c_corr_05",
+      "quad": [[6.3, 3.4, 19], [6.3, 3.4, 20], [6.3, 5.5, 20], [6.3, 5.5, 19]],
+      "door": "e_door_35"
+    },
+    {
+      "id": "p_37",
+      "a": "c_corr_05",
+      "b": "c_store_09",
+      "quad": [[8.3, 3.4, 1.4], [8.3, 3.4, 2.4], [8.3, 5.5, 2.4], [8.3, 5.5, 1.4]],
+      "door": "e_door_36"
+    },
+    {
+      "id": "p_38",
+      "a": "c_store_08",
+      "b": "c_corr_05",
+      "quad": [[6.3, 3.4, 14.15], [6.3, 3.4, 15.95], [6.3, 5.5, 15.95], [6.3, 5.5, 14.15]],
+      "door": "e_door_37"
+    },
+    {
+      "id": "p_39",
+      "a": "c_corr_05",
+      "b": "c_store_10",
+      "quad": [[8.3, 3.4, 7.5], [8.3, 3.4, 8.5], [8.3, 5.5, 8.5], [8.3, 5.5, 7.5]],
+      "door": "e_door_39"
+    },
+    {
+      "id": "p_40",
+      "a": "c_corr_05",
+      "b": "c_tech_07",
+      "quad": [[8.3, 3.4, 3.95], [8.3, 3.4, 4.95], [8.3, 5.5, 4.95], [8.3, 5.5, 3.95]],
+      "door": "e_door_40"
+    },
+    {
+      "id": "p_41",
+      "a": "c_tech_05",
+      "b": "c_corr_05",
+      "quad": [[6.3, 3.4, 1.2], [6.3, 3.4, 2.2], [6.3, 5.5, 2.2], [6.3, 5.5, 1.2]],
+      "door": "e_door_41"
+    },
+    {
+      "id": "p_42",
+      "a": "c_store_07",
+      "b": "c_corr_05",
+      "quad": [[6.3, 3.4, 3.5], [6.3, 3.4, 4.5], [6.3, 5.5, 4.5], [6.3, 5.5, 3.5]],
+      "door": "e_door_42"
+    },
+    {
+      "id": "p_43",
+      "a": "c_store_08",
+      "b": "c_lab_05",
+      "quad": [[0.7, 3.4, 16.7], [2.5, 3.4, 16.7], [2.5, 5.5, 16.7], [0.7, 5.5, 16.7]],
+      "door": "e_door_43"
+    },
+    {
+      "id": "p_44",
+      "a": "c_tech_04",
+      "b": "c_tech_06",
+      "quad": [[0.9, 3.4, 5.9], [1.9, 3.4, 5.9], [1.9, 5.5, 5.9], [0.9, 5.5, 5.9]],
+      "door": "e_door_45"
+    },
+    {
+      "id": "p_45",
+      "a": "c_office_03",
+      "b": "c_hall_01",
+      "quad": [[13.4, 0, 17.85], [13.4, 0, 18.85], [13.4, 2.1, 18.85], [13.4, 2.1, 17.85]],
+      "door": "e_door_46"
+    },
+    {
+      "id": "p_46",
+      "a": "c_store_06",
+      "b": "c_hall_01",
+      "quad": [[19.05, 0, 11.5], [20.05, 0, 11.5], [20.05, 2.1, 11.5], [19.05, 2.1, 11.5]],
+      "door": "e_door_47"
+    },
+    {
+      "id": "p_47",
+      "a": "c_office_05",
+      "b": "c_hall_01",
+      "quad": [[24.05, 0, 11.5], [25.05, 0, 11.5], [25.05, 2.1, 11.5], [24.05, 2.1, 11.5]],
+      "door": "e_door_48"
+    },
+    {
+      "id": "p_48",
+      "a": "c_store_15",
+      "b": "c_hall_01",
+      "quad": [[17.6, 3.4, 11.5], [18.6, 3.4, 11.5], [18.6, 5.5, 11.5], [17.6, 5.5, 11.5]],
+      "door": "e_door_49"
+    },
+    {
+      "id": "p_49",
+      "a": "c_tech_07",
+      "b": "c_store_10",
+      "quad": [[11.1, 3.4, 6.3], [12.1, 3.4, 6.3], [12.1, 5.5, 6.3], [11.1, 5.5, 6.3]],
+      "door": "e_door_50"
+    }
+  ],
+  "brushes": [
+    { "id": "b_floor_0001", "cell": "c_hall_01", "min": [13.5, -0.2, 11.6], "max": [25.8, 0, 22.2], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0002", "cell": "c_hall_01", "min": [13.5, 6.4, 11.6], "max": [25.8, 6.6, 22.2], "mat": "concrete_dark", "tag": "ceiling" },
+    { "id": "b_floor_0003", "cell": "c_lab_01", "min": [0, -0.2, 0], "max": [5.4, 0, 3], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0004", "cell": "c_lab_01", "min": [0, 3, 0], "max": [5.4, 3.2, 3], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0005", "cell": "c_lab_02", "min": [0, -0.2, 3.2], "max": [5.4, 0, 6.3], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0006", "cell": "c_lab_02", "min": [0, 3, 3.2], "max": [5.4, 3.2, 6.3], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0007", "cell": "c_store_01", "min": [0, -0.2, 6.5], "max": [5.4, 0, 10.8], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0008", "cell": "c_store_01", "min": [0, 3, 6.5], "max": [5.4, 3.2, 10.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0009", "cell": "c_office_01", "min": [0, -0.2, 11], "max": [5.4, 0, 14], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0010", "cell": "c_office_01", "min": [0, 3, 11], "max": [5.4, 3.2, 14], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0011", "cell": "c_tech_01", "min": [0, -0.2, 14.2], "max": [5.4, 0, 17.1], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0012", "cell": "c_tech_01", "min": [0, 3, 14.2], "max": [5.4, 3.2, 17.1], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0013", "cell": "c_office_02", "min": [0, -0.2, 17.3], "max": [5.4, 0, 22.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0014", "cell": "c_office_02", "min": [0, 3, 17.3], "max": [5.4, 3.2, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0015", "cell": "c_corr_01", "min": [5.6, -0.2, 0], "max": [7.5, 0, 22.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0016", "cell": "c_corr_01", "min": [5.6, 2.7, 0], "max": [7.5, 2.9, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0017", "cell": "c_lab_03", "min": [7.7, -0.2, 0], "max": [13.3, 0, 3.9], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0018", "cell": "c_lab_03", "min": [7.7, 3, 0], "max": [13.3, 3.2, 3.9], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0019", "cell": "c_lab_04", "min": [7.7, -0.2, 4.1], "max": [13.3, 0, 8.4], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0020", "cell": "c_lab_04", "min": [7.7, 3, 4.1], "max": [13.3, 3.2, 8.4], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0021", "cell": "c_corr_02", "min": [7.7, -0.2, 8.6], "max": [13.3, 0, 10.5], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0022", "cell": "c_corr_02", "min": [7.7, 2.7, 8.6], "max": [13.3, 2.9, 10.5], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0023", "cell": "c_store_02", "min": [7.7, -0.2, 10.7], "max": [13.3, 0, 16.2], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0024", "cell": "c_store_02", "min": [7.7, 3, 10.7], "max": [13.3, 3.2, 16.2], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0025", "cell": "c_office_03", "min": [7.7, -0.2, 16.4], "max": [13.3, 0, 19.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0026", "cell": "c_office_03", "min": [7.7, 3, 16.4], "max": [13.3, 3.2, 19.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0027", "cell": "c_store_03", "min": [7.7, -0.2, 19.4], "max": [13.3, 0, 22.2], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0028", "cell": "c_store_03", "min": [7.7, 3, 19.4], "max": [13.3, 3.2, 22.2], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0029", "cell": "c_office_04", "min": [13.5, -0.2, 0], "max": [16.4, 0, 4.8], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0030", "cell": "c_office_04", "min": [13.5, 3, 0], "max": [16.4, 3.2, 4.8], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0031", "cell": "c_tech_02", "min": [16.6, -0.2, 0], "max": [19.6, 0, 4.8], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0032", "cell": "c_tech_02", "min": [16.6, 3, 0], "max": [19.6, 3.2, 4.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0033", "cell": "c_store_04", "min": [19.8, -0.2, 0], "max": [22.7, 0, 4.8], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0034", "cell": "c_store_04", "min": [19.8, 3, 0], "max": [22.7, 3.2, 4.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0035", "cell": "c_tech_03", "min": [22.9, -0.2, 0], "max": [25.8, 0, 4.8], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0036", "cell": "c_tech_03", "min": [22.9, 3, 0], "max": [25.8, 3.2, 4.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0037", "cell": "c_corr_03", "min": [13.5, -0.2, 5], "max": [25.8, 0, 6.9], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0038", "cell": "c_corr_03", "min": [13.5, 2.7, 5], "max": [25.8, 2.9, 6.9], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0039", "cell": "c_store_05", "min": [13.5, -0.2, 7.1], "max": [16.7, 0, 11.4], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0040", "cell": "c_store_05", "min": [13.5, 3, 7.1], "max": [16.7, 3.2, 11.4], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0041", "cell": "c_store_06", "min": [16.9, -0.2, 7.1], "max": [20.3, 0, 11.4], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0042", "cell": "c_store_06", "min": [16.9, 3, 7.1], "max": [20.3, 3.2, 11.4], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0043", "cell": "c_office_05", "min": [20.5, -0.2, 7.1], "max": [25.8, 0, 11.4], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0044", "cell": "c_office_05", "min": [20.5, 3, 7.1], "max": [25.8, 3.2, 11.4], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0045", "cell": "c_tech_04", "min": [0, 3.2, 0], "max": [3, 3.4, 5.8], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0046", "cell": "c_tech_04", "min": [0, 6.4, 0], "max": [3, 6.6, 5.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0047", "cell": "c_tech_05", "min": [3.2, 3.2, 0], "max": [6.2, 3.4, 2.8], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0048", "cell": "c_tech_05", "min": [3.2, 6.4, 0], "max": [6.2, 6.6, 2.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0049", "cell": "c_store_07", "min": [3.2, 3.2, 3], "max": [6.2, 3.4, 5.8], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0050", "cell": "c_store_07", "min": [3.2, 6.4, 3], "max": [6.2, 6.6, 5.8], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0051", "cell": "c_tech_06", "min": [0, 3.2, 6], "max": [3, 3.4, 10.2], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0052", "cell": "c_tech_06", "min": [0, 6.4, 6], "max": [3, 6.6, 10.2], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0053", "cell": "c_office_06", "min": [3.2, 3.2, 6], "max": [6.2, 3.4, 10.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0054", "cell": "c_office_06", "min": [3.2, 6.4, 6], "max": [6.2, 6.6, 10.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0055", "cell": "c_corr_04", "min": [0, 3.2, 10.4], "max": [6.2, 3.4, 12.5], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0056", "cell": "c_corr_04", "min": [0, 6.1, 10.4], "max": [6.2, 6.3, 12.5], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0057", "cell": "c_store_08", "min": [0, 3.2, 12.7], "max": [6.2, 3.4, 16.6], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0058", "cell": "c_store_08", "min": [0, 6.4, 12.7], "max": [6.2, 6.6, 16.6], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0059", "cell": "c_lab_05", "min": [0, 3.2, 16.8], "max": [3, 3.4, 22.2], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0060", "cell": "c_lab_05", "min": [0, 6.4, 16.8], "max": [3, 6.6, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0061", "cell": "c_office_07", "min": [3.2, 3.2, 16.8], "max": [6.2, 3.4, 22.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0062", "cell": "c_office_07", "min": [3.2, 6.4, 16.8], "max": [6.2, 6.6, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0063", "cell": "c_corr_05", "min": [6.4, 3.2, 0], "max": [8.2, 3.4, 22.2], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0064", "cell": "c_corr_05", "min": [6.4, 6.1, 0], "max": [8.2, 6.3, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0065", "cell": "c_store_09", "min": [8.4, 3.2, 0], "max": [13.3, 3.4, 3.1], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0066", "cell": "c_store_09", "min": [8.4, 6.4, 0], "max": [13.3, 6.6, 3.1], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0067", "cell": "c_tech_07", "min": [8.4, 3.2, 3.3], "max": [13.3, 3.4, 6.2], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0068", "cell": "c_tech_07", "min": [8.4, 6.4, 3.3], "max": [13.3, 6.6, 6.2], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0069", "cell": "c_store_10", "min": [8.4, 3.2, 6.4], "max": [13.3, 3.4, 9.7], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0070", "cell": "c_store_10", "min": [8.4, 6.4, 6.4], "max": [13.3, 6.6, 9.7], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0071", "cell": "c_store_11", "min": [8.4, 3.2, 9.9], "max": [13.3, 3.4, 12.9], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0072", "cell": "c_store_11", "min": [8.4, 6.4, 9.9], "max": [13.3, 6.6, 12.9], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0073", "cell": "c_lab_06", "min": [8.4, 3.2, 13.1], "max": [13.3, 3.4, 17.9], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0074", "cell": "c_lab_06", "min": [8.4, 6.4, 13.1], "max": [13.3, 6.6, 17.9], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0075", "cell": "c_lab_07", "min": [8.4, 3.2, 18.1], "max": [13.3, 3.4, 22.2], "mat": "tile_grey", "tag": "floor" },
+    { "id": "b_ceiling_0076", "cell": "c_lab_07", "min": [8.4, 6.4, 18.1], "max": [13.3, 6.6, 22.2], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0077", "cell": "c_store_12", "min": [13.5, 3.2, 0], "max": [18.8, 3.4, 4.7], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0078", "cell": "c_store_12", "min": [13.5, 6.4, 0], "max": [18.8, 6.6, 4.7], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0079", "cell": "c_tech_08", "min": [19, 3.2, 0], "max": [22.3, 3.4, 4.7], "mat": "metal_floor", "tag": "floor" },
+    { "id": "b_ceiling_0080", "cell": "c_tech_08", "min": [19, 6.4, 0], "max": [22.3, 6.6, 4.7], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0081", "cell": "c_store_13", "min": [22.5, 3.2, 0], "max": [25.8, 3.4, 4.7], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0082", "cell": "c_store_13", "min": [22.5, 6.4, 0], "max": [25.8, 6.6, 4.7], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0083", "cell": "c_corr_06", "min": [13.5, 3.2, 4.9], "max": [25.8, 3.4, 6.7], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0084", "cell": "c_corr_06", "min": [13.5, 6.1, 4.9], "max": [25.8, 6.3, 6.7], "mat": "plaster_light", "tag": "ceiling" },
+    { "id": "b_floor_0085", "cell": "c_store_14", "min": [13.5, 3.2, 6.9], "max": [16.9, 3.4, 11.4], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0086", "cell": "c_store_14", "min": [13.5, 6.4, 6.9], "max": [16.9, 6.6, 11.4], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0087", "cell": "c_store_15", "min": [17.1, 3.2, 6.9], "max": [20.3, 3.4, 11.4], "mat": "concrete_smooth", "tag": "floor" },
+    { "id": "b_ceiling_0088", "cell": "c_store_15", "min": [17.1, 6.4, 6.9], "max": [20.3, 6.6, 11.4], "mat": "plaster_grey", "tag": "ceiling" },
+    { "id": "b_floor_0089", "cell": "c_office_08", "min": [20.5, 3.2, 6.9], "max": [25.8, 3.4, 11.4], "mat": "lino_grey", "tag": "floor" },
+    { "id": "b_ceiling_0090", "cell": "c_office_08", "min": [20.5, 6.4, 6.9], "max": [25.8, 6.6, 11.4], "mat": "plaster_light", "tag": "ceiling" },
+    {
+      "id": "b_wall_0091",
+      "cell": "c_lab_03",
+      "min": [13.3, -0.2, 0],
+      "max": [13.5, 3.2, 3.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0092",
+      "cell": "c_office_04",
+      "min": [13.3, -0.2, 3.9],
+      "max": [13.5, 3.2, 4.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0093",
+      "cell": "c_lab_04",
+      "min": [13.3, -0.2, 4.1],
+      "max": [13.5, 3.2, 4.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0094",
+      "cell": "c_lab_04",
+      "min": [13.3, -0.2, 4.8],
+      "max": [13.5, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0095",
+      "cell": "c_lab_04",
+      "min": [13.3, -0.2, 5],
+      "max": [13.5, 3.2, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0096",
+      "cell": "c_lab_04",
+      "min": [13.3, -0.2, 6.9],
+      "max": [13.5, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0097",
+      "cell": "c_lab_04",
+      "min": [13.3, -0.2, 7.1],
+      "max": [13.5, 3.2, 8.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0098",
+      "cell": "c_store_05",
+      "min": [13.3, -0.2, 8.4],
+      "max": [13.5, 3.2, 8.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0099",
+      "cell": "c_corr_02",
+      "min": [13.3, -0.2, 8.6],
+      "max": [13.5, 3.2, 9.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0100",
+      "cell": "c_corr_02",
+      "min": [13.3, 2.1, 9.15],
+      "max": [13.5, 3.2, 10.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0101", "cell": "c_corr_02", "min": [13.3, -0.2, 9.15], "max": [13.5, 0, 10.15], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0102",
+      "cell": "c_corr_02",
+      "min": [13.3, -0.2, 10.15],
+      "max": [13.5, 3.2, 10.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0103",
+      "cell": "c_store_05",
+      "min": [13.3, -0.2, 10.5],
+      "max": [13.5, 3.2, 10.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0104",
+      "cell": "c_store_02",
+      "min": [13.3, -0.2, 10.7],
+      "max": [13.5, 3.2, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0105",
+      "cell": "c_store_02",
+      "min": [13.3, -0.2, 11.4],
+      "max": [13.5, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0106",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 11.6],
+      "max": [13.5, 3.2, 16.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0107",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 16.2],
+      "max": [13.5, 3.2, 16.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0108",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 16.4],
+      "max": [13.5, 3.2, 17.85],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0109",
+      "cell": "c_hall_01",
+      "min": [13.3, 2.1, 17.85],
+      "max": [13.5, 3.2, 18.85],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "concrete_raw" }
+    },
+    { "id": "b_floor_0110", "cell": "c_hall_01", "min": [13.3, -0.2, 17.85], "max": [13.5, 0, 18.85], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0111",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 18.85],
+      "max": [13.5, 3.2, 19.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0112",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 19.2],
+      "max": [13.5, 3.2, 19.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0113",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 19.4],
+      "max": [13.5, 3.2, 20.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0114",
+      "cell": "c_hall_01",
+      "min": [13.3, 2.1, 20.2],
+      "max": [13.5, 3.2, 21.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "concrete_raw" }
+    },
+    { "id": "b_floor_0115", "cell": "c_hall_01", "min": [13.3, -0.2, 20.2], "max": [13.5, 0, 21.2], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0116",
+      "cell": "c_hall_01",
+      "min": [13.3, -0.2, 21.2],
+      "max": [13.5, 3.2, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0117",
+      "cell": "c_hall_01",
+      "min": [13.5, -0.2, 11.4],
+      "max": [16.7, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0118",
+      "cell": "c_hall_01",
+      "min": [16.7, -0.2, 11.4],
+      "max": [16.9, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0119",
+      "cell": "c_hall_01",
+      "min": [16.9, -0.2, 11.4],
+      "max": [19.05, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0120",
+      "cell": "c_hall_01",
+      "min": [19.05, 2.1, 11.4],
+      "max": [20.05, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    { "id": "b_floor_0121", "cell": "c_hall_01", "min": [19.05, -0.2, 11.4], "max": [20.05, 0, 11.6], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0122",
+      "cell": "c_hall_01",
+      "min": [20.05, -0.2, 11.4],
+      "max": [20.3, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0123",
+      "cell": "c_hall_01",
+      "min": [20.3, -0.2, 11.4],
+      "max": [20.5, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0124",
+      "cell": "c_hall_01",
+      "min": [20.5, -0.2, 11.4],
+      "max": [24.05, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0125",
+      "cell": "c_hall_01",
+      "min": [24.05, 2.1, 11.4],
+      "max": [25.05, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "concrete_raw" }
+    },
+    { "id": "b_floor_0126", "cell": "c_hall_01", "min": [24.05, -0.2, 11.4], "max": [25.05, 0, 11.6], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0127",
+      "cell": "c_hall_01",
+      "min": [25.05, -0.2, 11.4],
+      "max": [25.8, 3.2, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0128",
+      "cell": "c_lab_01",
+      "min": [5.4, -0.2, 0],
+      "max": [5.6, 3.2, 1.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0129",
+      "cell": "c_lab_01",
+      "min": [5.4, 2.1, 1.55],
+      "max": [5.6, 3.2, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0130", "cell": "c_lab_01", "min": [5.4, -0.2, 1.55], "max": [5.6, 0, 2.55], "mat": "tile_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0131",
+      "cell": "c_lab_01",
+      "min": [5.4, -0.2, 2.55],
+      "max": [5.6, 3.2, 3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0132",
+      "cell": "c_corr_01",
+      "min": [5.4, -0.2, 3],
+      "max": [5.6, 2.9, 3.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0133",
+      "cell": "c_lab_02",
+      "min": [5.4, -0.2, 3.2],
+      "max": [5.6, 3.2, 4.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0134",
+      "cell": "c_lab_02",
+      "min": [5.4, 2.1, 4.2],
+      "max": [5.6, 3.2, 5.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0135", "cell": "c_lab_02", "min": [5.4, -0.2, 4.2], "max": [5.6, 0, 5.2], "mat": "tile_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0136",
+      "cell": "c_lab_02",
+      "min": [5.4, -0.2, 5.2],
+      "max": [5.6, 3.2, 6.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0137",
+      "cell": "c_corr_01",
+      "min": [5.4, -0.2, 6.3],
+      "max": [5.6, 2.9, 6.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0138",
+      "cell": "c_store_01",
+      "min": [5.4, -0.2, 6.5],
+      "max": [5.6, 3.2, 9.05],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0139",
+      "cell": "c_store_01",
+      "min": [5.4, 2.1, 9.05],
+      "max": [5.6, 3.2, 10.05],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0140", "cell": "c_store_01", "min": [5.4, -0.2, 9.05], "max": [5.6, 0, 10.05], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0141",
+      "cell": "c_store_01",
+      "min": [5.4, -0.2, 10.05],
+      "max": [5.6, 3.2, 10.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0142",
+      "cell": "c_corr_01",
+      "min": [5.4, -0.2, 10.8],
+      "max": [5.6, 2.9, 11],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0143",
+      "cell": "c_office_01",
+      "min": [5.4, -0.2, 11],
+      "max": [5.6, 3.2, 11.45],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0144",
+      "cell": "c_office_01",
+      "min": [5.4, 2.1, 11.45],
+      "max": [5.6, 3.2, 12.45],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0145", "cell": "c_office_01", "min": [5.4, -0.2, 11.45], "max": [5.6, 0, 12.45], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0146",
+      "cell": "c_office_01",
+      "min": [5.4, -0.2, 12.45],
+      "max": [5.6, 3.2, 14],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0147",
+      "cell": "c_corr_01",
+      "min": [5.4, -0.2, 14],
+      "max": [5.6, 2.9, 14.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0148",
+      "cell": "c_tech_01",
+      "min": [5.4, -0.2, 14.2],
+      "max": [5.6, 3.2, 15.75],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0149",
+      "cell": "c_tech_01",
+      "min": [5.4, 2.1, 15.75],
+      "max": [5.6, 3.2, 16.75],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0150", "cell": "c_tech_01", "min": [5.4, -0.2, 15.75], "max": [5.6, 0, 16.75], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0151",
+      "cell": "c_tech_01",
+      "min": [5.4, -0.2, 16.75],
+      "max": [5.6, 3.2, 17.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0152",
+      "cell": "c_corr_01",
+      "min": [5.4, -0.2, 17.1],
+      "max": [5.6, 2.9, 17.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0153",
+      "cell": "c_office_02",
+      "min": [5.4, -0.2, 17.3],
+      "max": [5.6, 3.2, 18.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0154",
+      "cell": "c_office_02",
+      "min": [5.4, 2.1, 18.8],
+      "max": [5.6, 3.2, 19.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0155", "cell": "c_office_02", "min": [5.4, -0.2, 18.8], "max": [5.6, 0, 19.8], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0156",
+      "cell": "c_office_02",
+      "min": [5.4, -0.2, 19.8],
+      "max": [5.6, 3.2, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0157",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 0],
+      "max": [7.7, 3.2, 1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0158",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.1, 1],
+      "max": [7.7, 3.2, 2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    { "id": "b_floor_0159", "cell": "c_corr_01", "min": [7.5, -0.2, 1], "max": [7.7, 0, 2], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0160",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 2],
+      "max": [7.7, 3.2, 3.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0161",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 3.9],
+      "max": [7.7, 2.9, 4.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0162",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 4.1],
+      "max": [7.7, 3.2, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0163",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.1, 6],
+      "max": [7.7, 3.2, 7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    { "id": "b_floor_0164", "cell": "c_corr_01", "min": [7.5, -0.2, 6], "max": [7.7, 0, 7], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0165",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 7],
+      "max": [7.7, 3.2, 8.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0166",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 8.4],
+      "max": [7.7, 2.9, 8.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0167",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 8.6],
+      "max": [7.7, 2.9, 8.85],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0168",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.4, 8.85],
+      "max": [7.7, 2.9, 10.25],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0169", "cell": "c_corr_01", "min": [7.5, -0.2, 8.85], "max": [7.7, 0, 10.25], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0170",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 10.25],
+      "max": [7.7, 2.9, 10.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0171",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 10.5],
+      "max": [7.7, 2.9, 10.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0172",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 10.7],
+      "max": [7.7, 3.2, 12.75],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0173",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.1, 12.75],
+      "max": [7.7, 3.2, 13.75],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0174", "cell": "c_corr_01", "min": [7.5, -0.2, 12.75], "max": [7.7, 0, 13.75], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0175",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 13.75],
+      "max": [7.7, 3.2, 16.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0176",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 16.2],
+      "max": [7.7, 2.9, 16.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0177",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 16.4],
+      "max": [7.7, 3.2, 17.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0178",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.1, 17.1],
+      "max": [7.7, 3.2, 18.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_light" }
+    },
+    { "id": "b_floor_0179", "cell": "c_corr_01", "min": [7.5, -0.2, 17.1], "max": [7.7, 0, 18.1], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0180",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 18.1],
+      "max": [7.7, 3.2, 19.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0181",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 19.2],
+      "max": [7.7, 2.9, 19.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0182",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 19.4],
+      "max": [7.7, 3.2, 20.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0183",
+      "cell": "c_corr_01",
+      "min": [7.5, 2.1, 20.6],
+      "max": [7.7, 3.2, 21.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0184", "cell": "c_corr_01", "min": [7.5, -0.2, 20.6], "max": [7.7, 0, 21.6], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0185",
+      "cell": "c_corr_01",
+      "min": [7.5, -0.2, 21.6],
+      "max": [7.7, 3.2, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0186",
+      "cell": "c_store_01",
+      "min": [0, -0.2, 10.8],
+      "max": [5.4, 3.2, 11],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0187",
+      "cell": "c_lab_02",
+      "min": [0, -0.2, 6.3],
+      "max": [5.4, 3.2, 6.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0188",
+      "cell": "c_lab_01",
+      "min": [0, -0.2, 3],
+      "max": [5.4, 3.2, 3.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0189",
+      "cell": "c_tech_01",
+      "min": [0, -0.2, 17.1],
+      "max": [5.4, 3.2, 17.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0190",
+      "cell": "c_office_01",
+      "min": [0, -0.2, 14],
+      "max": [5.4, 3.2, 14.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0191",
+      "cell": "c_lab_04",
+      "min": [7.7, -0.2, 8.4],
+      "max": [13.3, 3.2, 8.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0192",
+      "cell": "c_corr_02",
+      "min": [7.7, -0.2, 10.5],
+      "max": [13.3, 3.2, 10.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0193",
+      "cell": "c_lab_03",
+      "min": [7.7, -0.2, 3.9],
+      "max": [13.3, 3.2, 4.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0194",
+      "cell": "c_store_02",
+      "min": [7.7, -0.2, 16.2],
+      "max": [13.3, 3.2, 16.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0195",
+      "cell": "c_office_03",
+      "min": [7.7, -0.2, 19.2],
+      "max": [13.3, 3.2, 19.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0196",
+      "cell": "c_office_04",
+      "min": [13.5, -0.2, 4.8],
+      "max": [14.75, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0197",
+      "cell": "c_office_04",
+      "min": [14.75, 2.1, 4.8],
+      "max": [15.75, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0198", "cell": "c_office_04", "min": [14.75, -0.2, 4.8], "max": [15.75, 0, 5], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0199",
+      "cell": "c_office_04",
+      "min": [15.75, -0.2, 4.8],
+      "max": [16.4, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0200",
+      "cell": "c_corr_03",
+      "min": [16.4, -0.2, 4.8],
+      "max": [16.6, 2.9, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0201",
+      "cell": "c_tech_02",
+      "min": [16.6, -0.2, 4.8],
+      "max": [17.85, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0202",
+      "cell": "c_tech_02",
+      "min": [17.85, 2.1, 4.8],
+      "max": [18.85, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0203", "cell": "c_tech_02", "min": [17.85, -0.2, 4.8], "max": [18.85, 0, 5], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0204",
+      "cell": "c_tech_02",
+      "min": [18.85, -0.2, 4.8],
+      "max": [19.6, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0205",
+      "cell": "c_corr_03",
+      "min": [19.6, -0.2, 4.8],
+      "max": [19.8, 2.9, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0206",
+      "cell": "c_store_04",
+      "min": [19.8, -0.2, 4.8],
+      "max": [21, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0207",
+      "cell": "c_store_04",
+      "min": [21, 2.1, 4.8],
+      "max": [22, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0208", "cell": "c_store_04", "min": [21, -0.2, 4.8], "max": [22, 0, 5], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0209",
+      "cell": "c_store_04",
+      "min": [22, -0.2, 4.8],
+      "max": [22.7, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0210",
+      "cell": "c_corr_03",
+      "min": [22.7, -0.2, 4.8],
+      "max": [22.9, 2.9, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0211",
+      "cell": "c_tech_03",
+      "min": [22.9, -0.2, 4.8],
+      "max": [24.5, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0212",
+      "cell": "c_tech_03",
+      "min": [24.5, 2.1, 4.8],
+      "max": [25.5, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0213", "cell": "c_tech_03", "min": [24.5, -0.2, 4.8], "max": [25.5, 0, 5], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0214",
+      "cell": "c_tech_03",
+      "min": [25.5, -0.2, 4.8],
+      "max": [25.8, 3.2, 5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0215",
+      "cell": "c_corr_03",
+      "min": [13.5, -0.2, 6.9],
+      "max": [14.45, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0216",
+      "cell": "c_corr_03",
+      "min": [14.45, 2.1, 6.9],
+      "max": [15.45, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0217", "cell": "c_corr_03", "min": [14.45, -0.2, 6.9], "max": [15.45, 0, 7.1], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0218",
+      "cell": "c_corr_03",
+      "min": [15.45, -0.2, 6.9],
+      "max": [16.7, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0219",
+      "cell": "c_corr_03",
+      "min": [16.7, -0.2, 6.9],
+      "max": [16.9, 2.9, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0220",
+      "cell": "c_corr_03",
+      "min": [16.9, -0.2, 6.9],
+      "max": [17.2, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0221",
+      "cell": "c_corr_03",
+      "min": [17.2, 2.1, 6.9],
+      "max": [18.2, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0222", "cell": "c_corr_03", "min": [17.2, -0.2, 6.9], "max": [18.2, 0, 7.1], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0223",
+      "cell": "c_corr_03",
+      "min": [18.2, -0.2, 6.9],
+      "max": [20.3, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0224",
+      "cell": "c_corr_03",
+      "min": [20.3, -0.2, 6.9],
+      "max": [20.5, 2.9, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0225",
+      "cell": "c_corr_03",
+      "min": [20.5, -0.2, 6.9],
+      "max": [20.95, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0226",
+      "cell": "c_corr_03",
+      "min": [20.95, 2.1, 6.9],
+      "max": [21.95, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    { "id": "b_floor_0227", "cell": "c_corr_03", "min": [20.95, -0.2, 6.9], "max": [21.95, 0, 7.1], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0228",
+      "cell": "c_corr_03",
+      "min": [21.95, -0.2, 6.9],
+      "max": [25.8, 3.2, 7.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0229",
+      "cell": "c_tech_02",
+      "min": [19.6, -0.2, 0],
+      "max": [19.8, 3.2, 4.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0230",
+      "cell": "c_office_04",
+      "min": [16.4, -0.2, 0],
+      "max": [16.6, 3.2, 4.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0231",
+      "cell": "c_store_04",
+      "min": [22.7, -0.2, 0],
+      "max": [22.9, 3.2, 4.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0232",
+      "cell": "c_store_06",
+      "min": [20.3, -0.2, 7.1],
+      "max": [20.5, 3.2, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0233",
+      "cell": "c_store_05",
+      "min": [16.7, -0.2, 7.1],
+      "max": [16.9, 3.2, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_wall_0234", "cell": "c_lab_01", "min": [-0.2, -0.2, -0.2], "max": [0, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0235",
+      "cell": "c_lab_01",
+      "min": [0, -0.2, -0.2],
+      "max": [5.4, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "tile_white" }
+    },
+    { "id": "b_wall_0236", "cell": "c_lab_01", "min": [5.4, -0.2, -0.2], "max": [5.6, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0237",
+      "cell": "c_corr_01",
+      "min": [5.6, -0.2, -0.2],
+      "max": [7.5, 2.9, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0238", "cell": "c_corr_01", "min": [7.5, -0.2, -0.2], "max": [7.7, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0239",
+      "cell": "c_lab_03",
+      "min": [7.7, -0.2, -0.2],
+      "max": [13.3, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "tile_white" }
+    },
+    { "id": "b_wall_0240", "cell": "c_lab_03", "min": [13.3, -0.2, -0.2], "max": [13.5, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0241",
+      "cell": "c_office_04",
+      "min": [13.5, -0.2, -0.2],
+      "max": [16.4, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_light" }
+    },
+    { "id": "b_wall_0242", "cell": "c_office_04", "min": [16.4, -0.2, -0.2], "max": [16.6, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0243",
+      "cell": "c_tech_02",
+      "min": [16.6, -0.2, -0.2],
+      "max": [19.6, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0244", "cell": "c_tech_02", "min": [19.6, -0.2, -0.2], "max": [19.8, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0245",
+      "cell": "c_store_04",
+      "min": [19.8, -0.2, -0.2],
+      "max": [22.7, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0246", "cell": "c_store_04", "min": [22.7, -0.2, -0.2], "max": [22.9, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0247",
+      "cell": "c_tech_03",
+      "min": [22.9, -0.2, -0.2],
+      "max": [25.8, 3.2, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0248", "cell": "c_tech_03", "min": [25.8, -0.2, -0.2], "max": [26, 3.2, 0], "mat": "concrete_raw", "tag": "wall" },
+    { "id": "b_wall_0249", "cell": "c_office_02", "min": [-0.2, -0.2, 22.2], "max": [0, 3.2, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0250",
+      "cell": "c_office_02",
+      "min": [0, -0.2, 22.2],
+      "max": [5.4, 3.2, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light" }
+    },
+    { "id": "b_wall_0251", "cell": "c_office_02", "min": [5.4, -0.2, 22.2], "max": [5.6, 3.2, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0252",
+      "cell": "c_corr_01",
+      "min": [5.6, -0.2, 22.2],
+      "max": [7.5, 2.9, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    { "id": "b_wall_0253", "cell": "c_corr_01", "min": [7.5, -0.2, 22.2], "max": [7.7, 3.2, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0254",
+      "cell": "c_store_03",
+      "min": [7.7, -0.2, 22.2],
+      "max": [13.3, 3.2, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    { "id": "b_wall_0255", "cell": "c_store_03", "min": [13.3, -0.2, 22.2], "max": [13.5, 3.2, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0256",
+      "cell": "c_hall_01",
+      "min": [13.5, -0.2, 22.2],
+      "max": [25.8, 3.2, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "concrete_raw" }
+    },
+    { "id": "b_wall_0257", "cell": "c_hall_01", "min": [25.8, -0.2, 22.2], "max": [26, 3.2, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0258",
+      "cell": "c_lab_01",
+      "min": [-0.2, -0.2, 0],
+      "max": [0, 3.2, 3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "tile_white" }
+    },
+    { "id": "b_wall_0259", "cell": "c_lab_01", "min": [-0.2, -0.2, 3], "max": [0, 3.2, 3.2], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0260",
+      "cell": "c_lab_02",
+      "min": [-0.2, -0.2, 3.2],
+      "max": [0, 3.2, 6.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "tile_white" }
+    },
+    { "id": "b_wall_0261", "cell": "c_lab_02", "min": [-0.2, -0.2, 6.3], "max": [0, 3.2, 6.5], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0262",
+      "cell": "c_store_01",
+      "min": [-0.2, -0.2, 6.5],
+      "max": [0, 3.2, 10.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    { "id": "b_wall_0263", "cell": "c_store_01", "min": [-0.2, -0.2, 10.8], "max": [0, 3.2, 11], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0264",
+      "cell": "c_office_01",
+      "min": [-0.2, -0.2, 11],
+      "max": [0, 3.2, 14],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_light" }
+    },
+    { "id": "b_wall_0265", "cell": "c_office_01", "min": [-0.2, -0.2, 14], "max": [0, 3.2, 14.2], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0266",
+      "cell": "c_tech_01",
+      "min": [-0.2, -0.2, 14.2],
+      "max": [0, 3.2, 17.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_green" }
+    },
+    { "id": "b_wall_0267", "cell": "c_tech_01", "min": [-0.2, -0.2, 17.1], "max": [0, 3.2, 17.3], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0268",
+      "cell": "c_office_02",
+      "min": [-0.2, -0.2, 17.3],
+      "max": [0, 3.2, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0269",
+      "cell": "c_tech_03",
+      "min": [25.8, -0.2, 0],
+      "max": [26, 3.2, 4.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green" }
+    },
+    { "id": "b_wall_0270", "cell": "c_tech_03", "min": [25.8, -0.2, 4.8], "max": [26, 3.2, 5], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0271",
+      "cell": "c_corr_03",
+      "min": [25.8, -0.2, 5],
+      "max": [26, 2.9, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    { "id": "b_wall_0272", "cell": "c_corr_03", "min": [25.8, -0.2, 6.9], "max": [26, 3.2, 7.1], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0273",
+      "cell": "c_office_05",
+      "min": [25.8, -0.2, 7.1],
+      "max": [26, 3.2, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light" }
+    },
+    { "id": "b_wall_0274", "cell": "c_office_05", "min": [25.8, -0.2, 11.4], "max": [26, 3.2, 11.6], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0275",
+      "cell": "c_hall_01",
+      "min": [25.8, -0.2, 11.6],
+      "max": [26, 3.2, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0276",
+      "cell": "c_store_09",
+      "min": [13.3, 3.2, 0],
+      "max": [13.5, 6.6, 3.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0277",
+      "cell": "c_store_12",
+      "min": [13.3, 3.2, 3.1],
+      "max": [13.5, 6.6, 3.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0278",
+      "cell": "c_tech_07",
+      "min": [13.3, 3.2, 3.3],
+      "max": [13.5, 6.6, 4.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0279",
+      "cell": "c_tech_07",
+      "min": [13.3, 3.2, 4.7],
+      "max": [13.5, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0280",
+      "cell": "c_tech_07",
+      "min": [13.3, 3.2, 4.9],
+      "max": [13.5, 6.6, 6.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0281",
+      "cell": "c_corr_06",
+      "min": [13.3, 3.2, 6.2],
+      "max": [13.5, 6.3, 6.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0282",
+      "cell": "c_store_10",
+      "min": [13.3, 3.2, 6.4],
+      "max": [13.5, 6.6, 6.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0283",
+      "cell": "c_store_10",
+      "min": [13.3, 3.2, 6.7],
+      "max": [13.5, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0284",
+      "cell": "c_store_10",
+      "min": [13.3, 3.2, 6.9],
+      "max": [13.5, 6.6, 9.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0285",
+      "cell": "c_store_14",
+      "min": [13.3, 3.2, 9.7],
+      "max": [13.5, 6.6, 9.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0286",
+      "cell": "c_store_11",
+      "min": [13.3, 3.2, 9.9],
+      "max": [13.5, 6.6, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0287",
+      "cell": "c_store_11",
+      "min": [13.3, 3.2, 11.4],
+      "max": [13.5, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0288",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 11.6],
+      "max": [13.5, 6.6, 12.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0289",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 12.9],
+      "max": [13.5, 6.6, 13.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0290",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 13.1],
+      "max": [13.5, 6.6, 17.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0291",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 17.9],
+      "max": [13.5, 6.6, 18.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0292",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 18.1],
+      "max": [13.5, 6.6, 19.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0293",
+      "cell": "c_hall_01",
+      "min": [13.3, 5.5, 19.9],
+      "max": [13.5, 6.6, 20.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "concrete_raw" }
+    },
+    { "id": "b_floor_0294", "cell": "c_hall_01", "min": [13.3, 3.2, 19.9], "max": [13.5, 3.4, 20.9], "mat": "tile_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0295",
+      "cell": "c_hall_01",
+      "min": [13.3, 3.2, 20.9],
+      "max": [13.5, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0296",
+      "cell": "c_hall_01",
+      "min": [13.5, 3.2, 11.4],
+      "max": [14.25, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0297",
+      "cell": "c_hall_01",
+      "min": [14.25, 5.5, 11.4],
+      "max": [15.25, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    { "id": "b_floor_0298", "cell": "c_hall_01", "min": [14.25, 3.2, 11.4], "max": [15.25, 3.4, 11.6], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0299",
+      "cell": "c_hall_01",
+      "min": [15.25, 3.2, 11.4],
+      "max": [16.9, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0300",
+      "cell": "c_hall_01",
+      "min": [16.9, 3.2, 11.4],
+      "max": [17.1, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0301",
+      "cell": "c_hall_01",
+      "min": [17.1, 3.2, 11.4],
+      "max": [17.6, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0302",
+      "cell": "c_hall_01",
+      "min": [17.6, 5.5, 11.4],
+      "max": [18.6, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    { "id": "b_floor_0303", "cell": "c_hall_01", "min": [17.6, 3.2, 11.4], "max": [18.6, 3.4, 11.6], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0304",
+      "cell": "c_hall_01",
+      "min": [18.6, 3.2, 11.4],
+      "max": [20.3, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0305",
+      "cell": "c_hall_01",
+      "min": [20.3, 3.2, 11.4],
+      "max": [20.5, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0306",
+      "cell": "c_hall_01",
+      "min": [20.5, 3.2, 11.4],
+      "max": [25.8, 6.6, 11.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "concrete_raw" }
+    },
+    {
+      "id": "b_wall_0307",
+      "cell": "c_tech_05",
+      "min": [6.2, 3.2, 0],
+      "max": [6.4, 6.6, 1.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0308",
+      "cell": "c_tech_05",
+      "min": [6.2, 5.5, 1.2],
+      "max": [6.4, 6.6, 2.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0309", "cell": "c_tech_05", "min": [6.2, 3.2, 1.2], "max": [6.4, 3.4, 2.2], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0310",
+      "cell": "c_tech_05",
+      "min": [6.2, 3.2, 2.2],
+      "max": [6.4, 6.6, 2.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0311",
+      "cell": "c_corr_05",
+      "min": [6.2, 3.2, 2.8],
+      "max": [6.4, 6.3, 3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0312",
+      "cell": "c_store_07",
+      "min": [6.2, 3.2, 3],
+      "max": [6.4, 6.6, 3.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0313",
+      "cell": "c_store_07",
+      "min": [6.2, 5.5, 3.5],
+      "max": [6.4, 6.6, 4.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0314", "cell": "c_store_07", "min": [6.2, 3.2, 3.5], "max": [6.4, 3.4, 4.5], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0315",
+      "cell": "c_store_07",
+      "min": [6.2, 3.2, 4.5],
+      "max": [6.4, 6.6, 5.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0316",
+      "cell": "c_corr_05",
+      "min": [6.2, 3.2, 5.8],
+      "max": [6.4, 6.3, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0317",
+      "cell": "c_office_06",
+      "min": [6.2, 3.2, 6],
+      "max": [6.4, 6.6, 10.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0318",
+      "cell": "c_corr_05",
+      "min": [6.2, 3.2, 10.2],
+      "max": [6.4, 6.3, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0319",
+      "cell": "c_corr_04",
+      "min": [6.2, 3.2, 10.4],
+      "max": [6.4, 6.3, 10.65],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0320",
+      "cell": "c_corr_04",
+      "min": [6.2, 5.8, 10.65],
+      "max": [6.4, 6.3, 12.25],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0321", "cell": "c_corr_04", "min": [6.2, 3.2, 10.65], "max": [6.4, 3.4, 12.25], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0322",
+      "cell": "c_corr_04",
+      "min": [6.2, 3.2, 12.25],
+      "max": [6.4, 6.3, 12.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0323",
+      "cell": "c_corr_05",
+      "min": [6.2, 3.2, 12.5],
+      "max": [6.4, 6.3, 12.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0324",
+      "cell": "c_store_08",
+      "min": [6.2, 3.2, 12.7],
+      "max": [6.4, 6.6, 14.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0325",
+      "cell": "c_store_08",
+      "min": [6.2, 5.5, 14.15],
+      "max": [6.4, 6.6, 15.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0326", "cell": "c_store_08", "min": [6.2, 3.2, 14.15], "max": [6.4, 3.4, 15.95], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0327",
+      "cell": "c_store_08",
+      "min": [6.2, 3.2, 15.95],
+      "max": [6.4, 6.6, 16.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0328",
+      "cell": "c_corr_05",
+      "min": [6.2, 3.2, 16.6],
+      "max": [6.4, 6.3, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0329",
+      "cell": "c_office_07",
+      "min": [6.2, 3.2, 16.8],
+      "max": [6.4, 6.6, 19],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0330",
+      "cell": "c_office_07",
+      "min": [6.2, 5.5, 19],
+      "max": [6.4, 6.6, 20],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0331", "cell": "c_office_07", "min": [6.2, 3.2, 19], "max": [6.4, 3.4, 20], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0332",
+      "cell": "c_office_07",
+      "min": [6.2, 3.2, 20],
+      "max": [6.4, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0333",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 0],
+      "max": [8.4, 6.6, 1.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0334",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 1.4],
+      "max": [8.4, 6.6, 2.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0335", "cell": "c_corr_05", "min": [8.2, 3.2, 1.4], "max": [8.4, 3.4, 2.4], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0336",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 2.4],
+      "max": [8.4, 6.6, 3.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0337",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 3.1],
+      "max": [8.4, 6.3, 3.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0338",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 3.3],
+      "max": [8.4, 6.6, 3.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0339",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 3.95],
+      "max": [8.4, 6.6, 4.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_green" }
+    },
+    { "id": "b_floor_0340", "cell": "c_corr_05", "min": [8.2, 3.2, 3.95], "max": [8.4, 3.4, 4.95], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0341",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 4.95],
+      "max": [8.4, 6.6, 6.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0342",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 6.2],
+      "max": [8.4, 6.3, 6.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0343",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 6.4],
+      "max": [8.4, 6.6, 7.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0344",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 7.5],
+      "max": [8.4, 6.6, 8.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0345", "cell": "c_corr_05", "min": [8.2, 3.2, 7.5], "max": [8.4, 3.4, 8.5], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0346",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 8.5],
+      "max": [8.4, 6.6, 9.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0347",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 9.7],
+      "max": [8.4, 6.3, 9.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0348",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 9.9],
+      "max": [8.4, 6.6, 10.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0349",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 10.2],
+      "max": [8.4, 6.6, 11.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_floor_0350", "cell": "c_corr_05", "min": [8.2, 3.2, 10.2], "max": [8.4, 3.4, 11.2], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0351",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 11.2],
+      "max": [8.4, 6.6, 12.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0352",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 12.9],
+      "max": [8.4, 6.3, 13.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0353",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 13.1],
+      "max": [8.4, 6.6, 16.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0354",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 16.55],
+      "max": [8.4, 6.6, 17.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    { "id": "b_floor_0355", "cell": "c_corr_05", "min": [8.2, 3.2, 16.55], "max": [8.4, 3.4, 17.55], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0356",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 17.55],
+      "max": [8.4, 6.6, 17.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0357",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 17.9],
+      "max": [8.4, 6.3, 18.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0358",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 18.1],
+      "max": [8.4, 6.6, 20.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0359",
+      "cell": "c_corr_05",
+      "min": [8.2, 5.5, 20.8],
+      "max": [8.4, 6.6, 21.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    { "id": "b_floor_0360", "cell": "c_corr_05", "min": [8.2, 3.2, 20.8], "max": [8.4, 3.4, 21.8], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0361",
+      "cell": "c_corr_05",
+      "min": [8.2, 3.2, 21.8],
+      "max": [8.4, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0362",
+      "cell": "c_tech_06",
+      "min": [0, 3.2, 10.2],
+      "max": [0.95, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0363",
+      "cell": "c_tech_06",
+      "min": [0.95, 5.5, 10.2],
+      "max": [1.95, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0364", "cell": "c_tech_06", "min": [0.95, 3.2, 10.2], "max": [1.95, 3.4, 10.4], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0365",
+      "cell": "c_tech_06",
+      "min": [1.95, 3.2, 10.2],
+      "max": [3, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0366",
+      "cell": "c_corr_04",
+      "min": [3, 3.2, 10.2],
+      "max": [3.2, 6.3, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0367",
+      "cell": "c_office_06",
+      "min": [3.2, 3.2, 10.2],
+      "max": [3.65, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0368",
+      "cell": "c_office_06",
+      "min": [3.65, 5.5, 10.2],
+      "max": [4.65, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0369", "cell": "c_office_06", "min": [3.65, 3.2, 10.2], "max": [4.65, 3.4, 10.4], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0370",
+      "cell": "c_office_06",
+      "min": [4.65, 3.2, 10.2],
+      "max": [6.2, 6.6, 10.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0371",
+      "cell": "c_corr_04",
+      "min": [0, 3.2, 12.5],
+      "max": [6.2, 6.6, 12.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0372",
+      "cell": "c_tech_04",
+      "min": [0, 3.2, 5.8],
+      "max": [0.9, 6.6, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0373",
+      "cell": "c_tech_04",
+      "min": [0.9, 5.5, 5.8],
+      "max": [1.9, 6.6, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_green" }
+    },
+    { "id": "b_floor_0374", "cell": "c_tech_04", "min": [0.9, 3.2, 5.8], "max": [1.9, 3.4, 6], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0375",
+      "cell": "c_tech_04",
+      "min": [1.9, 3.2, 5.8],
+      "max": [3, 6.6, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0376", "cell": "c_tech_04", "min": [3, 3.2, 5.8], "max": [3.2, 6.6, 6], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0377",
+      "cell": "c_store_07",
+      "min": [3.2, 3.2, 5.8],
+      "max": [6.2, 6.6, 6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0378",
+      "cell": "c_tech_04",
+      "min": [3, 3.2, 0],
+      "max": [3.2, 6.6, 2.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0379",
+      "cell": "c_tech_04",
+      "min": [3, 3.2, 2.8],
+      "max": [3.2, 6.6, 3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0380",
+      "cell": "c_tech_04",
+      "min": [3, 3.2, 3],
+      "max": [3.2, 6.6, 5.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0381",
+      "cell": "c_tech_05",
+      "min": [3.2, 3.2, 2.8],
+      "max": [6.2, 6.6, 3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0382",
+      "cell": "c_tech_06",
+      "min": [3, 3.2, 6],
+      "max": [3.2, 6.6, 10.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0383",
+      "cell": "c_store_08",
+      "min": [0, 3.2, 16.6],
+      "max": [0.7, 6.6, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0384",
+      "cell": "c_store_08",
+      "min": [0.7, 5.5, 16.6],
+      "max": [2.5, 6.6, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "tile_white" }
+    },
+    { "id": "b_floor_0385", "cell": "c_store_08", "min": [0.7, 3.2, 16.6], "max": [2.5, 3.4, 16.8], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0386",
+      "cell": "c_store_08",
+      "min": [2.5, 3.2, 16.6],
+      "max": [3, 6.6, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0387",
+      "cell": "c_store_08",
+      "min": [3, 3.2, 16.6],
+      "max": [3.2, 6.6, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0388",
+      "cell": "c_store_08",
+      "min": [3.2, 3.2, 16.6],
+      "max": [6.2, 6.6, 16.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0389",
+      "cell": "c_lab_05",
+      "min": [3, 3.2, 16.8],
+      "max": [3.2, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0390",
+      "cell": "c_store_11",
+      "min": [8.4, 3.2, 12.9],
+      "max": [13.3, 6.6, 13.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0391",
+      "cell": "c_tech_07",
+      "min": [8.4, 3.2, 6.2],
+      "max": [11.1, 6.6, 6.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0392",
+      "cell": "c_tech_07",
+      "min": [11.1, 5.5, 6.2],
+      "max": [12.1, 6.6, 6.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0393", "cell": "c_tech_07", "min": [11.1, 3.2, 6.2], "max": [12.1, 3.4, 6.4], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0394",
+      "cell": "c_tech_07",
+      "min": [12.1, 3.2, 6.2],
+      "max": [13.3, 6.6, 6.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0395",
+      "cell": "c_store_09",
+      "min": [8.4, 3.2, 3.1],
+      "max": [13.3, 6.6, 3.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0396",
+      "cell": "c_store_10",
+      "min": [8.4, 3.2, 9.7],
+      "max": [13.3, 6.6, 9.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0397",
+      "cell": "c_lab_06",
+      "min": [8.4, 3.2, 17.9],
+      "max": [13.3, 6.6, 18.1],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "tile_white" }
+    },
+    {
+      "id": "b_wall_0398",
+      "cell": "c_store_12",
+      "min": [13.5, 3.2, 4.7],
+      "max": [15.85, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0399",
+      "cell": "c_store_12",
+      "min": [15.85, 5.5, 4.7],
+      "max": [17.65, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0400", "cell": "c_store_12", "min": [15.85, 3.2, 4.7], "max": [17.65, 3.4, 4.9], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0401",
+      "cell": "c_store_12",
+      "min": [17.65, 3.2, 4.7],
+      "max": [18.8, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0402",
+      "cell": "c_corr_06",
+      "min": [18.8, 3.2, 4.7],
+      "max": [19, 6.3, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0403",
+      "cell": "c_tech_08",
+      "min": [19, 3.2, 4.7],
+      "max": [20.1, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0404",
+      "cell": "c_tech_08",
+      "min": [20.1, 5.5, 4.7],
+      "max": [21.1, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0405", "cell": "c_tech_08", "min": [20.1, 3.2, 4.7], "max": [21.1, 3.4, 4.9], "mat": "metal_floor", "tag": "floor" },
+    {
+      "id": "b_wall_0406",
+      "cell": "c_tech_08",
+      "min": [21.1, 3.2, 4.7],
+      "max": [22.3, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_green", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0407",
+      "cell": "c_corr_06",
+      "min": [22.3, 3.2, 4.7],
+      "max": [22.5, 6.3, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0408",
+      "cell": "c_store_13",
+      "min": [22.5, 3.2, 4.7],
+      "max": [23.45, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0409",
+      "cell": "c_store_13",
+      "min": [23.45, 5.5, 4.7],
+      "max": [24.45, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0410", "cell": "c_store_13", "min": [23.45, 3.2, 4.7], "max": [24.45, 3.4, 4.9], "mat": "concrete_smooth", "tag": "floor" },
+    {
+      "id": "b_wall_0411",
+      "cell": "c_store_13",
+      "min": [24.45, 3.2, 4.7],
+      "max": [25.8, 6.6, 4.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0412",
+      "cell": "c_corr_06",
+      "min": [13.5, 3.2, 6.7],
+      "max": [13.9, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0413",
+      "cell": "c_corr_06",
+      "min": [13.9, 5.5, 6.7],
+      "max": [14.9, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0414", "cell": "c_corr_06", "min": [13.9, 3.2, 6.7], "max": [14.9, 3.4, 6.9], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0415",
+      "cell": "c_corr_06",
+      "min": [14.9, 3.2, 6.7],
+      "max": [16.9, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0416",
+      "cell": "c_corr_06",
+      "min": [16.9, 3.2, 6.7],
+      "max": [17.1, 6.3, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0417",
+      "cell": "c_corr_06",
+      "min": [17.1, 3.2, 6.7],
+      "max": [17.35, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0418",
+      "cell": "c_corr_06",
+      "min": [17.35, 5.5, 6.7],
+      "max": [18.35, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    { "id": "b_floor_0419", "cell": "c_corr_06", "min": [17.35, 3.2, 6.7], "max": [18.35, 3.4, 6.9], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0420",
+      "cell": "c_corr_06",
+      "min": [18.35, 3.2, 6.7],
+      "max": [20.3, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0421",
+      "cell": "c_corr_06",
+      "min": [20.3, 3.2, 6.7],
+      "max": [20.5, 6.3, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0422",
+      "cell": "c_corr_06",
+      "min": [20.5, 3.2, 6.7],
+      "max": [20.95, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0423",
+      "cell": "c_corr_06",
+      "min": [20.95, 5.5, 6.7],
+      "max": [21.95, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    { "id": "b_floor_0424", "cell": "c_corr_06", "min": [20.95, 3.2, 6.7], "max": [21.95, 3.4, 6.9], "mat": "lino_grey", "tag": "floor" },
+    {
+      "id": "b_wall_0425",
+      "cell": "c_corr_06",
+      "min": [21.95, 3.2, 6.7],
+      "max": [25.8, 6.6, 6.9],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0426",
+      "cell": "c_store_12",
+      "min": [18.8, 3.2, 0],
+      "max": [19, 6.6, 4.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_green" }
+    },
+    {
+      "id": "b_wall_0427",
+      "cell": "c_tech_08",
+      "min": [22.3, 3.2, 0],
+      "max": [22.5, 6.6, 4.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_green", "+x": "plaster_grey" }
+    },
+    {
+      "id": "b_wall_0428",
+      "cell": "c_store_15",
+      "min": [20.3, 3.2, 6.9],
+      "max": [20.5, 6.6, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_light" }
+    },
+    {
+      "id": "b_wall_0429",
+      "cell": "c_store_14",
+      "min": [16.9, 3.2, 6.9],
+      "max": [17.1, 6.6, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "plaster_grey" }
+    },
+    { "id": "b_wall_0430", "cell": "c_tech_04", "min": [-0.2, 3.2, -0.2], "max": [0, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0431",
+      "cell": "c_tech_04",
+      "min": [0, 3.2, -0.2],
+      "max": [3, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0432", "cell": "c_tech_04", "min": [3, 3.2, -0.2], "max": [3.2, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0433",
+      "cell": "c_tech_05",
+      "min": [3.2, 3.2, -0.2],
+      "max": [6.2, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0434", "cell": "c_tech_05", "min": [6.2, 3.2, -0.2], "max": [6.4, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0435",
+      "cell": "c_corr_05",
+      "min": [6.4, 3.2, -0.2],
+      "max": [8.2, 6.3, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0436", "cell": "c_corr_05", "min": [8.2, 3.2, -0.2], "max": [8.4, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0437",
+      "cell": "c_store_09",
+      "min": [8.4, 3.2, -0.2],
+      "max": [13.3, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0438", "cell": "c_store_09", "min": [13.3, 3.2, -0.2], "max": [13.5, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0439",
+      "cell": "c_store_12",
+      "min": [13.5, 3.2, -0.2],
+      "max": [18.8, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0440", "cell": "c_store_12", "min": [18.8, 3.2, -0.2], "max": [19, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0441",
+      "cell": "c_tech_08",
+      "min": [19, 3.2, -0.2],
+      "max": [22.3, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_green" }
+    },
+    { "id": "b_wall_0442", "cell": "c_tech_08", "min": [22.3, 3.2, -0.2], "max": [22.5, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0443",
+      "cell": "c_store_13",
+      "min": [22.5, 3.2, -0.2],
+      "max": [25.8, 6.6, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+z": "plaster_grey" }
+    },
+    { "id": "b_wall_0444", "cell": "c_store_13", "min": [25.8, 3.2, -0.2], "max": [26, 6.6, 0], "mat": "concrete_raw", "tag": "wall" },
+    { "id": "b_wall_0445", "cell": "c_lab_05", "min": [-0.2, 3.2, 22.2], "max": [0, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0446",
+      "cell": "c_lab_05",
+      "min": [0, 3.2, 22.2],
+      "max": [3, 6.6, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white" }
+    },
+    { "id": "b_wall_0447", "cell": "c_lab_05", "min": [3, 3.2, 22.2], "max": [3.2, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0448",
+      "cell": "c_office_07",
+      "min": [3.2, 3.2, 22.2],
+      "max": [6.2, 6.6, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light" }
+    },
+    { "id": "b_wall_0449", "cell": "c_office_07", "min": [6.2, 3.2, 22.2], "max": [6.4, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0450",
+      "cell": "c_corr_05",
+      "min": [6.4, 3.2, 22.2],
+      "max": [8.2, 6.3, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey" }
+    },
+    { "id": "b_wall_0451", "cell": "c_corr_05", "min": [8.2, 3.2, 22.2], "max": [8.4, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0452",
+      "cell": "c_lab_07",
+      "min": [8.4, 3.2, 22.2],
+      "max": [13.3, 6.6, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white" }
+    },
+    { "id": "b_wall_0453", "cell": "c_lab_07", "min": [13.3, 3.2, 22.2], "max": [13.5, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0454",
+      "cell": "c_hall_01",
+      "min": [13.5, 3.2, 22.2],
+      "max": [25.8, 6.6, 22.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "concrete_raw" }
+    },
+    { "id": "b_wall_0455", "cell": "c_hall_01", "min": [25.8, 3.2, 22.2], "max": [26, 6.6, 22.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0456",
+      "cell": "c_tech_04",
+      "min": [-0.2, 3.2, 0],
+      "max": [0, 6.6, 5.8],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_green" }
+    },
+    { "id": "b_wall_0457", "cell": "c_tech_04", "min": [-0.2, 3.2, 5.8], "max": [0, 6.6, 6], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0458",
+      "cell": "c_tech_06",
+      "min": [-0.2, 3.2, 6],
+      "max": [0, 6.6, 10.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_green" }
+    },
+    { "id": "b_wall_0459", "cell": "c_tech_06", "min": [-0.2, 3.2, 10.2], "max": [0, 6.6, 10.4], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0460",
+      "cell": "c_corr_04",
+      "min": [-0.2, 3.2, 10.4],
+      "max": [0, 6.3, 12.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    { "id": "b_wall_0461", "cell": "c_corr_04", "min": [-0.2, 3.2, 12.5], "max": [0, 6.6, 12.7], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0462",
+      "cell": "c_store_08",
+      "min": [-0.2, 3.2, 12.7],
+      "max": [0, 6.6, 16.6],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "plaster_grey" }
+    },
+    { "id": "b_wall_0463", "cell": "c_store_08", "min": [-0.2, 3.2, 16.6], "max": [0, 6.6, 16.8], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0464",
+      "cell": "c_lab_05",
+      "min": [-0.2, 3.2, 16.8],
+      "max": [0, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "+x": "tile_white" }
+    },
+    {
+      "id": "b_wall_0465",
+      "cell": "c_store_13",
+      "min": [25.8, 3.2, 0],
+      "max": [26, 6.6, 4.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    { "id": "b_wall_0466", "cell": "c_store_13", "min": [25.8, 3.2, 4.7], "max": [26, 6.6, 4.9], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0467",
+      "cell": "c_corr_06",
+      "min": [25.8, 3.2, 4.9],
+      "max": [26, 6.3, 6.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey" }
+    },
+    { "id": "b_wall_0468", "cell": "c_corr_06", "min": [25.8, 3.2, 6.7], "max": [26, 6.6, 6.9], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0469",
+      "cell": "c_office_08",
+      "min": [25.8, 3.2, 6.9],
+      "max": [26, 6.6, 11.4],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light" }
+    },
+    { "id": "b_wall_0470", "cell": "c_office_08", "min": [25.8, 3.2, 11.4], "max": [26, 6.6, 11.6], "mat": "concrete_raw", "tag": "wall" },
+    {
+      "id": "b_wall_0471",
+      "cell": "c_hall_01",
+      "min": [25.8, 3.2, 11.6],
+      "max": [26, 6.6, 22.2],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "concrete_raw" }
+    },
+    { "id": "b_gallery_0472", "cell": "c_hall_01", "min": [13.5, 3.2, 11.6], "max": [25.8, 3.4, 13.2], "mat": "metal_floor", "tag": "gallery" },
+    { "id": "b_gallery_0473", "cell": "c_hall_01", "min": [13.5, 3.2, 20.6], "max": [25.8, 3.4, 22.2], "mat": "metal_floor", "tag": "gallery" },
+    { "id": "b_gallery_0474", "cell": "c_hall_01", "min": [13.5, 3.2, 13.2], "max": [15.1, 3.4, 20.6], "mat": "metal_floor", "tag": "gallery" },
+    { "id": "b_gallery_0475", "cell": "c_hall_01", "min": [24.2, 3.2, 13.2], "max": [25.8, 3.4, 20.6], "mat": "metal_floor", "tag": "gallery" },
+    { "id": "b_stair_0476", "cell": "c_hall_01", "min": [20.14, 0, 19.4], "max": [20.42, 0.17, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0477", "cell": "c_hall_01", "min": [19.86, 0, 19.4], "max": [20.14, 0.34, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0478", "cell": "c_hall_01", "min": [19.58, 0, 19.4], "max": [19.86, 0.51, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0479", "cell": "c_hall_01", "min": [19.3, 0, 19.4], "max": [19.58, 0.68, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0480", "cell": "c_hall_01", "min": [19.02, 0, 19.4], "max": [19.3, 0.85, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0481", "cell": "c_hall_01", "min": [18.74, 0, 19.4], "max": [19.02, 1.02, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0482", "cell": "c_hall_01", "min": [18.46, 0, 19.4], "max": [18.74, 1.19, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0483", "cell": "c_hall_01", "min": [18.18, 0, 19.4], "max": [18.46, 1.36, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0484", "cell": "c_hall_01", "min": [17.9, 0, 19.4], "max": [18.18, 1.53, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0485", "cell": "c_hall_01", "min": [17.62, 0, 19.4], "max": [17.9, 1.7, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0486", "cell": "c_hall_01", "min": [17.34, 0, 19.4], "max": [17.62, 1.87, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0487", "cell": "c_hall_01", "min": [17.06, 0, 19.4], "max": [17.34, 2.04, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0488", "cell": "c_hall_01", "min": [16.78, 0, 19.4], "max": [17.06, 2.21, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0489", "cell": "c_hall_01", "min": [16.5, 0, 19.4], "max": [16.78, 2.38, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0490", "cell": "c_hall_01", "min": [16.22, 0, 19.4], "max": [16.5, 2.55, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0491", "cell": "c_hall_01", "min": [15.94, 0, 19.4], "max": [16.22, 2.72, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0492", "cell": "c_hall_01", "min": [15.66, 0, 19.4], "max": [15.94, 2.89, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0493", "cell": "c_hall_01", "min": [15.38, 0, 19.4], "max": [15.66, 3.06, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0494", "cell": "c_hall_01", "min": [15.1, 0, 19.4], "max": [15.38, 3.23, 20.6], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_pillar_0495", "cell": "c_hall_01", "min": [14.75, 0, 12.85], "max": [15.05, 3.2, 13.15], "mat": "concrete_raw", "tag": "pillar" },
+    { "id": "b_pillar_0496", "cell": "c_hall_01", "min": [24.25, 0, 12.85], "max": [24.55, 3.2, 13.15], "mat": "concrete_raw", "tag": "pillar" },
+    { "id": "b_pillar_0497", "cell": "c_hall_01", "min": [14.75, 0, 20.65], "max": [15.05, 3.2, 20.95], "mat": "concrete_raw", "tag": "pillar" },
+    { "id": "b_pillar_0498", "cell": "c_hall_01", "min": [24.25, 0, 20.65], "max": [24.55, 3.2, 20.95], "mat": "concrete_raw", "tag": "pillar" }
+  ],
+  "entities": [
+    { "id": "e_door_01", "prefab": "door_sliding_01", "cell": "c_corr_01", "pos": [7.6, 0, 6.5], "rot": [0, 90, 0] },
+    { "id": "e_door_02", "prefab": "door_steel_01", "cell": "c_corr_01", "pos": [7.6, 0, 21.1], "rot": [0, -90, 0] },
+    { "id": "e_door_03", "prefab": "door_steel_01", "cell": "c_corr_02", "pos": [13.4, 0, 9.65], "rot": [0, -90, 0] },
+    { "id": "e_door_04", "prefab": "door_steel_01", "cell": "c_corr_03", "pos": [14.95, 0, 7], "rot": [0, 180, 0] },
+    { "id": "e_door_05", "prefab": "door_wood_01", "cell": "c_corr_03", "pos": [21.45, 0, 7], "rot": [0, 180, 0] },
+    { "id": "e_door_06", "prefab": "door_steel_01", "cell": "c_store_04", "pos": [21.5, 0, 4.9], "rot": [0, 0, 0] },
+    { "id": "e_door_07", "prefab": "door_wood_01", "cell": "c_office_04", "pos": [15.25, 0, 4.9], "rot": [0, 0, 0] },
+    { "id": "e_door_08", "prefab": "door_sliding_01", "cell": "c_lab_02", "pos": [5.5, 0, 4.7], "rot": [0, -90, 0] },
+    { "id": "e_door_09", "prefab": "door_steel_01", "cell": "c_corr_01", "pos": [7.6, 0, 13.25], "rot": [0, -90, 0] },
+    { "id": "e_door_10", "prefab": "door_wood_01", "cell": "c_office_01", "pos": [5.5, 0, 11.95], "rot": [0, 90, 0] },
+    { "id": "e_door_11", "prefab": "door_sliding_01", "cell": "c_tech_03", "pos": [25, 0, 4.9], "rot": [0, 180, 0] },
+    { "id": "e_door_12", "prefab": "door_steel_01", "cell": "c_store_03", "pos": [13.4, 0, 20.7], "rot": [0, 90, 0] },
+    { "id": "e_door_13", "prefab": "door_sliding_01", "cell": "c_lab_01", "pos": [5.5, 0, 2.05], "rot": [0, 90, 0] },
+    { "id": "e_door_14", "prefab": "door_steel_01", "cell": "c_corr_03", "pos": [17.7, 0, 7], "rot": [0, 180, 0] },
+    { "id": "e_door_15", "prefab": "door_sliding_01", "cell": "c_corr_01", "pos": [7.6, 0, 1.5], "rot": [0, -90, 0] },
+    { "id": "e_door_16", "prefab": "door_wood_01", "cell": "c_corr_01", "pos": [7.6, 0, 17.6], "rot": [0, -90, 0] },
+    { "id": "e_door_17", "prefab": "door_steel_01", "cell": "c_store_01", "pos": [5.5, 0, 9.55], "rot": [0, 90, 0] },
+    { "id": "e_door_18", "prefab": "door_wood_01", "cell": "c_office_02", "pos": [5.5, 0, 19.3], "rot": [0, 90, 0] },
+    { "id": "e_door_19", "prefab": "door_sliding_01", "cell": "c_tech_01", "pos": [5.5, 0, 16.25], "rot": [0, 90, 0] },
+    { "id": "e_door_20", "prefab": "door_sliding_01", "cell": "c_tech_02", "pos": [18.35, 0, 4.9], "rot": [0, 180, 0] },
+    { "id": "e_door_21", "prefab": "door_steel_01", "cell": "c_store_14", "pos": [14.75, 3.4, 11.5], "rot": [0, 0, 0] },
+    { "id": "e_door_22", "prefab": "door_steel_01", "cell": "c_corr_06", "pos": [14.4, 3.4, 6.8], "rot": [0, 180, 0] },
+    { "id": "e_door_23", "prefab": "door_sliding_01", "cell": "c_tech_08", "pos": [20.6, 3.4, 4.8], "rot": [0, 180, 0] },
+    { "id": "e_door_24", "prefab": "door_steel_01", "cell": "c_store_13", "pos": [23.95, 3.4, 4.8], "rot": [0, 0, 0] },
+    {
+      "id": "e_door_25",
+      "prefab": "door_dleft_01",
+      "cell": "c_store_12",
+      "pos": [16.75, 3.4, 4.8],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_26", "input": "open" },
+        { "on": "closed", "target": "e_door_26", "input": "close" }
+      ]
+    },
+    {
+      "id": "e_door_26",
+      "prefab": "door_dright_01",
+      "cell": "c_store_12",
+      "pos": [16.75, 3.4, 4.8],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_25", "input": "open" },
+        { "on": "closed", "target": "e_door_25", "input": "close" }
+      ]
+    },
+    { "id": "e_door_27", "prefab": "door_steel_01", "cell": "c_corr_06", "pos": [17.85, 3.4, 6.8], "rot": [0, 180, 0] },
+    { "id": "e_door_28", "prefab": "door_wood_01", "cell": "c_corr_06", "pos": [21.45, 3.4, 6.8], "rot": [0, 180, 0] },
+    { "id": "e_door_29", "prefab": "door_steel_01", "cell": "c_lab_07", "pos": [13.4, 3.4, 20.4], "rot": [0, 90, 0] },
+    { "id": "e_door_30", "prefab": "door_sliding_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 21.3], "rot": [0, 90, 0] },
+    { "id": "e_door_31", "prefab": "door_steel_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 10.7], "rot": [0, -90, 0] },
+    { "id": "e_door_32", "prefab": "door_sliding_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 17.05], "rot": [0, 90, 0] },
+    { "id": "e_door_33", "prefab": "door_sliding_01", "cell": "c_tech_06", "pos": [1.45, 3.4, 10.3], "rot": [0, 0, 0] },
+    { "id": "e_door_34", "prefab": "door_wood_01", "cell": "c_office_06", "pos": [4.15, 3.4, 10.3], "rot": [0, 0, 0] },
+    { "id": "e_door_35", "prefab": "door_wood_01", "cell": "c_office_07", "pos": [6.3, 3.4, 19.5], "rot": [0, 90, 0] },
+    { "id": "e_door_36", "prefab": "door_steel_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 1.9], "rot": [0, -90, 0] },
+    {
+      "id": "e_door_37",
+      "prefab": "door_dleft_01",
+      "cell": "c_store_08",
+      "pos": [6.3, 3.4, 15.05],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_38", "input": "open" },
+        { "on": "closed", "target": "e_door_38", "input": "close" }
+      ]
+    },
+    {
+      "id": "e_door_38",
+      "prefab": "door_dright_01",
+      "cell": "c_store_08",
+      "pos": [6.3, 3.4, 15.05],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_37", "input": "open" },
+        { "on": "closed", "target": "e_door_37", "input": "close" }
+      ]
+    },
+    { "id": "e_door_39", "prefab": "door_steel_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 8], "rot": [0, -90, 0] },
+    { "id": "e_door_40", "prefab": "door_steel_01", "cell": "c_corr_05", "pos": [8.3, 3.4, 4.45], "rot": [0, -90, 0] },
+    { "id": "e_door_41", "prefab": "door_sliding_01", "cell": "c_tech_05", "pos": [6.3, 3.4, 1.7], "rot": [0, 90, 0] },
+    { "id": "e_door_42", "prefab": "door_steel_01", "cell": "c_store_07", "pos": [6.3, 3.4, 4], "rot": [0, 90, 0] },
+    {
+      "id": "e_door_43",
+      "prefab": "door_dleft_01",
+      "cell": "c_store_08",
+      "pos": [1.6, 3.4, 16.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_44", "input": "open" },
+        { "on": "closed", "target": "e_door_44", "input": "close" }
+      ]
+    },
+    {
+      "id": "e_door_44",
+      "prefab": "door_dright_01",
+      "cell": "c_store_08",
+      "pos": [1.6, 3.4, 16.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "opened", "target": "e_door_43", "input": "open" },
+        { "on": "closed", "target": "e_door_43", "input": "close" }
+      ]
+    },
+    {
+      "id": "e_door_45",
+      "prefab": "door_steel_01",
+      "cell": "c_tech_04",
+      "pos": [1.4, 3.4, 5.9],
+      "rot": [0, 0, 0],
+      "props": { "locked": true }
+    },
+    { "id": "e_door_46", "prefab": "door_wood_01", "cell": "c_office_03", "pos": [13.4, 0, 18.35], "rot": [0, 90, 0] },
+    { "id": "e_door_47", "prefab": "door_steel_01", "cell": "c_store_06", "pos": [19.55, 0, 11.5], "rot": [0, 0, 0] },
+    { "id": "e_door_48", "prefab": "door_wood_01", "cell": "c_office_05", "pos": [24.55, 0, 11.5], "rot": [0, 0, 0] },
+    { "id": "e_door_49", "prefab": "door_steel_01", "cell": "c_store_15", "pos": [18.1, 3.4, 11.5], "rot": [0, 0, 0] },
+    { "id": "e_door_50", "prefab": "door_sliding_01", "cell": "c_tech_07", "pos": [11.6, 3.4, 6.3], "rot": [0, 180, 0] },
+    { "id": "e_rail_01", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [16.15, 3.4, 13.16], "rot": [0, 0, 0] },
+    { "id": "e_rail_02", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [18.15, 3.4, 13.16], "rot": [0, 0, 0] },
+    { "id": "e_rail_03", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [20.15, 3.4, 13.16], "rot": [0, 0, 0] },
+    { "id": "e_rail_04", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [22.15, 3.4, 13.16], "rot": [0, 0, 0] },
+    { "id": "e_rail_05", "prefab": "railing_steel_02", "cell": "c_hall_01", "pos": [23.65, 3.4, 13.16], "rot": [0, 0, 0] },
+    { "id": "e_rail_06", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [16.15, 3.4, 20.64], "rot": [0, 0, 0] },
+    { "id": "e_rail_07", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [18.15, 3.4, 20.64], "rot": [0, 0, 0] },
+    { "id": "e_rail_08", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [20.15, 3.4, 20.64], "rot": [0, 0, 0] },
+    { "id": "e_rail_09", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [22.15, 3.4, 20.64], "rot": [0, 0, 0] },
+    { "id": "e_rail_10", "prefab": "railing_steel_02", "cell": "c_hall_01", "pos": [23.65, 3.4, 20.64], "rot": [0, 0, 0] },
+    { "id": "e_rail_11", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [15.06, 3.4, 14.3], "rot": [0, 90, 0] },
+    { "id": "e_rail_12", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [15.06, 3.4, 16.3], "rot": [0, 90, 0] },
+    { "id": "e_rail_13", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [15.06, 3.4, 18.3], "rot": [0, 90, 0] },
+    { "id": "e_rail_14", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [24.24, 3.4, 14.4], "rot": [0, 90, 0] },
+    { "id": "e_rail_15", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [24.24, 3.4, 16.4], "rot": [0, 90, 0] },
+    { "id": "e_rail_16", "prefab": "railing_steel_01", "cell": "c_hall_01", "pos": [24.24, 3.4, 18.4], "rot": [0, 90, 0] },
+    { "id": "e_rail_17", "prefab": "railing_steel_02", "cell": "c_hall_01", "pos": [24.24, 3.4, 19.9], "rot": [0, 90, 0] },
+    {
+      "id": "e_button_call_01",
+      "prefab": "button_call_01",
+      "cell": "c_corr_01",
+      "pos": [7.5, 1.2, 5.74],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_01", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_02",
+      "prefab": "button_call_01",
+      "cell": "c_lab_04",
+      "pos": [7.7, 1.2, 5.74],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_01", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_03",
+      "prefab": "button_call_01",
+      "cell": "c_lab_02",
+      "pos": [5.4, 1.2, 5.46],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_08", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_04",
+      "prefab": "button_call_01",
+      "cell": "c_corr_01",
+      "pos": [5.6, 1.2, 5.46],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_08", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_05",
+      "prefab": "button_call_01",
+      "cell": "c_tech_03",
+      "pos": [24.24, 1.2, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_11", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_06",
+      "prefab": "button_call_01",
+      "cell": "c_corr_03",
+      "pos": [24.24, 1.2, 5],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_11", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_07",
+      "prefab": "button_call_01",
+      "cell": "c_lab_01",
+      "pos": [5.4, 1.2, 1.29],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_13", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_08",
+      "prefab": "button_call_01",
+      "cell": "c_corr_01",
+      "pos": [5.6, 1.2, 1.29],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_13", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_09",
+      "prefab": "button_call_01",
+      "cell": "c_corr_01",
+      "pos": [7.5, 1.2, 2.26],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_15", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_10",
+      "prefab": "button_call_01",
+      "cell": "c_lab_03",
+      "pos": [7.7, 1.2, 2.26],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_15", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_11",
+      "prefab": "button_call_01",
+      "cell": "c_tech_01",
+      "pos": [5.4, 1.2, 15.49],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_19", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_12",
+      "prefab": "button_call_01",
+      "cell": "c_corr_01",
+      "pos": [5.6, 1.2, 15.49],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_19", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_13",
+      "prefab": "button_call_01",
+      "cell": "c_tech_02",
+      "pos": [17.59, 1.2, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_20", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_14",
+      "prefab": "button_call_01",
+      "cell": "c_corr_03",
+      "pos": [17.59, 1.2, 5],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_20", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_15",
+      "prefab": "button_call_01",
+      "cell": "c_tech_08",
+      "pos": [19.84, 4.6, 4.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_23", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_16",
+      "prefab": "button_call_01",
+      "cell": "c_corr_06",
+      "pos": [19.84, 4.6, 4.9],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_23", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_17",
+      "prefab": "button_call_01",
+      "cell": "c_corr_05",
+      "pos": [8.2, 4.6, 20.54],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_30", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_18",
+      "prefab": "button_call_01",
+      "cell": "c_lab_07",
+      "pos": [8.4, 4.6, 20.54],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_30", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_19",
+      "prefab": "button_call_01",
+      "cell": "c_corr_05",
+      "pos": [8.2, 4.6, 16.29],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_32", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_20",
+      "prefab": "button_call_01",
+      "cell": "c_lab_06",
+      "pos": [8.4, 4.6, 16.29],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_32", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_21",
+      "prefab": "button_call_01",
+      "cell": "c_tech_06",
+      "pos": [2.21, 4.6, 10.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_33", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_22",
+      "prefab": "button_call_01",
+      "cell": "c_corr_04",
+      "pos": [2.21, 4.6, 10.4],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_33", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_23",
+      "prefab": "button_call_01",
+      "cell": "c_tech_05",
+      "pos": [6.2, 4.6, 0.94],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_41", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_24",
+      "prefab": "button_call_01",
+      "cell": "c_corr_05",
+      "pos": [6.4, 4.6, 0.94],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_41", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_25",
+      "prefab": "button_call_01",
+      "cell": "c_tech_07",
+      "pos": [10.84, 4.6, 6.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_50", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_26",
+      "prefab": "button_call_01",
+      "cell": "c_store_10",
+      "pos": [10.84, 4.6, 6.4],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_50", "input": "toggle" }
+      ]
+    },
+    { "id": "e_lamp_pendant_01", "prefab": "lamp_pendant_01", "cell": "c_hall_01", "pos": [16.58, 6.4, 14.25], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_02", "prefab": "lamp_pendant_01", "cell": "c_hall_01", "pos": [16.58, 6.4, 19.55], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_03", "prefab": "lamp_pendant_01", "cell": "c_hall_01", "pos": [22.73, 6.4, 14.25], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_04", "prefab": "lamp_pendant_01", "cell": "c_hall_01", "pos": [22.73, 6.4, 19.55], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_01", "prefab": "lamp_panel_01", "cell": "c_lab_01", "pos": [2.7, 3, 1.5], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_02", "prefab": "lamp_panel_01", "cell": "c_lab_02", "pos": [2.7, 3, 4.75], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_03", "prefab": "lamp_panel_01", "cell": "c_store_01", "pos": [2.7, 3, 8.65], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_05", "prefab": "lamp_pendant_01", "cell": "c_office_01", "pos": [2.7, 3, 12.5], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_04", "prefab": "lamp_panel_01", "cell": "c_tech_01", "pos": [2.7, 3, 15.65], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_06", "prefab": "lamp_pendant_01", "cell": "c_office_02", "pos": [2.7, 3, 19.75], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_05", "prefab": "lamp_panel_01", "cell": "c_corr_01", "pos": [6.55, 2.7, 2.78], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_06", "prefab": "lamp_panel_01", "cell": "c_corr_01", "pos": [6.55, 2.7, 8.33], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_07", "prefab": "lamp_panel_01", "cell": "c_corr_01", "pos": [6.55, 2.7, 13.88], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_08", "prefab": "lamp_panel_01", "cell": "c_corr_01", "pos": [6.55, 2.7, 19.43], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_09", "prefab": "lamp_panel_01", "cell": "c_lab_03", "pos": [10.5, 3, 1.95], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_10", "prefab": "lamp_panel_01", "cell": "c_lab_04", "pos": [10.5, 3, 6.25], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_11", "prefab": "lamp_panel_01", "cell": "c_corr_02", "pos": [10.5, 2.7, 9.55], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_12", "prefab": "lamp_panel_01", "cell": "c_store_02", "pos": [10.5, 3, 13.45], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_07", "prefab": "lamp_pendant_01", "cell": "c_office_03", "pos": [10.5, 3, 17.8], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_13", "prefab": "lamp_panel_01", "cell": "c_store_03", "pos": [10.5, 3, 20.8], "rot": [0, 0, 0] },
+    { "id": "e_lamp_pendant_08", "prefab": "lamp_pendant_01", "cell": "c_office_04", "pos": [14.95, 3, 2.4], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_14", "prefab": "lamp_panel_01", "cell": "c_tech_02", "pos": [18.1, 3, 2.4], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_15", "prefab": "lamp_panel_01", "cell": "c_store_04", "pos": [21.25, 3, 2.4], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_16", "prefab": "lamp_panel_01", "cell": "c_tech_03", "pos": [24.35, 3, 2.4], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_17", "prefab": "lamp_panel_01", "cell": "c_corr_03", "pos": [16.58, 2.7, 5.95], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_18", "prefab": "lamp_panel_01", "cell": "c_corr_03", "pos": [22.73, 2.7, 5.95], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_19", "prefab": "lamp_panel_01", "cell": "c_store_05", "pos": [15.1, 3, 9.25], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_20", "prefab": "lamp_panel_01", "cell": "c_store_06", "pos": [18.6, 3, 9.25], "rot": [0, 90, 0] },
+    { "id": "e_lamp_pendant_09", "prefab": "lamp_pendant_01", "cell": "c_office_05", "pos": [23.15, 3, 9.25], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_21", "prefab": "lamp_panel_01", "cell": "c_tech_04", "pos": [1.5, 6.4, 2.9], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_22", "prefab": "lamp_panel_01", "cell": "c_tech_05", "pos": [4.7, 6.4, 1.4], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_23", "prefab": "lamp_panel_01", "cell": "c_store_07", "pos": [4.7, 6.4, 4.4], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_24", "prefab": "lamp_panel_01", "cell": "c_tech_06", "pos": [1.5, 6.4, 8.1], "rot": [0, 90, 0] },
+    { "id": "e_lamp_pendant_10", "prefab": "lamp_pendant_01", "cell": "c_office_06", "pos": [4.7, 6.4, 8.1], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_25", "prefab": "lamp_panel_01", "cell": "c_corr_04", "pos": [3.1, 6.1, 11.45], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_26", "prefab": "lamp_panel_01", "cell": "c_store_08", "pos": [3.1, 6.4, 14.65], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_27", "prefab": "lamp_panel_01", "cell": "c_lab_05", "pos": [1.5, 6.4, 19.5], "rot": [0, 90, 0] },
+    { "id": "e_lamp_pendant_11", "prefab": "lamp_pendant_01", "cell": "c_office_07", "pos": [4.7, 6.4, 19.5], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_28", "prefab": "lamp_panel_01", "cell": "c_corr_05", "pos": [7.3, 6.1, 2.78], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_29", "prefab": "lamp_panel_01", "cell": "c_corr_05", "pos": [7.3, 6.1, 8.33], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_30", "prefab": "lamp_panel_01", "cell": "c_corr_05", "pos": [7.3, 6.1, 13.88], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_31", "prefab": "lamp_panel_01", "cell": "c_corr_05", "pos": [7.3, 6.1, 19.43], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_32", "prefab": "lamp_panel_01", "cell": "c_store_09", "pos": [10.85, 6.4, 1.55], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_33", "prefab": "lamp_panel_01", "cell": "c_tech_07", "pos": [10.85, 6.4, 4.75], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_34", "prefab": "lamp_panel_01", "cell": "c_store_10", "pos": [10.85, 6.4, 8.05], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_35", "prefab": "lamp_panel_01", "cell": "c_store_11", "pos": [10.85, 6.4, 11.4], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_36", "prefab": "lamp_panel_01", "cell": "c_lab_06", "pos": [10.85, 6.4, 15.5], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_37", "prefab": "lamp_panel_01", "cell": "c_lab_07", "pos": [10.85, 6.4, 20.15], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_38", "prefab": "lamp_panel_01", "cell": "c_store_12", "pos": [16.15, 6.4, 2.35], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_39", "prefab": "lamp_panel_01", "cell": "c_tech_08", "pos": [20.65, 6.4, 2.35], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_40", "prefab": "lamp_panel_01", "cell": "c_store_13", "pos": [24.15, 6.4, 2.35], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_41", "prefab": "lamp_panel_01", "cell": "c_corr_06", "pos": [16.58, 6.1, 5.8], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_42", "prefab": "lamp_panel_01", "cell": "c_corr_06", "pos": [22.73, 6.1, 5.8], "rot": [0, 0, 0] },
+    { "id": "e_lamp_panel_43", "prefab": "lamp_panel_01", "cell": "c_store_14", "pos": [15.2, 6.4, 9.15], "rot": [0, 90, 0] },
+    { "id": "e_lamp_panel_44", "prefab": "lamp_panel_01", "cell": "c_store_15", "pos": [18.7, 6.4, 9.15], "rot": [0, 90, 0] },
+    { "id": "e_lamp_pendant_12", "prefab": "lamp_pendant_01", "cell": "c_office_08", "pos": [23.15, 6.4, 9.15], "rot": [0, 0, 0] },
+    {
+      "id": "e_switch_rocker_01",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_01",
+      "pos": [5.4, 1.3, 2.79],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_01", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_01", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_02",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_02",
+      "pos": [5.4, 1.3, 3.96],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_02", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_02", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_03",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_01",
+      "pos": [5.4, 1.3, 10.29],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_03", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_03", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_04",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_01",
+      "pos": [5.4, 1.3, 12.69],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_05", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_05", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_05",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_01",
+      "pos": [5.4, 1.3, 16.99],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_04", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_04", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_06",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_02",
+      "pos": [5.4, 1.3, 20.04],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_06", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_06", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_07",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_03",
+      "pos": [7.7, 1.3, 0.76],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_09", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_09", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_08",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_04",
+      "pos": [7.7, 1.3, 7.24],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_10", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_10", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_09",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_02",
+      "pos": [7.7, 1.3, 13.99],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_12", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_12", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_10",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_03",
+      "pos": [7.7, 1.3, 18.34],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_07", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_07", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_11",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_03",
+      "pos": [7.7, 1.3, 21.84],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_13", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_13", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_12",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_04",
+      "pos": [15.99, 1.3, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_08", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_08", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_13",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_02",
+      "pos": [19.09, 1.3, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_14", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_14", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_14",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_04",
+      "pos": [22.24, 1.3, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_15", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_15", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_15",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_03",
+      "pos": [25.74, 1.3, 4.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_16", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_16", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_16",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_05",
+      "pos": [13.5, 1.3, 10.39],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_19", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_19", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_17",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_06",
+      "pos": [18.44, 1.3, 7.1],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_20", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_20", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_18",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_05",
+      "pos": [22.19, 1.3, 7.1],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_09", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_09", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_19",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_04",
+      "pos": [2.14, 4.7, 5.8],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_21", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_21", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_20",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_05",
+      "pos": [6.2, 4.7, 2.44],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_22", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_22", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_21",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_07",
+      "pos": [6.2, 4.7, 4.74],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_23", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_23", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_22",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_06",
+      "pos": [0.71, 4.7, 10.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_24", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_24", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_23",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_06",
+      "pos": [4.89, 4.7, 10.2],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_10", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_10", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_24",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_08",
+      "pos": [6.2, 4.7, 16.19],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_26", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_26", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_25",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_05",
+      "pos": [2.74, 4.7, 16.8],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_27", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_27", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_26",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_07",
+      "pos": [6.2, 4.7, 20.24],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_11", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_11", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_27",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_09",
+      "pos": [8.4, 4.7, 2.64],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_32", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_32", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_28",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_07",
+      "pos": [8.4, 4.7, 5.19],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_33", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_33", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_29",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_10",
+      "pos": [8.4, 4.7, 8.74],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_34", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_34", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_30",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_11",
+      "pos": [8.4, 4.7, 11.44],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_35", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_35", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_31",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_06",
+      "pos": [8.4, 4.7, 17.79],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_36", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_36", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_32",
+      "prefab": "switch_rocker_01",
+      "cell": "c_lab_07",
+      "pos": [13.3, 4.7, 21.14],
+      "rot": [0, -90, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_37", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_37", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_33",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_12",
+      "pos": [17.89, 4.7, 4.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_38", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_38", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_34",
+      "prefab": "switch_rocker_01",
+      "cell": "c_tech_08",
+      "pos": [21.34, 4.7, 4.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_39", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_39", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_35",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_13",
+      "pos": [24.69, 4.7, 4.7],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_40", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_40", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_36",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_14",
+      "pos": [15.49, 4.7, 11.4],
+      "rot": [0, 180, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_43", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_43", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_37",
+      "prefab": "switch_rocker_01",
+      "cell": "c_store_15",
+      "pos": [18.59, 4.7, 6.9],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_panel_44", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_panel_44", "input": "turnOff" }
+      ]
+    },
+    {
+      "id": "e_switch_rocker_38",
+      "prefab": "switch_rocker_01",
+      "cell": "c_office_08",
+      "pos": [22.19, 4.7, 6.9],
+      "rot": [0, 0, 0],
+      "io": [
+        { "on": "on", "target": "e_lamp_pendant_12", "input": "turnOn" },
+        { "on": "off", "target": "e_lamp_pendant_12", "input": "turnOff" }
+      ]
+    },
+    { "id": "e_table_work_01", "prefab": "table_work_01", "cell": "c_hall_01", "pos": [14.5, 0, 21.78], "rot": [0, 180, 0] },
+    { "id": "e_terminal_wall_01", "prefab": "terminal_wall_01", "cell": "c_hall_01", "pos": [15.88, 1.35, 22.2], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_01", "prefab": "shelf_rack_02", "cell": "c_hall_01", "pos": [17.12, 0, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_02", "prefab": "shelf_rack_01", "cell": "c_hall_01", "pos": [18.42, 0, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_barrel_steel_01", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [19.4805, 0, 21.8695], "rot": [0, 180, 0] },
+    { "id": "e_crate_large_01", "prefab": "crate_large_01", "cell": "c_hall_01", "pos": [20.5, 0, 21.78], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_01", "prefab": "crate_plank_01", "cell": "c_hall_01", "pos": [20.5, 0.8, 21.78], "rot": [0, 158, 0] },
+    { "id": "e_bench_metal_01", "prefab": "bench_metal_01", "cell": "c_hall_01", "pos": [21.95, 0, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_crate_large_02", "prefab": "crate_large_01", "cell": "c_hall_01", "pos": [23.3, 0, 21.78], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_02", "prefab": "crate_plank_01", "cell": "c_hall_01", "pos": [23.3, 0.8, 21.78], "rot": [0, 176, 0] },
+    { "id": "e_lever_floor_01", "prefab": "lever_floor_01", "cell": "c_hall_01", "pos": [24.22, 0, 21.654], "rot": [0, 180, 0] },
+    { "id": "e_barrel_steel_02", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [20.07, 0, 14.42], "rot": [0, 0, 0] },
+    { "id": "e_barrel_steel_03", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [18.27, 0, 13.96], "rot": [0, 90, 0] },
+    { "id": "e_barrel_steel_04", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [22.79, 0, 17.31], "rot": [0, 90, 0] },
+    { "id": "e_barrel_steel_05", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [20.75, 0, 17.85], "rot": [0, 45, 0] },
+    { "id": "e_table_lab_01", "prefab": "table_lab_01", "cell": "c_lab_01", "pos": [1.1, 0, 0.395], "rot": [0, 0, 0] },
+    { "id": "e_microscope_01", "prefab": "microscope_01", "cell": "c_lab_01", "pos": [0.65, 0.9, 0.375], "rot": [0, 0, 0] },
+    { "id": "e_centrifuge_bench_01", "prefab": "centrifuge_bench_01", "cell": "c_lab_01", "pos": [1.55, 0.9, 0.375], "rot": [0, 0, 0] },
+    { "id": "e_tap_wall_01", "prefab": "tap_wall_01", "cell": "c_lab_01", "pos": [1.1, 1.18, 0], "rot": [0, 0, 0] },
+    { "id": "e_fumehood_01", "prefab": "fumehood_01", "cell": "c_lab_01", "pos": [2.85, 0, 0.42], "rot": [0, 0, 0] },
+    { "id": "e_cabinet_file_01", "prefab": "cabinet_file_01", "cell": "c_lab_01", "pos": [3.88, 0, 0.33], "rot": [0, 0, 0] },
+    { "id": "e_table_lab_02", "prefab": "table_lab_01", "cell": "c_lab_01", "pos": [0.395, 0, 1.7], "rot": [0, 90, 0] },
+    { "id": "e_microscope_02", "prefab": "microscope_01", "cell": "c_lab_01", "pos": [0.375, 0.9, 2.15], "rot": [0, 90, 0] },
+    { "id": "e_terminal_desk_01", "prefab": "terminal_desk_01", "cell": "c_lab_01", "pos": [0.375, 0.9, 1.25], "rot": [0, 90, 0] },
+    { "id": "e_table_lab_03", "prefab": "table_lab_01", "cell": "c_lab_02", "pos": [0.395, 0, 4.5], "rot": [0, 90, 0] },
+    { "id": "e_microscope_03", "prefab": "microscope_01", "cell": "c_lab_02", "pos": [0.375, 0.9, 4.95], "rot": [0, 90, 0] },
+    { "id": "e_terminal_desk_02", "prefab": "terminal_desk_01", "cell": "c_lab_02", "pos": [0.375, 0.9, 4.05], "rot": [0, 90, 0] },
+    { "id": "e_tap_wall_02", "prefab": "tap_wall_01", "cell": "c_lab_02", "pos": [0, 1.18, 4.5], "rot": [0, 90, 0] },
+    { "id": "e_cabinet_door_01", "prefab": "cabinet_door_01", "cell": "c_lab_02", "pos": [0.22, 0, 5.7], "rot": [0, 90, 0] },
+    { "id": "e_fumehood_02", "prefab": "fumehood_01", "cell": "c_lab_02", "pos": [1.7, 0, 5.88], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_02", "prefab": "cabinet_file_01", "cell": "c_lab_02", "pos": [2.78, 0, 5.97], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_03", "prefab": "shelf_rack_02", "cell": "c_store_01", "pos": [0.22, 0, 7.55], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_04", "prefab": "shelf_rack_01", "cell": "c_store_01", "pos": [0.22, 0, 9.2], "rot": [0, 90, 0] },
+    { "id": "e_barrel_steel_06", "prefab": "barrel_steel_01", "cell": "c_store_01", "pos": [0.3305, 0, 10.3605], "rot": [0, 90, 0] },
+    { "id": "e_crate_steel_01", "prefab": "crate_steel_01", "cell": "c_store_01", "pos": [0.924, 0, 6.776], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_05", "prefab": "shelf_rack_02", "cell": "c_store_01", "pos": [2.45, 0, 6.72], "rot": [0, 0, 0] },
+    { "id": "e_desk_office_01", "prefab": "desk_office_01", "cell": "c_office_01", "pos": [0.8, 0, 13.63], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_03", "prefab": "terminal_desk_01", "cell": "c_office_01", "pos": [1.15, 0.74, 13.65], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_01", "prefab": "lamp_desk_01", "cell": "c_office_01", "pos": [0.45, 0.74, 13.65], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_03", "prefab": "cabinet_file_01", "cell": "c_office_01", "pos": [1.98, 0, 13.67], "rot": [0, 180, 0] },
+    { "id": "e_table_work_02", "prefab": "table_work_01", "cell": "c_office_01", "pos": [3.31, 0, 13.58], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_01", "prefab": "chair_plain_01", "cell": "c_office_01", "pos": [3.31, 0, 12.78], "rot": [0, 360, 0] },
+    { "id": "e_bench_metal_02", "prefab": "bench_metal_01", "cell": "c_office_01", "pos": [1.15, 0, 11.22], "rot": [0, 0, 0] },
+    { "id": "e_valve_gate_01", "prefab": "valve_gate_01", "cell": "c_tech_01", "pos": [0.45, 1.1, 17.1], "rot": [0, 180, 0] },
+    { "id": "e_pipe_double_01", "prefab": "pipe_double_01", "cell": "c_tech_01", "pos": [1.95, 2.35, 17.1], "rot": [0, 180, 0] },
+    { "id": "e_terminal_wall_02", "prefab": "terminal_wall_01", "cell": "c_tech_01", "pos": [3.33, 1.35, 17.1], "rot": [0, 180, 0] },
+    { "id": "e_pipe_straight_01", "prefab": "pipe_straight_01", "cell": "c_tech_01", "pos": [1.3, 2.35, 14.2], "rot": [0, 0, 0] },
+    { "id": "e_desk_office_02", "prefab": "desk_office_01", "cell": "c_office_02", "pos": [1, 0, 21.83], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_04", "prefab": "terminal_desk_01", "cell": "c_office_02", "pos": [1.35, 0.74, 21.85], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_02", "prefab": "lamp_desk_01", "cell": "c_office_02", "pos": [0.65, 0.74, 21.85], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_04", "prefab": "cabinet_file_01", "cell": "c_office_02", "pos": [2.23, 0, 21.87], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_06", "prefab": "shelf_rack_01", "cell": "c_office_02", "pos": [3.36, 0, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_door_02", "prefab": "cabinet_door_01", "cell": "c_office_02", "pos": [4.51, 0, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_02", "prefab": "chair_plain_01", "cell": "c_office_02", "pos": [5.18, 0, 17.9], "rot": [0, -90, 0] },
+    { "id": "e_pipe_straight_02", "prefab": "pipe_straight_01", "cell": "c_corr_01", "pos": [5.6, 2.35, 1.1], "rot": [0, 90, 0] },
+    { "id": "e_table_lab_04", "prefab": "table_lab_01", "cell": "c_lab_03", "pos": [8.9, 0, 0.395], "rot": [0, 0, 0] },
+    { "id": "e_centrifuge_bench_02", "prefab": "centrifuge_bench_01", "cell": "c_lab_03", "pos": [8.45, 0.9, 0.375], "rot": [0, 0, 0] },
+    { "id": "e_microscope_04", "prefab": "microscope_01", "cell": "c_lab_03", "pos": [9.35, 0.9, 0.375], "rot": [0, 0, 0] },
+    { "id": "e_tap_wall_03", "prefab": "tap_wall_01", "cell": "c_lab_03", "pos": [8.9, 1.18, 0], "rot": [0, 0, 0] },
+    { "id": "e_fumehood_03", "prefab": "fumehood_01", "cell": "c_lab_03", "pos": [10.65, 0, 0.42], "rot": [0, 0, 0] },
+    { "id": "e_fridge_lab_01", "prefab": "fridge_lab_01", "cell": "c_lab_03", "pos": [12.1, 0, 0.345], "rot": [0, 0, 0] },
+    { "id": "e_table_lab_05", "prefab": "table_lab_01", "cell": "c_lab_03", "pos": [8.7, 0, 3.505], "rot": [0, 180, 0] },
+    { "id": "e_centrifuge_bench_03", "prefab": "centrifuge_bench_01", "cell": "c_lab_03", "pos": [9.15, 0.9, 3.525], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_05", "prefab": "terminal_desk_01", "cell": "c_lab_03", "pos": [8.25, 0.9, 3.525], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_07", "prefab": "shelf_rack_01", "cell": "c_lab_03", "pos": [10.4, 0, 3.68], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_door_03", "prefab": "cabinet_door_01", "cell": "c_lab_04", "pos": [7.92, 0, 7.65], "rot": [0, 90, 0] },
+    { "id": "e_table_lab_06", "prefab": "table_lab_01", "cell": "c_lab_04", "pos": [9.6, 0, 8.005], "rot": [0, 180, 0] },
+    { "id": "e_microscope_05", "prefab": "microscope_01", "cell": "c_lab_04", "pos": [10.05, 0.9, 8.025], "rot": [0, 180, 0] },
+    { "id": "e_microscope_06", "prefab": "microscope_01", "cell": "c_lab_04", "pos": [9.15, 0.9, 8.025], "rot": [0, 180, 0] },
+    { "id": "e_tap_wall_04", "prefab": "tap_wall_01", "cell": "c_lab_04", "pos": [9.6, 1.18, 8.4], "rot": [0, 180, 0] },
+    { "id": "e_fumehood_04", "prefab": "fumehood_01", "cell": "c_lab_04", "pos": [11.35, 0, 7.98], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_03", "prefab": "chair_plain_01", "cell": "c_lab_04", "pos": [12.45, 0, 8.18], "rot": [0, 180, 0] },
+    { "id": "e_table_lab_07", "prefab": "table_lab_01", "cell": "c_lab_04", "pos": [12.905, 0, 5.1], "rot": [0, -90, 0] },
+    { "id": "e_centrifuge_bench_04", "prefab": "centrifuge_bench_01", "cell": "c_lab_04", "pos": [12.925, 0.9, 4.65], "rot": [0, -90, 0] },
+    { "id": "e_terminal_desk_06", "prefab": "terminal_desk_01", "cell": "c_lab_04", "pos": [12.925, 0.9, 5.55], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_08", "prefab": "shelf_rack_02", "cell": "c_store_02", "pos": [8.75, 0, 15.98], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_09", "prefab": "shelf_rack_01", "cell": "c_store_02", "pos": [10.35, 0, 15.98], "rot": [0, 180, 0] },
+    { "id": "e_crate_steel_02", "prefab": "crate_steel_01", "cell": "c_store_02", "pos": [11.424, 0, 15.924], "rot": [0, 180, 0] },
+    { "id": "e_crate_steel_03", "prefab": "crate_steel_01", "cell": "c_store_02", "pos": [12.474, 0, 15.924], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_10", "prefab": "shelf_rack_02", "cell": "c_store_02", "pos": [8.85, 0, 10.92], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_11", "prefab": "shelf_rack_01", "cell": "c_store_02", "pos": [10.45, 0, 10.92], "rot": [0, 0, 0] },
+    { "id": "e_crate_plank_03", "prefab": "crate_plank_01", "cell": "c_store_02", "pos": [10.36, 0, 12.19], "rot": [0, 45, 0] },
+    { "id": "e_crate_plank_04", "prefab": "crate_plank_01", "cell": "c_store_02", "pos": [10.36, 0.6, 12.19], "rot": [0, 47, 0] },
+    { "id": "e_crate_plank_05", "prefab": "crate_plank_01", "cell": "c_store_02", "pos": [11.37, 0, 14.87], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_06", "prefab": "crate_plank_01", "cell": "c_store_02", "pos": [11.37, 0.6, 14.87], "rot": [0, 90, 0] },
+    { "id": "e_cabinet_file_05", "prefab": "cabinet_file_01", "cell": "c_office_03", "pos": [8.03, 0, 18.73], "rot": [0, 90, 0] },
+    { "id": "e_desk_office_03", "prefab": "desk_office_01", "cell": "c_office_03", "pos": [9.7, 0, 18.83], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_07", "prefab": "terminal_desk_01", "cell": "c_office_03", "pos": [10.05, 0.74, 18.85], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_03", "prefab": "lamp_desk_01", "cell": "c_office_03", "pos": [9.35, 0.74, 18.85], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_06", "prefab": "cabinet_file_01", "cell": "c_office_03", "pos": [10.98, 0, 18.87], "rot": [0, 180, 0] },
+    { "id": "e_table_work_03", "prefab": "table_work_01", "cell": "c_office_03", "pos": [9.8, 0, 16.82], "rot": [0, 0, 0] },
+    { "id": "e_chair_plain_04", "prefab": "chair_plain_01", "cell": "c_office_03", "pos": [9.8, 0, 17.62], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_12", "prefab": "shelf_rack_02", "cell": "c_store_03", "pos": [8.75, 0, 19.62], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_13", "prefab": "shelf_rack_01", "cell": "c_store_03", "pos": [10.25, 0, 19.62], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_14", "prefab": "shelf_rack_02", "cell": "c_store_03", "pos": [11.8, 0, 19.62], "rot": [0, 0, 0] },
+    { "id": "e_crate_steel_04", "prefab": "crate_steel_01", "cell": "c_store_03", "pos": [9.424, 0, 21.924], "rot": [0, 180, 0] },
+    { "id": "e_desk_office_04", "prefab": "desk_office_01", "cell": "c_office_04", "pos": [14.4, 0, 0.37], "rot": [0, 0, 0] },
+    { "id": "e_terminal_desk_08", "prefab": "terminal_desk_01", "cell": "c_office_04", "pos": [14.05, 0.74, 0.35], "rot": [0, 0, 0] },
+    { "id": "e_lamp_desk_04", "prefab": "lamp_desk_01", "cell": "c_office_04", "pos": [14.75, 0.74, 0.35], "rot": [0, 0, 0] },
+    { "id": "e_cabinet_file_07", "prefab": "cabinet_file_01", "cell": "c_office_04", "pos": [15.68, 0, 0.33], "rot": [0, 0, 0] },
+    { "id": "e_table_work_04", "prefab": "table_work_01", "cell": "c_office_04", "pos": [13.92, 0, 2], "rot": [0, 90, 0] },
+    { "id": "e_chair_plain_05", "prefab": "chair_plain_01", "cell": "c_office_04", "pos": [14.72, 0, 2], "rot": [0, 270, 0] },
+    { "id": "e_cabinet_door_04", "prefab": "cabinet_door_01", "cell": "c_office_04", "pos": [13.72, 0, 3.4], "rot": [0, 90, 0] },
+    { "id": "e_valve_gate_02", "prefab": "valve_gate_01", "cell": "c_tech_02", "pos": [17.35, 1.1, 0], "rot": [0, 0, 0] },
+    { "id": "e_terminal_wall_03", "prefab": "terminal_wall_01", "cell": "c_tech_02", "pos": [18.33, 1.35, 0], "rot": [0, 0, 0] },
+    { "id": "e_lever_knife_01", "prefab": "lever_knife_01", "cell": "c_tech_02", "pos": [18.96, 1.4, 0], "rot": [0, 0, 0] },
+    { "id": "e_pipe_double_02", "prefab": "pipe_double_01", "cell": "c_tech_02", "pos": [16.6, 2.35, 1.2], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_15", "prefab": "shelf_rack_02", "cell": "c_store_04", "pos": [22.48, 0, 1.05], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_16", "prefab": "shelf_rack_01", "cell": "c_store_04", "pos": [22.48, 0, 2.7], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_17", "prefab": "shelf_rack_02", "cell": "c_store_04", "pos": [22.48, 0, 4], "rot": [0, -90, 0] },
+    { "id": "e_barrel_steel_07", "prefab": "barrel_steel_01", "cell": "c_store_04", "pos": [20.3105, 0, 4.4695], "rot": [0, 180, 0] },
+    { "id": "e_valve_gate_03", "prefab": "valve_gate_01", "cell": "c_tech_03", "pos": [23.35, 1.1, 0], "rot": [0, 0, 0] },
+    { "id": "e_terminal_wall_04", "prefab": "terminal_wall_01", "cell": "c_tech_03", "pos": [24.38, 1.35, 0], "rot": [0, 0, 0] },
+    { "id": "e_lever_knife_02", "prefab": "lever_knife_01", "cell": "c_tech_03", "pos": [25.01, 1.4, 0], "rot": [0, 0, 0] },
+    { "id": "e_pipe_double_03", "prefab": "pipe_double_01", "cell": "c_tech_03", "pos": [25.8, 2.35, 1.1], "rot": [0, -90, 0] },
+    { "id": "e_pipe_straight_03", "prefab": "pipe_straight_01", "cell": "c_corr_03", "pos": [14.9, 2.35, 6.9], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_18", "prefab": "shelf_rack_02", "cell": "c_store_05", "pos": [14.55, 0, 11.18], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_19", "prefab": "shelf_rack_01", "cell": "c_store_05", "pos": [16.1, 0, 11.18], "rot": [0, 180, 0] },
+    { "id": "e_crate_steel_05", "prefab": "crate_steel_01", "cell": "c_store_05", "pos": [13.776, 0, 7.824], "rot": [0, 90, 0] },
+    { "id": "e_barrel_steel_08", "prefab": "barrel_steel_01", "cell": "c_store_05", "pos": [16.1105, 0, 7.4305], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_20", "prefab": "shelf_rack_02", "cell": "c_store_06", "pos": [17.75, 0, 11.18], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_21", "prefab": "shelf_rack_01", "cell": "c_store_06", "pos": [19.1, 0, 7.32], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_22", "prefab": "shelf_rack_01", "cell": "c_store_06", "pos": [20.08, 0, 7.9], "rot": [0, -90, 0] },
+    { "id": "e_crate_large_03", "prefab": "crate_large_01", "cell": "c_store_06", "pos": [19.88, 0, 9.15], "rot": [0, -90, 0] },
+    { "id": "e_crate_plank_07", "prefab": "crate_plank_01", "cell": "c_store_06", "pos": [19.88, 0.8, 9.15], "rot": [0, -83, 0] },
+    { "id": "e_desk_office_05", "prefab": "desk_office_01", "cell": "c_office_05", "pos": [21.6, 0, 11.03], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_09", "prefab": "terminal_desk_01", "cell": "c_office_05", "pos": [21.95, 0.74, 11.05], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_05", "prefab": "lamp_desk_01", "cell": "c_office_05", "pos": [21.25, 0.74, 11.05], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_08", "prefab": "cabinet_file_01", "cell": "c_office_05", "pos": [22.78, 0, 11.07], "rot": [0, 180, 0] },
+    { "id": "e_table_work_05", "prefab": "table_work_01", "cell": "c_office_05", "pos": [25.38, 0, 8], "rot": [0, -90, 0] },
+    { "id": "e_chair_plain_06", "prefab": "chair_plain_01", "cell": "c_office_05", "pos": [24.58, 0, 8], "rot": [0, 90, 0] },
+    { "id": "e_chair_plain_07", "prefab": "chair_plain_01", "cell": "c_office_05", "pos": [25.58, 0, 9.15], "rot": [0, -90, 0] },
+    { "id": "e_cabinet_file_09", "prefab": "cabinet_file_01", "cell": "c_office_05", "pos": [25.47, 0, 9.88], "rot": [0, -90, 0] },
+    { "id": "e_valve_gate_04", "prefab": "valve_gate_01", "cell": "c_tech_04", "pos": [3, 4.5, 0.75], "rot": [0, -90, 0] },
+    { "id": "e_pipe_double_04", "prefab": "pipe_double_01", "cell": "c_tech_04", "pos": [3, 5.75, 2.3], "rot": [0, -90, 0] },
+    { "id": "e_terminal_wall_05", "prefab": "terminal_wall_01", "cell": "c_tech_04", "pos": [3, 4.75, 3.98], "rot": [0, -90, 0] },
+    { "id": "e_cabinet_door_05", "prefab": "cabinet_door_01", "cell": "c_tech_04", "pos": [2.78, 3.4, 4.77], "rot": [0, -90, 0] },
+    { "id": "e_lever_knife_03", "prefab": "lever_knife_01", "cell": "c_tech_04", "pos": [3, 4.8, 5.31], "rot": [0, -90, 0] },
+    { "id": "e_valve_gate_05", "prefab": "valve_gate_01", "cell": "c_tech_05", "pos": [3.2, 4.5, 0.65], "rot": [0, 90, 0] },
+    { "id": "e_terminal_wall_06", "prefab": "terminal_wall_01", "cell": "c_tech_05", "pos": [3.2, 4.75, 1.53], "rot": [0, 90, 0] },
+    { "id": "e_pipe_double_05", "prefab": "pipe_double_01", "cell": "c_tech_05", "pos": [4.3, 5.75, 2.8], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_23", "prefab": "shelf_rack_02", "cell": "c_store_07", "pos": [4.15, 3.4, 3.22], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_24", "prefab": "shelf_rack_01", "cell": "c_store_07", "pos": [3.42, 3.4, 4.1], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_25", "prefab": "shelf_rack_02", "cell": "c_store_07", "pos": [4.05, 3.4, 5.58], "rot": [0, 180, 0] },
+    { "id": "e_valve_gate_06", "prefab": "valve_gate_01", "cell": "c_tech_06", "pos": [3, 4.5, 6.65], "rot": [0, -90, 0] },
+    { "id": "e_pipe_double_06", "prefab": "pipe_double_01", "cell": "c_tech_06", "pos": [3, 5.75, 8.2], "rot": [0, -90, 0] },
+    { "id": "e_terminal_wall_07", "prefab": "terminal_wall_01", "cell": "c_tech_06", "pos": [3, 4.75, 9.53], "rot": [0, -90, 0] },
+    { "id": "e_barrel_steel_09", "prefab": "barrel_steel_01", "cell": "c_tech_06", "pos": [2.5105, 3.4, 6.3305], "rot": [0, 0, 0] },
+    { "id": "e_desk_office_06", "prefab": "desk_office_01", "cell": "c_office_06", "pos": [3.57, 3.4, 7.1], "rot": [0, 90, 0] },
+    { "id": "e_terminal_desk_10", "prefab": "terminal_desk_01", "cell": "c_office_06", "pos": [3.55, 4.14, 7.45], "rot": [0, 90, 0] },
+    { "id": "e_lamp_desk_06", "prefab": "lamp_desk_01", "cell": "c_office_06", "pos": [3.55, 4.14, 6.75], "rot": [0, 90, 0] },
+    { "id": "e_cabinet_file_10", "prefab": "cabinet_file_01", "cell": "c_office_06", "pos": [3.53, 3.4, 8.23], "rot": [0, 90, 0] },
+    { "id": "e_table_work_06", "prefab": "table_work_01", "cell": "c_office_06", "pos": [5.78, 3.4, 7.2], "rot": [0, -90, 0] },
+    { "id": "e_chair_plain_08", "prefab": "chair_plain_01", "cell": "c_office_06", "pos": [4.98, 3.4, 7.2], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_26", "prefab": "shelf_rack_01", "cell": "c_office_06", "pos": [5.98, 3.4, 8.9], "rot": [0, -90, 0] },
+    { "id": "e_pipe_straight_04", "prefab": "pipe_straight_01", "cell": "c_corr_04", "pos": [1.3, 5.75, 12.5], "rot": [0, 180, 0] },
+    { "id": "e_bench_metal_03", "prefab": "bench_metal_01", "cell": "c_corr_04", "pos": [3.1, 3.4, 12.28], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_27", "prefab": "shelf_rack_02", "cell": "c_store_08", "pos": [0.22, 3.4, 13.65], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_28", "prefab": "shelf_rack_01", "cell": "c_store_08", "pos": [0.22, 3.4, 15.1], "rot": [0, 90, 0] },
+    { "id": "e_crate_large_04", "prefab": "crate_large_01", "cell": "c_store_08", "pos": [3.2, 3.4, 16.18], "rot": [0, 180, 0] },
+    { "id": "e_crate_large_05", "prefab": "crate_large_01", "cell": "c_store_08", "pos": [4.25, 3.4, 16.18], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_08", "prefab": "crate_plank_01", "cell": "c_store_08", "pos": [4.25, 4.2, 16.18], "rot": [0, 197, 0] },
+    { "id": "e_crate_steel_06", "prefab": "crate_steel_01", "cell": "c_store_08", "pos": [5.924, 3.4, 13.324], "rot": [0, -90, 0] },
+    { "id": "e_table_lab_08", "prefab": "table_lab_01", "cell": "c_lab_05", "pos": [0.395, 3.4, 19], "rot": [0, 90, 0] },
+    { "id": "e_microscope_07", "prefab": "microscope_01", "cell": "c_lab_05", "pos": [0.375, 4.3, 19.45], "rot": [0, 90, 0] },
+    { "id": "e_microscope_08", "prefab": "microscope_01", "cell": "c_lab_05", "pos": [0.375, 4.3, 18.55], "rot": [0, 90, 0] },
+    { "id": "e_tap_wall_05", "prefab": "tap_wall_01", "cell": "c_lab_05", "pos": [0, 4.58, 19], "rot": [0, 90, 0] },
+    { "id": "e_fumehood_05", "prefab": "fumehood_01", "cell": "c_lab_05", "pos": [0.42, 3.4, 20.6], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_29", "prefab": "shelf_rack_01", "cell": "c_lab_05", "pos": [2.78, 3.4, 18.6], "rot": [0, -90, 0] },
+    { "id": "e_fridge_lab_02", "prefab": "fridge_lab_01", "cell": "c_lab_05", "pos": [2.655, 3.4, 19.8], "rot": [0, -90, 0] },
+    { "id": "e_desk_office_07", "prefab": "desk_office_01", "cell": "c_office_07", "pos": [4.2, 3.4, 21.83], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_11", "prefab": "terminal_desk_01", "cell": "c_office_07", "pos": [4.55, 4.14, 21.85], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_07", "prefab": "lamp_desk_01", "cell": "c_office_07", "pos": [3.85, 4.14, 21.85], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_11", "prefab": "cabinet_file_01", "cell": "c_office_07", "pos": [5.33, 3.4, 21.87], "rot": [0, 180, 0] },
+    { "id": "e_table_work_07", "prefab": "table_work_01", "cell": "c_office_07", "pos": [5.78, 3.4, 17.9], "rot": [0, -90, 0] },
+    { "id": "e_chair_plain_09", "prefab": "chair_plain_01", "cell": "c_office_07", "pos": [4.98, 3.4, 17.9], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_30", "prefab": "shelf_rack_01", "cell": "c_office_07", "pos": [5.98, 3.4, 20.95], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_31", "prefab": "shelf_rack_02", "cell": "c_store_09", "pos": [9.45, 3.4, 0.22], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_32", "prefab": "shelf_rack_01", "cell": "c_store_09", "pos": [10.9, 3.4, 0.22], "rot": [0, 0, 0] },
+    { "id": "e_barrel_steel_10", "prefab": "barrel_steel_01", "cell": "c_store_09", "pos": [11.9105, 3.4, 0.3305], "rot": [0, 0, 0] },
+    { "id": "e_barrel_steel_11", "prefab": "barrel_steel_01", "cell": "c_store_09", "pos": [12.7405, 3.4, 0.3305], "rot": [0, 0, 0] },
+    { "id": "e_valve_gate_07", "prefab": "valve_gate_01", "cell": "c_tech_07", "pos": [13.3, 4.5, 4.05], "rot": [0, -90, 0] },
+    { "id": "e_terminal_wall_08", "prefab": "terminal_wall_01", "cell": "c_tech_07", "pos": [13.3, 4.75, 4.83], "rot": [0, -90, 0] },
+    { "id": "e_valve_ball_01", "prefab": "valve_ball_01", "cell": "c_tech_07", "pos": [13.3, 4.4, 5.57], "rot": [0, -90, 0] },
+    { "id": "e_pipe_double_07", "prefab": "pipe_double_01", "cell": "c_tech_07", "pos": [8.4, 5.75, 4.7], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_33", "prefab": "shelf_rack_02", "cell": "c_store_10", "pos": [9.55, 3.4, 6.62], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_34", "prefab": "shelf_rack_01", "cell": "c_store_10", "pos": [9, 3.4, 9.48], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_35", "prefab": "shelf_rack_01", "cell": "c_store_10", "pos": [10.25, 3.4, 9.48], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_36", "prefab": "shelf_rack_02", "cell": "c_store_10", "pos": [11.75, 3.4, 9.48], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_37", "prefab": "shelf_rack_01", "cell": "c_store_11", "pos": [8.62, 3.4, 12.1], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_38", "prefab": "shelf_rack_02", "cell": "c_store_11", "pos": [9.65, 3.4, 12.68], "rot": [0, 180, 0] },
+    { "id": "e_crate_steel_07", "prefab": "crate_steel_01", "cell": "c_store_11", "pos": [11.024, 3.4, 12.624], "rot": [0, 180, 0] },
+    { "id": "e_crate_steel_08", "prefab": "crate_steel_01", "cell": "c_store_11", "pos": [11.974, 3.4, 12.624], "rot": [0, 180, 0] },
+    { "id": "e_table_lab_09", "prefab": "table_lab_01", "cell": "c_lab_06", "pos": [8.795, 3.4, 14.2], "rot": [0, 90, 0] },
+    { "id": "e_centrifuge_bench_05", "prefab": "centrifuge_bench_01", "cell": "c_lab_06", "pos": [8.775, 4.3, 14.65], "rot": [0, 90, 0] },
+    { "id": "e_microscope_09", "prefab": "microscope_01", "cell": "c_lab_06", "pos": [8.775, 4.3, 13.75], "rot": [0, 90, 0] },
+    { "id": "e_tap_wall_06", "prefab": "tap_wall_01", "cell": "c_lab_06", "pos": [8.4, 4.58, 14.2], "rot": [0, 90, 0] },
+    { "id": "e_fumehood_06", "prefab": "fumehood_01", "cell": "c_lab_06", "pos": [10.3, 3.4, 17.48], "rot": [0, 180, 0] },
+    { "id": "e_table_lab_10", "prefab": "table_lab_01", "cell": "c_lab_06", "pos": [12.15, 3.4, 17.505], "rot": [0, 180, 0] },
+    { "id": "e_microscope_10", "prefab": "microscope_01", "cell": "c_lab_06", "pos": [12.6, 4.3, 17.525], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_12", "prefab": "terminal_desk_01", "cell": "c_lab_06", "pos": [11.7, 4.3, 17.525], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_door_06", "prefab": "cabinet_door_01", "cell": "c_lab_06", "pos": [13.08, 3.4, 13.65], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_39", "prefab": "shelf_rack_01", "cell": "c_lab_06", "pos": [13.08, 3.4, 14.45], "rot": [0, -90, 0] },
+    { "id": "e_table_lab_11", "prefab": "table_lab_01", "cell": "c_lab_07", "pos": [9.7, 3.4, 18.495], "rot": [0, 0, 0] },
+    { "id": "e_microscope_11", "prefab": "microscope_01", "cell": "c_lab_07", "pos": [9.25, 4.3, 18.475], "rot": [0, 0, 0] },
+    { "id": "e_microscope_12", "prefab": "microscope_01", "cell": "c_lab_07", "pos": [10.15, 4.3, 18.475], "rot": [0, 0, 0] },
+    { "id": "e_tap_wall_07", "prefab": "tap_wall_01", "cell": "c_lab_07", "pos": [9.7, 4.58, 18.1], "rot": [0, 0, 0] },
+    { "id": "e_fumehood_07", "prefab": "fumehood_01", "cell": "c_lab_07", "pos": [11.5, 3.4, 18.52], "rot": [0, 0, 0] },
+    { "id": "e_cabinet_file_12", "prefab": "cabinet_file_01", "cell": "c_lab_07", "pos": [12.53, 3.4, 18.43], "rot": [0, 0, 0] },
+    { "id": "e_table_lab_12", "prefab": "table_lab_01", "cell": "c_lab_07", "pos": [10.7, 3.4, 21.805], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_13", "prefab": "terminal_desk_01", "cell": "c_lab_07", "pos": [11.15, 4.3, 21.825], "rot": [0, 180, 0] },
+    { "id": "e_centrifuge_bench_06", "prefab": "centrifuge_bench_01", "cell": "c_lab_07", "pos": [10.25, 4.3, 21.825], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_10", "prefab": "chair_plain_01", "cell": "c_lab_07", "pos": [11.95, 3.4, 21.98], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_40", "prefab": "shelf_rack_02", "cell": "c_store_12", "pos": [14.35, 3.4, 0.22], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_41", "prefab": "shelf_rack_01", "cell": "c_store_12", "pos": [15.75, 3.4, 0.22], "rot": [0, 0, 0] },
+    { "id": "e_crate_large_06", "prefab": "crate_large_01", "cell": "c_store_12", "pos": [16.95, 3.4, 0.42], "rot": [0, 0, 0] },
+    { "id": "e_barrel_steel_12", "prefab": "barrel_steel_01", "cell": "c_store_12", "pos": [17.8105, 3.4, 0.3305], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_42", "prefab": "shelf_rack_02", "cell": "c_store_12", "pos": [18.58, 3.4, 0.95], "rot": [0, -90, 0] },
+    { "id": "e_valve_gate_08", "prefab": "valve_gate_01", "cell": "c_tech_08", "pos": [19.75, 4.5, 0], "rot": [0, 0, 0] },
+    { "id": "e_terminal_wall_09", "prefab": "terminal_wall_01", "cell": "c_tech_08", "pos": [20.58, 4.75, 0], "rot": [0, 0, 0] },
+    { "id": "e_cabinet_door_07", "prefab": "cabinet_door_01", "cell": "c_tech_08", "pos": [21.37, 3.4, 0.22], "rot": [0, 0, 0] },
+    { "id": "e_pipe_double_08", "prefab": "pipe_double_01", "cell": "c_tech_08", "pos": [22.3, 5.75, 1.4], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_43", "prefab": "shelf_rack_02", "cell": "c_store_13", "pos": [22.72, 3.4, 1.05], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_44", "prefab": "shelf_rack_01", "cell": "c_store_13", "pos": [22.72, 3.4, 2.7], "rot": [0, 90, 0] },
+    { "id": "e_barrel_steel_13", "prefab": "barrel_steel_01", "cell": "c_store_13", "pos": [22.8305, 3.4, 3.9105], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_45", "prefab": "shelf_rack_01", "cell": "c_store_13", "pos": [25.58, 3.4, 0.6], "rot": [0, -90, 0] },
+    { "id": "e_pipe_straight_05", "prefab": "pipe_straight_01", "cell": "c_corr_06", "pos": [14.7, 5.75, 4.9], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_46", "prefab": "shelf_rack_02", "cell": "c_store_14", "pos": [15.85, 3.4, 7.12], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_47", "prefab": "shelf_rack_01", "cell": "c_store_14", "pos": [16.1, 3.4, 11.18], "rot": [0, 180, 0] },
+    { "id": "e_shelf_rack_48", "prefab": "shelf_rack_02", "cell": "c_store_14", "pos": [16.68, 3.4, 8.15], "rot": [0, -90, 0] },
+    { "id": "e_barrel_steel_14", "prefab": "barrel_steel_01", "cell": "c_store_14", "pos": [16.5695, 3.4, 9.3605], "rot": [0, -90, 0] },
+    { "id": "e_shelf_rack_49", "prefab": "shelf_rack_01", "cell": "c_store_15", "pos": [19.3, 3.4, 7.12], "rot": [0, 0, 0] },
+    { "id": "e_shelf_rack_50", "prefab": "shelf_rack_02", "cell": "c_store_15", "pos": [17.32, 3.4, 9.05], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_09", "prefab": "crate_plank_01", "cell": "c_store_15", "pos": [19.2, 3.4, 11.08], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_10", "prefab": "crate_plank_01", "cell": "c_store_15", "pos": [19.2, 4, 11.08], "rot": [0, 182, 0] },
+    { "id": "e_crate_steel_09", "prefab": "crate_steel_01", "cell": "c_store_15", "pos": [20.024, 3.4, 7.924], "rot": [0, -90, 0] },
+    { "id": "e_desk_office_08", "prefab": "desk_office_01", "cell": "c_office_08", "pos": [21.4, 3.4, 11.03], "rot": [0, 180, 0] },
+    { "id": "e_terminal_desk_14", "prefab": "terminal_desk_01", "cell": "c_office_08", "pos": [21.75, 4.14, 11.05], "rot": [0, 180, 0] },
+    { "id": "e_lamp_desk_08", "prefab": "lamp_desk_01", "cell": "c_office_08", "pos": [21.05, 4.14, 11.05], "rot": [0, 180, 0] },
+    { "id": "e_cabinet_file_13", "prefab": "cabinet_file_01", "cell": "c_office_08", "pos": [22.73, 3.4, 11.07], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_11", "prefab": "chair_plain_01", "cell": "c_office_08", "pos": [23.36, 3.4, 11.18], "rot": [0, 180, 0] },
+    { "id": "e_table_work_08", "prefab": "table_work_01", "cell": "c_office_08", "pos": [24.71, 3.4, 10.98], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_12", "prefab": "chair_plain_01", "cell": "c_office_08", "pos": [24.71, 3.4, 10.18], "rot": [0, 360, 0] },
+    { "id": "e_shelf_rack_51", "prefab": "shelf_rack_01", "cell": "c_office_08", "pos": [22.9, 3.4, 7.12], "rot": [0, 0, 0] },
+    {
+      "id": "e_lever_knife_04",
+      "prefab": "lever_knife_01",
+      "cell": "c_office_02",
+      "pos": [0, 1.4, 18.99],
+      "rot": [0, 90, 0],
+      "io": [
+        { "on": "on", "target": "e_door_45", "input": "unlock" },
+        { "on": "on", "target": "e_door_45", "input": "open", "delay": 0.5 }
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "id": "l_001",
+      "cell": "c_hall_01",
+      "type": "point",
+      "pos": [16.58, 6.1, 14.25],
+      "color": [0.85, 0.93, 1],
+      "intensity": 140,
+      "range": 18,
+      "cast": true
+    },
+    {
+      "id": "l_002",
+      "cell": "c_hall_01",
+      "type": "point",
+      "pos": [16.58, 6.1, 19.55],
+      "color": [0.85, 0.93, 1],
+      "intensity": 140,
+      "range": 18,
+      "cast": true
+    },
+    {
+      "id": "l_003",
+      "cell": "c_hall_01",
+      "type": "point",
+      "pos": [22.73, 6.1, 14.25],
+      "color": [0.85, 0.93, 1],
+      "intensity": 140,
+      "range": 18,
+      "cast": true
+    },
+    {
+      "id": "l_004",
+      "cell": "c_hall_01",
+      "type": "point",
+      "pos": [22.73, 6.1, 19.55],
+      "color": [0.85, 0.93, 1],
+      "intensity": 140,
+      "range": 18,
+      "cast": true
+    },
+    { "id": "l_005", "cell": "c_lab_01", "type": "point", "pos": [2.7, 2.7, 1.5], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    { "id": "l_006", "cell": "c_lab_02", "type": "point", "pos": [2.7, 2.7, 4.75], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    { "id": "l_007", "cell": "c_store_01", "type": "point", "pos": [2.7, 2.7, 8.65], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_008", "cell": "c_office_01", "type": "point", "pos": [2.7, 2.7, 12.5], "color": [1, 0.9, 0.75], "intensity": 11, "range": 9, "cast": true },
+    { "id": "l_009", "cell": "c_tech_01", "type": "point", "pos": [2.7, 2.7, 15.65], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    {
+      "id": "l_010",
+      "cell": "c_office_02",
+      "type": "point",
+      "pos": [2.7, 2.7, 19.75],
+      "color": [1, 0.9, 0.75],
+      "intensity": 11,
+      "range": 9,
+      "cast": true
+    },
+    { "id": "l_011", "cell": "c_corr_01", "type": "point", "pos": [6.55, 2.4, 2.78], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_012", "cell": "c_corr_01", "type": "point", "pos": [6.55, 2.4, 8.33], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_013", "cell": "c_corr_01", "type": "point", "pos": [6.55, 2.4, 13.88], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_014", "cell": "c_corr_01", "type": "point", "pos": [6.55, 2.4, 19.43], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_015", "cell": "c_lab_03", "type": "point", "pos": [10.5, 2.7, 1.95], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    { "id": "l_016", "cell": "c_lab_04", "type": "point", "pos": [10.5, 2.7, 6.25], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    { "id": "l_017", "cell": "c_corr_02", "type": "point", "pos": [10.5, 2.4, 9.55], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_018", "cell": "c_store_02", "type": "point", "pos": [10.5, 2.7, 13.45], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_019",
+      "cell": "c_office_03",
+      "type": "point",
+      "pos": [10.5, 2.7, 17.8],
+      "color": [1, 0.9, 0.75],
+      "intensity": 11,
+      "range": 9,
+      "cast": true
+    },
+    { "id": "l_020", "cell": "c_store_03", "type": "point", "pos": [10.5, 2.7, 20.8], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_021",
+      "cell": "c_office_04",
+      "type": "point",
+      "pos": [14.95, 2.7, 2.4],
+      "color": [1, 0.9, 0.75],
+      "intensity": 11,
+      "range": 9,
+      "cast": true
+    },
+    { "id": "l_022", "cell": "c_tech_02", "type": "point", "pos": [18.1, 2.7, 2.4], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    { "id": "l_023", "cell": "c_store_04", "type": "point", "pos": [21.25, 2.7, 2.4], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_024", "cell": "c_tech_03", "type": "point", "pos": [24.35, 2.7, 2.4], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    { "id": "l_025", "cell": "c_corr_03", "type": "point", "pos": [16.58, 2.4, 5.95], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_026", "cell": "c_corr_03", "type": "point", "pos": [22.73, 2.4, 5.95], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_027", "cell": "c_store_05", "type": "point", "pos": [15.1, 2.7, 9.25], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_028", "cell": "c_store_06", "type": "point", "pos": [18.6, 2.7, 9.25], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_029",
+      "cell": "c_office_05",
+      "type": "point",
+      "pos": [23.15, 2.7, 9.25],
+      "color": [1, 0.9, 0.75],
+      "intensity": 11,
+      "range": 9,
+      "cast": true
+    },
+    { "id": "l_030", "cell": "c_tech_04", "type": "point", "pos": [1.5, 6.1, 2.9], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    { "id": "l_031", "cell": "c_tech_05", "type": "point", "pos": [4.7, 6.1, 1.4], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    { "id": "l_032", "cell": "c_store_07", "type": "point", "pos": [4.7, 6.1, 4.4], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_033", "cell": "c_tech_06", "type": "point", "pos": [1.5, 6.1, 8.1], "color": [0.85, 0.93, 1], "intensity": 14, "range": 8, "cast": true },
+    { "id": "l_034", "cell": "c_office_06", "type": "point", "pos": [4.7, 6.1, 8.1], "color": [1, 0.9, 0.75], "intensity": 11, "range": 9, "cast": true },
+    { "id": "l_035", "cell": "c_corr_04", "type": "point", "pos": [3.1, 5.8, 11.45], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_036", "cell": "c_store_08", "type": "point", "pos": [3.1, 6.1, 14.65], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_037", "cell": "c_lab_05", "type": "point", "pos": [1.5, 6.1, 19.5], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    { "id": "l_038", "cell": "c_office_07", "type": "point", "pos": [4.7, 6.1, 19.5], "color": [1, 0.9, 0.75], "intensity": 11, "range": 9, "cast": true },
+    { "id": "l_039", "cell": "c_corr_05", "type": "point", "pos": [7.3, 5.8, 2.78], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_040", "cell": "c_corr_05", "type": "point", "pos": [7.3, 5.8, 8.33], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_041", "cell": "c_corr_05", "type": "point", "pos": [7.3, 5.8, 13.88], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_042", "cell": "c_corr_05", "type": "point", "pos": [7.3, 5.8, 19.43], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_043", "cell": "c_store_09", "type": "point", "pos": [10.85, 6.1, 1.55], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_044",
+      "cell": "c_tech_07",
+      "type": "point",
+      "pos": [10.85, 6.1, 4.75],
+      "color": [0.85, 0.93, 1],
+      "intensity": 14,
+      "range": 8,
+      "cast": true
+    },
+    { "id": "l_045", "cell": "c_store_10", "type": "point", "pos": [10.85, 6.1, 8.05], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_046", "cell": "c_store_11", "type": "point", "pos": [10.85, 6.1, 11.4], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_047", "cell": "c_lab_06", "type": "point", "pos": [10.85, 6.1, 15.5], "color": [0.85, 0.93, 1], "intensity": 22, "range": 9, "cast": true },
+    {
+      "id": "l_048",
+      "cell": "c_lab_07",
+      "type": "point",
+      "pos": [10.85, 6.1, 20.15],
+      "color": [0.85, 0.93, 1],
+      "intensity": 22,
+      "range": 9,
+      "cast": true
+    },
+    { "id": "l_049", "cell": "c_store_12", "type": "point", "pos": [16.15, 6.1, 2.35], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_050",
+      "cell": "c_tech_08",
+      "type": "point",
+      "pos": [20.65, 6.1, 2.35],
+      "color": [0.85, 0.93, 1],
+      "intensity": 14,
+      "range": 8,
+      "cast": true
+    },
+    { "id": "l_051", "cell": "c_store_13", "type": "point", "pos": [24.15, 6.1, 2.35], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_052", "cell": "c_corr_06", "type": "point", "pos": [16.58, 5.8, 5.8], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_053", "cell": "c_corr_06", "type": "point", "pos": [22.73, 5.8, 5.8], "color": [1, 0.9, 0.75], "intensity": 18, "range": 8, "cast": true },
+    { "id": "l_054", "cell": "c_store_14", "type": "point", "pos": [15.2, 6.1, 9.15], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    { "id": "l_055", "cell": "c_store_15", "type": "point", "pos": [18.7, 6.1, 9.15], "color": [1, 0.9, 0.75], "intensity": 9, "range": 8, "cast": true },
+    {
+      "id": "l_056",
+      "cell": "c_office_08",
+      "type": "point",
+      "pos": [23.15, 6.1, 9.15],
+      "color": [1, 0.9, 0.75],
+      "intensity": 11,
+      "range": 9,
+      "cast": true
+    }
+  ],
+  "triggers": [
+    {
+      "id": "t_goal",
+      "cell": "c_tech_04",
+      "min": [0.3, 3.4, 0.3],
+      "max": [2.7, 5.4, 5.5],
+      "once": true,
+      "io": [
+        { "on": "enter", "target": "@level", "input": "complete" }
+      ]
+    },
+    {
+      "id": "t_checkpoint",
+      "cell": "c_hall_01",
+      "min": [18.15, 0, 15.4],
+      "max": [21.15, 2.2, 18.4],
+      "once": true,
+      "io": [
+        { "on": "enter", "target": "@level", "input": "checkpoint" }
+      ]
+    }
+  ],
+  "spawns": [
+    { "id": "sp_player", "kind": "player", "pos": [6.55, 0, 11.1], "yaw": 0 },
+    { "id": "sp_enemy_1", "kind": "enemy", "pos": [22.27, 0, 20.3], "yaw": 0, "what": "dummy" }
+  ],
+  "source": {
+    "tool": "gen",
+    "generator": "src/gen/presets/complex.js",
+    "params": { "preset": "complex", "kit": "kit_base", "puzzle": true },
+    "seed": 7,
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

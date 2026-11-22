@@ -1,0 +1,58 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "door_steel_01",
+  "title": "Dveře otočné ocelové 1,0 × 2,1 m",
+  "category": "arch.door",
+  "bounds": { "min": [-0.668, -0.001, -0.895], "max": [0.501, 2.101, 0.111] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "leaf", "parent": "frame", "pos": [-0.45, 0, 0] },
+      { "id": "handle", "parent": "leaf", "pos": [0.83, 1.05, 0] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 100, "rest": 0, "damping": 4, "speed": 120, "drive": "both" },
+      { "id": "latch", "node": "handle", "type": "hinge", "axis": [0, 0, 1], "min": 0, "max": 30, "rest": 0, "spring": 60, "damping": 2, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "frame", "shape": "box", "min": [-0.5, 0, -0.11], "max": [-0.45, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [0.45, 0, -0.11], "max": [0.5, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "frame", "shape": "box", "min": [-0.45, 2.05, -0.11], "max": [0.45, 2.1, 0.11], "mat": "steel_dark" },
+    { "node": "leaf", "shape": "box", "min": [0.005, 0.01, -0.02], "max": [0.895, 2.04, 0.02], "mat": "steel_painted" },
+    { "node": "leaf", "shape": "box", "min": [0.005, 0.01, 0.02], "max": [0.895, 0.26, 0.023], "mat": "steel_brushed" },
+    { "node": "leaf", "shape": "box", "min": [0.005, 0.01, -0.023], "max": [0.895, 0.26, -0.02], "mat": "steel_brushed" },
+    { "node": "leaf", "shape": "box", "min": [0.35, 1.35, -0.024], "max": [0.55, 1.75, 0.024], "mat": "glass_pane" },
+    { "node": "leaf", "shape": "box", "min": [-0.012, 0.25, -0.034], "max": [0.01, 0.35, -0.02], "mat": "steel_brushed" },
+    { "node": "leaf", "shape": "box", "min": [-0.012, 1, -0.034], "max": [0.01, 1.1, -0.02], "mat": "steel_brushed" },
+    { "node": "leaf", "shape": "box", "min": [-0.012, 1.75, -0.034], "max": [0.01, 1.85, -0.02], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.025, -0.025, 0.02], "max": [0.025, 0.025, 0.032], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.009, -0.009, 0.02], "max": [0.009, 0.009, 0.07], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.12, -0.009, 0.056], "max": [0.01, 0.009, 0.072], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.025, -0.025, -0.032], "max": [0.025, 0.025, -0.02], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.009, -0.009, -0.07], "max": [0.009, 0.009, -0.02], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.12, -0.009, -0.072], "max": [0.01, 0.009, -0.056], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "leaf", "shape": "box", "min": [0.005, 0.01, -0.02], "max": [0.895, 2.04, 0.02], "group": "world" },
+    { "node": "frame", "shape": "box", "min": [-0.5, 0, -0.11], "max": [-0.45, 2.1, 0.11], "group": "world" },
+    { "node": "frame", "shape": "box", "min": [0.45, 0, -0.11], "max": [0.5, 2.1, 0.11], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít", "range": 1.8, "manipulate": true },
+    "health": { "hp": 600, "surface": "metal" }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 192,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/doors.mjs#doorHinged",
+    "params": { "width": 1, "height": 2.1, "style": "window" },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

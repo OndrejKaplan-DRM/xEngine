@@ -1,0 +1,46 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "crate_large_01",
+  "title": "Bedna dřevěná 1,0 × 0,8 × 0,8 m",
+  "category": "prop.container",
+  "bounds": { "min": [-0.501, -0.001, -0.401], "max": [0.501, 0.801, 0.401] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.485, 0.015, -0.385], "max": [0.485, 0.785, 0.385], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.4], "max": [-0.47, 0.8, -0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, 0.37], "max": [-0.47, 0.8, 0.4], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [0.47, 0, -0.4], "max": [0.5, 0.8, -0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [0.47, 0, 0.37], "max": [0.5, 0.8, 0.4], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.47, 0, -0.4], "max": [0.47, 0.03, -0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.47, 0, 0.37], "max": [0.47, 0.03, 0.4], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.47, 0.77, -0.4], "max": [0.47, 0.8, -0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.47, 0.77, 0.37], "max": [0.47, 0.8, 0.4], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.37], "max": [-0.47, 0.03, 0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [0.47, 0, -0.37], "max": [0.5, 0.03, 0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0.77, -0.37], "max": [-0.47, 0.8, 0.37], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [0.47, 0.77, -0.37], "max": [0.5, 0.8, 0.37], "mat": "wood_old" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.4], "max": [0.5, 0.8, 0.4], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "dynamic", "mass": 80, "friction": 0.7, "restitution": 0.1 },
+    "health": { "hp": 200, "surface": "wood" }
+  },
+  "inputs": ["break"],
+  "outputs": ["damaged", "broken"],
+  "tris": 156,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#crate",
+    "params": { "size": [1, 0.8, 0.8], "mass": 80 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
