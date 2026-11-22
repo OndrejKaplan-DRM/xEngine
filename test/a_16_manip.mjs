@@ -221,10 +221,16 @@ ok(get('entity.e_lamp_lab.light').on && get('entity.e_lamp_lab.light').level ===
   const v = render.view;
   ok(seat.phase === 'on' && near(v.x, seat.eye[0], 1e-9) && near(v.y, seat.eye[1], 1e-9) && near(v.z, seat.eye[2], 1e-9) && render.fov === st.fov, 'kamera se plynule ukotví podle station', `oko ${fmt(seat.eye, 2)}, zorné pole ${render.fov}°, v polovině cesty y ${fmt(half.y)} (mezi ${fmt(before.y)} a ${fmt(seat.eye[1])})`);
   ok(half.y < before.y && half.y > seat.eye[1], 'přejezd kamery je plynulý (mezipoloha leží mezi začátkem a koncem)');
-  // střed obrazu míří na střed obrazovky
+  // vlastní kurzor (zámek kurzoru zůstává, D-024): začíná uprostřed obrazovky, myš ho vede, okraj ho zastaví
+  const p0 = [...get('interact.term.e_desk').pointer];
+  const p1 = [...interact.cursor(70, 0)];
+  const p2 = [...interact.cursor(5000, -5000)];
+  const p3 = [...interact.cursor(-10000, 10000)];
+  ok(near(p0[0], 0.5, 1e-9) && near(p0[1], 0.5, 1e-9) && near(p1[0], 0.6, 1e-9) && p1[1] === 0.5 && p2[0] === 1 && p2[1] === 0 && p3[0] === 0 && p3[1] === 1, 'myš vede vlastní kurzor po obrazovce terminálu a obdélník obrazovky ho omezuje', `střed ${fmt(p0, 2)}, po 70 bodech vpravo ${fmt(p1, 2)}, rohy ${fmt(p2, 0)} a ${fmt(p3, 0)}`);
+  // bez zámku kurzoru (prostředí, kde ho prohlížeč nedá): kurzor systému se promítá na obrazovku
   const uv = interact.pointer(0, 0);
-  ok(uv && near(uv[0], 0.5, 0.02) && near(uv[1], 0.5, 0.05), 'kurzor uprostřed obrazu míří na střed obrazovky terminálu', uv ? `uv ${fmt(uv, 3)}` : 'mimo');
-  ok(interact.pointer(0.98, 0.98) === null, 'kurzor mimo plochu obrazovky se nepočítá');
+  ok(uv && near(uv[0], 0.5, 0.02) && near(uv[1], 0.5, 0.05), 'bez zámku: kurzor uprostřed obrazu míří na střed obrazovky terminálu', uv ? `uv ${fmt(uv, 3)}` : 'mimo');
+  ok(interact.pointer(0.98, 0.98) === null, 'bez zámku: kurzor mimo plochu obrazovky se nepočítá');
   // tělo stojí
   const yawSeat = get('player.yaw');
   game.sim(0.5, { hold: ['fwd', 'jump'], yawRate: 90 });
@@ -240,14 +246,15 @@ ok(get('entity.e_lamp_lab.light').on && get('entity.e_lamp_lab.light').level ===
   game.sim(0.1);
   const cmd = fired('e_desk', 'command');
   ok(cmd.length === 1 && cmd[0].value === 'svetla' && get('entity.e_lamp_hall_a.light').on === !lampBefore && get('interact.term.e_desk').lines.at(-1) === '> svetla', 'Enter vyšle výstup command s textem a spojení z dat přepne lampu haly', `command „${cmd[0]?.value}“, lampa ${lampBefore} → ${get('entity.e_lamp_hall_a.light').on}`);
-  interact.pointer(0, 0, true);
+  interact.cursor(10, 10);
+  const clicked = interact.click();
   game.sim(0.1);
-  ok(fired('e_desk', 'command').length === 2 && get('entity.e_lamp_hall_a.light').on === lampBefore, 'kliknutí na obrazovku vyšle command', `command ${fired('e_desk', 'command').length}×`);
+  ok(clicked && fired('e_desk', 'command').length === 2 && get('entity.e_lamp_hall_a.light').on === lampBefore, 'kliknutí v místě vlastního kurzoru vyšle command', `command ${fired('e_desk', 'command').length}×`);
   behave.input(entities.byId('e_desk'), 'print', 'Tlak v normě');
   ok(get('interact.term.e_desk').lines.at(-1) === 'Tlak v normě', 'vstup print vypíše řádek na obrazovku', JSON.stringify(get('interact.term.e_desk').lines));
   // odchod
   interact.leave();
-  ok(left === 1 && fired('e_desk', 'left').length === 1, 'Esc (leave) vyšle výstup left a událost interact:left');
+  ok(left === 1 && fired('e_desk', 'left').length === 1, 'odchod (leave) vyšle výstup left a událost interact:left');
   game.sim(0.2);
   ok(interact.seated, 'návrat kamery chvíli trvá (hráč ještě nemá ovládání)');
   game.sim(0.3);

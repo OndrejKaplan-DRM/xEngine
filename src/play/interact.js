@@ -1,6 +1,7 @@
 // xPlay: interakce hráče se světem. Tři úrovně, všechny řízené daty prefabu (docs/01_ARCHITEKTURA.md, oddíl 5):
 // 1. použít (paprsek z oka + klávesa), 2. manipulovat (držené tlačítko myši hýbe kloubem v jeho mezích),
-// 3. klidný režim (kamera se ukotví podle station, kurzor se uvolní a míří na obrazovku ve světě).
+// 3. klidný režim (kamera se ukotví podle station; zámek kurzoru zůstává a myš vede vlastní kurzor po obrazovce
+//    ve světě, D-024).
 // Paprsek jde proti kolizím v Rapieru, nikdy proti vykreslovaným sítím.
 
 import { mat4Point } from '../xspace/index.js';
@@ -20,6 +21,8 @@ const DEPTH_GAIN = 2; // pohyb do hloubky hráč neodhadne, proto jde dvakrát r
 const MIN_ARM = 0.06; // m; kratší rameno úchopu otočného kloubu se nahradí (jinak by střed kola nešel otočit)
 
 const smooth = (k) => k * k * (3 - 2 * k);
+
+const CURSOR_SPAN = 700; // bodů myši přes celou šířku obrazovky terminálu při citlivosti 1
 
 export function createInteract({ phys, player, input, behave, entities, render }) {
   let E = null;
@@ -199,6 +202,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     input.lookEnabled = false;
     if (seat.term) {
       seat.term.term.active = true;
+      seat.term.term.pointer = [0.5, 0.5]; // vlastní kurzor začíná uprostřed obrazovky
       seat.term.term.dirty = true;
     }
     setTarget(null);
@@ -354,7 +358,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     },
 
     // ---- klidný režim: vstup z aplikace (klávesnice a kurzor jdou mimo herní akce)
-    /** Odejít od terminálu (Esc). */
+    /** Odejít od terminálu (šipka dolů nebo pravé tlačítko myši; Esc je všude pauza, D-024). */
     leave() {
       if (!seat || seat.phase === 'out') return;
       seat.phase = 'out';
@@ -378,8 +382,28 @@ export function createInteract({ phys, player, input, behave, entities, render }
       if (cmd !== null) behave.emit(seat.ent, 'command', cmd);
     },
     /**
-     * Kurzor myši v souřadnicích obrazu −1…1 (x vpravo, y nahoru). Promítne se na plochu obrazovky terminálu;
-     * click = stisk tlačítka (vyšle command s textem 'click', když kurzor leží na obrazovce).
+     * Posun myši se zamčeným kurzorem (body myši, x vpravo, y dolů): vede vlastní kurzor po ploše obrazovky,
+     * omezený jejím obdélníkem. Celá šířka obrazovky = CURSOR_SPAN bodů myši při citlivosti 1.
+     */
+    cursor(dx, dy) {
+      if (!seat?.term || seat.phase !== 'on') return null;
+      const t = seat.term;
+      const p = t.term.pointer || (t.term.pointer = [0.5, 0.5]);
+      const k = input.sensitivity / CURSOR_SPAN;
+      p[0] = Math.min(1, Math.max(0, p[0] + dx * k));
+      p[1] = Math.min(1, Math.max(0, p[1] + dy * k * (t.size[0] / t.size[1]))); // stejná rychlost ve světě oběma směry
+      t.term.dirty = true;
+      return p;
+    },
+    /** Kliknutí v místě vlastního kurzoru: vyšle command s textem 'click'. */
+    click() {
+      if (!seat?.term || seat.phase !== 'on' || !seat.term.term.pointer) return false;
+      behave.emit(seat.ent, 'command', 'click');
+      return true;
+    },
+    /**
+     * Bez zámku kurzoru (prostředí, kde ho prohlížeč nedá): kurzor systému v souřadnicích obrazu −1…1 (x vpravo,
+     * y nahoru) se promítne na plochu obrazovky terminálu; click = stisk tlačítka.
      */
     pointer(nx, ny, click = false) {
       if (!seat?.term || seat.phase !== 'on') return null;

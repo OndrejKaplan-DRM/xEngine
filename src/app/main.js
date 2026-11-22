@@ -55,8 +55,7 @@ async function boot() {
 
   /** Vstup do hry: nejdřív zámek kurzoru (voláno z kliknutí), pak teprve režim. */
   async function enter(fresh) {
-    // u terminálu je kurzor volný záměrně: návrat z pauzy ho nezamyká
-    const r = !fresh && game.interact.seated ? 'ok' : await lock.acquire();
+    const r = await lock.acquire(); // i u terminálu: zámek kurzoru drží celý pobyt (D-024)
     if (r === 'retry') {
       hud.notify('Prohlížeč teď zámek kurzoru odmítl. Klikni znovu.', 4);
       return;
@@ -107,18 +106,14 @@ async function boot() {
   E.on('level:complete', () => hud.notify('Level dokončen', 6));
   E.on('level:message', (e) => hud.notify(String(e.value ?? ''), 5));
   E.on('interact:denied', () => hud.notify('Zamčeno', 1.5));
-  // klidný režim: kurzor se uvolní a míří na obrazovku ve světě; Esc vrací do hry (ne do pauzy)
+  // klidný režim (D-024): zámek kurzoru zůstává, myš vede vlastní kurzor po obrazovce ve světě. Esc je i tady pauza
+  // (prohlížeč při Esc zámek uvolní vždy); odchází se šipkou dolů nebo pravým tlačítkem myši.
   E.on('interact:seated', () => {
-    lock.release();
     input.releaseAll();
     hud.setCross(false);
-    hud.notify('Piš na klávesnici, Enter odešle · Esc: odejít', 6);
+    hud.notify('Piš na klávesnici, Enter odešle · odejít: šipka dolů nebo pravé tlačítko myši · Esc: pauza', 8);
   });
-  E.on('interact:left', async () => {
-    hud.setCross(E.mode === 'playing');
-    // zámek, který hra uvolnila sama, smí prohlížeč vrátit hned; když odmítne, vrátí ho kliknutí do obrazu
-    if (lock.enabled && (await lock.acquire()) !== 'ok') hud.notify('Klikni do obrazu pro návrat k ovládání.', 4);
-  });
+  E.on('interact:left', () => hud.setCross(E.mode === 'playing'));
   /** Poloha kurzoru v obraze −1…1 (x vpravo, y nahoru). */
   const toView = (e) => {
     const r = view.getBoundingClientRect();
@@ -126,15 +121,15 @@ async function boot() {
   };
 
   // ---- vstup: klávesy podle event.code, myš jako Mouse0–2
-  // u terminálu jde klávesnice na jeho obrazovku; zachytává se dřív než Shell, aby Esc nepauzoval
+  // u terminálu jde klávesnice na jeho obrazovku (zachytává se dřív než herní akce). Esc se nezachytává: je to pauza.
   addEventListener(
     'keydown',
     (e) => {
       if (E.mode !== 'playing' || !game.interact.seated || e.ctrlKey || e.metaKey || e.altKey) return;
-      if (e.key === 'Escape') game.interact.leave();
+      if (e.code === 'ArrowDown') game.interact.leave(); // krok vzad od stolu
       else if (e.key === 'Enter' || e.key === 'Backspace') game.interact.key(e.key);
       else if (e.key.length === 1) game.interact.type(e.key);
-      else return; // funkční klávesy nechává prohlížeči
+      else return; // Esc (pauza) a funkční klávesy jdou dál
       e.preventDefault();
       e.stopImmediatePropagation();
     },
@@ -162,13 +157,16 @@ async function boot() {
   addEventListener('keyup', (e) => input.key(e.code, false));
   view.addEventListener('mousedown', (e) => {
     if (E.mode !== 'playing') return;
-    if (game.interact.seated) {
-      game.interact.pointer(...toView(e), e.button === 0);
-      return;
-    }
-    // ztracený zámek (návrat od terminálu, který prohlížeč nezamkl) vrací první kliknutí a nic jiného nedělá
+    // ztracený zámek vrací první kliknutí a nic jiného nedělá
     if (lock.enabled && !lock.locked) {
       lock.acquire();
+      return;
+    }
+    if (game.interact.seated) {
+      if (e.button === 2) game.interact.leave();
+      else if (lock.locked) {
+        if (e.button === 0) game.interact.click();
+      } else game.interact.pointer(...toView(e), e.button === 0); // bez zámku: kurzor systému
       return;
     }
     input.key(`Mouse${e.button}`, true);
@@ -177,7 +175,8 @@ async function boot() {
   document.addEventListener('mousemove', (e) => {
     if (E.mode !== 'playing') return;
     if (game.interact.seated) {
-      game.interact.pointer(...toView(e));
+      if (lock.locked) game.interact.cursor(e.movementX, e.movementY);
+      else game.interact.pointer(...toView(e));
       return;
     }
     if (lock.locked || (!lock.enabled && e.buttons)) input.look(e.movementX, e.movementY);

@@ -99,6 +99,11 @@ export function installHook({ game, lock, shell, hud, adapter, devTools, bench }
     hud: () => hud.state,
     settings: () => shell.settings.probeAll(),
     lock: () => ({ enabled: lock.enabled, locked: lock.locked }),
+    /** Režim se zámkem kurzoru zapnout nebo vypnout (testy; __xe.start ho vypíná). */
+    lockMode(on) {
+      if (on) lock.enable();
+      else lock.disable();
+    },
     /** Viditelnost po buňkách zapnout nebo vypnout (vypnutá = kreslí se vše a svítí všechna světla, jako v xView). */
     vis(on) {
       game.vis.enabled = on;
