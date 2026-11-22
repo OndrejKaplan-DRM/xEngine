@@ -1,20 +1,30 @@
 # Stav
 
-**Verze:** základ 1, znění 2 · 22. 11. 2026 · větev `zaklad-1` (shodná s `main`)
-**Další krok:** svodná sešna „main 02“: sloučení vlny 1 podle `docs/sesny/START_SVOD.md`, oddíl „První kroky sešny main 02“.
+**Verze:** integrace vlny 1 · 22. 11. 2026, 22:30 · větev `integrace-1` (základ: `zaklad-1` = `main` = `16548b4`, znění 2)
+**Další krok:** svodná sešna „main 02“ rozhodne rozpory a návrhy; po Ondřejově slovu `integrace-1` → `main` a `zaklad-2`.
 
-Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynoucí změny (D-006, D-011, D-016, D-022 až D-027).
+## Integrace vlny 1 (svodná sešna main 02, 22. 11. 2026)
 
-**Stav 22. 11. 2026 v 17:40.** Znění 2 není na GitHubu (`main` = `zaklad-1` = `a2ce175`); je v kontejneru sešny main 01 a v souboru `xengine_zneni2_2026-11-22.bundle`.
+| Krok | Výsledek | Čím ověřeno |
+|---|---|---|
+| znění 2 základu na GitHubu | `zaklad-1` = `main` = `16548b4` | `npm test` 232 kontrol před pushem, `git ls-remote` po něm |
+| vlastnictví složek | sešna A ani B nesáhla mimo své složky; `package.json` beze změny; žádný soubor přes 600 řádků | `git diff --name-only` proti základu |
+| sloučení `sesna-a` (`230b3ee`) | bez konfliktu; dva importy Shellu a rozpad velikosti v `a_00_build` opraveny (`e13d1fc`) | základ 232, skupina A 16 sad z 16, 267 kontrol |
+| sloučení `sesna-b` (`754f46d`) | bez konfliktu; zámek balíků beze změny | základ 232, skupina B 4 sady ze 4, 92 kontrol |
+| **zkouška A × B** | level sešny B běží v enginu sešny A beze změny kódu: všechny buňky dosažitelné pro kapsli hráče, robot došel ze startu do nejvzdálenější buňky ve všech třech levelech `gen_demo` (57,9 m, 42,5 m, 28,7 m) i ve zlatém vzorku (25,2 m), dveře na cestě otevřel rukou, nikde neuvázl; nejvýš 158 volání kreslení na pohled; v prohlížeči startují všechny tři levely s čistou konzolí | `npm run test:axb`: T5 28 kontrol v Node, 9 v prohlížeči |
+| celá regrese | 628 kontrol, 0 selhalo | `npm run test:all` |
+| měření T460 | tři běhy xBench 0.2 v `docs/mereni/`, rozpočty přepsány podle nejhoršího běhu | `docs/06_ROZPOCTY.md` |
 
-| Větev | Hlava | Co je hotové | Ověřila svodná sešna |
-|---|---|---|---|
-| `sesna-a` | `7d3bec6` | celá vlna 1 podle **znění 1** (A1.1 až A1.8); podle jejího stavu 16 sad, 267 kontrol | zkušební sloučení se zněním 2 bez konfliktů; po změně dvou importů Shellu 16 z 16 sad prošlo |
-| `sesna-b` | `754f46d` | B1.1 xGen a B1.2 sada `kit_base` (49 prefabů); B1.3 nezačato, B1.4 jen měření zdrojů; podle jejího stavu 92 kontrol | zkušební sloučení bez konfliktů; její testy svodná nepouštěla |
+Co zkouška A × B neříká: robot běží v Node bez obrazu (stejný kód hry, jiné vykreslení). Chodí po nejkratší cestě, takže většinu místností jen míjí. Dveře `door_plank_01` nechávají průchod 0,80 m pro postavu širokou 0,70 m (s odstupem kontroléru 0,74 m): projít jdou, ale jen středem. Krok simulace je měřen v sandboxu, o T460 nevypovídá.
 
-Co sešna A postavila jinak, než říká znění 2: zásobník bodových světel po pixelech (D-022), velikost obrazu podle `devicePixelRatio` (D-023), terminál podle původního zadání s uvolněním zámku kurzoru (D-024), ořez po buňkách už hotový (D-027 tím ztrácí smysl). Návrhy k rozhodnutí: N-002 až N-006 (sešna B), N-101 až N-107 (sešna A).
+## Co zbývá svodné sešně před `zaklad-2`
 
-Nové od Ondřeje (22. 11. 2026): zadání ve znění 2 je v `docs/00_ZADANI.md` (jméno xForge, meze 50 a 100 MB, hra má vypadat skutečně, rezerva pro stroj s grafickou kartou).
+1. **Rozpory kódu sešny A se zněním 2** (rozhodnout, zapsat do `DECISIONS.md`): světlo po pixelech a `MeshLambertMaterial` (D-022), velikost obrazu z `devicePixelRatio` a zapnuté vyhlazování hran (D-023), terminál s uvolněním zámku kurzoru (D-024), zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026), ořez po buňkách hotový dřív, než čekalo D-027. Převod na světlo po vrcholech má zadaný sešna A (`START_A.md`, oddíl 2a).
+2. **Návrhy:** N-002 až N-006 (sešna B), N-101 až N-107 (sešna A). Nerozhodnuto. N-001 (formát zapečeného světla) neexistuje.
+3. Oddíl C zadání (`00_ZADANI.md`), `REQUIREMENTS.md`, `05_PARITA_2003.md`: stavy řádků po vlně 1.
+4. Zadání vlny 2 (`START_A.md`, `START_B.md`) proti oddílu C zadání; potom skill `xengine`.
+
+Sešna A má po vlně otevřené: skok v profilu `arena` na nový stisk (Ondřejova volba 3 b, neuděláno). Sešna B: katakomby podle volby 2 b (stropy aspoň 2,6 m, chodby aspoň 1,6 m, neuděláno), B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
 ## Co je hotové (základ 1)
 
@@ -30,11 +40,11 @@ Nové od Ondřeje (22. 11. 2026): zadání ve znění 2 je v `docs/00_ZADANI.md`
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 232 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
+`npm test`: 232 kontrol; `npm run test:all` (základ, A, B, A × B): 628 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
 
 ## Co hotové není
 
-- **Engine.** Nic se zatím nedá projít. xView data jen kreslí.
+- **Engine podle znění 2.** xLab i levely sešny B se dají projít (`dist/xlab.html`, `dist/xlab_gen.html`), ale engine z vlny 1 svítí po pixelech; podle měření T460 tím překračuje rozpočet vykreslení.
 - Shell je přestěhovaný, ne zapojený. Jeho zkoušky v prohlížeči a zkouška katalogu zůstaly ve `vibe-game-frameworks`.
 - Formát zapečeného světla (návrh N-001 od sešny B; vzorky, pořadí a vrstvy jsou už dané kontraktem).
 - Ořez pohledem po buňkách (vlna 2), načítání `.glb`, textury, zvuk, tvorové, editor.
@@ -51,10 +61,11 @@ Nové od Ondřeje (22. 11. 2026): zadání ve znění 2 je v `docs/00_ZADANI.md`
 
 ## Otevřené pro Ondřeje
 
-1. Dostat znění 2 na GitHub (slovo k pushi), nebo předat sešně main 02 soubor `.bundle`.
-2. Říct, zda smím do `vibe-game-frameworks` zapsat, že Shell má domov v xEngine.
-3. Pustit xBench 0.2 na T460 a poslat výsledek.
+1. Projít sestavení `xlab_gen.html` (engine A + levely B) a říct slovo ke sloučení `integrace-1` do `main` a k založení `zaklad-2`.
+2. Potvrdit nebo přepsat body 6/ až 8/ zadání (`00_ZADANI.md`, sestavila je svodná sešna z jeho vět).
+3. Říct, zda smím do `vibe-game-frameworks` zapsat, že Shell má domov v xEngine.
+4. Pět otázek sešny B k vzhledu (`docs/sesny/B_STAV.md`, konec dokumentu).
 
 ## Návrhy
 
-Žádný otevřený. Přehled v `docs/navrhy/README.md`.
+Otevřených 12: N-002 až N-006 a N-101 až N-107. Přehled v `docs/navrhy/README.md`, stav v oddílu „Co zbývá svodné sešně“.

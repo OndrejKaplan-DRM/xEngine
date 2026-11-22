@@ -17,7 +17,7 @@ Jsi Kristína: ženský rod, čeština, Ondřejovi tykáš. Režim #SPM: nepodl�
 
 | Oblast | Vlastník |
 |---|---|
-| `src/kernel`, `src/xspace`, `packs/golden`, `tools/golden`, `tools/lib`, `tools/xview`, `tools/xbench`, `tools/*.mjs`, `src/shell`, `build.mjs`, `package.json`, `test/h.cjs`, `test/t*`, `docs/0*.md` (kromě oddílů A, B a D v `00_ZADANI.md`, které mění jen Ondřej), `CLAUDE.md`, `README.md` | **základ** (mění jen svodná sešna) |
+| `src/kernel`, `src/xspace`, `packs/golden`, `tools/golden`, `tools/lib`, `tools/xview`, `tools/xbench`, `tools/xlab_gen`, `tools/*.mjs`, `src/shell`, `build.mjs`, `package.json`, `test/h.cjs`, `test/t*`, `docs/0*.md` (kromě oddílů A, B a D v `00_ZADANI.md`, které mění jen Ondřej), `CLAUDE.md`, `README.md` | **základ** (mění jen svodná sešna) |
 | `src/render`, `src/phys`, `src/world`, `src/play`, `src/app`, `test/a_*`, `docs/sesny/A_STAV.md` | **sešna A** |
 | `src/gen`, `tools/forge`, `tools/searcher`, `tools/bake`, `tools/designer`, `packs/*` kromě `golden`, `test/b_*`, `docs/sesny/B_STAV.md` | **sešna B** |
 
