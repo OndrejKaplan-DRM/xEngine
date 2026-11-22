@@ -55,7 +55,7 @@ Obraz 1366 × 768, pokud není uvedeno jinak. Medián a 95. percentil v miliseku
 
 ## Co měření neříká
 
-- **Scéna xBench pokrývá asi polovinu obrazu** (koule a podlaha, jinde pozadí). Interiér pokryje každý pixel, takže všechno, co se počítá po pixelech, bude ve hře dražší než zde.
+- **Scéna xBench 0.1 pokrývá 64 až 67 % obrazu** (koule a podlaha, jinde pozadí; změřeno funkcí `coverage` ve verzi 0.2). Interiér pokryje každý pixel, takže všechno, co se počítá po pixelech, bude ve hře dražší než zde.
 - Jedno a dvě světla po pixelech se neměřila. Cena „jednoho efektového světla“ (záblesk, baterka) je neznámá.
 - Scéna bez výpočtu světel se neměřila v 1920 × 1080.
 - Textury se neměřily vůbec.
@@ -97,6 +97,6 @@ Sandbox, ve kterém vznikají testy, kreslí softwarově na 2 jádrech. Jeho ča
 
 ## Další měření
 
-1. **xBench 0.2** (svodná sešna): jedno a dvě světla po pixelech, scéna bez světel v 1080 řádcích, scéna pokrývající celý obraz, barva vrcholů, jedna textura. Přísnější verdikt.
+1. **xBench 0.2** je hotový (28 případů; prvních 16 beze změny kvůli srovnání). Nově měří: 0, 1 a 2 bodová světla; barvu vrcholů bez výpočtu světel i v 1080 řádcích; interiér pokrývající celý obraz (768, 576 a 1080 řádků, s texturou, s vyhlazováním hran, s jedním a se čtyřmi světly po pixelech). Verdikt počítá s rozpočtem vykreslení 10 ms. **Čeká na běh na T460.**
 2. **`xlab.html?bench`** (sešna A, úkol A1.8): pevný průlet zkušebním levelem, výsledek jako JSON ke zkopírování. První měření skutečné hry včetně kroku simulace.
 3. Kdyby do stroje přibyl druhý modul paměti: xBench znovu a nový soubor do `docs/mereni/`.

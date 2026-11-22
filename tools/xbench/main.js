@@ -5,7 +5,9 @@
 
 import * as THREE from 'three';
 
-const VERSION = 'xBench 0.1 · 2026-11-22';
+const VERSION = 'xBench 0.2 · 2026-11-22';
+/** Rozpočet vykreslení v ms; zbytek 16,6 ms patří simulaci, prohlížeči a výkyvům (docs/06_ROZPOCTY.md). */
+const LIMIT = 10;
 const HD = [1366, 768];
 const FHD = [1920, 1080];
 
@@ -27,16 +29,78 @@ const CASES = [
   { id: 'meritko_75', group: 'Rozlišení', label: '8 světel, měřítko 75 %', calls: 200, tris: 200e3, lights: 8, scale: 0.75 },
   { id: 'meritko_50', group: 'Rozlišení', label: '8 světel, měřítko 50 %', calls: 200, tris: 200e3, lights: 8, scale: 0.5 },
   { id: 'fhd_8', group: 'Rozlišení', label: '8 světel, 1920 × 1080', calls: 200, tris: 200e3, lights: 8, res: FHD },
+  // Od verze 0.2. Prvních 16 případů se nemění, aby šly výsledky srovnat s verzí 0.1.
+  // vc = barva vrcholů, room = místnost kolem kamery (pokrytý celý obraz), tex = textura, aa = vyhlazování hran.
+  { id: 'svetla_0', group: 'Bodová světla', label: 'bez bodových světel', calls: 200, tris: 200e3, lights: 0 },
+  { id: 'svetla_1', group: 'Bodová světla', label: '1 světlo', calls: 200, tris: 200e3, lights: 1 },
+  { id: 'svetla_2', group: 'Bodová světla', label: '2 světla', calls: 200, tris: 200e3, lights: 2 },
+  { id: 'vrcholy', group: 'Světlo po vrcholech', label: 'barva vrcholů, bez výpočtu světel', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true },
+  { id: 'vrcholy_fhd', group: 'Světlo po vrcholech', label: 'barva vrcholů, 1920 × 1080', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, res: FHD },
+  { id: 'interier', group: 'Interiér (celý obraz)', label: 'barva vrcholů', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, room: true },
+  { id: 'interier_576', group: 'Interiér (celý obraz)', label: 'barva vrcholů, 1025 × 576', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, room: true, scale: 0.75 },
+  { id: 'interier_fhd', group: 'Interiér (celý obraz)', label: 'barva vrcholů, 1920 × 1080', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, room: true, res: FHD },
+  { id: 'interier_tex', group: 'Interiér (celý obraz)', label: 'barva vrcholů a textura', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, room: true, tex: true },
+  { id: 'interier_aa', group: 'Interiér (celý obraz)', label: 'barva vrcholů, vyhlazování hran', calls: 200, tris: 200e3, lights: 0, mat: 'basic', vc: true, room: true, aa: true },
+  { id: 'interier_1', group: 'Interiér (celý obraz)', label: 'barva vrcholů a 1 světlo po pixelech', calls: 200, tris: 200e3, lights: 1, vc: true, room: true },
+  { id: 'interier_4', group: 'Interiér (celý obraz)', label: '4 světla po pixelech', calls: 200, tris: 200e3, lights: 4, room: true },
 ];
 const QUICK = [
   { id: 'q_zaklad', group: 'Rychlá zkouška', label: '20 volání · 4 tis. △', calls: 20, tris: 4e3, lights: 0 },
   { id: 'q_svetla', group: 'Rychlá zkouška', label: '20 volání · 2 světla', calls: 20, tris: 4e3, lights: 2 },
+  { id: 'q_interier', group: 'Rychlá zkouška', label: 'interiér, barva vrcholů, textura, vyhlazování', calls: 20, tris: 4e3, lights: 0, mat: 'basic', vc: true, room: true, tex: true, aa: true },
+  { id: 'q_interier_1', group: 'Rychlá zkouška', label: 'interiér, 1 světlo po pixelech', calls: 20, tris: 4e3, lights: 1, vc: true, room: true },
 ];
 
 const canvas = document.getElementById('c');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
-renderer.shadowMap.type = THREE.PCFShadowMap;
-const gl = renderer.getContext();
+function makeRenderer(cv, antialias) {
+  const r = new THREE.WebGLRenderer({ canvas: cv, antialias, powerPreference: 'high-performance' });
+  r.shadowMap.type = THREE.PCFShadowMap;
+  return r;
+}
+// Vyhlazování hran je vlastnost kontextu a nejde přepnout; případy s `aa` proto kreslí do druhého plátna mimo stránku.
+const rendMain = makeRenderer(canvas, false);
+let rendAA = null;
+let renderer = rendMain;
+let gl = renderer.getContext();
+function useRenderer(aa) {
+  if (aa && !rendAA) rendAA = makeRenderer(document.createElement('canvas'), true);
+  renderer = aa ? rendAA : rendMain;
+  gl = renderer.getContext();
+}
+
+/** Barva vrcholů: stejná práce pro grafiku jako světlo spočítané po vrcholech. */
+function paint(geo, seed) {
+  const pos = geo.attributes.position;
+  const col = new Float32Array(pos.count * 3);
+  for (let i = 0; i < pos.count; i++) {
+    const k = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(pos.getY(i) * 3 + i * 0.37 + seed));
+    col[i * 3] = k;
+    col[i * 3 + 1] = k * 0.95;
+    col[i * 3 + 2] = k * 0.85;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  return geo;
+}
+
+function checker() {
+  const n = 256;
+  const d = new Uint8Array(n * n * 4);
+  for (let y = 0; y < n; y++) {
+    for (let x = 0; x < n; x++) {
+      const g = (((x >> 4) + (y >> 4)) & 1 ? 200 : 120) + ((x * 13 + y * 7) % 23);
+      d.set([g, g, g, 255], (y * n + x) * 4);
+    }
+  }
+  const t = new THREE.DataTexture(d, n, n, THREE.RGBAFormat);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.generateMipmaps = true;
+  t.minFilter = THREE.LinearMipmapLinearFilter;
+  t.magFilter = THREE.LinearFilter;
+  t.anisotropy = 4;
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.needsUpdate = true;
+  return t;
+}
 const px = new Uint8Array(4);
 const nextFrame = () => new Promise((r) => requestAnimationFrame(r));
 
@@ -74,7 +138,7 @@ function dispose() {
   if (!scene) return;
   scene.traverse((o) => {
     o.geometry?.dispose();
-    if (o.material) for (const m of Array.isArray(o.material) ? o.material : [o.material]) m.dispose();
+    if (o.material) for (const m of Array.isArray(o.material) ? o.material : [o.material]) { m.map?.dispose(); m.dispose(); }
     o.shadow?.map?.dispose();
   });
   renderer.renderLists.dispose();
@@ -83,6 +147,7 @@ function dispose() {
 
 function buildScene(c) {
   dispose();
+  useRenderer(!!c.aa);
   const [w, h] = c.res || HD;
   const scale = c.scale || 1;
   renderer.setPixelRatio(1);
@@ -97,10 +162,11 @@ function buildScene(c) {
   const hs = Math.max(2, Math.round(per / (2 * ws)) + 1);
   const kind = c.mat || 'lambert';
   const colors = [0x8fa3b8, 0xb89f8f, 0x8fb8a1, 0xb8b28f];
-  const mats = colors.map((col) =>
-    kind === 'standard' ? new THREE.MeshStandardMaterial({ color: col, roughness: 0.7, metalness: 0.1 }) : kind === 'basic' ? new THREE.MeshBasicMaterial({ color: col }) : new THREE.MeshLambertMaterial({ color: col }),
-  );
-  const geos = [0, 1, 2, 3].map(() => new THREE.SphereGeometry(0.42, ws, hs));
+  const tex = c.tex ? checker() : null;
+  const opt = (col) => ({ color: col, vertexColors: !!c.vc, map: tex });
+  const make = (col) => (kind === 'standard' ? new THREE.MeshStandardMaterial({ ...opt(col), roughness: 0.7, metalness: 0.1 }) : kind === 'basic' ? new THREE.MeshBasicMaterial(opt(col)) : new THREE.MeshLambertMaterial(opt(col)));
+  const mats = colors.map(make);
+  const geos = [0, 1, 2, 3].map((k) => (c.vc ? paint(new THREE.SphereGeometry(0.42, ws, hs), k) : new THREE.SphereGeometry(0.42, ws, hs)));
   const side = Math.ceil(Math.cbrt(c.calls));
   let n = 0;
   let tris = 0;
@@ -116,8 +182,10 @@ function buildScene(c) {
       }
     }
   }
-  const floorMat = kind === 'basic' ? new THREE.MeshBasicMaterial({ color: 0x55585e }) : new THREE.MeshLambertMaterial({ color: 0x55585e });
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), floorMat);
+  const floorMat = kind === 'basic' ? new THREE.MeshBasicMaterial(opt(0x55585e)) : new THREE.MeshLambertMaterial(opt(0x55585e));
+  const floorGeo = new THREE.PlaneGeometry(60, 60);
+  if (c.vc) paint(floorGeo, 9);
+  const floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = !!c.shadow;
   scene.add(floor);
@@ -137,9 +205,23 @@ function buildScene(c) {
     Object.assign(d.shadow.camera, { left: -R, right: R, top: R, bottom: -R, near: 0.5, far: R * 5 });
     scene.add(d);
   }
+  let extra = 0;
+  if (c.room) {
+    // Kamera obíhá na poloměru side * 1,25 + 3; místnost je o 3 m širší, takže stěny a strop pokryjí celý obraz.
+    const half = side * 1.25 + 6;
+    const hgt = side * 1.1 + 6;
+    const g = new THREE.BoxGeometry(half * 2, hgt, half * 2, 16, 8, 16);
+    if (c.vc) paint(g, 5);
+    const m = kind === 'basic' ? new THREE.MeshBasicMaterial(opt(0x9a9fa8)) : new THREE.MeshLambertMaterial(opt(0x9a9fa8));
+    m.side = THREE.BackSide;
+    const room = new THREE.Mesh(g, m);
+    room.position.y = hgt / 2 - 0.01;
+    scene.add(room);
+    extra = g.index.count / 3;
+  }
   camera.userData.R = side * 1.25 + 3;
   camera.userData.h = side * 0.75 + 1;
-  return { tris: tris + 2, calls: n + 1, buffer: [Math.round(w * scale), Math.round(h * scale)] };
+  return { tris: tris + 2 + extra, calls: n + 1 + (c.room ? 1 : 0), buffer: [Math.round(w * scale), Math.round(h * scale)] };
 }
 
 function frame(t) {
@@ -174,25 +256,29 @@ async function measure(ms) {
 const $ = (id) => document.getElementById(id);
 function row(c, built, r) {
   const fps = 1000 / r.ms;
-  const cls = r.ms <= 16.6 ? 'good' : r.ms <= 33.3 ? 'mid' : 'bad';
+  const cls = r.ms <= LIMIT ? 'good' : r.ms <= 16.6 ? 'mid' : 'bad';
   const tr = document.createElement('tr');
   tr.innerHTML = `<td>${c.group}</td><td>${c.label}</td><td>${built.calls}</td><td>${Math.round(built.tris / 1000)} tis.</td><td>${built.buffer.join(' × ')}</td><td class="${cls}">${r.ms.toFixed(1)} ms</td><td>${r.p95.toFixed(1)} ms</td><td class="${cls}">${fps.toFixed(0)}</td>`;
   $('rows').appendChild(tr);
 }
 
 function verdict(results) {
+  const by = (id) => results.find((r) => r.id === id);
   const best = (prefix, key) => {
-    const ok = results.filter((r) => r.id.startsWith(prefix) && r.ms <= 16.6);
+    const ok = results.filter((r) => r.id.startsWith(prefix) && r.ms <= LIMIT);
     return ok.length ? Math.max(...ok.map((r) => r[key])) : 0;
   };
-  const base = results.find((r) => r.id === 'zaklad');
-  if (!base) return 'Rychlá zkouška: verdikt se nepočítá.';
-  const lines = [];
-  lines.push(base.ms <= 16.6 ? `Základní scéna běží na ${(1000 / base.ms).toFixed(0)} snímcích za sekundu.` : `Už základní scéna je pod 60 snímky (${(1000 / base.ms).toFixed(0)}). Rozpočty bude nutné snížit.`);
-  lines.push(`Při 60 snímcích stroj v tomto měření unese: volání kreslení ${best('volani_', 'calls') || 'méně než 200'}, trojúhelníků ${Math.round(best('tris_', 'tris') / 1000) || 'méně než 300'} tis., bodových světel ${best('svetla_', 'lights') || 'méně než 4'}.`);
-  const baked = results.find((r) => r.id === 'zapecene');
-  const lit8 = results.find((r) => r.id === 'svetla_8');
-  if (baked && lit8) lines.push(`Zapečené světlo je proti 8 bodovým světlům ${(lit8.ms / baked.ms).toFixed(1)}× rychlejší.`);
+  if (!by('zaklad')) return 'Rychlá zkouška: verdikt se nepočítá.';
+  const f = (r) => (r ? `${r.ms.toFixed(1)} ms` : '?');
+  const lines = [`Rozpočet vykreslení je ${LIMIT} ms ze 16,6 ms snímku.`];
+  lines.push(`Do rozpočtu se vejde: volání kreslení ${best('volani_', 'calls') || 'méně než 200'}, trojúhelníků ${Math.round(best('tris_', 'tris') / 1000) || 'méně než 300'} tis.`);
+  const room = by('interier');
+  if (room) {
+    lines.push(`Interiér s barvou vrcholů: ${f(room)} (576 řádků ${f(by('interier_576'))}, 1080 řádků ${f(by('interier_fhd'))}, s texturou ${f(by('interier_tex'))}, s vyhlazováním hran ${f(by('interier_aa'))}).`);
+    const one = by('interier_1');
+    const four = by('interier_4');
+    if (one && four) lines.push(`Světlo po pixelech v interiéru: jedno ${f(one)} (o ${(one.ms - room.ms).toFixed(1)} ms víc), čtyři ${f(four)} (o ${(four.ms - room.ms).toFixed(1)} ms víc).`);
+  }
   return lines.join(' ');
 }
 
@@ -212,10 +298,11 @@ async function run({ quick = false, ms = 2500 } = {}) {
     const built = buildScene(c);
     await nextFrame();
     const r = await measure(quick ? 300 : ms);
-    results.push({ id: c.id, calls: built.calls, tris: built.tris, lights: c.lights, buffer: built.buffer, mat: c.mat || 'lambert', shadow: !!c.shadow, ...r });
+    results.push({ id: c.id, calls: built.calls, tris: built.tris, lights: c.lights, buffer: built.buffer, mat: c.mat || 'lambert', shadow: !!c.shadow, vc: !!c.vc, room: !!c.room, tex: !!c.tex, aa: !!c.aa, ...r });
     row(c, built, r);
   }
   dispose();
+  useRenderer(false);
   const result = { env, results, verdict: verdict(results) };
   $('status').textContent = 'Hotovo. ' + result.verdict;
   $('out').value = JSON.stringify(result);
@@ -238,4 +325,20 @@ $('copy').onclick = async () => {
   }
 };
 
-globalThis.__xbench = { ready: true, version: VERSION, run, cases: CASES.map((c) => c.id) };
+/** Podíl bodů obrazu zakrytých geometrií (0 až 1) pro daný případ. Nezávisí na stroji; slouží ke kontrole scény. */
+function coverage(id) {
+  const c = [...CASES, ...QUICK].find((x) => x.id === id);
+  if (!c || running) return null;
+  const built = buildScene(c);
+  frame(0.7);
+  const [w, h] = built.buffer;
+  const buf = new Uint8Array(w * h * 4);
+  gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+  let hit = 0;
+  for (let i = 0; i < buf.length; i += 4) if (Math.abs(buf[i] - 11) > 2 || Math.abs(buf[i + 1] - 13) > 2 || Math.abs(buf[i + 2] - 18) > 2) hit++;
+  dispose();
+  useRenderer(false);
+  return hit / (w * h);
+}
+
+globalThis.__xbench = { ready: true, version: VERSION, run, coverage, cases: CASES.map((c) => c.id) };

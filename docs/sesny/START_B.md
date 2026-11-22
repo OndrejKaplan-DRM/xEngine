@@ -9,7 +9,7 @@ Jsi sešna **B (obsah a nástroje)**. Vyrábíš data ve formátu xSpace a nást
    Sada Level 1, na kterou se zadání odkazuje (`01_CORE`, `02_SHELL`, `10_CASE_FPS`), je v balíku pro sešny ve složce `level1/` a v repu `OndrejKaplan-DRM/vibe-game-frameworks` ve složce `frameworks/` (veřejné, stačí klon pro čtení).
 3. Přečti `tools/golden/make.mjs` a `packs/golden`: to je vzor dat i stylu generátoru. Tvoje výstupy musí projít stejným validátorem (`npm run check`, pro jiný balík `node tools/xspace-check.mjs packs/<balík> --strict`).
 4. Načti skilly `xengine`, `blender-skills` (oddíly 0, 13, 14), `arena-assety` (oddíly 1, 4), `herni-data-zestihleni`, `headless-webgl-testing`. Kde se skill `xengine` liší od repa, platí repo. Přečti i `docs/DECISIONS.md` D-022 (světlo po vrcholech) a `docs/06_ROZPOCTY.md`.
-5. `npm install && npm test`. Musí projít (T0 41, T1 118, T4 46, T2 15, T3 8).
+5. `npm install && npm test`. Musí projít (T0 41, T1 118, T4 46, T2 15, T3 12).
 
 **Přechod ze znění 1.** Sešna B začala ze znění 1 (`a2ce175`). Než budeš pokračovat: `git fetch origin && git merge origin/zaklad-1` (zkušební sloučení u svodné sešny proběhlo bez konfliktů, testy základu zůstaly zelené). Pro tebe se mění úkol B1.3 a přibyly `brushLightMesh` a `lightIrradiance` v `src/xspace`; Shell je v `src/shell`. `B_STAV.md` vyplňuj po každém uzavřeném kroku, zatím je v něm jen šablona.
 

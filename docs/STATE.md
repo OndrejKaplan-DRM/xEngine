@@ -16,12 +16,12 @@ Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynouc�
 | světlo: síť vzorků `brushLightMesh` (mřížka 0,5 m, pořadí vrcholů je kontrakt) a vzorec `lightIrradiance` | `src/xspace/geom.js`, `light.js` | 17 kontrol v T1 |
 | zlatý vzorek: level xLab (5 buněk, 4 portály, 54 kvádrů, 20 entit, 10 světel, 11 spojení) a 12 prefabů s kostrou | `packs/golden`, `tools/golden/make.mjs` | bez nálezů, bajtově opakovatelný |
 | xView: prohlížeč balíku (pět pohledů, vrstvy, validátor v prohlížeči) | `tools/xview` → `dist/xview.html` | 15 kontrol v T2 |
-| xBench 0.1: měření stroje (16 případů) | `tools/xbench` → `dist/xbench.html` | 8 kontrol v T3; změřeno na T460 |
+| xBench 0.2: měření stroje (28 případů, z toho 16 shodných s verzí 0.1) | `tools/xbench` → `dist/xbench.html` | 12 kontrol v T3; verze 0.1 změřena na T460, verze 0.2 zatím ne |
 | xShell: menu, pauza, nastavení z deklarací, katalog nabídek | `src/shell` | 46 kontrol v T4 (jen nastavení) |
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 228 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
+`npm test`: 232 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
 
 ## Co hotové není
 
@@ -44,7 +44,7 @@ Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynouc�
 
 1. Předat sešnám A a B pokyn ke sloučení znění 2.
 2. Říct, zda smím do `vibe-game-frameworks` zapsat, že Shell má domov v xEngine.
-3. Až bude xBench 0.2: pustit ho na T460.
+3. Pustit xBench 0.2 na T460 a poslat výsledek.
 
 ## Návrhy
 
