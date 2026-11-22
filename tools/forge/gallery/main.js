@@ -213,7 +213,7 @@ function tile(id, t, px) {
   render();
   const copy = document.createElement('canvas');
   copy.width = copy.height = px;
-  copy.getContext('2d').drawImage(canvas, 0, 0);
+  copy.getContext('2d', { willReadFrequently: true }).drawImage(canvas, 0, 0); // čte se z něj statistika obrazu
   grid.visible = true;
   man.visible = keep.man;
   pose = keep.pose;

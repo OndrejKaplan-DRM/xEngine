@@ -74,6 +74,7 @@ const RUNS = [
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
 ];
 let slowest = 0;
+const usedAll = new Set();
 for (const run of RUNS) {
   const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [] };
   const findings = {};
@@ -106,7 +107,7 @@ for (const run of RUNS) {
     for (const p of insp.problems.slice(0, 2)) problems.push(`seed ${seed}: ${p}`);
     if (insp.stairs + insp.ramps > 0) withStairs++;
     if (level.entities.some((e) => e.props && e.props.locked)) puzzles++;
-    for (const e of level.entities) prefabsUsed.add(e.prefab);
+    for (const e of level.entities) (prefabsUsed.add(e.prefab), usedAll.add(e.prefab));
   }
   slowest = Math.max(slowest, ...agg.ms);
   const n = agg.cells.length;
@@ -119,6 +120,12 @@ for (const run of RUNS) {
   ok(Math.max(...agg.ms) < 1000, `${run.name}: generování pod 1 s`, `${span(agg.ms, 1)} ms; kvádrů ${span(agg.brushes)}, entit ${span(agg.entities)}`);
   if (run.opts.puzzle) ok(puzzles >= n * 0.9, `${run.name}: zamčená místnost s pákou`, `${puzzles} z ${n}`);
   if (!run.opts.puzzle && !run.opts.floors) ok(prefabsUsed.size >= (run.preset === 'complex' ? 25 : 8), `${run.name}: generátor rozmisťuje prefaby sady`, `${prefabsUsed.size} různých prefabů z ${catalog.ids.length}`);
+}
+
+{
+  // okno a mřížová brána čekají na návrh N-003 (portál jen pro pohled); všechno ostatní ze sady generátor umí postavit
+  const unused = catalog.ids.filter((id) => !usedAll.has(id));
+  ok(unused.every((id) => ['window_sash_01', 'gate_iron_01'].includes(id)), 'generátory dohromady použijí každý prefab sady kromě těch, které čekají na N-003', `nepoužité: ${unused.join(', ') || 'žádné'}`);
 }
 
 // ---- 50 místností do 1 s ---------------------------------------------------------------------

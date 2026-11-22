@@ -138,7 +138,7 @@ export const complex = {
         return {
           walls: take(
             [{ p: 'desk_office_01', top: ['terminal_desk_01', 'lamp_desk_01'], chair: 'chair_office_01', chairX: -0.15 }, { p: 'cabinet_file_01' }],
-            [{ p: 'cabinet_door_01' }, { p: 'shelf_rack_01' }, { p: 'cabinet_file_01' }, { p: 'chair_plain_01' }, { p: 'bench_metal_01' }, { p: 'table_work_01', chair: 'chair_plain_01' }],
+            [{ p: 'cabinet_door_01' }, { p: 'shelf_rack_01' }, { p: 'cabinet_file_01' }, { p: 'chair_plain_01' }, { p: 'bench_metal_01' }, { p: 'table_work_01', chair: 'chair_plain_01' }, { p: 'lamp_wall_01', h: 190 }],
           ),
         };
       case 'store':
@@ -150,7 +150,7 @@ export const complex = {
         return {
           walls: take(
             [{ p: 'valve_gate_01', h: 110 }, { p: 'pipe_double_01', h: 235, chain: 3 }, { p: 'terminal_wall_01', h: 135 }],
-            [{ p: 'lever_floor_01' }, { p: 'valve_ball_01', h: 100 }, { p: 'table_work_01' }, { p: 'barrel_steel_01' }, { p: 'cabinet_door_01' }, { p: 'lever_knife_01', h: 140 }, { p: 'pipe_straight_01', h: 235, chain: 2 }],
+            [{ p: 'lever_floor_01' }, { p: 'valve_ball_01', h: 100 }, { p: 'table_work_01' }, { p: 'barrel_steel_01' }, { p: 'cabinet_door_01' }, { p: 'lever_knife_01', h: 140 }, { p: 'pipe_straight_01', h: 235, chain: 2 }, { p: 'button_round_01', h: 125 }],
           ),
         };
       case 'corridor':

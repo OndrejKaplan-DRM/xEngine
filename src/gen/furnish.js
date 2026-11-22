@@ -44,6 +44,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const moves = swept.max.some((x, k) => x - rest.max[k] > 0.01) || swept.min.some((x, k) => rest.min[k] - x > 0.01);
     if (moves && (!inside(swept, cellBox[ci]) || occ.some((z) => z.kind === 'solid' && !mine(z) && boxesHit(z, swept)))) return null;
     const e = { id: S.eid(stem(prefab)), prefab, cell: S.meta[ci].id, pos: V(...pos), rot: V(0, ry, 0) };
+    // svítidlo s vlastním vypínačem (stolní lampa) se zapojí samo na sebe; turnOn a turnOff jsou bezpečné i dvakrát
+    const comp = catalog.get(prefab).components || {};
+    if (comp.light && comp.interact && comp.interact.kind === 'switch') e.io = [{ on: 'on', target: e.id, input: 'turnOn' }, { on: 'off', target: e.id, input: 'turnOff' }];
     occ.push({ ...rest, kind: 'solid', e });
     if (moves) occ.push({ ...swept, kind: 'zone', e });
     S.entities.push(e);
@@ -55,7 +58,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const rb = catalog.restBox(prefab);
     const [ry, sgn] = facing(wall);
     const along = m(low) - (sgn > 0 ? rb.min[0] : -rb.max[0]);
-    const normal = m(wall.face) + wall.n * ((height ? 0 : 0.02) - rb.min[2]);
+    // odstup od zdi podle rozsahu pohybu: víko truhly se sklápí dozadu a musí se za ni vejít
+    const back = Math.min(rb.min[2], catalog.get(prefab).bounds.min[2]);
+    const normal = m(wall.face) + wall.n * ((height ? 0 : 0.02) - back);
     const y = m(cells[ci].y0 + height);
     return tryPlace(ci, prefab, wall.run === RUN_X ? [along, y, normal] : [normal, y, along], ry, o);
   }
@@ -79,7 +84,8 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
       const x = rb.min[0] + ((rb.max[0] - rb.min[0]) * (k + 0.5)) / list.length;
       relative(ci, e, t, [x, topY, -0.02]);
     });
-    if (item.chair) relative(ci, e, item.chair, [item.chairX || 0, 0, rb.max[2] + 0.4], 180, { host: undefined, margin: 0.02 });
+    // židle patří ke stolu: jeho obal (včetně vysunuté zásuvky) jí nevadí, stojí mimo zásuvku (chairX)
+    if (item.chair) relative(ci, e, item.chair, [item.chairX || 0, 0, rb.max[2] + 0.4], 180, { margin: 0.02 });
     if (item.stack) relative(ci, e, item.stack, [0, rb.max[1], 0], rng.int(-25, 25));
     if (item.over) againstWall(ci, wall, item.over.p, low + Math.round((widthCm(item.p) - widthCm(item.over.p)) / 2), item.over.h, { host: e });
     return e;
@@ -230,6 +236,11 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     while (S.entities.length > before && !passable(ci)) {
       const gone = S.entities.pop();
       S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);
+    }
+    // tlačítko bez úkolu ovládá svítidla své místnosti
+    for (const e of S.entities.slice(before)) {
+      const it = (catalog.get(e.prefab).components || {}).interact;
+      if (it && it.kind === 'button' && !e.io && lampsOf[ci].length) e.io = lampsOf[ci].map((l) => ({ on: 'pressed', target: l.id, input: 'toggle' }));
     }
   });
 
