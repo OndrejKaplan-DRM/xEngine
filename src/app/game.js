@@ -7,6 +7,7 @@ import { createInput } from '../play/input.js';
 import { createPlayer } from '../play/player.js';
 import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
+import { createEntities } from '../world/entities.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
 export const VERSION = 'xEngine 0.1 · vlna 1 · 2026-11-22';
@@ -44,13 +45,14 @@ export function createGame({ pack, render, now }) {
   const input = createInput();
   const phys = createPhys();
   const world = createWorld({ phys, render, pack });
+  const entities = createEntities({ phys, render, world, pack });
   const player = createPlayer({ phys, world, render, input, session });
 
   /**
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, player];
+  const loadOrder = [world, entities, player];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -72,6 +74,7 @@ export function createGame({ pack, render, now }) {
   E.add({ name: 'loader', phase: 'input', build: () => loadLevel(session.levelId) });
   E.add(input);
   E.add(player);
+  E.add(entities);
   E.add(phys);
   E.add(world);
   E.add(render);
@@ -96,6 +99,7 @@ export function createGame({ pack, render, now }) {
     input,
     phys,
     world,
+    entities,
     player,
     render,
     levelIds: [...levels.keys()],

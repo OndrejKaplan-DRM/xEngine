@@ -9,7 +9,7 @@
 | A1.1 kostra aplikace | hotovo | `a_00_build` 3, `a_11_app` 21 (Node), `a_11_shell` 19 (prohlížeč) | cíl `xlab`, Shell přes adaptér, zámek kurzoru, `__xe` |
 | A1.2 statický svět | hotovo | `a_12_world` 9 (Node), `a_12_view` 8 (prohlížeč) | 54 koliderů z 54 kvádrů, 17 dávek (buňka × materiál), snímek ze startu shodný s xView |
 | A1.3 hráč a profily | hotovo | `a_13_player` 32 (Node), `a_13_walk` 7 (prohlížeč) | T1–T4 v obou profilech, schodiště na galerii, přepnutí profilu za běhu |
-| A1.4 entity a kostry | — | | |
+| A1.4 entity a kostry | hotovo | `a_14_entities` 19 (Node), `a_14_view` 7 (prohlížeč) | 20 entit, bedny padají, křídlo dveří při 90° = `rigMatrices`, tři pohledy shodné s xView |
 | A1.5 použít + spojení | — | | |
 | A1.6 manipulace a klidný režim | — | | |
 | A1.7 buňky a portály | — | | |
@@ -35,6 +35,9 @@
 | T2 série výskoků s úkrokem, arena | 15,1 m/s = 186 % max po 3 výskocích; real stejným robotem 104 % | `a_13_player`; robot drží ideální úhel, člověk dosáhne méně |
 | výška výskoku | arena 1,131 m (teorie 1,157), real 1,114 m (teorie 1,140) | `a_13_player`; rozdíl je půl kroku integrace |
 | krok simulace, jen hráč a statický svět | 0,08 až 0,12 ms (hráč 0,06, Rapier 0,01 až 0,04) | `a_13_walk`, `E.profile`, sandbox: **orientační, ne výkon T460** |
+| pohledy start, laboratoř, hala proti xView (s prefaby) | rozdíl 0,01 / 0,18 / 0,18 z 255; volání 52 / 27 / 12 | `a_14_view`, 1366 × 768, zorné pole 60°, 12 světel; bez viditelnosti po buňkách |
+| dávky a pohyblivé díly xLabu | 29 dávek (buňka × materiál), 23 sítí pohyblivých dílů, 1 668 △ prefabů = součet `tris` z dat | `a_14_entities` |
+| krok hráče podle situace | stojí 0,05 ms, běh 0,07 ms, tlačí do zdi 0,20 ms, schody 0,04 ms | sonda v Node, průměr 240 kroků, sandbox: **orientační** |
 | načtení levelu v Node | asi 80 ms včetně stavby koliderů, start Rapieru 63 ms | `E.stats.boot`, sandbox; orientační |
 
 ## Neověřeno
@@ -44,7 +47,11 @@
 
 ## Návrhy (docs/navrhy)
 
-Zatím žádný.
+| Číslo | Co | Dočasné řešení |
+|---|---|---|
+| N-101 | síť a kolize dílů prefabu (válec) do `geom.js` | `src/world/parts.js` |
+| N-102 | `rigMatrices` bez alokací | volám jen při změně hodnoty kloubu |
+| N-103 | výchozí rychlost kloubu bez `speed` | tabulka v `src/world/joints.js` |
 
 ## Co potřebuju od sešny B
 

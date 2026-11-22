@@ -96,3 +96,18 @@ export function axisQuat(axis) {
   if (axis === 'z') return { x: h, y: 0, z: 0, w: h }; // Y → Z: otočení o +90° kolem X
   return { x: 0, y: 0, z: 0, w: 1 };
 }
+
+/** Součin matic a · b do pole out (smí být totožné s a i b jen pokud je to jiné pole než vstupy). */
+export function mul4(a, b, out) {
+  for (let c = 0; c < 4; c++) {
+    const b0 = b[c * 4];
+    const b1 = b[c * 4 + 1];
+    const b2 = b[c * 4 + 2];
+    const b3 = b[c * 4 + 3];
+    out[c * 4] = a[0] * b0 + a[4] * b1 + a[8] * b2 + a[12] * b3;
+    out[c * 4 + 1] = a[1] * b0 + a[5] * b1 + a[9] * b2 + a[13] * b3;
+    out[c * 4 + 2] = a[2] * b0 + a[6] * b1 + a[10] * b2 + a[14] * b3;
+    out[c * 4 + 3] = a[3] * b0 + a[7] * b1 + a[11] * b2 + a[15] * b3;
+  }
+  return out;
+}
