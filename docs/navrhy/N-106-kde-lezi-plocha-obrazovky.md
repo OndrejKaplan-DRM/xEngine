@@ -1,6 +1,6 @@
 # N-106: kde leží plocha obrazovky (`components.screen`)
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, pole je ve formátu
 
 ## Co potřebuju
 
@@ -28,4 +28,4 @@ Engine pole `offset` zatím nemá odkud číst, proto si posun odvodí sám: plo
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato** (svodná sešna, 22. 11. 2026, D-033). Popis roviny plochy a význam `app` jsou ve `formats.js`, přibylo volitelné `offset`. Zlatý vzorek má u `desk_terminal_01` `offset: 0.023` (1 mm před sklem, shodně s tím, co si engine dosud odvozoval). Sešna A přejde na čtení `offset` ve vlně 2 a odvozování smaže.

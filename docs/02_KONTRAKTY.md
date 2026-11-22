@@ -103,7 +103,9 @@ snapshot()  restore(data)
 - **Buňka** je vnitřní objem vzduchu, osově zarovnaný kvádr. Buňky se nepřekrývají. Místnost do L jsou dvě buňky se širokým portálem.
 - **Zeď patří právě jedné buňce.** Dvě buňky nikdy nestaví tutéž zeď dvakrát (dvojité plochy blikají a zapečené světlo na nich nesedí). Validátor překryvy hlásí.
 - **Portál** jsou čtyři rohy v rovině kolmé na osu, uprostřed tloušťky zdi mezi dvěma buňkami. Pod otvorem je vždy práh (kvádr podlahy), jinak je v podlaze díra.
-- **Dveře u portálu** (`door`) portál zavírají pro viditelnost a zvuk, dokud je jejich kloub v klidové poloze.
+- **Dveře u portálu** (`door`) portál zavírají pro viditelnost a zvuk, dokud je jejich kloub v klidové poloze. Dveře, kterými je vidět (mříž, prosklené), mají v prefabu `interact.seeThrough: true`: portál zavírají pro průchod a zvuk, pro viditelnost ne (N-003, N-107).
+- **Portál jen pro pohled** (okno) má `passable: false`: počítá se do viditelnosti a zvuku, ne do dosažitelnosti a navigace (N-003).
+- Engine řadí viditelnou geometrii po plochách: plocha kvádru jde do buňky, do které míří. Pole `cell` kvádru rozhoduje jen u ploch, které nemíří do žádné buňky (ostění, práh, vnější strana) (N-107).
 - Každá buňka je portály dosažitelná z výchozího místa hráče, nebo má `isolated: true`.
 - **Kvádr** (`box`) a **klín** (`wedge`, pole `rise` říká, kterým směrem stoupá). Síť, kolizi a UV počítá výhradně `src/xspace/geom.js`. UV jsou krabicová projekce ve světových metrech; dělí se hodnotou `uvScale` materiálu.
 - `col: false` = bez kolize, `vis: false` = neviditelná zábrana.
@@ -118,8 +120,13 @@ snapshot()  restore(data)
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
 - Jedna interakce na prefab (verze 1).
+- `speed` je rychlost pohonu **i ruky** hráče. Když chybí, platí doba přejezdu celého rozsahu podle druhu interakce z `JOINT_TRAVEL_SECONDS` ve `formats.js` (N-103).
+- `components.place` říká nástrojům, kam se prefab přichytává a jak velký otvor potřebuje (N-004). Engine ho nečte.
+- `components.screen`: plocha leží v rovině XY uzlu, střed v jeho počátku, líc do +Z; `offset` ji posouvá po ose Z (N-106).
 
 ### Interakce (`components.interact.kind`)
+
+**Dosah** (`interact.range`) se měří od osy těla hráče (svislá úsečka od nohou po oči) k bodu, kam dopadl paprsek pohledu. Předmět musí být pod zaměřovačem a paprsek nesmí cestou narazit na nic jiného (N-104).
 
 | Druh | Vyžaduje | Obvyklé vstupy | Obvyklé výstupy |
 |---|---|---|---|
@@ -183,4 +190,4 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 
 ## 6. Kódy nálezů validátoru
 
-Kódy jsou stálé a testy i zprávy sešen se na ně odkazují. Skupiny: `shape.*` (tvar pole), `ref.*` (odkaz na neexistující věc), `geom.*`, `portal.*`, `level.*`, `spawn.*`, `brush.*`, `rig.*`, `interact.*`, `phys.*`, `io.*`, `license.*`, `pack.*`, `mat.*`, `file.*`, `budget.*`, `entity.*`. Úplný seznam s příkladem mutace je v `test/t1_xspace.mjs`.
+Kódy jsou stálé a testy i zprávy sešen se na ně odkazují. Skupiny: `shape.*` (tvar pole), `ref.*` (odkaz na neexistující věc), `geom.*`, `portal.*`, `level.*`, `spawn.*`, `brush.*`, `rig.*`, `interact.*`, `phys.*`, `io.*`, `license.*`, `pack.*`, `mat.*`, `file.*`, `budget.*`, `entity.*`, `place.*`. Úplný seznam s příkladem mutace je v `test/t1_xspace.mjs`.

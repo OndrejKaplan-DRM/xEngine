@@ -28,6 +28,13 @@ export const LIGHT_TYPES = ['point', 'spot', 'sun'];
 export const LIGHT_STYLES = ['steady', 'flicker', 'pulse', 'strobe'];
 export const PROFILES = ['arena', 'real'];
 export const TRIGGER_EVENTS = ['enter', 'exit'];
+/** Kam se prefab přichytává (components.place); počátek prefabu podle tabulky v 02_KONTRAKTY, oddíl 2. */
+export const PLACE_MOUNTS = ['floor', 'wall', 'ceiling', 'top', 'opening'];
+/**
+ * Doba přejezdu celého rozsahu kloubu v sekundách, když kloub nemá `speed` (N-103). Klíč je druh interakce.
+ * Platí pro pohon i pro ruku hráče. Hodnoty jsou odhad sešny A, ne měření.
+ */
+export const JOINT_TRAVEL_SECONDS = { button: 0.06, switch: 0.1, lever: 0.25, drawer: 0.5, door: 1, valve: 3, other: 0.5 };
 export const SPAWN_KINDS = ['player', 'enemy', 'item'];
 /** Vestavěné cíle vstupů, které nejsou entitou levelu. */
 export const LEVEL_TARGETS = { '@level': ['checkpoint', 'complete', 'message'] };
@@ -119,6 +126,7 @@ export const COMPONENTS = {
       prompt: str('krátký popis akce pro hráče („Otevřít“)'),
       range: num('dosah v metrech', { min: 0.2, max: 6 }),
       manipulate: bool('jde ovládat tažením myši při držení tlačítka (jemná motorika)'),
+      seeThrough: bool('jen u dveří: zavřené dveře portál nezavírají pro pohled (mříž, prosklené dveře), jen pro průchod a zvuk'),
       station: obj(
         {
           eye: R(vec3('poloha oka v prostoru prefabu')),
@@ -166,14 +174,24 @@ export const COMPONENTS = {
     },
     'sebratelný předmět',
   ),
+  place: obj(
+    {
+      mount: R(en(PLACE_MOUNTS, 'kam se prefab přichytává')),
+      height: num('wall: obvyklá výška počátku nad podlahou v metrech', { min: 0, max: 10 }),
+      opening: { t: 'vec2', doc: 'opening: šířka a výška stavebního otvoru v metrech' },
+      top: num('floor: výška plochy, na kterou jde něco postavit (deska stolu), v metrech', { min: 0, max: 5 }),
+    },
+    'jak se prefab umisťuje; čtou nástroje (xGen, xDesigner), engine smí ignorovat',
+  ),
   screen: obj(
     {
       node: R(ref('node', 'uzel, na kterém obrazovka sedí')),
       size: R({ t: 'vec2', doc: 'šířka a výška plochy v metrech' }),
       res: R({ t: 'vec2', doc: 'rozlišení v pixelech' }),
-      app: R(str('id aplikace terminálu')),
+      app: R(str('id obsahu obrazovky; engine verze 1 zná jen textovou konzoli a neznámé id zobrazí jako konzoli')),
+      offset: num('posun plochy po ose Z uzlu v metrech (výchozí 0); plocha má ležet těsně před předním dílem uzlu', { min: -1, max: 1 }),
     },
-    'obrazovka ve světě, na kterou jde v klidném režimu klikat a psát (dědictví Doom 3)',
+    'obrazovka ve světě, na kterou jde v klidném režimu klikat a psát (dědictví Doom 3). Plocha leží v rovině XY uzlu, střed má v jeho počátku, líc míří do +Z, osa X plochy je vpravo a Y nahoru',
   ),
 };
 
@@ -192,6 +210,7 @@ const material = obj(
     uvScale: num('kolik metrů světa pokryje jedna dlaždice textury', { min: 0.01, max: 100 }),
     surface: R(en(SURFACES, 'povrch pro zvuk, částice a akustiku')),
     alphaTest: num('práh průhlednosti 0–1', { min: 0, max: 1 }),
+    opacity: num('průhlednost 0–1 (výchozí 1); pod 1 se materiál kreslí průhledně, po neprůhledných a bez zápisu do hloubky', { min: 0, max: 1 }),
     twoSided: bool('kreslit obě strany'),
   },
   'materiál',
@@ -355,7 +374,8 @@ export const FORMATS = {
           a: R(ref('cell', 'první buňka')),
           b: R(ref('cell', 'druhá buňka')),
           quad: R(arr(vec3('roh'), 'čtyři rohy otvoru v jedné rovině', { minLen: 4, maxLen: 4 })),
-          door: ref('entity', 'entita dveří; zavřené dveře portál uzavírají pro viditelnost i zvuk'),
+          door: ref('entity', 'entita dveří; zavřené dveře portál uzavírají pro viditelnost i zvuk (pro viditelnost ne, mají-li seeThrough)'),
+          passable: bool('lze projít (výchozí ano); ne = otvor jen pro pohled a zvuk (okno), nepočítá se do dosažitelnosti ani navigace'),
         }),
         'portály: otvory mezi buňkami',
       ),

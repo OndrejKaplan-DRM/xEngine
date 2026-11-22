@@ -119,6 +119,7 @@ function checkMaterials(file, mats, c) {
       if (!ID.test(k)) c.err('shape.id', `${file}.materials.${k}`, 'id materiálu má být malými písmeny, číslicemi a podtržítkem');
       ids.add(k);
       if (m && m.model === 'emissive' && !m.emissive) c.err('mat.emissive', `${file}.materials.${k}`, 'model emissive vyžaduje pole emissive');
+      if (m && isNum(m.opacity) && m.opacity < 1 && m.alphaTest !== undefined) c.warn('mat.alphaBoth', `${file}.materials.${k}`, 'materiál má opacity pod 1 i alphaTest: dva různé způsoby průhlednosti');
     }
   }
   return ids;
@@ -228,6 +229,9 @@ function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
     if (it.kind === 'pickup' && !comp.pickup) c.err('interact.pickup', `${file}.components`, 'interakce pickup vyžaduje součást pickup');
     if (it.kind === 'grab' && comp.physics?.body !== 'dynamic') c.err('interact.grab', `${file}.components`, 'uchopit jde jen dynamické těleso');
   }
+  if (comp.place?.mount === 'opening' && comp.place.opening === undefined) c.err('place.opening', `${file}.components.place`, 'umístění do otvoru vyžaduje rozměr otvoru (opening)');
+  if (comp.place?.mount === 'wall' && comp.place.height === undefined) c.err('place.height', `${file}.components.place`, 'nástěnný prefab vyžaduje výšku počátku nad podlahou (height)');
+  if (comp.interact?.seeThrough && comp.interact.kind !== 'door') c.warn('interact.seeThrough', `${file}.components.interact`, 'seeThrough má smysl jen u dveří');
   if (comp.light?.node !== undefined && !nodeIds.has(comp.light.node)) c.err('ref.node', `${file}.components.light.node`, `uzel „${comp.light.node}“ neexistuje`);
   if (comp.screen?.node !== undefined && !nodeIds.has(comp.screen.node)) c.err('ref.node', `${file}.components.screen.node`, `uzel „${comp.screen.node}“ neexistuje`);
   if (comp.health?.breakInto !== undefined && !prefabIds.has(comp.health.breakInto)) c.err('ref.prefab', `${file}.components.health.breakInto`, `prefab „${comp.health.breakInto}“ neexistuje`);
@@ -301,8 +305,11 @@ function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
     const A = cellById.get(p.a)?.bounds;
     const B = cellById.get(p.b)?.bounds;
     if (!A || !B || !Array.isArray(p.quad) || p.quad.length !== 4 || !p.quad.every((q) => isVec(q, 3))) return;
-    links.get(p.a)?.add(p.b);
-    links.get(p.b)?.add(p.a);
+    if (p.passable !== false) {
+      // portál jen pro pohled (okno) do dosažitelnosti nepatří (N-003)
+      links.get(p.a)?.add(p.b);
+      links.get(p.b)?.add(p.a);
+    }
     const flat = [0, 1, 2].filter((k) => Math.max(...p.quad.map((q) => q[k])) - Math.min(...p.quad.map((q) => q[k])) <= LIMITS.portalPlaneEps);
     if (flat.length !== 1) return c.err('portal.plane', `${path}.quad`, 'rohy mají ležet v jedné rovině kolmé na osu x, y nebo z');
     const k = flat[0];

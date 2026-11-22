@@ -1,6 +1,6 @@
 # N-107: dveře u portálu musí v klidové poloze zakrýt celý otvor
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý s úpravou
 
 ## Co potřebuju
 
@@ -26,4 +26,4 @@ Jedno pravidlo validátoru a dvě věty kontraktu. Data zlatého vzorku se nemě
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato s úpravou** (svodná sešna, 22. 11. 2026, D-033 a D-034). Bod 2 nahrazuje `interact.seeThrough` z N-003: mříž nebo prosklené dveře se k portálu **připisují** (zavírají průchod a zvuk) a příznak říká, že pohled nezavírají. Bod 3 (řazení ploch do buněk) je v kontraktech. Bod 1 (pravidlo `portal.door.cover`) přijat jen pro dveře bez `seeThrough`; do validátoru ho doplní svodná sešna během vlny 2. Do té doby hlídá zlatý vzorek test `a_17_cells`.

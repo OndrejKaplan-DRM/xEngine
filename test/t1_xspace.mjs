@@ -96,6 +96,11 @@ const MUTATIONS = [
   ['brush.overlap', 'dva kvádry přes sebe (varování)', (p) => L(p).brushes.push({ ...clone(L(p).brushes[0]), id: 'b_dupl_999' })],
   ['brush.faces', 'neznámá stěna v materiálech po stěnách', (p) => (L(p).brushes[0].faces = { nahore: 'steel' })],
   ['entity.outside', 'entita daleko od své buňky (varování)', (p) => (L(p).entities[2].pos = [30, 1, 30])],
+  ['level.unreachable', 'buňka spojená jen portálem pro pohled (passable: false)', (p) => (L(p).portals[L(p).portals.length - 1].passable = false)],
+  ['mat.alphaBoth', 'průhlednost dvěma způsoby naráz (varování)', (p) => Object.assign(Object.values(p.materials.materials)[0], { opacity: 0.5, alphaTest: 0.5 })],
+  ['place.opening', 'umístění do otvoru bez rozměru otvoru', (p) => (P(p, 'door_hinged_01').components.place = { mount: 'opening' })],
+  ['place.height', 'nástěnný prefab bez výšky', (p) => (P(p, 'switch_wall_01').components.place = { mount: 'wall' })],
+  ['interact.seeThrough', 'průhlednost pro pohled u něčeho, co nejsou dveře (varování)', (p) => (P(p, 'switch_wall_01').components.interact.seeThrough = true)],
 ];
 for (const [code, name, mutate] of MUTATIONS) {
   const m = clone(pack);
@@ -237,7 +242,7 @@ for (const rise of ['+x', '-x', '+z', '-z']) {
   };
   for (const [k, d] of Object.entries(FORMATS)) walk(d, k);
   ok(undocumented.length === 0, 'každé pole formátu má popis', undocumented.slice(0, 5).join(' '));
-  ok(Object.keys(COMPONENTS).length === 7, 'formát zná 7 součástí prefabu', Object.keys(COMPONENTS).join(' '));
+  ok(Object.keys(COMPONENTS).length === 8, 'formát zná 8 součástí prefabu', Object.keys(COMPONENTS).join(' '));
 }
 
 // ---- síť pro světlo po vrcholech a výpočet osvětlení (jedna pravda pro běh i zapékání)

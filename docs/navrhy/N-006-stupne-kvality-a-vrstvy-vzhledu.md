@@ -1,6 +1,6 @@
 # N-006: stupně kvality a vrstvy vzhledu (hra má vypadat skutečně a projekt má unést silnější stroj)
 
-Sešna: B · Datum: 2026-11-22 · Stav: otevřený
+Sešna: B · Datum: 2026-11-22 · Stav: přijatý po částech
 
 Týká se celého projektu, ne jen obsahu: základu (formát, rozpočty, rozhodnutí), sešny A (vykreslení) i sešny B (nástroje a data). Podnět je Ondřejův, z 22. 11. 2026 13:51:
 
@@ -168,4 +168,10 @@ Do rozhodnutí dělám body 1 a 2 z pořadí: obojí je v mojí složce a beze z
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato po částech** (svodná sešna, 22. 11. 2026, D-029 a D-030).
+
+1. **Zásada a stupně kvality: přijato.** Data nesou nejvyšší kvalitu, běh vybírá stupeň (0 `clean`, 1 `low`, 2 `mid`, 3 `high`). Závazný a změřený je jen stupeň `low` (T460); D-022, D-023 a `06_ROZPOCTY.md` platí pro něj. Stupně 2 a 3 zůstávají bez čísel do měření na stroji s grafickou kartou.
+2. **Měření, které návrhu chybělo, přišlo** (xBench 0.2, tři běhy): textura přidá v interiéru 0,5 až 1,0 ms, vyhlazování hran 4,4 až 6,2 ms, jedno světlo po pixelech až 3,9 ms. Stupeň `low` tedy smí mít textury barvy a nejvýš jedno efektové světlo; vyhlazování hran ne.
+3. **Pořadí 1 a 2 z návrhu (bohatší hrubý tvar, textury v polích `albedo` a `normal`): přijato**, je to práce sešny B ve vlně 2.
+4. **Nová pole (`layer`, `lod`, `minTier`, `trisBase`, `orm`, `emissiveMap`, `sizes`, `detail`, `decals`): směr schválen, do formátu zatím ne.** Žádné z nich dnes nemá výrobce ani čtenáře a nevyzkoušené rozhraní se zmrazí špatně (D-021). Nejdřív zkouška na jednom kusu: sešna B dodá jeden prefab se sítí `.glb` na stávající kostře a jeden materiál s texturou, obojí v polích, která formát už má; sešna A je načte a nakreslí. Z výsledku svodná sešna zmrazí jména polí do dalšího základu. Výjimka: `opacity` je přijato hned (N-005).
+5. **Hra v jednom souboru, nebo se složkou balíků:** nerozhoduju, je to Ondřejova otevřená otázka (číslo 4 v `B_STAV.md`). Zadání bod 5/ grafiku a zvuky do meze nepočítá.
