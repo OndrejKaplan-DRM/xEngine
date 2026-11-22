@@ -4,7 +4,7 @@
 
 ## Sešna A02: přechod na znění 2 (`START_A.md`, oddíl 2a)
 
-`origin/zaklad-1` se 22. 11. ve 21:50 posunul na `16548b4`; od té chvíle se stavělo. Poslední celý běh (po posledním commitu kódu `19b5377`): `npm test` 232 kontrol, `npm run test:a` 18 sad z 18, 297 kontrol, vše zeleně.
+`origin/zaklad-1` se 22. 11. ve 21:50 posunul na `16548b4`; od té chvíle se stavělo. Poslední celý běh (na commitu `30e9f24`, sestavení „vlna 1, znění 2 (A02)“): `npm test` 232 kontrol, `npm run test:a` 18 sad z 18, 297 kontrol, vše zeleně. Soubor pro Ondřeje `xLab_A02_2026-11-22.html` je bajtově `dist/xlab.html` z tohoto commitu (SHA-256 `5e7f23cd603fbc00…`).
 
 | Krok 2a | Co | Stav |
 |---|---|---|
