@@ -201,15 +201,34 @@ export function checkPassable(level, catalog) {
   return { problems: out, tested };
 }
 
+/** Pravidla obsahu z rozměrů buněk: strop aspoň 2,6 m, chodba aspoň 1,6 m široká (počítáno jen z dat levelu). */
+export function checkContentRules(level, minCeil = 2.6, minCorr = 1.6) {
+  const out = [];
+  let ceil = Infinity;
+  let corr = Infinity;
+  for (const c of level.cells) {
+    const h = c.bounds.max[1] - c.bounds.min[1];
+    ceil = Math.min(ceil, h);
+    if (h < minCeil - EPS) out.push(`${c.id}: světlá výška ${h.toFixed(2)} m`);
+    if (!c.id.startsWith('c_corr')) continue;
+    const w = Math.min(c.bounds.max[0] - c.bounds.min[0], c.bounds.max[2] - c.bounds.min[2]);
+    corr = Math.min(corr, w);
+    if (w < minCorr - EPS) out.push(`${c.id}: chodba široká ${w.toFixed(2)} m`);
+  }
+  return { problems: out, minCeil: ceil, minCorr: corr };
+}
+
 /** Všechny kontroly naráz. */
 export function inspectLevel(raw, catalog) {
   const level = { ...raw, entities: raw.entities || [], portals: raw.portals || [], brushes: raw.brushes || [] };
   const st = checkStairs(level);
   const pass = checkPassable(level, catalog);
+  const rules = checkContentRules(level);
   return {
     problems: [...checkReach(level), ...checkPortals(level, catalog), ...checkSpawns(level, catalog), ...st.problems, ...checkPlacement(level, catalog), ...pass.problems],
     stairs: st.stairs,
     ramps: st.ramps,
     passableCells: pass.tested,
+    rules,
   };
 }

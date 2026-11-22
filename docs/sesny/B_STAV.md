@@ -1,8 +1,8 @@
 # Stav sešny B
 
-**Vlna:** 1 · **Větev:** `sesna-b` (ze `zaklad-1`, `a2ce175`) · **Datum:** 22. 11. 2026, stav ve 14:00
+**Vlna:** 1 · **Větev:** `sesna-b` · **Základ:** znění 2 (`zaklad-1` = `16548b4`), sloučeno 22. 11. 2026 ve 22:35 (`ff4af58`) · **Stav:** 22. 11. 2026 večer, sešna B02
 
-> **Pozor na základ.** Tahle sešna i sešna A stojí na `a2ce175` (znění 1). Svodná sešna má připravené znění 2 základu (commity `6ae2e6c`, `4c84752`, `058ed41`: světlo po vrcholech, `brushLightMesh`, `lightIrradiance`, Shell v `src/shell`, změněné zadání B1.3), ale jen ve svém kontejneru; push čeká na Ondřejovo výslovné slovo. K 22. 11. 14:00 je `origin/zaklad-1` = `origin/main` = `a2ce175`. Až tam bude `058ed41`: `git fetch origin`, `git merge origin/zaklad-1` (sloučit, ne přebázovat; tak to stojí ve stavovém dokumentu svodné sešny), znovu přečíst `CLAUDE.md` a `START_B.md`. Svodná sešna zkusila sloučení nad `eb4b3c8` bez konfliktů; nad dnešním stavem větve je to neověřené.
+> **Základ.** Větev stojí na znění 2 (`origin/zaklad-1` = `origin/main` = `16548b4`): světlo po vrcholech (`brushLightMesh`, `lightIrradiance`), Shell v `src/shell`, zadání v `docs/00_ZADANI.md`. Sloučení bylo bez konfliktů; po něm základ 232 kontrol a skupina B beze změny. Svodná sešna má stav vlny 1 (`754f46d`) sloučený v `integrace-1`; commity této sešny B02 tam nejsou.
 
 ## Hotovo × neuděláno
 
@@ -13,14 +13,14 @@
 | B1.3 xBake: zapečené světlo | neuděláno | | zadání se ve znění 2 změnilo (po vrcholech a vrstvách) a stojí na funkcích základu, které na GitHubu nejsou; návrh N-001 jsem naslepo nepsala |
 | B1.4 xSearcher: příjem assetů | začato | | hotové jen měření dosažitelnosti zdrojů (`tools/searcher/ZDROJE.md`); nástroj `find.mjs` neexistuje |
 
-`npm run test:b`: 92 kontrol, 0 selhalo, 65 s. `npm test` (základ): 165 kontrol, 0 selhalo.
+`npm run test:b`: 96 kontrol, 0 selhalo, asi 60 s. `npm test` (základ, znění 2): 232 kontrol, 0 selhalo.
 
 ## Rozhodnutí Ondřeje (22. 11. 2026, 13:51)
 
 | Otázka | Volba | Stav v kódu |
 |---|---|---|
 | 1. hustota vybavení v komplexu | (a) nechat | platí, nic se nemění |
-| 2. katakomby | (b) stropy zvednout na 2,6 m, chodby rozšířit na 1,6 m | **neuděláno**; `src/gen/presets/catacombs.js` má dál stropy 2,2 až 3,2 m a chodby 1,2 až 1,5 m |
+| 2. katakomby | (b) stropy zvednout na 2,6 m, chodby rozšířit na 1,6 m | **hotovo** (B02): stropy 2,6 až 3,2 m, chodby 1,6 až 1,9 m; hlídá `b_t1_xgen` (nejnižší strop 2,60 m, nejužší chodba 1,60 m přes 200 seedů) |
 | 3. výchozí komplex | (a) dvě patra s galerií | platí, je to výchozí |
 | 4. zamčená místnost s pákou | (a) jen na přání (`--puzzle`) | platí |
 | 5. co dál | (c) víc detailu u prefabů + (a) B1.4 xSearcher | viz Plán |
@@ -50,8 +50,8 @@ Pořadí je závazné jen do bodu 2; dál rozhodne, co mezitím udělá svodná 
 
 | # | Krok | Hotovo, když | Poznámka |
 |---|---|---|---|
-| 0 | navázání: `git fetch origin`; je-li `origin/zaklad-1` = `058ed41`, `git merge origin/zaklad-1` a znovu přečíst `CLAUDE.md` a `START_B.md`; jinak pokračovat na `a2ce175` | `npm test` a `npm run test:b` zelené | po sloučení má základ 232 kontrol |
-| 1 | katakomby podle volby 2 (b): stropy aspoň 2,6 m, chodby aspoň 1,6 m | 200 seedů bez nálezu, `gen_demo` přegenerovaný, nová čísla v tabulce | změní se počty buněk (širší chodby berou plochu); přeměřit `tools/designer/dev/stats.mjs`; zmizí odchylka od pravidel obsahu |
+| 0 | navázání a sloučení znění 2 | **hotovo** (`ff4af58`) | základ 232 kontrol |
+| 1 | katakomby podle volby 2 (b): stropy aspoň 2,6 m, chodby aspoň 1,6 m | **hotovo** | 200 seedů bez nálezu, `gen_demo` přegenerovaný (`catacombs_3`: 30 buněk místo 33); průchody mezi chodbami zůstávají oblouky široké 1,3 až 1,8 m |
 | 2 | B1.4 xSearcher: `tools/searcher/find.mjs "<dotaz>" --type model\|texture\|sound`, příjem do `packs/_inbox/<zdroj>/<asset>/` se záznamem | 10 stažených assetů se záznamem, test na uložených odpovědích bez sítě, balík `free: true` odmítne jinou licenci než CC0 a vlastní | začít Poly Haven a ambientCG (mají rozhraní a soubory jdou stáhnout); `packs/_inbox` nepatří do gitu |
 | 3 | život beze změny formátu: válce s víc stěnami, náhrada zkosení a drobné díly u nejviditelnějších prefabů (dveře, stoly, skříně, bedny, sudy, svítidla), drobnosti na stoly a na zem, malé náhodné pootočení a posun nábytku v xGen | montáž „před a po“ stejných prefabů; `tris` v mezích pravidel obsahu (500 běžný, 2 000 složitý) | vidět ve všech dnešních prohlížečích i v enginu sešny A |
 | 4 | herní pohled v galerii: textury barvy a normálové mapy z CC0 zdrojů do `kit_base` přes `albedo` a `normal`, přepínač „čistý / herní“ v `dist/kit.html` | montáž „čistý × herní“ aspoň 8 prefabů; součet velikosti textur zapsaný | galerie je jediné místo, kde vykreslení patří sešně B; ve hře to bude vidět, až engine načte textury |
@@ -85,15 +85,15 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | Co | Hodnota | Kde a jak |
 |---|---|---|
 | seedy bez nálezu validátoru | 200 `complex` (dvě patra) + 200 `catacombs` + 50 `complex` jedno patro + 50 `complex` s hádankou = 500 levelů, 0 chyb, 0 varování | `b_t1_xgen`, validátor nad levelem spojeným se sadou |
-| pokusů na level | `complex` vždy 1, `catacombs` 1 až 2 | tamtéž (pokus = jeden proud náhody; nevyhovující se zahodí) |
-| buněk na level | `complex` 31 až 59 (medián 45), `catacombs` 27 až 53 (38), jedno patro 34 až 57 (45) | tamtéž |
-| dveří v portálech | `complex` 29 až 60 (43), `catacombs` 4 až 19 (10) | tamtéž |
-| čas generování | `complex` 4,7 až 82,6 ms (medián 9,4), `catacombs` 1,4 až 13,3 ms (2,8); level s 53 buňkami 8,9 ms | tamtéž, `performance.now` kolem `generateLevel`, první volání nese zahřátí |
-| kvádrů a entit na level | `complex` 354 až 629 kvádrů, 320 až 584 entit; `catacombs` 298 až 543 kvádrů, 96 až 181 entit | tamtéž |
+| pokusů na level | `complex` vždy 1, `catacombs` 1 až 3 (medián 1) | tamtéž (pokus = jeden proud náhody; nevyhovující se zahodí) |
+| buněk na level | `complex` 31 až 59 (medián 45), `catacombs` 25 až 47 (35), jedno patro 34 až 57 (45) | tamtéž |
+| dveří v portálech | `complex` 29 až 60 (43), `catacombs` 3 až 17 (9) | tamtéž |
+| čas generování | `complex` 3,4 až 52,8 ms (medián 6,5), `catacombs` 1,1 až 10,0 ms (2,3) | tamtéž, `performance.now` kolem `generateLevel`, první volání nese zahřátí |
+| kvádrů a entit na level | `complex` 354 až 629 kvádrů, 320 až 584 entit; `catacombs` 274 až 510 kvádrů, 83 až 171 entit | tamtéž |
 | nejvíc v jedné buňce | 48 entit, 94 kvádrů (meze validátoru 150 a 400) | sonda přes 300 levelů |
 | trojúhelníků v celém levelu | průměr 54 537, nejvíc 87 964 (kvádry + součet `tris` prefabů) | sonda přes 300 levelů před poslední úpravou pravidel; řádově platí |
-| průchodnost místností | v 9 až 31 buňkách na level mezi všemi otvory cesta široká 0,6 m | `b_t1_xgen`, mřížka 0,1 m, nezávislá na generátoru |
-| opakovatelnost | stejný seed dvakrát = stejné bajty (201 577 a 103 979 znaků); `packs/gen_demo` a `packs/kit_base` bajtově shodné s výstupem nástrojů | `b_t1_xgen`, `b_t2_kit` |
+| průchodnost místností | v 9 až 31 buňkách na level (`catacombs` 9 až 28) mezi všemi otvory cesta široká 0,6 m | `b_t1_xgen`, mřížka 0,1 m, nezávislá na generátoru |
+| opakovatelnost | stejný seed dvakrát = stejné bajty (`complex` 201 577, `catacombs` 101 890 znaků); `packs/gen_demo` a `packs/kit_base` bajtově shodné s výstupem nástrojů | `b_t1_xgen`, `b_t2_kit` |
 | sada | 49 prefabů, 8 276 △ celkem (průměr 169 △), nejtěžší `microscope_01` 456 △ | `b_t2_kit` |
 | galerie | 49 z 49 prefabů se vykreslí, u 27 z 27 kloubových je krajní poloha v obraze vidět | `b_t3_galerie`, dlaždice 160 px, softwarové vykreslení |
 | levely v xView | `complex_7` přehled 235 volání a 71 988 △; ze startu 44 volání | `b_t4_levely`; xView neslučuje po buňkách ani neořezává, čísla nejsou rozpočet enginu |
@@ -111,8 +111,6 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 - **Posuvné dveře** zajíždějí do zdi (křídlo se v otevřené poloze překrývá s kvádrem zdi). Jak se k tomu postaví Rapier a kreslení, nevím.
 - **Dvoukřídlé dveře** jsou dvě entity se stejným počátkem (viz N-002). Jak je engine nabídne k „použít“, nevím.
 - **Počet entit.** Level `complex` má 320 až 584 entit. Jestli to T460 unese, řekne až engine se slučováním a měření.
-- **Sloučení** se zněním 2 základu (viz upozornění nahoře).
-- **Odchylka od pravidel obsahu:** katakomby mají stropy od 2,2 m (pravidlo říká 2,6 až 3,2 m) a chodby 1,2 až 1,5 m. Ondřej zvolil nápravu (volba 2 b), provedena není.
 - **Stažení assetu** z OpenGameArt a Quaternius, licenční údaje zdrojů (viz `tools/searcher/ZDROJE.md`).
 - **Všechno v N-006** kromě toho, co je tam výslovně označené jako ověřené: stupně kvality a jejich meze jsou návrh bez měření.
 

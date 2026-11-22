@@ -1,5 +1,6 @@
-// Předvolba „katakomby“: jedno podlaží úzkých chodeb, výklenků, sklepů a krypt s nepravidelnými rozměry.
+// Předvolba „katakomby“: jedno podlaží chodeb, výklenků, sklepů a krypt s nepravidelnými rozměry.
 // Krypty jsou zapuštěné o dva až čtyři stupně; stropy má každá buňka jinak vysoko.
+// Ondřejova volba 2 (b) z 22. 11. 2026: strop nikde pod 2,6 m, chodba nikde užší než 1,6 m (pravidla obsahu).
 // Délky v centimetrech. Jména prefabů a materiálů jsou ze sady kit_base.
 
 const FIRE = [1, 0.62, 0.32];
@@ -40,7 +41,7 @@ export const catacombs = {
       roomMin: 200,
       roomMax: 560,
       maxAspect: 3,
-      corridorW: [120, 150],
+      corridorW: [160, 190],
       corridorTrigger: 620,
       corridorChance: 0.85,
       crossTrigger: 900,
@@ -62,14 +63,14 @@ export const catacombs = {
           if (c.kind === 'corridor' || (lo <= 170 && hi >= 2.5 * lo)) {
             c.kind = 'corridor';
             c.role = 'corridor';
-            c.y1 = rng.int(23, 26) * 10;
+            c.y1 = rng.int(26, 28) * 10;
           } else if (lo <= 240 && c.area <= 8) {
             c.kind = 'niche';
             c.role = 'niche';
-            c.y1 = rng.int(22, 24) * 10;
+            c.y1 = rng.int(26, 27) * 10;
           } else {
             c.role = rng.weighted([['cellar', 3], ['chamber', 2]]);
-            c.y1 = rng.int(24, 28) * 10;
+            c.y1 = rng.int(26, 30) * 10;
           }
         }
         // krypty: dvě až čtyři největší místnosti; zapuštěné o dva až čtyři stupně, první vždy (každý level má schody)
@@ -77,7 +78,7 @@ export const catacombs = {
         rooms.slice(0, rng.int(2, 4)).forEach((c, k) => {
           if (k > 0 && c.area < 10) return;
           c.role = 'crypt';
-          c.y1 = rng.int(28, 32) * 10;
+          c.y1 = rng.int(29, 32) * 10;
           if (k === 0 || (Math.min(c.w, c.d) >= 360 && rng.chance(0.6))) c.y0 = -riser * rng.int(2, 4);
         });
       },
