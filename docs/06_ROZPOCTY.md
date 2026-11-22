@@ -136,7 +136,7 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | viditelné trojúhelníky | ≤ 300 tisíc | měření 0.2 (296 tis. = 3,8 ms, 95 % 7,2 ms; 594 tis. = 7,2 ms, 95 % 14,3 ms) | A, B | `renderer.info`, validátor |
 | buňka mřížky světla | 0,5 m (xLab: 20 658 vzorků, 32 386 trojúhelníků; při 0,25 m 59 394 a 102 798) | spočteno ze zlatého vzorku | základ | `brushLightMesh` |
 | komprese textur (od vlny 2) | cíle S3TC a BPTC | měření | B | manifest |
-| krok simulace (120 Hz) | ≤ 2 ms | odhad | A | `E.profile`, F3 na T460 |
+| krok simulace (120 Hz) | ≤ 2 ms | **měření ve hře 22. 11. 2026 mez překračuje:** 0,64 až 3,50 ms ve čtyřech pohledech levelů sešny B, z toho fyzika 0,60 až 3,10 ms (`docs/mereni/T460_2026-11-22_xlab_gen_F3.md`) | A | F3 a `?bench` na T460 |
 | alokace v kroku | žádné | zásada | A | test haldy |
 | paměť textur | ≤ 256 MB | odhad | B | součet z manifestu |
 | halda JavaScriptu | ≤ 400 MB | odhad | A | Chrome na T460 |
@@ -150,6 +150,10 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | celá regrese základu | ≤ 3 min | cíl | svodná | `npm test` |
 
 Sandbox, ve kterém vznikají testy, kreslí softwarově na 2 jádrech. Jeho časy snímku s T460 nesouvisejí a nikde se neuvádějí jako výkon.
+
+## Měření ve hře (F3)
+
+Čtyři pohledy ze hry z vlny 1 na T460 (`docs/mereni/T460_2026-11-22_xlab_gen_F3.md`): 60 snímků/s ve všech, čas procesoru na snímek 2,7 až 9,5 ms, krok simulace 0,64 až 3,50 ms. Čas grafiky F3 neměří. Úzké hrdlo, které je z těchto čísel vidět, je fyzika, ne kreslení.
 
 ## Další měření
 
