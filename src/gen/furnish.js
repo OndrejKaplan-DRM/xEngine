@@ -8,6 +8,7 @@ import { entityMatrix, mat4Point } from '../xspace/index.js';
 import { V, m, r4 } from './util.js';
 import { RUN_X } from './kit.js';
 import { boxM, boxesHit } from './build.js';
+import { openingsConnected } from './passage.js';
 
 const grow = (b, d) => ({ min: b.min.map((x) => x - d), max: b.max.map((x) => x + d) });
 const inside = (b, outer, eps = 0.002) => [0, 1, 2].every((k) => b.min[k] >= outer.min[k] - eps && b.max[k] <= outer.max[k] + eps);
@@ -217,11 +218,19 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
   });
 
   // ---- 5) nábytek ke zdem a věci do plochy
+  //      Když by nábytek zatarasil cestu mezi otvory místnosti, ubírá se od naposledy postaveného kusu.
+  const blocksWay = (z) => z.kind === 'solid' && !z.steps && (!z.e || (catalog.get(z.e.prefab).colliders || []).length > 0);
+  const passable = (ci) => S.hall && S.hall.cell === ci ? true : openingsConnected(cells[ci], S.sides[ci], S.zones[ci].filter(blocksWay));
   cells.forEach((c, ci) => {
     const plan2 = preset.furniture(c, rng, catalog);
     if (!plan2) return;
+    const before = S.entities.length;
     packWalls(ci, plan2.walls || [], plan2.maxDepth ?? 90);
     scatter(ci, plan2.center || []);
+    while (S.entities.length > before && !passable(ci)) {
+      const gone = S.entities.pop();
+      S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);
+    }
   });
 
   // ---- 6) hádanka: zamčená místnost na konci větve a páka jinde (jen na přání)

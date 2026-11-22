@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>xForge: galerie sady kit_base</title>
+<style>
+html,body{margin:0;height:100%;background:#0b0d12;color:#d8dbe2;font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:270px 1fr 340px;height:100%}
+#list,#info{overflow:auto;background:#0e1118;border-right:1px solid #232937;padding:10px 0}
+#info{border-right:0;border-left:1px solid #232937;padding:12px 14px}
+#list h3{margin:12px 14px 4px;font-size:12px;font-weight:600;color:#8b93a5;text-transform:none}
+#list button{display:block;width:100%;text-align:left;background:none;border:0;color:#d8dbe2;font:inherit;padding:5px 14px;cursor:pointer}
+#list button:hover{background:#161b26}#list button.on{background:#12352b;color:#fff}
+#list small{color:#8b93a5;margin-left:6px}
+#stage{position:relative;min-width:0}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block}
+#bar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:rgba(14,17,24,.86);border:1px solid #2a3040;border-radius:8px;padding:8px 12px}
+#bar label{display:flex;align-items:center;gap:8px;font-size:13px}
+#bar input[type=range]{width:150px}
+#top{position:absolute;left:12px;top:12px;display:flex;gap:6px}
+button.b{background:#1a1f2b;color:#d8dbe2;border:1px solid #2f3647;border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
+button.b:hover{border-color:#5dcaa5}button.b.on{background:#12352b;border-color:#5dcaa5;color:#fff}
+#info h2{margin:0 0 2px;font-size:17px;font-weight:600;color:#fff}
+#info code{color:#9fd8c3;font-size:12px}
+#info table{border-collapse:collapse;width:100%;margin:8px 0;font-size:13px}
+#info td{padding:3px 0;vertical-align:top;border-top:1px solid #1d2330}
+#info td:first-child{color:#8b93a5;width:96px;padding-right:8px}
+.joint{margin:10px 0;padding:8px 10px;background:#141926;border-radius:6px;font-size:13px}
+.joint b{color:#fff;font-weight:600}.joint p{margin:4px 0 0;color:#aab2c5}
+#ver{color:#8b93a5;font-size:12px;margin:0 14px 6px}
+#hint{color:#8b93a5;font-size:12px;margin-top:14px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="list"><div id="ver"></div></div>
+  <div id="stage">
+    <canvas id="c"></canvas>
+    <div id="top"><button class="b" id="mode-one">Jeden prefab</button><button class="b" id="mode-all">Celá sada</button><button class="b" id="man">Postava 1,8 m</button></div>
+    <div id="bar"></div>
+  </div>
+  <div id="info"></div>
+</div>
+<script>/*__DATA__*/</script>
+<script>/*__JS__*/</script>
+</body>
+</html>

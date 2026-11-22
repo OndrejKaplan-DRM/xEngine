@@ -2983,21 +2983,21 @@
       "tag": "wall",
       "faces": { "-x": "tile_white" }
     },
-    { "id": "b_platform_0407", "cell": "c_hall_01", "min": [0, 0, 15.8], "max": [4, 1, 18.8], "mat": "concrete_dark", "tag": "platform" },
+    { "id": "b_platform_0407", "cell": "c_hall_01", "min": [0, 0, 24.7], "max": [4, 1, 27.7], "mat": "concrete_dark", "tag": "platform" },
     {
       "id": "b_ramp_0408",
       "cell": "c_hall_01",
-      "min": [4, 0, 15.8],
-      "max": [7.2, 1, 17.4],
+      "min": [4, 0, 26.1],
+      "max": [7.2, 1, 27.7],
       "mat": "metal_floor",
       "tag": "ramp",
       "shape": "wedge",
       "rise": "-x"
     },
-    { "id": "b_stair_0409", "cell": "c_hall_01", "min": [1.4, 0, 19.64], "max": [2.6, 0.2, 19.92], "mat": "metal_floor", "tag": "stair" },
-    { "id": "b_stair_0410", "cell": "c_hall_01", "min": [1.4, 0, 19.36], "max": [2.6, 0.4, 19.64], "mat": "metal_floor", "tag": "stair" },
-    { "id": "b_stair_0411", "cell": "c_hall_01", "min": [1.4, 0, 19.08], "max": [2.6, 0.6, 19.36], "mat": "metal_floor", "tag": "stair" },
-    { "id": "b_stair_0412", "cell": "c_hall_01", "min": [1.4, 0, 18.8], "max": [2.6, 0.8, 19.08], "mat": "metal_floor", "tag": "stair" }
+    { "id": "b_stair_0409", "cell": "c_hall_01", "min": [1.4, 0, 23.58], "max": [2.6, 0.2, 23.86], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0410", "cell": "c_hall_01", "min": [1.4, 0, 23.86], "max": [2.6, 0.4, 24.14], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0411", "cell": "c_hall_01", "min": [1.4, 0, 24.14], "max": [2.6, 0.6, 24.42], "mat": "metal_floor", "tag": "stair" },
+    { "id": "b_stair_0412", "cell": "c_hall_01", "min": [1.4, 0, 24.42], "max": [2.6, 0.8, 24.7], "mat": "metal_floor", "tag": "stair" }
   ],
   "entities": [
     { "id": "e_door_01", "prefab": "door_wood_01", "cell": "c_office_06", "pos": [27.7, 0, 14.15], "rot": [0, 90, 0] },
@@ -3369,6 +3369,16 @@
       "cell": "c_lab_09",
       "pos": [2.16, 1.2, 15.6],
       "rot": [0, 180, 0],
+      "io": [
+        { "on": "pressed", "target": "e_door_40", "input": "toggle" }
+      ]
+    },
+    {
+      "id": "e_button_call_30",
+      "prefab": "button_call_01",
+      "cell": "c_hall_01",
+      "pos": [2.16, 1.2, 15.8],
+      "rot": [0, 0, 0],
       "io": [
         { "on": "pressed", "target": "e_door_40", "input": "toggle" }
       ]
@@ -3780,15 +3790,15 @@
         { "on": "off", "target": "e_lamp_panel_38", "input": "turnOff" }
       ]
     },
-    { "id": "e_table_work_01", "prefab": "table_work_01", "cell": "c_hall_01", "pos": [0.42, 0, 19.7], "rot": [0, 90, 0] },
-    { "id": "e_terminal_wall_01", "prefab": "terminal_wall_01", "cell": "c_hall_01", "pos": [0, 1.35, 20.88], "rot": [0, 90, 0] },
-    { "id": "e_shelf_rack_01", "prefab": "shelf_rack_02", "cell": "c_hall_01", "pos": [0.22, 0, 22.07], "rot": [0, 90, 0] },
-    { "id": "e_crate_steel_01", "prefab": "crate_steel_01", "cell": "c_hall_01", "pos": [0.276, 0, 23.544], "rot": [0, 90, 0] },
-    { "id": "e_valve_gate_01", "prefab": "valve_gate_01", "cell": "c_hall_01", "pos": [0, 1.1, 24.57], "rot": [0, 90, 0] },
-    { "id": "e_shelf_rack_02", "prefab": "shelf_rack_01", "cell": "c_hall_01", "pos": [0.22, 0, 25.77], "rot": [0, 90, 0] },
-    { "id": "e_lever_floor_01", "prefab": "lever_floor_01", "cell": "c_hall_01", "pos": [0.546, 0, 26.49], "rot": [0, 90, 0] },
-    { "id": "e_barrel_steel_01", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [0.3305, 0, 27.3205], "rot": [0, 90, 0] },
-    { "id": "e_bench_metal_01", "prefab": "bench_metal_01", "cell": "c_hall_01", "pos": [1.55, 0, 27.48], "rot": [0, 180, 0] },
+    { "id": "e_table_work_01", "prefab": "table_work_01", "cell": "c_hall_01", "pos": [0.42, 0, 17.9], "rot": [0, 90, 0] },
+    { "id": "e_terminal_wall_01", "prefab": "terminal_wall_01", "cell": "c_hall_01", "pos": [0, 1.35, 19.08], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_01", "prefab": "shelf_rack_02", "cell": "c_hall_01", "pos": [0.22, 0, 20.27], "rot": [0, 90, 0] },
+    { "id": "e_crate_steel_01", "prefab": "crate_steel_01", "cell": "c_hall_01", "pos": [0.276, 0, 21.744], "rot": [0, 90, 0] },
+    { "id": "e_valve_gate_01", "prefab": "valve_gate_01", "cell": "c_hall_01", "pos": [0, 1.1, 22.77], "rot": [0, 90, 0] },
+    { "id": "e_shelf_rack_02", "prefab": "shelf_rack_01", "cell": "c_hall_01", "pos": [0.22, 0, 23.97], "rot": [0, 90, 0] },
+    { "id": "e_lever_floor_01", "prefab": "lever_floor_01", "cell": "c_hall_01", "pos": [9.52, 0, 27.154], "rot": [0, 180, 0] },
+    { "id": "e_bench_metal_01", "prefab": "bench_metal_01", "cell": "c_hall_01", "pos": [2.95, 0, 16.02], "rot": [0, 0, 0] },
+    { "id": "e_barrel_steel_01", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [4.1605, 0, 16.1305], "rot": [0, 0, 0] },
     { "id": "e_barrel_steel_02", "prefab": "barrel_steel_01", "cell": "c_hall_01", "pos": [6.86, 0, 19.31], "rot": [0, 180, 0] },
     { "id": "e_crate_large_01", "prefab": "crate_large_01", "cell": "c_hall_01", "pos": [9.56, 0, 24.37], "rot": [0, 45, 0] },
     { "id": "e_crate_plank_01", "prefab": "crate_plank_01", "cell": "c_hall_01", "pos": [9.56, 0.8, 24.37], "rot": [0, 48, 0] },
@@ -4308,7 +4318,7 @@
   ],
   "spawns": [
     { "id": "sp_player", "kind": "player", "pos": [28.85, 0, 13.85], "yaw": 180 },
-    { "id": "sp_enemy_1", "kind": "enemy", "pos": [9.87, 0, 22.88], "yaw": 180, "what": "dummy" }
+    { "id": "sp_enemy_1", "kind": "enemy", "pos": [2.86, 0, 18.56], "yaw": 270, "what": "dummy" }
   ],
   "source": {
     "tool": "gen",

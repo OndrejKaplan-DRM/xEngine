@@ -80,19 +80,32 @@ function hallGallery(b, S, plan, P, preset, rng) {
   return true;
 }
 
-/** Nakládací plošina v rohu haly s rampou a krátkým schodištěm (jednopatrová varianta). */
-function hallDock(b, S, plan, P, preset) {
+/**
+ * Nakládací plošina v rohu haly s rampou a krátkým schodištěm (jednopatrová varianta).
+ * Zkouší čtyři rohy v náhodném pořadí a vezme první, kde plošina nezakryje žádný otvor.
+ */
+function hallDock(b, S, plan, P, preset, rng) {
   const h = plan.cells[plan.hall];
   const id = S.meta[h.i].id;
-  const [x0, z0] = h.min;
   const H = 100;
   const pal = preset.palette;
-  block(b, id, { x0, x1: x0 + 400, z0, z1: z0 + 300 }, 0, H, pal.platform, 'platform');
-  ramp(b, id, { x0: x0 + 400, x1: x0 + 720, z0, z1: z0 + 160 }, 0, H, '-x', pal.stair);
-  stairs(b, { cell: id, run: 1, dir: -1, at: z0 + 300 + 4 * P.tread, s0: x0 + 140, s1: x0 + 260, baseY: 0, steps: 4, riser: 20, tread: P.tread, mat: pal.stair });
-  S.zones[h.i].push(boxM(x0, 0, z0, x0 + 400, 300, z0 + 300), boxM(x0 + 400, 0, z0, x0 + 720, 220, z0 + 160), boxM(x0 + 720, 0, z0, x0 + 840, 220, z0 + 160, 'zone'));
-  S.zones[h.i].push(boxM(x0 + 140, 0, z0 + 300, x0 + 260, 220, z0 + 300 + 4 * P.tread), boxM(x0 + 120, 0, z0 + 300 + 4 * P.tread, x0 + 280, 220, z0 + 420 + 4 * P.tread, 'zone'));
-  return true;
+  const run = 4 * P.tread;
+  for (const [X, dx, Z, dz] of rng.shuffle([[h.min[0], 1, h.min[1], 1], [h.max[0], -1, h.min[1], 1], [h.min[0], 1, h.max[1], -1], [h.max[0], -1, h.max[1], -1]])) {
+    const R = (x0, x1, z0, z1) => ({ x0: Math.min(X + dx * x0, X + dx * x1), x1: Math.max(X + dx * x0, X + dx * x1), z0: Math.min(Z + dz * z0, Z + dz * z1), z1: Math.max(Z + dz * z0, Z + dz * z1) });
+    const zone = (r, y1, kind) => boxM(r.x0, 0, r.z0, r.x1, y1, r.z1, kind);
+    const deck = R(0, 400, 0, 300);
+    const slope = R(400, 720, 0, 160);
+    const steps = R(140, 260, 300, 300 + run);
+    const solid = [zone(deck, 300), zone(slope, 220), zone(steps, 220)];
+    const free = [zone(R(720, 840, 0, 160), 220, 'zone'), zone(R(120, 280, 300 + run, 420 + run), 220, 'zone')];
+    if (S.zones[h.i].some((q) => q.o && solid.some((box) => boxesHit(q, box)))) continue;
+    block(b, id, deck, 0, H, pal.platform, 'platform');
+    ramp(b, id, slope, 0, H, dx > 0 ? '-x' : '+x', pal.stair);
+    stairs(b, { cell: id, run: 1, dir: -dz, at: Z + dz * (300 + run), s0: steps.x0, s1: steps.x1, baseY: 0, steps: 4, riser: 20, tread: P.tread, mat: pal.stair });
+    S.zones[h.i].push(...solid, ...free);
+    return true;
+  }
+  return false;
 }
 
 /** Schody z prahu dolů do zapuštěné místnosti. Vrací false, když by se dvoje schody srazily. */
@@ -244,7 +257,7 @@ export function buildStructure(preset, P, plan, catalog, rng) {
   });
 
   // 5) zvláštní stavby
-  if (plan.hall >= 0 && !(P.floors > 1 ? hallGallery(b, S, plan, P, preset, rng) : hallDock(b, S, plan, P, preset))) return null;
+  if (plan.hall >= 0 && !(P.floors > 1 ? hallGallery(b, S, plan, P, preset, rng) : hallDock(b, S, plan, P, preset, rng))) return null;
   for (const o of ops) {
     if (o.e.gallery) continue;
     if (o.A.y0 < o.sill && !sunkSteps(b, S, P, preset, o, o.A, true)) return null;

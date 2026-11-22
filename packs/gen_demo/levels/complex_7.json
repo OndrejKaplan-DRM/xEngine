@@ -4396,7 +4396,6 @@
     { "id": "e_lamp_desk_03", "prefab": "lamp_desk_01", "cell": "c_office_03", "pos": [9.35, 0.74, 18.85], "rot": [0, 180, 0] },
     { "id": "e_cabinet_file_06", "prefab": "cabinet_file_01", "cell": "c_office_03", "pos": [10.98, 0, 18.87], "rot": [0, 180, 0] },
     { "id": "e_table_work_03", "prefab": "table_work_01", "cell": "c_office_03", "pos": [9.8, 0, 16.82], "rot": [0, 0, 0] },
-    { "id": "e_chair_plain_04", "prefab": "chair_plain_01", "cell": "c_office_03", "pos": [9.8, 0, 17.62], "rot": [0, 180, 0] },
     { "id": "e_shelf_rack_12", "prefab": "shelf_rack_02", "cell": "c_store_03", "pos": [8.75, 0, 19.62], "rot": [0, 0, 0] },
     { "id": "e_shelf_rack_13", "prefab": "shelf_rack_01", "cell": "c_store_03", "pos": [10.25, 0, 19.62], "rot": [0, 0, 0] },
     { "id": "e_shelf_rack_14", "prefab": "shelf_rack_02", "cell": "c_store_03", "pos": [11.8, 0, 19.62], "rot": [0, 0, 0] },
