@@ -24,16 +24,16 @@ const meta = await build({
   legalComments: 'none',
   loader: { '.glb': 'binary', '.wasm': 'binary' },
 });
-const sums = { rapier: 0, three: 0, shell: 0, kernel: 0, xspace: 0, a: 0, other: 0 };
+const sums = { rapier: 0, three: 0, vendor: 0, kernel: 0, xspace: 0, a: 0, other: 0 };
 for (const out of Object.values(meta.metafile.outputs)) {
   for (const [file, info] of Object.entries(out.inputs)) {
-    const key = file.includes('@dimforge') ? 'rapier' : file.includes('node_modules/three') ? 'three' : file.startsWith('src/shell') ? 'shell' : file.startsWith('src/kernel') ? 'kernel' : file.startsWith('src/xspace') ? 'xspace' : file.startsWith('src/') ? 'a' : 'other';
+    const key = file.includes('@dimforge') ? 'rapier' : file.includes('node_modules/three') ? 'three' : file.startsWith('src/shell') ? 'vendor' : file.startsWith('src/kernel') ? 'kernel' : file.startsWith('src/xspace') ? 'xspace' : file.startsWith('src/') ? 'a' : 'other';
     sums[key] += info.bytesInOutput;
   }
 }
 const kB = (n) => `${(n / 1024).toFixed(0)} kB`;
-const engine = sums.three + sums.shell + sums.kernel + sums.xspace + sums.a + sums.other;
-h.ok(engine <= 1.5 * 1024 * 1024, 'kód enginu bez Rapieru a dat ≤ 1,5 MB', `engine ${kB(engine)} = three ${kB(sums.three)} + kód sešny A ${kB(sums.a)} + základ ${kB(sums.kernel + sums.xspace)} + Shell ${kB(sums.shell)}; Rapier ${kB(sums.rapier)}; celé HTML ${kB(html)}`);
+const engine = sums.three + sums.vendor + sums.kernel + sums.xspace + sums.a + sums.other;
+h.ok(engine <= 1.5 * 1024 * 1024, 'kód enginu bez Rapieru a dat ≤ 1,5 MB', `engine ${kB(engine)} = three ${kB(sums.three)} + kód sešny A ${kB(sums.a)} + základ ${kB(sums.kernel + sums.xspace)} + Shell ${kB(sums.vendor)}; Rapier ${kB(sums.rapier)}; celé HTML ${kB(html)}`);
 h.ok(html <= 10 * 1024 * 1024, 'celý soubor hry ≤ 10 MB (zadání, bod 5)', kB(html));
 
 process.exit(h.finish('A0 sestavení'));
