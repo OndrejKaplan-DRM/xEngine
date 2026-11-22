@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lamp_pendant_01",
+  "title": "Svítidlo stropní závěsné",
+  "category": "prop.light",
+  "bounds": { "min": [-0.204, -0.613, -0.204], "max": [0.204, 0.001, 0.204] },
+  "rig": {
+    "nodes": [
+      { "id": "mount" },
+      { "id": "bulb", "parent": "mount", "pos": [0, -0.6, 0] }
+    ]
+  },
+  "parts": [
+    { "node": "mount", "shape": "cyl", "center": [0, -0.015, 0], "radius": 0.05, "height": 0.03, "axis": "y", "mat": "steel_dark" },
+    { "node": "mount", "shape": "box", "min": [-0.01, -0.5, -0.01], "max": [0.01, -0.03, 0.01], "mat": "steel_dark" },
+    { "node": "mount", "shape": "cyl", "center": [0, -0.55, 0], "radius": 0.2, "height": 0.1, "axis": "y", "mat": "steel_dark" },
+    { "node": "bulb", "shape": "cyl", "center": [0, -0.006, 0], "radius": 0.13, "height": 0.012, "axis": "y", "mat": "emit_warm" }
+  ],
+  "components": {
+    "light": { "type": "point", "color": [1, 0.9, 0.75], "intensity": 60, "range": 12, "node": "bulb", "cast": false, "style": "steady", "on": false }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle", "setLevel"],
+  "outputs": ["on", "off"],
+  "tris": 204,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lights.mjs#lampPendant",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

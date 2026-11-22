@@ -1,0 +1,50 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "switch_rocker_01",
+  "title": "Vypínač kolébkový",
+  "category": "device.control",
+  "bounds": { "min": [-0.041, -0.041, -0.001], "max": [0.041, 0.041, 0.026] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "rocker", "parent": "base", "pos": [0, 0, 0.012] }
+    ],
+    "joints": [
+      {
+        "id": "rock",
+        "node": "rocker",
+        "type": "hinge",
+        "axis": [1, 0, 0],
+        "min": -7,
+        "max": 7,
+        "rest": -7,
+        "detents": [-7, 7],
+        "damping": 2,
+        "drive": "both"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.04, 0], "max": [0.04, 0.04, 0.012], "mat": "plastic_ivory" },
+    { "node": "rocker", "shape": "box", "min": [-0.026, -0.03, 0], "max": [0.026, 0.03, 0.009], "mat": "plastic_ivory" },
+    { "node": "rocker", "shape": "box", "min": [-0.004, 0.012, 0.009], "max": [0.004, 0.024, 0.0105], "mat": "emit_red" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.04, -0.04, 0], "max": [0.04, 0.04, 0.025], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "switch", "joint": "rock", "prompt": "Přepnout", "range": 1.6 }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle"],
+  "outputs": ["on", "off"],
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/controls.mjs#switchRocker",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

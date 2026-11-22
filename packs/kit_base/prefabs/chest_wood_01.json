@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chest_wood_01",
+  "title": "Truhla dřevěná s kováním",
+  "category": "prop.container",
+  "bounds": { "min": [-0.451, -0.001, -0.482], "max": [0.451, 0.865, 0.263] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0, 0.34, -0.25] }
+    ],
+    "joints": [
+      { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 100, "rest": 0, "damping": 5, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.25], "max": [0.45, 0.04, 0.25], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.04, -0.25], "max": [-0.42, 0.34, 0.25], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [0.42, 0.04, -0.25], "max": [0.45, 0.34, 0.25], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.42, 0.04, -0.25], "max": [0.42, 0.34, -0.22], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.42, 0.04, 0.22], "max": [0.42, 0.34, 0.25], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.04, 0.22, 0.25], "max": [0.04, 0.32, 0.262], "mat": "iron_black" },
+    { "node": "lid", "shape": "box", "min": [-0.45, 0, 0], "max": [0.45, 0.14, 0.5], "mat": "wood_oak" },
+    { "node": "lid", "shape": "box", "min": [-0.33, -0.001, -0.004], "max": [-0.27, 0.146, 0.504], "mat": "iron_black" },
+    { "node": "body", "shape": "box", "min": [-0.33, 0, 0.25], "max": [-0.27, 0.34, 0.256], "mat": "iron_black" },
+    { "node": "lid", "shape": "box", "min": [0.27, -0.001, -0.004], "max": [0.33, 0.146, 0.504], "mat": "iron_black" },
+    { "node": "body", "shape": "box", "min": [0.27, 0, 0.25], "max": [0.33, 0.34, 0.256], "mat": "iron_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.25], "max": [0.45, 0.34, 0.25], "group": "world" },
+    { "node": "lid", "shape": "box", "min": [-0.45, 0, 0], "max": [0.45, 0.14, 0.5], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "lid", "prompt": "Otevřít truhlu", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#chest",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "terminal_wall_01",
+  "title": "Terminál nástěnný",
+  "category": "device.terminal",
+  "bounds": { "min": [-0.281, -0.301, -0.001], "max": [0.281, 0.241, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "screen", "parent": "body", "pos": [0, 0.04, 0.1] }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.28, -0.2, 0], "max": [0.28, 0.24, 0.1], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.26, -0.3, 0], "max": [0.26, -0.2, 0.2], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.22, -0.2, 0.1], "max": [0.22, -0.185, 0.19], "mat": "plastic_grey" },
+    { "node": "screen", "shape": "box", "min": [-0.22, -0.14, 0], "max": [0.22, 0.14, 0.004], "mat": "emit_screen" },
+    { "node": "body", "shape": "box", "min": [0.22, -0.16, 0.1], "max": [0.25, -0.13, 0.104], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.28, -0.3, 0], "max": [0.28, 0.24, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "interact": {
+      "kind": "terminal",
+      "prompt": "Použít terminál",
+      "range": 1.8,
+      "station": { "eye": [0, 0.2, 0.65], "look": [0, 0.04, 0.1], "fov": 50 }
+    },
+    "screen": { "node": "screen", "size": [0.44, 0.28], "res": [640, 400], "app": "wall_console" }
+  },
+  "inputs": ["print", "lock", "unlock"],
+  "outputs": ["used", "left", "command"],
+  "tris": 60,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lab.mjs#terminalWall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

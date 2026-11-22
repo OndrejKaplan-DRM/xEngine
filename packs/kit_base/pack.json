@@ -1,0 +1,12 @@
+{
+  "xspace": 1,
+  "kind": "pack",
+  "id": "kit_base",
+  "title": "Základní sada prefabů a materiálů (xForge)",
+  "version": "0.1.0",
+  "free": true,
+  "materials": "materials.json",
+  "prefabs": ["prefabs/door_wood_01.json", "prefabs/door_steel_01.json", "prefabs/door_plank_01.json", "prefabs/door_sliding_01.json", "prefabs/door_dleft_01.json", "prefabs/door_dright_01.json", "prefabs/gate_iron_01.json", "prefabs/window_sash_01.json", "prefabs/button_round_01.json", "prefabs/button_call_01.json", "prefabs/switch_rocker_01.json", "prefabs/lever_knife_01.json", "prefabs/lever_floor_01.json", "prefabs/valve_gate_01.json", "prefabs/valve_ball_01.json", "prefabs/tap_wall_01.json", "prefabs/cabinet_file_01.json", "prefabs/cabinet_door_01.json", "prefabs/table_work_01.json", "prefabs/table_lab_01.json", "prefabs/desk_office_01.json", "prefabs/chair_office_01.json", "prefabs/chair_plain_01.json", "prefabs/shelf_rack_01.json", "prefabs/shelf_rack_02.json", "prefabs/bench_metal_01.json", "prefabs/bench_stone_01.json", "prefabs/lamp_pendant_01.json", "prefabs/lamp_panel_01.json", "prefabs/lamp_wall_01.json", "prefabs/lamp_desk_01.json", "prefabs/torch_wall_01.json", "prefabs/centrifuge_bench_01.json", "prefabs/fumehood_01.json", "prefabs/microscope_01.json", "prefabs/fridge_lab_01.json", "prefabs/terminal_wall_01.json", "prefabs/terminal_desk_01.json", "prefabs/crate_plank_01.json", "prefabs/crate_large_01.json", "prefabs/crate_steel_01.json", "prefabs/barrel_steel_01.json", "prefabs/barrel_wood_01.json", "prefabs/pipe_straight_01.json", "prefabs/pipe_double_01.json", "prefabs/railing_steel_01.json", "prefabs/railing_steel_02.json", "prefabs/sarcophagus_01.json", "prefabs/chest_wood_01.json"],
+  "levels": [],
+  "assets": []
+}

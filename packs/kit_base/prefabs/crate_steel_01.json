@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "crate_steel_01",
+  "title": "Přepravka kovová 0,8 × 0,45 × 0,5 m",
+  "category": "prop.container",
+  "bounds": { "min": [-0.425, -0.001, -0.257], "max": [0.425, 0.451, 0.267] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.25], "max": [0.4, 0.37, 0.25], "mat": "paint_green" },
+    { "node": "body", "shape": "box", "min": [-0.406, 0.37, -0.256], "max": [0.406, 0.45, 0.256], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.424, 0.205, -0.08], "max": [-0.4, 0.235, 0.08], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.4, 0.205, -0.08], "max": [0.424, 0.235, 0.08], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.225, 0.315, 0.25], "max": [-0.175, 0.385, 0.266], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.175, 0.315, 0.25], "max": [0.225, 0.385, 0.266], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.25], "max": [0.4, 0.45, 0.25], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "dynamic", "mass": 30, "friction": 0.7, "restitution": 0.1 },
+    "health": { "hp": 400, "surface": "metal" }
+  },
+  "inputs": ["break"],
+  "outputs": ["damaged", "broken"],
+  "tris": 72,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#crateSteel",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
