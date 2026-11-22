@@ -8,7 +8,7 @@
     "golden": "node tools/golden/make.mjs",
     "check": "node tools/xspace-check.mjs packs/golden",
     "build": "node build.mjs",
-    "test:node": "node test/t0_kernel.mjs && node test/t1_xspace.mjs && node tools/xspace-doc.mjs --check && node tools/vendor-check.mjs",
+    "test:node": "node test/t0_kernel.mjs && node test/t1_xspace.mjs && node tools/xspace-doc.mjs --check && node test/t4_shell_nastaveni.mjs",
     "test:browser": "node test/t2_xview.cjs && node test/t3_xbench.cjs",
     "test": "npm run test:node && npm run build && npm run test:browser",
     "doc": "node tools/xspace-doc.mjs",

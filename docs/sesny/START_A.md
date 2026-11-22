@@ -1,15 +1,17 @@
 # Zadání sešny A, vlna 1: „Projdu xLab“
 
+Znění 2 z 22. 11. 2026, po měření T460 a před startem sešen.
+
 Jsi sešna **A (běh)**. Stavíš engine nad zmrazeným základem 1. Druhá sešna (B) souběžně staví generátory a prefaby; potkáte se jen přes data xSpace.
 
 ## 0. Než začneš
 
 1. Připoj repo `OndrejKaplan-DRM/xEngine` (přístup pro zápis), naklonuj, `git checkout -b sesna-a origin/zaklad-1`.
-2. Přečti `CLAUDE.md`, `docs/STATE.md`, `docs/02_KONTRAKTY.md`, `docs/01_ARCHITEKTURA.md` (oddíly 2, 4, 5), `docs/06_ROZPOCTY.md`.
+2. Přečti `CLAUDE.md`, `docs/STATE.md`, `docs/02_KONTRAKTY.md`, `docs/01_ARCHITEKTURA.md` (oddíly 2, 4, 5), `docs/06_ROZPOCTY.md`, v `docs/DECISIONS.md` řádky D-022 až D-027.
    Sada Level 1, na kterou se zadání odkazuje (`01_CORE`, `02_SHELL`, `10_CASE_FPS`), je v balíku pro sešny ve složce `level1/` a v repu `OndrejKaplan-DRM/vibe-game-frameworks` ve složce `frameworks/` (veřejné, stačí klon pro čtení).
-3. Načti skilly `arena-jadro`, `arena-fyzika`, `headless-webgl-testing`, `debug-and-token-economy`. Aréna je zdroj zkušeností a hodnot, ne kódu ke kopírování: její level je v kódu, tvůj je v datech.
-4. `npm install && npm test`. Musí projít (T0 41, T1 101, T2 15, T3 8).
-5. Otevři si `dist/xview.html` snímkem (`test/out/xview_*.png` po testu): to je level, který máš oživit.
+3. Načti skilly `xengine`, `arena-jadro`, `arena-fyzika`, `headless-webgl-testing`, `debug-and-token-economy`. Aréna je zdroj zkušeností a hodnot, ne kódu ke kopírování: její level je v kódu, tvůj je v datech. Kde se skill `xengine` liší od repa, platí repo.
+4. `npm install && npm test`. Musí projít: T0 41, T1 118, T4 46, T2 15, T3 12.
+5. Otevři si snímek `test/out/xview_*.png` (vznikne testem): to je level, který máš oživit.
 
 ## 1. Cíl
 
@@ -17,44 +19,160 @@ Jsi sešna **A (běh)**. Stavíš engine nad zmrazeným základem 1. Druhá seš
 
 Level, prefaby ani materiály **nepíšeš do kódu**. Všechno čteš z `__PACK__` (cíl sestavení s `"pack": "../../packs/golden"`).
 
-## 2. Úkoly v pořadí
+**Jak to bude vypadat:** ploché barvy materiálů, světlo po vrcholech, žádné textury, žádné stíny v reálném čase. Ve vlně 1 se posuzuje pohyb a interakce, ne krása. Napiš to Ondřejovi k prvnímu sestavení, ať nečeká víc.
 
-Nutné minimum je A1.1 až A1.5. Další jen když zbude síla, v uvedeném pořadí. Po každém úkolu testy, `A_STAV.md`, commit, push.
+## 2. Dvě sešny, ne jedna
 
-| # | Úkol | Hotovo, když |
+Vlna 1 se do jedné sešny nevejde. Počítej s tímto řezem:
+
+| Sešna | Úkoly | Končí |
 |---|---|---|
-| **A1.1** | **Kostra aplikace.** `src/app/main.js`, `target.json` (id `xlab`), jádro z `src/kernel`, Shell z `vendor/shell` přes adaptér (titul, start, pauza, nastavení: zorné pole, citlivost, měřítko vykreslení, profil pohybu). Protokol zámku kurzoru podle `02_SHELL` oddíl 3. `window.__xe` podle kontraktu. | start do menu bez chyby v konzoli; pauza zastaví čítač kroků; každé nastavení projde `apply/probe` |
-| **A1.2** | **xPhys + xWorld, statický svět.** Rapier (jedna instance, krok ve fázi `physics`). Z levelu: kolize přes `brushCollider`, viditelná geometrie přes `brushMesh` sloučená po buňce a materiálu. Po postavení světa jeden `world.step()`. | počet koliderů = počet kvádrů s kolizí; volání kreslení ≤ počet (buňka × materiál); snímek ze startu odpovídá xView |
-| **A1.3** | **Hráč a profily.** Kinematický kontrolér, pohyb třemi funkcemi (`10_CASE_FPS` F3), profily `arena` a `real` jako data v `src/play/profiles.js`, kamera `yaw`/`pitch` (F4), přepnutí profilu za běhu v `?dev`. | T1 rychlost po rovině = max ±5 % (oba profily); T2 série výskoků v `arena` > 1,2 × max; T3 rozběh proti zdi při `timeScale` 5 zůstane v místnosti; T4 schod 0,3 m vyjde, rampa 30° vyjde, na rampě 50° sklouzne; vyjde schodiště na galerii (nohy v 1,5 m) |
-| **A1.4** | **Entity a kostry.** Prefab → uzly podle `rigMatrices`, díly `box` a `cyl`, kolize na uzlech (kinematická tělesa), dynamická tělesa (bedny). Pohon kloubu (`speed`, `drive`), pružina, zarážky. | bedna ve skladu spadne ze stohu po odstrčení; hodnota kloubu se dá číst přes `__xe.get`; poloha křídla dveří při 90° = výsledek `rigMatrices` |
-| **A1.5** | **Použít + spojení vstupů a výstupů.** Paprsek z oka na kolize prefabů s interakcí, nápověda akce (`prompt`), druhy `button`, `switch`, `door`. Fronta spojení ve fázi `late` (zpoždění v krocích, `once`, `param`, strop řetězu 32), cíl `@level`. Lampy (`light`) reagují na `turnOn`, `turnOff`, `toggle`, `setLevel`. | tlačítko v chodbě otevře dveře laboratoře a po 0,3 s se rozsvítí lampa; vypínač ve startu rozsvítí a zhasne; spouštěč v hale zareaguje jen jednou; ulož uprostřed otevírání → nahraj → stejný stav po 120 krocích |
-| A1.6 | **Manipulace a klidný režim.** Držení tlačítka myši hýbe kloubem (`lever`, `valve`, `drawer`, křídlo dveří); `terminal`: kamera se plynule ukotví podle `station`, zámek kurzoru se uvolní, kurzor míří na obrazovku, Esc vrací. Obsah obrazovky stačí jako text na plátně. | ventil na 50 % nastaví lampu laboratoře na poloviční svit; páka do krajní polohy vyšle `on`; odchod od terminálu vrátí kameru přesně na původní místo |
-| A1.7 | **Buňky a portály.** Sledování buňky kamery, průchod portály s ořezem na obdélník portálu na obrazovce, zavřené dveře portál uzavírají. Vývojářská vrstva: obrysy buněk a portálů. | ze startu se zavřenými dveřmi se kreslí 1 buňka; po otevření přibude chodba; počet volání kreslení v hale nezávisí na obsahu laboratoře |
-| A1.8 | **Světla za běhu a obraz.** Světla levelu jako dynamická s rozpočtem (N nejbližších na viditelné buňky, N z nastavení), expozice z `env.exposure`, měřítko vykreslení. Vývojářský přehled F3 (snímky, ms kroku po systémech, volání, trojúhelníky, buňka, rychlost v m/s). | počet aktivních světel nikdy nepřekročí nastavení; snímky ze čtyř míst bez černých ploch |
+| **A-1** (tahle) | A1.1 až A1.5: nutné minimum | průchozím sestavením: chůze, dveře na tlačítko, lampy na vypínač |
+| **A-2** (nová sešna, táž větev `sesna-a`, navazuje podle `A_STAV.md`) | A1.6 a A1.8 | manipulací myší, terminálem, zastíněným světlem a měřením na T460 |
 
-## 3. Co nedělat
+A1.7 (ořez pohledem po buňkách a portálech) je přesunuto do vlny 2 (D-027). Po každém úkolu: testy, `A_STAV.md`, commit, push.
 
-Zbraně, nepřátelé, zvuk, textury, `.glb`, zapečené světlo, ukládání do slotů, editor. Žádné změny v `src/kernel`, `src/xspace`, `packs/golden`, `vendor/`, `build.mjs`. Žádný vlastní výpočet geometrie kvádru nebo matice kloubu.
+## 2a. Přechod ze znění 1 (pro sešnu, která už běží)
 
-## 4. Rozpočty této vlny
+Sešna A začala 22. 11. 2026 ve 02:44 ze znění 1 (`a2ce175`) a dokončila podle něj celou vlnu 1 (A1.1 až A1.8, commit `7d3bec6`). Body 3 a 8 níže psala svodná sešna ke commitu `949d478`; na `7d3bec6` po sloučení a změně importů prošlo 16 z 16 sad. Než budeš pokračovat:
 
-Krok simulace ≤ 2 ms (měřeno `E.profile`, v sandboxu orientačně). Volání kreslení ≤ 150 na pohled v xLabu. Žádné alokace ve smyčce kroku (test: 500 použití tlačítka, halda neroste). Soubor ≤ 600 řádků. Čísla o snímcích za sekundu z prohlížeče v sandboxu **nepiš jako výkon**; ten změří Ondřej.
+1. `git fetch origin && git merge origin/zaklad-1`. Zkušební sloučení u svodné sešny proběhlo bez konfliktů.
+2. **Shell se přestěhoval.** V `src/app/main.js` změň dva importy z `../../vendor/shell/…` na `../shell/…`. V `test/a_00_build.mjs` uprav rozpad velikosti: `vendor/` už neexistuje, Shell je `src/shell/`.
+3. **Nejdřív zelená.** Na commitu `949d478` u svodné sešny selhávají 3 sady z 9: `a_12_view` (52 volání kreslení proti 17 dvojicím; snímek proti xView s rozdílem 5,15 z 255), `a_12_world` (29 dávek místo počtu dvojic), `a_13_walk` („šipka dolů couvá“, 0,29 → 0,33). Testy kroku A1.2 zjevně nepočítají s prefaby z A1.4. Oprav testy nebo kód a do stavu napiš, co z toho bylo co. `A_STAV.md` uvádí tyto sady jako prošlé; počty ve stavu piš z posledního běhu celé skupiny, ne z doby, kdy krok vznikl.
+4. **Převeď vykreslení na světlo po vrcholech** (A1.2 v tomto znění, D-022). Síť z `brushLightMesh`, vrstvy světla z `lightIrradiance`, `MeshBasicMaterial` s barvou vrcholů. Zásobník `PointLight` a `MeshLambertMaterial` ze `src/render` zmizí, nastavení „počet světel za běhu“ také. Důvod: na T460 stojí 4 bodová světla 14,0 ms a scéna bez výpočtu světel 2,35 ms; tvoje snímky běží s 12 světly.
+5. **Vnitřní rozlišení** (D-023): `setPixelRatio(1)` a pevný počet řádků 576, 768, 1080. Teď se velikost obrazu odvozuje z `devicePixelRatio`, který je na T460 1,25. Vyhlazování hran (`antialias`) ve výchozím stavu vypni a dej ho do nastavení; jeho cena na T460 není změřená.
+6. **Doplň k A1.4:** oddíl „Rozhraní entit“ v `A_STAV.md` (popiš, co už existuje), zablokovaný pohyb dveří (D-025), světlo dílů po stěnách.
+7. Snímky proti xView po převodu světla porovnej znovu. xView svítí po pixelech, shoda proto bude horší než dosud; zapiš novou hodnotu a nastav podle ní práh.
+8. Potom `xlab.html?bench` podle A1.8 tohoto znění a klidný režim podle D-024: ve skutečném prohlížeči ověř, co udělá Esc u terminálu a jestli se po návratu hned vrátí rozhlížení myší.
 
-## 5. Pasti, které znám předem
+## 3. Úkoly
+
+### A1.1 Kostra aplikace
+
+**Vznikne:** `src/app/main.js`, `src/app/index.html`, `src/app/target.json` (`{ "id": "xlab", "entry": "main.js", "template": "index.html", "pack": "../../packs/golden" }`).
+
+**Jak:**
+- Jádro z `src/kernel`: `createEngine()`, systémy s `phase`, `after` a deklarovanými `events`.
+- Shell z `src/shell` přes adaptér: `mountShell(adapter, { root })`. Adaptér má `meta { id, title, subtitle, version, tone: 'hard' }`, `state { mode(), onMode(fn) }` (napoj na režim jádra a jeho událost `mode`), `game { newGame(), pause(), resume(), quit() }` a `settings` (deklarace s `apply` a `probe`): zorné pole, citlivost myši, vnitřní rozlišení (576, 768, 1080 řádků; výchozí 768), profil pohybu.
+- Vnitřní rozlišení (D-023): `renderer.setPixelRatio(1)` a `setSize(šířka, řádky, false)`; plátno roztahuje CSS. `devicePixelRatio` (na T460 je 1,25) do velikosti obrazu nevstupuje.
+- Zámek kurzoru podle `02_SHELL` oddíl 3: žádost jen z gesta uživatele, ztráta zámku při hře = pauza, odmítnutí zámku po Esc (Chrome 1,25 až 2,5 s) se ošetří opakováním při dalším kliku, ne chybou.
+- **Vstup odděl od postavy.** Systém vstupu (fáze `input`) zapisuje „záměr“ (pohyb, skok, dřep, použít, držení tlačítka myši, přírůstek pohledu). Postava čte jen záměr. Do téhož záměru zapisuje `__xe.key` a `__xe.look`, takže testy, pozdější záznamy a tvorové jdou stejnou cestou jako hráč.
+- `window.__xe` podle kontraktu (`start, sim, key, look, use, get, stats, snapshot, restore`). Všechny testy řídí hru přes něj a krokují `sim`, nečekají na skutečný čas.
+
+**Hotovo, když:** start do menu bez chyby v konzoli; pauza zastaví čítač kroků; každé nastavení projde `apply/probe`; po volbě 576 řádků má vykreslovací plocha přesně tolik řádků.
+
+**Ondřej uvidí:** titulní obrazovku, nastavení, prázdnou scénu.
+
+### A1.2 Statický svět a světlo po vrcholech
+
+**Vznikne:** `src/phys` (Rapier), `src/world` (stavba levelu z dat), `src/render` (sítě, materiály, světlo).
+
+**Jak:**
+- Rapier: jedna instance, krok ve fázi `physics`. Kolize z `brushCollider(b)`. Po postavení světa jeden `world.step()`.
+- Viditelná geometrie z **`brushLightMesh(b, LIGHT_CELL)`** (základ; plochy kvádru rozdělené na mřížku 0,5 m), sloučená po buňce a materiálu. Atribut `color` jako `Float32` (lineární hodnoty, smějí být nad 1).
+- Materiál `MeshBasicMaterial({ vertexColors: true, color: barva materiálu })`. **Ve scéně není `PointLight`, stínová mapa ani `MeshStandardMaterial`** (D-022; na T460 stojí 4 bodová světla 14 ms, scéna bez nich 2,4 ms).
+- **Vrstvy světla.** Každé světlo (z `level.lights` i ze součásti `light` entity) má vrstvu: řídký seznam (index vzorku, E) spočtený funkcí **`lightIrradiance`** ze základu. Barva vzorku = okolní člen z `env` + Σ úroveň × barva světla × E; jas povrchu = barva materiálu / π × E (kontrakt). Převod na displej: `ACESFilmicToneMapping` a `toneMappingExposure = env.exposure`, stejně jako xView, aby se snímky daly srovnat.
+- Změna úrovně světla: `součet += Δúroveň × vrstva` jen přes vzorky té vrstvy, potom `needsUpdate` u dotčených sítí. Bez alokací.
+- V tomto kroku **bez zastínění** (světlo prochází zdí). Je to vědomé zjednodušení; zapiš ho do stavu. Zastínění přijde v A1.8.
+
+**Hotovo, když:** počet koliderů = počet kvádrů s kolizí; volání kreslení ≤ počet dvojic (buňka, materiál); snímek ze startu odpovídá xView; úroveň světla 0 ztmaví vzorky v jeho dosahu a ostatní nezmění; průchod scénou nenajde žádné `Light`.
+
+**Ondřej uvidí:** osvětlený xLab z pevné kamery.
+
+### A1.3 Hráč a profily
+
+**Jak:**
+- Kinematický kontrolér Rapieru (kapsle; rozměry, výška oka, výška schodu a úhly svahu jsou data profilu). Pohyb třemi funkcemi podle `10_CASE_FPS` F3 (zrychlení, tření, vzduch), kamera `yaw` a `pitch` (F4).
+- Profily `arena` a `real` jako data v `src/play/profiles.js`. Přepnutí za běhu v `?dev`.
+- Polohu postavy drž ve vlastním vektoru; `translation()` kinematického tělesa platí až po kroku.
+
+**Hotovo, když:** T1 rychlost po rovině = maximum ±5 % (oba profily); T2 série výskoků v `arena` > 1,2 × maximum; T3 rozběh proti zdi při `timeScale` 5 zůstane v místnosti; T4 schod 0,3 m vyjde, rampu 30° vyjde, z rampy 50° sklouzne; vyjde schodiště na galerii (nohy v 1,5 m).
+
+**Ondřej uvidí:** první sestavení k proběhnutí. Pošli ho hned, s větou o vzhledu z oddílu 1.
+
+### A1.4 Entity a kostry
+
+**Než začneš kódovat:** napiš do `A_STAV.md` oddíl **„Rozhraní entit“**, nejvýš půl strany (D-026): co je entita za běhu (id, prefab, hodnoty kloubů, stav součástí), jak se součást přihlašuje ke svému systému, co přesně jde do uloženého stavu, které události vznikají. Je to největší návrhové rozhodnutí vlny; svodná sešna ho po vlně zmrazí do kontraktů, nebo vrátí.
+
+**Jak:**
+- Polohy uzlů jen přes `entityMatrix(e)` × `rigMatrices(prefab, hodnoty)`. Díly `box` a `cyl`.
+- Kolize dílů jako kinematická tělesa posouvaná každý krok podle kostry; volná tělesa (bedny) podle součásti `physics`.
+- Pohon kloubu (`speed`, `drive`), pružina, tlumení, zarážky.
+- **Zablokovaný pohyb (D-025).** Než pohon v tomto kroku díl posune, zkus novou polohu dílu proti kapsli hráče a volným tělesům. Koliduje-li, díl stojí; trvá-li to 0,5 s, vrátí se do polohy, ze které vyjel. Nikoho nedrtí a nikoho netlačí zdí. Formát se nemění, žádný nový výstup.
+- Světlo dílů: jedna hodnota na stěnu dílu (u kvádru 6 normál) funkcí `lightIrradiance` ve středu stěny; přepočet jen když se uzel pohnul nebo se změnilo světlo v dosahu.
+
+**Hotovo, když:** bedna ve skladu spadne ze stohu po odstrčení; hodnota kloubu jde číst přes `__xe.get`; poloha křídla dveří při 90° = výsledek `rigMatrices`; dveře se o stojícího hráče zastaví a vrátí.
+
+### A1.5 Použít a spojení vstupů s výstupy
+
+**Jak:**
+- Paprsek z oka (Rapier) na kolize dílů s interakcí; dosah je údaj profilu. Nápověda akce z `prompt`.
+- Druhy `button`, `switch`, `door`.
+- Fronta spojení ve fázi `late`: pevné pole záznamů (cíl, vstup, parametr, zbývající kroky, hloubka řetězu), zpoždění v krocích, `once`, `param`, strop řetězu 32. Fronta je součást uloženého stavu. Cíl `@level` (`checkpoint`, `complete`, `message`).
+- Lampy: `turnOn`, `turnOff`, `toggle`, `setLevel` mění úroveň vrstvy světla z A1.2 a barvu svítícího dílu.
+
+**Hotovo, když:** tlačítko v chodbě otevře dveře laboratoře a po 0,3 s se rozsvítí lampa; vypínač ve startu rozsvítí a zhasne; spouštěč v hale zareaguje jen jednou; ulož uprostřed otevírání → nahraj → stejný stav po 120 krocích; 500 stisků tlačítka nezvětší haldu.
+
+**Ondřej uvidí:** druhé sestavení: dveře, vypínače, lampy. Tím končí sešna A-1.
+
+### A1.6 Manipulace a klidný režim (sešna A-2)
+
+**Jak:**
+- **Jeden postup pro všechny klouby.** Při stisku tlačítka myši vezmi bod úchopu na dílu (zásah paprsku) a směr, kterým se ten bod při pohybu kloubu hýbe (otočný kloub: osa × rameno; posuvný: osa). Ten směr promítni na obrazovku; pohyb myši podél něj mění hodnotu kloubu. Stejný kód obslouží páku, ventil, zásuvku i křídlo dveří. Po dobu držení se pohled neotáčí. Po puštění přebírá pružina a zarážky.
+- **Klidný režim (D-024).** Kamera plynule (pevným krokem, asi 0,3 s) dojede do polohy `station`. **Zámek kurzoru zůstává.** Pohyb myši vede vlastní kurzor po ploše obrazovky ve světě (omezený jejím obdélníkem), klik je „použít“ v místě kurzoru, klávesnice píše do terminálu, Enter vyšle `command`. Odchod klávesou „použít“ nebo krokem vzad. **Esc je všude pauza**: prohlížeč při Esc zámek uvolní vždy a obejít to nejde; po návratu z pauzy hráč dál sedí u terminálu.
+- Obsah obrazovky: text kreslený na plátno a použitý jako textura dílu se součástí `screen`.
+
+**Hotovo, když:** ventil na 50 % nastaví lampu laboratoře na poloviční svit; páka do krajní polohy vyšle `on`; odchod od terminálu vrátí kameru přesně na původní místo; za celý pobyt u terminálu nepřijde žádná událost `pointerlockchange`; příkaz a Enter přepne lampu v hale.
+
+### A1.7 Buňky a portály
+
+Přesunuto do vlny 2 (D-027). Ve vlně 1 nic.
+
+### A1.8 Obraz a měření (sešna A-2)
+
+**Jak:**
+- **Zastínění vrstev světla.** Paprsek Rapieru ze vzorku (odsazeného 2 cm po normále) ke světlu; narazí-li, E = 0. Počítá se při načtení, jen pro vzorky v dosahu světla. Trvá-li výpočet déle než 100 ms, rozlož ho do víc snímků a ukaž průběh. Pohyblivé díly: jeden paprsek na díl.
+- **Přehled F3:** snímky za sekundu, ms kroku po systémech (`E.stats.sys`), volání kreslení, trojúhelníky, velikost obrazu, počet vzorků světla, rychlost v m/s.
+- **`xlab.html?bench`:** pevný průlet levelem přes `__xe` (asi 20 s), na konci JSON ke zkopírování (medián a 95. percentil času snímku, ms kroku, volání, trojúhelníky, velikost obrazu, řetězec grafiky). Ondřej ho pustí na T460; je to první měření skutečné hry.
+
+**Hotovo, když:** místo za sloupem v hale je měřitelně tmavší než totéž místo bez sloupu; snímky ze čtyř míst bez černých ploch; `?bench` doběhne a vydá JSON.
+
+## 4. Co nedělat
+
+Zbraně, nepřátelé, zvuk, textury, `.glb`, ukládání do slotů, editor, ořez po buňkách. Žádné změny v `src/kernel`, `src/xspace`, `src/shell`, `packs/golden`, `build.mjs`. Žádný vlastní výpočet geometrie kvádru, dělení ploch, vzorce světla nebo matice kloubu: to všechno je v základu. Žádné světlo po pixelech.
+
+Co ti v Shellu nebo v základu chybí (přemapování kláves, sloty, výstup `blocked`), zapiš jako návrh do `docs/navrhy/` s číslem od N-101.
+
+## 5. Rozpočty této vlny
+
+Podklad je měření T460 v `docs/06_ROZPOCTY.md`.
+
+| Veličina | Mez |
+|---|---|
+| světla po pixelech, stínové mapy | 0 |
+| volání kreslení na pohled | ≤ 400 (xLab bude hluboko pod tím) |
+| viditelné trojúhelníky | ≤ 300 tisíc (síť světla xLabu má 32 tisíc) |
+| krok simulace | ≤ 2 ms (`E.profile`; v sandboxu orientačně) |
+| alokace ve smyčce kroku | žádné |
+| soubor | ≤ 600 řádků |
+
+Čísla o snímcích za sekundu z prohlížeče v sandboxu **nepiš jako výkon**; ten změří Ondřej přes `?bench`.
+
+## 6. Pasti, které znám předem
 
 - Rapier `0.21.0` je o verzi novější než v Aréně (`0.20.0`). Názvy API ověř v typech balíku (`node_modules/@dimforge/rapier3d-compat/*.d.ts`), ne z paměti. Zásah paprsku vrací `timeOfImpact`.
 - Chybějící `world.step()` po stavbě světa = propad postavy a slepé paprsky.
-- Polohu postavy drž ve vlastním vektoru; `translation()` kinematického tělesa platí až po kroku.
 - Zarážka rychlosti o zeď jen když `got < want * 0.5` (jinak hráč stojí na každém schodu).
+- Barva vrcholů je lineární. Hodnoty v sRGB do ní nepatří; převod na displej dělá až výstup vykreslení.
+- Sousední kvádry mají každý svou mřížku, na společné hraně nemusí vrcholy lícovat. Kdyby na švech prosvítaly body, zapiš to a pošli snímek; nezáplatuj to posunem geometrie.
 - Zbraň ani ruce zatím nekresli, ale vrstvu 1 kamery si pro ně nech volnou.
-- V three `0.170` testoval stínový průchod vrstvy hlavní kamery, takže „objekt jen pro stín“ přes vrstvy nešel. Základ má `0.187`; než na tom něco postavíš, ověř snímkem.
-- Headless: klik do menu může hru spustit se zámkem kurzoru a prohlížeč pak teče paměť. Start vždy přes `__xe.start()`.
+- Headless: klik do menu může hru spustit se zámkem kurzoru a prohlížeči pak teče paměť. Start vždy přes `__xe.start()`.
 - Hodnoty pohybu pro Counter-Strike a Half-Life v Level 1 mají jistotu 3/5. Napiš to do stavu, nelaď je naslepo.
-- Shell v `vendor/` neupravuj. Co mu chybí (přemapování kláves, sloty), zapiš jako návrh pro repo `vibe-game-frameworks`.
+- Jeden prohlížeč naráz; Playwright z `/opt/npm-tools`.
 
-## 6. Co odevzdáš
+## 7. Co odevzdáš
 
 1. Větev `sesna-a` s kódem a testy `test/a_*` (běží přes `npm run test:a`).
-2. `docs/sesny/A_STAV.md` podle šablony: hotovo × neuděláno po úkolech, změřená čísla, co není ověřeno, návrhy, poznatky pro skill.
-3. `dist/xlab.html` poslaný Ondřejovi + mřížka snímků (jedna montáž, ne šest obrázků).
+2. `docs/sesny/A_STAV.md` podle šablony: hotovo × neuděláno po úkolech, oddíl „Rozhraní entit“, změřená čísla, co není ověřeno, návrhy, poznatky pro skill.
+3. `dist/xlab.html` poslaný Ondřejovi po A1.3 a po A1.5, pokaždé s jednou montáží snímků (ne šest obrázků).
 4. Tři až pět otázek pro Ondřeje s volbami a/b.

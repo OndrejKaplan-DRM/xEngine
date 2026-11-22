@@ -28,7 +28,7 @@ Engine sám nic nestaví. Svět je vždy soubor dat (xSpace), který vyrobil ná
 | **xRender** | vykreslení: dávky, viditelnost, světla, zbraň v ruce, obraz | `src/render` | sešna A |
 | **xPhys** | Rapier: statický svět, postava, tělesa, paprsky | `src/phys` | sešna A |
 | **xPlay** | hráč, profily pohybu, interakce, později zbraně a nepřátelé | `src/play` | sešna A |
-| **xShell** | menu, pauza, nastavení, ukládání; převzato z `vibe-game-frameworks` | `vendor/shell`, `src/app` | sešna A (zapojení) |
+| **xShell** | menu, pauza, nastavení, ukládání; převzato z `vibe-game-frameworks` | `src/shell`, `src/app` | sešna A (zapojení) |
 | **xGen** | generátory: parametry a seed → data levelu (místnosti, chodby, patra, katakomby) | `src/gen` | sešna B |
 | **xForge** (v zadání xBlender) | výroba prefabů a modelů kódem, od kostry k tvaru | `tools/forge` | sešna B |
 | **xBake** | zapékání světla | `tools/bake` | sešna B |

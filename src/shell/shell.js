@@ -10,7 +10,7 @@
 // Obrazovky se skládají z deklarací; položka s nesplněnou podmínkou `when` se nevykreslí.
 
 import { STRINGS } from './strings.js';
-import { createStore } from '../core/store.js';
+import { createStore } from '../kernel/store.js';
 import { createSettings } from './settings.js';
 import { buildSettingsScreen } from './settings-view.js';
 

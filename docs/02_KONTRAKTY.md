@@ -153,8 +153,13 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
   `E = I · cos θ · okno(d) / max(d², 0,01)`, `okno(d) = clamp(1 − (d / range)⁴, 0, 1)²`. Je to výchozí chování `PointLight` v three.js s `decay = 2` a `distance = range`.
 - Jas povrchu = barva materiálu / π · E. Převod do rozsahu displeje dělá engine expozicí `env.exposure`.
 - **Zapečené světlo ukládá osvětlení E (lineárně, před expozicí), ne hotovou barvu.** Engine ho násobí barvou materiálu stejně jako světlo za běhu.
-- Světla v `lights` se zapékají, pokud nemají `dynamic: true`. Světlo nesené prefabem (součást `light`) se nezapéká nikdy.
-- Formát souboru se zapečeným světlem základ nedefinuje. Navrhne ho sešna B (návrh N-001) a potvrdí svodná sešna.
+- Kuželové světlo (`spot`): `angle` je plný úhel kužele; posledních 20 % úhlu je měkký okraj. Slunce (`sun`): `intensity` je osvětlení plochy kolmé ke směru, bez zeslabení vzdáleností.
+- **Jediná implementace vzorce je `lightIrradiance` v `src/xspace/light.js`.** Počítá osvětlení bez zastínění; zda je mezi bodem a světlem překážka, řeší volající.
+- **Statický svět se osvětluje po vrcholech, ne po pixelech** (D-022, změřeno na T460). Vzorky světla jsou vrcholy sítě `brushLightMesh(b, LIGHT_CELL)` z `src/xspace/geom.js`; buňka mřížky je 0,5 m. **Pořadí vrcholů této sítě je součást kontraktu**: zapékání ukládá hodnoty v tomto pořadí a běh je v něm čte.
+- **Každé světlo tvoří vlastní vrstvu** (obdoba světelných stylů Half-Life). Vrstva = osvětlení E vzorků při plné úrovni světla. Barva vzorku = okolní člen + Σ úroveň světla × barva světla × E. Přepnutí lampy mění jen úroveň, vrstva se nepřepočítává.
+- Světla v `lights` zapéká xBake, pokud nemají `dynamic: true`. Světlo nesené prefabem (součást `light`) má také svou vrstvu; počítá se při načtení levelu a znovu jen tehdy, když se pohne uzel, na kterém sedí.
+- Pohyblivé díly (křídlo dveří, bedna) se osvětlují stejným vzorcem po stěnách dílu; přepočet jen při pohybu dílu nebo změně světla.
+- Formát souboru se zapečeným světlem základ nedefinuje. Navrhne ho sešna B (návrh N-001) a potvrdí svodná sešna. Dané je jen to, co je výše: vzorky, jejich pořadí, vrstvy a jednotka.
 
 ### Profily
 
@@ -172,7 +177,7 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 ## 5. Sestavení a testy
 
 - Cíl sestavení = soubor `target.json` ve složce cíle. `node build.mjs --list` je vypíše.
-- `npm test` = základ (T0 jádro, T1 xSpace, kontrola dokumentu polí, kontrola `vendor/`, sestavení, T2 xView, T3 xBench).
+- `npm test` = základ (T0 jádro, T1 xSpace, kontrola dokumentu polí, T4 nastavení Shellu, sestavení, T2 xView, T3 xBench).
 - `npm run test:a`, `npm run test:b` = testy sešen (`test/a_*`, `test/b_*`), vždy za sebou.
 - Test v prohlížeči bere obraz z plátna (`toDataURL` ve stejné úloze jako vykreslení), ne `page.screenshot`.
 

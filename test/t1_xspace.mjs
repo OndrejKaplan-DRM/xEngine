@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { readPackDir, checkPackDir } from '../tools/lib/read-pack.mjs';
 import { mergePacks } from '../src/xspace/index.js';
 import { validatePack, brushMesh, brushCollider, brushCorners, brushTris, wedgeRunRise, FORMATS, COMPONENTS, XSPACE_VERSION, entityMatrix, rigMatrices, jointRest, mat4Mul, mat4Point } from '../src/xspace/index.js';
+import * as X from '../src/xspace/index.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GOLDEN = path.join(root, 'packs/golden');
@@ -237,6 +238,64 @@ for (const rise of ['+x', '-x', '+z', '-z']) {
   for (const [k, d] of Object.entries(FORMATS)) walk(d, k);
   ok(undocumented.length === 0, 'každé pole formátu má popis', undocumented.slice(0, 5).join(' '));
   ok(Object.keys(COMPONENTS).length === 7, 'formát zná 7 součástí prefabu', Object.keys(COMPONENTS).join(' '));
+}
+
+// ---- síť pro světlo po vrcholech a výpočet osvětlení (jedna pravda pro běh i zapékání)
+{
+  const area = (m) => {
+    let a = 0;
+    for (let i = 0; i < m.indices.length; i += 3) {
+      const [p, q, r] = [m.indices[i], m.indices[i + 1], m.indices[i + 2]].map((k) => [m.positions[k * 3], m.positions[k * 3 + 1], m.positions[k * 3 + 2]]);
+      const u = [q[0] - p[0], q[1] - p[1], q[2] - p[2]];
+      const v = [r[0] - p[0], r[1] - p[1], r[2] - p[2]];
+      a += Math.hypot(u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]) / 2;
+    }
+    return a;
+  };
+  const box = { id: 'b_t', shape: 'box', min: [0, 0, 0], max: [4, 3, 2], material: 'm' };
+  const wedge = { id: 'b_w', shape: 'wedge', rise: '+x', min: [0, 0, 0], max: [3, 1.5, 2], material: 'm' };
+  const g = X.brushLightMesh(box, 0.5);
+  // plochy 4×3 (dvakrát), 4×2 (dvakrát), 2×3 (dvakrát) při buňce 0,5 m
+  const want = 2 * (9 * 7) + 2 * (9 * 5) + 2 * (5 * 7);
+  ok(g.positions.length / 3 === want, 'síť světla: počet vzorků kvádru 4×3×2 při buňce 0,5 m', `${g.positions.length / 3} = ${want}`);
+  ok(Math.abs(area(g) - area(X.brushMesh(box))) < 1e-9, 'síť světla: plocha kvádru se dělením nemění');
+  const gw = X.brushLightMesh(wedge, 0.5);
+  ok(Math.abs(area(gw) - area(X.brushMesh(wedge))) < 1e-9, 'síť světla: plocha klínu se dělením nemění');
+  ok(gw.groups.map((x) => x.face).join() === X.brushMesh(wedge).groups.map((x) => x.face).join(), 'síť světla: stejné plochy ve stejném pořadí jako brushMesh');
+  {
+    const a = X.brushLightMesh(box, 100);
+    const b = X.brushMesh(box);
+    const key = (m) => { const k = []; for (let i = 0; i < m.positions.length; i += 3) k.push(m.positions.slice(i, i + 3).join()); return k.sort().join(';'); };
+    ok(a.indices.length === b.indices.length && key(a) === key(b), 'síť světla: buňka větší než kvádr dá stejné vrcholy a počet trojúhelníků jako brushMesh');
+  }
+  ok(JSON.stringify(X.brushLightMesh(wedge, 0.5)) === JSON.stringify(gw), 'síť světla: opakované volání dá stejné pořadí vrcholů');
+  let inside = true;
+  for (let i = 0; i < gw.positions.length; i += 3) if (!X.inBounds([gw.positions[i], gw.positions[i + 1], gw.positions[i + 2]], { min: wedge.min, max: wedge.max }, 1e-9)) inside = false;
+  ok(inside, 'síť světla: všechny vzorky klínu leží v jeho mezích');
+  let maxEdge = 0;
+  for (let i = 0; i < g.indices.length; i += 3) {
+    for (const [a, b] of [[0, 1], [1, 2], [2, 0]]) {
+      const p = g.indices[i + a] * 3;
+      const q = g.indices[i + b] * 3;
+      const d = Math.hypot(g.positions[p] - g.positions[q], g.positions[p + 1] - g.positions[q + 1], g.positions[p + 2] - g.positions[q + 2]);
+      if (d > maxEdge) maxEdge = d;
+    }
+  }
+  ok(maxEdge <= 0.5 * Math.SQRT2 + 1e-9, 'síť světla: žádná hrana delší než úhlopříčka buňky', maxEdge.toFixed(3));
+  ok(X.brushLightMesh({ ...box, max: [400, 3, 2] }, 0.5).positions.length / 3 < 20000, 'síť světla: dlouhá plocha má strop počtu dílků');
+
+  const L = { type: 'point', pos: [0, 2, 0], intensity: 100, range: 10 };
+  const e2 = X.lightIrradiance(L, 0, 0, 0, 0, 1, 0);
+  ok(Math.abs(e2 - (100 * (1 - (0.2) ** 4) ** 2) / 4) < 1e-9, 'světlo: kolmý dopad ve 2 m = I · okno / d²', e2.toFixed(3));
+  ok(X.lightIrradiance(L, 0, 0, 0, 0, -1, 0) === 0, 'světlo: odvrácená plocha je tmavá');
+  ok(X.lightIrradiance(L, 0, -9, 0, 0, 1, 0) === 0, 'světlo: za dosahem nula');
+  const e45 = X.lightIrradiance(L, 2, 0, 0, 0, 1, 0);
+  ok(Math.abs(e45 - (100 * Math.SQRT1_2 * X.lightWindow(Math.sqrt(8), 10)) / 8) < 1e-9, 'světlo: šikmý dopad se násobí kosinem');
+  ok(X.lightIrradiance({ ...L, pos: [0, 0.01, 0] }, 0, 0, 0, 0, 1, 0) <= 100 / 0.01 + 1e-6, 'světlo: těsně u zdroje drží strop 1 / 0,01');
+  const S = { type: 'spot', pos: [0, 2, 0], dir: [0, -1, 0], intensity: 100, range: 10, angle: 60 };
+  ok(Math.abs(X.lightIrradiance(S, 0, 0, 0, 0, 1, 0) - e2) < 1e-9, 'světlo: v ose kužele jako bodové');
+  ok(X.lightIrradiance(S, 2, 0, 0, 0, 1, 0) === 0, 'světlo: mimo kužel (45° od osy při úhlu 60°) nula');
+  ok(Math.abs(X.lightIrradiance({ type: 'sun', dir: [0, -1, 0], intensity: 50 }, 5, 0, 5, 0, 1, 0) - 50) < 1e-9, 'světlo: slunce bez zeslabení vzdáleností');
 }
 
 console.log(`\nT1 xSpace: ${pass} prošlo, ${fail} selhalo`);

@@ -55,7 +55,7 @@ Každá vlna končí sestavením, které si Ondřej projde, a jeho slovem. Bez t
 |---|---|---|
 | cíl | načíst zlatý vzorek a projít ho v obou profilech, otevřít dveře tlačítkem, přehodit páku, sednout k terminálu | generátor místností a chodeb, sada parametrických prefabů s kostrou, první zapečené světlo, příjem volných assetů |
 | nutné minimum | A1.1 až A1.5 | B1.1 a B1.2 |
-| když zbude | A1.6 až A1.8 | B1.3 a B1.4 |
+| pokračování (druhá sešna na téže větvi) | A1.6 a A1.8; A1.7 (ořez po buňkách) je přesunuto do vlny 2 (D-027) | B1.3 a B1.4 |
 | výstup pro Ondřeje | `dist/xlab.html` | `dist/kit.html` (galerie prefabů) a tři vygenerované levely v xView |
 | zadání | `sesny/START_A.md` | `sesny/START_B.md` |
 
@@ -63,7 +63,7 @@ Každá vlna končí sestavením, které si Ondřej projde, a jeho slovem. Bez t
 
 | A2 | B2 |
 |---|---|
-| načítání `.glb`, zapečené světlo ve hře, zbraň v ruce a tři archetypy zbraní, zvukové zóny, ukládání přes Shell | xDesigner nad během A (umístit, posunout, uložit level), předvolba dům s interiérem, tvor od kostry po klipy, terén s výškovou mapou (návrh na nový tvar) |
+| ořez pohledem po buňkách a portálech, načítání `.glb`, zapečené světlo ve hře (vrstvy z xBake), zbraň v ruce a tři archetypy zbraní, zvukové zóny, ukládání přes Shell | xDesigner nad během A (umístit, posunout, uložit level), předvolba dům s interiérem, tvor od kostry po klipy, terén s výškovou mapou (návrh na nový tvar) |
 
 ### Vlna 3 (obrys)
 
