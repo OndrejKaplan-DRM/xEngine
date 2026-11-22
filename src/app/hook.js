@@ -56,6 +56,15 @@ export function installHook({ game, lock, shell, hud, adapter }) {
       E.tick(0);
       return render.shot();
     },
+    /** Snímek z libovolného místa nezávisle na hráči (stupně; kladný yaw = doleva). Nemění stav hry. */
+    shotAt(x, y, z, yawDeg = 0, pitchDeg = 0, fov = null) {
+      render.setViewFov(fov);
+      render.setView(x, y, z, (yawDeg * Math.PI) / 180, (pitchDeg * Math.PI) / 180);
+      const m = render.measure();
+      const png = render.shot();
+      render.setViewFov(null);
+      return { png, calls: m.calls, tris: m.tris };
+    },
     pause: () => adapter.game.pause(),
     resume: () => adapter.game.resume(),
     quit: () => adapter.game.quit(),

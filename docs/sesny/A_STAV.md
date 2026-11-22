@@ -7,7 +7,7 @@
 | Úkol | Stav | Test | Poznámka |
 |---|---|---|---|
 | A1.1 kostra aplikace | hotovo | `a_00_build` 3, `a_11_app` 21 (Node), `a_11_shell` 19 (prohlížeč) | cíl `xlab`, Shell přes adaptér, zámek kurzoru, `__xe` |
-| A1.2 statický svět | — | | |
+| A1.2 statický svět | hotovo | `a_12_world` 9 (Node), `a_12_view` 8 (prohlížeč) | 54 koliderů z 54 kvádrů, 17 dávek (buňka × materiál), snímek ze startu shodný s xView |
 | A1.3 hráč a profily | — | | |
 | A1.4 entity a kostry | — | | |
 | A1.5 použít + spojení | — | | |
@@ -27,7 +27,11 @@
 
 | Co | Hodnota | Kde a jak |
 |---|---|---|
-| kód enginu bez Rapieru a dat | 561 kB (three 524, Shell 18, kód sešny A 15, základ 4) | `a_00_build`, rozpad z esbuild metafile; A1.1, před zapojením fyziky |
+| kód enginu bez Rapieru a dat | viz `a_00_build` (three 524 kB, Shell 18 kB, zbytek kód sešny A a základ) | rozpad z esbuild metafile |
+| celý soubor `dist/xlab.html` | 4,85 MB, z toho Rapier s WASM asi 4,2 MB | výpis sestavení po A1.2 |
+| snímek ze startu proti xView | průměrný rozdíl kanálu 0,03 z 255; šum dvou běhů 0,000 | `a_12_view`, 1366 × 768, softwarové vykreslení, zorné pole 60°, 12 světel, bez prefabů |
+| volání kreslení ze startu, statický svět | 17 (= počet dvojic buňka × materiál), 640 △ | `a_12_view`, bez viditelnosti po buňkách |
+| načtení levelu v Node | asi 80 ms včetně stavby koliderů, start Rapieru 63 ms | `E.stats.boot`, sandbox; orientační |
 
 ## Neověřeno
 

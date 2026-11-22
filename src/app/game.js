@@ -4,6 +4,8 @@
 
 import { createEngine } from '../kernel/index.js';
 import { createInput } from '../play/input.js';
+import { createPhys } from '../phys/phys.js';
+import { createWorld } from '../world/world.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
 export const VERSION = 'xEngine 0.1 · vlna 1 · 2026-11-22';
@@ -39,7 +41,39 @@ export function createGame({ pack, render, now }) {
   };
 
   const input = createInput();
+  const phys = createPhys();
+  const world = createWorld({ phys, render, pack });
+
+  /**
+   * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
+   * Systémy, které level zajímá, mají load(ctx) a unload().
+   */
+  const loadOrder = [world];
+  let loaded = null;
+  function loadLevel(id) {
+    if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
+    if (loaded) {
+      for (let i = loadOrder.length - 1; i >= 0; i--) loadOrder[i].unload?.();
+      render.closeLevel();
+    }
+    session.levelId = id;
+    const level = levels.get(id);
+    phys.open(session.profile.gravity);
+    const ctx = { level, pack, session };
+    for (const sys of loadOrder) sys.load?.(ctx);
+    render.closeStatic();
+    phys.settle();
+    loaded = id;
+    // dokud není hráč, dívá se kamera z výchozího místa (výška očí z profilu)
+    const sp = world.playerSpawn();
+    render.setView(sp.pos[0], sp.pos[1] + session.profile.eye, sp.pos[2], ((sp.yaw || 0) * Math.PI) / 180, 0);
+  }
+
+  // pořadí běhu určují fáze a závislosti, ne pořadí těchto řádků
+  E.add({ name: 'loader', phase: 'input', build: () => loadLevel(session.levelId) });
   E.add(input);
+  E.add(phys);
+  E.add(world);
   E.add(render);
 
   /** Čtení stavu pro testy a vývojářský přehled: 'kernel.steps', 'player.pos', 'entity.e_door_lab.joint'. */
@@ -60,9 +94,12 @@ export function createGame({ pack, render, now }) {
     pack,
     session,
     input,
+    phys,
+    world,
     render,
     levelIds: [...levels.keys()],
     get,
+    loadLevel,
     /**
      * Kroky bez čekání na skutečný čas (testy, robot). inputs: { hold: ['fwd', 'jump'], yawRate, pitchRate }
      * (stupně za sekundu, kladný yaw = doleva). Držené akce se po doběhnutí uvolní. Vrací počet kroků.
@@ -82,10 +119,7 @@ export function createGame({ pack, render, now }) {
     },
     /** Nová hra v daném levelu (výchozí = aktuální). Zámek kurzoru řeší aplikace, ne hra. */
     start(levelId) {
-      if (levelId && levelId !== session.levelId) {
-        if (!levels.has(levelId)) throw new Error(`Level „${levelId}“ v balíku není. Známé: ${game.levelIds.join(', ')}.`);
-        session.levelId = levelId;
-      }
+      if (levelId && levelId !== loaded) loadLevel(levelId);
       E.reset();
       if (E.mode !== 'playing') E.setMode('playing');
     },
