@@ -6,7 +6,7 @@ import RAPIER from '@dimforge/rapier3d-compat';
 import { axisQuat } from './xform.js';
 
 /** Kolizní skupiny (bity). QUERY nemá žádné těleso: je to „člen“ pro paprsky a dotazy. */
-export const GROUP = { WORLD: 1, PLAYER: 2, PROP: 4, DEBRIS: 8, TRIGGER: 16, QUERY: 32 };
+export const GROUP = { WORLD: 1, PLAYER: 2, PROP: 4, DEBRIS: 8, TRIGGER: 16, QUERY: 32, SOLID: 64 };
 /** Číslo skupin pro Rapier: členství v horních 16 bitech, filtr v dolních. */
 export const groups = (member, filter) => ((member << 16) | filter) >>> 0;
 
@@ -14,6 +14,8 @@ const G = GROUP;
 /** Skupina z dat prefabu (pole group u kolideru) → členství a filtr. */
 const DATA_GROUPS = {
   world: groups(G.WORLD, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
+  // stavba levelu z kvádrů: chová se jako svět a navíc stíní světlo (SOLID)
+  brush: groups(G.WORLD | G.SOLID, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
   prop: groups(G.PROP, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
   debris: groups(G.DEBRIS, G.WORLD | G.PROP | G.DEBRIS),
   trigger: groups(G.TRIGGER, G.QUERY), // nic do něj nenarazí, ale paprsek „použít“ ho najde
@@ -23,6 +25,8 @@ export const PLAYER_GROUPS = groups(G.PLAYER, G.WORLD | G.PROP);
 export const USE_RAY = groups(G.QUERY, G.WORLD | G.PROP | G.TRIGGER);
 /** Paprsek viditelnosti: jen pevný svět a rekvizity. */
 export const SIGHT_RAY = groups(G.QUERY, G.WORLD | G.PROP);
+/** Paprsek světla: zastaví ho jen stavba levelu (kvádry). Prefaby ve vlně 1 stín nevrhají. */
+export const LIGHT_RAY = groups(G.QUERY, G.SOLID);
 
 /**
  * Odstup, který kontrolér postavy drží od překážek (i od podlahy). Postava se musí umístit o tento odstup nad
@@ -102,7 +106,7 @@ export function createPhys() {
     /**
      * Kolider. shape: { type: 'box', half } | { type: 'cyl', radius, height, axis } | { type: 'ball', radius } | { type: 'hull', points }.
      * body = null → pevný kolider světa; pos a rot jsou pak světové, jinak místní vůči tělesu.
-     * opts: { group: 'world' | 'prop' | 'debris' | 'trigger', friction, restitution, mass, scale }; ref = komu patří.
+     * opts: { group: 'world' | 'brush' | 'prop' | 'debris' | 'trigger', friction, restitution, mass, scale }; ref = komu patří.
      */
     addCollider(body, shape, pos, rot, opts, ref) {
       const scale = opts?.scale ?? 1;

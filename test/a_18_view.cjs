@@ -13,6 +13,20 @@ const ROUTE = [
   const browser = await launch();
   try {
     const { page, errs } = await openGame(browser, { q: '?dev' });
+    // ---- hra po načtení staví vrstvy světla po částech ve snímcích (skutečná smyčka, bez __xe.start)
+    const boot = await page.evaluate(async () => {
+      const g = __xe.game;
+      const first = g.light.progress;
+      let frames = 0;
+      let note = '';
+      while (g.light.progress < 1 && frames < 600) {
+        await new Promise((res) => requestAnimationFrame(res));
+        frames++;
+        note = __xe.hud().notice || note;
+      }
+      return { first, frames, note, incremental: g.light.incremental, done: g.light.progress, stat: __xe.get('light.stat') };
+    });
+    ok(boot.incremental && boot.done === 1 && boot.stat.entries > 0, 'po načtení se vrstvy světla dostaví ve snímcích samy', `po startu hotovo ${(boot.first * 100).toFixed(0)} %, potom ${boot.frames} snímků; oznámení „${boot.note}“; příprava ${boot.stat.prepMs.toFixed(0)} ms + vrstvy ${boot.stat.buildMs.toFixed(0)} ms (sandbox, orientačně)`);
     const r = await page.evaluate((route) => {
       const out = {};
       const g = __xe.game;

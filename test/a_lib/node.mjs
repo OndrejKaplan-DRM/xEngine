@@ -32,10 +32,11 @@ export function barePack(pack) {
   return copy;
 }
 
-/** Hra připravená v menu (po init). */
+/** Hra připravená v menu (po init). opts.shadows === false: světlo bez zastínění (prochází zdmi jako v xView). */
 export async function makeGame(opts = {}) {
   const pack = opts.pack || (await loadPack());
   const game = createGame({ pack, render: createNullRender(), ...opts });
+  if (opts.shadows === false) game.light.shadows = false;
   await game.E.init();
   return game;
 }

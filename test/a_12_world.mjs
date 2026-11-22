@@ -8,7 +8,8 @@ import { E_MIN } from '../src/world/lightfield.js';
 
 const { ok } = h;
 // level bez entit: tenhle test měří jen stavbu z kvádrů (entity mají vlastní sadu a_14)
-const game = await makeGame({ pack: barePack(await loadPack()) });
+// bez zastínění: tady se ověřuje síť vzorků a vzorec; zastínění a brány dveří má sada a_18_light
+const game = await makeGame({ pack: barePack(await loadPack()), shadows: false });
 const { phys, world, render, session } = game;
 const level = session.level;
 

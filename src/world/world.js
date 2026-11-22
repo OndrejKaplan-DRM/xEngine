@@ -61,8 +61,8 @@ export function createWorld({ phys, render, light, pack }) {
         if (b.col !== false) {
           const c = brushCollider(b);
           const ref = { kind: 'brush', id: b.id, mat: b.mat };
-          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group: 'world' }, ref);
-          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group: 'world' }, ref);
+          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group: 'brush' }, ref);
+          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group: 'brush' }, ref);
           stat.brushColliders++;
         }
       }

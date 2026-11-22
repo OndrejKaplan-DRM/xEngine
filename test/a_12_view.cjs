@@ -34,8 +34,9 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
       }
       return { spawn: sp, solid: level.brushes.filter((b) => b.col !== false).length, pairs: pairs.size, mats: mats.size, cells: level.cells.length, lights: (level.lights || []).length };
     });
-    // xView kreslí celý level a svítí všemi světly; srovnání obrazu proto běží s vypnutou viditelností po buňkách
-    await page.evaluate(() => { __xe.start(); __xe.vis(false); });
+    // xView kreslí celý level, svítí všemi světly a stíny nemá; srovnání obrazu proto běží s vypnutou viditelností
+    // po buňkách a bez zastínění světla
+    await page.evaluate(() => { __xe.start(); __xe.shadows(false); __xe.vis(false); });
     const st = await page.evaluate(() => ({ world: __xe.get('world.stat'), fixed: __xe.get('phys.fixedColliders'), stats: __xe.stats() }));
     ok(st.world.brushColliders === data.solid, 'počet koliderů světa = počet kvádrů s kolizí', `${st.world.brushColliders} z ${data.solid}`);
     ok(st.world.batchKeys <= data.cells * data.mats, 'statická geometrie je sloučená po buňce a materiálu', `${st.world.batchKeys} dávek pro ${data.cells} buněk a ${data.mats} materiálů (dvojic v datech ${data.pairs})`);

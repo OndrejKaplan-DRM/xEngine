@@ -24,6 +24,7 @@ async function boot() {
 
   const render = createRender({ canvas: document.getElementById('c') });
   const game = createGame({ pack: globalThis.__PACK__, render });
+  game.light.incremental = true; // vrstvy světla se staví po částech ve snímcích, ne jedním zásekem při načtení
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
   const devTools = createDev({ game, hud });
@@ -33,6 +34,7 @@ async function boot() {
     phase: 'ui',
     frame(real) {
       hud.setPrompt(E.mode === 'playing' ? game.interact.prompt : '');
+      if (game.light.progress < 1) hud.notify(`Počítám světlo: ${Math.round(game.light.progress * 100)} %`, 0.4);
       hud.frame(real);
       devTools.frame(real);
     },

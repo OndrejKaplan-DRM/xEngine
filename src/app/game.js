@@ -12,6 +12,7 @@ import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
 import { createLighting } from '../world/lighting.js';
+import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
@@ -50,6 +51,8 @@ export function createGame({ pack, render, now }) {
   const input = createInput();
   const phys = createPhys();
   const light = createLighting({ render, now });
+  const occlusion = createOcclusion({ phys, light });
+  light.setOcclusion(occlusion);
   const world = createWorld({ phys, render, light, pack });
   const entities = createEntities({ phys, render, world, light, pack });
   const vis = createVisibility({ world, entities, render });
@@ -84,9 +87,10 @@ export function createGame({ pack, render, now }) {
     phys.open(session.profile.gravity);
     const ctx = { level, pack, session, io };
     for (const sys of loadOrder) sys.load?.(ctx);
+    occlusion.load(ctx, entities);
     render.closeStatic();
     phys.settle();
-    light.build();
+    light.prepare();
     loaded = id;
   }
 
@@ -126,6 +130,7 @@ export function createGame({ pack, render, now }) {
     entities,
     vis,
     light,
+    occlusion,
     io,
     behave,
     player,

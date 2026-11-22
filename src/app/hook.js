@@ -12,7 +12,10 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
     start(levelId, opts = {}) {
       lock.disable();
       if (opts.profile) game.session.setProfile(opts.profile);
+      // testy nečekají na skutečný čas: vrstvy světla se od teď staví celé hned, ne po částech ve snímcích
+      game.light.incremental = false;
       game.start(levelId);
+      game.light.finish();
       return true;
     },
     /** Kroky bez čekání na skutečný čas. vstupy: { hold: ['fwd', 'jump'], yawRate, pitchRate } (stupně za sekundu). */
@@ -42,6 +45,14 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
       };
     },
     snapshot: () => E.snapshot(),
+    /** Zastínění světla a brány dveří zapnout nebo vypnout (level se načte znovu). Vypnuté = jako xView: světlo prochází vším. */
+    shadows(on) {
+      game.light.shadows = !!on;
+      game.light.incremental = false;
+      game.loadLevel(game.session.levelId);
+      game.start();
+      return game.light.shadows;
+    },
     restore: (data) => E.restore(data),
 
     // ---- navíc

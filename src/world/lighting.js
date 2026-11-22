@@ -6,9 +6,10 @@
 // lampa přepnutá desetkrát mezi dvěma snímky stojí jeden průchod své vrstvy.
 
 import { lightIrradiance } from '../xspace/index.js';
-import { buildLayer, addSeg, fillAmbient, E_MIN, INV_PI } from './lightfield.js';
+import { buildLayer, adjacency, addSeg, fillAmbient, E_MIN, INV_PI, SAMPLE_LIFT } from './lightfield.js';
 
 const MOVER_REACH = 2.5; // m; díl takhle daleko za dosahem světla se při změně světla nepřepočítává (rozměr dílu)
+const BUILD_SLICE_MS = 8; // při postupné stavbě vrstev: kolik času smí stavba zabrat v jednom snímku
 
 export function createLighting({ render, now = () => performance.now() }) {
   const lights = [];
@@ -18,13 +19,15 @@ export function createLighting({ render, now = () => performance.now() }) {
   const dirtyTargets = [];
   let targets = [];
   let ambient = [0, 0, 0];
-  let built = false;
-  /** Zastínění: (světlo, x, y, z) → 0 volno, −1 zastíněno, k > 0 jen skrz bránu k. Dodává occlusion.js. */
+  let built = false; // cíle jsou připravené (barvy vyplněné okolním členem)
+  let toBuild = 0; // index prvního světla, které ještě nemá vrstvu; lights.length = hotovo
+  /** Zastínění a brány (occlusion.js): { gateOf(světlo, x, y, z), buried(x, y, z) }. null = světlo prochází vším. */
+  let occ = null;
   let gateOf = null;
   /** Úroveň bran: index 0 = volná cesta (vždy 1), další = otevření dveří 0 až 1. */
-  let gateLevel = new Float32Array([1]);
+  let gateLevel = [1];
   let gateLights = [[]]; // brána → světla, která skrz ni svítí
-  const stat = { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, flushes: 0, applied: 0, relit: 0 };
+  const stat = { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 };
 
   const effective = (L) => (L.on && L.level > 0 && L.intensity > 0 ? L.level : 0);
 
@@ -46,7 +49,7 @@ export function createLighting({ render, now = () => performance.now() }) {
     const c = L.color;
     for (let i = 0; i < segs.length; i++) {
       const s = segs[i];
-      const want = base * gateLevel[s.gate];
+      const want = base * (gateLevel[s.gate] ?? 1);
       const d = want - s.applied;
       if (d === 0) continue;
       const T = targets[s.t];
@@ -58,13 +61,32 @@ export function createLighting({ render, now = () => performance.now() }) {
   }
   function buildLight(L) {
     L.layer = buildLayer(L, targets, gateOf);
+    L.layer.built = true;
+    stat.entries += L.layer.samples;
     for (const s of L.layer.segs) {
       s.applied = 0;
       if (s.gate > 0) {
+        stat.gated += s.idx.length;
         while (gateLights.length <= s.gate) gateLights.push([]);
         if (!gateLights[s.gate].includes(L)) gateLights[s.gate].push(L);
       }
     }
+  }
+  /** Postaví vrstvy dalších světel; skončí po vyčerpání času (budgetMs) nebo světel. Vrací true, když je hotovo. */
+  function buildSome(budgetMs) {
+    if (toBuild >= lights.length) return true;
+    const t0 = now();
+    while (toBuild < lights.length) {
+      const L = lights[toBuild++];
+      buildLight(L);
+      L.queued = false;
+      L.moved = false;
+      applyLight(L);
+      markMoversNear(L);
+      if (now() - t0 >= budgetMs) break;
+    }
+    stat.buildMs += now() - t0;
+    return toBuild >= lights.length;
   }
   /** Světlo se pohnulo: starý příspěvek odečíst, vrstvu spočítat znovu, nový přičíst. */
   function rebuildLight(L) {
@@ -76,6 +98,9 @@ export function createLighting({ render, now = () => performance.now() }) {
       const k = list.indexOf(L);
       if (k >= 0) list.splice(k, 1);
     }
+    stat.entries -= L.layer.samples;
+    for (const seg of L.layer.segs) if (seg.gate > 0) stat.gated -= seg.idx.length;
+    L.eye = null; // bod pro zkoušku zastínění se určí znovu
     buildLight(L);
     applyLight(L);
   }
@@ -109,8 +134,8 @@ export function createLighting({ render, now = () => performance.now() }) {
       const L = lights[li];
       L.moverK = effective(L);
       if (L.moverK > 0 && gateOf) {
-        const g = gateOf(L, wx, wy, wz, m);
-        L.moverK = g < 0 ? 0 : L.moverK * gateLevel[g];
+        const g = gateOf(L, wx, wy, wz);
+        L.moverK = g < 0 ? 0 : L.moverK * (gateLevel[g] ?? 1);
       }
     }
     for (let pi = 0; pi < m.parts.length; pi++) {
@@ -162,8 +187,13 @@ export function createLighting({ render, now = () => performance.now() }) {
     get lights() {
       return lights;
     },
-    get built() {
-      return built;
+    /** Zastínění zapnuto (výchozí). Vypíná se jen pro srovnání s xView, který stíny nemá; platí od příštího načtení levelu. */
+    shadows: true,
+    /** true = vrstvy se staví po částech ve snímcích (hra v prohlížeči); false = celé při načtení (testy, Node). */
+    incremental: false,
+    /** Podíl světel, která už mají vrstvu (0 až 1). */
+    get progress() {
+      return !built ? 0 : lights.length ? toBuild / lights.length : 1;
     },
 
     /** Nový level: prostředí a prázdné seznamy. V pořadí načítání je první, svět a entity do něj hlásí světla a díly. */
@@ -178,11 +208,11 @@ export function createLighting({ render, now = () => performance.now() }) {
       dirtyMovers.length = 0;
       dirtyTargets.length = 0;
       targets = [];
-      gateOf = null;
-      gateLevel = new Float32Array([1]);
+      gateLevel = [1];
       gateLights = [[]];
       built = false;
-      Object.assign(stat, { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, flushes: 0, applied: 0, relit: 0 });
+      toBuild = 0;
+      Object.assign(stat, { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 });
     },
 
     /**
@@ -203,18 +233,14 @@ export function createLighting({ render, now = () => performance.now() }) {
         range: def.range || 0,
         on,
         level,
-        layer: { segs: [], samples: 0 },
+        layer: { segs: [], samples: 0, built: false },
         queued: false,
         moved: false,
         moverK: 0,
       };
       lights.push(L);
       stat.lights = lights.length;
-      if (built) {
-        buildLight(L);
-        queue(L);
-      }
-      return L;
+      return L; // vrstvu dostane při stavbě (build nebo buildSome), i když přibylo až za běhu
     },
     /** Změnila se úroveň nebo stav zapnutí. */
     setLight(L) {
@@ -262,27 +288,34 @@ export function createLighting({ render, now = () => performance.now() }) {
       dirtyMovers.push(m);
     },
 
-    /** Zastínění a brány (occlusion.js). Volá se před build(). count = počet bran včetně nulté. */
-    setOcclusion(fn, count = 1) {
-      gateOf = fn;
-      gateLevel = new Float32Array(Math.max(1, count)).fill(1);
-      gateLights = Array.from({ length: gateLevel.length }, () => []);
+    /** Zastínění a brány (occlusion.js); null = bez zastínění. Volá se před prepare(). */
+    setOcclusion(o) {
+      occ = o;
     },
     /** Otevření brány 0 až 1 (dveře v portálu). Světla, která skrz ni svítí, se dorovnají při flush. */
     setGate(gate, level) {
-      if (!(gate > 0) || gate >= gateLevel.length || gateLevel[gate] === level) return;
+      if (!(gate > 0)) return;
+      while (gateLevel.length <= gate) gateLevel.push(1);
+      while (gateLights.length <= gate) gateLights.push([]);
+      if (gateLevel[gate] === level) return;
       gateLevel[gate] = level;
       const list = gateLights[gate];
-      for (let i = 0; i < list.length; i++) queue(list[i]);
-      // díly za bránou: levné je označit všechny v dosahu světel, která bránou svítí
-      for (let i = 0; i < list.length; i++) markMoversNear(list[i]);
+      for (let i = 0; i < list.length; i++) {
+        queue(list[i]);
+      }
     },
-    gate: (g) => gateLevel[g],
+    gate: (g) => gateLevel[g] ?? 1,
 
-    /** Vrstvy všech světel nad statickými dávkami vykreslení. Volá se po render.closeStatic(). */
-    build() {
+    /**
+     * Příprava cílů a stavba vrstev všech světel nad statickými dávkami vykreslení. Volá se po render.closeStatic()
+     * a po prvním kroku fyziky (zastínění se ptá Rapieru). V postupném režimu postaví jen přípravu; vrstvy
+     * přibývají ve snímcích (frame) a hra mezitím běží s okolním světlem a s tím, co je hotové.
+     * (Jméno build() má v jádře jiný význam: volá se jednou při startu. Proto prepare.)
+     */
+    prepare() {
       const t0 = now();
       targets = render.statics;
+      gateOf = sys.shadows && occ ? occ.gateOf : null;
       dirtyTargets.length = 0;
       let samples = 0;
       for (const T of targets) {
@@ -291,17 +324,16 @@ export function createLighting({ render, now = () => performance.now() }) {
         fillAmbient(T.colors, ambient);
         touchTarget(T);
         samples += T.count;
+        if (gateOf) {
+          // které vzorky leží ve stavbě (jednou na dávku) a sousedé vrcholů pro převzetí viditelnosti
+          const P = T.positions;
+          const N = T.normals;
+          T.buried = new Uint8Array(T.count);
+          for (let v = 0, k = 0; v < T.count; v++, k += 3) T.buried[v] = occ.buried(P[k] + N[k] * SAMPLE_LIFT, P[k + 1] + N[k + 1] * SAMPLE_LIFT, P[k + 2] + N[k + 2] * SAMPLE_LIFT) ? 1 : 0;
+          T.adj = adjacency(T.indices, T.count);
+        }
       }
-      let entries = 0;
-      let gated = 0;
-      for (const L of lights) {
-        buildLight(L);
-        entries += L.layer.samples;
-        for (const s of L.layer.segs) if (s.gate > 0) gated += s.idx.length;
-        L.queued = false;
-        L.moved = false;
-        applyLight(L);
-      }
+      for (const L of lights) L.eye = null;
       pending.length = 0;
       for (const m of movers) {
         if (m.dirty) continue;
@@ -309,19 +341,37 @@ export function createLighting({ render, now = () => performance.now() }) {
         dirtyMovers.push(m);
       }
       built = true;
+      toBuild = 0;
       stat.samples = samples;
-      stat.entries = entries;
-      stat.gated = gated;
-      stat.buildMs = now() - t0;
+      stat.entries = 0;
+      stat.gated = 0;
+      stat.buildMs = 0;
+      stat.prepMs = now() - t0;
+      if (!sys.incremental) sys.finish();
+      else sys.flush();
+    },
+    /** Dostaví zbývající vrstvy naráz (testy, měření, snímky). */
+    finish() {
+      if (!built) return;
+      buildSome(Infinity);
       sys.flush();
+    },
+    /** Postupná stavba: kousek v každém snímku, dokud není hotovo. */
+    frame() {
+      if (!built || toBuild >= lights.length) return;
+      buildSome(BUILD_SLICE_MS);
+      render.invalidate();
     },
 
     /** Provede poznamenané změny. Volá se před každým vykreslením (render.beforeDraw) a z testů. */
     flush() {
       if (!built) return;
+      if (gateOf) occ.update(); // otevření dveří do bran
+      if (!sys.incremental && toBuild < lights.length) buildSome(Infinity); // světlo přidané za běhu
       for (let i = 0; i < pending.length; i++) {
         const L = pending[i];
         L.queued = false;
+        if (!L.layer.built) continue; // světlo čeká na stavbu vrstvy; ta přečte jeho současný stav
         if (L.moved) {
           L.moved = false;
           rebuildLight(L);
@@ -352,7 +402,9 @@ export function createLighting({ render, now = () => performance.now() }) {
         case 'lights':
           return lights.map((L) => ({ id: L.id, cell: L.cell, type: L.type, on: L.on, level: L.level, samples: L.layer.samples, fixed: L.fixed }));
         case 'gates':
-          return Array.from(gateLevel);
+          return [...gateLevel];
+        case 'progress':
+          return sys.progress;
         default:
           return undefined;
       }
