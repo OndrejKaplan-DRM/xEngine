@@ -65,6 +65,13 @@ export function installHook({ game, lock, shell, hud, adapter }) {
       render.setViewFov(null);
       return { png, calls: m.calls, tris: m.tris };
     },
+    /** Přenese hráče (nohy) a volitelně natočí pohled ve stupních. */
+    tp: (x, y, z, yawDeg, pitchDeg) => game.player.teleport(x, y, z, yawDeg, pitchDeg),
+    /** Zapne měření času kroku po systémech (E.stats.sys v milisekundách, klouzavý průměr). */
+    profile(on = true) {
+      E.profile = on;
+      if (on) E.stats.sys = {};
+    },
     pause: () => adapter.game.pause(),
     resume: () => adapter.game.resume(),
     quit: () => adapter.game.quit(),

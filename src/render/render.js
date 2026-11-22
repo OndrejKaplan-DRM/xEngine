@@ -237,8 +237,11 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
 
     // ---- pohled a nastavení
     setView(x, y, z, yaw, pitch) {
-      camera.position.set(x, y, z);
-      camera.rotation.set(pitch, yaw, 0);
+      const p = camera.position;
+      const r = camera.rotation;
+      if (p.x === x && p.y === y && p.z === z && r.y === yaw && r.x === pitch) return; // stojící kamera nepřekresluje pauzu
+      p.set(x, y, z);
+      r.set(pitch, yaw, 0);
       dirty = true;
     },
     setFov(v) {

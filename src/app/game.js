@@ -4,6 +4,7 @@
 
 import { createEngine } from '../kernel/index.js';
 import { createInput } from '../play/input.js';
+import { createPlayer } from '../play/player.js';
 import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
@@ -43,12 +44,13 @@ export function createGame({ pack, render, now }) {
   const input = createInput();
   const phys = createPhys();
   const world = createWorld({ phys, render, pack });
+  const player = createPlayer({ phys, world, render, input, session });
 
   /**
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world];
+  const loadOrder = [world, player];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -64,14 +66,12 @@ export function createGame({ pack, render, now }) {
     render.closeStatic();
     phys.settle();
     loaded = id;
-    // dokud není hráč, dívá se kamera z výchozího místa (výška očí z profilu)
-    const sp = world.playerSpawn();
-    render.setView(sp.pos[0], sp.pos[1] + session.profile.eye, sp.pos[2], ((sp.yaw || 0) * Math.PI) / 180, 0);
   }
 
   // pořadí běhu určují fáze a závislosti, ne pořadí těchto řádků
   E.add({ name: 'loader', phase: 'input', build: () => loadLevel(session.levelId) });
   E.add(input);
+  E.add(player);
   E.add(phys);
   E.add(world);
   E.add(render);
@@ -96,6 +96,7 @@ export function createGame({ pack, render, now }) {
     input,
     phys,
     world,
+    player,
     render,
     levelIds: [...levels.keys()],
     get,
