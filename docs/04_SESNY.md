@@ -59,11 +59,16 @@ Každá vlna končí sestavením, které si Ondřej projde, a jeho slovem. Bez t
 | výstup pro Ondřeje | `dist/xlab.html` | `dist/kit.html` (galerie prefabů) a tři vygenerované levely v xView |
 | zadání | `sesny/START_A.md` | `sesny/START_B.md` |
 
-### Vlna 2 (obrys, upřesní se po sloučení vlny 1)
+### Vlna 2 (zadání hotové 22. 11. 2026)
 
-| A2 | B2 |
-|---|---|
-| ořez pohledem po buňkách a portálech, načítání `.glb`, zapečené světlo ve hře (vrstvy z xBake), zbraň v ruce a tři archetypy zbraní, zvukové zóny, ukládání přes Shell | xDesigner nad během A (umístit, posunout, uložit level), předvolba dům s interiérem, tvor od kostry po klipy, terén s výškovou mapou (návrh na nový tvar) |
+Základ `zaklad-2` = sloučená vlna 1 a rozhodnuté návrhy. Zadání je nahoře v `sesny/START_A.md` a `sesny/START_B.md`.
+
+| | A2: „Běží to na T460 a je na co se dívat“ | B2: „Vypadá to skutečně“ |
+|---|---|---|
+| nejdřív | světlo po vrcholech, pevné řádky obrazu a `?bench`, krok simulace pod 2 ms na T460, dluhy vlny 1 | průchodnost pro kapsli hráče a katakomby, přijatá pole, xSearcher |
+| potom | nová pole základu, textury a sítě `.glb` (zkouška na jednom kusu se sešnou B) | textury a bohatší tvar v sadě, jeden prefab se sítí pro sešnu A, xBake a N-001 |
+| když zbude | vrstvy světla z xBake, zbraň v ruce, zvukové zóny, ukládání přes Shell | xDesigner nad během A, dům s interiérem, tvor od kostry |
+| pojistka obou | `npm run test:axb`: robot projde levely sešny B v enginu sešny A | totéž |
 
 ### Vlna 3 (obrys)
 

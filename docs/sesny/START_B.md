@@ -1,4 +1,37 @@
-# Zadání sešny B, vlna 1: „Mám z čeho stavět“
+# Zadání sešny B, vlna 2: „Vypadá to skutečně“
+
+Zapsala svodná sešna main 02, 22. 11. 2026. **Tento oddíl má přednost.** Pod ním zůstává zadání vlny 1; jeho pravidla obsahu a pasti platí dál.
+
+## V2.0 Než začneš
+
+1. `git fetch origin && git merge origin/zaklad-2`.
+2. Přečti `CLAUDE.md`, `docs/00_ZADANI.md` (body 6/ až 8/ a oddíl C), `docs/DECISIONS.md` D-029 až D-034, `docs/06_ROZPOCTY.md`, `docs/navrhy/README.md` a oddíl „Rozhodnutí“ ve svých návrzích N-002 až N-006.
+3. `npm install && npm run test:all`: základ 237, skupina A 267, skupina B 92, zkouška A × B 37 kontrol.
+4. V repu je teď i engine sešny A. Tvoje levely si v něm pustíš: `node build.mjs xlab_gen` → `dist/xlab_gen.html?level=0` (1, 2). `npm run test:axb` je vede robotem a musí zůstat zelená po každé změně generátoru nebo sady.
+
+## V2.1 Úkoly v pořadí
+
+| # | Úkol | Hotovo, když |
+|---|---|---|
+| B2.1 | **Průchodnost pro skutečného hráče a katakomby.** Hráč má poloměr 0,35 m a s odstupem kontroléru potřebuje průchod 0,74 m; generátor hlídá 0,6 m. Zvyš na šířku z profilu hráče (čti z dat nebo dej do předvolby, ne natvrdo na dvou místech). Dveře `door_plank_01` nechávají 0,80 m: rozšiř na světlost aspoň 0,90 m. K tomu Ondřejova volba 2 b: stropy katakomb aspoň 2,6 m, chodby aspoň 1,6 m. | 200 seedů × 2 předvolby bez nálezu; `test:axb` zelená; nová čísla v `B_STAV.md` |
+| B2.2 | **Přijatá pole.** `components.place` do sady a `h` z pravidel předvoleb pryč (N-004); `opacity` u skla (N-005); okna s `passable: false` a mříže se `seeThrough` do předvoleb (N-003); `speed` u kloubů s pohonem (N-103). `follow` zatím nepiš (základ ho dluží, D-034). | přísná kontrola balíků 0 varování; okno a mříž v aspoň jednom levelu `gen_demo` |
+| B2.3 | **xSearcher** (B1.4): `tools/searcher/find.mjs`, příjem do `packs/_inbox` mimo git, 10 assetů CC0 se záznamem, test bez sítě. | podle zadání vlny 1, řádek B1.4 |
+| B2.4 | **Vzhled v polích, která formát má** (N-006, pořadí 1 a 2). Bohatší hrubý tvar u nejviditelnějších prefabů; textury barvy z CC0 zdrojů přes `albedo` a `uvScale`, pro stupeň `low` nejvýš 512 px, originály mimo git; přepínač „čistý / herní“ v galerii. | montáž „čistý × herní“ aspoň 8 prefabů; součet velikosti textur v `B_STAV.md` |
+| B2.5 | **Zkouška povrchu na jednom kusu** (D-030) pro sešnu A: jedny dveře se sítí `.glb` na stávající kostře (díl `shape: "mesh"`) a jeden materiál s texturou. Do `B_STAV.md` napiš přesně, co má sešna A načíst, a co ti ve formátu chybělo. Nová pole N-006 (`layer`, `lod`, `minTier`, `orm` a další) do dat nepiš. | balík projde přísnou kontrolou; sešna A má v `B_STAV.md` popis |
+| B2.6 | **xBake a N-001** (B1.3 podle zadání vlny 1): zapečené světlo po vrcholech a vrstvách se stíny. Pro zastínění dílů ber `colliders` prefabu, ne vlastní dělení válce (N-101). | podle zadání vlny 1, řádek B1.3 |
+| B2.7 | Když zbude: xDesigner nad během A, předvolba dům s interiérem, tvor od kostry. | podle domluvy v `B_STAV.md` |
+
+## V2.2 Co se změnilo proti vlně 1
+
+- Měření T460 (tři běhy xBench 0.2): textura přidá v interiéru 0,5 až 1,0 ms, takže stupeň `low` textury mít smí. Změřená je jedna textura; paměť a desítky textur změřené nejsou.
+- Stupně kvality jsou přijaté jako rámec (D-029). Data vyráběj v nejvyšší kvalitě, jakou umíš, a odvozená rozlišení dělej z originálů.
+- Svítivosti světel teď neměň: jas se bude ladit jednou, po převodu enginu na světlo po vrcholech (N-105). V montáži zkoušky A × B je jeden pohled v `complex_7` skoro bílý.
+- Robot zkoušky A × B otevírá dvoukřídlé dveře rukou a prošel všemi třemi levely; dočasné řešení N-002 tedy funguje.
+- Tvých pět otázek Ondřejovi (směr vzhledu, cizí modely, kde vidět herní vzhled, velikost hry, silnější stroj) čeká na odpověď. Do té doby platí tvoje doporučení z `B_STAV.md`.
+
+---
+
+## Zadání vlny 1 (sešna B): „Mám z čeho stavět“
 
 Jsi sešna **B (obsah a nástroje)**. Vyrábíš data ve formátu xSpace a nástroje, které je vyrábějí. Druhá sešna (A) souběžně staví engine; potkáte se jen přes data.
 

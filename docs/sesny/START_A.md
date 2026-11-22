@@ -1,4 +1,37 @@
-# Zadání sešny A, vlna 1: „Projdu xLab“
+# Zadání sešny A, vlna 2: „Běží to na T460 a je na co se dívat“
+
+Zapsala svodná sešna main 02, 22. 11. 2026. **Tento oddíl má přednost.** Pod ním zůstává zadání vlny 1 (znění 2): úkoly A1.2, A1.4, A1.6 a A1.8 v něm popisují, jak má převod na světlo po vrcholech vypadat.
+
+## V2.0 Než začneš
+
+1. `git fetch origin && git merge origin/zaklad-2` (zkušební sloučení s `sesna-a` na `b0dce2f` bylo bez konfliktu).
+2. Přečti `CLAUDE.md`, `docs/00_ZADANI.md` oddíl C, `docs/DECISIONS.md` D-029 až D-034, `docs/06_ROZPOCTY.md`, `docs/navrhy/README.md` (co je rozhodnuto) a `docs/mereni/T460_2026-11-22_xlab_gen_F3.md`.
+3. `npm install && npm run test:all`: základ 237, skupina A 267, skupina B 92, zkouška A × B 37 kontrol.
+4. Zkouška A × B je od teď tvoje pojistka: `npm run test:axb` vede robota levely sešny B. Po každém kroku musí zůstat zelená.
+
+## V2.1 Úkoly v pořadí
+
+| # | Úkol | Hotovo, když |
+|---|---|---|
+| A2.1 | **Světlo po vrcholech** (D-022, D-031; oddíl 2a níže, kroky 4 a 7). Síť z `brushLightMesh`, vrstvy z `lightIrradiance`, `MeshBasicMaterial` s barvou vrcholů, zastínění paprsky Rapieru, světlo dílů po stěnách. Zásobník bodových světel zmizí; smí zůstat nejvýš jedno efektové světlo. Ořez po buňkách zůstává pro geometrii. Ondřej chce, aby zavřenými dveřmi světlo neprocházelo (jeho volba 2 a): navrhni jak a zapiš to. | průchod scénou nenajde víc než jedno `Light`; místo za sloupem v hale je měřitelně tmavší; přepnutí lampy mění jen úroveň vrstvy a nealokuje; snímky proti xView s novým prahem; `test:axb` zelená |
+| A2.2 | **Obraz a měření.** Pevný počet řádků 576, 768, 1080 (D-023), `setPixelRatio(1)`; vyhlazování hran výchozí vypnuté a v nastavení. `xlab.html?bench`: pevný průlet přes `__xe`, na konci JSON (medián a 95 % času snímku, krok po systémech, volání, △, velikost obrazu, řetězec grafiky). Cíl `xlab_gen` patří základu; `?bench` musí fungovat i v něm. | každé nastavení projde `apply/probe`; `?bench` doběhne v xLabu i v `xlab_gen.html?level=0` a vydá JSON |
+| A2.3 | **Krok simulace na T460.** Změřeno ve hře: 0,64 až 3,50 ms, z toho fyzika až 3,10 ms; mez je 2 ms a sandbox ukazoval 0,13 až 0,17 ms. Najdi příčinu (počet koliderů a těles, která nespí, kinematická tělesa, něco jiného) a navrhni nápravu. Příčinu dokládej měřením, ne domněnkou; na T460 měří Ondřej přes `?bench`. | v `A_STAV.md` je rozpad kroku pro `complex_7` s počty těles a koliderů a změřený účinek nápravy v sandboxu; číslo z T460 po Ondřejově běhu |
+| A2.4 | **Dluhy vlny 1.** Skok v profilu `arena` na nový stisk (Ondřejova volba 3 b). Zablokované dveře (D-025). Oddíl „Rozhraní entit“ v `A_STAV.md` (D-026). Klidný režim: ověř ve skutečném Chrome, jestli se po Esc u terminálu vrátí rozhlížení myší bez kliknutí (D-032), a napiš výsledek. | testy; věta o výsledku zkoušky D-032 |
+| A2.5 | **Nová pole základu.** Čti `screen.offset` (smaž odvozování), `JOINT_TRAVEL_SECONDS` z `formats.js` (smaž vlastní tabulku), `interact.seeThrough` a `portals[].passable` v ořezu po buňkách, `materials[].opacity` (průhledné díly kreslené po neprůhledných). | sklo `glass_pane` s `opacity` je ve hře průhledné; mříž se `seeThrough` nezavírá pohled |
+| A2.6 | **Textury a sítě: zkouška na jednom kusu** (D-030) se sešnou B. Načti texturu barvy (`albedo`, `uvScale`) a díl `shape: "mesh"` (`.glb`) z balíku; zapečené světlo texturu násobí. Stupeň `low`: textury nejvýš 512 px. Co ti v datech chybí, napiš jako návrh. | jeden prefab se sítí a jeden materiál s texturou ze sešny B jsou ve hře vidět; cena v `?bench` |
+| A2.7 | Když zbude: vrstvy světla z xBake (až bude N-001), zbraň v ruce, zvukové zóny, ukládání přes Shell. | podle domluvy v `A_STAV.md` |
+
+## V2.2 Co se změnilo proti vlně 1
+
+- Mez kódu je podle zadání 50 MB (`a_00_build` hlídá 10 MB; nech, je přísnější).
+- Rozpočty: nejvýš jedno efektové světlo po pixelech, vyhlazování hran ne, textury ano (`06_ROZPOCTY.md`).
+- Hra z vlny 1 drží na T460 ve čtyřech zkoušených pohledech 60 snímků/s. Převod světla se nedělá kvůli rychlosti těchto pohledů, ale kvůli stínům, stálému času snímku a místu pro textury.
+- Přijaté návrhy: N-101 až N-107 mají v souboru oddíl „Rozhodnutí“. N-101 a N-102 udělá svodná sešna v základu; do té doby platí tvoje dočasná řešení.
+- Svítivosti zlatého vzorku (N-105) se budou ladit až po tvém převodu; napiš do stavu průměrný jas čtyř pohledů po převodu.
+
+---
+
+## Zadání vlny 1 (sešna A): „Projdu xLab“
 
 Znění 2 z 22. 11. 2026, po měření T460 a před startem sešen.
 
