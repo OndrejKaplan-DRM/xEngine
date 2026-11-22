@@ -31,6 +31,19 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
+## Sešny mezitím pokročily (stav větví 22. 11. 2026 ve 23:30)
+
+Obě sešny během integrace pracovaly dál na svých větvích. Do `zaklad-2` to **nepatří**; je to stav pro příští sloučení.
+
+| Větev | Hlava | Co přibylo podle commitů | Zkouška svodné sešny (sloučení se `zaklad-2` nanečisto) |
+|---|---|---|---|
+| `sesna-a` | `5626629` | převod na světlo po vrcholech, pevný počet řádků, skok na nový stisk, zastínění světla, `?bench`, oddíl „Rozhraní entit“, terminál podle D-024, návrh N-108 | bez konfliktu, mimo své složky nesáhla; skupina A 18 sad z 18 |
+| `sesna-b` | `9944620` | katakomby podle volby 2 b, dveře bez škvír a návrh N-007, xBake a návrh N-001 | bez konfliktu, mimo své složky nesáhla; skupina B 6 sad ze 6 |
+
+Po sloučení obou větví: základ 237 kontrol zeleně, ale **zkouška A × B selže ve dvou kontrolách** (688 prošlo, 2 selhaly). Pro kapsli hráče jsou nedosažitelné tři buňky v `complex_7` (`c_store_08`, `c_lab_05`, `c_store_12`) a jedna v `complex_21` (`c_store_02`); ve `zaklad-2` byly dosažitelné všechny. Příčinu jsem nehledala. Světlost dveří je v nových prefabech 0,90 m, dveře samy to tedy nejsou. Je to úkol B2.1.
+
+Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
+
 ## Co je hotové (základ 1)
 
 | Část | Kde | Stav |
@@ -66,7 +79,7 @@ Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zabloko
 
 ## Otevřené pro Ondřeje
 
-1. Zkouška D-032: v `xlab_gen.html?level=1` si sednout k terminálu, stisknout Esc a říct, jestli se rozhlížení myší vrátilo hned, nebo až po kliknutí.
+1. Zkouška terminálu (D-032) v novém sestavení sešny A: sednout si k terminálu, stisknout Esc (pauza), vrátit se do hry a říct, jestli se s vlastním kurzorem dá pracovat a jestli se po návratu hned vrátí ovládání.
 2. Pět otázek sešny B ke vzhledu (`docs/sesny/B_STAV.md`, konec dokumentu).
 3. Potvrdit nebo přepsat body 6/ až 8/ zadání (`00_ZADANI.md`; sestavila je svodná sešna z jeho vět).
 4. Až sešna A dodá `?bench`: pustit ho na T460.

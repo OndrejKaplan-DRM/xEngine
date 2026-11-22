@@ -23,6 +23,8 @@ Vlna 1 je sloučená, zkouška A × B prošla, návrhy a rozpory jsou rozhodnut�
 
 ## Dluhy základu ve vlně 2 (provádí svodná sešna, v tomto pořadí)
 
+0. **Nové návrhy:** N-001 (formát zapečeného světla), N-007 (zakrytí otvoru dveřmi, překrývá se s N-107) a N-108 (švy a hrubost mřížky světla) přišly během integrace a nejsou rozhodnuté.
+
 1. **N-101:** `partMesh`, `partCollider`, `partTris` do `src/xspace/geom.js` podle `src/world/parts.js` sešny A; xView je začne používat; kontroly v T1.
 2. **N-107:** pravidlo validátoru `portal.door.cover` pro dveře bez `seeThrough`, mutace v T1.
 3. **N-002:** `rig.joints[].follow`, pravidla validátoru, `jointFollow` v `rig.js`.
