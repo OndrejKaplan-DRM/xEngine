@@ -3,6 +3,7 @@
 // src/xspace/geom.js; o konkrétním levelu neví nic, co není v datech.
 
 import { brushMesh, brushCollider, inBounds, boundsGap } from '../xspace/index.js';
+import { faceCells } from './cells.js';
 
 export function createWorld({ phys, render, pack }) {
   const matDefs = pack.materials?.materials || {};
@@ -11,7 +12,8 @@ export function createWorld({ phys, render, pack }) {
   let triggers = []; // { def, inside, done }
   let io = null; // doplní se při načtení (spojení výstupů spouštěčů)
   const lightRecs = [];
-  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, batchKeys: 0 };
+  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 };
+  const seenBy = [];
   /** Obal postavy, kterou sledují spouštěče. Zapisuje ho xPlay v každém kroku. */
   const actor = { min: [0, 0, 0], max: [0, 0, 0], active: false };
 
@@ -40,15 +42,19 @@ export function createWorld({ phys, render, pack }) {
       render.setDefs(matDefs);
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
-      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, batchKeys: 0 });
+      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 });
       for (const b of level.brushes || []) {
         stat.brushes++;
         if (b.vis !== false) {
           const m = brushMesh(b);
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
-            render.addStatic(b.cell, matId, m, g.start, g.count, null, uvScale(matId));
-            keys.add(`${b.cell}|${matId}`);
+            // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)
+            for (const cellId of faceCells(m, g, b, cells, seenBy)) {
+              render.addStatic(cellId, matId, m, g.start, g.count, null, uvScale(matId));
+              keys.add(`${cellId}|${matId}`);
+              stat.drawnTris += g.count / 3;
+            }
             stat.brushTris += g.count / 3;
           }
         }

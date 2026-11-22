@@ -1,7 +1,7 @@
 // Háček pro testy: window.__xe podle kontraktu (docs/02_KONTRAKTY.md, oddíl 1). Minimum z kontraktu se nesmí
 // ubírat; co je navíc, je označené. Testy řídí simulaci, ne snímky: sim() nečeká na skutečný čas.
 
-export function installHook({ game, lock, shell, hud, adapter }) {
+export function installHook({ game, lock, shell, hud, adapter, devTools }) {
   const { E, input, render } = game;
   const xe = {
     ready: true,
@@ -37,6 +37,7 @@ export function installHook({ game, lock, shell, hud, adapter }) {
         movers: render.counts.movers,
         lights: render.counts.lights,
         activeLights: render.counts.activeLights,
+        visibleCells: render.counts.visibleCells,
         sys: { ...E.stats.sys },
       };
     },
@@ -85,6 +86,17 @@ export function installHook({ game, lock, shell, hud, adapter }) {
     hud: () => hud.state,
     settings: () => shell.settings.probeAll(),
     lock: () => ({ enabled: lock.enabled, locked: lock.locked }),
+    /** Viditelnost po buňkách zapnout nebo vypnout (vypnutá = kreslí se vše a svítí všechna světla, jako v xView). */
+    vis(on) {
+      game.vis.enabled = on;
+      render.invalidate();
+    },
+    /** Vývojářské vrstvy: dev({ overlay: true, cells: true }); vrací jejich stav a text přehledu. */
+    dev(opts = {}) {
+      if (opts.overlay !== undefined) devTools.setOverlay(opts.overlay);
+      if (opts.cells !== undefined) devTools.setCells(opts.cells);
+      return { overlay: devTools.overlay, cells: devTools.cells, text: devTools.text() };
+    },
   };
   globalThis.__xe = xe;
   return xe;

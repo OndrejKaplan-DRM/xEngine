@@ -35,6 +35,8 @@ export function createEntities({ phys, render, world, pack }) {
   };
   /** Chování podle interakce (behaviors.js); doplní se po sestavení hry. */
   let behave = null;
+  /** id entity dveří → buňky po obou stranách jejího portálu. */
+  const doorCells = new Map();
 
   function instantiate(def, index) {
     const prefab = prefabs.get(def.prefab);
@@ -95,6 +97,8 @@ export function createEntities({ phys, render, world, pack }) {
       if (!map.has(mat)) map.set(mat, newBatch());
       return map.get(mat);
     };
+    // dveře v portálu jsou vidět z obou buněk: pevné díly jdou do dávek obou, pohyblivé jsou sdílené
+    const also = (doorCells.get(def.id) || []).filter((c) => c !== ent.cell);
     for (const part of prefab.parts) {
       const mesh = partMesh(part);
       if (!mesh) {
@@ -107,7 +111,10 @@ export function createEntities({ phys, render, world, pack }) {
         if (!nodePieces.has(part.node)) nodePieces.set(part.node, new Map());
         appendMesh(piece(nodePieces.get(part.node), part.mat), mesh, 0, len, null, uvScale(part.mat));
       } else if (hasLight && isEmissive(part.mat)) appendMesh(piece(glowPieces, part.mat), mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
-      else render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
+      else {
+        render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
+        for (const c of also) render.addStatic(c, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
+      }
     }
     const toPieces = (map) => [...map].map(([mat, batch]) => ({ mat, batch }));
     if (wholePieces.size) {
@@ -123,7 +130,7 @@ export function createEntities({ phys, render, world, pack }) {
     for (const n of nodes) {
       if (whole || !moves(n.id)) continue;
       const pieces = nodePieces.get(n.id);
-      const rec = { id: n.id, world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, toPieces(pieces)) : null, body: null };
+      const rec = { id: n.id, world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, toPieces(pieces), also) : null, body: null };
       rec.mover?.setMatrix(rec.world);
       ent.movers.push(rec);
       moverOf.set(n.id, rec);
@@ -264,6 +271,8 @@ export function createEntities({ phys, render, world, pack }) {
     },
 
     load(ctx) {
+      doorCells.clear();
+      for (const p of ctx.level.portals || []) if (p.door) doorCells.set(p.door, [p.a, p.b]);
       list = (ctx.level.entities || []).map(instantiate);
       byId = new Map(list.map((e) => [e.id, e]));
       for (const ent of list) {

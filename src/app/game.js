@@ -10,6 +10,7 @@ import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
+import { createVisibility } from '../world/visibility.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
@@ -49,6 +50,7 @@ export function createGame({ pack, render, now }) {
   const phys = createPhys();
   const world = createWorld({ phys, render, pack });
   const entities = createEntities({ phys, render, world, pack });
+  const vis = createVisibility({ world, entities, render });
   const io = createIo({ entities, world });
   const behave = createBehaviors({ entities, io });
   entities.behave = behave;
@@ -61,7 +63,7 @@ export function createGame({ pack, render, now }) {
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, entities, io, player, interact];
+  const loadOrder = [world, entities, vis, io, player, interact];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -87,6 +89,7 @@ export function createGame({ pack, render, now }) {
   E.add(entities);
   E.add(phys);
   E.add(world);
+  E.add(vis);
   E.add(io);
   E.add(render);
 
@@ -111,6 +114,7 @@ export function createGame({ pack, render, now }) {
     phys,
     world,
     entities,
+    vis,
     io,
     behave,
     player,

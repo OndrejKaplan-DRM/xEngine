@@ -21,18 +21,24 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
     const data = await page.evaluate(() => {
       const level = __PACK__.levels[0].data;
       const sp = level.spawns.find((s) => s.kind === 'player');
-      const pairs = new Set();
+      const pairs = new Set(); // dvojice buňka × materiál z dat (jen pro výpis)
+      const mats = new Set();
       for (const b of level.brushes) {
         if (b.vis === false) continue;
         pairs.add(b.cell + '|' + b.mat);
-        for (const m of Object.values(b.faces || {})) pairs.add(b.cell + '|' + m);
+        mats.add(b.mat);
+        for (const m of Object.values(b.faces || {})) {
+          pairs.add(b.cell + '|' + m);
+          mats.add(m);
+        }
       }
-      return { spawn: sp, solid: level.brushes.filter((b) => b.col !== false).length, pairs: pairs.size, cells: level.cells.length, lights: (level.lights || []).length };
+      return { spawn: sp, solid: level.brushes.filter((b) => b.col !== false).length, pairs: pairs.size, mats: mats.size, cells: level.cells.length, lights: (level.lights || []).length };
     });
-    await page.evaluate(() => __xe.start());
+    // xView kreslí celý level a svítí všemi světly; srovnání obrazu proto běží s vypnutou viditelností po buňkách
+    await page.evaluate(() => { __xe.start(); __xe.vis(false); });
     const st = await page.evaluate(() => ({ world: __xe.get('world.stat'), fixed: __xe.get('phys.fixedColliders'), stats: __xe.stats() }));
     ok(st.world.brushColliders === data.solid, 'počet koliderů světa = počet kvádrů s kolizí', `${st.world.brushColliders} z ${data.solid}`);
-    ok(st.world.batchKeys === data.pairs, 'statická geometrie je sloučená po buňce a materiálu', `${st.world.batchKeys} dávek pro ${data.cells} buněk`);
+    ok(st.world.batchKeys <= data.cells * data.mats, 'statická geometrie je sloučená po buňce a materiálu', `${st.world.batchKeys} dávek pro ${data.cells} buněk a ${data.mats} materiálů (dvojic v datech ${data.pairs})`);
     ok(st.stats.cells === data.cells, 'vykreslení zná všechny buňky levelu', String(st.stats.cells));
 
     // ---- stejný pohled jako xView „start“: oko 1,6 m, cíl o 0,1 m níž ve vzdálenosti 4 m, zorné pole 60°
@@ -46,7 +52,7 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
     }, [s.pos[0], s.pos[1] + 1.6, s.pos[2], s.yaw || 0, pitch]);
     saveDataUrl(ref, 'a12_xview_start.png');
     saveDataUrl(shot.a.png, 'a12_xlab_start.png');
-    ok(shot.a.calls <= data.pairs, 'volání kreslení ≤ počet dvojic buňka × materiál', `${shot.a.calls} volání, ${shot.a.tris} △, dvojic ${data.pairs}`);
+    ok(shot.a.calls <= st.world.batchKeys, 'volání kreslení ≤ počet dávek (celý level, bez viditelnosti po buňkách)', `${shot.a.calls} volání, ${shot.a.tris} △, dávek ${st.world.batchKeys}`);
     const noise = await compare(page, shot.a.png, shot.b.png);
     const diff = await compare(page, ref, shot.a.png);
     const img = await imageStats(page, shot.a.png);

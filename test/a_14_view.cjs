@@ -25,6 +25,7 @@ const VIEWS = {
     const sp = await page.evaluate(() => __PACK__.levels[0].data.spawns.find((s) => s.kind === 'player'));
     await page.evaluate(() => {
       __xe.start();
+      __xe.vis(false); // xView kreslí celý level a svítí všemi světly
       __xe.sim(0.5);
       __xe.shell.settings.set('lights', 12);
     });

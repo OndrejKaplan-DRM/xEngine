@@ -39,8 +39,11 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
   const pool = []; // THREE.PointLight, velikost = rozpočet
   const order = new Int16Array(64);
   const score = new Float32Array(64);
-  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0 };
+  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
   const screens = []; // obrazovky ve světě: { mesh, tex }
+  const shared = []; // pohyblivé díly viditelné z více buněk (křídlo dveří v portálu): { group, cells, on }
+  const view = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
+  let debug = null; // vývojářská vrstva: úsečky přes celou scénu
 
   function setPool(n) {
     while (pool.length > n) scene.remove(pool.pop());
@@ -61,8 +64,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     for (let i = 0; i < total; i++) {
       const r = lightRecs[i];
       if (!r.on || r.level <= 0 || r.intensity <= 0) continue;
-      const cell = cells.get(r.cell);
-      if (cell && !cell.group.visible) continue;
+      if (r.seen === false) continue; // viditelnost: světlo nedosáhne do žádné viditelné buňky
       const dx = r.pos[0] - cx;
       const dy = r.pos[1] - cy;
       const dz = r.pos[2] - cz;
@@ -94,8 +96,11 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
   }
 
   function draw() {
+    sys.beforeDraw?.(); // viditelnost po buňkách pro tento pohled (xWorld)
     assignLights();
     renderer.render(scene, camera);
+    counts.calls = renderer.info.render.calls;
+    counts.tris = renderer.info.render.triangles;
     dirty = false;
   }
 
@@ -109,6 +114,10 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     materials,
     counts,
     lights: lightRecs,
+    /** Současný pohled (radiány); čte ho viditelnost. */
+    view,
+    /** Háček volaný před každým vykreslením; xWorld sem dává výpočet viditelných buněk a světel. */
+    beforeDraw: null,
     baseFov: 90,
     scale: 1,
     get fov() {
@@ -181,7 +190,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
      * Pohyblivý díl (uzel kostry nebo dynamické těleso): pieces = [{ mat, batch }] v prostoru uzlu.
      * Vrací ovladač; matice je 4×4 po sloupcích ve světě.
      */
-    addMover(cellId, pieces) {
+    addMover(cellId, pieces, alsoCells = null) {
       const group = new THREE.Group();
       group.matrixAutoUpdate = false;
       const meshes = pieces.map((p) => {
@@ -191,7 +200,10 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         counts.moverTris += p.batch.tris;
         return mesh;
       });
-      (cells.get(cellId)?.group || levelRoot).add(group);
+      // díl viditelný z více buněk (dveře v portálu) nevisí pod jednou buňkou; jeho viditelnost řídí setVisibleCells
+      const rec = alsoCells?.length ? { group, cells: [cellId, ...alsoCells], on: true } : null;
+      if (rec) shared.push(rec);
+      (rec ? levelRoot : cells.get(cellId)?.group || levelRoot).add(group);
       counts.movers += meshes.length;
       return {
         setMatrix(m) {
@@ -200,6 +212,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
           dirty = true;
         },
         setVisible(on) {
+          if (rec) rec.on = on;
           group.visible = on;
           dirty = true;
         },
@@ -209,7 +222,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         },
         setCell(id) {
           const next = cells.get(id)?.group;
-          if (next && group.parent !== next) next.add(group);
+          if (!rec && next && group.parent !== next) next.add(group);
         },
       };
     },
@@ -255,21 +268,55 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         sc.mesh.material.dispose();
       }
       screens.length = 0;
+      shared.length = 0;
+      sys.setDebugLines(null);
       scene.remove(levelRoot);
       levelRoot = null;
       cells = new Map();
       lightRecs.length = 0;
-      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0 });
+      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 });
     },
     /** Které buňky se kreslí (viditelnost přes portály). null = všechny. */
     setVisibleCells(ids) {
+      let n = 0;
       for (const [id, cell] of cells) {
         const on = !ids || ids.has(id);
+        if (on) n++;
         if (cell.group.visible !== on) {
           cell.group.visible = on;
           dirty = true;
         }
       }
+      counts.visibleCells = n;
+      for (let i = 0; i < shared.length; i++) {
+        const s = shared[i];
+        let on = !ids;
+        for (let k = 0; k < s.cells.length && !on; k++) on = ids.has(s.cells[k]);
+        on = on && s.on;
+        if (s.group.visible !== on) {
+          s.group.visible = on;
+          dirty = true;
+        }
+      }
+    },
+    /** Vývojářská vrstva: barevné úsečky kreslené přes scénu (obrysy buněk a portálů). null ji schová. */
+    setDebugLines(data) {
+      if (debug) {
+        scene.remove(debug);
+        debug.geometry.dispose();
+        debug.material.dispose();
+        debug = null;
+      }
+      if (data) {
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(data.positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(data.colors, 3));
+        debug = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ vertexColors: true, depthTest: false, transparent: true, toneMapped: false, fog: false }));
+        debug.renderOrder = 999;
+        debug.frustumCulled = false;
+        scene.add(debug);
+      }
+      dirty = true;
     },
 
     // ---- pohled a nastavení
@@ -279,6 +326,11 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
       if (p.x === x && p.y === y && p.z === z && r.y === yaw && r.x === pitch) return; // stojící kamera nepřekresluje pauzu
       p.set(x, y, z);
       r.set(pitch, yaw, 0);
+      view.x = x;
+      view.y = y;
+      view.z = z;
+      view.yaw = yaw;
+      view.pitch = pitch;
       dirty = true;
     },
     setFov(v) {

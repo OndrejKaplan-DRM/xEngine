@@ -6,6 +6,7 @@ import { h, makeGame, fmt } from './a_lib/node.mjs';
 import { entityMatrix, rigMatrices, mat4Mul } from '../src/xspace/index.js';
 import { decompose } from '../src/phys/xform.js';
 import { SIGHT_RAY } from '../src/phys/phys.js';
+import { partMesh } from '../src/world/parts.js';
 
 const { ok } = h;
 const game = await makeGame();
@@ -17,17 +18,26 @@ const maxDiff = (a, b) => Math.max(...a.map((v, i) => Math.abs(v - b[i])));
 // ---- všechny entity z dat existují; dávky zůstávají po buňce a materiálu
 ok(entities.list.length === level.entities.length, 'každá entita levelu má instanci', `${entities.list.length}`);
 {
-  const pairs = new Set();
+  const mats = new Set();
   for (const b of level.brushes) {
     if (b.vis === false) continue;
-    pairs.add(`${b.cell}|${b.mat}`);
-    for (const m of Object.values(b.faces || {})) pairs.add(`${b.cell}|${m}`);
+    mats.add(b.mat);
+    for (const m of Object.values(b.faces || {})) mats.add(m);
   }
-  for (const e of level.entities) for (const part of prefabOf(e).parts) pairs.add(`${e.cell}|${part.mat}`);
-  ok(render.counts.batches <= pairs.size, 'pevné díly prefabů jdou do dávek buňka × materiál', `${render.counts.batches} dávek, dvojic v datech ${pairs.size}; pohyblivých dílů ${render.counts.movers}`);
+  for (const e of level.entities) for (const part of prefabOf(e).parts) mats.add(part.mat);
+  ok(render.counts.batches <= level.cells.length * mats.size, 'pevné díly prefabů jdou do dávek buňka × materiál', `${render.counts.batches} dávek, mez ${level.cells.length} buněk × ${mats.size} materiálů; pohyblivých dílů ${render.counts.movers}`);
   const tris = level.entities.reduce((s, e) => s + (prefabOf(e).tris || 0), 0);
-  const drawn = render.counts.staticTris - game.world.stat.brushTris + render.counts.moverTris;
-  ok(drawn === tris, 'trojúhelníky dílů odpovídají poli tris prefabů', `${drawn} △ nakresleno, ${tris} △ podle dat`);
+  // dveře v portálu jsou vidět z obou buněk: jejich pevné díly (zárubeň) jsou v dávkách obou
+  const doors = new Set((level.portals || []).filter((p) => p.door).map((p) => p.door));
+  let twice = 0;
+  for (const e of level.entities) {
+    if (!doors.has(e.id)) continue;
+    const pf = prefabOf(e);
+    const moving = new Set((pf.rig.joints || []).map((j) => j.node));
+    for (const part of pf.parts) if (!moving.has(part.node)) twice += partMesh(part).indices.length / 3;
+  }
+  const drawn = render.counts.staticTris - game.world.stat.drawnTris + render.counts.moverTris;
+  ok(drawn === tris + twice, 'trojúhelníky dílů odpovídají poli tris prefabů', `${drawn} △ nakresleno = ${tris} △ podle dat + ${twice} △ zárubní dveří v portálech (v obou buňkách)`);
 }
 
 game.start();

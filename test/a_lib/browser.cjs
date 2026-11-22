@@ -23,13 +23,21 @@ const CLICK = `(sel) => {
 }`;
 const click = (page, sel) => page.evaluate(`(${CLICK})(${JSON.stringify(sel)})`);
 
+/** Úprava balíku pro volbu bare: level bez entit (jen kvádry, světla a spouštěče s cílem @level). */
+const BARE = `for (const l of p.levels) {
+  l.data.entities = [];
+  for (const portal of l.data.portals || []) delete portal.door;
+  for (const t of l.data.triggers || []) t.io = t.io.filter((k) => k.target.startsWith('@'));
+}`;
+
 /**
- * Otevře hru a počká na háček __xe. Volba bare: level bez entit (jen kvádry, světla a spouštěče); slouží testům
- * statického světa. Balík se upraví dřív, než ho hra uvidí (past na globál __PACK__), kód hry se nemění.
+ * Otevře hru a počká na háček __xe. Volba bare: level bez entit; volba mutate: tělo funkce (p) => {...}, která
+ * balík upraví. Balík se mění dřív, než ho hra uvidí (past na globál __PACK__), kód hry se nemění.
  * h.open základu neumí skript před načtením stránky, proto je tu vlastní otevření se stejným chováním.
  */
-async function openGame(browser, { q = '', bare = false, context = {}, timeout = 60000 } = {}) {
-  if (!bare) return h.open(browser, { file: 'dist/xlab.html', ready: READY, q, context, timeout });
+async function openGame(browser, { q = '', bare = false, mutate = null, context = {}, timeout = 60000 } = {}) {
+  const src = mutate || (bare ? BARE : null);
+  if (!src) return h.open(browser, { file: 'dist/xlab.html', ready: READY, q, context, timeout });
   const path = require('node:path');
   const ctx = await browser.newContext({ viewport: { width: 1366, height: 768 }, ...context });
   const page = await ctx.newPage();
@@ -39,21 +47,18 @@ async function openGame(browser, { q = '', bare = false, context = {}, timeout =
   });
   page.on('pageerror', (e) => errs.push('PAGEERROR ' + e.message));
   await page.route('**/*', (r) => (r.request().url().startsWith('file:') ? r.continue() : r.abort()));
-  await page.addInitScript(() => {
+  await page.addInitScript((body) => {
+    const change = new Function('p', body);
     let pack;
     Object.defineProperty(globalThis, '__PACK__', {
       configurable: true,
       get: () => pack,
       set(p) {
-        for (const l of p.levels) {
-          l.data.entities = [];
-          for (const portal of l.data.portals || []) delete portal.door;
-          for (const t of l.data.triggers || []) t.io = t.io.filter((k) => k.target.startsWith('@'));
-        }
+        change(p);
         pack = p;
       },
     });
-  });
+  }, src);
   await page.goto('file://' + path.join(h.ROOT, 'dist/xlab.html') + q);
   await page.waitForFunction(READY, null, { timeout });
   return { ctx, page, errs };

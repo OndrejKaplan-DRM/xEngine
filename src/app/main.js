@@ -10,6 +10,7 @@ import { createLock } from './lock.js';
 import { createHud } from './hud.js';
 import { settingsDefs } from './settings.js';
 import { installHook } from './hook.js';
+import { createDev } from './dev.js';
 
 const BOUNCE_MS = 350; // Esc, kterým prohlížeč uvolnil zámek, nesmí vzápětí hru zase spustit
 
@@ -25,12 +26,15 @@ async function boot() {
   const game = createGame({ pack: globalThis.__PACK__, render });
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
+  const devTools = createDev({ game, hud });
+  if (params.has('novis')) game.vis.enabled = false; // kreslit vše (srovnání s xView, hledání chyb viditelnosti)
   E.add({
     name: 'hud',
     phase: 'ui',
     frame(real) {
       hud.setPrompt(E.mode === 'playing' ? game.interact.prompt : '');
       hud.frame(real);
+      devTools.frame(real);
     },
   });
 
@@ -132,6 +136,11 @@ async function boot() {
     true,
   );
   addEventListener('keydown', (e) => {
+    // F3 přehled, F4 obrysy buněk a portálů: fungují i v pauze
+    if (!e.repeat && devTools.key(e.code)) {
+      e.preventDefault();
+      return;
+    }
     if (E.mode !== 'playing') return;
     const known = e.repeat ? false : input.key(e.code, true);
     if (known || PREVENT_DEFAULT.has(e.code)) e.preventDefault();
@@ -163,7 +172,7 @@ async function boot() {
   addEventListener('blur', () => input.releaseAll());
   addEventListener('resize', () => render.resize());
 
-  installHook({ game, lock, shell, hud, adapter });
+  installHook({ game, lock, shell, hud, adapter, devTools });
   E.run();
 }
 

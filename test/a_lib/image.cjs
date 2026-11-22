@@ -31,4 +31,14 @@ const STATS = `async (src) => {
 }`;
 const imageStats = (page, src) => page.evaluate(`(${STATS})(${JSON.stringify(src)})`);
 
-module.exports = { compare, imageStats };
+/** Počet bodů v signální purpurové barvě (pozadí scény nastavené na [1, 0, 1]): tam se nevykreslilo nic. */
+const VOID = `async (src) => {
+  const i = new Image(); await new Promise((res, rej) => { i.onload = res; i.onerror = rej; i.src = src; });
+  const c = document.createElement('canvas'); c.width = i.width; c.height = i.height; const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(i, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height).data; let n = 0;
+  for (let k = 0; k < d.length; k += 4) if (d[k] > 200 && d[k + 2] > 200 && d[k + 1] < 90) n++;
+  return n;
+}`;
+const voidPixels = (page, src) => page.evaluate(`(${VOID})(${JSON.stringify(src)})`);
+
+module.exports = { compare, imageStats, voidPixels };

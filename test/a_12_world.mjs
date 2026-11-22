@@ -10,15 +10,17 @@ const { phys, world, render, session } = game;
 const level = session.level;
 
 const solid = level.brushes.filter((b) => b.col !== false).length;
-const pairs = new Set();
+// plocha kvádru jde do dávky buňky, která ji vidí (stěna mezi místnostmi má dvě strany), takže horní mez počtu
+// dávek je buňky × materiály, ne dvojice buňka × materiál z dat
+const mats = new Set();
 for (const b of level.brushes) {
   if (b.vis === false) continue;
-  pairs.add(`${b.cell}|${b.mat}`);
-  for (const m of Object.values(b.faces || {})) pairs.add(`${b.cell}|${m}`);
+  mats.add(b.mat);
+  for (const m of Object.values(b.faces || {})) mats.add(m);
 }
 ok(world.stat.brushColliders === solid && phys.stat.fixedColliders >= solid, 'počet koliderů = počet kvádrů s kolizí', `${world.stat.brushColliders} z ${solid}`);
-ok(render.counts.batches === pairs.size, 'dávek je tolik, kolik dvojic buňka × materiál', `${render.counts.batches}`);
-ok(world.stat.brushTris === render.counts.staticTris || render.counts.staticTris > world.stat.brushTris, 'trojúhelníky kvádrů jsou v dávkách všechny', `${world.stat.brushTris} △ kvádrů, ${render.counts.staticTris} △ v dávkách`);
+ok(render.counts.batches === world.stat.batchKeys && render.counts.batches <= level.cells.length * mats.size, 'statická geometrie je sloučená do dávek po buňce a materiálu', `${render.counts.batches} dávek, mez ${level.cells.length} buněk × ${mats.size} materiálů`);
+ok(render.counts.staticTris === world.stat.drawnTris && world.stat.drawnTris >= world.stat.brushTris && world.stat.drawnTris <= world.stat.brushTris * 1.35, 'každá plocha kvádru je v dávce aspoň jednou; plochy viděné ze dvou buněk dvakrát', `${world.stat.brushTris} △ kvádrů, ${render.counts.staticTris} △ v dávkách (+${((world.stat.drawnTris / world.stat.brushTris - 1) * 100).toFixed(0)} %)`);
 ok(render.counts.lights >= (level.lights || []).filter((l) => l.type !== 'sun').length, 'světla levelu jsou zaregistrovaná', `${render.counts.lights}`);
 
 // první dotaz po stavbě vidí svět (jeden world.step() po postavení)
