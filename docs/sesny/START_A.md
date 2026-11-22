@@ -6,6 +6,7 @@ Jsi sešna **A (běh)**. Stavíš engine nad zmrazeným základem 1. Druhá seš
 
 1. Připoj repo `OndrejKaplan-DRM/xEngine` (přístup pro zápis), naklonuj, `git checkout -b sesna-a origin/zaklad-1`.
 2. Přečti `CLAUDE.md`, `docs/STATE.md`, `docs/02_KONTRAKTY.md`, `docs/01_ARCHITEKTURA.md` (oddíly 2, 4, 5), `docs/06_ROZPOCTY.md`.
+   Sada Level 1, na kterou se zadání odkazuje (`01_CORE`, `02_SHELL`, `10_CASE_FPS`), je v balíku pro sešny ve složce `level1/` a v repu `OndrejKaplan-DRM/vibe-game-frameworks` ve složce `frameworks/` (veřejné, stačí klon pro čtení).
 3. Načti skilly `arena-jadro`, `arena-fyzika`, `headless-webgl-testing`, `debug-and-token-economy`. Aréna je zdroj zkušeností a hodnot, ne kódu ke kopírování: její level je v kódu, tvůj je v datech.
 4. `npm install && npm test`. Musí projít (T0 41, T1 101, T2 15, T3 8).
 5. Otevři si `dist/xview.html` snímkem (`test/out/xview_*.png` po testu): to je level, který máš oživit.
