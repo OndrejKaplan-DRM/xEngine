@@ -5,7 +5,7 @@ import { newBatch, appendMesh } from './batch.js';
 
 export function createNullRender() {
   let batches = new Map();
-  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0 };
+  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0 };
   const lights = [];
   const sys = {
     name: 'render',
@@ -15,6 +15,7 @@ export function createNullRender() {
     baseFov: 90,
     scale: 1,
     lightBudget: 8,
+    aspect: 16 / 9,
     view: { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 },
     counts,
     lights,
@@ -22,7 +23,7 @@ export function createNullRender() {
     openLevel({ cells }) {
       batches = new Map();
       lights.length = 0;
-      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: cells.length, staticTris: 0, moverTris: 0 });
+      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: cells.length, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0 });
     },
     addStatic(cellId, matId, mesh, start, count, matrix, uvScale) {
       const key = `${cellId}|${matId}`;
@@ -38,6 +39,14 @@ export function createNullRender() {
       counts.movers++;
       for (const p of pieces) counts.moverTris += p.batch.tris;
       return { setMatrix() {}, setVisible() {}, setMaterial() {}, setCell() {} };
+    },
+    addScreen() {
+      counts.screens++;
+      return {
+        draw() {
+          counts.screenDraws++; // obsah se bez plátna nekreslí; text terminálu je vidět přes interact.inspect
+        },
+      };
     },
     addLight(rec) {
       lights.push(rec);

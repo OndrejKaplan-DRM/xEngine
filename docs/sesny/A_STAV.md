@@ -11,7 +11,7 @@
 | A1.3 hráč a profily | hotovo | `a_13_player` 38 (Node), `a_13_walk` 7 (prohlížeč) | T1–T4 v obou profilech, schodiště na galerii, přepnutí profilu za běhu |
 | A1.4 entity a kostry | hotovo | `a_14_entities` 20 (Node), `a_14_view` 7 (prohlížeč) | 20 entit, bedny padají, křídlo dveří při 90° = `rigMatrices`, tři pohledy shodné s xView |
 | A1.5 použít + spojení | hotovo | `a_15_io` 18 (Node), `a_15_use` 11 (prohlížeč) | tlačítko → dveře → po 36 krocích lampa; vypínač; spouštěč jednou; uložení uprostřed otevírání; strop řetězu 32 |
-| A1.6 manipulace a klidný režim | — | | |
+| A1.6 manipulace a klidný režim | hotovo | `a_16_manip` 38 (Node), `a_16_view` 20 (prohlížeč) | ventil myší na 50 % → lampa 50 %; páka na dorazu vyšle `on`; zásuvka a křídlo dveří tažením; terminál: kamera podle `station`, psaní, kurzor na obrazovce, Esc vrací přesně |
 | A1.7 buňky a portály | — | | |
 | A1.8 světla a obraz | — | | |
 
@@ -22,6 +22,9 @@
 - Styl Shellu se nekopíruje: `import css from '../../vendor/shell/shell.css' with { type: 'text' }` (esbuild 0.28.2 to umí bez úpravy `build.mjs`).
 - Nastavení (`src/app/settings.js`): zorné pole, měřítko vykreslení, počet světel za běhu, citlivost myši, profil pohybu (jen s `?dev`, neukládá se).
 - Akce a klávesy jsou data (`src/play/actions.js`): pohyb šipkami i WASD, skok mezerník a pravé tlačítko, použít E a Enter, uchopit levé tlačítko.
+- **Manipulace** (`src/play/interact.js`): úchop je bod, kam dopadl paprsek pohledu. Engine spočítá, kudy se ten bod na obrazovce hýbe na jednotku kloubu, a posun myši promítne do tohoto směru. Úchop tedy sleduje myš: páka nahoru a dolů, ventil za obvod po kružnici, ventil za střed prostým pohybem do strany. Díl, který se hýbe hlavně k hráči a od něj (zásuvka, křídlo dveří zepředu), se ovládá pohybem myši k sobě a od sebe, dvakrát rychleji. Pohled se při tažení neotáčí. Doraz na mez se hlásí hned, i když hráč díl ještě drží.
+- **Klidný režim**: po „použít“ u prefabu se `station` kamera za 0,4 s přejede na `eye`, míří na `look`, zorné pole podle dat; tělo stojí. Zámek kurzoru se uvolní, kurzor se promítá na plochu obrazovky (průsečík paprsku s rovinou uzlu). Klávesnice jde na obrazovku: Enter vyšle výstup `command` s napsaným textem, kliknutí na obrazovku `command` s textem `click`, vstup `print` vypíše řádek. Esc vrací do hry (nepauzuje) a vyšle `left`. Obsah obrazovky je text na 2D plátně mapovaném na plochu ve světě (`src/play/terminal.js`, `render.addScreen`).
+- Krátké ťuknutí klávesy se neztratí: stisk si vstup pamatuje do nejbližšího kroku (`src/play/input.js`). Bez toho při nízké snímkové frekvenci mizelo „použít“ kratší než jeden snímek.
 
 ## Změřená čísla
 
@@ -41,11 +44,17 @@
 | tlačítko → dveře → lampa | dveře 0,98 m za 0,61 s (1,6 m/s z dat), lampa přesně 36 kroků po `opened` | `a_15_io`, Node |
 | 500 použití tlačítka po zahřátí | halda +76 kB (15 000 kroků, 1 998 spojení); růst se zastaví, není to únik (332 kB po 500, 406 kB po 3 000 bez zahřátí) | `test/a_lib/heap.mjs`, Node s `--expose-gc` |
 | průměrný jas pohledů po zapnutí lamp | start 170, chodba 179, laboratoř 217, hala 162 z 255 | `a_15_use`, softwarové vykreslení; viz N-105 |
+| ventil myší na 50 % | 414 bodů myši při citlivosti 1 (úchop za střed, 0,9 m od ventilu); lampa 50,0 % | `a_16_manip`, Node; v prohlížeči skutečnou myší 417 bodů, lampa 50,2 % |
+| jas laboratoře, lampa 100 % → 50 % | 199,1 → 185,5 z 255 | `a_16_view`, softwarové vykreslení; pokles je malý, protože laboratoř je přesvícená (N-105) |
+| přejezd kamery k terminálu a zpět | 48 kroků (0,4 s) tam i zpět; po návratu poloha, směr i zorné pole bit po bitu shodné | `a_16_manip`, `a_16_view` |
 | načtení levelu v Node | asi 80 ms včetně stavby koliderů, start Rapieru 63 ms | `E.stats.boot`, sandbox; orientační |
 
 ## Neověřeno
 
 - Zámek kurzoru ve skutečném prohlížeči. Headless prohlížeč ho neumí bezpečně (teče paměť), takže protokol je ověřený jen nad maketou dokumentu v Node (`a_11_app`): získání, ztráta → pauza, odmítnutí po Esc → „klikni znovu“, prostředí bez zámku → pohled tažením myši.
+- Návrat zámku kurzoru po odchodu od terminálu. Hra o něj požádá hned (zámek uvolnila sama, ne hráč klávesou Esc, takže by ho prohlížeč měl vrátit bez čekání); když odmítne, vrátí ho první kliknutí do obrazu. Ověřit jde jen ve skutečném prohlížeči.
+- Jak se manipulace „drží v ruce“. Směr a rychlost jsou spočítané a otestované robotem, který táhne přesně po směru, který hra hlásí. Jestli je citlivost příjemná (ventil: 414 bodů myši na půl rozsahu, dveře: asi 500 bodů na 105°), řekne až ruka.
+- Text terminálu se neukládá (po nahrání pozice je obrazovka prázdná).
 - Chování v náhledovém panelu claude.ai (vložený rámec): jestli tam zámek kurzoru projde, nevím; počítám s tím, že ne, a hra pak přejde na tažení myší.
 
 ## Návrhy (docs/navrhy)
@@ -57,6 +66,7 @@
 | N-103 | výchozí rychlost kloubu bez `speed` | tabulka v `src/world/joints.js` |
 | N-104 | odkud se měří dosah interakce | měřím od osy těla hráče (`src/play/interact.js`) |
 | N-105 | zlatý vzorek xLab je přesvícený (data) | žádné, data nejsou moje |
+| N-106 | kde leží plocha obrazovky (`components.screen`) a co znamená `app` | plocha 1 mm před nejpřednějším dílem uzlu, každá `app` je textová konzole |
 
 ## Co potřebuju od sešny B
 
@@ -69,6 +79,9 @@ Zatím nic.
 - **Kinematické těleso v klidu postavu „drží“.** Kontrolér bere každé kinematické těleso v dotyku jako plošinu a ruší pohyb postavy ve směru jeho normály; od stojících kinematických dveří se 0,2 s nedalo odejít a kontrolér k tomu nevydal ani záznam kolize. Uzly prefabů jsou proto v klidu těleso `fixed` a kinematické jen po dobu pohybu kloubu (`phys.setMoving`, `entities.js`).
 - **Přichycení k zemi (`enableSnapToGround`) stáhne postavu vmáčknutou do rohu dvou zdí pod podlahu** (změřeno až −0,15 m, ve všech režimech tlaku dolů). Pojistka v `player.js`: po každém pohybu dolů paprsek ze středu spodní polokoule ověří místo pod ní.
 - **Tlak dolů na zemi (g·dt² na krok) dává na rovině občas krok s nulovým pohybem** (6 z 216 kroků při 8 m/s). Na zemi se proto dolů netlačí (`want.y = 0`) a oporu bez záznamu kolize ověřuje paprsek jednou za 4 kroky. Rychlost po nárazu se počítá ze ztraceného pohybu, ne ze záznamů kolizí, a až od druhého kroku po sobě.
+- **Vstup čtený jen v kroku ztrácí krátká ťuknutí.** Kroky běží v dávkách po snímcích; stisk i puštění mezi dvěma snímky (30 ms při 30 snímcích/s) krok nikdy neuvidí. Stisk se proto zamyká do nejbližšího kroku (`latched` v `src/play/input.js`). V headless testu se to projeví hned: `page.keyboard.press` bez zámku neudělá nic.
+- **Esc v klidném režimu**: Shell poslouchá `keydown` na `window` ve fázi probublávání. Aplikace si Esc u terminálu bere posluchačem ve fázi zachytávání a volá `stopImmediatePropagation`, jinak by Shell pauzoval.
+- Obrazovka ve světě: `CanvasTexture` na `MeshBasicMaterial` s `toneMapped: false`, jinak ACES a expozice levelu text zešednou. Překreslovat jen po změně (`needsUpdate`), ne každý snímek.
 - Postavu je nutné umístit o odstup kontroléru (`CHARACTER_SKIN` 0,02 m) nad podlahu.
 - `translation()`, `rotation()`, `linvel()`, `computedMovement()` a `computedCollision()` berou v 0.21 cílový objekt: dají se volat bez alokace.
 - Výška výskoku vychází o půl kroku integrace níž než `v²/2g` (při 120 Hz o 2,3 %); testy to mají mít v toleranci.

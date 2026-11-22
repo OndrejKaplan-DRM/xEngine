@@ -72,6 +72,10 @@ export function createBehaviors({ entities, io }) {
   };
 
   const api = {
+    /** Výstup entity vyvolaný vyšší vrstvou (terminál: command, left). Projde jen výstup, který prefab deklaruje. */
+    emit: out,
+    /** Kam jde vstup print: obrazovky patří vrstvě nad světem, ta si sem dosadí svou funkci (ent, text). */
+    onPrint: null,
     /** Vstup entity (ze spojení nebo z „použít“). Vrací false, když ho entita nezná. */
     input(ent, name, param) {
       if (!accepts(ent, name)) return false;
@@ -87,6 +91,10 @@ export function createBehaviors({ entities, io }) {
         entities.setEnabled(ent, name === 'enable');
         return true;
       }
+      if (name === 'print') {
+        api.onPrint?.(ent, String(param ?? ''));
+        return true;
+      }
       if (ent.comp.light && !ent.kind) {
         if (name === 'turnOn') setLamp(ent, true);
         else if (name === 'turnOff') setLamp(ent, false);
@@ -98,7 +106,7 @@ export function createBehaviors({ entities, io }) {
       const j = mainJoint(ent);
       const fn = INPUTS[ent.kind];
       if (fn && j) return fn(ent, j, name, param);
-      return true; // vstup prefab deklaruje, ale tahle vlna ho neprovádí (print, reset, break)
+      return true; // vstup prefab deklaruje, ale tahle vlna ho neprovádí (reset, break)
     },
 
     /** Hráč entitu použil klávesou. Vrací 'ok' | 'locked' | 'none'. */

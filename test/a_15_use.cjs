@@ -73,7 +73,7 @@ const { imageStats } = require('./a_lib/image.cjs');
     const a = await imageStats(page, r.dark);
     const b = await imageStats(page, r.lit);
     ok(r.lampOn && b.luma > a.luma * 1.15, 'vypínač rozsvítí lampu i v obraze', `jas ${a.luma.toFixed(1)} → ${b.luma.toFixed(1)}`);
-    ok(r.hudDoor.prompt === '[E] Otevřít' && r.doorStart > 100, 'dveře jdou otevřít klávesou „použít“', `kloub ${r.doorStart}°`);
+    ok(r.hudDoor.prompt.startsWith('[E] Otevřít') && r.doorStart > 100, 'dveře jdou otevřít klávesou „použít“', `kloub ${r.doorStart}°, nápověda „${r.hudDoor.prompt}“`);
     ok(r.hudBtn.prompt === '[E] Stisknout' && r.doorLab > 0.97 && r.lampLab, 'tlačítko otevře dveře laboratoře a lampa se rozsvítí', `dveře ${r.doorLab} m, lampa ${r.lampLab}`);
     ok(r.hudHall.notice === 'Kontrolní bod', 'spouštěč v hale ohlásí kontrolní bod', `„${r.hudHall.notice}“`);
     ok(r.stats.calls <= 150, 'volání kreslení ≤ 150 na pohled', `${r.stats.calls} volání, ${r.stats.tris} △, světel ve fondu ${r.stats.activeLights} z ${r.stats.lights}`);

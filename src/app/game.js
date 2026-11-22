@@ -54,13 +54,14 @@ export function createGame({ pack, render, now }) {
   entities.behave = behave;
   io.behave = behave;
   const player = createPlayer({ phys, world, render, input, session });
-  const interact = createInteract({ phys, player, input, behave });
+  const interact = createInteract({ phys, player, input, behave, entities, render });
+  behave.onPrint = (ent, text) => interact.print(ent, text); // obrazovky patří vrstvě xPlay, svět o nich neví
 
   /**
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, entities, io, player];
+  const loadOrder = [world, entities, io, player, interact];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);

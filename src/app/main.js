@@ -46,7 +46,8 @@ async function boot() {
 
   /** Vstup do hry: nejdřív zámek kurzoru (voláno z kliknutí), pak teprve režim. */
   async function enter(fresh) {
-    const r = await lock.acquire();
+    // u terminálu je kurzor volný záměrně: návrat z pauzy ho nezamyká
+    const r = !fresh && game.interact.seated ? 'ok' : await lock.acquire();
     if (r === 'retry') {
       hud.notify('Prohlížeč teď zámek kurzoru odmítl. Klikni znovu.', 4);
       return;
@@ -97,8 +98,39 @@ async function boot() {
   E.on('level:complete', () => hud.notify('Level dokončen', 6));
   E.on('level:message', (e) => hud.notify(String(e.value ?? ''), 5));
   E.on('interact:denied', () => hud.notify('Zamčeno', 1.5));
+  // klidný režim: kurzor se uvolní a míří na obrazovku ve světě; Esc vrací do hry (ne do pauzy)
+  E.on('interact:seated', () => {
+    lock.release();
+    input.releaseAll();
+    hud.setCross(false);
+    hud.notify('Piš na klávesnici, Enter odešle · Esc: odejít', 6);
+  });
+  E.on('interact:left', async () => {
+    hud.setCross(E.mode === 'playing');
+    // zámek, který hra uvolnila sama, smí prohlížeč vrátit hned; když odmítne, vrátí ho kliknutí do obrazu
+    if (lock.enabled && (await lock.acquire()) !== 'ok') hud.notify('Klikni do obrazu pro návrat k ovládání.', 4);
+  });
+  /** Poloha kurzoru v obraze −1…1 (x vpravo, y nahoru). */
+  const toView = (e) => {
+    const r = canvas.getBoundingClientRect();
+    return [((e.clientX - r.left) / r.width) * 2 - 1, 1 - ((e.clientY - r.top) / r.height) * 2];
+  };
 
   // ---- vstup: klávesy podle event.code, myš jako Mouse0–2
+  // u terminálu jde klávesnice na jeho obrazovku; zachytává se dřív než Shell, aby Esc nepauzoval
+  addEventListener(
+    'keydown',
+    (e) => {
+      if (E.mode !== 'playing' || !game.interact.seated || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === 'Escape') game.interact.leave();
+      else if (e.key === 'Enter' || e.key === 'Backspace') game.interact.key(e.key);
+      else if (e.key.length === 1) game.interact.type(e.key);
+      else return; // funkční klávesy nechává prohlížeči
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    },
+    true,
+  );
   addEventListener('keydown', (e) => {
     if (E.mode !== 'playing') return;
     const known = e.repeat ? false : input.key(e.code, true);
@@ -106,11 +138,25 @@ async function boot() {
   });
   addEventListener('keyup', (e) => input.key(e.code, false));
   canvas.addEventListener('mousedown', (e) => {
-    if (E.mode === 'playing') input.key(`Mouse${e.button}`, true);
+    if (E.mode !== 'playing') return;
+    if (game.interact.seated) {
+      game.interact.pointer(...toView(e), e.button === 0);
+      return;
+    }
+    // ztracený zámek (návrat od terminálu, který prohlížeč nezamkl) vrací první kliknutí a nic jiného nedělá
+    if (lock.enabled && !lock.locked) {
+      lock.acquire();
+      return;
+    }
+    input.key(`Mouse${e.button}`, true);
   });
   addEventListener('mouseup', (e) => input.key(`Mouse${e.button}`, false));
   document.addEventListener('mousemove', (e) => {
     if (E.mode !== 'playing') return;
+    if (game.interact.seated) {
+      game.interact.pointer(...toView(e));
+      return;
+    }
     if (lock.locked || (!lock.enabled && e.buttons)) input.look(e.movementX, e.movementY);
   });
   canvas.addEventListener('contextmenu', (e) => e.preventDefault());

@@ -39,7 +39,8 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
   const pool = []; // THREE.PointLight, velikost = rozpočet
   const order = new Int16Array(64);
   const score = new Float32Array(64);
-  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0 };
+  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0 };
+  const screens = []; // obrazovky ve světě: { mesh, tex }
 
   function setPool(n) {
     while (pool.length > n) scene.remove(pool.pop());
@@ -115,6 +116,9 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     },
     get lightBudget() {
       return pool.length;
+    },
+    get aspect() {
+      return camera.aspect;
     },
 
     init(engine) {
@@ -209,6 +213,34 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         },
       };
     },
+    /**
+     * Obrazovka ve světě: plocha size [š, v] v rovině XY uzlu, líc +Z, posunutá o offset po ose Z uzlu.
+     * Obsah je 2D plátno res [š, v] bodů; draw(fn) ho nechá překreslit funkcí fn(ctx, š, v). Svítí sama (bez světel
+     * a bez převodu tónů), aby text zůstal čitelný při jakékoli expozici levelu.
+     */
+    addScreen({ cell, matrix, offset = 0, size, res }) {
+      const cv = document.createElement('canvas');
+      cv.width = res[0];
+      cv.height = res[1];
+      const ctx = cv.getContext('2d');
+      const tex = new THREE.CanvasTexture(cv);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size[0], size[1]), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+      mesh.matrixAutoUpdate = false;
+      mesh.matrix.fromArray(matrix).multiply(new THREE.Matrix4().makeTranslation(0, 0, offset));
+      (cells.get(cell)?.group || levelRoot).add(mesh);
+      screens.push({ mesh, tex });
+      counts.screens = screens.length;
+      dirty = true;
+      return {
+        draw(fn) {
+          fn(ctx, cv.width, cv.height);
+          tex.needsUpdate = true;
+          dirty = true;
+        },
+      };
+    },
     /** Záznam světla { id, cell, pos, color, intensity, range, on, level }; vlastník ho smí měnit, pak zavolá invalidate(). */
     addLight(rec) {
       lightRecs.push(rec);
@@ -218,11 +250,16 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     closeLevel() {
       if (!levelRoot) return;
       levelRoot.traverse((o) => o.geometry?.dispose());
+      for (const sc of screens) {
+        sc.tex.dispose();
+        sc.mesh.material.dispose();
+      }
+      screens.length = 0;
       scene.remove(levelRoot);
       levelRoot = null;
       cells = new Map();
       lightRecs.length = 0;
-      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0 });
+      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0 });
     },
     /** Které buňky se kreslí (viditelnost přes portály). null = všechny. */
     setVisibleCells(ids) {
