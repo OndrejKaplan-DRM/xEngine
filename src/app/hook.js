@@ -67,6 +67,13 @@ export function installHook({ game, lock, shell, hud, adapter }) {
     },
     /** Přenese hráče (nohy) a volitelně natočí pohled ve stupních. */
     tp: (x, y, z, yawDeg, pitchDeg) => game.player.teleport(x, y, z, yawDeg, pitchDeg),
+    /** Natočí pohled na bod ve světě, nebo na entitu podle id (na střed jejího obalu). */
+    aim(x, y, z) {
+      if (typeof x === 'string') {
+        const c = game.entities.center(x);
+        game.player.lookAt(c[0], c[1], c[2]);
+      } else game.player.lookAt(x, y, z);
+    },
     /** Zapne měření času kroku po systémech (E.stats.sys v milisekundách, klouzavý průměr). */
     profile(on = true) {
       E.profile = on;

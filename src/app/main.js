@@ -4,7 +4,7 @@
 import shellCss from '../../vendor/shell/shell.css' with { type: 'text' };
 import { mountShell } from '../../vendor/shell/shell.js';
 import { createRender } from '../render/render.js';
-import { PREVENT_DEFAULT } from '../play/actions.js';
+import { PREVENT_DEFAULT, keyLabel } from '../play/actions.js';
 import { createGame, VERSION } from './game.js';
 import { createLock } from './lock.js';
 import { createHud } from './hud.js';
@@ -25,7 +25,14 @@ async function boot() {
   const game = createGame({ pack: globalThis.__PACK__, render });
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
-  E.add({ name: 'hud', phase: 'ui', frame: (real) => hud.frame(real) });
+  E.add({
+    name: 'hud',
+    phase: 'ui',
+    frame(real) {
+      hud.setPrompt(E.mode === 'playing' ? game.interact.prompt : '');
+      hud.frame(real);
+    },
+  });
 
   let lostAt = -Infinity;
   const lock = createLock({
@@ -48,8 +55,10 @@ async function boot() {
       lock.disable();
       hud.notify('Zámek kurzoru tu není povolen. Rozhlížej se tažením myši se stisknutým levým tlačítkem.', 7);
     }
-    if (fresh) game.start();
-    else if (E.mode === 'paused') E.setMode('playing');
+    if (fresh) {
+      game.start();
+      if (r !== 'denied') hud.notify(`Pohyb šipky nebo WASD · skok ${keyLabel('jump')} · použít ${keyLabel('use')} · pauza Esc`, 7);
+    } else if (E.mode === 'paused') E.setMode('playing');
   }
 
   const adapter = {
@@ -83,6 +92,11 @@ async function boot() {
     if (mode !== 'playing') hud.setPrompt('');
   });
   hud.setCross(false);
+  // oznámení z dat levelu (cíl @level ve spojeních)
+  E.on('level:checkpoint', () => hud.notify('Kontrolní bod', 2.5));
+  E.on('level:complete', () => hud.notify('Level dokončen', 6));
+  E.on('level:message', (e) => hud.notify(String(e.value ?? ''), 5));
+  E.on('interact:denied', () => hud.notify('Zamčeno', 1.5));
 
   // ---- vstup: klávesy podle event.code, myš jako Mouse0–2
   addEventListener('keydown', (e) => {

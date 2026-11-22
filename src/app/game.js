@@ -8,6 +8,9 @@ import { createPlayer } from '../play/player.js';
 import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
+import { createIo } from '../world/io.js';
+import { createBehaviors } from '../world/behaviors.js';
+import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
 export const VERSION = 'xEngine 0.1 · vlna 1 · 2026-11-22';
@@ -46,13 +49,18 @@ export function createGame({ pack, render, now }) {
   const phys = createPhys();
   const world = createWorld({ phys, render, pack });
   const entities = createEntities({ phys, render, world, pack });
+  const io = createIo({ entities, world });
+  const behave = createBehaviors({ entities, io });
+  entities.behave = behave;
+  io.behave = behave;
   const player = createPlayer({ phys, world, render, input, session });
+  const interact = createInteract({ phys, player, input, behave });
 
   /**
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, entities, player];
+  const loadOrder = [world, entities, io, player];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -63,7 +71,7 @@ export function createGame({ pack, render, now }) {
     session.levelId = id;
     const level = levels.get(id);
     phys.open(session.profile.gravity);
-    const ctx = { level, pack, session };
+    const ctx = { level, pack, session, io };
     for (const sys of loadOrder) sys.load?.(ctx);
     render.closeStatic();
     phys.settle();
@@ -74,9 +82,11 @@ export function createGame({ pack, render, now }) {
   E.add({ name: 'loader', phase: 'input', build: () => loadLevel(session.levelId) });
   E.add(input);
   E.add(player);
+  E.add(interact);
   E.add(entities);
   E.add(phys);
   E.add(world);
+  E.add(io);
   E.add(render);
 
   /** Čtení stavu pro testy a vývojářský přehled: 'kernel.steps', 'player.pos', 'entity.e_door_lab.joint'. */
@@ -100,7 +110,10 @@ export function createGame({ pack, render, now }) {
     phys,
     world,
     entities,
+    io,
+    behave,
     player,
+    interact,
     render,
     levelIds: [...levels.keys()],
     get,

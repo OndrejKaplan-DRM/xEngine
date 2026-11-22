@@ -144,6 +144,13 @@ export function createPlayer({ phys, world, render, input, session }) {
       yaw = yawDeg;
       pitch = Math.max(-PITCH_MAX, Math.min(PITCH_MAX, pitchDeg));
     },
+    /** Natočí pohled na bod ve světě (testovací robot, vývojářské nástroje). */
+    lookAt(x, y, z) {
+      const dx = x - pos[0];
+      const dy = y - (pos[1] + P.eye);
+      const dz = z - pos[2];
+      sys.setLook(Math.atan2(-dx, -dz) / RAD, Math.atan2(dy, Math.hypot(dx, dz)) / RAD);
+    },
     /** Oko a směr pohledu do předaných polí (pro paprsek „použít“). */
     eye(outPos, outDir) {
       outPos[0] = pos[0];

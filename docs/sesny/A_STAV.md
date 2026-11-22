@@ -10,7 +10,7 @@
 | A1.2 statický svět | hotovo | `a_12_world` 9 (Node), `a_12_view` 8 (prohlížeč) | 54 koliderů z 54 kvádrů, 17 dávek (buňka × materiál), snímek ze startu shodný s xView |
 | A1.3 hráč a profily | hotovo | `a_13_player` 38 (Node), `a_13_walk` 7 (prohlížeč) | T1–T4 v obou profilech, schodiště na galerii, přepnutí profilu za běhu |
 | A1.4 entity a kostry | hotovo | `a_14_entities` 20 (Node), `a_14_view` 7 (prohlížeč) | 20 entit, bedny padají, křídlo dveří při 90° = `rigMatrices`, tři pohledy shodné s xView |
-| A1.5 použít + spojení | — | | |
+| A1.5 použít + spojení | hotovo | `a_15_io` 18 (Node), `a_15_use` 11 (prohlížeč) | tlačítko → dveře → po 36 krocích lampa; vypínač; spouštěč jednou; uložení uprostřed otevírání; strop řetězu 32 |
 | A1.6 manipulace a klidný režim | — | | |
 | A1.7 buňky a portály | — | | |
 | A1.8 světla a obraz | — | | |
@@ -38,6 +38,9 @@
 | pohledy start, laboratoř, hala proti xView (s prefaby) | rozdíl 0,01 / 0,18 / 0,18 z 255; volání 52 / 27 / 12 | `a_14_view`, 1366 × 768, zorné pole 60°, 12 světel; bez viditelnosti po buňkách |
 | dávky a pohyblivé díly xLabu | 29 dávek (buňka × materiál), 23 sítí pohyblivých dílů, 1 668 △ prefabů = součet `tris` z dat | `a_14_entities` |
 | krok hráče podle situace | stojí 0,05 ms, běh 0,07 ms, tlačí do zdi 0,20 ms, schody 0,04 ms | sonda v Node, průměr 240 kroků, sandbox: **orientační** |
+| tlačítko → dveře → lampa | dveře 0,98 m za 0,61 s (1,6 m/s z dat), lampa přesně 36 kroků po `opened` | `a_15_io`, Node |
+| 500 použití tlačítka po zahřátí | halda +76 kB (15 000 kroků, 1 998 spojení); růst se zastaví, není to únik (332 kB po 500, 406 kB po 3 000 bez zahřátí) | `test/a_lib/heap.mjs`, Node s `--expose-gc` |
+| průměrný jas pohledů po zapnutí lamp | start 170, chodba 179, laboratoř 217, hala 162 z 255 | `a_15_use`, softwarové vykreslení; viz N-105 |
 | načtení levelu v Node | asi 80 ms včetně stavby koliderů, start Rapieru 63 ms | `E.stats.boot`, sandbox; orientační |
 
 ## Neověřeno
@@ -52,6 +55,8 @@
 | N-101 | síť a kolize dílů prefabu (válec) do `geom.js` | `src/world/parts.js` |
 | N-102 | `rigMatrices` bez alokací | volám jen při změně hodnoty kloubu |
 | N-103 | výchozí rychlost kloubu bez `speed` | tabulka v `src/world/joints.js` |
+| N-104 | odkud se měří dosah interakce | měřím od osy těla hráče (`src/play/interact.js`) |
+| N-105 | zlatý vzorek xLab je přesvícený (data) | žádné, data nejsou moje |
 
 ## Co potřebuju od sešny B
 

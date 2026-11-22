@@ -68,7 +68,8 @@ export function createEntities({ phys, render, world, pack }) {
       colliders: [],
       light: null,
       lightNode: null,
-      state: { locked: false, on: false, level: 1, phase: 0, enabled: true },
+      // locked, enabled: obecné; on, level: lampa a dvoupolohové klouby; phase: tlačítko; rep: naposled hlášená poloha (changed)
+      state: { locked: false, on: false, level: 1, phase: 0, enabled: true, rep: 0 },
       links: null, // spojení výstupů (doplní io)
       inActive: false,
     };
@@ -248,6 +249,7 @@ export function createEntities({ phys, render, world, pack }) {
       j.held = false;
       j.active = false;
     }
+    behave?.init(ent);
   }
 
   const sys = {
@@ -378,6 +380,20 @@ export function createEntities({ phys, render, world, pack }) {
       ent.state.enabled = on;
       ent.whole?.setVisible(on);
       for (const c of ent.colliders) phys.setColliderEnabled(c, on);
+    },
+    /** Střed obalu entity ve světě (kam mířit pohledem); u pohyblivých dílů střed hlavního kloubového uzlu. */
+    center(id) {
+      const ent = byId.get(id);
+      if (!ent) throw new Error(`Entita „${id}“ v levelu není.`);
+      const b = ent.prefab.bounds;
+      const j = behave?.mainJoint(ent);
+      // interaktivní prefab: střed kolizí uzlu s kloubem (tam hráč míří), jinak střed obalu prefabu
+      const cols = j ? (ent.prefab.colliders || []).filter((c) => c.node === j.def.node && c.min) : [];
+      if (cols.length) {
+        const c = cols[0];
+        return mat4Point(ent.nodeWorld[c.node], [(c.min[0] + c.max[0]) / 2, (c.min[1] + c.max[1]) / 2, (c.min[2] + c.max[2]) / 2]);
+      }
+      return mat4Point(ent.em, [(b.min[0] + b.max[0]) / 2, (b.min[1] + b.max[1]) / 2, (b.min[2] + b.max[2]) / 2]);
     },
     /** Impuls do dynamického tělesa (N·s) v jeho těžišti. */
     impulse(ent, x, y, z) {
