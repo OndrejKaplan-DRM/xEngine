@@ -1,8 +1,8 @@
 // xLab: vstupní bod hry v prohlížeči. Spojí jádro a systémy (game.js) s plátnem, Shellem, zámkem kurzoru a HUD.
 // Level, prefaby a materiály přicházejí v globálu __PACK__, který do stránky vkládá build (target.json, pole pack).
 
-import shellCss from '../../vendor/shell/shell.css' with { type: 'text' };
-import { mountShell } from '../../vendor/shell/shell.js';
+import shellCss from '../shell/shell.css' with { type: 'text' };
+import { mountShell } from '../shell/shell.js';
 import { createRender } from '../render/render.js';
 import { PREVENT_DEFAULT, keyLabel } from '../play/actions.js';
 import { createGame, VERSION } from './game.js';

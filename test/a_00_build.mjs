@@ -27,7 +27,7 @@ const meta = await build({
 const sums = { rapier: 0, three: 0, vendor: 0, kernel: 0, xspace: 0, a: 0, other: 0 };
 for (const out of Object.values(meta.metafile.outputs)) {
   for (const [file, info] of Object.entries(out.inputs)) {
-    const key = file.includes('@dimforge') ? 'rapier' : file.includes('node_modules/three') ? 'three' : file.startsWith('vendor/') ? 'vendor' : file.startsWith('src/kernel') ? 'kernel' : file.startsWith('src/xspace') ? 'xspace' : file.startsWith('src/') ? 'a' : 'other';
+    const key = file.includes('@dimforge') ? 'rapier' : file.includes('node_modules/three') ? 'three' : file.startsWith('src/shell') ? 'vendor' : file.startsWith('src/kernel') ? 'kernel' : file.startsWith('src/xspace') ? 'xspace' : file.startsWith('src/') ? 'a' : 'other';
     sums[key] += info.bytesInOutput;
   }
 }
