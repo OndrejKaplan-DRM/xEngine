@@ -17,6 +17,23 @@ Jsi **svodná sešna**. Nepíšeš nové funkce. Slučuješ, ověřuješ, rozhod
 11. Napiš zadání další vlny (`START_A.md`, `START_B.md`) a nový balík pro sešny.
 12. Teprve teď navrhni úpravu skillu `xengine` z poznatků v obou `*_STAV.md`, vždy z čerstvě přečteného znění.
 
+## První kroky sešny main 02 (zapsáno 22. 11. 2026)
+
+1. **Znění 2 základu.** Je-li `origin/zaklad-1` novější než `a2ce175`, je na GitHubu. Jinak ho vezmi z přílohy: `git fetch /cesta/xengine_zneni2_2026-11-22.bundle main:zneni-2` (otisky commitů zůstanou stejné).
+2. Přečti `docs/00_ZADANI.md` včetně oddílu C, `docs/STATE.md`, `A_STAV.md` a `B_STAV.md` z větví sešen a všechny návrhy N-002 až N-006 a N-101 až N-107.
+3. **Sloučení:** `integrace-1` z hlavy znění 2, potom `sesna-a` (v `src/app/main.js` dva importy `../../vendor/shell/…` → `../shell/…`, v `test/a_00_build.mjs` rozpad velikosti), potom `sesna-b`. Zkušební sloučení 22. 11. 2026 bylo u obou bez konfliktů a skupina A po změně importů prošla 16 z 16.
+4. **Rozpory mezi kódem sešny A a zněním 2** zapiš a rozhodni: světlo po pixelech (D-022), velikost obrazu (D-023), terminál a Esc (D-024), zablokované dveře (D-025), popis rozhraní entit (D-026), ořez po buňkách je hotový dřív, než D-027 čekalo.
+5. **Návrhy.** Nejdůležitější je N-006 (stupně kvality a vrstvy vzhledu): váže se na body 6/ a 8/ zadání a na D-022.
+6. Výsledek xBench 0.2 z T460 (pokud přišel) do `06_ROZPOCTY.md` a `docs/mereni/`.
+7. Zadání vlny 2 pro A a B piš proti oddílu C zadání: co je největší díra mezi zadáním a stavem.
+8. Push jen na Ondřejovo výslovné slovo; může ho dát předem ve startovní zprávě.
+
+## Dluhy základu před vlnou 2 (zapsáno 22. 11. 2026)
+
+1. **Shell se přestěhoval jen kódem** (D-006). Zbývá: přenést z `vibe-game-frameworks` zkoušky Shellu v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu (`t5_katalog`, bez části vázané na arkádu), rozhodnout, kde žije specifikace `02_SHELL`, a po Ondřejově slovu zapsat do `vibe-game-frameworks`, že Shell má domov tady.
+2. **xBench 0.2** je hotový; čeká se na výsledek z T460. Výsledek rozhodne o efektovém světle (D-022), o výchozím vnitřním rozlišení (D-023) a o vyhlazování hran. Potom přepsat `06_ROZPOCTY.md` a uložit surová data do `docs/mereni/`.
+3. **Skill `xengine`** po sloučení vlny 1 srovnat s repem (světlo po vrcholech, `src/shell`, změřené rozpočty).
+
 ## Na co si dát pozor
 
 - „VŠE OK“ ve stavu sešny neber jako důkaz; pusť testy sama.
