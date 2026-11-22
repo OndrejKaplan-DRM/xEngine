@@ -34,7 +34,7 @@ A1.7 (ořez pohledem po buňkách a portálech) je přesunuto do vlny 2 (D-027).
 
 ## 2a. Přechod ze znění 1 (pro sešnu, která už běží)
 
-Sešna A začala 22. 11. 2026 ve 02:44 ze znění 1 (`a2ce175`) a má hotové A1.1 až A1.4 (commit `949d478`). Než budeš pokračovat:
+Sešna A začala 22. 11. 2026 ve 02:44 ze znění 1 (`a2ce175`) a dokončila podle něj celou vlnu 1 (A1.1 až A1.8, commit `7d3bec6`). Body 3 a 8 níže psala svodná sešna ke commitu `949d478`; na `7d3bec6` po sloučení a změně importů prošlo 16 z 16 sad. Než budeš pokračovat:
 
 1. `git fetch origin && git merge origin/zaklad-1`. Zkušební sloučení u svodné sešny proběhlo bez konfliktů.
 2. **Shell se přestěhoval.** V `src/app/main.js` změň dva importy z `../../vendor/shell/…` na `../shell/…`. V `test/a_00_build.mjs` uprav rozpad velikosti: `vendor/` už neexistuje, Shell je `src/shell/`.
@@ -43,7 +43,7 @@ Sešna A začala 22. 11. 2026 ve 02:44 ze znění 1 (`a2ce175`) a má hotové A1
 5. **Vnitřní rozlišení** (D-023): `setPixelRatio(1)` a pevný počet řádků 576, 768, 1080. Teď se velikost obrazu odvozuje z `devicePixelRatio`, který je na T460 1,25. Vyhlazování hran (`antialias`) ve výchozím stavu vypni a dej ho do nastavení; jeho cena na T460 není změřená.
 6. **Doplň k A1.4:** oddíl „Rozhraní entit“ v `A_STAV.md` (popiš, co už existuje), zablokovaný pohyb dveří (D-025), světlo dílů po stěnách.
 7. Snímky proti xView po převodu světla porovnej znovu. xView svítí po pixelech, shoda proto bude horší než dosud; zapiš novou hodnotu a nastav podle ní práh.
-8. Potom A1.5 podle tohoto znění.
+8. Potom `xlab.html?bench` podle A1.8 tohoto znění a klidný režim podle D-024: ve skutečném prohlížeči ověř, co udělá Esc u terminálu a jestli se po návratu hned vrátí rozhlížení myší.
 
 ## 3. Úkoly
 

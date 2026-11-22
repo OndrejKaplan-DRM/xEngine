@@ -1,11 +1,20 @@
 # Stav
 
 **Verze:** základ 1, znění 2 · 22. 11. 2026 · větev `zaklad-1` (shodná s `main`)
-**Další krok:** vlna 1, sešny A a B souběžně podle `docs/sesny/START_A.md` a `START_B.md`.
+**Další krok:** svodná sešna „main 02“: sloučení vlny 1 podle `docs/sesny/START_SVOD.md`, oddíl „První kroky sešny main 02“.
 
 Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynoucí změny (D-006, D-011, D-016, D-022 až D-027).
 
-**Sešny A a B začaly ze znění 1** (`a2ce175`): A 22. 11. 2026 ve 02:44, B téhož dne. Znění 2 přebírají sloučením `origin/zaklad-1` do své větve; postup je v `START_A.md` oddíl 2a a v `START_B.md` oddíl 0. Zkušební sloučení u svodné sešny (22. 11. 2026) proběhlo u obou větví bez konfliktů; sešna A musí změnit dva importy Shellu.
+**Stav 22. 11. 2026 v 17:40.** Znění 2 není na GitHubu (`main` = `zaklad-1` = `a2ce175`); je v kontejneru sešny main 01 a v souboru `xengine_zneni2_2026-11-22.bundle`.
+
+| Větev | Hlava | Co je hotové | Ověřila svodná sešna |
+|---|---|---|---|
+| `sesna-a` | `7d3bec6` | celá vlna 1 podle **znění 1** (A1.1 až A1.8); podle jejího stavu 16 sad, 267 kontrol | zkušební sloučení se zněním 2 bez konfliktů; po změně dvou importů Shellu 16 z 16 sad prošlo |
+| `sesna-b` | `754f46d` | B1.1 xGen a B1.2 sada `kit_base` (49 prefabů); B1.3 nezačato, B1.4 jen měření zdrojů; podle jejího stavu 92 kontrol | zkušební sloučení bez konfliktů; její testy svodná nepouštěla |
+
+Co sešna A postavila jinak, než říká znění 2: zásobník bodových světel po pixelech (D-022), velikost obrazu podle `devicePixelRatio` (D-023), terminál podle původního zadání s uvolněním zámku kurzoru (D-024), ořez po buňkách už hotový (D-027 tím ztrácí smysl). Návrhy k rozhodnutí: N-002 až N-006 (sešna B), N-101 až N-107 (sešna A).
+
+Nové od Ondřeje (22. 11. 2026): zadání ve znění 2 je v `docs/00_ZADANI.md` (jméno xForge, meze 50 a 100 MB, hra má vypadat skutečně, rezerva pro stroj s grafickou kartou).
 
 ## Co je hotové (základ 1)
 
@@ -42,7 +51,7 @@ Znění 2 obsahuje měření T460, tři Ondřejova rozhodnutí a z nich plynouc�
 
 ## Otevřené pro Ondřeje
 
-1. Předat sešnám A a B pokyn ke sloučení znění 2.
+1. Dostat znění 2 na GitHub (slovo k pushi), nebo předat sešně main 02 soubor `.bundle`.
 2. Říct, zda smím do `vibe-game-frameworks` zapsat, že Shell má domov v xEngine.
 3. Pustit xBench 0.2 na T460 a poslat výsledek.
 
