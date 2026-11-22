@@ -31,7 +31,8 @@ export const PROFILES = {
     airCap: null, // bez stropu přání ve vzduchu
     gravity: 800 * U, // 20,3 m/s²
     jumpSpeed: 270 * U, // 6,86 m/s, výška výskoku 1,16 m
-    jumpHold: true, // držený skok se po dopadu opakuje (série výskoků bez přesného načasování)
+    jumpHold: false, // každý výskok na nový stisk (Ondřej 22. 11. 2026)
+    jumpBuffer: true, // stisk ve vzduchu platí při dopadu, dokud se klávesa drží (jako Quake III)
   },
   real: {
     id: 'real',
@@ -48,6 +49,7 @@ export const PROFILES = {
     gravity: 800 * U,
     jumpSpeed: 268 * U,
     jumpHold: false,
+    jumpBuffer: false, // skok jen stiskem na zemi (jako Half-Life: držená klávesa po dopadu neskáče)
   },
 };
 

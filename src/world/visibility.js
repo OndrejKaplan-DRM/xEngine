@@ -1,10 +1,9 @@
 // xWorld: viditelnost po buňkách a portálech (dědictví Quake a Doom 3, docs/01_ARCHITEKTURA.md, oddíl 4).
 // Kreslí se buňka kamery a buňky, které jsou vidět skrz portály. Každý portál zužuje výhled na obdélník,
-// který na obrazovce zabírá; portál mimo ten obdélník se dál neprochází. Zavřené dveře portál uzavírají.
-// Stejným průchodem se určí světla: svítí jen ta, která otevřenými portály dosáhnou do některé viditelné buňky.
+// který na obrazovce zabírá; portál mimo ten obdélník se dál neprochází. Zavřené dveře portál uzavírají
+// a jejich otvor zakryje clona (render.addShutter), aby škvírou kolem křídla neprosvítalo pozadí.
+// Světla se tu neřeší: svítí po vrcholech (lighting.js) a zavřené dveře je zadrží bránou vrstvy (occlusion.js).
 // Výpočet je čistá aritmetika bez knihoven a bez alokací; běží před každým vykreslením (render.beforeDraw).
-
-import { sphereTouches } from './cells.js';
 
 const NEAR = 0.02; // m; ořez mnohoúhelníku portálu rovinou před okem
 const PASS = 0.3; // m; oko takhle blízko otvoru portálu ho nezužuje (stojím ve dveřích)
@@ -19,14 +18,10 @@ export function createVisibility({ world, entities, render }) {
   let cellPortals = []; // index buňky → indexy portálů
   let visible = new Uint8Array(0);
   let onPath = new Uint8Array(0);
-  let reach = new Uint8Array(0); // světlo × buňka: kam světlo dosáhne otevřenými portály
-  let reachKey = -1;
-  let reachLights = 0;
-  let queue = new Int16Array(0);
   let cameraCell = -1;
   let visits = 0;
   const visibleIds = new Set();
-  const stat = { updates: 0, visits: 0, cells: 0, lights: 0 };
+  const stat = { updates: 0, visits: 0, cells: 0 };
   // pohled
   const eye = [0, 0, 0];
   const R = [1, 0, 0];
@@ -145,43 +140,11 @@ export function createVisibility({ world, entities, render }) {
     }
   }
 
-  /** Kam které světlo dosáhne: vlastní buňka a dál otevřenými portály, dokud koule dosahu zasahuje do buňky. */
-  function rebuildReach(lights) {
-    const nc = cells.length;
-    if (reach.length < lights.length * nc) reach = new Uint8Array(lights.length * nc);
-    else reach.fill(0);
-    for (let li = 0; li < lights.length; li++) {
-      const l = lights[li];
-      const start = cellIndex.get(l.cell);
-      if (start === undefined) {
-        reach.fill(1, li * nc, li * nc + nc); // světlo bez buňky svítí všude
-        continue;
-      }
-      let head = 0;
-      let tail = 0;
-      queue[tail++] = start;
-      reach[li * nc + start] = 1;
-      while (head < tail) {
-        const ci = queue[head++];
-        const list = cellPortals[ci];
-        for (let k = 0; k < list.length; k++) {
-          const p = portals[list[k]];
-          if (!p.open) continue;
-          const other = p.a === ci ? p.b : p.a;
-          if (reach[li * nc + other] || !sphereTouches(l.pos, l.range, cells[other].bounds)) continue;
-          reach[li * nc + other] = 1;
-          queue[tail++] = other;
-        }
-      }
-    }
-    reachLights = lights.length;
-  }
-
   const sys = {
     name: 'vis',
     phase: 'late',
     stat,
-    /** false = kreslí se všechno a svítí všechna světla (srovnání s xView, ladění). */
+    /** false = kreslí se všechno (srovnání s xView, ladění). */
     enabled: true,
     get cameraCell() {
       return cameraCell >= 0 ? cells[cameraCell].id : null;
@@ -209,17 +172,14 @@ export function createVisibility({ world, entities, render }) {
             if (c[d] > max[d]) max[d] = c[d];
           }
         });
-        return { id: def.id, a, b, quad, min, max, door: def.door ? entities.byId(def.door) : null, open: true, rect: [0, 0, 0, 0], seen: false };
+        const door = def.door ? entities.byId(def.door) : null;
+        return { id: def.id, a, b, quad, min, max, door, open: true, rect: [0, 0, 0, 0], seen: false, shutter: door ? render.addShutter([def.a, def.b], quad) : null };
       });
       visible = new Uint8Array(cells.length);
       onPath = new Uint8Array(portals.length);
-      queue = new Int16Array(cells.length + 1);
-      reachKey = -1;
       cameraCell = -1;
-      render.beforeDraw = sys.update;
     },
     unload() {
-      render.beforeDraw = null;
       cells = [];
       portals = [];
       cameraCell = -1;
@@ -229,15 +189,16 @@ export function createVisibility({ world, entities, render }) {
     update() {
       if (!cells.length) return;
       const v = render.view;
-      const lights = render.lights;
       stat.updates++;
       if (!sys.enabled) {
         visible.fill(1);
-        for (let i = 0; i < portals.length; i++) portals[i].seen = false;
+        for (let i = 0; i < portals.length; i++) {
+          portals[i].seen = false;
+          portals[i].open = isOpen(portals[i]);
+          portals[i].shutter?.setVisible(false); // kreslí se vše, clona by jen zakryla místnost za škvírou
+        }
         render.setVisibleCells(null);
-        for (let i = 0; i < lights.length; i++) lights[i].seen = true;
         stat.cells = cells.length;
-        stat.lights = lights.length;
         return;
       }
       eye[0] = v.x;
@@ -259,13 +220,12 @@ export function createVisibility({ world, entities, render }) {
       tanY = Math.tan((render.fov * Math.PI) / 360);
       tanX = tanY * render.aspect;
 
-      // dveře: stav se čte jednou na snímek; změna přepočítá dosah světel
-      let key = 0;
+      // dveře: stav se čte jednou na snímek
       for (let i = 0; i < portals.length; i++) {
         const p = portals[i];
         p.open = isOpen(p);
         p.seen = false;
-        if (p.door) key = (key * 3 + (p.open ? 1 : 2)) % 2147483647; // otisk stavu dveří, číslo místo řetězce
+        p.shutter?.setVisible(!p.open);
       }
       const c = world.cellAt(eye);
       cameraCell = c ? cellIndex.get(c.id) : -1;
@@ -279,24 +239,6 @@ export function createVisibility({ world, entities, render }) {
       for (let i = 0; i < cells.length; i++) if (visible[i]) visibleIds.add(cells[i].id);
       stat.cells = visibleIds.size;
       render.setVisibleCells(visibleIds);
-
-      // světla: buňka světla se může změnit (lampa na pohyblivém tělese), proto je v klíči i ona
-      let moved = lights.length !== reachLights;
-      for (let i = 0; i < lights.length && !moved; i++) if (lights[i].cell !== lights[i].reachCell) moved = true;
-      if (moved || key !== reachKey) {
-        rebuildReach(lights);
-        reachKey = key;
-        for (let i = 0; i < lights.length; i++) lights[i].reachCell = lights[i].cell;
-      }
-      const nc = cells.length;
-      let seen = 0;
-      for (let li = 0; li < lights.length; li++) {
-        let on = false;
-        for (let ci = 0; ci < nc && !on; ci++) on = visible[ci] === 1 && reach[li * nc + ci] === 1;
-        lights[li].seen = on;
-        if (on) seen++;
-      }
-      stat.lights = seen;
     },
 
     /**
@@ -340,9 +282,6 @@ export function createVisibility({ world, entities, render }) {
         case 'portals':
           sys.update();
           return portals.map((p) => ({ id: p.id, open: p.open, seen: p.seen, rect: p.seen ? [...p.rect] : null }));
-        case 'lights':
-          sys.update();
-          return render.lights.filter((l) => l.seen).map((l) => l.id);
         case 'stat':
           return { ...stat };
         case 'enabled':

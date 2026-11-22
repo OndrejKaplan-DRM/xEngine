@@ -1,7 +1,10 @@
-// A1.2 v Node: statický svět z dat. Kolidery přes brushCollider, dávky po buňce a materiálu, první dotaz vidí svět.
+// A1.2 v Node: statický svět z dat. Kolidery přes brushCollider, dávky po buňce a materiálu, první dotaz vidí svět,
+// světlo po vrcholech a po vrstvách (D-022).
 
 import { h, makeGame, loadPack, barePack, fmt } from './a_lib/node.mjs';
 import { SIGHT_RAY } from '../src/phys/phys.js';
+import { lightIrradiance } from '../src/xspace/index.js';
+import { E_MIN } from '../src/world/lightfield.js';
 
 const { ok } = h;
 // level bez entit: tenhle test měří jen stavbu z kvádrů (entity mají vlastní sadu a_14)
@@ -21,7 +24,63 @@ for (const b of level.brushes) {
 ok(world.stat.brushColliders === solid && phys.stat.fixedColliders >= solid, 'počet koliderů = počet kvádrů s kolizí', `${world.stat.brushColliders} z ${solid}`);
 ok(render.counts.batches === world.stat.batchKeys && render.counts.batches <= level.cells.length * mats.size, 'statická geometrie je sloučená do dávek po buňce a materiálu', `${render.counts.batches} dávek, mez ${level.cells.length} buněk × ${mats.size} materiálů`);
 ok(render.counts.staticTris === world.stat.drawnTris && world.stat.drawnTris >= world.stat.brushTris && world.stat.drawnTris <= world.stat.brushTris * 1.35, 'každá plocha kvádru je v dávce aspoň jednou; plochy viděné ze dvou buněk dvakrát', `${world.stat.brushTris} △ kvádrů, ${render.counts.staticTris} △ v dávkách (+${((world.stat.drawnTris / world.stat.brushTris - 1) * 100).toFixed(0)} %)`);
-ok(render.counts.lights >= (level.lights || []).filter((l) => l.type !== 'sun').length, 'světla levelu jsou zaregistrovaná', `${render.counts.lights}`);
+const levelLights = (level.lights || []).filter((l) => l.type !== 'sun');
+ok(game.get('light.stat').lights === levelLights.length, 'světla levelu jsou zaregistrovaná', `${game.get('light.stat').lights}`);
+
+// ---- světlo po vrcholech (D-022): vzorky jsou vrcholy statických dávek, každé světlo má vrstvu
+{
+  const light = game.light;
+  const lit = render.statics.filter((b) => b.colors);
+  const samples = lit.reduce((n, b) => n + b.count, 0);
+  ok(light.stat.samples === samples && samples > 1000 && light.stat.entries > samples, 'každý vrchol osvětlené dávky je vzorek světla', `${samples} vzorků v ${lit.length} dávkách, ${light.stat.entries} záznamů ve vrstvách ${light.lights.length} světel, výpočet ${fmt(light.stat.buildMs, 1)} ms (sandbox, orientačně)`);
+
+  // barva vzorku = okolní člen + Σ úroveň × barva světla × E / π (vzorec lightIrradiance, bez zastínění)
+  const amb = level.env.ambient;
+  let worst = 0;
+  let checked = 0;
+  for (const b of lit) {
+    for (let v = 0; v < b.count; v += 97) {
+      const want = [...amb];
+      for (const L of levelLights) {
+        const e = lightIrradiance(L, b.positions[v * 3], b.positions[v * 3 + 1], b.positions[v * 3 + 2], b.normals[v * 3], b.normals[v * 3 + 1], b.normals[v * 3 + 2]);
+        if (e > E_MIN) for (let k = 0; k < 3; k++) want[k] += (L.color[k] * e) / Math.PI;
+      }
+      for (let k = 0; k < 3; k++) worst = Math.max(worst, Math.abs(b.colors[v * 3 + k] - want[k]) / Math.max(want[k], 1e-3));
+      checked++;
+    }
+  }
+  ok(worst < 1e-4 && checked > 100, 'barva vzorku = okolní člen + Σ barva světla × E / π', `${checked} namátkových vzorků, největší poměrná odchylka ${worst.toExponential(1)}`);
+
+  // úroveň 0 ztmaví vzorky v dosahu světla a ostatní nezmění; návrat na 1 vrátí původní hodnoty
+  const L = light.lights[0];
+  const before = lit.map((b) => Float32Array.from(b.colors));
+  const inLayer = lit.map((b) => new Uint8Array(b.count));
+  for (const s of L.layer.segs) for (const i of s.idx) inLayer[lit.indexOf(render.statics[s.t])][i] = 1;
+  const touches = render.counts.touches;
+  L.level = 0;
+  light.setLight(L);
+  light.flush();
+  let darker = 0;
+  let same = 0;
+  let wrong = 0;
+  lit.forEach((b, bi) => {
+    for (let v = 0; v < b.count; v++) {
+      const d = b.colors[v * 3] - before[bi][v * 3];
+      if (inLayer[bi][v]) d < 0 ? darker++ : wrong++;
+      else d === 0 && b.colors[v * 3 + 1] === before[bi][v * 3 + 1] && b.colors[v * 3 + 2] === before[bi][v * 3 + 2] ? same++ : wrong++;
+    }
+  });
+  const touched = render.counts.touches - touches;
+  ok(wrong === 0 && darker === L.layer.samples && darker > 0 && same > 0, 'úroveň světla 0 ztmaví vzorky v jeho dosahu a ostatní nezmění', `světlo ${L.id}: ztmavlo ${darker} vzorků, beze změny ${same}, dávek k nahrání ${touched} z ${lit.length}`);
+  L.level = 1;
+  light.setLight(L);
+  light.flush();
+  let drift = 0;
+  lit.forEach((b, bi) => {
+    for (let i = 0; i < b.colors.length; i++) drift = Math.max(drift, Math.abs(b.colors[i] - before[bi][i]));
+  });
+  ok(drift < 1e-5, 'návrat úrovně na 1 vrátí původní barvy', `největší odchylka ${drift.toExponential(1)}`);
+}
 
 // první dotaz po stavbě vidí svět (jeden world.step() po postavení)
 const sp = world.playerSpawn();
@@ -52,9 +111,9 @@ for (const b of wedges) {
 ok(wedgeOk === wedges.length, 'klíny mají šikmou kolizi ve výšce podle dat', `${wedgeOk} z ${wedges.length}`);
 
 // opakované načtení levelu nic nezdvojí
-const before = { col: phys.colliderCount(), batches: render.counts.batches, lights: render.counts.lights };
+const before = { col: phys.colliderCount(), batches: render.counts.batches, lights: game.light.stat.lights, samples: game.light.stat.samples };
 game.loadLevel(session.levelId);
-const after = { col: phys.colliderCount(), batches: render.counts.batches, lights: render.counts.lights };
+const after = { col: phys.colliderCount(), batches: render.counts.batches, lights: game.light.stat.lights, samples: game.light.stat.samples };
 ok(JSON.stringify(before) === JSON.stringify(after), 'opakované načtení levelu nic nezdvojí', JSON.stringify(after));
 
 process.exit(h.finish('A1.2 statický svět (Node)'));

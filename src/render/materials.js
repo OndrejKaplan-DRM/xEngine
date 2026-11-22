@@ -1,5 +1,5 @@
-// xRender: materiály z dat xSpace. Vlna 1 kreslí bez textur; model 'lit' je Lambert (levný na integrované grafice
-// a shodný s xView), 'unlit' a 'emissive' nereagují na světlo. Varianta „:off“ je zhasnutý svítící povrch (lampa).
+// xRender: materiály z dat xSpace. Vlna 1 kreslí bez textur. Světlo se počítá po vrcholech (D-022): model 'lit'
+// je materiál bez výpočtu světel, který barvu násobí barvou vrcholů; 'unlit' a 'emissive' na světlo nereagují. Varianta „:off“ je zhasnutý svítící povrch (lampa).
 
 import * as THREE from 'three';
 
@@ -14,7 +14,7 @@ export function createMaterials() {
     const d = defs[off ? id.slice(0, -4) : id];
     if (!d) throw new Error(`Materiál „${id}“ v balíku není.`);
     const side = d.twoSided ? THREE.DoubleSide : THREE.FrontSide;
-    if (d.model === 'lit') return new THREE.MeshLambertMaterial({ color: new THREE.Color(...d.color), side });
+    if (d.model === 'lit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true });
     if (d.model === 'unlit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side });
     // emissive: barva svitu krát síla; převod do rozsahu displeje udělá expozice a tónová křivka
     const k = off ? OFF_FACTOR : (d.emissiveStrength ?? 1);
@@ -32,6 +32,8 @@ export function createMaterials() {
     has: (id) => id in defs,
     def: (id) => defs[id],
     isEmissive: (id) => defs[id]?.model === 'emissive',
+    /** Materiál reaguje na světlo: jeho síť nese barvu vrcholů. */
+    isLit: (id) => defs[id]?.model === 'lit',
     get(id) {
       let m = cache.get(id);
       if (!m) {

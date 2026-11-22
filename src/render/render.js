@@ -1,103 +1,59 @@
-// xRender: plátno, scéna, kamera, statické dávky po buňce a materiálu, pohyblivé díly, rozpočet světel.
-// Nezná level ani prefaby: xWorld mu předává hotové sítě a záznamy světel. Kontrakt: fáze 'view'.
+// xRender: plátno, scéna, kamera, statické dávky po buňce a materiálu, pohyblivé díly.
+// Nezná level ani prefaby: xWorld mu předává hotové sítě. Kontrakt: fáze 'view'.
+// Světlo se nepočítá po pixelech (D-022, měření T460): ve scéně není žádné světlo three.js. Sítě nesou barvu
+// vrcholů, kterou zapisuje xWorld (src/world/lighting.js) do polí sdílených přes statics a ovladače dílů.
 // Vrstva 0 = svět. Vrstva 1 je vyhrazená pro zbraň a ruce v druhém průchodu (10_CASE_FPS, F5); nic do ní nedávat.
 
 import * as THREE from 'three';
 import { createMaterials } from './materials.js';
-import { newBatch, appendMesh } from './batch.js';
+import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { DEFAULT_ROWS } from './rows.js';
 
 const BACKGROUND = 0x0b0d12;
-const MAX_LIGHTS = 16;
 
+/** Geometrie z hotové dávky (finishBatch). Barva vrcholů sdílí pole s výpočtem světla. */
 function toGeometry(b) {
   const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(b.positions, 3));
-  geo.setAttribute('normal', new THREE.Float32BufferAttribute(b.normals, 3));
-  geo.setAttribute('uv', new THREE.Float32BufferAttribute(b.uvs, 2));
-  geo.setIndex(b.indices);
+  geo.setAttribute('position', new THREE.BufferAttribute(b.positions, 3));
+  geo.setAttribute('normal', new THREE.BufferAttribute(b.normals, 3));
+  geo.setAttribute('uv', new THREE.BufferAttribute(b.uvs, 2));
+  if (b.colors) geo.setAttribute('color', new THREE.BufferAttribute(b.colors, 3).setUsage(THREE.DynamicDrawUsage));
+  geo.setIndex(new THREE.BufferAttribute(b.indices, 1));
   geo.computeBoundingSphere();
   return geo;
 }
 
-export function createRender({ canvas, antialias = true, pixelRatio = () => globalThis.devicePixelRatio || 1 }) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias, powerPreference: 'high-performance' });
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; // světla jsou v kandelách, do rozsahu displeje převádí expozice levelu
+export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS }) {
+  let exposure = 1;
+  function makeRenderer(cv, aa) {
+    const r = new THREE.WebGLRenderer({ canvas: cv, antialias: aa, powerPreference: 'high-performance' });
+    r.toneMapping = THREE.ACESFilmicToneMapping; // osvětlení je ve fyzikálních jednotkách, do rozsahu displeje převádí expozice levelu
+    r.toneMappingExposure = exposure;
+    r.setPixelRatio(1); // velikost obrazu určuje počet řádků, ne devicePixelRatio (na T460 je 1,25)
+    return r;
+  }
+  let renderer = makeRenderer(canvas, antialias);
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(BACKGROUND);
   const camera = new THREE.PerspectiveCamera(90, 1, 0.05, 400);
   camera.rotation.order = 'YXZ';
   scene.add(camera);
-  const ambient = new THREE.AmbientLight(0xffffff, 0);
-  scene.add(ambient);
   const materials = createMaterials();
+  const shutterMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide, fog: false, toneMapped: false });
 
   let E = null;
   let dirty = true;
   let levelRoot = null;
   let cells = new Map(); // id buňky → { group, pending: Map(materiál → dávka) }
-  const lightRecs = []; // záznamy světel levelu a lamp; vlastní je xWorld, tady se jen čtou
-  const pool = []; // THREE.PointLight, velikost = rozpočet
-  let order = new Int16Array(64); // pracovní pole výběru světel; rostou s počtem světel levelu (addLight)
-  let score = new Float32Array(64);
-  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
+  const statics = []; // hotové statické dávky: { cell, mat, positions, normals, colors, count, min, max, touch() }
+  const counts = { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
   const screens = []; // obrazovky ve světě: { mesh, tex }
-  const shared = []; // pohyblivé díly viditelné z více buněk (křídlo dveří v portálu): { group, cells, on }
+  const shared = []; // díly viditelné z více buněk (křídlo dveří v portálu, clona portálu): { group, cells, on }
   const view = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
   let debug = null; // vývojářská vrstva: úsečky přes celou scénu
 
-  function setPool(n) {
-    while (pool.length > n) scene.remove(pool.pop());
-    while (pool.length < n) {
-      const l = new THREE.PointLight(0xffffff, 0, 1, 2);
-      pool.push(l);
-      scene.add(l);
-    }
-  }
-
-  /** Vybere nejvýš N nejvýznamnějších svítících světel z viditelných buněk a zapíše je do fondu. Bez alokací. */
-  function assignLights() {
-    const cx = camera.position.x;
-    const cy = camera.position.y;
-    const cz = camera.position.z;
-    let n = 0;
-    const total = lightRecs.length;
-    for (let i = 0; i < total; i++) {
-      const r = lightRecs[i];
-      if (!r.on || r.level <= 0 || r.intensity <= 0) continue;
-      if (r.seen === false) continue; // viditelnost: světlo nedosáhne do žádné viditelné buňky
-      const dx = r.pos[0] - cx;
-      const dy = r.pos[1] - cy;
-      const dz = r.pos[2] - cz;
-      const s = (r.intensity * r.level) / Math.max(dx * dx + dy * dy + dz * dz, 1);
-      // vkládání do seřazeného pole (sestupně podle významu)
-      let k = n++;
-      while (k > 0 && score[k - 1] < s) {
-        score[k] = score[k - 1];
-        order[k] = order[k - 1];
-        k--;
-      }
-      score[k] = s;
-      order[k] = i;
-    }
-    const used = Math.min(n, pool.length);
-    for (let k = 0; k < pool.length; k++) {
-      const l = pool[k];
-      if (k < used) {
-        const r = lightRecs[order[k]];
-        l.position.set(r.pos[0], r.pos[1], r.pos[2]);
-        l.color.setRGB(r.color[0], r.color[1], r.color[2]);
-        l.intensity = r.intensity * r.level;
-        l.distance = r.range || 0;
-      } else {
-        l.intensity = 0;
-      }
-    }
-    counts.activeLights = used;
-  }
-
   function draw() {
-    sys.beforeDraw?.(); // viditelnost po buňkách pro tento pohled (xWorld)
-    assignLights();
+    sys.beforeDraw?.(); // viditelnost po buňkách a světlo po vrcholech pro tento snímek (xWorld)
     renderer.render(scene, camera);
     counts.calls = renderer.info.render.calls;
     counts.tris = renderer.info.render.triangles;
@@ -108,23 +64,30 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     name: 'render',
     phase: 'view',
     headless: false,
-    renderer,
+    get renderer() {
+      return renderer;
+    },
     scene,
     camera,
     materials,
     counts,
-    lights: lightRecs,
+    /** Statické dávky po closeStatic(); barvy vrcholů do nich zapisuje světlo (touch() po změně). */
+    statics,
     /** Současný pohled (radiány); čte ho viditelnost. */
     view,
     /** Háček volaný před každým vykreslením; xWorld sem dává výpočet viditelných buněk a světel. */
     beforeDraw: null,
     baseFov: 90,
-    scale: 1,
+    rows,
+    get antialias() {
+      return !!renderer.getContextAttributes().antialias;
+    },
+    /** Velikost vykreslovací plochy v bodech [šířka, řádky]. */
+    get size() {
+      return [renderer.domElement.width, renderer.domElement.height];
+    },
     get fov() {
       return camera.fov;
-    },
-    get lightBudget() {
-      return pool.length;
     },
     get aspect() {
       return camera.aspect;
@@ -133,7 +96,6 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     init(engine) {
       E = engine;
       E.on('mode', () => (dirty = true));
-      setPool(8);
       sys.resize();
     },
 
@@ -153,9 +115,8 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         cells.set(c.id, { group, pending: new Map() });
       }
       counts.cells = cells.size;
-      ambient.color.setRGB(...(env?.ambient || [0, 0, 0]));
-      ambient.intensity = Math.PI; // shodně s xView: jas povrchu = barva / π · E
-      renderer.toneMappingExposure = env?.exposure ?? 1;
+      exposure = env?.exposure ?? 1;
+      renderer.toneMappingExposure = exposure;
       if (env?.fog) {
         scene.fog = new THREE.FogExp2(new THREE.Color(...env.fog.color), env.fog.density);
         scene.background = new THREE.Color(...env.fog.color);
@@ -175,12 +136,22 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     },
     closeStatic() {
       for (const cell of cells.values()) {
-        for (const [matId, b] of cell.pending) {
-          const mesh = new THREE.Mesh(toGeometry(b), materials.get(matId));
+        for (const [matId, pending] of cell.pending) {
+          const b = finishBatch(pending, materials.isLit(matId));
+          const geo = toGeometry(b);
+          const mesh = new THREE.Mesh(geo, materials.get(matId));
           mesh.matrixAutoUpdate = false;
           cell.group.add(mesh);
           counts.batches++;
           counts.staticTris += b.tris;
+          const color = geo.getAttribute('color');
+          b.cell = cell.group.name;
+          b.mat = matId;
+          b.touch = () => {
+            color.needsUpdate = true;
+            dirty = true;
+          };
+          statics.push(b);
         }
         cell.pending.clear();
       }
@@ -188,16 +159,28 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     },
     /**
      * Pohyblivý díl (uzel kostry nebo dynamické těleso): pieces = [{ mat, batch }] v prostoru uzlu.
-     * Vrací ovladač; matice je 4×4 po sloupcích ve světě.
+     * Vrací ovladač; matice je 4×4 po sloupcích ve světě. ovladač.pieces[i] = { colors, touch() } pro světlo
+     * (colors je null u materiálu, který na světlo nereaguje).
      */
     addMover(cellId, pieces, alsoCells = null) {
       const group = new THREE.Group();
       group.matrixAutoUpdate = false;
+      const lit = [];
       const meshes = pieces.map((p) => {
-        const mesh = new THREE.Mesh(toGeometry(p.batch), materials.get(p.mat));
+        const b = finishBatch(p.batch, materials.isLit(p.mat));
+        const geo = toGeometry(b);
+        const mesh = new THREE.Mesh(geo, materials.get(p.mat));
         mesh.matrixAutoUpdate = false;
         group.add(mesh);
-        counts.moverTris += p.batch.tris;
+        counts.moverTris += b.tris;
+        const color = geo.getAttribute('color');
+        lit.push({
+          colors: b.colors,
+          touch() {
+            color.needsUpdate = true;
+            dirty = true;
+          },
+        });
         return mesh;
       });
       // díl viditelný z více buněk (dveře v portálu) nevisí pod jednou buňkou; jeho viditelnost řídí setVisibleCells
@@ -206,6 +189,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
       (rec ? levelRoot : cells.get(cellId)?.group || levelRoot).add(group);
       counts.movers += meshes.length;
       return {
+        pieces: lit,
         setMatrix(m) {
           group.matrix.fromArray(m);
           group.matrixWorldNeedsUpdate = true;
@@ -254,15 +238,27 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
         },
       };
     },
-    /** Záznam světla { id, cell, pos, color, intensity, range, on, level }; vlastník ho smí měnit, pak zavolá invalidate(). */
-    addLight(rec) {
-      lightRecs.push(rec);
-      if (lightRecs.length > order.length) {
-        order = new Int16Array(order.length * 2);
-        score = new Float32Array(score.length * 2);
-      }
-      counts.lights = lightRecs.length;
-      dirty = true;
+    /**
+     * Clona portálu: černá plocha v otvoru zavřených dveří. Buňka za zavřenými dveřmi se nekreslí, takže by
+     * škvírou kolem křídla prosvítalo pozadí scény; clona z ní dělá tmavou spáru. quad = 4 rohy (12 čísel).
+     */
+    addShutter(cellIds, quad) {
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(quad), 3));
+      geo.setIndex([0, 1, 2, 0, 2, 3]);
+      const mesh = new THREE.Mesh(geo, shutterMat);
+      mesh.matrixAutoUpdate = false;
+      mesh.visible = false;
+      levelRoot.add(mesh);
+      const rec = { group: mesh, cells: cellIds, on: false };
+      shared.push(rec);
+      return {
+        setVisible(on) {
+          if (rec.on === on) return;
+          rec.on = on;
+          dirty = true;
+        },
+      };
     },
     closeLevel() {
       if (!levelRoot) return;
@@ -277,8 +273,8 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
       scene.remove(levelRoot);
       levelRoot = null;
       cells = new Map();
-      lightRecs.length = 0;
-      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 });
+      statics.length = 0;
+      Object.assign(counts, { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 });
     },
     /** Které buňky se kreslí (viditelnost přes portály). null = všechny. */
     setVisibleCells(ids) {
@@ -349,19 +345,32 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
       camera.updateProjectionMatrix();
       dirty = true;
     },
-    setScale(s) {
-      sys.scale = s;
+    /** Vnitřní rozlišení: pevný počet řádků, šířka podle poměru stran okna. Plátno na velikost okna roztahuje CSS. */
+    setRows(n) {
+      sys.rows = n;
       sys.resize();
     },
-    setLightBudget(n) {
-      setPool(Math.max(0, Math.min(MAX_LIGHTS, n | 0)));
-      dirty = true;
+    /**
+     * Vyhlazování hran je vlastnost kontextu WebGL a za běhu se přepnout nedá: přepnutí vymění plátno za nové
+     * a vykreslovač postaví znovu. Scéna zůstává; její sítě a textury si nový kontext nahraje sám.
+     */
+    setAntialias(on) {
+      if (!!on === sys.antialias) return;
+      const old = renderer;
+      const cv = old.domElement;
+      const next = cv.cloneNode(false);
+      const lose = old.getContext().getExtension('WEBGL_lose_context');
+      old.dispose();
+      lose?.loseContext();
+      cv.replaceWith(next);
+      canvas = next;
+      renderer = makeRenderer(next, !!on);
+      sys.resize();
     },
     resize() {
       const w = canvas.clientWidth || globalThis.innerWidth || 1;
       const h = canvas.clientHeight || globalThis.innerHeight || 1;
-      renderer.setPixelRatio(Math.min(pixelRatio(), 2) * sys.scale);
-      renderer.setSize(w, h, false);
+      renderer.setSize(Math.max(1, Math.round((sys.rows * w) / h)), sys.rows, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       dirty = true;

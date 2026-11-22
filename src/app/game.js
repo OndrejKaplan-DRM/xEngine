@@ -11,6 +11,7 @@ import { createEntities } from '../world/entities.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
+import { createLighting } from '../world/lighting.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
@@ -48,9 +49,15 @@ export function createGame({ pack, render, now }) {
 
   const input = createInput();
   const phys = createPhys();
-  const world = createWorld({ phys, render, pack });
-  const entities = createEntities({ phys, render, world, pack });
+  const light = createLighting({ render, now });
+  const world = createWorld({ phys, render, light, pack });
+  const entities = createEntities({ phys, render, world, light, pack });
   const vis = createVisibility({ world, entities, render });
+  // před každým vykreslením: které buňky jsou vidět, potom poznamenané změny světla do barev vrcholů
+  render.beforeDraw = () => {
+    vis.update();
+    light.flush();
+  };
   const io = createIo({ entities, world });
   const behave = createBehaviors({ entities, io });
   entities.behave = behave;
@@ -60,10 +67,11 @@ export function createGame({ pack, render, now }) {
   behave.onPrint = (ent, text) => interact.print(ent, text); // obrazovky patří vrstvě xPlay, svět o nich neví
 
   /**
-   * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
+   * Načtení levelu: jediné místo, které zná pořadí. Fyzika → světlo (prázdné) → statický svět → (entity, spojení,
+   * hráč) → sítě → jeden krok fyziky → vrstvy světla nad hotovými sítěmi.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, entities, vis, io, player, interact];
+  const loadOrder = [light, world, entities, vis, io, player, interact];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -78,6 +86,7 @@ export function createGame({ pack, render, now }) {
     for (const sys of loadOrder) sys.load?.(ctx);
     render.closeStatic();
     phys.settle();
+    light.build();
     loaded = id;
   }
 
@@ -90,6 +99,7 @@ export function createGame({ pack, render, now }) {
   E.add(phys);
   E.add(world);
   E.add(vis);
+  E.add(light);
   E.add(io);
   E.add(render);
 
@@ -115,6 +125,7 @@ export function createGame({ pack, render, now }) {
     world,
     entities,
     vis,
+    light,
     io,
     behave,
     player,

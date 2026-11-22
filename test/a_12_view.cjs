@@ -41,11 +41,25 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
     ok(st.world.batchKeys <= data.cells * data.mats, 'statická geometrie je sloučená po buňce a materiálu', `${st.world.batchKeys} dávek pro ${data.cells} buněk a ${data.mats} materiálů (dvojic v datech ${data.pairs})`);
     ok(st.stats.cells === data.cells, 'vykreslení zná všechny buňky levelu', String(st.stats.cells));
 
+    // ---- D-022: ve scéně není žádné světlo, stínová mapa ani materiál s výpočtem světel
+    const sc = await page.evaluate(() => {
+      const r = __xe.game.render;
+      const out = { lights: 0, meshes: 0, kinds: {}, colored: 0, shadow: r.renderer.shadowMap.enabled };
+      r.scene.traverse((o) => {
+        if (o.isLight) out.lights++;
+        if (!o.isMesh) return;
+        out.meshes++;
+        out.kinds[o.material.type] = (out.kinds[o.material.type] || 0) + 1;
+        if (o.material.vertexColors && o.geometry.getAttribute('color')) out.colored++;
+      });
+      return out;
+    });
+    ok(sc.lights === 0 && !sc.shadow && Object.keys(sc.kinds).join() === 'MeshBasicMaterial' && sc.colored > 0, 'průchod scénou nenajde žádné světlo, stín ani materiál s výpočtem světel', `${sc.meshes} sítí, materiály ${JSON.stringify(sc.kinds)}, z toho ${sc.colored} s barvou vrcholů`);
+
     // ---- stejný pohled jako xView „start“: oko 1,6 m, cíl o 0,1 m níž ve vzdálenosti 4 m, zorné pole 60°
     const s = data.spawn;
     const pitch = (Math.atan2(-0.1, 4) * 180) / Math.PI;
     const shot = await page.evaluate(([x, y, z, yaw, p]) => {
-      __xe.shell.settings.set('lights', 12); // xView svítí všemi světly levelu
       const a = __xe.shotAt(x, y, z, yaw, p, 60);
       const b = __xe.shotAt(x, y, z, yaw, p, 60); // druhý běh téhož: šum měření
       return { a, b };

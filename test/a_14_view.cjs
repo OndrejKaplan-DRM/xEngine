@@ -27,7 +27,6 @@ const VIEWS = {
       __xe.start();
       __xe.vis(false); // xView kreslí celý level a svítí všemi světly
       __xe.sim(0.5);
-      __xe.shell.settings.set('lights', 12);
     });
     const files = [];
     for (const [name, make] of Object.entries(VIEWS)) {

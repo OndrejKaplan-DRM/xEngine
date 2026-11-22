@@ -2,6 +2,7 @@
 // (co engine skutečně má); položku bez ověřitelného účinku Shell nezaregistruje.
 
 import { PROFILES } from '../play/profiles.js';
+import { ROWS } from '../render/rows.js';
 
 export function settingsDefs({ game, dev }) {
   const { render, input, session } = game;
@@ -20,27 +21,23 @@ export function settingsDefs({ game, dev }) {
       probe: () => render.baseFov,
     },
     {
-      id: 'scale',
+      id: 'rows',
       page: 'obraz',
-      label: 'Měřítko vykreslení',
-      type: 'range',
-      min: 50,
-      max: 150,
-      step: 5,
-      def: 100,
-      format: (v) => `${v} %`,
-      apply: (v) => render.setScale(v / 100),
-      probe: () => Math.round(render.scale * 100),
+      label: 'Vnitřní rozlišení',
+      type: 'select',
+      def: 768,
+      options: ROWS.map((n) => ({ value: n, label: `${n} řádků` })),
+      apply: (v) => render.setRows(v),
+      probe: () => render.size[1],
     },
     {
-      id: 'lights',
+      id: 'aa',
       page: 'obraz',
-      label: 'Světla za běhu',
-      type: 'select',
-      def: 8,
-      options: [4, 6, 8, 12].map((n) => ({ value: n, label: String(n) })),
-      apply: (v) => render.setLightBudget(v),
-      probe: () => render.lightBudget,
+      label: 'Vyhlazování hran',
+      type: 'toggle',
+      def: false, // na T460 stojí 4,4 až 6,2 ms na snímek (xBench 0.2, 22. 11. 2026)
+      apply: (v) => render.setAntialias(v),
+      probe: () => render.antialias,
     },
     {
       id: 'sens',

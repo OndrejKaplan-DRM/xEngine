@@ -17,12 +17,12 @@ const BOUNCE_MS = 350; // Esc, kterým prohlížeč uvolnil zámek, nesmí vzáp
 async function boot() {
   const params = new URLSearchParams(location.search);
   const dev = params.has('dev');
-  const canvas = document.getElementById('c');
+  const view = document.getElementById('view'); // stálý obal: plátno uvnitř se při přepnutí vyhlazování vymění
   const style = document.createElement('style');
   style.textContent = shellCss;
   document.head.append(style);
 
-  const render = createRender({ canvas, antialias: params.get('aa') !== '0' });
+  const render = createRender({ canvas: document.getElementById('c') });
   const game = createGame({ pack: globalThis.__PACK__, render });
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
@@ -40,7 +40,7 @@ async function boot() {
 
   let lostAt = -Infinity;
   const lock = createLock({
-    target: canvas,
+    target: view,
     onLost() {
       lostAt = performance.now();
       if (E.mode === 'playing') E.setMode('paused');
@@ -116,7 +116,7 @@ async function boot() {
   });
   /** Poloha kurzoru v obraze −1…1 (x vpravo, y nahoru). */
   const toView = (e) => {
-    const r = canvas.getBoundingClientRect();
+    const r = view.getBoundingClientRect();
     return [((e.clientX - r.left) / r.width) * 2 - 1, 1 - ((e.clientY - r.top) / r.height) * 2];
   };
 
@@ -146,7 +146,7 @@ async function boot() {
     if (known || PREVENT_DEFAULT.has(e.code)) e.preventDefault();
   });
   addEventListener('keyup', (e) => input.key(e.code, false));
-  canvas.addEventListener('mousedown', (e) => {
+  view.addEventListener('mousedown', (e) => {
     if (E.mode !== 'playing') return;
     if (game.interact.seated) {
       game.interact.pointer(...toView(e), e.button === 0);
@@ -168,7 +168,7 @@ async function boot() {
     }
     if (lock.locked || (!lock.enabled && e.buttons)) input.look(e.movementX, e.movementY);
   });
-  canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+  view.addEventListener('contextmenu', (e) => e.preventDefault());
   addEventListener('blur', () => input.releaseAll());
   addEventListener('resize', () => render.resize());
 

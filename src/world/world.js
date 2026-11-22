@@ -1,11 +1,11 @@
-// xWorld: level z dat xSpace. Staví statický svět (kolize přes brushCollider, viditelná geometrie přes brushMesh
-// sloučená po buňce a materiálu), drží buňky, portály, světla levelu a spouštěče. O kvádru neví nic, co neříká
+// xWorld: level z dat xSpace. Staví statický svět (kolize přes brushCollider, viditelná geometrie přes
+// brushLightMesh sloučená po buňce a materiálu; její vrcholy jsou vzorky světla, D-022), drží buňky, portály, světla levelu a spouštěče. O kvádru neví nic, co neříká
 // src/xspace/geom.js; o konkrétním levelu neví nic, co není v datech.
 
-import { brushMesh, brushCollider, inBounds, boundsGap } from '../xspace/index.js';
+import { brushLightMesh, brushCollider, inBounds, boundsGap, LIGHT_CELL } from '../xspace/index.js';
 import { faceCells } from './cells.js';
 
-export function createWorld({ phys, render, pack }) {
+export function createWorld({ phys, render, light, pack }) {
   const matDefs = pack.materials?.materials || {};
   let level = null;
   let cells = [];
@@ -46,7 +46,7 @@ export function createWorld({ phys, render, pack }) {
       for (const b of level.brushes || []) {
         stat.brushes++;
         if (b.vis !== false) {
-          const m = brushMesh(b);
+          const m = brushLightMesh(b, LIGHT_CELL);
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)
@@ -70,11 +70,9 @@ export function createWorld({ phys, render, pack }) {
 
       lightRecs.length = 0;
       for (const l of level.lights || []) {
-        // vlna 1 svítí bodově; kužel se bere jako bod (bez úhlu), slunce zatím ne (viz A_STAV)
-        if (l.type === 'sun') continue;
-        const rec = { id: l.id, cell: l.cell, pos: l.pos, color: l.color, intensity: l.intensity, range: l.range || 0, on: true, level: 1, fixed: true };
-        lightRecs.push(rec);
-        render.addLight(rec);
+        // bodové, kuželové i slunce počítá lightIrradiance; slunce bez zastínění by svítilo skrz strop, proto až s ním
+        if (l.type === 'sun' && !light.shadows) continue;
+        lightRecs.push(light.addLight(l, { id: l.id, cell: l.cell }));
       }
       triggers = (level.triggers || []).map((def) => ({ def, inside: false, done: false }));
     },

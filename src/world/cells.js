@@ -50,12 +50,3 @@ export function faceCells(mesh, group, brush, cells, out) {
   if (!out.includes(brush.cell)) out.push(brush.cell);
   return out;
 }
-
-/** Koule světla (střed, dosah; dosah 0 = bez omezení) zasahuje do kvádru buňky. */
-export function sphereTouches(pos, range, bounds) {
-  if (!(range > 0)) return true;
-  const dx = Math.max(bounds.min[0] - pos[0], 0, pos[0] - bounds.max[0]);
-  const dy = Math.max(bounds.min[1] - pos[1], 0, pos[1] - bounds.max[1]);
-  const dz = Math.max(bounds.min[2] - pos[2], 0, pos[2] - bounds.max[2]);
-  return dx * dx + dy * dy + dz * dz < range * range;
-}

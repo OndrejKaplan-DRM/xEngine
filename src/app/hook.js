@@ -35,8 +35,8 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
         colliders: phys ? phys.colliderCount() : 0,
         batches: render.counts.batches,
         movers: render.counts.movers,
-        lights: render.counts.lights,
-        activeLights: render.counts.activeLights,
+        lights: game.light.stat.lights,
+        lightSamples: game.light.stat.samples,
         visibleCells: render.counts.visibleCells,
         sys: { ...E.stats.sys },
       };

@@ -41,15 +41,18 @@ const wait = (page, ms) => page.waitForTimeout(ms);
         const p = s.probeAll().find((x) => x.id === d.id);
         out.push({ id: d.id, set: other, probe: p.probe, ok: p.ok && s.get(d.id) === other });
       }
-      const canvas = document.getElementById('c');
-      const scaled = { w: canvas.width, client: canvas.clientWidth };
+      // plátno se při přepnutí vyhlazování vymění, proto se hledá pokaždé znovu
+      const cv = () => document.getElementById('c');
+      const changed = { rows: s.get('rows'), size: [cv().width, cv().height], client: [cv().clientWidth, cv().clientHeight], aa: __xe.game.render.antialias, dpr: devicePixelRatio };
       s.reset();
       const back = s.probeAll().every((x) => x.ok) && s.defs.every((d) => d.type === 'action' || s.get(d.id) === d.def);
-      return { out, back, scaled, after: { w: canvas.width }, persistent: s.persistent };
+      return { out, back, changed, after: { rows: s.get('rows'), size: [cv().width, cv().height], aa: __xe.game.render.antialias }, shot: __xe.shot().length, persistent: s.persistent };
     });
     for (const p of probe.out) ok(p.ok, `nastavení „${p.id}“ projde apply/probe`, `${p.set} → ${p.probe}`);
     ok(probe.back, 'Obnovit výchozí vrátí všechny hodnoty');
-    ok(probe.scaled.w > probe.after.w, 'měřítko vykreslení skutečně mění rozlišení plátna', `${probe.scaled.w} px při 150 % → ${probe.after.w} px při 100 % (okno ${probe.scaled.client} px)`);
+    ok(probe.changed.size[1] === probe.changed.rows && probe.after.size[1] === probe.after.rows && probe.changed.rows !== probe.after.rows, 'vnitřní rozlišení: plátno má přesně zvolený počet řádků', `${probe.changed.size.join(' × ')} při volbě ${probe.changed.rows}, ${probe.after.size.join(' × ')} při volbě ${probe.after.rows} (okno ${probe.changed.client.join(' × ')})`);
+    ok(Math.abs(probe.after.size[0] / probe.after.size[1] - probe.changed.client[0] / probe.changed.client[1]) < 0.01, 'šířka obrazu drží poměr stran okna a nezávisí na devicePixelRatio', `devicePixelRatio ${probe.changed.dpr}`);
+    ok(probe.changed.aa === true && probe.after.aa === false && probe.shot > 1000, 'vyhlazování hran se přepne za běhu (výměna plátna) a obraz se kreslí dál', `kontext hlásí antialias ${probe.changed.aa} → ${probe.after.aa}`);
 
     // ---- obrazovka nastavení z deklarací, Esc o úroveň zpět
     await page.evaluate(() => __xe.pause());
@@ -75,6 +78,12 @@ const wait = (page, ms) => page.waitForTimeout(ms);
     ok(!pages.includes('hra'), 'bez ?dev se profil pohybu nenabízí', pages.join(', '));
     ok(clean(plain.errs).length === 0, 'žádná chyba v konzoli ani bez ?dev', clean(plain.errs).slice(0, 3).join(' | '));
     await plain.page.context().close();
+
+    // ---- displej T460: 1920 × 1080 při zvětšení 125 % (okno 1536 × 864, devicePixelRatio 1,25)
+    const t460 = await openGame(browser, { context: { viewport: { width: 1536, height: 864 }, deviceScaleFactor: 1.25 } });
+    const img = await t460.page.evaluate(() => ({ size: __xe.game.render.size, dpr: devicePixelRatio, aa: __xe.game.render.antialias, css: [document.getElementById('c').clientWidth, document.getElementById('c').clientHeight] }));
+    ok(img.dpr === 1.25 && img.size[1] === 768 && img.size[0] === Math.round((768 * 1536) / 864) && !img.aa, 'na displeji T460 se kreslí 768 řádků bez vyhlazování, ne 1920 × 1080', `obraz ${img.size.join(' × ')}, okno ${img.css.join(' × ')}, devicePixelRatio ${img.dpr}`);
+    await t460.page.context().close();
   } finally {
     await browser.close();
   }

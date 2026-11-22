@@ -7,11 +7,12 @@ import { entityMatrix, rigMatrices, mat4Mul, mat4Point } from '../xspace/index.j
 import { newBatch, appendMesh } from '../render/batch.js';
 import { decompose, compose, mul4 } from '../phys/xform.js';
 import { partMesh, colliderShape } from './parts.js';
+import { addFacets } from './facets.js';
 import { makeJoint, stepJoint, MOVED } from './joints.js';
 
 const CELL_CHECK_FRAMES = 16;
 
-export function createEntities({ phys, render, world, pack }) {
+export function createEntities({ phys, render, world, light, pack }) {
   const prefabs = new Map(pack.prefabs.map((p) => [p.data.id, p.data]));
   const matDefs = pack.materials?.materials || {};
   const uvScale = (m) => matDefs[m]?.uvScale || 1;
@@ -24,7 +25,6 @@ export function createEntities({ phys, render, world, pack }) {
   const T = { x: 0, y: 0, z: 0, qx: 0, qy: 0, qz: 0, qw: 1, s: 1 };
   const tv = { x: 0, y: 0, z: 0 };
   const tq = { x: 0, y: 0, z: 0, w: 1 };
-  const tm = new Array(16).fill(0);
   const tp = [0, 0, 0];
   let frameNo = 0;
   const warned = new Set();
@@ -66,6 +66,8 @@ export function createEntities({ phys, render, world, pack }) {
       body: null,
       home: null,
       whole: null, // jeden pohyblivý díl pro celou entitu (dynamické těleso, sebratelný předmět)
+      wholeM: null, // jeho světová matice (vlastní pole: čte ji i světlo)
+      wholeLit: null, // jeho záznam ve světle
       glow: null, // svítící díly lampy: { mover, mats }
       colliders: [],
       light: null,
@@ -94,8 +96,15 @@ export function createEntities({ phys, render, world, pack }) {
     const glowPieces = new Map(); // materiál → dávka ve světě
     const nodePieces = new Map(); // uzel → (materiál → dávka v prostoru uzlu)
     const piece = (map, mat) => {
-      if (!map.has(mat)) map.set(mat, newBatch());
+      if (!map.has(mat)) map.set(mat, Object.assign(newBatch(), { facets: [] }));
       return map.get(mat);
+    };
+    /** Díl do dávky pohyblivého kusu; jeho stěny si dávka pamatuje pro světlo (jedna hodnota na stěnu). */
+    const addPart = (map, part, mesh, matrix) => {
+      const b = piece(map, part.mat);
+      const v0 = b.positions.length / 3;
+      appendMesh(b, mesh, 0, mesh.indices.length, matrix, uvScale(part.mat));
+      addFacets(b.facets, b, v0, b.positions.length / 3);
     };
     // dveře v portálu jsou vidět z obou buněk: pevné díly jdou do dávek obou, pohyblivé jsou sdílené
     const also = (doorCells.get(def.id) || []).filter((c) => c !== ent.cell);
@@ -106,10 +115,10 @@ export function createEntities({ phys, render, world, pack }) {
         continue;
       }
       const len = mesh.indices.length;
-      if (whole) appendMesh(piece(wholePieces, part.mat), mesh, 0, len, M[part.node], uvScale(part.mat));
+      if (whole) addPart(wholePieces, part, mesh, M[part.node]);
       else if (moves(part.node)) {
         if (!nodePieces.has(part.node)) nodePieces.set(part.node, new Map());
-        appendMesh(piece(nodePieces.get(part.node), part.mat), mesh, 0, len, null, uvScale(part.mat));
+        addPart(nodePieces.get(part.node), part, mesh, null);
       } else if (hasLight && isEmissive(part.mat)) appendMesh(piece(glowPieces, part.mat), mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
       else {
         render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
@@ -117,9 +126,13 @@ export function createEntities({ phys, render, world, pack }) {
       }
     }
     const toPieces = (map) => [...map].map(([mat, batch]) => ({ mat, batch }));
+    const facetsOf = (pieces) => pieces.map((p) => p.batch.facets);
     if (wholePieces.size) {
-      ent.whole = render.addMover(ent.cell, toPieces(wholePieces));
-      ent.whole.setMatrix(em);
+      const pieces = toPieces(wholePieces);
+      ent.whole = render.addMover(ent.cell, pieces);
+      ent.wholeM = [...em];
+      ent.whole.setMatrix(ent.wholeM);
+      ent.wholeLit = light.addMover(ent.whole, ent.wholeM, facetsOf(pieces));
     }
     if (glowPieces.size) {
       const pieces = toPieces(glowPieces);
@@ -129,9 +142,10 @@ export function createEntities({ phys, render, world, pack }) {
     const moverOf = new Map();
     for (const n of nodes) {
       if (whole || !moves(n.id)) continue;
-      const pieces = nodePieces.get(n.id);
-      const rec = { id: n.id, world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, toPieces(pieces), also) : null, body: null };
+      const pieces = nodePieces.has(n.id) ? toPieces(nodePieces.get(n.id)) : null;
+      const rec = { id: n.id, world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, pieces, also) : null, body: null, lit: null };
       rec.mover?.setMatrix(rec.world);
+      if (rec.mover) rec.lit = light.addMover(rec.mover, rec.world, facetsOf(pieces));
       ent.movers.push(rec);
       moverOf.set(n.id, rec);
     }
@@ -177,9 +191,9 @@ export function createEntities({ phys, render, world, pack }) {
       const node = L.node || nodes[0].id;
       const w = ent.nodeWorld[node];
       ent.lightNode = node;
-      ent.light = { id: ent.id, cell: ent.cell, pos: [w[12], w[13], w[14]], color: L.color, intensity: L.intensity, range: L.range || 0, on: false, level: 1, fixed: false };
-      if (L.type !== 'point') warn(`světlo typu „${L.type}“ (prefab ${prefab.id}) svítí zatím jako bodové`);
-      render.addLight(ent.light);
+      // směr kuželového světla prefabu je v prostoru uzlu; do světa ho otočí matice uzlu
+      const dir = L.dir ? [w[0] * L.dir[0] + w[4] * L.dir[1] + w[8] * L.dir[2], w[1] * L.dir[0] + w[5] * L.dir[1] + w[9] * L.dir[2], w[2] * L.dir[0] + w[6] * L.dir[1] + w[10] * L.dir[2]] : undefined;
+      ent.light = light.addLight({ ...L, pos: [w[12], w[13], w[14]], dir }, { id: ent.id, cell: ent.cell, on: false, fixed: false });
     }
     return ent;
   }
@@ -192,6 +206,7 @@ export function createEntities({ phys, render, world, pack }) {
     for (const rec of ent.movers) {
       mul4(ent.em, M[rec.id], rec.world);
       rec.mover?.setMatrix(rec.world);
+      light.touchMover(rec.lit);
       if (rec.body) {
         decompose(rec.world, T);
         tv.x = T.x;
@@ -212,6 +227,7 @@ export function createEntities({ phys, render, world, pack }) {
         ent.light.pos[0] = rec.world[12];
         ent.light.pos[1] = rec.world[13];
         ent.light.pos[2] = rec.world[14];
+        light.moveLight(ent.light);
       }
     }
   }
@@ -230,8 +246,10 @@ export function createEntities({ phys, render, world, pack }) {
   function syncBody(ent) {
     ent.body.translation(tv);
     ent.body.rotation(tq);
-    compose(tv.x, tv.y, tv.z, tq.x, tq.y, tq.z, tq.w, ent.scale, tm);
-    ent.whole?.setMatrix(tm);
+    if (!ent.whole) return;
+    compose(tv.x, tv.y, tv.z, tq.x, tq.y, tq.z, tq.w, ent.scale, ent.wholeM);
+    ent.whole.setMatrix(ent.wholeM);
+    light.touchMover(ent.wholeLit);
   }
   function showLamp(ent) {
     const L = ent.light;
@@ -239,6 +257,7 @@ export function createEntities({ phys, render, world, pack }) {
     L.on = ent.state.on;
     L.level = ent.state.level;
     if (ent.glow) ent.glow.mats.forEach((m, i) => ent.glow.mover.setMaterial(i, L.on && L.level > 0 ? m : `${m}:off`));
+    light.setLight(L);
     render.invalidate();
   }
   function initial(ent) {
