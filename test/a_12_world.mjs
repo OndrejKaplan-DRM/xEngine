@@ -1,10 +1,11 @@
 // A1.2 v Node: statický svět z dat. Kolidery přes brushCollider, dávky po buňce a materiálu, první dotaz vidí svět.
 
-import { h, makeGame, fmt } from './a_lib/node.mjs';
+import { h, makeGame, loadPack, barePack, fmt } from './a_lib/node.mjs';
 import { SIGHT_RAY } from '../src/phys/phys.js';
 
 const { ok } = h;
-const game = await makeGame();
+// level bez entit: tenhle test měří jen stavbu z kvádrů (entity mají vlastní sadu a_14)
+const game = await makeGame({ pack: barePack(await loadPack()) });
 const { phys, world, render, session } = game;
 const level = session.level;
 

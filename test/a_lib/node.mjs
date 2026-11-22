@@ -21,6 +21,17 @@ export async function loadPack(dir = PACK_DIR) {
   return pack;
 }
 
+/** Kopie balíku s levely bez entit (jen kvádry, světla, spouštěče s cílem @level): testy statického světa. */
+export function barePack(pack) {
+  const copy = structuredClone(pack);
+  for (const l of copy.levels) {
+    l.data.entities = [];
+    for (const portal of l.data.portals || []) delete portal.door;
+    for (const t of l.data.triggers || []) t.io = t.io.filter((k) => k.target.startsWith('@'));
+  }
+  return copy;
+}
+
 /** Hra připravená v menu (po init). */
 export async function makeGame(opts = {}) {
   const pack = opts.pack || (await loadPack());

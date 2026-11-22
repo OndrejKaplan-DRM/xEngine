@@ -152,7 +152,7 @@ export function createEntities({ phys, render, world, pack }) {
         if (rec) {
           if (!rec.body) {
             decompose(rec.world, T);
-            rec.body = phys.addBody('kinematic', T.x, T.y, T.z, { x: T.qx, y: T.qy, z: T.qz, w: T.qw });
+            rec.body = phys.addBody('fixed', T.x, T.y, T.z, { x: T.qx, y: T.qy, z: T.qz, w: T.qw }); // kinematické jen za pohybu
           }
           ent.colliders.push(phys.addCollider(rec.body, s.shape, [s.center[0] * scale, s.center[1] * scale, s.center[2] * scale], null, opts(c), ref));
         } else {
@@ -211,6 +211,13 @@ export function createEntities({ phys, render, world, pack }) {
     if (ent.inActive) return;
     ent.inActive = true;
     active.push(ent);
+    for (const rec of ent.movers) if (rec.body) phys.setMoving(rec.body, true);
+  }
+  /** Kloub dojel: těleso uzlu posadit přesně na místo a vrátit mezi pevná. */
+  function settle(ent) {
+    ent.inActive = false;
+    pose(ent, true);
+    for (const rec of ent.movers) if (rec.body) phys.setMoving(rec.body, false);
   }
   function syncBody(ent) {
     ent.body.translation(tv);
@@ -272,9 +279,8 @@ export function createEntities({ phys, render, world, pack }) {
     reset() {
       active.length = 0;
       for (const ent of list) {
-        ent.inActive = false;
         initial(ent);
-        pose(ent, true);
+        settle(ent);
         showLamp(ent);
         ent.whole?.setVisible(true);
         for (const c of ent.colliders) phys.setColliderEnabled(c, true);
@@ -307,7 +313,7 @@ export function createEntities({ phys, render, world, pack }) {
         }
         if (moved) pose(ent, false);
         if (!busy) {
-          ent.inActive = false;
+          settle(ent);
           active[i] = active[active.length - 1];
           active.pop();
         }
@@ -396,7 +402,7 @@ export function createEntities({ phys, render, world, pack }) {
       active.length = 0;
       list.forEach((ent, i) => {
         const d = data[i];
-        ent.inActive = false;
+        settle(ent);
         if (!d) return;
         Object.assign(ent.state, d.s);
         (d.j || []).forEach((r, k) => {

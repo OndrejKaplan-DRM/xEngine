@@ -24,6 +24,12 @@ export const USE_RAY = groups(G.QUERY, G.WORLD | G.PROP | G.TRIGGER);
 /** Paprsek viditelnosti: jen pevný svět a rekvizity. */
 export const SIGHT_RAY = groups(G.QUERY, G.WORLD | G.PROP);
 
+/**
+ * Odstup, který kontrolér postavy drží od překážek (i od podlahy). Postava se musí umístit o tento odstup nad
+ * podlahu: uvnitř odstupu kontrolér občas vrátí krok s nulovým pohybem (změřeno: 6 takových kroků na 15 m běhu).
+ */
+export const CHARACTER_SKIN = 0.02;
+
 const IDENTITY = { x: 0, y: 0, z: 0, w: 1 };
 
 export function createPhys() {
@@ -117,15 +123,24 @@ export function createPhys() {
       if (!body) stat.fixedColliders++;
       return col;
     },
-    /** Těleso. kind: 'kinematic' | 'dynamic'. */
+    /**
+     * Těleso. kind: 'dynamic' | 'kinematic' | 'fixed'.
+     * Pohyblivé uzly prefabů (křídlo dveří) jsou v klidu 'fixed' a kinematické jen po dobu pohybu (setMoving):
+     * kontrolér postavy bere každé kinematické těleso v dotyku jako plošinu a ruší pohyb postavy ve směru jeho
+     * normály, takže od stojících kinematických dveří se nedalo odejít (změřeno: 0,2 s bez pohybu).
+     */
     addBody(kind, x, y, z, q, opts) {
-      const desc = kind === 'dynamic' ? RAPIER.RigidBodyDesc.dynamic() : RAPIER.RigidBodyDesc.kinematicPositionBased();
+      const desc = kind === 'dynamic' ? RAPIER.RigidBodyDesc.dynamic() : kind === 'fixed' ? RAPIER.RigidBodyDesc.fixed() : RAPIER.RigidBodyDesc.kinematicPositionBased();
       desc.setTranslation(x, y, z).setRotation(q || IDENTITY);
       if (kind === 'dynamic') {
         desc.setLinearDamping(opts?.linDamp ?? 0.05).setAngularDamping(opts?.angDamp ?? 0.3);
         if (opts?.ccd) desc.setCcdEnabled(true);
       }
       return world.createRigidBody(desc);
+    },
+    /** Přepne těleso uzlu mezi pevným (klid) a kinematickým (pohyb). */
+    setMoving(body, on) {
+      body.setBodyType(on ? RAPIER.RigidBodyType.KinematicPositionBased : RAPIER.RigidBodyType.Fixed, true);
     },
     setColliderEnabled(col, on) {
       col.setEnabled(on);
@@ -138,7 +153,7 @@ export function createPhys() {
       const half = Math.max(P.height / 2 - P.radius, 0.01);
       const body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(feetX, feetY + P.height / 2, feetZ));
       const col = world.createCollider(RAPIER.ColliderDesc.capsule(half, P.radius).setCollisionGroups(PLAYER_GROUPS), body);
-      const cc = world.createCharacterController(0.02);
+      const cc = world.createCharacterController(CHARACTER_SKIN);
       cc.enableAutostep(P.stepHeight, P.stepMinWidth, false);
       cc.enableSnapToGround(P.snap);
       const slope = Math.acos(P.walkNormal);

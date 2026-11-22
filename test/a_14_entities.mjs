@@ -107,6 +107,17 @@ const hinge = door.joints[0];
   ok(blocked > doorDef.pos[2] && player.pos[2] < doorDef.pos[2] - 1, 'zavřenými dveřmi hráč neprojde, otevřenými ano', `z = ${fmt(blocked, 2)} → ${fmt(player.pos[2], 2)} (dveře na z = ${doorDef.pos[2]})`);
 }
 
+// ---- od zavřených dveří se dá hned odejít (kinematické těleso v klidu by postavu drželo, proto je pevné)
+{
+  game.start();
+  game.sim(0.2);
+  game.sim(1.2, { hold: ['fwd'] });
+  const at = player.pos[2];
+  const pushing = Math.hypot(player.vel[0], player.vel[2]);
+  game.sim(0.25, { hold: ['back'] });
+  ok(player.pos[2] - at > 0.25 && pushing < 2, 'od zavřených dveří se dá hned couvnout', `za 0,25 s o ${fmt(player.pos[2] - at, 2)} m; do dveří tlačil ${fmt(pushing, 1)} m/s`);
+}
+
 // ---- pohon: rychlost z dat
 {
   game.start();

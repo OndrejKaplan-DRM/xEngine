@@ -3,15 +3,16 @@
 // Kamera jsou dvě čísla: yaw a pitch ve stupních, pořadí otočení YXZ, pitch omezený na ±89° (invariant F4).
 
 import { friction, accelerate, clipVelocity } from './move.js';
-import { PLAYER_GROUPS, SIGHT_RAY } from '../phys/phys.js';
+import { PLAYER_GROUPS, SIGHT_RAY, CHARACTER_SKIN } from '../phys/phys.js';
 
 const RAD = Math.PI / 180;
 const PITCH_MAX = 89;
 const STEP_SMOOTH = 8; // 1/s: jak rychle kamera dožene skok nohou na schodu
-// Rychlost do zdi se neodebírá celá: kontrolér Rapieru 0.21 vystoupí na schod jen při vodorovném posunu aspoň
-// asi 7 mm na krok (změřeno: 0,75 m/s nestačí, 0,9 m/s ano). Kdyby se rychlost o čelo schodu vynulovala,
-// postava by ze stoje u schodu nikdy nevyšla. Tolik m/s tedy smí „tlačit“ do zdi.
+// Rychlost do překážky se neodebírá celá: kontrolér Rapieru 0.21 vystoupí na schod jen při vodorovném posunu
+// aspoň asi 7 mm na krok (změřeno: 0,75 m/s nestačí, 0,9 m/s ano). Kdyby se rychlost o čelo schodu vynulovala,
+// postava by ze stoje u schodu nikdy nevyšla. Tolik m/s tedy smí „tlačit“ do překážky.
 const WALL_KEEP = 1.5;
+const PROBE_EVERY = 4; // kroky mezi dotazy paprskem pod nohy, když se dotyk nemění (33 ms)
 
 export function createPlayer({ phys, world, render, input, session }) {
   let ch = null; // { body, col, cc, halfHeight }
@@ -28,9 +29,14 @@ export function createPlayer({ phys, world, render, input, session }) {
   let grounded = false;
   let eyeDrop = 0; // o kolik je kamera pod očima po výstupu na schod (dobíhá k nule)
   let frozen = false; // klidný režim: tělo stojí, pohled řídí někdo jiný
+  let blocked = 0; // kolik kroků po sobě postava přišla o pohyb do překážky
+  let probeTtl = 0; // za kolik kroků se znovu zeptat paprskem, co je pod nohama
+  let probeWalk = true;
+  const probeN = [0, 1, 0];
   const stat = { airSteps: 0, jumps: 0, topSpeed: 0 };
 
-  function place(x, y, z) {
+  /** Přesná poloha nohou (obnova uloženého stavu). */
+  function put(x, y, z) {
     pos[0] = prev[0] = x;
     pos[1] = prev[1] = y;
     pos[2] = prev[2] = z;
@@ -40,6 +46,12 @@ export function createPlayer({ phys, world, render, input, session }) {
       ch.body.setNextKinematicTranslation(c);
     }
     eyeDrop = 0;
+    blocked = 0;
+    probeTtl = 0;
+  }
+  /** Postavit na podlahu ve výšce y: kapsle stojí o odstup kontroléru výš, tam má svou klidovou polohu. */
+  function place(x, y, z) {
+    put(x, y + CHARACTER_SKIN, z);
   }
   function spawn() {
     const sp = world.playerSpawn();
@@ -191,60 +203,77 @@ export function createPlayer({ phys, world, render, input, session }) {
 
       // kolize, schody a skluz: kontrolér postavy
       want.x = vel[0] * dt;
-      want.y = vel[1] * dt;
+      // Na zemi postava dolů netlačí: přichycení k zemi drží kontakt samo. S tlakem dolů (g·dt² na krok) vracel
+      // kontrolér na rovině občas krok s nulovým pohybem (změřeno: 6 kroků na 15 m běhu), bez něj žádný.
+      want.y = grounded ? 0 : vel[1] * dt;
       want.z = vel[2] * dt;
       ch.cc.computeColliderMovement(ch.col, want, undefined, PLAYER_GROUPS);
       ch.cc.computedMovement(got);
       const touching = ch.cc.computedGrounded();
+      // Pojistka proti propadu: přichycení k zemi v Rapieru 0.21 postavu vmáčknutou do rohu dvou zdí občas
+      // stáhne skrz podlahu (změřeno: až −0,15 m). Kdykoli kontrolér vrátí pohyb dolů, paprsek ze středu spodní
+      // polokoule ověří, že pod ní zůstává místo; chybějící výšku pohyb vrátí.
+      if (got.y < -0.003) {
+        const h = phys.raycast(pos[0] + got.x, pos[1] + got.y + P.radius, pos[2] + got.z, 0, -1, 0, P.radius + 0.5, SIGHT_RAY);
+        if (h && h.ny > 0.3) {
+          const need = P.radius / h.ny + CHARACTER_SKIN - h.dist;
+          if (need > 0.004) got.y += need;
+        }
+      }
 
       // zem, po které se dá chodit = dotyk s plochou, jejíž normála míří dost nahoru
       let floorNy = -1;
-      let edge = false; // dotyk s něčím šikmým, co není podlaha ani zeď
       const n = ch.cc.numComputedCollisions();
       for (let i = 0; i < n; i++) {
         const k = ch.cc.computedCollision(i, coll);
         if (!k) continue;
         const ny = k.normal1.y;
         if (ny > floorNy) floorNy = ny;
-        if (ny > 0.05 && ny < P.walkNormal) edge = true;
       }
       const wasGrounded = grounded;
-      let support = touching && (n === 0 || floorNy >= P.walkNormal);
+      let support = false;
       let steep = false;
-      if (!support && edge && !jumped && vel[1] <= 0) {
-        // Kapsle se o hranu schodu opírá zaoblením a normála hrany pak vypadá jako strmý svah. Co je pod nohama
-        // doopravdy, řekne paprsek dolů ze středu spodní polokoule: schůdná plocha = hrana schodu, šikmá = svah.
-        const h = phys.raycast(pos[0] + got.x, pos[1] + got.y + P.radius, pos[2] + got.z, 0, -1, 0, P.radius + P.stepHeight + 0.1, SIGHT_RAY);
-        if (h && h.ny >= P.walkNormal) support = true;
-        else if (h) {
-          steep = true;
-          clipVelocity(vel, h.nx, h.ny, h.nz); // strmý svah: rychlost sklouzne po ploše
-        }
-      }
-      grounded = !jumped && support;
-
-      const stepped = got.y > 0.004 && want.y <= 0; // výstup na schod: náraz do jeho čela rychlost nebere
-      for (let i = 0; i < n; i++) {
-        const k = ch.cc.computedCollision(i, coll);
-        if (!k) continue;
-        const nx = k.normal1.x;
-        const ny = k.normal1.y;
-        const nz = k.normal1.z;
-        if (ny >= P.walkNormal) continue; // podlaha: svislou rychlost srovná stav „na zemi“ níž
-        if (ny < -0.5) clipVelocity(vel, nx, ny, nz); // strop
-        else if (!stepped && !steep) {
-          // zeď nebo čelo schodu: jen vodorovně a jen to, co přesahuje WALL_KEEP
-          const hl = Math.hypot(nx, nz);
-          if (hl < 1e-4) continue;
-          const hx = nx / hl;
-          const hz = nz / hl;
-          const into = vel[0] * hx + vel[2] * hz;
-          if (into < -WALL_KEEP) {
-            vel[0] -= hx * (into + WALL_KEEP);
-            vel[2] -= hz * (into + WALL_KEEP);
+      if (touching && !jumped) {
+        if (floorNy >= P.walkNormal) {
+          support = true; // záznam kolize s podlahou
+          probeTtl = 0;
+        } else if (vel[1] <= 0) {
+          // Záznam o podlaze chybí (stojící postava a pohyb podél plochy žádný nedávají), nebo je dotyk jen šikmý.
+          // Kapsle se navíc o hranu schodu opírá zaoblením a normála hrany pak vypadá jako strmý svah. Co je pod
+          // nohama doopravdy, řekne paprsek dolů ze středu spodní polokoule: schůdná plocha nebo nic (okraj římsy)
+          // = opora, šikmá plocha = strmý svah. Bez nového dotyku stačí paprsek jednou za PROBE_EVERY kroků.
+          if (n > 0 || --probeTtl <= 0) {
+            const h = phys.raycast(pos[0] + got.x, pos[1] + got.y + P.radius, pos[2] + got.z, 0, -1, 0, P.radius + P.stepHeight + 0.1, SIGHT_RAY);
+            probeWalk = !h || h.ny >= P.walkNormal;
+            if (h) {
+              probeN[0] = h.nx;
+              probeN[1] = h.ny;
+              probeN[2] = h.nz;
+            }
+            probeTtl = PROBE_EVERY;
           }
+          support = probeWalk;
+          steep = !probeWalk;
+          if (steep) clipVelocity(vel, probeN[0], probeN[1], probeN[2]); // rychlost sklouzne po ploše
         }
       }
+      grounded = support;
+
+      // Rychlost po nárazu se bere z toho, o kolik pohybu postava přišla, ne ze záznamů kolizí: u kinematických
+      // těles (křídlo dveří v pohybu) kontrolér pohyb zastaví, ale záznam kolize nevydá (změřeno). Do překážky smí
+      // dál tlačit WALL_KEEP m/s, odebírá se jen přebytek; výstup na schod (pohyb vzhůru) rychlost nebere.
+      // Bere se až druhý krok po sobě: ojedinělý krok bez pohybu kontrolér občas vrátí i na rovině.
+      const stepped = got.y > 0.004 && want.y <= 0;
+      const lx = want.x - got.x;
+      const lz = want.z - got.z;
+      const lost = Math.hypot(lx, lz);
+      if (stepped || steep || lost <= WALL_KEEP * dt) blocked = 0;
+      else if (++blocked >= 2) {
+        const k = (lost / dt - WALL_KEEP) / lost;
+        vel[0] -= lx * k;
+        vel[2] -= lz * k;
+      }
+      if (vel[1] > 0 && want.y > 0 && got.y < want.y * 0.5) vel[1] = 0; // strop
       if (grounded) {
         if (!wasGrounded) E?.emit('player:landed', vel[1]);
         vel[1] = 0;
@@ -279,10 +308,11 @@ export function createPlayer({ phys, world, render, input, session }) {
     viewOverride: false,
 
     snapshot() {
-      return { pos: [...pos], vel: [...vel], yaw, pitch, grounded, eyeDrop };
+      return { pos: [...pos], vel: [...vel], yaw, pitch, grounded, eyeDrop, blocked };
     },
     restore(d) {
-      place(d.pos[0], d.pos[1], d.pos[2]);
+      put(d.pos[0], d.pos[1], d.pos[2]);
+      blocked = d.blocked || 0;
       vel[0] = d.vel[0];
       vel[1] = d.vel[1];
       vel[2] = d.vel[2];

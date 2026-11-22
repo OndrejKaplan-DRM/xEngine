@@ -17,7 +17,7 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
     });
     await xv.page.context().close();
 
-    const { page, errs } = await openGame(browser, { q: '?dev' });
+    const { page, errs } = await openGame(browser, { q: '?dev', bare: true }); // level bez entit: jen stavba z kvádrů
     const data = await page.evaluate(() => {
       const level = __PACK__.levels[0].data;
       const sp = level.spawns.find((s) => s.kind === 'player');

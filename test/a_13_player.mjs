@@ -119,6 +119,53 @@ for (const id of Object.keys(PROFILES)) {
     }
   }
 
+  // běh po rovině neztrácí kroky (kontrolér s tlakem dolů vracel občas krok bez pohybu) a tlačení do rohu
+  // postavu nestáhne pod podlahu (přichycení k zemi v Rapieru to v rohu dělá; hlídá pojistka v player.js)
+  {
+    player.teleport(laneStart[0], 0, laneStart[2], 0);
+    game.sim(0.2);
+    game.sim(1, { hold: ['fwd'] }); // rozběh na plnou rychlost
+    const z0 = player.pos[2];
+    game.sim(0.75, { hold: ['fwd'] });
+    const ran = z0 - player.pos[2];
+    ok(Math.abs(ran - P.maxSpeed * 0.75) < 0.02, `${id}: na rovině se neztratí ani krok`, `${fmt(ran)} m za 0,75 s, mělo být ${fmt(P.maxSpeed * 0.75)} m`);
+    const b = cellOf('c_start').bounds;
+    let minY = Infinity;
+    for (const [cx, cz, yaw] of [[b.max[0] - 1, b.max[2] - 1, -135], [b.min[0] + 1, b.max[2] - 1, 135], [b.max[0] - 1, b.min[2] + 1, -45], [b.min[0] + 1, b.min[2] + 1, 45]]) {
+      player.teleport(cx, 0, cz, yaw);
+      game.sim(0.2);
+      input.hold('fwd', true);
+      for (let i = 0; i < 300; i++) {
+        E.stepOnce();
+        minY = Math.min(minY, player.pos[1]);
+      }
+      input.hold('fwd', false);
+    }
+    ok(minY > 0.005, `${id}: tlačení do rohů nestáhne postavu pod podlahu`, `nejnižší poloha nohou ${fmt(minY)} m ve čtyřech rozích`);
+  }
+
+  // sestup: po schodech i po rampě dolů zůstává na zemi (nelétá)
+  {
+    const gal = byTag('gallery')[0];
+    const x = (stairs[0].min[0] + stairs[0].max[0]) / 2;
+    const top = Math.min(...stairs.map((s) => s.min[2]));
+    const bottom = Math.max(...stairs.map((s) => s.max[2]));
+    player.teleport(x, gal.max[1], top - 1.2, 180); // na galerii, čelem ke schodům (+Z)
+    game.sim(0.2);
+    input.hold('fwd', true);
+    let air = 0;
+    let n = 0;
+    for (let i = 0; i < 400 && player.pos[2] < bottom + 0.5; i++) {
+      E.stepOnce();
+      if (player.pos[2] > top && player.pos[2] < bottom) {
+        n++;
+        if (!player.grounded) air++;
+      }
+    }
+    input.hold('fwd', false);
+    ok(n > 10 && air === 0 && player.pos[1] < 0.05, `${id}: ze schodů sejde, neletí`, `${air} z ${n} kroků ve vzduchu`);
+  }
+
   // schodiště na galerii: nohy v 1,5 m, bez ztráty rychlosti
   const gallery = byTag('gallery')[0];
   const sx = (stairs[0].min[0] + stairs[0].max[0]) / 2;

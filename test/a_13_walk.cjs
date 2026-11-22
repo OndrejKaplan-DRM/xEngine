@@ -10,6 +10,8 @@ const { compare, imageStats } = require('./a_lib/image.cjs');
     const { page, errs } = await openGame(browser, { q: '?dev' });
     const r = await page.evaluate(() => {
       __xe.start();
+      const hall = __PACK__.levels[0].data.cells.find((c) => c.id === 'c_hall').bounds;
+      __xe.tp((hall.min[0] + hall.max[0]) / 2 + 4.1, 0, hall.max[2] - 1.2, 0); // volný pruh haly, čelem do −Z
       __xe.sim(0.3);
       const p0 = __xe.get('player.pos');
       const shot0 = __xe.shot();
