@@ -10,7 +10,9 @@ export const DEFAULTS = {
   cell: LIGHT_CELL,
   occlusion: true, // false = jen součet lightIrradiance (zkouška shody se základem)
   indirect: true, // vrstvy „indirect“ a „ao“
-  rays: 32, // paprsků polokoulí na vzorek
+  rays: 64, // paprsků polokoulí na vzorek
+  bounceCap: 8, // odraz: jas zdrojové plochy se omezí na tento násobek průměru (potlačí zrnění od ploch těsně u světla)
+  smooth: 2, // kolikrát se nepřímá vrstva vyhladí přes sousedy na téže ploše
   aoRadius: 1.5, // do jaké vzdálenosti překážka ubírá okolní světlo (m)
   clear: 0.3, // posledních 0,3 m před světlem se nestíní (světlo sedí ve svítidle nebo těsně u stropu)
   entityLights: true, // zapéct i bodová světla prefabů na nepohyblivých uzlech
@@ -150,6 +152,24 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
     const ind = new Float32Array(N * 3);
     const ao = new Float32Array(N).fill(1);
     const albedo = level.brushes.map((b) => (materials[b.mat] && materials[b.mat].color) || [0.5, 0.5, 0.5]);
+    // Plocha půl metru od světla má osvětlení o dva řády vyšší než zbytek místnosti a paprsky ji trefí jen občas:
+    // bez omezení z toho vznikají světlé skvrny. Zdroj odrazu se proto omezí na násobek průměrného osvětlení.
+    let lit = 0;
+    let litSum = 0;
+    for (let s = 0; s < N; s++) {
+      const l = (baseRGB[s * 3] + baseRGB[s * 3 + 1] + baseRGB[s * 3 + 2]) / 3;
+      if (l > 0) {
+        lit++;
+        litSum += l;
+      }
+    }
+    const cap = lit ? (litSum / lit) * o.bounceCap : Infinity;
+    const src = new Float32Array(N * 3);
+    for (let s = 0; s < N; s++) {
+      const l = (baseRGB[s * 3] + baseRGB[s * 3 + 1] + baseRGB[s * 3 + 2]) / 3;
+      const k = l > cap ? cap / l : 1;
+      for (let c = 0; c < 3; c++) src[s * 3 + c] = baseRGB[s * 3 + c] * k;
+    }
     for (let s = 0; s < N; s++) {
       if (!valid[s]) continue;
       const n = [S.nrm[s * 3], S.nrm[s * 3 + 1], S.nrm[s * 3 + 2]];
@@ -183,11 +203,32 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
         const j = sampleAt(S, h.B.brush, [org[0] + dir[0] * h.t, org[1] + dir[1] * h.t, org[2] + dir[2] * h.t], dir);
         if (j < 0) continue;
         const a = albedo[h.B.brush];
-        for (let c = 0; c < 3; c++) sum[c] += a[c] * baseRGB[j * 3 + c];
+        for (let c = 0; c < 3; c++) sum[c] += a[c] * src[j * 3 + c];
       }
       for (let c = 0; c < 3; c++) ind[s * 3 + c] = sum[c] / dirs.length;
       ao[s] = 1 - occ / dirs.length;
     }
+    // nepřímé světlo se v prostoru mění pomalu: vyhlazení přes sousedy téže plochy ubere zrnění a přes hranu nepřeteče
+    const smooth = (data, ch, passes) => {
+      for (let pass = 0; pass < passes; pass++) {
+        const next = Float32Array.from(data);
+        for (let s = 0; s < N; s++) {
+          if (!valid[s]) continue;
+          let cnt = 0;
+          const sum = [0, 0, 0];
+          for (let k = S.nbrStart[s]; k < S.nbrStart[s + 1]; k++) {
+            const q = S.nbr[k];
+            if (!valid[q]) continue;
+            cnt++;
+            for (let c = 0; c < ch; c++) sum[c] += data[q * ch + c];
+          }
+          if (cnt) for (let c = 0; c < ch; c++) next[s * ch + c] = (data[s * ch + c] + sum[c] / cnt) / 2;
+        }
+        data.set(next);
+      }
+    };
+    smooth(ind, 3, o.smooth);
+    smooth(ao, 1, 1);
     dilate(ind, 3);
     dilate(ao, 1);
     layers.push({ id: 'indirect', kind: 'indirect', ref: '', channels: 3, data: ind });

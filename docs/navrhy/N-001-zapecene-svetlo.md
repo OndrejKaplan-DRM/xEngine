@@ -64,16 +64,20 @@ Běh otisky počítat nemusí. Levnější zkouška při načtení: součet `bru
 
 | Level | Vzorků | Z toho v tělese | Vrstev | Čas | Soubor | Po gzip |
 |---|---|---|---|---|---|---|
-| xLab (zlatý vzorek) | 20 658 | 1 381 (7 %) | 16 | 0,6 s | 446 kB | 309 kB |
-| `catacombs_3` | 38 098 | 14 164 (37 %) | 64 | 1,8 s | 714 kB | 483 kB |
-| `complex_21` | 64 393 | 23 039 (36 %) | 114 | 3,7 s | 1 387 kB | 829 kB |
-| `complex_7` | 73 092 | 32 581 (45 %) | 118 | 6,0 s | 1 506 kB | 913 kB |
+| xLab (zlatý vzorek) | 20 658 | 1 381 (7 %) | 16 | 1,1 s | 452 kB | 317 kB |
+| `catacombs_3` | 38 098 | 14 164 (37 %) | 64 | 2,8 s | 731 kB | 496 kB |
+| `complex_21` | 64 393 | 23 039 (36 %) | 114 | 5,7 s | 1 420 kB | 851 kB |
+| `complex_7` | 73 092 | 32 581 (45 %) | 118 | 8,7 s | 1 535 kB | 931 kB |
 
-32 paprsků polokoulí na vzorek pro odraz a přístupnost. Bez zastínění se vrstva shoduje s `lightIrradiance` přesně (uložení jako `Float32`, poměrná odchylka nejvýš 5,9e-8).
+64 paprsků polokoulí na vzorek pro odraz a přístupnost. V prohlížeči (náhled `dist/xbake.html`) trvá zapečení xLabu stejným kódem zhruba stejně. Bez zastínění se vrstva shoduje s `lightIrradiance` přesně (uložení jako `Float32`, poměrná odchylka nejvýš 5,9e-8).
 
 Třetina až polovina vzorků generovaných levelů leží na plochách schovaných v tělese (spodek podlahy, čela a temena zdí). Formát je ukládá jako nuly v řídkých vrstvách; běh pro ně ale dál drží vrcholy. To je námět pro základ (nevyrábět síť pro plochy, které leží celé v jiném kvádru), ne součást tohoto návrhu.
 
-### 7. Co jsem nezvolila
+### 7. Zrnění odrazu
+
+Plocha půl metru od světla má osvětlení o dva řády vyšší než zbytek místnosti a paprsky polokoulí ji trefí jen občas. První verze (32 paprsků, bez úprav) dala v obraze světlé skvrny po celé místnosti. Teď: 64 paprsků, jas zdrojové plochy odrazu omezený na osminásobek průměrného osvětlení a dvojí vyhlazení nepřímé vrstvy přes sousedy na téže ploše (přes hranu nepřeteče). Omezení ubírá odrazu energii; o kolik, jsem neměřila.
+
+### 8. Co jsem nezvolila
 
 - Světlo v textuře (`method: "lightmap"`): rozhodnuto D-022 podle měření T460.
 - Poloviční přesnost (`Float16`): zmenší soubor na polovinu; odkládám, dokud velikost nevadí.
@@ -91,8 +95,9 @@ xBake zapisuje do `dist/bake/<balík>/` (necommituje se) a do balíků pole `bak
 
 ## Neověřeno
 
-- Nikdo to neviděl: náhled zapečeného světla vedle xView ještě není.
-- Síla odrazu. V hale xLabu vychází na místech ve stínu sloupu přímé světlo 2,42 (bez zastínění 4,32), s odrazem 5,61: odraz stín z velké části zaplní. xLab je podle N-105 přesvícený; jestli je to vada dat, nebo příliš silný odraz, ukáže až obraz.
+- Obraz je jen ze softwarového vykreslování v sandboxu (montáž `test/out/b_bake_montaz.png`, náhled `dist/xbake.html`). Na skutečné grafické kartě to neviděl nikdo.
+- Ostrost stínů. Vzorky jsou po 0,5 m, takže stín sloupu má rozmazaný a nepravidelný okraj a na stropě haly dělá stín sloupu od blízké lampy hranatou tmavou skvrnu. Jemnější buňka mřížky by pomohla, ale je součást kontraktu.
+- Síla odrazu. V hale xLabu vychází na místech ve stínu sloupu přímé světlo 2,42 (bez zastínění 4,32), s odrazem 4,49: odraz stín z velké části zaplní a bílá laboratoř je s ním v obraze vybledlá. xLab je podle N-105 přesvícený a expozice je laděná na obraz bez odrazu; proto má běh váhu `k`.
 - Bajtová shoda mezi stroji. Na jednom stroji je výstup opakovatelný; `Math.cos` a `Math.sqrt` se mezi verzemi V8 mohou lišit v posledním bitu.
 - Použití v běhu a čas načtení na T460.
 
