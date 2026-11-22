@@ -37,12 +37,21 @@ export function createBehaviors({ entities, io }) {
     if (ent.state.on !== was) out(ent, ent.state.on ? 'on' : 'off');
   }
 
+  /**
+   * Pohon k cíli. Kloub, který už v cíli stojí, se nerozjíždí a nic znovu neohlásí: open na otevřené dveře nevyšle
+   * druhé opened (dvě křídla spojená do kruhu opened → open by se jinak budila navzájem donekonečna).
+   */
+  const go = (ent, j, target) => {
+    if (at(j.value, target) && Number.isNaN(j.target) && !j.held) return;
+    entities.drive(ent, j, target);
+  };
+
   /** Vstupy podle druhu. Vrací true, když se vstup zpracoval. */
   const INPUTS = {
     door(ent, j, name) {
-      if (name === 'open') entities.drive(ent, j, j.def.max);
-      else if (name === 'close') entities.drive(ent, j, j.rest);
-      else if (name === 'toggle') entities.drive(ent, j, heading(j) > (j.def.min + j.def.max) / 2 ? j.rest : j.def.max);
+      if (name === 'open') go(ent, j, j.def.max);
+      else if (name === 'close') go(ent, j, j.rest);
+      else if (name === 'toggle') go(ent, j, heading(j) > (j.def.min + j.def.max) / 2 ? j.rest : j.def.max);
       else return false;
       return true;
     },
@@ -56,9 +65,9 @@ export function createBehaviors({ entities, io }) {
       return true;
     },
     switch(ent, j, name) {
-      if (name === 'turnOn') entities.drive(ent, j, high(j));
-      else if (name === 'turnOff') entities.drive(ent, j, low(j));
-      else if (name === 'toggle') entities.drive(ent, j, heading(j) > (low(j) + high(j)) / 2 ? low(j) : high(j));
+      if (name === 'turnOn') go(ent, j, high(j));
+      else if (name === 'turnOff') go(ent, j, low(j));
+      else if (name === 'toggle') go(ent, j, heading(j) > (low(j) + high(j)) / 2 ? low(j) : high(j));
       else return false;
       return true;
     },
@@ -66,7 +75,7 @@ export function createBehaviors({ entities, io }) {
     valve(ent, j, name, param) {
       if (name !== 'setLevel') return false;
       const v = Math.min(1, Math.max(0, Number(param) || 0));
-      entities.drive(ent, j, j.def.min + v * (j.def.max - j.def.min));
+      go(ent, j, j.def.min + v * (j.def.max - j.def.min));
       return true;
     },
   };

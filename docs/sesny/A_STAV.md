@@ -11,9 +11,11 @@
 | A1.3 hráč a profily | hotovo | `a_13_player` 38 (Node), `a_13_walk` 7 (prohlížeč) | T1–T4 v obou profilech, schodiště na galerii, přepnutí profilu za běhu |
 | A1.4 entity a kostry | hotovo | `a_14_entities` 20 (Node), `a_14_view` 7 (prohlížeč) | 20 entit, bedny padají, křídlo dveří při 90° = `rigMatrices`, tři pohledy shodné s xView |
 | A1.5 použít + spojení | hotovo | `a_15_io` 18 (Node), `a_15_use` 11 (prohlížeč) | tlačítko → dveře → po 36 krocích lampa; vypínač; spouštěč jednou; uložení uprostřed otevírání; strop řetězu 32 |
-| A1.6 manipulace a klidný režim | hotovo | `a_16_manip` 38 (Node), `a_16_view` 20 (prohlížeč) | ventil myší na 50 % → lampa 50 %; páka na dorazu vyšle `on`; zásuvka a křídlo dveří tažením; terminál: kamera podle `station`, psaní, kurzor na obrazovce, Esc vrací přesně |
+| A1.6 manipulace a klidný režim | hotovo | `a_16_manip` 39 (Node), `a_16_view` 20 (prohlížeč) | ventil myší na 50 % → lampa 50 %; páka na dorazu vyšle `on`; zásuvka a křídlo dveří tažením; terminál: kamera podle `station`, psaní, kurzor na obrazovce, Esc vrací přesně |
 | A1.7 buňky a portály | hotovo | `a_17_cells` 19 (Node), `a_17_view` 16 (prohlížeč) | start se zavřenými dveřmi 1 buňka (9 volání), po otevření přibude chodba (29), hala nezávisí na laboratoři; žádná díra ze 48 pohledů × 2 stavy dveří; F4 obrysy. **Neuděláno:** ořez pixelů (scissor) na obdélník portálu, viz níže |
 | A1.8 světla a obraz | hotovo | `a_18_view` 12 (prohlížeč) | aktivních světel nejvýš tolik, kolik říká nastavení (4, 6, 8, 12 ze 14); expozice z dat; měřítko vykreslení; přehled F3; čtyři pohledy bez černých ploch |
+
+Poslední celý běh (22. 11. 2026, po posledním commitu): základ `npm test` 165 kontrol, skupina A `npm run test:a` 16 sad z 16, 267 kontrol, vše zeleně.
 
 ## Jak je to postavené
 
@@ -61,7 +63,22 @@
 | start se zavřenými dveřmi: světlo jen z vlastní buňky × všechna světla skrz zdi | lampa zhasnutá 75,2 × 86,0; lampa rozsvícená 157,1 × 161,1 z 255 | sonda v prohlížeči, stejný pohled, `__xe.vis(true)` × `__xe.vis(false)` |
 | 500 použití tlačítka po zahřátí (po A1.8) | halda +91 kB | `test/a_lib/heap.mjs` |
 | celý soubor po A1.8 | `dist/xlab.html` 4,90 MB | výpis sestavení |
+| myš potřebná na celý rozsah (citlivost 1) | křídlo dveří 299 bodů na 105° z 1,2 m, zásuvka 173 bodů na 0,38 m, páka 207 bodů na 80° | sonda v Node, robot táhne po směru, který hlásí hra |
 | načtení levelu v Node | asi 80 ms včetně stavby koliderů, start Rapieru 63 ms | `E.stats.boot`, sandbox; orientační |
+
+## Zkouška balíku sešny B (`origin/sesna-b`, `packs/gen_demo` + `kit_base`)
+
+Balík jsem si vytáhla do `/tmp` (do své větve jsem ho nedávala) a pustila v enginu beze změny kódu. Je to kouřová zkouška, ne průchod levelem.
+
+| Level | Data | Výsledek v Node | Výsledek v prohlížeči |
+|---|---|---|---|
+| `complex_7` | 45 buněk, 49 portálů, 498 kvádrů, 423 entit, 124 světel | načtení 582 ms, hráč stojí na zemi, ze startu 1 až 2 buňky, nejvýš 72 volání z 984 sítí, chůze 3 s = 10,7 m, 226 předmětů použito, krok 0,47 ms | nezkoušeno |
+| `complex_21` | 39 buněk, 44 portálů, 412 kvádrů, 392 entit, 123 světel | načtení 286 ms, 1 až 2 buňky, nejvýš 68 volání z 943 sítí, chůze 13,5 m, krok 0,42 ms | 15 až 42 volání z 12 směrů (z 1 222 sítí), žádný bod pozadí, konzole čistá |
+| `catacombs_3` | 33 buněk, 35 portálů, 341 kvádrů, 132 entit, 71 světel | načtení 157 ms, 2 až 3 buňky, nejvýš 38 volání z 322 sítí, chůze 5,5 m, krok 0,16 ms | 10 až 30 volání (ze 413 sítí), žádný bod pozadí, konzole čistá |
+
+Časy jsou ze sandboxu, orientační. Zkouška našla dvě moje chyby, obě opravené: výběr světel bral jen prvních 64 světel levelu (pole pevné délky) a `open` na už otevřené dveře znovu hlásilo `opened` (dvě křídla spojená do kruhu by se budila donekonečna).
+
+Co je na snímcích vidět a neřešila jsem: **čárkované svislé čáry na stěnách v místech, kde na sebe navazují kvádry zdi** (i ve zlatém vzorku nad dveřmi laboratoře). Pozadí to není (zkouška signální barvou dává 0 bodů). Domněnka, neověřená: prosvítají boční plochy kvádrů, které leží uvnitř zdi. Náprava by byla takové zakryté plochy nekreslit.
 
 ## Neověřeno
 

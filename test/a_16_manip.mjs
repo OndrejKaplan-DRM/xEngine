@@ -184,6 +184,19 @@ ok(get('entity.e_lamp_lab.light').on && get('entity.e_lamp_lab.light').level ===
   behave.input(entities.byId('e_door_start'), 'unlock');
 }
 
+// ---- vstup, který nic nemění, nic neohlásí (dvě křídla spojená do kruhu opened → open se nesmí budit navzájem)
+{
+  const d = entities.byId('e_door_start');
+  behave.input(d, 'open');
+  game.sim(1.2);
+  const n = fired('e_door_start', 'opened').length;
+  behave.input(d, 'open');
+  game.sim(0.5);
+  ok(n >= 1 && fired('e_door_start', 'opened').length === n && !d.joints[0].active, 'open na otevřené dveře nevyšle druhé opened', `opened ${fired('e_door_start', 'opened').length}×`);
+  behave.input(d, 'close');
+  game.sim(1.2);
+}
+
 // ---- terminál: klidný režim
 {
   face('e_desk', 1.0);

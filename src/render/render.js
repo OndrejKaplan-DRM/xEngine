@@ -37,8 +37,8 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
   let cells = new Map(); // id buňky → { group, pending: Map(materiál → dávka) }
   const lightRecs = []; // záznamy světel levelu a lamp; vlastní je xWorld, tady se jen čtou
   const pool = []; // THREE.PointLight, velikost = rozpočet
-  const order = new Int16Array(64);
-  const score = new Float32Array(64);
+  let order = new Int16Array(64); // pracovní pole výběru světel; rostou s počtem světel levelu (addLight)
+  let score = new Float32Array(64);
   const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, activeLights: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
   const screens = []; // obrazovky ve světě: { mesh, tex }
   const shared = []; // pohyblivé díly viditelné z více buněk (křídlo dveří v portálu): { group, cells, on }
@@ -60,7 +60,7 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     const cy = camera.position.y;
     const cz = camera.position.z;
     let n = 0;
-    const total = Math.min(lightRecs.length, order.length);
+    const total = lightRecs.length;
     for (let i = 0; i < total; i++) {
       const r = lightRecs[i];
       if (!r.on || r.level <= 0 || r.intensity <= 0) continue;
@@ -257,6 +257,10 @@ export function createRender({ canvas, antialias = true, pixelRatio = () => glob
     /** Záznam světla { id, cell, pos, color, intensity, range, on, level }; vlastník ho smí měnit, pak zavolá invalidate(). */
     addLight(rec) {
       lightRecs.push(rec);
+      if (lightRecs.length > order.length) {
+        order = new Int16Array(order.length * 2);
+        score = new Float32Array(score.length * 2);
+      }
       counts.lights = lightRecs.length;
       dirty = true;
     },
