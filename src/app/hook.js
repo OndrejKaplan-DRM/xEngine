@@ -55,6 +55,14 @@ export function installHook({ game, lock, shell, hud, adapter, devTools, bench }
       game.start();
       return game.light.shadows;
     },
+    /** Zjemnění okraje stínu zapnout nebo vypnout, případně počet bodů na stranu (level se načte znovu). */
+    soft(on) {
+      game.light.soft = on;
+      game.light.incremental = false;
+      game.loadLevel(game.session.levelId);
+      game.start();
+      return game.light.soft;
+    },
     restore: (data) => E.restore(data),
 
     // ---- navíc

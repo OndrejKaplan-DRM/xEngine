@@ -40,6 +40,21 @@ export function settingsDefs({ game, dev }) {
       probe: () => render.antialias,
     },
     {
+      id: 'lightGrid',
+      page: 'obraz',
+      label: 'Mřížka světla (platí od nové hry)',
+      type: 'select',
+      def: 0.5, // kontrakt; 0,25 m dává jemnější stíny za čtyřnásobek vzorků a trojúhelníků a delší načtení
+      options: [
+        { value: 0.5, label: '0,5 m' },
+        { value: 0.25, label: '0,25 m (jemnější stíny)' },
+      ],
+      apply: (v) => {
+        game.world.lightCell = v;
+      },
+      probe: () => game.world.lightCell,
+    },
+    {
       id: 'sens',
       page: 'ovladani',
       label: 'Citlivost myši',

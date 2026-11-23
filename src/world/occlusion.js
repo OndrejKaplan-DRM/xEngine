@@ -158,6 +158,16 @@ export function createOcclusion({ phys, light }) {
       if (g) stat.gated++;
       return g;
     },
+    /** Úsečka mezi dvěma body neprotíná stavbu (dílčí bod okraje stínu leží ve stejném prostoru jako vzorek). */
+    reach(x0, y0, z0, x1, y1, z1) {
+      const dx = x1 - x0;
+      const dy = y1 - y0;
+      const dz = z1 - z0;
+      const d = Math.hypot(dx, dy, dz);
+      if (d < 1e-6) return true;
+      stat.rays++;
+      return !phys.raycast(x0, y0, z0, dx / d, dy / d, dz / d, d, LIGHT_RAY);
+    },
     /** Bod leží uvnitř stavby nebo přesně na její ploše (vzorek sítě, která pokračuje pod sousední kvádr). */
     buried(x, y, z) {
       const b = !!phys.raycast(x, y, z, 0, 1, 0, INSIDE, LIGHT_RAY);

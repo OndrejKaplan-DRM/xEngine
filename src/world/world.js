@@ -12,7 +12,7 @@ export function createWorld({ phys, render, light, pack }) {
   let triggers = []; // { def, inside, done }
   let io = null; // doplní se při načtení (spojení výstupů spouštěčů)
   const lightRecs = [];
-  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 };
+  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: LIGHT_CELL };
   const seenBy = [];
   /** Obal postavy, kterou sledují spouštěče. Zapisuje ho xPlay v každém kroku. */
   const actor = { min: [0, 0, 0], max: [0, 0, 0], active: false };
@@ -24,6 +24,12 @@ export function createWorld({ phys, render, light, pack }) {
     phase: 'late',
     actor,
     stat,
+    /**
+     * Krok mřížky světla (m). Výchozí je kontrakt (LIGHT_CELL = 0,5 m; na něm stojí zapečené světlo z xBake).
+     * Jemnější krok je volba pro světlo počítané při načtení: 0,25 m = čtyřikrát víc vzorků a trojúhelníků.
+     * Projeví se při dalším načtení levelu (stat.lightCell říká, s čím je level postavený).
+     */
+    lightCell: LIGHT_CELL,
     get level() {
       return level;
     },
@@ -42,11 +48,11 @@ export function createWorld({ phys, render, light, pack }) {
       render.setDefs(matDefs);
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
-      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 });
+      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell });
       for (const b of level.brushes || []) {
         stat.brushes++;
         if (b.vis !== false) {
-          const m = brushLightMesh(b, LIGHT_CELL);
+          const m = brushLightMesh(b, sys.lightCell);
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)

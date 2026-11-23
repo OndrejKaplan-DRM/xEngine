@@ -187,6 +187,8 @@ async function boot() {
 
   installHook({ game, lock, shell, hud, adapter, devTools, bench });
   E.run();
+  // ?grid=0.25: jemnější mřížka světla pro tento běh (jinak platí nastavení); hodí se k měření ?bench&grid=0.25
+  if (params.has('grid') && [0.5, 0.25].includes(Number(params.get('grid')))) game.world.lightCell = Number(params.get('grid'));
   // ?bench: měření skutečné hry hned po načtení; volitelně &rows=576|768|1080, &aa=1, &quick (jen první dvě buňky)
   if (params.has('bench')) {
     const rows = Number(params.get('rows'));

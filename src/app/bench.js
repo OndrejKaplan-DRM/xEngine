@@ -134,7 +134,7 @@ export function createBench({ game, lock, root }) {
         image: render.size,
         antialias: render.antialias,
       },
-      level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightSamples: st.samples, lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },
+      level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },
       run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports },
       frame: { workMs: summary(work, n), intervalMs: g, fps: g.median ? +(1000 / g.median).toFixed(1) : 0 },
       step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz)' },

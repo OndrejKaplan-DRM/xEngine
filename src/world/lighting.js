@@ -24,10 +24,12 @@ export function createLighting({ render, now = () => performance.now() }) {
   /** Zastínění a brány (occlusion.js): { gateOf(světlo, x, y, z), buried(x, y, z) }. null = světlo prochází vším. */
   let occ = null;
   let gateOf = null;
+  /** Zjemnění okraje stínu (lightfield.soften): { reach, n } nebo null. */
+  let softOpts = null;
   /** Úroveň bran: index 0 = volná cesta (vždy 1), další = otevření dveří 0 až 1. */
   let gateLevel = [1];
   let gateLights = [[]]; // brána → světla, která skrz ni svítí
-  const stat = { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 };
+  const stat = { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 };
 
   const effective = (L) => (L.on && L.level > 0 && L.intensity > 0 ? L.level : 0);
 
@@ -60,9 +62,10 @@ export function createLighting({ render, now = () => performance.now() }) {
     }
   }
   function buildLight(L) {
-    L.layer = buildLayer(L, targets, gateOf);
+    L.layer = buildLayer(L, targets, gateOf, softOpts);
     L.layer.built = true;
     stat.entries += L.layer.samples;
+    stat.softened += L.layer.softened;
     for (const s of L.layer.segs) {
       s.applied = 0;
       if (s.gate > 0) {
@@ -189,6 +192,8 @@ export function createLighting({ render, now = () => performance.now() }) {
     },
     /** Zastínění zapnuto (výchozí). Vypíná se jen pro srovnání s xView, který stíny nemá; platí od příštího načtení levelu. */
     shadows: true,
+    /** Okraj stínu po podílech plošky vzorku: true = výchozí počet paprsků, číslo = bodů na stranu, false = jeden paprsek na vzorek. */
+    soft: true,
     /** true = vrstvy se staví po částech ve snímcích (hra v prohlížeči); false = celé při načtení (testy, Node). */
     incremental: false,
     /** Podíl světel, která už mají vrstvu (0 až 1). */
@@ -212,7 +217,7 @@ export function createLighting({ render, now = () => performance.now() }) {
       gateLights = [[]];
       built = false;
       toBuild = 0;
-      Object.assign(stat, { lights: 0, samples: 0, entries: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 });
+      Object.assign(stat, { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 });
     },
 
     /**
@@ -316,6 +321,7 @@ export function createLighting({ render, now = () => performance.now() }) {
       const t0 = now();
       targets = render.statics;
       gateOf = sys.shadows && occ ? occ.gateOf : null;
+      softOpts = gateOf && sys.soft ? { reach: occ.reach, n: sys.soft === true ? undefined : sys.soft } : null;
       dirtyTargets.length = 0;
       let samples = 0;
       for (const T of targets) {
@@ -344,6 +350,7 @@ export function createLighting({ render, now = () => performance.now() }) {
       toBuild = 0;
       stat.samples = samples;
       stat.entries = 0;
+      stat.softened = 0;
       stat.gated = 0;
       stat.buildMs = 0;
       stat.prepMs = now() - t0;

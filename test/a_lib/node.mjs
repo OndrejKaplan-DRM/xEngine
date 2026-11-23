@@ -32,11 +32,12 @@ export function barePack(pack) {
   return copy;
 }
 
-/** Hra připravená v menu (po init). opts.shadows === false: světlo bez zastínění (prochází zdmi jako v xView). */
+/** Hra připravená v menu (po init). opts.shadows === false: světlo bez zastínění (prochází zdmi jako v xView). opts.soft: okraj stínu. */
 export async function makeGame(opts = {}) {
   const pack = opts.pack || (await loadPack());
   const game = createGame({ pack, render: createNullRender(), ...opts });
   if (opts.shadows === false) game.light.shadows = false;
+  if (opts.soft !== undefined) game.light.soft = opts.soft; // zjemnění okraje stínu: false, true nebo bodů na stranu
   await game.E.init();
   return game;
 }

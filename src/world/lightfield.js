@@ -56,6 +56,145 @@ export function adjacency(indices, count) {
 const OUT = -3; // světlo na vzorek nedosáhne
 const HIDDEN = -2; // zastíněný vzorek, který sám leží ve stavbě: rozhodnou sousedé
 const BLOCKED = -1;
+const MIXED = -4; // okraj stínu: vzorek svítí zčásti (podíly po branách jsou v polích mix*)
+
+/** Okraj stínu: kolik dílčích bodů na stranu plošky vzorku se zkoumá (SOFT_N × SOFT_N paprsků ke světlu). */
+export const SOFT_N = 4;
+/** Poloviční strana plošky vzorku, když ji nejde odvodit ze sousedů (m; polovina mřížky světla 0,5 m). */
+const SOFT_HALF = 0.25;
+const mixV = [];
+const mixG = [];
+const mixF = [];
+const tallyG = [];
+const tallyC = [];
+const edge = [];
+const mixAt = new Map(); // vzorek → kde v polích mix* začínají jeho podíly
+
+/**
+ * Zjemnění okraje stínu. Vzorek, jehož soused přes hranu vidí světlo jinak (svítí × stín × jiná brána), se
+ * neptá jedním paprskem, ale SOFT_N × SOFT_N paprsky z bodů rozložených po své plošce (půl kroku mřížky na
+ * každou stranu). Výsledkem je podíl plošky, který světlo vidí: zub stínu po buňkách mřížky se změní v plynulý
+ * přechod a hrana stínu leží tam, kde opravdu je. Mřížka vzorků se nemění (kontrakt), platí se jen paprsky.
+ * Dílčí bod, ke kterému od vzorku nevede volná úsečka (leží ve zdi nebo za ní), se nepočítá.
+ */
+function soften(light, T, state, gateOf, soft) {
+  const P = T.positions;
+  const N = T.normals;
+  const { start, list } = T.adj;
+  const n = soft.n || SOFT_N;
+  edge.length = 0;
+  for (let v = 0; v < T.count; v++) {
+    const s = state[v];
+    if (s < BLOCKED || (T.buried && T.buried[v])) continue;
+    for (let i = start[v]; i < start[v + 1]; i++) {
+      const u = state[list[i]];
+      if (u >= BLOCKED && u !== s) {
+        edge.push(v);
+        break;
+      }
+    }
+  }
+  let done = 0;
+  for (let q = 0; q < edge.length; q++) {
+    const v = edge[q];
+    const k = v * 3;
+    const nx = N[k];
+    const ny = N[k + 1];
+    const nz = N[k + 2];
+    // tečné osy plošky: u ploch podél os světa osy světa, u šikmých vodorovná osa a spádnice
+    let ax = 1;
+    let ay = 0;
+    let az = 0;
+    if (Math.abs(nx) > 0.9) {
+      ax = 0;
+      ay = 1;
+    } else if (Math.abs(ny) <= 0.9 && Math.abs(nz) <= 0.9) {
+      const len = Math.hypot(nz, nx) || 1;
+      ax = nz / len;
+      az = -nx / len;
+    }
+    const bx = ny * az - nz * ay;
+    const by = nz * ax - nx * az;
+    const bz = nx * ay - ny * ax;
+    // rozměr plošky: polovina vzdálenosti k nejvzdálenějšímu sousedovi v každé tečné ose
+    let ha = 0;
+    let hb = 0;
+    for (let i = start[v]; i < start[v + 1]; i++) {
+      const u = list[i] * 3;
+      const dx = P[u] - P[k];
+      const dy = P[u + 1] - P[k + 1];
+      const dz = P[u + 2] - P[k + 2];
+      ha = Math.max(ha, Math.abs(dx * ax + dy * ay + dz * az));
+      hb = Math.max(hb, Math.abs(dx * bx + dy * by + dz * bz));
+    }
+    ha = ha > 0 ? ha / 2 : SOFT_HALF;
+    hb = hb > 0 ? hb / 2 : SOFT_HALF;
+    const ox = P[k] + nx * SAMPLE_LIFT;
+    const oy = P[k + 1] + ny * SAMPLE_LIFT;
+    const oz = P[k + 2] + nz * SAMPLE_LIFT;
+    tallyG.length = 0;
+    tallyC.length = 0;
+    let counted = 0;
+    for (let i = 0; i < n; i++) {
+      const a = (((i + 0.5) / n) * 2 - 1) * ha;
+      for (let j = 0; j < n; j++) {
+        const b = (((j + 0.5) / n) * 2 - 1) * hb;
+        const px = ox + ax * a + bx * b;
+        const py = oy + ay * a + by * b;
+        const pz = oz + az * a + bz * b;
+        if (!soft.reach(ox, oy, oz, px, py, pz)) continue;
+        const g = gateOf(light, px, py, pz);
+        counted++;
+        let at = tallyG.indexOf(g);
+        if (at < 0) {
+          at = tallyG.length;
+          tallyG.push(g);
+          tallyC.push(0);
+        }
+        tallyC[at]++;
+      }
+    }
+    if (!counted || (tallyG.length === 1 && tallyG[0] === state[v])) continue;
+    state[v] = MIXED;
+    done++;
+    mixAt.set(v, mixV.length);
+    for (let i = 0; i < tallyG.length; i++) {
+      if (tallyG[i] < 0) continue;
+      mixV.push(v);
+      mixG.push(tallyG[i]);
+      mixF.push(tallyC[i] / counted);
+    }
+  }
+  // Vzorek ve stavbě, který od souseda nic nepřevzal (soused byl jedním paprskem ve stínu), převezme podíly
+  // souseda, kterého zjemnění zčásti rozsvítilo: jinak by od něj do okraje stínu vedl tmavý zub.
+  if (done && T.buried) {
+    const end = mixV.length;
+    for (let v = 0; v < T.count; v++) {
+      if (state[v] !== HIDDEN) continue;
+      let from = -1;
+      let most = 0;
+      for (let i = start[v]; i < start[v + 1]; i++) {
+        const at = mixAt.get(list[i]);
+        if (at === undefined) continue;
+        let sum = 0;
+        for (let m = at; m < end && mixV[m] === list[i]; m++) sum += mixF[m];
+        if (sum > most) {
+          most = sum;
+          from = at;
+        }
+      }
+      if (from < 0) continue;
+      const u = mixV[from];
+      for (let m = from; m < end && mixV[m] === u; m++) {
+        mixV.push(v);
+        mixG.push(mixG[m]);
+        mixF.push(mixF[m]);
+      }
+    }
+  }
+  mixAt.clear();
+  return done;
+}
 
 /**
  * Vrstva jednoho světla nad statickými cíli.
@@ -68,10 +207,14 @@ const BLOCKED = -1;
  * Vzorek, který leží ve stavbě (síť pokračuje pod sousední kvádr; cíl ho má v poli buried), světlo sám nevidí.
  * Je ale koncem trojúhelníků, které vidět jsou, proto přebírá viditelnost od souseda přes hranu: jinak by se
  * od něj do místnosti táhl tmavý pruh.
+ *
+ * soft = { reach(x0, y0, z0, x1, y1, z1), n? } zapne zjemnění okraje stínu (viz soften); výsledek pak nese i
+ * počet zjemněných vzorků (softened). Jeden vzorek smí být ve více úsecích (v každé bráně svým podílem).
  */
-export function buildLayer(light, targets, gateOf = null) {
+export function buildLayer(light, targets, gateOf = null, soft = null) {
   const segs = [];
   let samples = 0;
+  let softened = 0;
   const byGate = new Map();
   let state = new Int32Array(0);
   let val = new Float32Array(0);
@@ -118,6 +261,8 @@ export function buildLayer(light, targets, gateOf = null) {
       }
       for (let v = 0; v < T.count; v++) if (state[v] >= 1e6) state[v] -= 1e6;
     }
+    mixV.length = mixG.length = mixF.length = 0;
+    if (soft && gateOf && T.adj) softened += soften(light, T, state, gateOf, soft);
     byGate.clear();
     for (let v = 0; v < T.count; v++) {
       const gate = state[v];
@@ -127,12 +272,18 @@ export function buildLayer(light, targets, gateOf = null) {
       g.idx.push(v);
       g.e.push(val[v]);
     }
+    for (let i = 0; i < mixV.length; i++) {
+      let g = byGate.get(mixG[i]);
+      if (!g) byGate.set(mixG[i], (g = { idx: [], e: [] }));
+      g.idx.push(mixV[i]);
+      g.e.push(val[mixV[i]] * mixF[i]);
+    }
     for (const [gate, g] of byGate) {
       segs.push({ t, gate, idx: Uint32Array.from(g.idx), e: Float32Array.from(g.e) });
       samples += g.idx.length;
     }
   }
-  return { segs, samples };
+  return { segs, samples, softened };
 }
 
 /** Přičte ke vzorkům jednoho úseku vrstvy k × E (k = rozdíl úrovně × barva světla / π, po složkách). Bez alokací. */

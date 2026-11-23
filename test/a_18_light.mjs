@@ -73,7 +73,7 @@ const segHitsBox = (a, b, min, max) => {
 {
   const pillars = level.brushes.filter((b) => b.tag === 'pillar');
   const hallLights = (level.lights || []).filter((l) => l.cell === 'c_hall');
-  // vzorek podlahy haly, jehož úsečka ke světlu prochází sloupem; sám leží aspoň 0,4 m od sloupu.
+  // vzorek podlahy haly, jehož úsečka ke světlu prochází sloupem (i ze všech rohů jeho plošky); sám leží aspoň 0,4 m od sloupu.
   // Ze všech takových ten, kterému zakryté světlo dává největší díl osvětlení (hala má čtyři světla).
   let pick = null;
   for (const T of lit()) {
@@ -86,6 +86,10 @@ const segHitsBox = (a, b, min, max) => {
       hallLights.forEach((L, i) => {
         const col = pillars.find((b) => segHitsBox(p, L.pos, b.min, b.max));
         if (!col) return;
+        // celá ploška vzorku (půl kroku mřížky na každou stranu) musí ležet ve stínu: okraj stínu svítí zčásti
+        const half = 0.25;
+        const deep = [[-half, -half], [half, -half], [-half, half], [half, half]].every(([dx, dz]) => segHitsBox([p[0] + dx, p[1], p[2] + dz], L.pos, col.min, col.max));
+        if (!deep) return;
         const gap = Math.max(col.min[0] - p[0], p[0] - col.max[0], col.min[2] - p[2], p[2] - col.max[2]);
         if (gap < 0.4 || gap > 2) return;
         const share = E[i] / sum;

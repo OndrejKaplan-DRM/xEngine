@@ -16,7 +16,7 @@ import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
-export const VERSION = 'xEngine 0.1 · vlna 1, znění 2 (A02) · 2026-11-22';
+export const VERSION = 'xEngine 0.1 · vlna 2, krok 1 (A02) · 2026-11-23';
 
 /**
  * @param {object} o
@@ -159,6 +159,7 @@ export function createGame({ pack, render, now }) {
     /** Nová hra v daném levelu (výchozí = aktuální). Zámek kurzoru řeší aplikace, ne hra. */
     start(levelId) {
       if (levelId && levelId !== loaded) loadLevel(levelId);
+      else if (world.lightCell !== world.stat.lightCell) loadLevel(loaded); // jiná mřížka světla: postavit znovu
       E.reset();
       if (E.mode !== 'playing') E.setMode('playing');
     },

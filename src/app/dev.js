@@ -29,7 +29,7 @@ export function createDev({ game, hud }) {
       `${fps.toFixed(0)} snímků/s · snímek ${ms(E.stats.frameMs)} ms · krok ${ms(E.stats.stepMs)} ms`,
       `obraz ${render.size[0]} × ${render.size[1]}${render.antialias ? ' · vyhlazování hran' : ''}`,
       `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells}`,
-      `světla ${game.light.stat.lights} · vzorky světla ${game.light.stat.samples} · výpočet vrstev ${ms(game.light.stat.buildMs)} ms`,
+      `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms`,
       `buňka ${vis.cameraCell ?? '?'} · rychlost ${Math.hypot(v[0], v[2]).toFixed(2)} m/s · poloha ${p[0].toFixed(1)} ${p[1].toFixed(1)} ${p[2].toFixed(1)}`,
       `krok po systémech (ms): ${sys || 'měřím…'}`,
     ].join('\n');
