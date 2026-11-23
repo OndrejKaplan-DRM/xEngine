@@ -1,8 +1,29 @@
 # Stav sešny B
 
-**Vlna:** 1 · **Větev:** `sesna-b` · **Základ:** znění 2 (`zaklad-1` = `16548b4`), sloučeno 22. 11. 2026 ve 22:35 (`ff4af58`) · **Stav:** 22. 11. 2026 večer, sešna B02
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2 (`zaklad-2` = `main` = `b12f8ed`), sloučeno 23. 11. 2026 (`588ff12`) · **Stav:** 23. 11. 2026, 03:00, konec sešny B02
 
-> **Základ.** Větev stojí na znění 2 (`origin/zaklad-1` = `origin/main` = `16548b4`): světlo po vrcholech (`brushLightMesh`, `lightIrradiance`), Shell v `src/shell`, zadání v `docs/00_ZADANI.md`. Sloučení bylo bez konfliktů; po něm základ 232 kontrol a skupina B beze změny. Svodná sešna má stav vlny 1 (`754f46d`) sloučený v `integrace-1`; commity této sešny B02 tam nejsou.
+> **Základ.** Větev stojí na základu 2: znění 2 základu 1 + sloučená vlna 1 obou sešen + zkouška A × B (`npm run test:axb`) + rozhodnuté návrhy (D-029 až D-034). V repu je engine sešny A ve stavu `230b3ee`; její novější práce (světlo po vrcholech a další) je na `origin/sesna-a` a v této větvi není.
+
+## Vlna 2: kde jsme (23. 11. 2026)
+
+Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti němu:
+
+| Úkol vlny 2 | Stav | Poznámka |
+|---|---|---|
+| B2.1 průchodnost pro skutečného hráče a katakomby | **zčásti hotovo** | hotovo: katakomby podle volby 2 b, prkenné dveře se světlostí 0,90 m, zkouška A × B zelená. **Zbývá:** generátor hlídá průchod 0,6 m (`src/gen/passage.js`, `test/b_lib/level-checks.mjs`); má to být šířka z profilu hráče (0,74 m), čtená z dat nebo z předvolby |
+| B2.2 přijatá pole (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) | nezačato | `seeThrough` už mají křídla dvoukřídlých dveří |
+| B2.3 xSearcher | nezačato | hotové jen měření zdrojů z 22. 11. (`tools/searcher/ZDROJE.md`) |
+| B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | nezačato | |
+| B2.5 zkouška povrchu na jednom kusu (dveře `.glb`, materiál s texturou) | nezačato | |
+| B2.6 xBake a N-001 | **hotovo podle zadání vlny 1, s jednou odchylkou od zadání vlny 2** | zadání vlny 2 chce stínit kolizemi prefabu (`colliders`, N-101); xBake stíní viditelnými díly (`parts`) a průnik s válcem počítá sám (`tools/bake/scene.mjs`). Přepsat, až bude v základu `partCollider` (dluh základu, D-034), nebo dřív, když to svodná sešna potvrdí. N-001 není rozhodnut |
+| B2.7 xDesigner, dům, tvor | nezačato | |
+
+**Co se stalo 23. 11. po půlnoci.** Po sloučení se základem 2 selhala zkouška A × B ve dvou kontrolách: místnosti za dvoukřídlými dveřmi byly pro kapsli hráče nedosažitelné (`c_store_08`, `c_lab_05`, `c_store_12` v `complex_7`, `c_store_02` v `complex_21`). **Příčina byla moje:** dočasné řešení k N-007 nezapisovalo dvoukřídlé dveře do `portal.door` a navigace robota (`test/t5_lib/robot.mjs`) hledá dveře jen tam. Oprava (`129318d`): křídla mají `interact.seeThrough: true` (pole přijaté v N-107) a první křídlo je zase v `portal.door`. Pohled portál nezavírá, průchod a zvuk ano. Po opravě: všechny buňky dosažitelné, robot došel do nejvzdálenější buňky ve všech třech levelech (`complex_7` 57,9 m, `complex_21` 42,5 m, `catacombs_3` 26,3 m), dveře otevřel rukou, vynuceně žádné. Je to první zkouška nad dnešními katakombami a dveřmi.
+
+**Ondřej 22. 11. ve 23:33** (po zhlédnutí náhledu xBake na svém stroji): odraz slabší; dál předávka a nová sešna. Provedeno: vrstva `indirect` nese v hlavičce `weight: 0,5` (`cc4f1fc`), data vrstvy jsou dál plná. Z jeho snímků: zapečení xLabu v jeho Chrome trvalo 2,37 s; stíny sloupů v hale jsou na podlaze **hranaté skvrny** (vzorky po 0,5 m, stín má u každého vzorku jen dvě hodnoty); vnější strany zdí byly v přehledu černé (opraveno přisvícením přehledu, náhled 0.2).
+
+**První věc pro xBake příště:** víc stínových paprsků na vzorek (několik počátků v okolí vrcholu místo jednoho), aby hrana stínu dostala mezistupně a nebyla zubatá. Kontrakt se tím nemění. Neuděláno.
+
 
 ## Hotovo × neuděláno
 
@@ -13,7 +34,7 @@
 | B1.3 xBake: zapečené světlo | hotovo podle zadání znění 2; běh soubor zatím nečte (N-001 nerozhodnut) | `b_t5_bake` 15 (Node), `b_t6_bake_nahled` 7 (prohlížeč) | světlo po vrcholech `brushLightMesh`, jedna vrstva na světlo se zastíněním, k tomu vrstva odrazu (RGB) a přístupnosti okolního světla; xLab 20 658 vzorků za 1,1 s, soubor 452 kB; nástroj `node tools/bake/cli.mjs packs/<balík>`, náhled `dist/xbake.html`, montáž `test/out/b_bake_montaz.png` |
 | B1.4 xSearcher: příjem assetů | začato | | hotové jen měření dosažitelnosti zdrojů (`tools/searcher/ZDROJE.md`); nástroj `find.mjs` neexistuje |
 
-`npm run test:b`: 123 kontrol v 6 sadách, 0 selhalo, asi 100 s. `npm test` (základ, znění 2): 232 kontrol, 0 selhalo.
+Poslední celý běh (23. 11. 2026, po `129318d`): základ `npm test` 237 kontrol, skupina A 16 sad z 16, skupina B `npm run test:b` 123 kontrol v 6 sadách, zkouška A × B `npm run test:axb` 28 + 9 kontrol. Vše zeleně.
 
 ## Sešna B02 (22. 11. 2026 večer)
 
@@ -23,10 +44,13 @@ Ondřej ve 22:24: zápis do repa a push `sesna-b` ano; znění 2 sloučit hned; 
 |---|---|---|
 | sloučení znění 2 základu (`origin/zaklad-1`, `16548b4`) | hotovo, bez konfliktů | `ff4af58` |
 | katakomby podle volby 2 (b) | hotovo | `b2f5ef0` |
-| škvíry u dveří, dveře portálu, prkenné dveře, návrh N-007 | hotovo | commit „Dveře bez škvír“ |
+| škvíry u dveří, dveře portálu, prkenné dveře, návrh N-007 | hotovo | `6d5f90f` |
 | B1.3 xBake a N-001: výpočet, formát, test | hotovo | commit „xBake: zapečené světlo po vrstvách“ |
 | B1.3 xBake: náhled v prohlížeči, snímek vedle xView, potlačení zrnění odrazu | hotovo | commit „xBake: náhled“ |
-| B1.4 xSearcher a textury | po xBake | |
+| slabší odraz (váha 0,5), přisvícený přehled v náhledu | hotovo | `cc4f1fc` |
+| sloučení základu 2 (`origin/zaklad-2`, `b12f8ed`) | hotovo, bez konfliktů | `588ff12` |
+| oprava zkoušky A × B (křídla dvoukřídlých dveří se `seeThrough`) | hotovo | `129318d` |
+| xSearcher a textury (B2.3, B2.4) | nezačato; nová sešna | |
 
 **Dveře.** Engine sešny A bere zavřené dveře portálu jako neprůhledné a místnost za nimi nekreslí (její N-107). Sada měla kolem křídla skutečné škvíry: 1 cm pod křídlem a pod překladem, 0,5 cm po stranách, 4 mm mezi prkny prkenných dveří, 8 mm mezi křídly dvoukřídlých dveří. Zkouška paprsky (`test/b_lib/door-cover.mjs`) jimi před opravou prostrčila 1 374 až 8 352 paprsků na jedny dveře, po opravě žádný. Oprava: dorazy zárubně za křídlem (přesah 15 mm), prahová lišta 12 mm bez kolize, jádro prkenných dveří, krycí lišta na pravém křídle dvoukřídlých dveří, u posuvných dveří uzavřená štěrbina stojky nad křídlem. Generátor zapisuje `portal.door` jen u dveří z jedné entity. Prkenné dveře mají otvor 1,0 × 2,0 m místo 0,9 × 2,0 m (světlost 0,90 m): svodná sešna v T5 zjistila, že 0,80 m projde postava široká 0,74 m jen středem.
 
@@ -142,13 +166,13 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 
 ## Neověřeno
 
-- **Prošel to jen robot bez obrazu.** Svodná sešna (`integrace-1`, test T5) pustila všechny tři levely `gen_demo` v enginu sešny A beze změny kódu: všechny buňky dosažitelné pro kapsli hráče, robot došel ze startu do nejvzdálenější buňky (57,9 m, 42,5 m, 28,7 m), dveře otevřel rukou, nikde neuvázl. Robot chodí nejkratší cestou a většinu místností míjí; běží v Node bez vykreslení. Zkouška proběhla nad stavem `754f46d`, tedy před změnou katakomb a dveří; nad dnešním stavem ji nikdo nepustil. Vlastní průchodnost hlídám dál dvourozměrnou mřížkou s poloměrem 0,3 m, ne Rapierem; hala s galerií a plošinou se v ní přeskakuje.
+- **Prošel to jen robot bez obrazu.** Zkouška A × B (`npm run test:axb`, test základu) pouští všechny tři levely `gen_demo` v enginu sešny A beze změny kódu; nad dnešním stavem (nové katakomby a dveře) je zelená od `129318d`. Robot běží v Node bez vykreslení, chodí nejkratší cestou a většinu místností míjí. Engine v této větvi je stav sešny A z vlny 1 (`230b3ee`); s její novější větví (světlo po vrcholech) zkoušku pouštěla jen svodná sešna, a to před mou opravou. Vlastní průchodnost hlídám dál dvourozměrnou mřížkou s poloměrem 0,3 m (B2.1 chce 0,37 m podle profilu hráče); hala s galerií a plošinou se v ní přeskakuje.
 - **Schody.** Geometrie je v mezích zadání (výška stupně 0,17 až 0,20 m, hloubka 0,28 m), ale kontrolér postavy je nezkoušel. Zlatý vzorek má stupně 0,25 m, takže by měly být snazší; je to úvaha. Sešna A změřila, že kontrolér vyjde schod jen při vodorovném posunu aspoň asi 7 mm na krok; s mými schody to nikdo nezkoušel.
 - **Vzhled.** Všechny snímky jsou ze softwarového vykreslování, v galerii s vlastním nasvícením, v xView s osvětlením po vrcholech celých stěn (na hranicích úseků zdí dělá viditelné svislé předěly; je to vlastnost prohlížeče, ne dat). Barvy materiálů neviděl nikdo na skutečné grafické kartě. Ondřej viděl montáže a soubory z 22. 11. a vzhled označil za sterilní.
 - **Meze kloubů.** Žádná nebyla změřena na skutečném předmětu; u každé je v `KIT.md` úvaha a u většiny poznámka „neměřeno“.
 - **Svítivosti.** Pevná světla jsem volila podle zlatého vzorku (místnost 9 až 22 cd, hala 140 cd, pochodeň 8 až 12 cd). Jak je to jasné ve hře, nevím; katakomby jsou schválně tmavé a výklenky bez světla. Sešna A v N-105 píše, že zlatý vzorek je přesvícený; moje hodnoty z něj vycházejí, takže se jich to může týkat také.
 - **Posuvné dveře** zajíždějí do zdi (křídlo se v otevřené poloze překrývá s kvádrem zdi). Jak se k tomu postaví Rapier a kreslení, nevím.
-- **Dvoukřídlé dveře** jsou dvě entity se stejným počátkem (N-002) a od B02 nejsou zapsané v `portal.door` (N-007): engine za nimi kreslí místnost i při zavřených křídlech. Když hráč otevře jako první levé křídlo, projde na okamžik krycí lištou pravého (8 mm, bez kolize); okem neposuzováno.
+- **Dvoukřídlé dveře** jsou dvě entity se stejným počátkem (N-002, `follow` dluží základ). První křídlo je v `portal.door`, obě mají `seeThrough`: engine za nimi kreslí místnost i při zavřených křídlech. Když hráč otevře jako první levé křídlo, projde na okamžik krycí lištou pravého (8 mm, bez kolize); okem neposuzováno.
 - **Zakrytí otvoru dveřmi** hlídá vzorkovaná zkouška paprsky (`test/b_lib/door-cover.mjs`: kolmé paprsky na síti z hran dílů a šikmé vějíře do 50° vodorovně a 30° svisle), ne důkaz. V enginu sešny A to se zavřenými dveřmi nikdo neviděl.
 - **Zapečené světlo je vidět jen v mém náhledu a jen ze softwarového vykreslování.** Vrstvy bez zastínění dávají v náhledu stejný obraz jako xView se světly po pixelech (montáž, prostřední sloupec). Se stíny: stín sloupu je vidět, ale po půlmetrové mřížce má rozmazaný a nepravidelný okraj; na stropě haly dělá stín sloupu od blízké lampy hranatou tmavou skvrnu. S odrazem je bílá laboratoř vybledlá (xLab je podle N-105 přesvícený a expozice je laděná bez odrazu). První verze odrazu dala po celé místnosti světlé skvrny; teď je omezený a vyhlazený (N-001, oddíl 7) a o kolik tím ubylo energie, jsem neměřila. Běh soubor nečte (N-001 nerozhodnut). Prefaby v náhledu osvětluju po stěnách dílů ze středu stěny a díly téže entity si nestíní; to je vlastnost náhledu, ne formátu.
 - **Svislé čárkované čáry na stěnách** v místech, kde na sebe navazují kvádry zdí: sešna A je vidí v enginu u mých levelů i ve zlatém vzorku. Dřív jsem je tady přičetla prohlížeči xView; to neplatí. Příčina neověřená (domněnka sešny A: prosvítají boční plochy kvádrů uvnitř zdi).
@@ -208,10 +232,13 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - **Srovnání „se stíny × bez stínů“ musí mít na obou stranách stejné členy.** Výpočet se zastíněním a odrazem vyšel světlejší než výpočet bez zastínění a bez odrazu; test to chytil jako selhání a chyba byla v testu.
 - **Odraz počítaný paprsky zrní kvůli plochám těsně u světla** (osvětlení o dva řády vyšší než okolí, trefí je jeden paprsek z desítek). Bez obrazu to z čísel poznat nešlo; první pohled do náhledu ano. Pomohlo omezit jas zdroje odrazu a vyhladit vrstvu přes sousedy na ploše.
 - **Světlo na dílu prefabu počítat ve středu stěny, ne v rozích, a díly téže entity nechat, ať si nestíní.** Roh křídla dveří je 1 cm od překladu a paprsek z něj skončí ve zdi: dveře byly v náhledu černé. Střed stěny skříně leží za čelem zásuvky.
+- **Dočasné řešení v datech ověř proti testu, který data čte.** Dvoukřídlé dveře jsem přestala zapisovat do `portal.door` a vlastní testy prošly; zkouška A × B, kterou jsem tehdy v repu neměla, selhala. Když test druhé strany není po ruce, napsat změnu do stavu jako riziko, ne jako hotovou věc.
+- **Než vymyslíš vlastní dočasné řešení, podívej se, jestli už svodná sešna nepřijala pole, které to řeší** (`interact.seeThrough` z N-107 řešilo přesně křídlo, které otvor nezakryje).
+- **Stín po vrcholech má na hraně jen dvě hodnoty** a při mřížce 0,5 m z toho jsou hranaté skvrny; Ondřej si jich všiml hned. Jeden paprsek na vzorek nestačí.
 
 ## Otázky pro Ondřeje
 
-Prvních pět je zodpovězeno (viz Rozhodnutí), pořadí práce také (viz Sešna B02). Otevřené zůstávají 1, 2, 3 a 5; otázku 4 jsem stáhla, protože podle bodu 5/ zadání se grafika a zvuky do mezí nepočítají a balíky budou vedle hry:
+Prvních pět je zodpovězeno (viz Rozhodnutí), pořadí práce a síla odrazu také (viz Vlna 2 a Sešna B02). Otevřené zůstávají 1, 2, 3 a 5; do odpovědi platí moje doporučení 1 (a), 2 (a), 3 (a). Otázku 4 jsem stáhla, protože podle bodu 5/ zadání se grafika a zvuky do mezí nepočítají a balíky budou vedle hry:
 
 1. Směr vzhledu, kterým začít: (a) opotřebený provoz (ošlapaný beton, oprýskaný lak, rez, prach; chyby se v něm ztratí a věrohodnosti se dosáhne nejdřív), (b) čistá moderní laboratoř (bílé plochy, nerez, sklo; každá nepřesnost je vidět a bez dobrého světla působí sterilně dál).
 2. Cizí modely z webu: (a) z webu jen materiály a textury, tvary vlastní na vlastních kostrách (jednotný styl, všechno se hýbe), (b) k tomu i hotové skenované modely jako nepohyblivé rekvizity (rychleji plno, ale styl může tlouct a data narostou).
