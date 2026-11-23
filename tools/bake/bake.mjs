@@ -13,6 +13,7 @@ export const DEFAULTS = {
   rays: 64, // paprsků polokoulí na vzorek
   bounceCap: 8, // odraz: jas zdrojové plochy se omezí na tento násobek průměru (potlačí zrnění od ploch těsně u světla)
   smooth: 2, // kolikrát se nepřímá vrstva vyhladí přes sousedy na téže ploše
+  indirectWeight: 0.5, // doporučená váha odrazu za běhu; Ondřej 22. 11. 2026: slabší odraz (plný bílé místnosti vybělí)
   aoRadius: 1.5, // do jaké vzdálenosti překážka ubírá okolní světlo (m)
   clear: 0.3, // posledních 0,3 m před světlem se nestíní (světlo sedí ve svítidle nebo těsně u stropu)
   entityLights: true, // zapéct i bodová světla prefabů na nepohyblivých uzlech
@@ -236,5 +237,5 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
   }
 
   stats.ms = performance.now() - t0;
-  return { cell: o.cell, samples: N, brushes: level.brushes.map((b, i) => ({ id: b.id, count: S.counts[i] })), layers, lights, stats, valid, scene: S };
+  return { cell: o.cell, samples: N, brushes: level.brushes.map((b, i) => ({ id: b.id, count: S.counts[i] })), layers, lights, stats, valid, indirectWeight: o.indirectWeight, scene: S };
 }

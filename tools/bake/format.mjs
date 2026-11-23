@@ -37,7 +37,7 @@ export function encodeBake(bake, level, prefabs) {
       if (any) idx.push(s);
     }
     const src = bake.lights.find((x) => x.id === L.id);
-    const head = { id: L.id, kind: L.kind, ref: L.ref, channels: ch, nonzero: idx.length, ...(src ? { light: lightHash(src.light) } : {}) };
+    const head = { id: L.id, kind: L.kind, ref: L.ref, channels: ch, nonzero: idx.length, ...(src ? { light: lightHash(src.light) } : {}), ...(L.kind === 'indirect' ? { weight: bake.indirectWeight ?? 1 } : {}) };
     if (idx.length * (4 + 4 * ch) < bake.samples * 4 * ch) {
       const vals = new Float32Array(idx.length * ch);
       idx.forEach((s, i) => {
@@ -93,7 +93,7 @@ export function decodeBake(buf) {
   return { header, layers };
 }
 
-/** Barva vzorků pro daný stav světel: okolní člen × přístupnost + Σ úroveň × barva × E + nepřímé světlo × úroveň základu. */
+/** Barva vzorků pro daný stav světel: okolní člen × přístupnost + Σ úroveň × barva × E + nepřímé světlo × váha z hlavičky. */
 export function composeColors(decoded, lightsById, ambient = [0, 0, 0], levels = {}) {
   const n = decoded.header.samples;
   const out = new Float32Array(n * 3);
@@ -102,7 +102,7 @@ export function composeColors(decoded, lightsById, ambient = [0, 0, 0], levels =
   for (const L of decoded.layers) {
     if (L.kind === 'ao') continue;
     if (L.kind === 'indirect') {
-      const k = levels.indirect ?? 1;
+      const k = levels.indirect ?? L.weight ?? 1;
       for (let i = 0; i < n * 3; i++) out[i] += L.data[i] * k;
       continue;
     }

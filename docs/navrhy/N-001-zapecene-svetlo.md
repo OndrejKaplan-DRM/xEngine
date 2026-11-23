@@ -37,10 +37,10 @@ Kódování vrstvy: `dense` = `Float32[samples × channels]`; `sparse` = `Uint32
 |---|---|---|---|
 | `light` | `light:<id světla>` | 1 | E vzorků od jednoho světla z pole `lights` při plné úrovni, se zastíněním |
 | `entity` | `entity:<id entity>` | 1 | totéž pro bodové světlo prefabu, jehož uzel nemá nad sebou kloub (nemůže se pohnout) |
-| `indirect` | `indirect` | 3 | jeden odraz základních světel levelu při plné úrovni; už vynásobeno barvou světel a barvou plochy, od které se světlo odrazilo |
+| `indirect` | `indirect` | 3 | jeden odraz základních světel levelu při plné úrovni; už vynásobeno barvou světel a barvou plochy, od které se světlo odrazilo. Hlavička vrstvy nese `weight`, doporučenou váhu za běhu |
 | `ao` | `ao` | 1 | přístupnost okolního světla 0 až 1 (kout a pata zdi mají méně) |
 
-Barva vzorku za běhu: `okolní světlo × ao + Σ úroveň × barva světla × E + indirect × k`. Barvou materiálu se násobí až potom, jako dnes. `k` je nastavitelná váha odrazu (výchozí 1).
+Barva vzorku za běhu: `okolní světlo × ao + Σ úroveň × barva světla × E + indirect × k`. Barvou materiálu se násobí až potom, jako dnes. `k` je váha odrazu z hlavičky vrstvy (`weight`). xBake píše 0,5: Ondřej 22. 11. 2026 po zhlédnutí náhledu zvolil slabší odraz. Data vrstvy jsou spočtená plně, váhu jde změnit bez nového zapečení.
 
 Světlo s `dynamic: true` a světlo prefabu na pohyblivém uzlu vrstvu nemají; počítá je běh.
 
@@ -97,7 +97,7 @@ xBake zapisuje do `dist/bake/<balík>/` (necommituje se) a do balíků pole `bak
 
 - Obraz je jen ze softwarového vykreslování v sandboxu (montáž `test/out/b_bake_montaz.png`, náhled `dist/xbake.html`). Na skutečné grafické kartě to neviděl nikdo.
 - Ostrost stínů. Vzorky jsou po 0,5 m, takže stín sloupu má rozmazaný a nepravidelný okraj a na stropě haly dělá stín sloupu od blízké lampy hranatou tmavou skvrnu. Jemnější buňka mřížky by pomohla, ale je součást kontraktu.
-- Síla odrazu. V hale xLabu vychází na místech ve stínu sloupu přímé světlo 2,42 (bez zastínění 4,32), s odrazem 4,49: odraz stín z velké části zaplní a bílá laboratoř je s ním v obraze vybledlá. xLab je podle N-105 přesvícený a expozice je laděná na obraz bez odrazu; proto má běh váhu `k`.
+- Síla odrazu. V hale xLabu vychází na místech ve stínu sloupu přímé světlo 2,42 (bez zastínění 4,32), s odrazem 4,49: odraz stín z velké části zaplní a bílá laboratoř je s ním v obraze vybledlá. xLab je podle N-105 přesvícený a expozice je laděná na obraz bez odrazu; proto má odraz váhu (dnes 0,5).
 - Bajtová shoda mezi stroji. Na jednom stroji je výstup opakovatelný; `Math.cos` a `Math.sqrt` se mezi verzemi V8 mohou lišit v posledním bitu.
 - Použití v běhu a čas načtení na T460.
 
