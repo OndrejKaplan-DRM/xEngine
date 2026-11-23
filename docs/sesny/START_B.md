@@ -4,6 +4,8 @@ Zapsala svodná sešna main 02, 22. 11. 2026. **Tento oddíl má přednost.** Po
 
 **Stav větve `sesna-b` ve 23:30 (`9944620`):** katakomby podle volby 2 b, dveře bez škvír (N-007) a xBake s návrhem N-001 už na větvi podle commitů jsou; po sloučení se `zaklad-2` nanečisto prošlo 6 sad ze 6. **Po sloučení i s větví sešny A ale selže `npm run test:axb`:** pro kapsli hráče jsou nedosažitelné `c_store_08`, `c_lab_05` a `c_store_12` v `complex_7` a `c_store_02` v `complex_21`. Ve `zaklad-2` byly dosažitelné všechny. Začni tím (B2.1); světlost dveří je 0,90 m, příčina bude jinde.
 
+**Dodatek 23. 11. 2026 (znění 2 základu 2):** (1) N-001 přijat se změnou (D-035): křídla dveří v portálech při zapékání nestíní; vzorky, ke kterým vede volná cesta od světla otvorem portálu s dveřmi, ulož jako vlastní úsek vrstvy s polem `gate` (id entity dveří). Pravidlo má sešna A v `src/world/occlusion.js`; při sloučení přejde do základu, do té doby se drž jejího popisu v `A_STAV.md`. Do balíků pole `baked` dál nepiš. (2) N-007 (D-036): zakrytí ze všech dílů přijato, seznam entit u portálu ne; dvoukřídlé dveře budou jeden prefab, až základ dodá `follow` (N-002). Dveře, kterými je vidět, k portálu připisuj a označ `seeThrough`. (3) N-108 (D-037): mřížku světla změní základ (vrcholy na násobcích `LIGHT_CELL`, bez schovaných ploch); počty a pořadí vzorků ber vždy z `brushLightMesh`, otisk `geometry` se tím změní. (4) Díly prefabu ber z `partMesh` a `partTris` ze `src/xspace` (galerie, xBake).
+
 ## V2.0 Než začneš
 
 1. `git fetch origin && git merge origin/zaklad-2`.

@@ -1,6 +1,6 @@
 # Stav
 
-**Verze:** základ 2 · 22. 11. 2026 · větev `zaklad-2` (shodná s `main`)
+**Verze:** základ 2, znění 2 · 23. 11. 2026 · větev `zaklad-2` (shodná s `main`)
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
@@ -19,9 +19,13 @@ Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna
 
 Co zkouška A × B neříká: robot běží v Node bez obrazu (stejný kód hry, jiné vykreslení). Chodí po nejkratší cestě, takže většinu místností jen míjí. Dveře `door_plank_01` nechávají průchod 0,80 m pro postavu širokou 0,70 m (s odstupem kontroléru 0,74 m): projít jdou, ale jen středem. Krok simulace je měřen v sandboxu, o T460 nevypovídá.
 
+## Znění 2 základu 2 (23. 11. 2026)
+
+Proti znění 1 (`b12f8ed`) přibylo: díly prefabu v základu (N-101: `partMesh`, `partCollider`, `partTris`; xView je používá) a rozhodnutí tří návrhů, které přišly během integrace: N-001 soubor se zapečeným světlem (D-035), N-007 zakrytí otvoru dveřmi (D-036), N-108 mřížka světla (D-037). Sešny si znění 2 vezmou týmž `git merge origin/zaklad-2`.
+
 ## Rozhodnuto po vlně 1
 
-- **Návrhy:** všech 12 rozhodnuto, přehled v `docs/navrhy/README.md`. Sedm je už v základu (volitelná pole a věty kontraktu), šest základ dluží (seznam v `docs/sesny/START_SVOD.md`).
+- **Návrhy:** všech 15 rozhodnuto, přehled v `docs/navrhy/README.md`. Osm je už v základu, zbytek základ dluží (seznam v `docs/sesny/START_SVOD.md`).
 - **Rozpory kódu sešny A se zněním 2:** D-031 (světlo po vrcholech a pevné řádky jsou první úkol vlny 2), D-032 (klidný režim rozhodne zkouška v Chrome), D-027 zrušeno.
 - **Stupně kvality** (D-029): rámec přijat; změřený je jen stupeň `low` pro T460.
 
@@ -37,19 +41,19 @@ Obě sešny během integrace pracovaly dál na svých větvích. Do `zaklad-2` t
 
 | Větev | Hlava | Co přibylo podle commitů | Zkouška svodné sešny (sloučení se `zaklad-2` nanečisto) |
 |---|---|---|---|
-| `sesna-a` | `5626629` | převod na světlo po vrcholech, pevný počet řádků, skok na nový stisk, zastínění světla, `?bench`, oddíl „Rozhraní entit“, terminál podle D-024, návrh N-108 | bez konfliktu, mimo své složky nesáhla; skupina A 18 sad z 18 |
+| `sesna-a` | `5626629` (23. 11. ve 02:27 už `f2766ea`: zablokované dveře, D-025) | převod na světlo po vrcholech, pevný počet řádků, skok na nový stisk, zastínění světla, `?bench`, oddíl „Rozhraní entit“, terminál podle D-024, návrh N-108 | bez konfliktu, mimo své složky nesáhla; skupina A 18 sad z 18 |
 | `sesna-b` | `9944620` | katakomby podle volby 2 b, dveře bez škvír a návrh N-007, xBake a návrh N-001 | bez konfliktu, mimo své složky nesáhla; skupina B 6 sad ze 6 |
 
 Po sloučení obou větví: základ 237 kontrol zeleně, ale **zkouška A × B selže ve dvou kontrolách** (688 prošlo, 2 selhaly). Pro kapsli hráče jsou nedosažitelné tři buňky v `complex_7` (`c_store_08`, `c_lab_05`, `c_store_12`) a jedna v `complex_21` (`c_store_02`); ve `zaklad-2` byly dosažitelné všechny. Příčinu jsem nehledala. Světlost dveří je v nových prefabech 0,90 m, dveře samy to tedy nejsou. Je to úkol B2.1.
 
-Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
+Návrhy N-001, N-007 a N-108 jsou od 23. 11. 2026 rozhodnuté (D-035 až D-037).
 
 ## Co je hotové (základ 1)
 
 | Část | Kde | Stav |
 |---|---|---|
 | jádro: systémy, fáze, závislosti, deklarované události, pevný krok 120 Hz, režimy, uložení stavu | `src/kernel` | 41 kontrol v T0 |
-| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 123 kontrol v T1, z toho 58 mutací |
+| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 128 kontrol v T1, z toho 58 mutací |
 | světlo: síť vzorků `brushLightMesh` (mřížka 0,5 m, pořadí vrcholů je kontrakt) a vzorec `lightIrradiance` | `src/xspace/geom.js`, `light.js` | 17 kontrol v T1 |
 | zlatý vzorek: level xLab (5 buněk, 4 portály, 54 kvádrů, 20 entit, 10 světel, 11 spojení) a 12 prefabů s kostrou | `packs/golden`, `tools/golden/make.mjs` | bez nálezů, bajtově opakovatelný |
 | xView: prohlížeč balíku (pět pohledů, vrstvy, validátor v prohlížeči) | `tools/xview` → `dist/xview.html` | 15 kontrol v T2 |
@@ -58,7 +62,7 @@ Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 237 kontrol; `npm run test:all` (základ, A, B, A × B): 633 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
+`npm test`: 242 kontrol; `npm run test:all` (základ, A, B, A × B): 638 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
 
 ## Co hotové není
 
@@ -86,4 +90,4 @@ Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
 
 ## Návrhy
 
-Žádný otevřený. Přehled rozhodnutí v `docs/navrhy/README.md`.
+Žádný otevřený. Přehled rozhodnutí v `docs/navrhy/README.md`. Oddíl „Rozhodnutí“ v souborech N-001, N-007 a N-108 doplním při příštím sloučení (soubory jsou zatím jen na větvích sešen).

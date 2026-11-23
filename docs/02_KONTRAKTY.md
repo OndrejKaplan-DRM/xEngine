@@ -120,6 +120,7 @@ snapshot()  restore(data)
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
 - Jedna interakce na prefab (verze 1).
+- Síť, počet trojúhelníků a kolizní tvar dílu prefabu počítá výhradně `src/xspace/geom.js` (`partMesh`, `partTris`, `partCollider`; válec má `CYL_SEGMENTS` dílků) (N-101).
 - `speed` je rychlost pohonu **i ruky** hráče. Když chybí, platí doba přejezdu celého rozsahu podle druhu interakce z `JOINT_TRAVEL_SECONDS` ve `formats.js` (N-103).
 - `components.place` říká nástrojům, kam se prefab přichytává a jak velký otvor potřebuje (N-004). Engine ho nečte.
 - `components.screen`: plocha leží v rovině XY uzlu, střed v jeho počátku, líc do +Z; `offset` ji posouvá po ose Z (N-106).
@@ -166,7 +167,9 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 - **Každé světlo tvoří vlastní vrstvu** (obdoba světelných stylů Half-Life). Vrstva = osvětlení E vzorků při plné úrovni světla. Barva vzorku = okolní člen + Σ úroveň světla × barva světla × E. Přepnutí lampy mění jen úroveň, vrstva se nepřepočítává.
 - Světla v `lights` zapéká xBake, pokud nemají `dynamic: true`. Světlo nesené prefabem (součást `light`) má také svou vrstvu; počítá se při načtení levelu a znovu jen tehdy, když se pohne uzel, na kterém sedí.
 - Pohyblivé díly (křídlo dveří, bedna) se osvětlují stejným vzorcem po stěnách dílu; přepočet jen při pohybu dílu nebo změně světla.
-- Formát souboru se zapečeným světlem základ nedefinuje. Navrhne ho sešna B (návrh N-001) a potvrdí svodná sešna. Dané je jen to, co je výše: vzorky, jejich pořadí, vrstvy a jednotka.
+- Formát souboru se zapečeným světlem je podle návrhu N-001 (přijat, D-035): `levels/<id>.light.bin`, vrstvy `light`, `entity`, `indirect`, `ao`.
+- **Dveře v portálu při zapékání nestíní.** Vzorek, ke kterému vede volná cesta od světla otvorem portálu s dveřmi, svítí úrovní světla × otevření dveří (úsek vrstvy s polem `gate`). Zavřenými dveřmi tak světlo neprochází a při otevírání přibývá (D-035).
+- Mřížka vzorků se změní na znění 2 (D-037): vrcholy na násobcích `LIGHT_CELL` ve světě, bez ploch schovaných v jiném kvádru. Nikdo nesmí mít počet ani pořadí vzorků natvrdo; obojí se bere z `geom.js`.
 
 ### Profily
 

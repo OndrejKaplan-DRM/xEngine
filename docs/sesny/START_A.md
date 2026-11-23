@@ -4,6 +4,8 @@ Zapsala svodná sešna main 02, 22. 11. 2026. **Tento oddíl má přednost.** Po
 
 **Stav větve `sesna-a` ve 23:30 (`5626629`):** A2.1, A2.2 a z A2.4 skok, „Rozhraní entit“ a terminál podle D-024 už na větvi podle commitů jsou. Svodná sešna je neposuzovala; po sloučení se `zaklad-2` nanečisto prošlo 18 sad z 18. Dolož je v `A_STAV.md` proti sloupci „Hotovo, když“ a pokračuj od A2.3. Po sloučení s větví sešny B selže `npm run test:axb` na čtyřech nedosažitelných buňkách (viz `STATE.md`); je to úkol sešny B, ale týká se i tebe, kdyby příčina byla v kolizích.
 
+**Dodatek 23. 11. 2026 (znění 2 základu 2):** (1) `partMesh`, `partCollider` a `partTris` jsou v základu; obsah `src/world/parts.js` nahraď importem ze `src/xspace` (`partCollider` vrací totéž co tvoje `colliderShape`). (2) N-108 rozhodnuto (D-037): mřížku světla změní základ, nezáplatuj ji; počty vzorků neměj nikde natvrdo. (3) N-001 přijat se změnou (D-035): zapečené vrstvy ponesou úseky s polem `gate` podle tvého pravidla z `occlusion.js`; ta funkce přejde při sloučení do základu, piš ji proto bez závislosti na Rapieru v rozhraní, pokud to jde, a napiš do stavu, co k tomu potřebuje. (4) `portal.door` zůstává jedna entita (D-036).
+
 ## V2.0 Než začneš
 
 1. `git fetch origin && git merge origin/zaklad-2` (zkušební sloučení s `sesna-a` na `b0dce2f` bylo bez konfliktu).
