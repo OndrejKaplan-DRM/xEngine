@@ -1,0 +1,61 @@
+// xPlay: profily pohybu. Mutace enginu je profil v datech, ne větev v kódu (docs/01_ARCHITEKTURA.md, oddíl 5).
+// Zdroj hodnot: sada Level 1, 10_CASE_FPS, invariant F3. Jedna herní jednotka původních her = 0,0254 m.
+// Jistota: arena 5/5 (Quake III Arena), real 3/5 (Counter-Strike, Half-Life): výchozí odhad, neladit naslepo.
+
+const U = 0.0254;
+
+/** Rozměry postavy a pravidla terénu společná oběma profilům (18 jednotek schod, normála 0,7 jako mez chůze). */
+const BODY = {
+  height: 1.8, // m, výška kapsle
+  radius: 0.35, // m
+  eye: 1.6, // m nad nohama
+  stepHeight: 18 * U, // m, nejvyšší schod, který postava vyjde bez skoku
+  stepMinWidth: 0.15, // m, nejmenší hloubka schodu
+  walkNormal: 0.7, // nejmenší svislá složka normály, po které se dá chodit (asi 45,6°)
+  snap: 0.3, // m, přichycení k zemi při chůzi dolů
+  mass: 80, // kg, čím postava tlačí do beden
+};
+
+export const PROFILES = {
+  arena: {
+    id: 'arena',
+    label: 'Aréna (svižný)',
+    source: 'Quake III Arena',
+    confidence: 5,
+    ...BODY,
+    maxSpeed: 320 * U, // 8,13 m/s
+    accel: 10,
+    friction: 6,
+    stopSpeed: 100 * U,
+    airAccel: 1,
+    airCap: null, // bez stropu přání ve vzduchu
+    gravity: 800 * U, // 20,3 m/s²
+    jumpSpeed: 270 * U, // 6,86 m/s, výška výskoku 1,16 m
+    jumpHold: true, // držený skok se po dopadu opakuje (série výskoků bez přesného načasování)
+  },
+  real: {
+    id: 'real',
+    label: 'Real (klidný)',
+    source: 'Counter-Strike, Half-Life',
+    confidence: 3,
+    ...BODY,
+    maxSpeed: 250 * U, // 6,35 m/s
+    accel: 5,
+    friction: 4,
+    stopSpeed: 75 * U,
+    airAccel: 10,
+    airCap: 30 * U, // 0,76 m/s
+    gravity: 800 * U,
+    jumpSpeed: 268 * U,
+    jumpHold: false,
+  },
+};
+
+export const PROFILE_IDS = Object.keys(PROFILES);
+
+/** Profil podle id; neznámé id je chyba dat, ne důvod k tichému náhradnímu chování. */
+export function profileById(id) {
+  const p = PROFILES[id];
+  if (!p) throw new Error(`Neznámý profil pohybu „${id}“. Známé: ${PROFILE_IDS.join(', ')}.`);
+  return p;
+}

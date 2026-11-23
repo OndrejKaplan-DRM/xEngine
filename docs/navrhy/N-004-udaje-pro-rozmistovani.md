@@ -1,6 +1,6 @@
 # N-004: údaje prefabu pro rozmisťování (způsob uchycení a rozměr otvoru)
 
-Sešna: B · Datum: 2026-11-22 · Stav: otevřený
+Sešna: B · Datum: 2026-11-22 · Stav: přijatý, pole je ve formátu
 
 ## Co potřebuju
 Aby prefab sám řekl, jak se umisťuje (na podlahu, na zeď, na strop, na desku, do otvoru) a jak velký stavební otvor potřebuje.
@@ -32,3 +32,5 @@ Validátor: `opening` vyžaduje pole `opening`; `wall` vyžaduje `height`.
 `h` v pravidlech předvoleb, `source.params.width|height|top|seat` v prefabech sady. Po přijetí: `tools/forge/lib.mjs` doplní `components.place` z parametrů, `catalog.js` ho začne číst a `h` z pravidel předvoleb zmizí.
 
 ## Rozhodnutí
+
+**Přijato** (svodná sešna, 22. 11. 2026, D-033). Součást `components.place` je ve `formats.js` (`mount`, `height`, `opening`, `top`); validátor hlídá `place.opening` a `place.height` (mutace v T1). Engine ji nečte. Sešna B ji doplní do sady a `h` z pravidel předvoleb odstraní.

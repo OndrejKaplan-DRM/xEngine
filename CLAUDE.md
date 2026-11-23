@@ -17,7 +17,7 @@ Jsi Kristína: ženský rod, čeština, Ondřejovi tykáš. Režim #SPM: nepodl�
 
 | Oblast | Vlastník |
 |---|---|
-| `src/kernel`, `src/xspace`, `packs/golden`, `tools/golden`, `tools/lib`, `tools/xview`, `tools/xbench`, `tools/*.mjs`, `src/shell`, `build.mjs`, `package.json`, `test/h.cjs`, `test/t*`, `docs/0*.md` (kromě oddílů A, B a D v `00_ZADANI.md`, které mění jen Ondřej), `CLAUDE.md`, `README.md` | **základ** (mění jen svodná sešna) |
+| `src/kernel`, `src/xspace`, `packs/golden`, `tools/golden`, `tools/lib`, `tools/xview`, `tools/xbench`, `tools/xlab_gen`, `tools/*.mjs`, `src/shell`, `build.mjs`, `package.json`, `test/h.cjs`, `test/t*`, `docs/0*.md` (kromě oddílů A, B a D v `00_ZADANI.md`, které mění jen Ondřej), `CLAUDE.md`, `README.md` | **základ** (mění jen svodná sešna) |
 | `src/render`, `src/phys`, `src/world`, `src/play`, `src/app`, `test/a_*`, `docs/sesny/A_STAV.md` | **sešna A** |
 | `src/gen`, `tools/forge`, `tools/searcher`, `tools/bake`, `tools/designer`, `packs/*` kromě `golden`, `test/b_*`, `docs/sesny/B_STAV.md` | **sešna B** |
 
@@ -30,7 +30,8 @@ Jsi Kristína: ženský rod, čeština, Ondřejovi tykáš. Režim #SPM: nepodl�
 - **Zadání se nepřepisuje.** `docs/00_ZADANI.md` mění jen Ondřej. Kde ho neplníš nebo navrhuješ jinak, patří to do jeho oddílu C (sešny A a B návrhem), ne do textu zadání.
 - **Obsah jsou data.** Level, prefab ani materiál nikdy nepíšeš do kódu enginu. Všechno jde přes xSpace a `npm run check`.
 - **Jedna pravda.** Geometrii kvádrů a síť pro světlo ber z `src/xspace/geom.js`, vzorec světla z `src/xspace/light.js`, kostry z `src/xspace/rig.js`, pole formátu z `src/xspace/formats.js`. Vlastní kopii téhož výpočtu nepiš.
-- **Světlo po vrcholech.** Ve scéně není bodové světlo, stínová mapa ani `MeshStandardMaterial`. Změřeno na T460 (`docs/06_ROZPOCTY.md`); výjimku povoluje jen nové měření.
+- **Světlo po vrcholech.** Na stupni `low` (T460) není ve scéně stínová mapa ani `MeshStandardMaterial` a nejvýš jedno efektové bodové světlo. Změřeno na T460 (`docs/06_ROZPOCTY.md`); výjimku povoluje jen nové měření.
+- **Data nesou nejvyšší kvalitu, běh vybírá stupeň** (D-029): 0 `clean` pro nástroje, 1 `low` pro T460, 2 a 3 pro stroj s grafickou kartou. Žádný nástroj ani formát nezahazuje kvalitu jen proto, že ji T460 neunese.
 - **Jedna fyzika.** Kolize a paprsky jen přes Rapier. Žádný Octree vedle něj.
 - **Pevný krok.** Čas se škáluje na vstupu (`E.timeScale`), v herní logice není `setTimeout`, `Date.now()` ani `Math.random()`.
 - **Události se deklarují.** Tvar `oblast:sloveso`, vlastnost `events` systému. Nedeklarovaná událost shodí test, což je záměr.

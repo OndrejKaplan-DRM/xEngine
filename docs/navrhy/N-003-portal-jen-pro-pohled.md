@@ -1,6 +1,6 @@
 # N-003: portál jen pro pohled (okno, mříž) a průhledné dveře
 
-Sešna: B · Datum: 2026-11-22 · Stav: otevřený
+Sešna: B · Datum: 2026-11-22 · Stav: přijatý, pole jsou ve formátu
 
 ## Co potřebuju
 Rozlišit v datech otvor, kterým je vidět, ale nedá se jím projít, a dveře, které portál zavírají pro průchod, ale ne pro pohled.
@@ -26,3 +26,5 @@ Sada proto okno i bránu obsahuje, ale generátor je ve vlně 1 nerozmisťuje.
 Generátor okna ani mřížové brány nerozmisťuje. Po přijetí: okna mezi laboratoří a chodbou v předvolbě `complex`, mříže v `catacombs`.
 
 ## Rozhodnutí
+
+**Přijato celé** (svodná sešna, 22. 11. 2026, D-033). `portals[].passable` a `components.interact.seeThrough` jsou ve `formats.js`; validátor počítá dosažitelnost jen přes průchozí portály (mutace v T1). Sešna B smí okna a mříže rozmisťovat. Sešna A: ořez po buňkách a pozdější navigace čtou obě pole (úkol vlny 2); do té doby engine dveře se `seeThrough` bere jako neprůhledné, takže za zavřenou mříží nekreslí.

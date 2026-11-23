@@ -103,8 +103,8 @@ Tohle nejsou dohodnuté změny zadání. Je to seznam míst, kde projekt zadán�
 | 1/ mutace podle Doom 3 a Doom: The Dark Ages | D-014: svižná podle Quake III, klidná podle Half-Life a Counter-Strike; z Doom 3 jen obrazovky ve světě, z The Dark Ages nic | svodná sešna |
 | 1/ „alespon 75% vernosti“ | D-013: 30 ze 40 řádků tabulky `05_PARITA_2003` s testem; splněno je málo | svodná sešna (způsob měření) |
 | 1/ Three.js, Octree, Rapier | Three.js a Rapier; Octree se nepoužívá (D-002) | svodná sešna |
-| 6/ ve hře to má vypadat skutečně | engine kreslí jednu barvu na materiál; textury a sítě `.glb` formát umí, nikdo je nekreslí | zatím neuděláno |
-| 8/ rezerva pro silnější stroj | návrh N-006 (stupně kvality) od sešny B, nerozhodnutý | zatím neuděláno |
+| 6/ ve hře to má vypadat skutečně | engine kreslí jednu barvu na materiál; textury a sítě `.glb` formát umí, nikdo je nekreslí. Měření T460 textury dovoluje (+0,5 až +1,0 ms); zadáno na vlnu 2 | zatím neuděláno |
+| 8/ rezerva pro silnější stroj | stupně kvality přijaty jako rámec (D-029); změřený a závazný je jen stupeň pro T460, stupně pro grafickou kartu nemají čísla ani kód | svodná sešna (rámec), zatím neuděláno (obsah) |
 
 ## D. Ondřejův komentář z 2026-11-22 doslova (sešna B)
 

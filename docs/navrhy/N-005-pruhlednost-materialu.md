@@ -1,6 +1,6 @@
 # N-005: průhlednost materiálu (sklo)
 
-Sešna: B · Datum: 2026-11-22 · Stav: otevřený
+Sešna: B · Datum: 2026-11-22 · Stav: přijatý, pole je ve formátu
 
 ## Co potřebuju
 Materiál, skrz který je vidět.
@@ -20,3 +20,5 @@ Materiál má jen `alphaTest` (ostrý výřez podle textury). Sklo okna, okno di
 `glass_pane` je neprůhledný materiál s povrchem `glass` (zvuk zásahu sedí). Po přijetí stačí doplnit `opacity` v `tools/forge/materials.mjs`.
 
 ## Rozhodnutí
+
+**Přijato** (svodná sešna, 22. 11. 2026, D-033). `materials[].opacity` je ve `formats.js`; `opacity < 1` spolu s `alphaTest` dává varování `mat.alphaBoth`. Kreslení průhledných dílů je úkol sešny A ve vlně 2. Cena na T460 změřená není; patří do příštího xBench. Stín průhledného dílu řeší N-001.

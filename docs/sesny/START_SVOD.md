@@ -17,22 +17,26 @@ Jsi **svodná sešna**. Nepíšeš nové funkce. Slučuješ, ověřuješ, rozhod
 11. Napiš zadání další vlny (`START_A.md`, `START_B.md`) a nový balík pro sešny.
 12. Teprve teď navrhni úpravu skillu `xengine` z poznatků v obou `*_STAV.md`, vždy z čerstvě přečteného znění.
 
-## První kroky sešny main 02 (zapsáno 22. 11. 2026)
+## Stav po sešně main 02 (22. 11. 2026)
 
-1. **Znění 2 základu.** Je-li `origin/zaklad-1` novější než `a2ce175`, je na GitHubu. Jinak ho vezmi z přílohy: `git fetch /cesta/xengine_zneni2_2026-11-22.bundle main:zneni-2` (otisky commitů zůstanou stejné).
-2. Přečti `docs/00_ZADANI.md` včetně oddílu C, `docs/STATE.md`, `A_STAV.md` a `B_STAV.md` z větví sešen a všechny návrhy N-002 až N-006 a N-101 až N-107.
-3. **Sloučení:** `integrace-1` z hlavy znění 2, potom `sesna-a` (v `src/app/main.js` dva importy `../../vendor/shell/…` → `../shell/…`, v `test/a_00_build.mjs` rozpad velikosti), potom `sesna-b`. Zkušební sloučení 22. 11. 2026 bylo u obou bez konfliktů a skupina A po změně importů prošla 16 z 16.
-4. **Rozpory mezi kódem sešny A a zněním 2** zapiš a rozhodni: světlo po pixelech (D-022), velikost obrazu (D-023), terminál a Esc (D-024), zablokované dveře (D-025), popis rozhraní entit (D-026), ořez po buňkách je hotový dřív, než D-027 čekalo.
-5. **Návrhy.** Nejdůležitější je N-006 (stupně kvality a vrstvy vzhledu): váže se na body 6/ a 8/ zadání a na D-022.
-6. Výsledek xBench 0.2 z T460 (pokud přišel) do `06_ROZPOCTY.md` a `docs/mereni/`.
-7. Zadání vlny 2 pro A a B piš proti oddílu C zadání: co je největší díra mezi zadáním a stavem.
-8. Push jen na Ondřejovo výslovné slovo; může ho dát předem ve startovní zprávě.
+Vlna 1 je sloučená, zkouška A × B prošla, návrhy a rozpory jsou rozhodnuté (D-029 až D-034), `zaklad-2` = `main`. Zadání vlny 2 je v `START_A.md` a `START_B.md`. Zkouška A × B je test `npm run test:axb` (T5) a patří základu.
 
-## Dluhy základu před vlnou 2 (zapsáno 22. 11. 2026)
+## Dluhy základu ve vlně 2 (provádí svodná sešna, v tomto pořadí)
 
-1. **Shell se přestěhoval jen kódem** (D-006). Zbývá: přenést z `vibe-game-frameworks` zkoušky Shellu v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu (`t5_katalog`, bez části vázané na arkádu), rozhodnout, kde žije specifikace `02_SHELL`, a po Ondřejově slovu zapsat do `vibe-game-frameworks`, že Shell má domov tady.
-2. **xBench 0.2** je hotový; čeká se na výsledek z T460. Výsledek rozhodne o efektovém světle (D-022), o výchozím vnitřním rozlišení (D-023) a o vyhlazování hran. Potom přepsat `06_ROZPOCTY.md` a uložit surová data do `docs/mereni/`.
-3. **Skill `xengine`** po sloučení vlny 1 srovnat s repem (světlo po vrcholech, `src/shell`, změřené rozpočty).
+0. **Nové návrhy:** N-001 (formát zapečeného světla), N-007 (zakrytí otvoru dveřmi, překrývá se s N-107) a N-108 (švy a hrubost mřížky světla) přišly během integrace a nejsou rozhodnuté.
+
+1. **N-101:** `partMesh`, `partCollider`, `partTris` do `src/xspace/geom.js` podle `src/world/parts.js` sešny A; xView je začne používat; kontroly v T1.
+2. **N-107:** pravidlo validátoru `portal.door.cover` pro dveře bez `seeThrough`, mutace v T1.
+3. **N-002:** `rig.joints[].follow`, pravidla validátoru, `jointFollow` v `rig.js`.
+4. **N-102:** `rigCompile` a `rigSolve`, dřív než přijde první tvor.
+5. **N-105:** svítivosti a expozice zlatého vzorku, až sešna A převede vykreslení na světlo po vrcholech.
+6. **N-103:** varování `rig.noSpeed`, až sešna B doplní `speed`.
+7. **D-030:** po zkoušce textury a sítě na jednom kusu zmrazit jména polí N-006 do formátu.
+8. **D-032:** podle zkoušky v Chrome přepsat D-024, nebo zadat přestavbu terminálu.
+9. **Shell:** přenést z `vibe-game-frameworks` zkoušky v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu; rozhodnout, kde žije specifikace `02_SHELL`. Zápis o novém domově tam je (větev `dev`, `3aa13f4`).
+10. **xBench:** čtyři nejtěžší případy vycházejí ve všech bězích 22,5 až 25,2 ms při různé zátěži (postřeh sešny A): prověřit, jestli to není strop metody. Doplnit průhledné plochy, víc textur a interiér s texturou v 1080 řádcích.
+11. `REQUIREMENTS.md` a `05_PARITA_2003.md`: stavy řádků po vlně 1 nejsou přepsané.
+12. Skill `xengine` srovnat s repem (světlo po vrcholech, `src/shell`, stupně kvality, T5, změřené rozpočty).
 
 ## Na co si dát pozor
 

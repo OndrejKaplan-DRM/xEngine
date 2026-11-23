@@ -14,7 +14,8 @@
     "doc": "node tools/xspace-doc.mjs",
     "test:a": "node tools/run-tests.mjs a",
     "test:b": "node tools/run-tests.mjs b",
-    "test:all": "npm test && npm run test:a && npm run test:b"
+    "test:axb": "node test/t5_axb.mjs && node build.mjs xlab_gen && node test/t5_axb_view.cjs",
+    "test:all": "npm test && npm run test:a && npm run test:b && npm run test:axb"
   },
   "dependencies": {
     "@dimforge/rapier3d-compat": "0.21.0",

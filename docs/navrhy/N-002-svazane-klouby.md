@@ -1,6 +1,6 @@
 # N-002: svázané klouby (jeden pohyb, víc kloubů)
 
-Sešna: B · Datum: 2026-11-22 · Stav: otevřený
+Sešna: B · Datum: 2026-11-22 · Stav: přijatý, provede základ ve vlně 2
 
 ## Co potřebuju
 Aby kloub mohl sledovat jiný kloub téhož prefabu v pevném poměru.
@@ -38,3 +38,5 @@ Engine sledující kloub nepohání sám: po kroku pohonů dopočítá jeho hodn
 Dvě entity svázané spojením (`src/gen/build.js`, komentář u `doorIds.length === 2`); mikroskop se dvěma nesvázanými klouby. Po přijetí: úprava `tools/forge/kit/doors.mjs` a `lab.mjs`, v generátoru odpadne větev pro pár dveří.
 
 ## Rozhodnutí
+
+**Přijato** (svodná sešna, 22. 11. 2026, D-034). Pole `rig.joints[].follow` s navrženými pravidly validátoru a funkce `jointFollow` v `rig.js` vzniknou v základu během vlny 2 (dluh základu). Do té doby platí dočasné řešení sešny B (dvě entity spojené přes `io`); zkouška A × B s ním prošla, robot otevřel dvoukřídlé dveře rukou. Sešna B pole `follow` do dat nepíše, dokud není ve `formats.js`.

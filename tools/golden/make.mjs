@@ -192,7 +192,7 @@ const prefabs = [
       components: {
         physics: { body: 'static' },
         interact: { kind: 'terminal', prompt: 'Použít terminál', range: 1.8, station: { eye: V(0, 1.15, 0.55), look: V(0, 0.95, -0.15), fov: 50 } },
-        screen: { node: 'screen', size: [0.48, 0.3], res: [640, 400], app: 'lab_console' },
+        screen: { node: 'screen', size: [0.48, 0.3], res: [640, 400], app: 'lab_console', offset: 0.023 },
       },
       inputs: ['print', 'lock', 'unlock'],
       outputs: ['used', 'left', 'command'],
