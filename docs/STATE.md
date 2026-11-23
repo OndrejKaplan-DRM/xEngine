@@ -35,16 +35,16 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
-## Sešny mezitím pokročily (stav větví 22. 11. 2026 ve 23:30)
+## Stav větví sešen (23. 11. 2026 ve 03:00)
 
-Obě sešny během integrace pracovaly dál na svých větvích. Do `zaklad-2` to **nepatří**; je to stav pro příští sloučení.
+Obě sešny mají sloučené znění 1 základu 2 (`b12f8ed`) a pracují na vlně 2. Znění 2 (`cc5078f`) si vezmou dalším `git merge origin/zaklad-2`. Do `zaklad-2` jejich práce **nepatří**; je to stav pro příští sloučení.
 
-| Větev | Hlava | Co přibylo podle commitů | Zkouška svodné sešny (sloučení se `zaklad-2` nanečisto) |
-|---|---|---|---|
-| `sesna-a` | `5626629` (23. 11. ve 02:27 už `f2766ea`: zablokované dveře, D-025) | převod na světlo po vrcholech, pevný počet řádků, skok na nový stisk, zastínění světla, `?bench`, oddíl „Rozhraní entit“, terminál podle D-024, návrh N-108 | bez konfliktu, mimo své složky nesáhla; skupina A 18 sad z 18 |
-| `sesna-b` | `9944620` | katakomby podle volby 2 b, dveře bez škvír a návrh N-007, xBake a návrh N-001 | bez konfliktu, mimo své složky nesáhla; skupina B 6 sad ze 6 |
+| Větev | Hlava | Co přibylo od vlny 1 podle commitů |
+|---|---|---|
+| `sesna-a` | `a1d3081` | světlo po vrcholech (D-022), pevný počet řádků (D-023), zastínění světla a dveře jako brány vrstev, měření `?bench`, terminál podle D-024, dveře a zásuvky na pohon nikoho nedrtí (D-025), návrh N-108 |
+| `sesna-b` | `129318d` | katakomby podle volby 2 b, dveře bez škvír a návrh N-007, xBake a návrh N-001, náhled zapečeného světla, oprava zkoušky A × B (křídla dvoukřídlých dveří jsou dveře portálu se `seeThrough`; bod 2 návrhu N-007 sešna sama stáhla, shodně s D-036) |
 
-Po sloučení obou větví: základ 237 kontrol zeleně, ale **zkouška A × B selže ve dvou kontrolách** (688 prošlo, 2 selhaly). Pro kapsli hráče jsou nedosažitelné tři buňky v `complex_7` (`c_store_08`, `c_lab_05`, `c_store_12`) a jedna v `complex_21` (`c_store_02`); ve `zaklad-2` byly dosažitelné všechny. Příčinu jsem nehledala. Světlost dveří je v nových prefabech 0,90 m, dveře samy to tedy nejsou. Je to úkol B2.1.
+**Zkouška sloučení nanečisto** (`cc5078f` + `a1d3081` + `129318d`, 23. 11. 2026, sandbox): bez konfliktu, žádná sešna nesáhla mimo své složky, `npm run test:all` **722 kontrol, 0 selhalo** (základ 242, skupina A 18 sad z 18, skupina B 6 sad ze 6, zkouška A × B 28 + 9). Čtyři buňky, které byly 22. 11. ve 23:30 pro kapsli hráče nedosažitelné (`c_store_08`, `c_lab_05`, `c_store_12` v `complex_7`, `c_store_02` v `complex_21`), jsou po opravě sešny B dosažitelné. Příčina byla v datech: dvoukřídlé dveře nebyly zapsané v `portal.door` a robot je neuměl otevřít.
 
 Návrhy N-001, N-007 a N-108 jsou od 23. 11. 2026 rozhodnuté (D-035 až D-037).
 
