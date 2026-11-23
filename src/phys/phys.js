@@ -47,7 +47,14 @@ export function createPhys() {
   const refs = new Map(); // handle kolideru → { kind, … } (komu kolider patří)
   const v = { x: 0, y: 0, z: 0 };
   const hit = { dist: 0, ref: null, collider: null, nx: 0, ny: 0, nz: 0 };
-  const stat = { fixedColliders: 0 };
+  const stat = { fixedColliders: 0, maps: 0 };
+  /**
+   * Obal Rapieru 0.21 po každém world.step() projde všechna tělesa a všechny kolidery a hledá nová a zrušená
+   * (mapNewSoftBodies: zpětné volání z WASM za každý kus). Změřeno v sandboxu na levelu s 1 079 kolidery:
+   * 91 µs z 95 µs kroku, a to i když se nic nehýbe (A2.3). Tělesa a kolidery tu přitom vznikají a zanikají jen
+   * přes tento soubor, takže stačí projít je v kroku po změně: mapDirty.
+   */
+  let mapDirty = true;
 
   function shapeDesc(shape, scale = 1) {
     switch (shape.type) {
@@ -74,6 +81,8 @@ export function createPhys() {
     phase: 'physics',
     RAPIER,
     stat,
+    /** Procházet tělesa a kolidery v obalu Rapieru jen po změně (viz mapDirty). false = po každém kroku jako Rapier sám. */
+    lazyMap: true,
     get world() {
       return world;
     },
@@ -89,6 +98,17 @@ export function createPhys() {
       world.timestep = 1 / 120;
       ray = new RAPIER.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: -1 });
       stat.fixedColliders = 0;
+      stat.maps = 0;
+      mapDirty = true;
+      if (sys.lazyMap && typeof world.mapNewSoftBodies === 'function') {
+        const full = world.mapNewSoftBodies.bind(world);
+        world.mapNewSoftBodies = () => {
+          if (!mapDirty) return;
+          mapDirty = false;
+          stat.maps++;
+          full();
+        };
+      }
     },
     close() {
       if (!world) return;
@@ -128,6 +148,7 @@ export function createPhys() {
       if (opts?.restitution !== undefined) desc.setRestitution(opts.restitution);
       if (opts?.mass !== undefined) desc.setMass(opts.mass);
       const col = body ? world.createCollider(desc, body) : world.createCollider(desc);
+      mapDirty = true;
       if (ref) refs.set(col.handle, ref);
       if (!body) stat.fixedColliders++;
       return col;
@@ -145,6 +166,7 @@ export function createPhys() {
         desc.setLinearDamping(opts?.linDamp ?? 0.05).setAngularDamping(opts?.angDamp ?? 0.3);
         if (opts?.ccd) desc.setCcdEnabled(true);
       }
+      mapDirty = true;
       return world.createRigidBody(desc);
     },
     /** Přepne těleso uzlu mezi pevným (klid) a kinematickým (pohyb). */
@@ -162,6 +184,7 @@ export function createPhys() {
       const half = Math.max(P.height / 2 - P.radius, 0.01);
       const body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(feetX, feetY + P.height / 2, feetZ));
       const col = world.createCollider(RAPIER.ColliderDesc.capsule(half, P.radius).setCollisionGroups(PLAYER_GROUPS), body);
+      mapDirty = true;
       const cc = world.createCharacterController(CHARACTER_SKIN);
       cc.enableAutostep(P.stepHeight, P.stepMinWidth, false);
       cc.enableSnapToGround(P.snap);
@@ -175,6 +198,7 @@ export function createPhys() {
     removeCharacter(ch) {
       world.removeCharacterController(ch.cc);
       world.removeRigidBody(ch.body);
+      mapDirty = true;
     },
 
     // ---- dotazy
@@ -234,6 +258,7 @@ export function createPhys() {
       if (path[0] === 'bodies') return sys.bodyCount();
       if (path[0] === 'colliders') return sys.colliderCount();
       if (path[0] === 'fixedColliders') return stat.fixedColliders;
+      if (path[0] === 'maps') return stat.maps;
       return undefined;
     },
     /** Pomocný vektor pro volání Rapieru bez alokace. */

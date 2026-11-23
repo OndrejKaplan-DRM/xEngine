@@ -15,6 +15,21 @@ export function createDev({ game, hud }) {
   let linesKey = '';
 
   const ms = (v) => (v || 0).toFixed(2);
+  /** Počty těles a koliderů (A2.3: kolik jich nespí, kolik je kinematických). */
+  function bodiesLine() {
+    const W = game.phys.world;
+    if (!W) return '–';
+    let dyn = 0;
+    let awake = 0;
+    let kin = 0;
+    W.bodies.forEach((b) => {
+      if (b.isDynamic()) {
+        dyn++;
+        if (!b.isSleeping()) awake++;
+      } else if (b.isKinematic()) kin++;
+    });
+    return `kolidery ${W.colliders.len()} · volná tělesa ${dyn}, nespí ${awake} · kinematická ${kin}`;
+  }
   function text() {
     const c = render.counts;
     const v = player.vel;
@@ -32,6 +47,7 @@ export function createDev({ game, hud }) {
       `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms`,
       `buňka ${vis.cameraCell ?? '?'} · rychlost ${Math.hypot(v[0], v[2]).toFixed(2)} m/s · poloha ${p[0].toFixed(1)} ${p[1].toFixed(1)} ${p[2].toFixed(1)}`,
       `krok po systémech (ms): ${sys || 'měřím…'}`,
+      `fyzika: ${bodiesLine()}`,
     ].join('\n');
   }
   /** Otisk stavu viditelnosti: obrysy se přestaví, jen když se něco změnilo. */

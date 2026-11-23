@@ -6,6 +6,8 @@
 // grafika dokreslí: stejná metoda jako xBench, takže čísla jdou srovnat. Vedle toho se zapisují rozestupy snímků
 // (to, co hráč vidí; shora je omezuje obnovovací frekvence displeje).
 
+import { createPhysProbe } from './probe.js';
+
 const REACH = 0.7; // m; bod trasy je dosažený
 const TURN_RATE = 240; // °/s
 const LOOK_SECONDS = 1.6; // rozhlédnutí o 360° v buňce
@@ -24,6 +26,9 @@ export function createBench({ game, lock, root }) {
   const work = new Float32Array(MAX_SAMPLES);
   const gap = new Float32Array(MAX_SAMPLES);
   const stepMs = new Float32Array(MAX_SAMPLES);
+  const probe = createPhysProbe({ game, max: MAX_SAMPLES });
+  let calib = null;
+  let prevProfile = false;
   const calls = new Float32Array(MAX_SAMPLES);
   const tris = new Float32Array(MAX_SAMPLES);
   const cellOf = new Int16Array(MAX_SAMPLES);
@@ -121,6 +126,7 @@ export function createBench({ game, lock, root }) {
     });
     const g = summary(gap, n);
     const st = light.stat;
+    const pr = probe.result();
     return {
       env: {
         tool: `xLab ?bench · ${game.VERSION}`,
@@ -137,7 +143,9 @@ export function createBench({ game, lock, root }) {
       level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },
       run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports },
       frame: { workMs: summary(work, n), intervalMs: g, fps: g.median ? +(1000 / g.median).toFixed(1) : 0 },
-      step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz)' },
+      step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech', sys: pr.sys },
+      phys: pr.phys,
+      calib,
       draw: { calls: summary(calls, n), tris: summary(tris, n) },
       cells: perCell,
     };
@@ -147,7 +155,9 @@ export function createBench({ game, lock, root }) {
     active = false;
     input.releaseAll();
     const r = result();
-    r.verdict = `Snímek (kroky + vykreslení, s čekáním na grafiku): medián ${r.frame.workMs.median} ms, 95 % ${r.frame.workMs.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms. Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
+    probe.stop();
+    E.profile = prevProfile;
+    r.verdict = `Snímek (kroky + vykreslení, s čekáním na grafiku): medián ${r.frame.workMs.median} ms, 95 % ${r.frame.workMs.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms (fyzika ${r.step.sys.phys?.median ?? '?'} ms, z toho uvnitř Rapieru průměrně ${r.phys.rapierMs.step.mean} ms; nespí ${r.phys.awake.median} z ${r.phys.dynamic} volných těles; pevná práce: skript ${r.calib.jsMs} ms, paprsky ${r.calib.raysMs} ms). Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
     if (E.mode === 'playing') E.setMode('paused');
     status(`Měření hotovo. ${r.verdict}\n`);
     const area = document.createElement('textarea');
@@ -226,6 +236,7 @@ export function createBench({ game, lock, root }) {
       stepMs[n] = E.stats.stepMs;
       calls[n] = render.counts.calls;
       tris[n] = render.counts.tris;
+      probe.sample();
       cellOf[n] = route[Math.min(idx, route.length - 1)].cell;
       n++;
     }
@@ -260,7 +271,10 @@ export function createBench({ game, lock, root }) {
       lookLeft = LOOK_SECONDS; // první bod je výchozí místo: začíná rozhlédnutím
       bestDist = Infinity;
       stuck = 0;
-      E.profile = false;
+      prevProfile = E.profile;
+      E.profile = true; // čas kroku po systémech (E.stats.sys)
+      calib = probe.calib();
+      probe.start();
       active = true;
       status('Měřím skutečnou hru. Nech tuhle kartu na popředí.');
       return new Promise((res) => (done = res));
