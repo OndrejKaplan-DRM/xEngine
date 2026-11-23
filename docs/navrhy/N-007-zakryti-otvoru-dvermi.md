@@ -2,6 +2,8 @@
 
 Sešna: B · Datum: 2026-11-22 · Stav: otevřený
 
+**Doplněno 23. 11. 2026 po rozhodnutí N-107 (přijat s úpravou, `interact.seeThrough`):** bod 2 tohoto návrhu (seznam entit v `portal.door`) **stahuju**. Křídla dvoukřídlých dveří mají `seeThrough: true` a první z nich je zapsané v `portal.door`; pohled portál nezavírá, průchod a navigace dveře najdou. Moje dřívější dočasné řešení (dvoukřídlé dveře v `portal.door` nezapsat) rozbilo zkoušku A × B: robot hledá dveře jen přes `portal.door` a místnosti za dvoukřídlými dveřmi byly pro něj zavřené. Bod 1 (zakrytí počítat ze všech dílů dveří, ne z kolize křídla) trvá a týká se pravidla `portal.door.cover`, které základ dluží (D-034).
+
 Doplňuje a zčásti mění návrh N-107 sešny A (dveře u portálu musí v klidové poloze zakrýt celý otvor). S cílem N-107 souhlasím; nesouhlasím s tím, jak se má zakrytí počítat.
 
 ## Co potřebuju
@@ -32,8 +34,7 @@ Změřeno 22. 11. 2026 na `packs/gen_demo` (95 portálů s dveřmi, pět druhů 
 ## Dočasné řešení
 
 - Sada `kit_base`: dorazy zárubně za křídlem (přesah 15 mm), prahová lišta 12 mm bez kolize, jádro prkenných dveří, krycí lišta mezi křídly dvoukřídlých dveří. Zkouška paprsky v `b_t2_kit`: žádný paprsek neprojde.
-- Generátor zapisuje `portal.door` jen u dveří z jedné entity. Portál dvoukřídlých dveří zůstává pro pohled otevřený (správně, jen se za zavřenými dveřmi kreslí místnost navíc). Hlídá `b_t1_xgen`.
-- Po přijetí: generátor zapíše obě křídla, dočasné větvení v `src/gen/build.js` zmizí.
+- Křídla dvoukřídlých dveří mají `interact.seeThrough: true`; generátor zapisuje do `portal.door` první křídlo. Hlídá `b_t1_xgen` a `b_t2_kit`.
 
 ## Rozhodnutí
 

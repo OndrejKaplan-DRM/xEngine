@@ -37,7 +37,7 @@
   ],
   "components": {
     "physics": { "body": "kinematic" },
-    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít", "range": 1.8, "manipulate": true }
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít", "range": 1.8, "manipulate": true, "seeThrough": true }
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],

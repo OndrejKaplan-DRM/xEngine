@@ -62,8 +62,7 @@ export function checkPortals(level, catalog) {
     const here = portalDoors(level, catalog, p, f);
     if (p.door && !here.includes(entById.get(p.door))) out.push(`${p.id}: dveře ${p.door} nestojí ve středu prahu`);
     if (here.length > 2) out.push(`${p.id}: v otvoru stojí ${here.length} dveří`);
-    if (here.length === 1 && !p.door) out.push(`${p.id}: jednokřídlé dveře ${here[0].id} nejsou zapsané jako dveře portálu`);
-    if (here.length === 2 && p.door) out.push(`${p.id}: jedno křídlo dvoukřídlých dveří je zapsané jako dveře portálu`);
+    if (here.length >= 1 && !p.door) out.push(`${p.id}: dveře ${here[0].id} nejsou zapsané jako dveře portálu (navigace je nenajde)`);
     for (const d of here) {
       const op = catalog.opening(d.prefab);
       if (Math.abs(d.pos[f.o] - (f.c0 + f.c1) / 2) > 0.001 || Math.abs(d.pos[1] - f.sill) > 0.001 || Math.abs(d.pos[f.k] - f.plane) > 0.001) out.push(`${p.id}: dveře ${d.id} nestojí ve středu prahu`);

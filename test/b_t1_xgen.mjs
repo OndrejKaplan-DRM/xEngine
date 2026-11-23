@@ -137,12 +137,13 @@ for (const run of RUNS) {
 }
 
 {
-  // engine zavřenými dveřmi portálu zavírá pohled (N-107): entita zapsaná v portal.door musí otvor zakrýt sama
+  // engine zavřenými dveřmi portálu zavírá pohled (N-107): entita v portal.door musí otvor zakrýt sama, nebo mít seeThrough
+  const through = (id) => catalog.get(id).components.interact.seeThrough === true;
   const bad = [...portalDoorPrefabs].filter((id) => {
     const op = catalog.opening(id);
-    return doorLeaks([catalog.get(id)], op.w / 100, op.h / 100).leaks.length > 0;
+    return !through(id) && doorLeaks([catalog.get(id)], op.w / 100, op.h / 100).leaks.length > 0;
   });
-  ok(portalDoorPrefabs.size > 0 && bad.length === 0, 'každé dveře zapsané v portal.door zakryjí otvor samy (zkouška paprsky)', bad.join(' ') || [...portalDoorPrefabs].sort().join(' '));
+  ok(portalDoorPrefabs.size > 0 && bad.length === 0, 'dveře zapsané v portal.door zakryjí otvor samy, nebo mají seeThrough (zkouška paprsky)', bad.join(' ') || [...portalDoorPrefabs].sort().map((id) => (through(id) ? `${id} (seeThrough)` : id)).join(' '));
 }
 
 // ---- 50 místností do 1 s ---------------------------------------------------------------------

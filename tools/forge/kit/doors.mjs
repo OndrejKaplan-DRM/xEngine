@@ -146,6 +146,8 @@ export function doorSliding(o = {}) {
 /**
  * Jedno křídlo dvoukřídlých dveří 1,8 × 2,1 m. Formát verze 1 má jednu interakci a jeden kloub na prefab,
  * proto jsou dvoukřídlé dveře dvě entity se stejným počátkem (střed celého otvoru), svázané spojením opened → open.
+ * Jedno křídlo samo otvor nezakryje, proto má `seeThrough`: dveře portálu, které ho zavírají pro průchod a zvuk,
+ * ale ne pro pohled (kontrakt, N-107). Až bude v základu `follow` (N-002), budou z toho jedny dveře se dvěma křídly.
  */
 export function doorDoubleLeaf(o = {}) {
   const p = { side: 'l', width: 1.8, height: 2.1, leaf: 'steel_painted', frame: 'steel_dark', trim: 'steel_brushed', max: 95, ...o };
@@ -173,7 +175,7 @@ export function doorDoubleLeaf(o = {}) {
       joints: [hinge('swing', 'leaf', [0, -s, 0], 0, p.max, { damping: 5, speed: 110, drive: 'both' })],
       parts,
       colliders: [collide(leaf), cbox('frame', [span(s * half, s * (half - FR))[0], 0, -HALF], [span(s * half, s * (half - FR))[1], h, HALF])],
-      components: { ...doorParts, interact: { kind: 'door', joint: 'swing', prompt: 'Otevřít', range: 1.8, manipulate: true } },
+      components: { ...doorParts, interact: { kind: 'door', joint: 'swing', prompt: 'Otevřít', range: 1.8, manipulate: true, seeThrough: true } },
       ...IO.door,
       gen: 'doors.mjs#doorDoubleLeaf',
       params: { width: w, height: h, side: p.side },
