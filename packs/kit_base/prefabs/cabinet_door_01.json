@@ -1,0 +1,47 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cabinet_door_01",
+  "title": "Skříň s dvířky",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.447, -0.001, -0.201], "max": [0.251, 1.801, 0.696] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.25, 0.02, 0.2] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 3, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.2], "max": [-0.23, 1.8, 0.2], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [0.23, 0, -0.2], "max": [0.25, 1.8, 0.2], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [-0.23, 0, -0.2], "max": [0.23, 1.8, -0.185], "mat": "wood_old" },
+    { "node": "body", "shape": "box", "min": [-0.23, 1.78, -0.185], "max": [0.23, 1.8, 0.2], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [-0.23, 0, -0.185], "max": [0.23, 0.06, 0.2], "mat": "wood_pine" },
+    { "node": "door", "shape": "box", "min": [0.003, 0, 0], "max": [0.497, 1.76, 0.02], "mat": "wood_pine" },
+    { "node": "door", "shape": "box", "min": [0.43, 0.82, 0.02], "max": [0.45, 0.98, 0.045], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.23, 0.5, -0.185], "max": [0.23, 0.52, 0.19], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [-0.23, 0.95, -0.185], "max": [0.23, 0.97, 0.19], "mat": "wood_pine" },
+    { "node": "body", "shape": "box", "min": [-0.23, 1.4, -0.185], "max": [0.23, 1.42, 0.19], "mat": "wood_pine" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.2], "max": [0.25, 1.8, 0.2], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0.003, 0, 0], "max": [0.497, 1.76, 0.02], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít skříň", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#cabinetDoor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

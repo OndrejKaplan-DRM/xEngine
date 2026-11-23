@@ -42,6 +42,7 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `materials[].uvScale` |  | číslo 0.01 až 100 | kolik metrů světa pokryje jedna dlaždice textury |
 | `materials[].surface` | ano | `concrete` · `stone` · `metal` · `wood` · `glass` · `tile` · `plastic` · `rubber` · `carpet` · `dirt` · `grass` · `water` · `flesh` | povrch pro zvuk, částice a akustiku |
 | `materials[].alphaTest` |  | číslo 0 až 1 | práh průhlednosti 0–1 |
+| `materials[].opacity` |  | číslo 0 až 1 | průhlednost 0–1 (výchozí 1); pod 1 se materiál kreslí průhledně, po neprůhledných a bez zápisu do hloubky |
 | `materials[].twoSided` |  | ano/ne | kreslit obě strany |
 
 ## prefab: prefab: znovupoužitelný předmět, zařízení nebo tvor
@@ -148,7 +149,8 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `portals[].a` | ano | odkaz (cell) | první buňka |
 | `portals[].b` | ano | odkaz (cell) | druhá buňka |
 | `portals[].quad` | ano | pole: [x, y, z] (aspoň 4) | čtyři rohy otvoru v jedné rovině |
-| `portals[].door` |  | odkaz (entity) | entita dveří; zavřené dveře portál uzavírají pro viditelnost i zvuk |
+| `portals[].door` |  | odkaz (entity) | entita dveří; zavřené dveře portál uzavírají pro viditelnost i zvuk (pro viditelnost ne, mají-li seeThrough) |
+| `portals[].passable` |  | ano/ne | lze projít (výchozí ano); ne = otvor jen pro pohled a zvuk (okno), nepočítá se do dosažitelnosti ani navigace |
 | `brushes` |  | pole: objekt | kvádry a klíny: hrubá stavba levelu |
 | `brushes[].id` | ano | id | id kvádru, předpona b_ |
 | `brushes[].cell` | ano | odkaz (cell) | buňka, ke které kvádr patří |
@@ -243,6 +245,7 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `prompt` |  | text | krátký popis akce pro hráče („Otevřít“) |
 | `range` |  | číslo 0.2 až 6 | dosah v metrech |
 | `manipulate` |  | ano/ne | jde ovládat tažením myši při držení tlačítka (jemná motorika) |
+| `seeThrough` |  | ano/ne | jen u dveří: zavřené dveře portál nezavírají pro pohled (mříž, prosklené dveře), jen pro průchod a zvuk |
 | `station` |  | objekt | ukotvení kamery pro klidný režim (stůl, panel, terminál) |
 | `station.eye` | ano | [x, y, z] | poloha oka v prostoru prefabu |
 | `station.look` | ano | [x, y, z] | bod, na který se kamera dívá, v prostoru prefabu |
@@ -284,14 +287,24 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `item` | ano | text | id předmětu |
 | `amount` |  | číslo 0 až 100000 | množství |
 
-### screen: obrazovka ve světě, na kterou jde v klidném režimu klikat a psát (dědictví Doom 3)
+### place: jak se prefab umisťuje; čtou nástroje (xGen, xDesigner), engine smí ignorovat
+
+| Pole | Povinné | Typ | Význam |
+|---|---|---|---|
+| `mount` | ano | `floor` · `wall` · `ceiling` · `top` · `opening` | kam se prefab přichytává |
+| `height` |  | číslo 0 až 10 | wall: obvyklá výška počátku nad podlahou v metrech |
+| `opening` |  | [a, b] | opening: šířka a výška stavebního otvoru v metrech |
+| `top` |  | číslo 0 až 5 | floor: výška plochy, na kterou jde něco postavit (deska stolu), v metrech |
+
+### screen: obrazovka ve světě, na kterou jde v klidném režimu klikat a psát (dědictví Doom 3). Plocha leží v rovině XY uzlu, střed má v jeho počátku, líc míří do +Z, osa X plochy je vpravo a Y nahoru
 
 | Pole | Povinné | Typ | Význam |
 |---|---|---|---|
 | `node` | ano | odkaz (node) | uzel, na kterém obrazovka sedí |
 | `size` | ano | [a, b] | šířka a výška plochy v metrech |
 | `res` | ano | [a, b] | rozlišení v pixelech |
-| `app` | ano | text | id aplikace terminálu |
+| `app` | ano | text | id obsahu obrazovky; engine verze 1 zná jen textovou konzoli a neznámé id zobrazí jako konzoli |
+| `offset` |  | číslo -1 až 1 | posun plochy po ose Z uzlu v metrech (výchozí 0); plocha má ležet těsně před předním dílem uzlu |
 
 ## Vestavěné cíle spojení
 

@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bench_metal_01",
+  "title": "Lavice s dřevěným sedákem 1,5 m",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.751, -0.001, -0.201], "max": [0.751, 0.451, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "seat" }
+    ]
+  },
+  "parts": [
+    { "node": "seat", "shape": "box", "min": [-0.75, 0.42, -0.185], "max": [0.75, 0.45, -0.075], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.75, 0.42, -0.055], "max": [0.75, 0.45, 0.055], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.75, 0.42, 0.075], "max": [0.75, 0.45, 0.185], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.62, 0, -0.18], "max": [-0.58, 0.42, -0.14], "mat": "steel_dark" },
+    { "node": "seat", "shape": "box", "min": [-0.62, 0, 0.14], "max": [-0.58, 0.42, 0.18], "mat": "steel_dark" },
+    { "node": "seat", "shape": "box", "min": [-0.62, 0.38, -0.18], "max": [-0.58, 0.42, 0.18], "mat": "steel_dark" },
+    { "node": "seat", "shape": "box", "min": [0.58, 0, -0.18], "max": [0.62, 0.42, -0.14], "mat": "steel_dark" },
+    { "node": "seat", "shape": "box", "min": [0.58, 0, 0.14], "max": [0.62, 0.42, 0.18], "mat": "steel_dark" },
+    { "node": "seat", "shape": "box", "min": [0.58, 0.38, -0.18], "max": [0.62, 0.42, 0.18], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "seat", "shape": "box", "min": [-0.75, 0, -0.2], "max": [0.75, 0.45, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#bench",
+    "params": { "kind": "metal", "seat": 0.45 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "fridge_lab_01",
+  "title": "Lednice laboratorní",
+  "category": "device.lab",
+  "bounds": { "min": [-0.661, -0.001, -0.326], "max": [0.301, 1.851, 0.871] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.3, 0.05, 0.27] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 120, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.325], "max": [-0.27, 1.85, 0.27], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [0.27, 0, -0.325], "max": [0.3, 1.85, 0.27], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0, -0.325], "max": [0.27, 1.85, -0.3], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [-0.27, 1.82, -0.3], "max": [0.27, 1.85, 0.27], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0, -0.3], "max": [0.27, 0.1, 0.27], "mat": "plastic_grey" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.8, -0.2], "max": [0.1, 1.82, -0.1], "mat": "emit_cool" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.6, 1.8, 0.055], "mat": "plastic_ivory" },
+    { "node": "door", "shape": "box", "min": [0.54, 0.7, 0.055], "max": [0.565, 1.2, 0.09], "mat": "steel_brushed" },
+    { "node": "door", "shape": "box", "min": [0.2, 1.55, 0.055], "max": [0.4, 1.62, 0.058], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0.5, -0.3], "max": [0.27, 0.515, 0.25], "mat": "glass_pane" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0.95, -0.3], "max": [0.27, 0.965, 0.25], "mat": "glass_pane" },
+    { "node": "body", "shape": "box", "min": [-0.27, 1.4, -0.3], "max": [0.27, 1.415, 0.25], "mat": "glass_pane" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.325], "max": [0.3, 1.85, 0.27], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.6, 1.8, 0.055], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít lednici", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 144,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lab.mjs#fridge",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

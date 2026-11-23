@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "torch_wall_01",
+  "title": "Pochodeň nástěnná",
+  "category": "prop.light",
+  "bounds": { "min": [-0.041, -0.133, -0.001], "max": [0.041, 0.47, 0.461] },
+  "rig": {
+    "nodes": [
+      { "id": "mount" },
+      { "id": "shaft", "parent": "mount", "pos": [0, -0.08, 0.07], "rot": [35, 0, 0] },
+      { "id": "flame", "parent": "shaft", "pos": [0, 0.56, 0] }
+    ]
+  },
+  "parts": [
+    { "node": "mount", "shape": "box", "min": [-0.04, -0.12, 0], "max": [0.04, 0.08, 0.015], "mat": "iron_black" },
+    { "node": "mount", "shape": "box", "min": [-0.035, -0.1, 0.015], "max": [0.035, -0.06, 0.1], "mat": "iron_black" },
+    { "node": "shaft", "shape": "cyl", "center": [0, 0.2, 0], "radius": 0.02, "height": 0.5, "axis": "y", "mat": "wood_old" },
+    { "node": "shaft", "shape": "cyl", "center": [0, 0.47, 0], "radius": 0.036, "height": 0.1, "axis": "y", "mat": "iron_black" },
+    { "node": "flame", "shape": "cyl", "center": [0, 0, 0], "radius": 0.03, "height": 0.09, "axis": "y", "mat": "emit_fire" },
+    { "node": "flame", "shape": "box", "min": [-0.015, 0.04, -0.015], "max": [0.015, 0.1, 0.015], "mat": "emit_fire" }
+  ],
+  "components": {
+    "light": { "type": "point", "color": [1, 0.6, 0.3], "intensity": 14, "range": 7, "node": "flame", "cast": false, "style": "flicker", "on": true }
+  },
+  "inputs": ["turnOn", "turnOff", "toggle"],
+  "outputs": ["on", "off"],
+  "tris": 228,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lights.mjs#torchWall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

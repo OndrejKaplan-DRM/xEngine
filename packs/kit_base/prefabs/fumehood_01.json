@@ -1,0 +1,60 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "fumehood_01",
+  "title": "Digestoř s výsuvným oknem 1,2 m",
+  "category": "device.lab",
+  "bounds": { "min": [-0.601, -0.001, -0.401], "max": [0.601, 2.501, 0.411] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "sash", "parent": "body", "pos": [0, 0.9, 0.3] }
+    ],
+    "joints": [
+      { "id": "sash", "node": "sash", "type": "slider", "axis": [0, 1, 0], "min": 0, "max": 0.5, "rest": 0, "damping": 12, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.4], "max": [0.6, 0.86, 0.38], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.58, 0.08, 0.38], "max": [-0.01, 0.82, 0.39], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [0.01, 0.08, 0.38], "max": [0.58, 0.82, 0.39], "mat": "plastic_ivory" },
+    { "node": "body", "shape": "box", "min": [-0.07, 0.4, 0.39], "max": [-0.04, 0.56, 0.41], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.04, 0.4, 0.39], "max": [0.07, 0.56, 0.41], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.6, 0.86, -0.4], "max": [0.6, 0.9, 0.4], "mat": "plastic_dark" },
+    { "node": "body", "shape": "box", "min": [-0.6, 0.9, -0.4], "max": [-0.56, 2.1, 0.4], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.56, 0.9, -0.4], "max": [0.6, 2.1, 0.4], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.56, 0.9, -0.4], "max": [0.56, 2.1, -0.37], "mat": "tile_white" },
+    { "node": "body", "shape": "box", "min": [-0.6, 2.1, -0.4], "max": [0.6, 2.3, 0.4], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.56, 1.62, 0.34], "max": [0.56, 2.1, 0.4], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.3, 2.085, -0.25], "max": [0.3, 2.1, -0.05], "mat": "emit_cool" },
+    { "node": "body", "shape": "cyl", "center": [0, 2.4, -0.1], "radius": 0.12, "height": 0.2, "axis": "y", "mat": "steel_brushed" },
+    { "node": "sash", "shape": "box", "min": [-0.56, 0, -0.015], "max": [-0.52, 0.72, 0.015], "mat": "steel_brushed" },
+    { "node": "sash", "shape": "box", "min": [0.52, 0, -0.015], "max": [0.56, 0.72, 0.015], "mat": "steel_brushed" },
+    { "node": "sash", "shape": "box", "min": [-0.52, 0, -0.015], "max": [0.52, 0.05, 0.015], "mat": "steel_brushed" },
+    { "node": "sash", "shape": "box", "min": [-0.52, 0.67, -0.015], "max": [0.52, 0.72, 0.015], "mat": "steel_brushed" },
+    { "node": "sash", "shape": "box", "min": [-0.52, 0.05, -0.004], "max": [0.52, 0.67, 0.004], "mat": "glass_pane" },
+    { "node": "sash", "shape": "box", "min": [-0.3, 0.012, 0.015], "max": [0.3, 0.038, 0.04], "mat": "plastic_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.4], "max": [0.6, 0.9, 0.4], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.6, 0.9, -0.4], "max": [-0.56, 2.1, 0.4], "group": "world" },
+    { "node": "body", "shape": "box", "min": [0.56, 0.9, -0.4], "max": [0.6, 2.1, 0.4], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.56, 0.9, -0.4], "max": [0.56, 2.1, -0.37], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.6, 1.62, -0.4], "max": [0.6, 2.3, 0.4], "group": "world" },
+    { "node": "sash", "shape": "box", "min": [-0.56, 0, -0.015], "max": [0.56, 0.72, 0.015], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "drawer", "joint": "sash", "prompt": "Vysunout okno", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 280,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lab.mjs#fumeHood",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shelf_rack_02",
+  "title": "Regál kovový 1,5 × 2,0 m s krabicemi",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.751, -0.001, -0.201], "max": [0.751, 2.001, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "rack" }
+    ]
+  },
+  "parts": [
+    { "node": "rack", "shape": "box", "min": [-0.75, 0, -0.2], "max": [-0.71, 2, -0.16], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [-0.75, 0, 0.16], "max": [-0.71, 2, 0.2], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [0.71, 0, -0.2], "max": [0.75, 2, -0.16], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [0.71, 0, 0.16], "max": [0.75, 2, 0.2], "mat": "steel_painted" },
+    { "node": "rack", "shape": "box", "min": [-0.745, 0.1, -0.195], "max": [0.745, 0.13, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.745, 0.56, -0.195], "max": [0.745, 0.59, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.745, 1.02, -0.195], "max": [0.745, 1.05, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.745, 1.48, -0.195], "max": [0.745, 1.51, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.745, 1.94, -0.195], "max": [0.745, 1.97, 0.195], "mat": "steel_brushed" },
+    { "node": "rack", "shape": "box", "min": [-0.62, 0.13, -0.15], "max": [-0.22, 0.43, 0.15], "mat": "wood_pine" },
+    { "node": "rack", "shape": "box", "min": [-0.1, 0.13, -0.16], "max": [0.4, 0.38, 0.14], "mat": "wood_pine" },
+    { "node": "rack", "shape": "box", "min": [-0.5, 0.59, -0.14], "max": [-0.05, 0.89, 0.16], "mat": "wood_pine" },
+    { "node": "rack", "shape": "box", "min": [0.15, 1.05, -0.15], "max": [0.6, 1.3, 0.15], "mat": "plastic_grey" },
+    { "node": "rack", "shape": "box", "min": [-0.6, 1.05, -0.12], "max": [-0.3, 1.36, 0.12], "mat": "plastic_grey" }
+  ],
+  "colliders": [
+    { "node": "rack", "shape": "box", "min": [-0.75, 0, -0.2], "max": [0.75, 2, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 168,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#shelfRack",
+    "params": { "variant": 2 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,6 +1,6 @@
 # N-103: co platí, když kloub nemá `speed`
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, data jsou ve formátu
 
 ## Co potřebuju
 
@@ -37,4 +37,4 @@ Tabulka výše je v `src/world/joints.js` (`DEFAULT_TRAVEL_SECONDS`). Hodnoty js
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato body 1 a 2** (svodná sešna, 22. 11. 2026, D-033). Věta je v kontraktech, tabulka je ve `formats.js` jako `JOINT_TRAVEL_SECONDS`; sešna A ji začne číst odtud místo vlastní kopie v `joints.js`. Hodnoty jsou odhad, ne měření. **Bod 3 (varování `rig.noSpeed`) odložen:** nejdřív musí sešna B doplnit `speed` u kloubů s pohonem, jinak by varování shodilo přísnou kontrolu jejích balíků.

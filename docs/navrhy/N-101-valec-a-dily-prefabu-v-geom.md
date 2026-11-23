@@ -1,6 +1,6 @@
 # N-101: síť a kolize dílů prefabu (válec) do `src/xspace/geom.js`
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, provede základ ve vlně 2
 
 ## Co potřebuju
 
@@ -41,4 +41,4 @@ Dohoda pro válec: osa `y` beze změny; `x` = otočení o +90° kolem Z, tedy (x
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato** (svodná sešna, 22. 11. 2026, D-034). `partMesh`, `partCollider`, `partTris` a `CYL_SEGMENTS` patří do `src/xspace/geom.js` s dohodou os z návrhu; xView je začne používat. Provede svodná sešna v základu během vlny 2 (dluh základu, první v pořadí, protože na něm stojí světlo dílů i xBake). Do té doby je vzorem `src/world/parts.js` sešny A; sešna B pro zastínění v xBake bere `colliders` prefabu, ne vlastní dělení válce.

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bench_stone_01",
+  "title": "Lavice kamenná 1,6 m",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.801, -0.001, -0.221], "max": [0.801, 0.481, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "seat" }
+    ]
+  },
+  "parts": [
+    { "node": "seat", "shape": "box", "min": [-0.8, 0.38, -0.22], "max": [0.8, 0.48, 0.22], "mat": "stone_pale" },
+    { "node": "seat", "shape": "box", "min": [-0.68, 0, -0.18], "max": [-0.48, 0.38, 0.18], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.48, 0, -0.18], "max": [0.68, 0.38, 0.18], "mat": "stone_block" }
+  ],
+  "colliders": [
+    { "node": "seat", "shape": "box", "min": [-0.8, 0, -0.22], "max": [0.8, 0.48, 0.22], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#bench",
+    "params": { "kind": "stone", "seat": 0.48 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

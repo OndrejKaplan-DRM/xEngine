@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "railing_steel_01",
+  "title": "Zábradlí ocelové 2 m",
+  "category": "arch.railing",
+  "bounds": { "min": [-1.001, -0.001, -0.026], "max": [1.001, 1.026, 0.026] },
+  "rig": {
+    "nodes": [
+      { "id": "rail" }
+    ]
+  },
+  "parts": [
+    { "node": "rail", "shape": "box", "min": [-0.99, 0, -0.02], "max": [-0.95, 1, 0.02], "mat": "steel_painted" },
+    { "node": "rail", "shape": "box", "min": [-0.02, 0, -0.02], "max": [0.02, 1, 0.02], "mat": "steel_painted" },
+    { "node": "rail", "shape": "box", "min": [0.95, 0, -0.02], "max": [0.99, 1, 0.02], "mat": "steel_painted" },
+    { "node": "rail", "shape": "box", "min": [-1, 0.975, -0.025], "max": [1, 1.025, 0.025], "mat": "paint_yellow" },
+    { "node": "rail", "shape": "box", "min": [-0.97, 0.535, -0.015], "max": [0.97, 0.565, 0.015], "mat": "steel_painted" },
+    { "node": "rail", "shape": "box", "min": [-0.97, 0.01, -0.006], "max": [0.97, 0.11, 0.006], "mat": "steel_painted" }
+  ],
+  "colliders": [
+    { "node": "rail", "shape": "box", "min": [-1, 0, -0.025], "max": [1, 1.025, 0.025], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 72,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#railing",
+    "params": { "length": 2, "height": 1 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

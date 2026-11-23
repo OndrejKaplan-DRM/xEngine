@@ -1,0 +1,63 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "window_sash_01",
+  "title": "Okno s otvíravým křídlem 1,2 × 1,2 m",
+  "category": "arch.window",
+  "bounds": { "min": [-0.607, -0.001, -1.186], "max": [0.646, 1.201, 0.071] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "sash", "parent": "frame", "pos": [-0.54, 0.06, 0] },
+      { "id": "handle", "parent": "sash", "pos": [1.055, 0.54, -0.03] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "sash", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 90, "rest": 0, "damping": 3, "drive": "manual" },
+      {
+        "id": "latch",
+        "node": "handle",
+        "type": "hinge",
+        "axis": [0, 0, 1],
+        "min": 0,
+        "max": 90,
+        "rest": 0,
+        "detents": [0, 90],
+        "damping": 1,
+        "drive": "manual"
+      }
+    ]
+  },
+  "parts": [
+    { "node": "frame", "shape": "box", "min": [-0.6, 0, -0.07], "max": [-0.54, 1.2, 0.07], "mat": "plastic_ivory" },
+    { "node": "frame", "shape": "box", "min": [0.54, 0, -0.07], "max": [0.6, 1.2, 0.07], "mat": "plastic_ivory" },
+    { "node": "frame", "shape": "box", "min": [-0.54, 0, -0.07], "max": [0.54, 0.06, 0.07], "mat": "plastic_ivory" },
+    { "node": "frame", "shape": "box", "min": [-0.54, 1.14, -0.07], "max": [0.54, 1.2, 0.07], "mat": "plastic_ivory" },
+    { "node": "sash", "shape": "box", "min": [0.003, 0.003, -0.03], "max": [0.05, 1.077, 0.03], "mat": "plastic_ivory" },
+    { "node": "sash", "shape": "box", "min": [1.03, 0.003, -0.03], "max": [1.077, 1.077, 0.03], "mat": "plastic_ivory" },
+    { "node": "sash", "shape": "box", "min": [0.05, 0.003, -0.03], "max": [1.03, 0.05, 0.03], "mat": "plastic_ivory" },
+    { "node": "sash", "shape": "box", "min": [0.05, 1.03, -0.03], "max": [1.03, 1.077, 0.03], "mat": "plastic_ivory" },
+    { "node": "sash", "shape": "box", "min": [0.05, 0.05, -0.006], "max": [1.03, 1.03, 0.006], "mat": "glass_pane" },
+    { "node": "handle", "shape": "box", "min": [-0.015, -0.035, -0.016], "max": [0.015, 0.035, 0], "mat": "steel_brushed" },
+    { "node": "handle", "shape": "box", "min": [-0.01, -0.13, -0.036], "max": [0.01, 0.01, -0.016], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "sash", "shape": "box", "min": [0.003, 0.003, -0.03], "max": [1.077, 1.077, 0.03], "group": "world" },
+    { "node": "frame", "shape": "box", "min": [-0.6, 0, -0.07], "max": [0.6, 0.06, 0.07], "group": "world" },
+    { "node": "frame", "shape": "box", "min": [-0.6, 1.14, -0.07], "max": [0.6, 1.2, 0.07], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít okno", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle"],
+  "outputs": ["opened", "closed"],
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/doors.mjs#windowSash",
+    "params": { "width": 1.2, "height": 1.2 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

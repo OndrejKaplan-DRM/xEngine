@@ -1,6 +1,6 @@
 # N-105: zlatý vzorek xLab je přesvícený
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, provede základ po převodu světla
 
 ## Co potřebuju
 
@@ -39,4 +39,4 @@ Zlatý vzorek (bajtová shoda v T1 se obnoví přegenerováním), referenční s
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato v zásadě** (svodná sešna, 22. 11. 2026, D-034). Přesvícení potvrzuje i zkouška A × B (bílý pohled v `complex_7`, světla sešny B vycházejí ze zlatého vzorku). Data teď neměním: engine přechází na světlo po vrcholech (první úkol vlny 2) a jas se musí ladit jednou, proti novému vykreslení. Potom varianta 3 z návrhu (zrušit dvojí osvětlení téhož místa, lampy 60 → 20 cd) a podle výsledku expozice. Sešna B do té doby drží své svítivosti.

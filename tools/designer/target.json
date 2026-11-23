@@ -1,0 +1,1 @@
+{ "id": "xgen", "entry": "levels.js", "template": "../xview/index.html", "pack": "../../packs/gen_demo" }

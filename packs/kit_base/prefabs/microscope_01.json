@@ -1,0 +1,51 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "microscope_01",
+  "title": "Mikroskop se zaostřovacím kolečkem",
+  "category": "device.lab",
+  "bounds": { "min": [-0.091, -0.001, -0.121], "max": [0.091, 0.443, 0.121] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "stage", "parent": "base", "pos": [0, 0.15, 0] },
+      { "id": "knob", "parent": "base", "pos": [0, 0.1, -0.085] },
+      { "id": "tube", "parent": "base", "pos": [0, 0.31, -0.02], "rot": [30, 0, 0] }
+    ],
+    "joints": [
+      { "id": "focus", "node": "knob", "type": "hinge", "axis": [1, 0, 0], "min": 0, "max": 540, "rest": 0, "damping": 2, "drive": "manual" },
+      { "id": "stage", "node": "stage", "type": "slider", "axis": [0, 1, 0], "min": 0, "max": 0.025, "rest": 0, "speed": 0.02, "drive": "motor" }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.09, 0, -0.12], "max": [0.09, 0.03, 0.12], "mat": "plastic_dark" },
+    { "node": "base", "shape": "box", "min": [-0.025, 0.03, -0.11], "max": [0.025, 0.3, -0.06], "mat": "plastic_ivory" },
+    { "node": "base", "shape": "box", "min": [-0.03, 0.26, -0.11], "max": [0.03, 0.31, 0.03], "mat": "plastic_ivory" },
+    { "node": "base", "shape": "cyl", "center": [0, 0.25, 0], "radius": 0.03, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "base", "shape": "cyl", "center": [0, 0.215, 0], "radius": 0.012, "height": 0.05, "axis": "y", "mat": "steel_brushed" },
+    { "node": "base", "shape": "box", "min": [-0.02, 0.03, -0.02], "max": [0.02, 0.06, 0.02], "mat": "emit_warm" },
+    { "node": "stage", "shape": "box", "min": [-0.07, 0, -0.06], "max": [0.07, 0.012, 0.07], "mat": "plastic_dark" },
+    { "node": "stage", "shape": "box", "min": [-0.038, 0.012, -0.013], "max": [0.038, 0.014, 0.013], "mat": "glass_pane" },
+    { "node": "knob", "shape": "cyl", "center": [0.045, 0, 0], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "steel_dark" },
+    { "node": "knob", "shape": "cyl", "center": [-0.045, 0, 0], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "steel_dark" },
+    { "node": "tube", "shape": "cyl", "center": [0, 0.06, 0], "radius": 0.018, "height": 0.12, "axis": "y", "mat": "steel_dark" },
+    { "node": "tube", "shape": "cyl", "center": [0, 0.13, 0], "radius": 0.022, "height": 0.02, "axis": "y", "mat": "rubber_black" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.09, 0, -0.12], "max": [0.09, 0.3, 0.12], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "valve", "joint": "focus", "prompt": "Zaostřit", "range": 1.2, "manipulate": true }
+  },
+  "inputs": ["setLevel"],
+  "outputs": ["changed"],
+  "tris": 456,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/lab.mjs#microscope",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

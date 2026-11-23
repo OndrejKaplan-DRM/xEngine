@@ -1,6 +1,6 @@
 # N-104: odkud se měří dosah interakce (`interact.range`)
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, věta je v kontraktu
 
 ## Co potřebuju
 
@@ -28,4 +28,4 @@ Engine už měří od osy těla (`src/play/interact.js`, `scan`).
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato** (svodná sešna, 22. 11. 2026, D-033). Věta o měření dosahu od osy těla je v `02_KONTRAKTY.md`, oddíl Interakce. Sbírání dotykem zůstává možností na později; Ondřej zvolil sbírání klávesou „použít“ (odpověď 4 a sešně A).

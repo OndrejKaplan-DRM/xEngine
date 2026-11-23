@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tap_wall_01",
+  "title": "Kohoutek nástěnný",
+  "category": "device.control",
+  "bounds": { "min": [-0.051, -0.061, -0.001], "max": [0.051, 0.071, 0.191] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "head", "parent": "body", "pos": [0, 0.05, 0.09] }
+    ],
+    "joints": [
+      { "id": "turn", "node": "head", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 540, "rest": 0, "damping": 3, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0, 0.004], "radius": 0.03, "height": 0.008, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0, 0.06], "radius": 0.016, "height": 0.12, "axis": "z", "mat": "brass" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.025, 0.09], "radius": 0.012, "height": 0.05, "axis": "y", "mat": "brass" },
+    { "node": "body", "shape": "box", "min": [-0.012, -0.012, 0.11], "max": [0.012, 0.012, 0.19], "mat": "brass" },
+    { "node": "body", "shape": "cyl", "center": [0, -0.03, 0.18], "radius": 0.01, "height": 0.06, "axis": "y", "mat": "brass" },
+    { "node": "head", "shape": "box", "min": [-0.045, 0.002, -0.009], "max": [0.045, 0.014, 0.009], "mat": "steel_brushed" },
+    { "node": "head", "shape": "box", "min": [-0.009, 0.002, -0.045], "max": [0.009, 0.014, 0.045], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.05, -0.06, 0], "max": [0.05, 0.07, 0.19], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "valve", "joint": "turn", "prompt": "Otočit kohoutkem", "range": 1.4, "manipulate": true }
+  },
+  "inputs": ["setLevel"],
+  "outputs": ["changed", "opened", "closed"],
+  "tris": 292,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/controls.mjs#tapWall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

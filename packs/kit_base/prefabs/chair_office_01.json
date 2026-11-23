@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chair_office_01",
+  "title": "Židle kancelářská otočná",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.375, -0.001, -0.375], "max": [0.375, 1.021, 0.375] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "seat", "parent": "base", "pos": [0, 0.4, 0] }
+    ],
+    "joints": [
+      { "id": "swivel", "node": "seat", "type": "hinge", "axis": [0, 1, 0], "min": -180, "max": 180, "rest": 0, "damping": 1.5, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "base", "shape": "box", "min": [-0.3, 0.03, -0.03], "max": [0.3, 0.07, 0.03], "mat": "plastic_dark" },
+    { "node": "base", "shape": "box", "min": [-0.03, 0.03, -0.3], "max": [0.03, 0.07, 0.3], "mat": "plastic_dark" },
+    { "node": "base", "shape": "cyl", "center": [0, 0.22, 0], "radius": 0.03, "height": 0.36, "axis": "y", "mat": "steel_brushed" },
+    { "node": "seat", "shape": "box", "min": [-0.23, 0, -0.23], "max": [0.23, 0.06, 0.23], "mat": "fabric_blue" },
+    { "node": "seat", "shape": "box", "min": [-0.03, 0.02, -0.26], "max": [0.03, 0.36, -0.23], "mat": "plastic_dark" },
+    { "node": "seat", "shape": "box", "min": [-0.21, 0.28, -0.3], "max": [0.21, 0.62, -0.26], "mat": "fabric_blue" }
+  ],
+  "colliders": [
+    { "node": "base", "shape": "box", "min": [-0.25, 0, -0.25], "max": [0.25, 0.4, 0.25], "group": "prop" },
+    { "node": "seat", "shape": "box", "min": [-0.23, 0, -0.3], "max": [0.23, 0.62, 0.23], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": {
+      "kind": "station",
+      "prompt": "Sednout si",
+      "range": 1.6,
+      "station": { "eye": [0, 1.18, 0.02], "look": [0, 1.05, 1], "fov": 60 }
+    }
+  },
+  "outputs": ["used", "left"],
+  "tris": 124,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#chairOffice",
+    "params": { "seat": 0.46 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

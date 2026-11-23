@@ -1,0 +1,50 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "gate_iron_01",
+  "title": "Brána mřížová 1,0 × 2,1 m",
+  "category": "arch.door",
+  "bounds": { "min": [-0.811, 0.039, -0.937], "max": [0.471, 2.021, 0.031] },
+  "rig": {
+    "nodes": [
+      { "id": "frame" },
+      { "id": "leaf", "parent": "frame", "pos": [-0.47, 0, 0] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 110, "rest": 0, "damping": 8, "speed": 70, "drive": "both" }
+    ]
+  },
+  "parts": [
+    { "node": "frame", "shape": "box", "min": [-0.5, 0.2, -0.03], "max": [-0.475, 0.32, 0.03], "mat": "iron_black" },
+    { "node": "frame", "shape": "box", "min": [-0.5, 1.6, -0.03], "max": [-0.475, 1.72, 0.03], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0, 0.04, -0.01], "max": [0.02, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.1533, 0.04, -0.01], "max": [0.1733, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.3067, 0.04, -0.01], "max": [0.3267, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.46, 0.04, -0.01], "max": [0.48, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.6133, 0.04, -0.01], "max": [0.6333, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.7667, 0.04, -0.01], "max": [0.7867, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.92, 0.04, -0.01], "max": [0.94, 2.02, 0.01], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0, 0.1, -0.015], "max": [0.94, 0.14, 0.015], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0, 1.05, -0.015], "max": [0.94, 1.09, 0.015], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0, 1.94, -0.015], "max": [0.94, 1.98, 0.015], "mat": "iron_black" },
+    { "node": "leaf", "shape": "box", "min": [0.8, 0.99, -0.025], "max": [0.92, 1.15, 0.025], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "leaf", "shape": "box", "min": [0, 0.04, -0.02], "max": [0.94, 2.02, 0.02], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít bránu", "range": 1.8, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 156,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/doors.mjs#gateIron",
+    "params": { "width": 1, "height": 2.1 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

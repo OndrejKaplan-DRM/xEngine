@@ -1,6 +1,6 @@
 # N-102: `rigMatrices` bez alokací pro použití v kroku simulace
 
-Sešna: A · Datum: 2026-11-22 · Stav: otevřený
+Sešna: A · Datum: 2026-11-22 · Stav: přijatý, provede základ ve vlně 2
 
 ## Co potřebuju
 
@@ -33,4 +33,4 @@ Volám `rigMatrices` jen pro entity s kloubem v pohybu a jen v krocích, kdy se 
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+**Přijato** (svodná sešna, 22. 11. 2026, D-034). `rigCompile` a `rigSolve` vzniknou v `rig.js`, `rigMatrices` zůstane obálkou. Provede svodná sešna dřív, než sešna B dodá prvního tvora s kostrou; do té doby stačí dočasné řešení sešny A (halda podle `a_15` neroste).

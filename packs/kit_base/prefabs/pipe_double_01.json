@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pipe_double_01",
+  "title": "Potrubí dvojité 2 m",
+  "category": "arch.pipe",
+  "bounds": { "min": [-1.001, -0.111, -0.001], "max": [1.001, 0.151, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "pipe" }
+    ]
+  },
+  "parts": [
+    { "node": "pipe", "shape": "box", "min": [-0.72, -0.03, 0], "max": [-0.68, 0.03, 0.2], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "box", "min": [0.68, -0.03, 0], "max": [0.72, 0.03, 0.2], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "cyl", "center": [0, 0.09, 0.13], "radius": 0.045, "height": 2, "axis": "x", "mat": "steel_painted" },
+    { "node": "pipe", "shape": "cyl", "center": [0, -0.07, 0.13], "radius": 0.03, "height": 2, "axis": "x", "mat": "copper" },
+    { "node": "pipe", "shape": "cyl", "center": [-0.3, 0.09, 0.13], "radius": 0.047, "height": 0.12, "axis": "x", "mat": "paint_yellow" },
+    { "node": "pipe", "shape": "cyl", "center": [0.4, -0.07, 0.13], "radius": 0.032, "height": 0.12, "axis": "x", "mat": "paint_green" },
+    { "node": "pipe", "shape": "box", "min": [-0.72, -0.11, 0.07], "max": [-0.68, 0.15, 0.2], "mat": "steel_dark" },
+    { "node": "pipe", "shape": "box", "min": [0.68, -0.11, 0.07], "max": [0.72, 0.15, 0.2], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "pipe", "shape": "box", "min": [-1, -0.11, 0], "max": [1, 0.15, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" }
+  },
+  "tris": 304,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/props.mjs#pipe",
+    "params": { "kind": "double", "length": 2 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
