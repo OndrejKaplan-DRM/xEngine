@@ -16,6 +16,11 @@ export function makeJoint(def, kind) {
     value: def.rest ?? def.min,
     vel: 0,
     target: NaN, // NaN = bez cíle
+    from: def.rest ?? def.min, // odkud pohon vyjel (D-025: sem se vrací, když mu něco stojí v cestě)
+    blocked: 0, // jak dlouho pohon stojí o překážku (s)
+    pv: 0, // hodnota, cíl a výsledek posledního kroku: entities.step je vrací, když krok zruší
+    pt: NaN,
+    bits: 0,
     held: false, // drží ho ruka hráče (manipulace): hodnotu nastavuje interakce
     active: false,
     /** Rychlost pohonu a „ruky“ v jednotkách kloubu za sekundu. */

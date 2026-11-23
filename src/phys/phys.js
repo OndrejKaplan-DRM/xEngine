@@ -27,6 +27,11 @@ export const USE_RAY = groups(G.QUERY, G.WORLD | G.PROP | G.TRIGGER);
 export const SIGHT_RAY = groups(G.QUERY, G.WORLD | G.PROP);
 /** Paprsek světla: zastaví ho jen stavba levelu (kvádry). Prefaby ve vlně 1 stín nevrhají. */
 export const LIGHT_RAY = groups(G.QUERY, G.SOLID);
+/** Dotaz „stojí dílu něco v cestě“ (D-025): kapsle postavy a rekvizity; z rekvizit se počítají jen volná tělesa. */
+const OBSTACLE_MASK = groups(G.PROP, G.PLAYER | G.PROP);
+/** Dotyk a klidový průnik (řešič drží ležící tělesa asi 1 mm v sobě) překážka není. */
+const OBSTACLE_TOUCH = 0.002;
+const isObstacle = (c) => ((c.collisionGroups() >>> 16) & G.PLAYER) !== 0 || !!c.parent()?.isDynamic();
 
 /**
  * Odstup, který kontrolér postavy drží od překážek (i od podlahy). Postava se musí umístit o tento odstup nad
@@ -193,6 +198,34 @@ export function createPhys() {
       hit.ny = h.normal.y;
       hit.nz = h.normal.z;
       return hit;
+    },
+
+    /**
+     * Stál by tvar kolideru col v poloze (pos, rot) v kapsli postavy nebo ve volném tělese, a to hlouběji než
+     * teď? (D-025) Dotyk a průnik, který posun neprohlubuje (věc ležící v zásuvce se veze s ní), překážka není.
+     */
+    obstructs(col, pos, rot) {
+      const shape = col.shape;
+      let found = false;
+      world.intersectionsWithShape(
+        pos,
+        rot,
+        shape,
+        (o) => {
+          const next = o.contactShape(shape, pos, rot, 0);
+          if (!next || next.distance > -OBSTACLE_TOUCH) return true;
+          const now = o.contactCollider(col, 0.1);
+          if (now && next.distance >= now.distance - 1e-4) return true;
+          found = true;
+          return false;
+        },
+        undefined,
+        OBSTACLE_MASK,
+        col,
+        undefined,
+        isObstacle,
+      );
+      return found;
     },
 
     bodyCount: () => (world ? world.bodies.len() : 0),

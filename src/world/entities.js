@@ -9,6 +9,7 @@ import { decompose, compose, mul4 } from '../phys/xform.js';
 import { partMesh, colliderShape } from './parts.js';
 import { addFacets } from './facets.js';
 import { makeJoint, stepJoint, MOVED } from './joints.js';
+import { GUARDED, guardOf, obstructed, revertStep } from './blocking.js';
 
 const CELL_CHECK_FRAMES = 16;
 
@@ -27,6 +28,7 @@ export function createEntities({ phys, render, world, light, pack }) {
   const tq = { x: 0, y: 0, z: 0, w: 1 };
   const tp = [0, 0, 0];
   let frameNo = 0;
+  const stat = { stalled: 0, returns: 0 }; // kroky, kdy díl stál o překážku; návraty po 0,5 s stání
   const warned = new Set();
   const warn = (msg) => {
     if (warned.has(msg)) return;
@@ -54,6 +56,8 @@ export function createEntities({ phys, render, world, light, pack }) {
       prefab,
       cell: def.cell,
       kind,
+      guard: GUARDED.has(kind), // díly se zastaví o hráče a volná tělesa (D-025)
+      kin: false, // tělesa uzlů jsou právě kinematická
       interact: comp.interact || null,
       comp,
       em,
@@ -176,7 +180,9 @@ export function createEntities({ phys, render, world, light, pack }) {
             decompose(rec.world, T);
             rec.body = phys.addBody('fixed', T.x, T.y, T.z, { x: T.qx, y: T.qy, z: T.qz, w: T.qw }); // kinematické jen za pohybu
           }
-          ent.colliders.push(phys.addCollider(rec.body, s.shape, [s.center[0] * scale, s.center[1] * scale, s.center[2] * scale], null, opts(c), ref));
+          const col = phys.addCollider(rec.body, s.shape, [s.center[0] * scale, s.center[1] * scale, s.center[2] * scale], null, opts(c), ref);
+          ent.colliders.push(col);
+          if (ent.guard && c.group !== 'trigger') (rec.guards || (rec.guards = [])).push(guardOf(col));
         } else {
           const w = ent.nodeWorld[c.node];
           decompose(w, T);
@@ -198,11 +204,11 @@ export function createEntities({ phys, render, world, light, pack }) {
     return ent;
   }
 
-  /** Roznese hodnoty kloubů do matic, vykreslení a kinematických těles. */
-  function pose(ent, teleport) {
+  /** Roznese hodnoty kloubů do matic, vykreslení a kinematických těles. given = matice, které už někdo spočítal. */
+  function pose(ent, teleport, given) {
     for (const j of ent.joints) ent.values[j.def.id] = j.value;
     if (!ent.movers.length) return;
-    const M = rigMatrices(ent.prefab, ent.values);
+    const M = given || rigMatrices(ent.prefab, ent.values);
     for (const rec of ent.movers) {
       mul4(ent.em, M[rec.id], rec.world);
       rec.mover?.setMatrix(rec.world);
@@ -231,17 +237,28 @@ export function createEntities({ phys, render, world, light, pack }) {
       }
     }
   }
+  /** Tělesa uzlů: kinematická jen za pohybu, jinak pevná (viz phys.addBody). */
+  function moving(ent, on) {
+    ent.kin = on;
+    for (const rec of ent.movers) if (rec.body) phys.setMoving(rec.body, on);
+  }
   function activate(ent) {
     if (ent.inActive) return;
     ent.inActive = true;
     active.push(ent);
-    for (const rec of ent.movers) if (rec.body) phys.setMoving(rec.body, true);
+    moving(ent, true);
   }
   /** Kloub dojel: těleso uzlu posadit přesně na místo a vrátit mezi pevná. */
   function settle(ent) {
     ent.inActive = false;
     pose(ent, true);
-    for (const rec of ent.movers) if (rec.body) phys.setMoving(rec.body, false);
+    moving(ent, false);
+  }
+  /** Dílu stojí něco v cestě (D-025): krok se zruší a díl stojí jako pevné těleso, aby se od něj dalo odejít. */
+  function stall(ent, dt) {
+    stat.stalled++;
+    stat.returns += revertStep(ent, dt);
+    if (ent.kin) moving(ent, false);
   }
   function syncBody(ent) {
     ent.body.translation(tv);
@@ -272,6 +289,8 @@ export function createEntities({ phys, render, world, light, pack }) {
       j.value = j.rest;
       j.vel = 0;
       j.target = NaN;
+      j.from = j.rest;
+      j.blocked = 0;
       j.held = false;
       j.active = false;
     }
@@ -334,14 +353,32 @@ export function createEntities({ phys, render, world, light, pack }) {
         const ent = active[i];
         let moved = false;
         let busy = false;
+        let M = null;
         for (const j of ent.joints) {
+          j.bits = 0;
           if (!j.active) continue;
-          const bits = stepJoint(j, dt);
-          if (bits & MOVED) moved = true;
-          if (bits && behave) behave.onJoint(ent, j, bits);
+          j.pv = j.value;
+          j.pt = j.target;
+          j.bits = stepJoint(j, dt);
+          if (j.bits & MOVED) moved = true;
+        }
+        if (moved && ent.guard) {
+          // D-025: nová poloha se nejdřív zkusí proti hráči a volným tělesům
+          for (const j of ent.joints) ent.values[j.def.id] = j.value;
+          M = rigMatrices(ent.prefab, ent.values);
+          if (obstructed(ent, M, phys)) {
+            stall(ent, dt);
+            moved = false;
+          } else {
+            for (const j of ent.joints) j.blocked = 0;
+            if (!ent.kin) moving(ent, true);
+          }
+        }
+        for (const j of ent.joints) {
+          if (j.bits && behave) behave.onJoint(ent, j, j.bits);
           if (j.active) busy = true;
         }
-        if (moved) pose(ent, false);
+        if (moved) pose(ent, false, M);
         if (!busy) {
           settle(ent);
           active[i] = active[active.length - 1];
@@ -374,6 +411,8 @@ export function createEntities({ phys, render, world, light, pack }) {
     // ---- ovládání kloubů (volá chování a interakce)
     /** Pohon k cíli rychlostí kloubu (nebo zadanou). */
     drive(ent, j, target, speed) {
+      j.from = j.value;
+      j.blocked = 0;
       j.target = Math.min(j.def.max, Math.max(j.def.min, target));
       if (speed) j.speed = speed;
       j.held = false;
@@ -383,14 +422,26 @@ export function createEntities({ phys, render, world, light, pack }) {
     /** Okamžité nastavení hodnoty (ruka hráče, testy). held = kloub drží ruka a pružina ani zarážky nepracují. */
     setJoint(ent, j, value, held = false) {
       const v = Math.min(j.def.max, Math.max(j.def.min, value));
-      const moved = v !== j.value;
-      j.value = v;
+      let moved = v !== j.value;
+      let M = null;
+      if (moved && ent.guard) {
+        // ani ruka hráče díl do nikoho nezatlačí: zablokovaný posun se prostě neprovede
+        ent.values[j.def.id] = v;
+        M = rigMatrices(ent.prefab, ent.values);
+        if (obstructed(ent, M, phys)) {
+          ent.values[j.def.id] = j.value;
+          moved = false;
+          M = null;
+          stat.stalled++;
+        }
+      }
+      if (moved) j.value = v;
       j.target = NaN;
       j.vel = 0;
       j.held = held;
       j.active = true; // i po puštění: pružina nebo zarážka kloub dotáhne
       activate(ent);
-      if (moved) pose(ent, false);
+      if (moved) pose(ent, false, M);
       return moved;
     },
     release(ent, j) {
@@ -431,7 +482,7 @@ export function createEntities({ phys, render, world, light, pack }) {
     snapshot() {
       return list.map((ent) => {
         const out = { s: { ...ent.state } };
-        if (ent.joints.length) out.j = ent.joints.map((j) => [j.value, j.vel, Number.isNaN(j.target) ? null : j.target, j.speed, j.active ? 1 : 0]);
+        if (ent.joints.length) out.j = ent.joints.map((j) => [j.value, j.vel, Number.isNaN(j.target) ? null : j.target, j.speed, j.active ? 1 : 0, j.from, j.blocked]);
         if (ent.body) {
           const p = ent.body.translation();
           const q = ent.body.rotation();
@@ -457,6 +508,8 @@ export function createEntities({ phys, render, world, light, pack }) {
           j.target = r[2] === null ? NaN : r[2];
           j.speed = r[3];
           j.active = !!r[4];
+          j.from = r[5] ?? j.value;
+          j.blocked = r[6] ?? 0;
           j.held = false;
           if (j.active) activate(ent);
         });
@@ -482,6 +535,7 @@ export function createEntities({ phys, render, world, light, pack }) {
     inspect(path) {
       if (path[0] === 'ids') return list.map((e) => e.id);
       if (path[0] === 'active') return active.map((e) => e.id);
+      if (path[0] === 'stat') return { ...stat };
       const ent = byId.get(path[0]);
       if (!ent) return undefined;
       switch (path[1]) {
@@ -491,6 +545,8 @@ export function createEntities({ phys, render, world, light, pack }) {
         }
         case 'norm':
           return ent.joints[0]?.norm;
+        case 'blocked':
+          return ent.joints[0]?.blocked;
         case 'state':
           return { ...ent.state };
         case 'node':
