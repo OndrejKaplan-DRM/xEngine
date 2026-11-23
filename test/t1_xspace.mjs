@@ -39,6 +39,52 @@ ok(res.stats.xspace === XSPACE_VERSION && res.stats.levels.length === 1, 'statis
   ok(same, 'generátor zlatého vzorku dává bajtově totéž, co je v repu', `${a.length} souborů`);
 }
 
+// ---- díly prefabu (N-101): síť, počet trojúhelníků a kolizní tvar z jednoho místa
+{
+  const box = { shape: 'box', min: [-0.2, 0, -0.1], max: [0.4, 1, 0.3] };
+  const bm = X.partMesh(box);
+  ok(bm.indices.length / 3 === 12 && X.partTris(box) === 12, 'díl box má 12 trojúhelníků', `${bm.indices.length / 3}`);
+  let cylOk = true;
+  const seen = [];
+  for (const axis of ['x', 'y', 'z']) {
+    const part = { shape: 'cyl', radius: 0.3, height: 1.2, axis, center: [1, 2, 3] };
+    const m = X.partMesh(part);
+    const k = 'xyz'.indexOf(axis);
+    const ext = [0, 1, 2].map((i) => {
+      const v = m.positions.filter((_, j) => j % 3 === i);
+      return Math.max(...v) - Math.min(...v);
+    });
+    const mid = [0, 1, 2].map((i) => {
+      const v = m.positions.filter((_, j) => j % 3 === i);
+      return (Math.max(...v) + Math.min(...v)) / 2;
+    });
+    let unit = true;
+    for (let j = 0; j < m.normals.length; j += 3) if (Math.abs(Math.hypot(m.normals[j], m.normals[j + 1], m.normals[j + 2]) - 1) > 1e-9) unit = false;
+    const good =
+      m.indices.length / 3 === 4 * X.CYL_SEGMENTS &&
+      X.partTris(part) === 4 * X.CYL_SEGMENTS &&
+      Math.abs(ext[k] - 1.2) < 1e-9 &&
+      [0, 1, 2].every((i) => i === k || Math.abs(ext[i] - 0.6) < 1e-9) &&
+      mid.every((v, i) => Math.abs(v - part.center[i]) < 1e-9) &&
+      unit &&
+      Math.max(...m.indices) < m.positions.length / 3 &&
+      m.uvs.length / 2 === m.positions.length / 3;
+    if (!good) cylOk = false;
+    seen.push(`${axis}: ${m.indices.length / 3} △, rozměr ${ext.map((v) => v.toFixed(2)).join(' × ')}`);
+  }
+  ok(cylOk, 'díl cyl: 4 × CYL_SEGMENTS trojúhelníků, délka po ose z dat, střed v center, jednotkové normály', seen.join('; '));
+  ok(X.partMesh({ shape: 'mesh', file: 'x.glb' }) === null && X.partTris({ shape: 'mesh' }) === null, 'díl ze souboru (mesh) nemá síť ani počet z dat');
+  const bad = pack.prefabs.filter((pf) => pf.data.parts.every((x) => X.partTris(x) !== null) && pf.data.parts.reduce((n, x) => n + X.partTris(x), 0) !== pf.data.tris);
+  ok(bad.length === 0, 'pole tris každého prefabu zlatého vzorku = součet partTris jeho dílů', bad.length ? bad.map((pf) => pf.data.id).join(' ') : `${pack.prefabs.length} prefabů`);
+  const cb = X.partCollider({ shape: 'box', min: [0, 0, 0], max: [2, 4, 6] });
+  const cc = X.partCollider({ shape: 'cyl', radius: 0.5, height: 2, center: [1, 1, 1] });
+  const cs = X.partCollider({ shape: 'ball', radius: 0.25 });
+  ok(
+    cb.shape.type === 'box' && cb.shape.half.join() === '1,2,3' && cb.center.join() === '1,2,3' && cc.shape.type === 'cyl' && cc.shape.axis === 'y' && cc.center.join() === '1,1,1' && cs.shape.type === 'ball' && cs.center.join() === '0,0,0' && X.partCollider({ shape: 'hull', points: [] }) === null,
+    'partCollider: kvádr (půlrozměry a střed), válec (výchozí osa y), koule; hull vrací null',
+  );
+}
+
 // ---- mutace: každá musí vyvolat právě svůj kód nálezu
 const L = (p) => p.levels[0].data;
 const P = (p, id) => p.prefabs.find((x) => x.data.id === id).data;

@@ -255,3 +255,111 @@ export function boundsGap(a, b) {
   }
   return Math.sqrt(d2);
 }
+
+// ---- díly prefabu (N-101) ---------------------------------------------------------------
+// Jediná implementace toho, jak vypadá díl prefabu jako síť a jako kolizní tvar. Čte ji engine, xView,
+// galerie sady i xBake; vlastní dělení válce nikdo nepíše.
+
+/** Počet dílků válce po obvodu. Válec má 4 × CYL_SEGMENTS trojúhelníků (plášť 2 ×, každé víko 1 ×). */
+export const CYL_SEGMENTS = 16;
+
+/** Otočení bodu z válce stojícího podél Y na osu z dat: x = o +90° kolem Z, z = o +90° kolem X. */
+function cylTurn(axis, x, y, z, out) {
+  if (axis === 'x') {
+    out[0] = -y;
+    out[1] = x;
+    out[2] = z;
+  } else if (axis === 'z') {
+    out[0] = x;
+    out[1] = -z;
+    out[2] = y;
+  } else {
+    out[0] = x;
+    out[1] = y;
+    out[2] = z;
+  }
+}
+
+/** Síť válce v prostoru uzlu. Vrcholy pláště v úhlech i / CYL_SEGMENTS · 2π od osy +Z směrem k +X. */
+function cylMesh(part) {
+  const n = CYL_SEGMENTS;
+  const r = part.radius;
+  const hh = part.height / 2;
+  const axis = part.axis || 'y';
+  const [cx, cy, cz] = part.center || [0, 0, 0];
+  const positions = [];
+  const normals = [];
+  const uvs = [];
+  const indices = [];
+  const p = [0, 0, 0];
+  const push = (x, y, z, nx, ny, nz, u, v) => {
+    cylTurn(axis, x, y, z, p);
+    positions.push(p[0] + cx, p[1] + cy, p[2] + cz);
+    cylTurn(axis, nx, ny, nz, p);
+    normals.push(p[0], p[1], p[2]);
+    uvs.push(u, v);
+  };
+  // plášť: dva kruhy po n + 1 vrcholech (šev kvůli UV); UV = obvod v metrech × výška v metrech
+  for (let i = 0; i <= n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const s = Math.sin(a);
+    const c = Math.cos(a);
+    push(s * r, hh, c * r, s, 0, c, (i / n) * 2 * Math.PI * r, part.height);
+    push(s * r, -hh, c * r, s, 0, c, (i / n) * 2 * Math.PI * r, 0);
+  }
+  for (let i = 0; i < n; i++) {
+    const a = i * 2;
+    indices.push(a, a + 1, a + 3, a, a + 3, a + 2);
+  }
+  // víka: střed a kruh; UV = průmět v metrech
+  for (const top of [1, -1]) {
+    const base = positions.length / 3;
+    push(0, top * hh, 0, 0, top, 0, 0, 0);
+    for (let i = 0; i <= n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      push(Math.sin(a) * r, top * hh, Math.cos(a) * r, 0, top, 0, Math.sin(a) * r, Math.cos(a) * r);
+    }
+    for (let i = 0; i < n; i++) {
+      if (top > 0) indices.push(base, base + 1 + i, base + 2 + i);
+      else indices.push(base, base + 2 + i, base + 1 + i);
+    }
+  }
+  return { positions, normals, uvs, indices };
+}
+
+/**
+ * Síť viditelného dílu prefabu v prostoru jeho uzlu: { positions, normals, uvs, indices } (stejný tvar jako
+ * brushMesh), nebo null pro díl ze souboru (shape 'mesh').
+ */
+export function partMesh(part) {
+  if (part.shape === 'box') return brushMesh({ min: part.min, max: part.max });
+  if (part.shape === 'cyl') return cylMesh(part);
+  return null;
+}
+
+/** Počet trojúhelníků dílu (box 12, cyl 4 × CYL_SEGMENTS), nebo null pro díl ze souboru. */
+export function partTris(part) {
+  if (part.shape === 'box') return 12;
+  if (part.shape === 'cyl') return 4 * CYL_SEGMENTS;
+  return null;
+}
+
+/**
+ * Kolizní tvar položky colliders prefabu v prostoru jejího uzlu: { shape, center }, kde shape je
+ * { type: 'box', half } | { type: 'cyl', radius, height, axis } | { type: 'ball', radius }. Pro hull a mesh null.
+ */
+export function partCollider(c) {
+  switch (c.shape) {
+    case 'box':
+      return {
+        shape: { type: 'box', half: [(c.max[0] - c.min[0]) / 2, (c.max[1] - c.min[1]) / 2, (c.max[2] - c.min[2]) / 2] },
+        center: [(c.min[0] + c.max[0]) / 2, (c.min[1] + c.max[1]) / 2, (c.min[2] + c.max[2]) / 2],
+      };
+    case 'cyl':
+      return { shape: { type: 'cyl', radius: c.radius, height: c.height, axis: c.axis || 'y' }, center: c.center || [0, 0, 0] };
+    case 'ball':
+      return { shape: { type: 'ball', radius: c.radius }, center: c.center || [0, 0, 0] };
+    default:
+      return null;
+  }
+}
