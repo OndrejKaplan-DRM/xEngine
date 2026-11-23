@@ -32,6 +32,15 @@ Stín, k rozhodnutí až s xBake (vlna 2): zjemnit mřížku jen u ploch, přes 
 
 Žádné v geometrii. Test `a_17_view` rozlišuje díru (souvislá plocha pozadí, musí být 0) a šev (jednotlivé body, nejvýš 0,01 % obrazu) a počet bodů na švech hlídá, aby nerostl. Zapnuté vyhlazování hran švy rozmaže, ale na T460 stojí 4,4 až 6,2 ms na snímek.
 
+## Doplněk 23. 11. 2026 (sešna A, po Ondřejově odpovědi „chci jemnější už teď“)
+
+K hrubosti stínu jsem ve své oblasti udělala dvě věci; švů se netýkají.
+
+1. **Okraj stínu po podílech** (`src/world/lightfield.js`, `soften`). Vzorek na hraně stínu se ptá 4 × 4 paprsky ze své plošky a svítí podílem. Mřížka vzorků ani jejich pořadí se nemění; kontrakt platí. xLab: 1 677 zjemněných položek z 31 255, paprsků 219 255 místo 66 104, stavba vrstev v sandboxu 345 až 371 ms místo 143 až 164 ms.
+2. **Mřížka 0,25 m jako volba** (`world.lightCell`, nastavení Mřížka světla, adresa `?grid=0.25`). Volám `brushLightMesh(b, 0.25)` ze základu, vlastní kopii výpočtu nemám. xLab: 63 392 vzorků a 107 106 trojúhelníků (základ v `06_ROZPOCTY` uvádí pro 0,25 m 59 394 a 102 798 bez dílů prefabů).
+
+**Co z toho plyne pro rozhodnutí:** volba 0,25 m je odchylka od kontraktu jen tehdy, když se zapne; zapečené světlo z xBake (N-001) na ní nesedí, protože počítá s 0,5 m. Bude-li Ondřej chtít 0,25 m jako výchozí, musí krok mřížky nést level nebo stupeň kvality (D-029) a xBake ho musí číst ze stejného místa. Navrhuju pole `env.lightCell` (volitelné, výchozí 0,5) a tentýž údaj v hlavičce souboru zapečeného světla.
+
 ## Rozhodnutí
 
 (vyplní svodná sešna)

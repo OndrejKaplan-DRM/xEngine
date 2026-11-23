@@ -1,6 +1,83 @@
 # Stav sešny A
 
-**Vlna:** 1, znění 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-1` = `16548b4`) · **Datum:** 22. 11. 2026, stav ve 23:30
+**Vlna:** 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-2` = `b12f8ed`) · **Datum:** 23. 11. 2026, stav v 05:00
+
+## Vlna 2 (zadání `START_A.md`, oddíl „vlna 2“): stav 23. 11. 2026
+
+Navázala jsem po přerušení na `5626629`. Základ se mezitím pohnul na `zaklad-2`; podle V2.0 jsem ho sloučila (`a1d3081`, bez konfliktu) a pustila celou regresi. Poslední běh `npm run test:all` na `b77837f`: **702 kontrol, 0 selhalo** (základ 237, skupina A 336 ve 21 sadách, skupina B 92, zkouška A × B 37). Sandbox, Node 22, Chromium bez grafické karty.
+
+### Úkoly proti sloupci „Hotovo, když“
+
+| # | Stav | Čím doloženo |
+|---|---|---|
+| A2.1 světlo po vrcholech | **hotovo** | průchod scénou nenajde žádné `Light` (`a_12_view`); místo za sloupem v hale je tmavší: 0,194 se sloupem × 1,590 bez něj, lineárně před expozicí (`a_18_light`); přepnutí lampy mění jen úroveň vrstvy, halda neroste (`a_18_light`, `a_lib/heap`); snímky proti xView s novým prahem (`a_12_view`, `a_18_view`); `test:axb` zelená (37). Zavřenými dveřmi světlo neprochází: vrstva má úseky po „branách“, úsek skrz dveře se násobí jejich otevřením (`src/world/occlusion.js`). |
+| A2.2 obraz a měření | **hotovo** | řádky 576, 768, 1080 a `setPixelRatio(1)`; vyhlazování hran výchozí vypnuté, v nastavení; každé nastavení projde `apply/probe` (`a_11_shell`, 23 kontrol); `?bench` doběhne v xLabu (`a_18_bench`) i v `xlab_gen.html?level=0` (sonda: `complex_7`, zkrácená trasa, 11 s, JSON vydán). JSON nese medián a 95 % času snímku, krok po systémech, volání, △, velikost obrazu, řetězec grafiky; nově i počty těles a profil Rapieru. |
+| A2.3 krok simulace | **příčina a náprava změřeny v sandboxu; číslo z T460 chybí** | viz oddíl níže |
+| A2.4 dluhy vlny 1 | **hotovo**, zkouška D-032 čeká na Ondřeje | skok na nový stisk (`a_13_player`); D-025 (`a_14_block`, 18 kontrol); „Rozhraní entit“ níže; terminál podle D-024 (`a_16_view`, `a_16_manip`) |
+| A2.5 nová pole základu | nezačato | |
+| A2.6 textury a sítě | nezačato | |
+| A2.7 | nezačato | |
+
+### D-024 a D-032: terminál
+
+Výsledek zkoušky starého řešení v Chrome na T460 (Ondřej, 22. 11., snímky obrazovky): **Esc u terminálu hru shodil do pauzy.** Staré řešení (zámek kurzoru se u terminálu uvolní, Esc = odejít) tedy neobstálo a D-024 platí.
+
+Nové řešení (`5626629`): zámek kurzoru se u terminálu vůbec nepouští. Myš vede vlastní kurzor po obrazovce ve světě (`interact.cursor`), levé tlačítko je „použít“ v jeho místě, klávesnice píše. **Odchod: šipka dolů nebo pravé tlačítko myši.** Klávesa „použít“ (E) k odchodu být nemůže, protože se u terminálu píše. Esc je pauza i tady (prohlížeč při Esc zámek pustí vždy); po návratu hráč dál sedí. Test s podvrženým zámkem: za celý pobyt 0 žádostí o zámek, 0 uvolnění, 0 událostí `pointerlockchange`. **Ve skutečném Chrome neověřeno**; je to Ondřejova zkouška z `STATE.md`, bod 1.
+
+### D-025: dveře a zásuvky na pohon nikoho nedrtí
+
+Než se nová hodnota kloubu roznese do těles, zkusí se kolize dílu v nové poloze proti kapsli postavy a volným tělesům (`phys.obstructs`). Stojí-li něco v cestě, krok se zruší a díl stojí jako pevné těleso, aby se od něj dalo odejít. Pohon, který stojí 0,5 s, se vrátí tam, odkud vyjel. Formát se nemění, nový výstup není.
+
+- Překážka je průnik hlubší než 2 mm, který posun prohlubuje. Dotyk a věc, která se veze s dílem, překážka není (bedna opřená o dveře z druhé strany otevření nebrání).
+- Platí pro druhy `door` a `drawer`. Tlačítko, vypínač, páka a ventil se nehlídají.
+- Pružina, zarážka a ruka hráče jen stojí; vrací se jen pohon.
+- Vrácené dveře ohlásí `closed` (nebo `opened`), jako by dojely; `opened` po nepovedeném otevření nikdy.
+- Změřeno v Node (`a_14_block`): otočné dveře se o hráče zastaví na 22° ze 105°, nejmenší mezera 1,59 mm, po 0,500 s se vrátí, hráč se nepohne (0,000 mm). O bednu se zastaví na 6°, bedna se nepohne. Posuvné dveře se o hráče ve dveřích zastaví na 0,860 m z 0,98 m a znovu otevřou.
+- **Co hráč pozná:** dveře, které se otvírají k němu, se o něj zastaví a za půl sekundy zavřou. Musí ustoupit. Dveře už také neodtlačí bednu.
+
+### Jemnější stíny (Ondřejova volba 2 b)
+
+Dvě věci, obě v mé oblasti:
+
+1. **Okraj stínu po podílech** (`lightfield.soften`, zapnuto). Vzorek, jehož soused vidí světlo jinak, se neptá jedním paprskem, ale 4 × 4 paprsky ze své plošky, a svítí podílem. Zub po buňkách mřížky se změní v plynulý přechod a hrana leží, kde má. **Mřížka vzorků se nemění**, kontrakt 0,5 m platí. Dílčí bod za zdí se nepočítá (světlo ani stín přes zeď neprosáknou).
+2. **Volitelná mřížka 0,25 m** (nastavení Obraz → Mřížka světla, platí od nové hry; adresa `?grid=0.25`). Tohle je skutečně jemnější stín. Výchozí zůstává 0,5 m, protože na ní stojí kontrakt a zapečené světlo z xBake (N-001); proto je to volba, ne výchozí stav.
+
+| Varianta (xLab) | Vzorků | Položek ve vrstvách | Zjemněno | △ stavby | Paprsků | Stavba vrstev |
+|---|---|---|---|---|---|---|
+| 0,5 m, jeden paprsek (dosud) | 23 199 | 30 433 | 0 | 34 642 | 66 104 | 143 až 164 ms |
+| 0,5 m, okraj po podílech (**výchozí**) | 23 199 | 31 255 | 1 677 | 34 642 | 219 255 | 345 až 371 ms |
+| 0,25 m, jeden paprsek | 63 392 | 87 506 | 0 | 107 106 | 187 898 | 333 ms |
+| 0,25 m, okraj po podílech | 63 392 | 89 111 | 3 165 | 107 106 | 468 334 | 660 ms |
+
+Časy jsou ze sandboxu (Node), orientační; počty platí všude. Pohled do haly: 12 volání a 22 930 △ při 0,5 m, 67 302 △ při 0,25 m. Rozpočet T460 je 300 tisíc viditelných △; cena 0,25 m na T460 **změřená není**. Level sešny B `complex_7` má při 0,5 m 151 952 vzorků, z toho 12 867 zjemněných, a vrstvy se staví 6,9 až 7,2 s (sandbox, prohlížeč): takové levely potřebují zapečené světlo.
+
+Co zjemnění neumí: stín užší než buňka mřížky (hned za sloupem) zůstává schodovitý i při 0,25 m; je to mez světla po vrcholech.
+
+### A2.3: krok simulace
+
+**Rozpad kroku v sandboxu** (Node, hráč stojí, všechna volná tělesa do 1 s usnou):
+
+| Level | Kolidery (bez tělesa) | Tělesa (volná / pevná / kinematická) | `world.step()` | z toho jádro Rapieru | z toho obal po kroku |
+|---|---|---|---|---|---|
+| xLab | 75 | 12 | 9,4 µs | 2,3 µs | 6,7 µs (71 %) |
+| `complex_7` | 1 079 (916) | 160 (43 / 116 / 1) | 95,1 µs | 2,2 µs | 91,4 µs (96 %) |
+| `complex_21` | 998 (831) | 155 (37 / 117 / 1) | 89,3 µs | 2,3 µs | 84,5 µs (95 %) |
+
+**Příčina (doložená čtením kódu a měřením):** obal Rapieru 0.21 po každém `world.step()` volá `mapNewSoftBodies()`. Ta projde zpětným voláním z WASM všechna tělesa a všechny kolidery a hledá nová a zrušená. Cena roste s počtem koliderů, ne s děním ve scéně. Počet těles, která nespí, příčinou není (v klidu 0 ze 43), kinematické těleso je jediné (hráč).
+
+**Náprava** (`phys.lazyMap`, zapnuto): obal se pouští jen v kroku po změně. Tělesa a kolidery vznikají a zanikají jen přes `src/phys/phys.js`, který si změnu poznačí. Výsledek simulace je shodný na bit (`a_12_step`: 52 hodnot, rozdíl 0).
+
+| Celý krok hry | Před | Po | Poměr |
+|---|---|---|---|
+| `complex_7`, hráč stojí | 119,5 µs | 10,1 µs | 11,8× |
+| `complex_7`, hráč chodí | 151,6 µs | 34,3 µs | 4,4× |
+| `complex_21`, hráč stojí | 109,6 µs | 9,0 µs | 12,2× |
+| `complex_21`, hráč chodí | 134,2 µs | 33,4 µs | 4,0× |
+| xLab, hráč stojí | 25,2 µs | 10,1 µs | 2,5× |
+| `complex_7` v prohlížeči (`?bench`, zkrácená trasa): medián kroku | 0,24 ms | 0,11 ms | 2,2× |
+| totéž, systém `phys` | 0,173 ms | 0,035 ms | 4,9× |
+
+Všechno sandbox. **Co nevím:** jestli tohle vysvětluje 0,64 až 3,50 ms z T460. Sandbox měl na obalu 0,09 ms, T460 hlásí u fyziky 0,6 až 3,1 ms, tedy 7× až 34× víc, a mezi dvěma pohledy téhož levelu se liší pětkrát při stejném počtu koliderů. Jeden stroj takový rozptyl pomalejším procesorem nevysvětlí. Proto `?bench` nově vydá: krok po systémech, počty těles a koliderů a kolik jich nespí, profil kroku přímo z Rapieru a „pevnou práci“ (smyčka ve skriptu a 5 000 paprsků; v sandboxu 3,1 až 3,3 ms a 9,2 až 11 ms). Poměr pevné práce mezi stroji řekne, kolikrát je T460 pomalejší; zbytek je rozdíl v tom, co krok dělá. Přehled F3 má nový řádek „fyzika“ (kolidery, volná tělesa, kolik nespí, kinematická).
 
 ## Sešna A02: přechod na znění 2 (`START_A.md`, oddíl 2a)
 
@@ -94,14 +171,14 @@ Stroj: Intel HD Graphics 520 (ANGLE, Direct3D 11), Chrome 157, 4 vlákna, 8 GB, 
 **Entita za běhu** (`src/world/entities.js`) = umístěný prefab:
 
 - totožnost: `id`, `index` (pořadí v levelu, klíč pro spojení), `def` (záznam z levelu), `prefab`, `cell`;
-- kostra: `joints` (jeden záznam na kloub: `value`, `vel`, `target`, `speed`, `active`, `held`), `values` (id kloubu → hodnota pro `rigMatrices`), `nodeWorld` (id uzlu → světová matice), `movers` (uzly, které se hýbou: matice, díl ve vykreslení, těleso ve fyzice, záznam ve světle);
+- kostra: `joints` (jeden záznam na kloub: `value`, `vel`, `target`, `speed`, `active`, `held`, `from`, `blocked`), `guard` (díly se zastaví o hráče a volná tělesa; druhy `door` a `drawer`), `values` (id kloubu → hodnota pro `rigMatrices`), `nodeWorld` (id uzlu → světová matice), `movers` (uzly, které se hýbou: matice, díl ve vykreslení, těleso ve fyzice, záznam ve světle);
 - stav: `state { locked, on, level, phase, enabled, rep }`. Je společný všem druhům; druh ho jen jinak čte;
 - součásti z prefabu: `comp` (`interact`, `light`, `physics`, `pickup`, `screen`), `kind` = `comp.interact.kind`;
 - vazby: `body` a `home` (dynamické těleso a výchozí poloha), `colliders`, `light` (záznam ve světle), `links` (spojení výstupů).
 
 **Jak se součást hlásí ke svému systému.** Součásti nemají vlastní třídy. Při načtení (`instantiate`) entita předá každému systému to jeho: vykreslení sítě dílů (`render.addStatic` pro pevné díly, `render.addMover` pro pohyblivé), fyzice tělesa a kolize (`phys.addBody`, `phys.addCollider` s odkazem `{ kind: 'entity', ent, node }`), světlu záznam lampy (`light.addLight`) a pohyblivé díly (`light.addMover`). Chování podle `kind` je tabulka funkcí v `src/world/behaviors.js` (`init`, `use`, `input`, `onJoint`); engine o „dveřích“ neví nic, co není v ní. Obrazovky a manipulaci drží vrstva xPlay (`src/play/interact.js`, `terminal.js`).
 
-**Co jde do uloženého stavu** (`snapshot` systému `entities`, pole v pořadí entit): `s` = kopie `state`; `j` = pro každý kloub `[value, vel, target, speed, active]`; `b` = u dynamického tělesa poloha, otočení, rychlosti a spánek (14 čísel). Zvlášť se ukládá fronta spojení (`io`: pořadí, vypálená spojení `once`, čekající záznamy), spouštěče (`world`) a hráč. Neukládá se: text terminálu, světlo (dopočítá se ze stavu lamp a dveří) a nic z vykreslení.
+**Co jde do uloženého stavu** (`snapshot` systému `entities`, pole v pořadí entit): `s` = kopie `state`; `j` = pro každý kloub `[value, vel, target, speed, active, from, blocked]` (`from` = odkud pohon vyjel, `blocked` = jak dlouho stojí o překážku; D-025); `b` = u dynamického tělesa poloha, otočení, rychlosti a spánek (14 čísel). Zvlášť se ukládá fronta spojení (`io`: pořadí, vypálená spojení `once`, čekající záznamy), spouštěče (`world`) a hráč. Neukládá se: text terminálu, světlo (dopočítá se ze stavu lamp a dveří) a nic z vykreslení.
 
 **Události:** `io:fired` (každé provedené spojení), `level:checkpoint`, `level:complete`, `level:message` (cíl `@level`), `interact:used`, `interact:denied`, `interact:seated`, `interact:left`, `player:jumped`, `player:landed`. Výstupy prefabů (`opened`, `on`, `changed`…) nejsou události jádra: jdou rovnou do fronty spojení (`io.fire`).
 
@@ -211,7 +288,11 @@ Vrstvy velkého levelu se za běhu počítají sekundy (124 světel, každé zko
 - **Přepnutí vyhlazování hran za běhu** (výměna plátna) ve skutečném prohlížeči a se zamčeným kurzorem.
 - **Prefaby nevrhají stín** (stůl, skříň, bedna). Stíní jen kvádry levelu.
 - **Slunce** (`type: sun`) se teď počítá i se zastíněním, ale zlatý vzorek ani levely sešny B žádné nemají: neověřeno.
-- Návrat zámku kurzoru po odchodu od terminálu. Hra o něj požádá hned (zámek uvolnila sama, ne hráč klávesou Esc, takže by ho prohlížeč měl vrátit bez čekání); když odmítne, vrátí ho první kliknutí do obrazu. Ověřit jde jen ve skutečném prohlížeči.
+- **Terminál podle D-024 ve skutečném Chrome** (vlastní kurzor se zamčenou myší, Esc = pauza a návrat, odchod šipkou dolů a pravým tlačítkem). Ověřeno jen s podvrženým zámkem v headless prohlížeči.
+- **Krok simulace na T460 po nápravě** (A2.3) a cena mřížky 0,25 m na T460.
+- **D-025 a obsah zásuvky.** Že se věc ležící v zásuvce veze s ní a neblokuje ji, plyne z pravidla (průnik se neprohlubuje), ale zlatý vzorek žádnou zásuvku s obsahem nemá: neověřeno.
+- **D-025 a robot zkoušky A × B.** Zkouška je zelená; robot dveře otvírá rukou. Jestli se v levelech sešny B dveře někde otvírají proti hráči tak, že ho zastaví, jsem nehledala.
+- (staré řešení terminálu, už neplatí) Návrat zámku kurzoru po odchodu od terminálu. Hra o něj požádá hned (zámek uvolnila sama, ne hráč klávesou Esc, takže by ho prohlížeč měl vrátit bez čekání); když odmítne, vrátí ho první kliknutí do obrazu. Ověřit jde jen ve skutečném prohlížeči.
 - Jak se manipulace „drží v ruce“. Směr a rychlost jsou spočítané a otestované robotem, který táhne přesně po směru, který hra hlásí. Jestli je citlivost příjemná (změřeno robotem v Node při citlivosti 1: ventil 414 bodů myši na půl rozsahu, křídlo dveří 299 bodů na 105° z 1,2 m, zásuvka 173 bodů na 0,38 m, páka 207 bodů na 80°), řekne až ruka.
 - Text terminálu se neukládá (po nahrání pozice je obrazovka prázdná).
 - Chování v náhledovém panelu claude.ai (vložený rámec): jestli tam zámek kurzoru projde, nevím; počítám s tím, že ne, a hra pak přejde na tažení myší.
@@ -227,7 +308,7 @@ Vrstvy velkého levelu se za běhu počítají sekundy (124 světel, každé zko
 | N-105 | zlatý vzorek xLab je přesvícený (data) | žádné, data nejsou moje. Platí i po převodu: se zastíněním a rozsvícenými lampami má start jas 166, chodba 180, laboratoř 208, hala 160 z 255 |
 | N-106 | kde leží plocha obrazovky (`components.screen`) a co znamená `app` | plocha 1 mm před nejpřednějším dílem uzlu, každá `app` je textová konzole |
 | N-107 | dveře u portálu musí v klidu zakrýt celý otvor (pravidlo validátoru) | černá clona v otvoru zavřených dveří |
-| N-108 | švy mezi sítěmi světla (vrcholy sousedních ploch na společné hraně nelícují) a hrubost stínu při mřížce 0,5 m | žádné v geometrii; test rozlišuje díru a šev a počet bodů na švech hlídá |
+| N-108 | švy mezi sítěmi světla (vrcholy sousedních ploch na společné hraně nelícují) a hrubost stínu při mřížce 0,5 m | švy: žádné v geometrii; test rozlišuje díru a šev a počet bodů na švech hlídá. Hrubost: okraj stínu po podílech a volitelná mřížka 0,25 m (doplněk v návrhu z 23. 11.) |
 
 ## Co potřebuju od sešny B
 
@@ -277,9 +358,10 @@ Z A02 (světlo po vrcholech, zastínění, měření):
 
 ## Otázky pro Ondřeje
 
-Předchozích pět je zodpovězeno (1a, 2a, 3b, 4a, 5a; viz nahoře). Nové:
+Předchozí jsou zodpovězené (1: Esc koliduje, udělat jinak; 2 b; 3 a; 4 b). Nové:
 
-1. **Terminál a Esc (D-024).** Zkus u terminálu Esc: a) rozhlížení myší se vrátí hned; b) musím kliknout nebo chvíli čekat. Podle toho předělám klidný režim (zámek kurzoru zůstane, Esc bude pauza, odchod klávesou E), nebo nechám, jak je.
-2. **Hrubost stínů.** a) na vlnu 1 stačí; b) chci jemnější už teď (víc paprsků na vzorek, delší výpočet při načtení).
-3. **Co dřív.** a) dokončit znění 2: dveře, které nikoho nedrtí (D-025), a terminál (D-024); b) nejdřív vzhled: švy a jemnější stín.
-4. **Vnitřní rozlišení.** Po měření `?bench` a `?bench&rows=1080`: a) výchozí zůstane 768 řádků; b) výchozí 1080, když se vejde do 10 ms.
+1. **Terminál v novém sestavení** (zkouška D-032): sedni si, piš, hýbej myší, klikni, dej Esc a Pokračovat, odejdi šipkou dolů a pravým tlačítkem. a) funguje a dá se s tím pracovat; b) něco drhne (napiš co).
+2. **Stíny:** v nastavení Obraz přepni Mřížku světla na 0,25 m a dej Novou hru. a) výchozí 0,5 m se zjemněným okrajem stačí; b) chci 0,25 m jako výchozí pro xLab (pak to jde do návrhu N-108 svodné sešně, protože je to odchylka od kontraktu).
+3. **Měření:** pusť `xlab.html?bench`, potom `xlab.html?bench&rows=1080`, potom `xlab_gen.html?bench` (to je level sešny B, kde byl krok simulace nad mezí) a pošli tři výsledky. Kdyby se ti chtělo, čtvrtý: `xlab.html?bench&grid=0.25`.
+4. **Dveře, které se zastaví o hráče** (D-025): a) takhle je to dobře; b) vadí mi, že se dveře otvírané ke mně zavřou, chci, aby se otvíraly vždy od hráče (to je změna dat a formátu, šlo by to návrhem).
+5. **Co dál:** a) A2.5 (nová pole základu: sklo, mříže, průhlednost); b) A2.6 (první textura a síť `.glb` se sešnou B).
