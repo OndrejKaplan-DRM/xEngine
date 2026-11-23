@@ -6,6 +6,8 @@
 
 Navázala jsem po přerušení na `5626629`. Základ se mezitím pohnul na `zaklad-2`; podle V2.0 jsem ho sloučila (`a1d3081`, bez konfliktu) a pustila celou regresi. Poslední běh `npm run test:all` na `b77837f`: **702 kontrol, 0 selhalo** (základ 237, skupina A 336 ve 21 sadách, skupina B 92, zkouška A × B 37). Sandbox, Node 22, Chromium bez grafické karty.
 
+Sestavení pro Ondřeje z `cc7893f`: `xLab_A02_2026-11-23.html` (4 921 kB, SHA-256 `2cf024f06f84e3c8…`) a `xLab_gen_A02_2026-11-23.html` (5 327 kB, `674799dc2d9cf192…`); obě se v menu hlásí „xEngine 0.1 · vlna 2, krok 1 (A02) · 2026-11-23“.
+
 ### Úkoly proti sloupci „Hotovo, když“
 
 | # | Stav | Čím doloženo |
