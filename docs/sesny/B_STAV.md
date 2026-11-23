@@ -1,8 +1,8 @@
 # Stav sešny B
 
-**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2 (`zaklad-2` = `main` = `b12f8ed`), sloučeno 23. 11. 2026 (`588ff12`) · **Stav:** 23. 11. 2026, 03:00, konec sešny B02
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 2 (`zaklad-2` = `main` = `d2fb217`), sloučeno 23. 11. 2026 (znění 1 `588ff12`, znění 2 `8387674`) · **Stav:** 23. 11. 2026, 03:00, konec sešny B02
 
-> **Základ.** Větev stojí na základu 2: znění 2 základu 1 + sloučená vlna 1 obou sešen + zkouška A × B (`npm run test:axb`) + rozhodnuté návrhy (D-029 až D-034). V repu je engine sešny A ve stavu `230b3ee`; její novější práce (světlo po vrcholech a další) je na `origin/sesna-a` a v této větvi není.
+> **Základ.** Větev stojí na základu 2: znění 2 základu 1 + sloučená vlna 1 obou sešen + zkouška A × B (`npm run test:axb`) + rozhodnuté návrhy (D-029 až D-034); znění 2 základu 2 přidalo díly prefabu v `geom.js` (N-101) a rozhodnutí D-035 až D-037. V repu je engine sešny A ve stavu `230b3ee`; její novější práce (světlo po vrcholech, zastínění, dveře jako brány světla) je na `origin/sesna-a` (`a1d3081`) a v této větvi není.
 
 ## Vlna 2: kde jsme (23. 11. 2026)
 
@@ -15,7 +15,7 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 | B2.3 xSearcher | nezačato | hotové jen měření zdrojů z 22. 11. (`tools/searcher/ZDROJE.md`) |
 | B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | nezačato | |
 | B2.5 zkouška povrchu na jednom kusu (dveře `.glb`, materiál s texturou) | nezačato | |
-| B2.6 xBake a N-001 | **hotovo podle zadání vlny 1, s jednou odchylkou od zadání vlny 2** | zadání vlny 2 chce stínit kolizemi prefabu (`colliders`, N-101); xBake stíní viditelnými díly (`parts`) a průnik s válcem počítá sám (`tools/bake/scene.mjs`). Přepsat, až bude v základu `partCollider` (dluh základu, D-034), nebo dřív, když to svodná sešna potvrdí. N-001 není rozhodnut |
+| B2.6 xBake a N-001 | **hotovo podle zadání vlny 1; proti rozhodnutí D-035 a zadání vlny 2 zbývají tři úpravy** | N-001 je přijat se změnou (D-035). **(1) Dveře v portálu při zapékání nestíní:** vzorek, ke kterému vede volná cesta od světla otvorem portálu s dveřmi, patří do vlastního úseku vrstvy s polem `gate` (id entity dveří) a za běhu svítí úrovní × otevření dveří. xBake dnes zavřenými křídly stíní a `gate` nepíše: **neuděláno**, formát `XLV1` to nemá. Vzor: `src/world/occlusion.js` na `origin/sesna-a` a popis v jejím `A_STAV.md`. (2) Stínit kolizemi prefabu z `partCollider` (v základu od znění 2); dnes stíním viditelnými díly (`parts`) a průnik s válcem počítám sama (`tools/bake/scene.mjs`). (3) Víc stínových paprsků na vzorek (D-037 to výslovně ukládá xBake) |
 | B2.7 xDesigner, dům, tvor | nezačato | |
 
 **Co se stalo 23. 11. po půlnoci.** Po sloučení se základem 2 selhala zkouška A × B ve dvou kontrolách: místnosti za dvoukřídlými dveřmi byly pro kapsli hráče nedosažitelné (`c_store_08`, `c_lab_05`, `c_store_12` v `complex_7`, `c_store_02` v `complex_21`). **Příčina byla moje:** dočasné řešení k N-007 nezapisovalo dvoukřídlé dveře do `portal.door` a navigace robota (`test/t5_lib/robot.mjs`) hledá dveře jen tam. Oprava (`129318d`): křídla mají `interact.seeThrough: true` (pole přijaté v N-107) a první křídlo je zase v `portal.door`. Pohled portál nezavírá, průchod a zvuk ano. Po opravě: všechny buňky dosažitelné, robot došel do nejvzdálenější buňky ve všech třech levelech (`complex_7` 57,9 m, `complex_21` 42,5 m, `catacombs_3` 26,3 m), dveře otevřel rukou, vynuceně žádné. Je to první zkouška nad dnešními katakombami a dveřmi.
@@ -24,6 +24,17 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 
 **První věc pro xBake příště:** víc stínových paprsků na vzorek (několik počátků v okolí vrcholu místo jednoho), aby hrana stínu dostala mezistupně a nebyla zubatá. Kontrakt se tím nemění. Neuděláno.
 
+**Znění 2 základu 2 (23. 11. 2026, sloučeno `8387674`, bez konfliktů).** Svodná sešna mezitím rozhodla mé dva návrhy a návrh sešny A o mřížce. Co z toho plyne pro tuhle větev:
+
+| Rozhodnutí | Co říká | Co to znamená pro sešnu B | Stav |
+|---|---|---|---|
+| D-035 (N-001) | soubor `levels/<id>.light.bin` přijat; křídla dveří v portálech při zapékání nestíní, světlo zadržuje brána za běhu (úsek vrstvy s polem `gate`); vrstva `indirect` se bránou neřídí; čtení souboru (`decodeBake`) přejde do základu při příštím sloučení | upravit `tools/bake/bake.mjs` a `format.mjs`: dveře portálu vyřadit ze stínících těles, vzorky osvětlené otvorem s dveřmi dát do úseku s `gate`; doplnit `b_t5_bake` a oddíl návrhu N-001. Pole `baked` do balíků dál nepsat | **neuděláno** |
+| D-036 (N-007) | zakrytí otvoru se počítá ze všech neprůhledných dílů dveří v klidu (bod 1 přijat); seznam entit u portálu zamítnut; dvoukřídlé dveře budou jeden prefab se svázanými klouby, až základ dodá `follow` (N-002); do té doby `seeThrough` | data už tomu odpovídají (`129318d`). Až bude `follow`: z `door_double_*` udělat jeden prefab a `seeThrough` u něj zrušit | čeká na základ |
+| D-037 (N-108) | základ změní mřížku světla: vrcholy na násobcích `LIGHT_CELL` ve světě, bez ploch schovaných v jiném kvádru; počet a pořadí vzorků se změní | počty a pořadí beru z `brushLightMesh`, natvrdo nikde nejsou; po změně se změní otisk `geometry` a všechna čísla xBake v tomto souboru (vzorky, velikosti, časy). Vzorků „v tělese“ má ubýt | čeká na základ |
+| N-101 proveden | `partMesh`, `partTris`, `partCollider`, `CYL_SEGMENTS` jsou v `src/xspace/geom.js` | vlastní výpočet dílů mám na čtyřech místech a má zmizet: `tools/forge/lib.mjs` (`partTris`), `tools/forge/gallery/scene.js`, `tools/bake/scene.mjs`, `tools/bake/view.js` | **neuděláno** |
+
+Pořadí pro příští sešnu: zbytek B2.1 → xBake podle D-035 (brány) spolu s `partCollider` a víc paprsky → díly z `geom.js` v galerii a v `lib.mjs` → B2.2 a dál.
+
 
 ## Hotovo × neuděláno
 
@@ -31,10 +42,10 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 |---|---|---|---|
 | B1.1 xGen: stavebnice a rozvržení | hotovo | `b_t1_xgen` 52 (Node) | předvolby `complex` (dvě patra s galerií, nebo jedno patro s plošinou a rampou) a `catacombs`; 500 levelů bez nálezu validátoru; katakomby po Ondřejově volbě 2 (b) |
 | B1.2 xForge: sada prefabů | hotovo, vzhled nevyhovuje | `b_t2_kit` 21 (Node), `b_t3_galerie` 8, `b_t4_levely` 20 (prohlížeč) | `kit_base`: 49 prefabů, 27 s kloubem (33 kloubů), 41 materiálů; galerie `dist/kit.html`; generátor rozmisťuje 47 ze 49. Ondřej 22. 11.: tvary dobré, ale „příliš sterilní“ (viz Rozhodnutí a N-006). Zavřené dveře jsou od B02 bez škvír (N-007) |
-| B1.3 xBake: zapečené světlo | hotovo podle zadání znění 2; běh soubor zatím nečte (N-001 nerozhodnut) | `b_t5_bake` 15 (Node), `b_t6_bake_nahled` 7 (prohlížeč) | světlo po vrcholech `brushLightMesh`, jedna vrstva na světlo se zastíněním, k tomu vrstva odrazu (RGB) a přístupnosti okolního světla; xLab 20 658 vzorků za 1,1 s, soubor 452 kB; nástroj `node tools/bake/cli.mjs packs/<balík>`, náhled `dist/xbake.html`, montáž `test/out/b_bake_montaz.png` |
+| B1.3 xBake: zapečené světlo | hotovo podle zadání znění 2; běh soubor zatím nečte (N-001 přijat se změnou, D-035; čtení přejde do základu) | `b_t5_bake` 15 (Node), `b_t6_bake_nahled` 7 (prohlížeč) | světlo po vrcholech `brushLightMesh`, jedna vrstva na světlo se zastíněním, k tomu vrstva odrazu (RGB) a přístupnosti okolního světla; xLab 20 658 vzorků za 1,1 s, soubor 452 kB; nástroj `node tools/bake/cli.mjs packs/<balík>`, náhled `dist/xbake.html`, montáž `test/out/b_bake_montaz.png` |
 | B1.4 xSearcher: příjem assetů | začato | | hotové jen měření dosažitelnosti zdrojů (`tools/searcher/ZDROJE.md`); nástroj `find.mjs` neexistuje |
 
-Poslední celý běh (23. 11. 2026, po `129318d`): základ `npm test` 237 kontrol, skupina A 16 sad z 16, skupina B `npm run test:b` 123 kontrol v 6 sadách, zkouška A × B `npm run test:axb` 28 + 9 kontrol. Vše zeleně.
+Poslední celý běh (23. 11. 2026, po sloučení znění 2 základu 2, `8387674`): základ `npm test` 242 kontrol (T0 41, T1 128, T4 46, T2 15, T3 12), skupina A 16 sad z 16, skupina B `npm run test:b` 123 kontrol v 6 sadách, zkouška A × B `npm run test:axb` 28 + 9 kontrol. Vše zeleně.
 
 ## Sešna B02 (22. 11. 2026 večer)
 
@@ -50,9 +61,10 @@ Ondřej ve 22:24: zápis do repa a push `sesna-b` ano; znění 2 sloučit hned; 
 | slabší odraz (váha 0,5), přisvícený přehled v náhledu | hotovo | `cc4f1fc` |
 | sloučení základu 2 (`origin/zaklad-2`, `b12f8ed`) | hotovo, bez konfliktů | `588ff12` |
 | oprava zkoušky A × B (křídla dvoukřídlých dveří se `seeThrough`) | hotovo | `129318d` |
+| sloučení znění 2 základu 2 (`origin/zaklad-2`, `d2fb217`) | hotovo, bez konfliktů | `8387674` |
 | xSearcher a textury (B2.3, B2.4) | nezačato; nová sešna | |
 
-**Dveře.** Engine sešny A bere zavřené dveře portálu jako neprůhledné a místnost za nimi nekreslí (její N-107). Sada měla kolem křídla skutečné škvíry: 1 cm pod křídlem a pod překladem, 0,5 cm po stranách, 4 mm mezi prkny prkenných dveří, 8 mm mezi křídly dvoukřídlých dveří. Zkouška paprsky (`test/b_lib/door-cover.mjs`) jimi před opravou prostrčila 1 374 až 8 352 paprsků na jedny dveře, po opravě žádný. Oprava: dorazy zárubně za křídlem (přesah 15 mm), prahová lišta 12 mm bez kolize, jádro prkenných dveří, krycí lišta na pravém křídle dvoukřídlých dveří, u posuvných dveří uzavřená štěrbina stojky nad křídlem. Generátor zapisuje `portal.door` jen u dveří z jedné entity. Prkenné dveře mají otvor 1,0 × 2,0 m místo 0,9 × 2,0 m (světlost 0,90 m): svodná sešna v T5 zjistila, že 0,80 m projde postava široká 0,74 m jen středem.
+**Dveře.** Engine sešny A bere zavřené dveře portálu jako neprůhledné a místnost za nimi nekreslí (její N-107). Sada měla kolem křídla skutečné škvíry: 1 cm pod křídlem a pod překladem, 0,5 cm po stranách, 4 mm mezi prkny prkenných dveří, 8 mm mezi křídly dvoukřídlých dveří. Zkouška paprsky (`test/b_lib/door-cover.mjs`) jimi před opravou prostrčila 1 374 až 8 352 paprsků na jedny dveře, po opravě žádný. Oprava: dorazy zárubně za křídlem (přesah 15 mm), prahová lišta 12 mm bez kolize, jádro prkenných dveří, krycí lišta na pravém křídle dvoukřídlých dveří, u posuvných dveří uzavřená štěrbina stojky nad křídlem. Generátor zapisuje do `portal.door` každé dveře, které v otvoru stojí; u dvoukřídlých první křídlo a obě křídla mají `seeThrough` (od `129318d`, shodně s D-036). Prkenné dveře mají otvor 1,0 × 2,0 m místo 0,9 × 2,0 m (světlost 0,90 m): svodná sešna v T5 zjistila, že 0,80 m projde postava široká 0,74 m jen středem.
 
 **xBench 0.2 na T460** (tři běhy 22. 11. 2026 ve 20:57, 21:32 a 21:35; surová data svodná sešna uložila do `docs/mereni/` ve větvi `integrace-1`). Interiér přes celý obraz, 1366 × 768, medián v ms:
 
@@ -166,7 +178,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 
 ## Neověřeno
 
-- **Prošel to jen robot bez obrazu.** Zkouška A × B (`npm run test:axb`, test základu) pouští všechny tři levely `gen_demo` v enginu sešny A beze změny kódu; nad dnešním stavem (nové katakomby a dveře) je zelená od `129318d`. Robot běží v Node bez vykreslení, chodí nejkratší cestou a většinu místností míjí. Engine v této větvi je stav sešny A z vlny 1 (`230b3ee`); s její novější větví (světlo po vrcholech) zkoušku pouštěla jen svodná sešna, a to před mou opravou. Vlastní průchodnost hlídám dál dvourozměrnou mřížkou s poloměrem 0,3 m (B2.1 chce 0,37 m podle profilu hráče); hala s galerií a plošinou se v ní přeskakuje.
+- **Prošel to jen robot bez obrazu.** Zkouška A × B (`npm run test:axb`, test základu) pouští všechny tři levely `gen_demo` v enginu sešny A beze změny kódu; nad dnešním stavem (nové katakomby a dveře) je zelená od `129318d`. Robot běží v Node bez vykreslení, chodí nejkratší cestou a většinu místností míjí. Engine v této větvi je stav sešny A z vlny 1 (`230b3ee`); s její novější větví (`a1d3081`, světlo po vrcholech) a s mou opravou ji nanečisto sloučila a pustila svodná sešna: 722 kontrol, 0 selhalo (`docs/STATE.md`, 23. 11.); sama jsem to nepouštěla. Vlastní průchodnost hlídám dál dvourozměrnou mřížkou s poloměrem 0,3 m (B2.1 chce 0,37 m podle profilu hráče); hala s galerií a plošinou se v ní přeskakuje.
 - **Schody.** Geometrie je v mezích zadání (výška stupně 0,17 až 0,20 m, hloubka 0,28 m), ale kontrolér postavy je nezkoušel. Zlatý vzorek má stupně 0,25 m, takže by měly být snazší; je to úvaha. Sešna A změřila, že kontrolér vyjde schod jen při vodorovném posunu aspoň asi 7 mm na krok; s mými schody to nikdo nezkoušel.
 - **Vzhled.** Všechny snímky jsou ze softwarového vykreslování, v galerii s vlastním nasvícením, v xView s osvětlením po vrcholech celých stěn (na hranicích úseků zdí dělá viditelné svislé předěly; je to vlastnost prohlížeče, ne dat). Barvy materiálů neviděl nikdo na skutečné grafické kartě. Ondřej viděl montáže a soubory z 22. 11. a vzhled označil za sterilní.
 - **Meze kloubů.** Žádná nebyla změřena na skutečném předmětu; u každé je v `KIT.md` úvaha a u většiny poznámka „neměřeno“.
@@ -174,7 +186,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 - **Posuvné dveře** zajíždějí do zdi (křídlo se v otevřené poloze překrývá s kvádrem zdi). Jak se k tomu postaví Rapier a kreslení, nevím.
 - **Dvoukřídlé dveře** jsou dvě entity se stejným počátkem (N-002, `follow` dluží základ). První křídlo je v `portal.door`, obě mají `seeThrough`: engine za nimi kreslí místnost i při zavřených křídlech. Když hráč otevře jako první levé křídlo, projde na okamžik krycí lištou pravého (8 mm, bez kolize); okem neposuzováno.
 - **Zakrytí otvoru dveřmi** hlídá vzorkovaná zkouška paprsky (`test/b_lib/door-cover.mjs`: kolmé paprsky na síti z hran dílů a šikmé vějíře do 50° vodorovně a 30° svisle), ne důkaz. V enginu sešny A to se zavřenými dveřmi nikdo neviděl.
-- **Zapečené světlo je vidět jen v mém náhledu a jen ze softwarového vykreslování.** Vrstvy bez zastínění dávají v náhledu stejný obraz jako xView se světly po pixelech (montáž, prostřední sloupec). Se stíny: stín sloupu je vidět, ale po půlmetrové mřížce má rozmazaný a nepravidelný okraj; na stropě haly dělá stín sloupu od blízké lampy hranatou tmavou skvrnu. S odrazem je bílá laboratoř vybledlá (xLab je podle N-105 přesvícený a expozice je laděná bez odrazu). První verze odrazu dala po celé místnosti světlé skvrny; teď je omezený a vyhlazený (N-001, oddíl 7) a o kolik tím ubylo energie, jsem neměřila. Běh soubor nečte (N-001 nerozhodnut). Prefaby v náhledu osvětluju po stěnách dílů ze středu stěny a díly téže entity si nestíní; to je vlastnost náhledu, ne formátu.
+- **Zapečené světlo je vidět jen v mém náhledu a jen ze softwarového vykreslování.** Vrstvy bez zastínění dávají v náhledu stejný obraz jako xView se světly po pixelech (montáž, prostřední sloupec). Se stíny: stín sloupu je vidět, ale po půlmetrové mřížce má rozmazaný a nepravidelný okraj; na stropě haly dělá stín sloupu od blízké lampy hranatou tmavou skvrnu. S odrazem je bílá laboratoř vybledlá (xLab je podle N-105 přesvícený a expozice je laděná bez odrazu). První verze odrazu dala po celé místnosti světlé skvrny; teď je omezený a vyhlazený (N-001, oddíl 7) a o kolik tím ubylo energie, jsem neměřila. Běh soubor nečte (čtení přejde do základu, D-035) a zapečená data zatím neodpovídají rozhodnutí o dveřích jako branách. Prefaby v náhledu osvětluju po stěnách dílů ze středu stěny a díly téže entity si nestíní; to je vlastnost náhledu, ne formátu.
 - **Svislé čárkované čáry na stěnách** v místech, kde na sebe navazují kvádry zdí: sešna A je vidí v enginu u mých levelů i ve zlatém vzorku. Dřív jsem je tady přičetla prohlížeči xView; to neplatí. Příčina neověřená (domněnka sešny A: prosvítají boční plochy kvádrů uvnitř zdi).
 - **Počet entit.** Level `complex` má 320 až 584 entit. Jestli to T460 unese, řekne až engine se slučováním a měření.
 - **Stažení assetu** z OpenGameArt a Quaternius, licenční údaje zdrojů (viz `tools/searcher/ZDROJE.md`).
@@ -184,13 +196,13 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 
 | Číslo | Co | Dočasné řešení |
 |---|---|---|
-| N-001 | soubor se zapečeným světlem po vrcholech a vrstvách (stavba, vrstvy, otisky, co stíní) | xBake píše do `dist/bake`, pole `baked` do balíků nezapisuje |
+| N-001 | soubor se zapečeným světlem po vrcholech a vrstvách (stavba, vrstvy, otisky, co stíní). **Přijat se změnou (D-035):** dveře v portálech nestíní, úsek vrstvy s `gate` | xBake píše do `dist/bake`, pole `baked` do balíků nezapisuje; brány neumí |
 | N-002 | svázané klouby (dvoukřídlé dveře, mikroskop, klika) | dvě entity spojené přes `io`; nesvázané klouby |
 | N-003 | portál jen pro pohled a průhledné dveře (okno, mříž) | generátor okno a mřížovou bránu nerozmisťuje |
 | N-004 | údaje prefabu pro rozmisťování (uchycení, rozměr otvoru) | výška v pravidlech předvoleb, otvor ze `source.params` |
 | N-005 | průhlednost materiálu (sklo) | `glass_pane` je neprůhledný |
 | N-006 | stupně kvality a vrstvy vzhledu (hra má vypadat skutečně; rezerva pro silnější stroj) | bohatší hrubý tvar a textury v polích, která formát už má; nová pole nepíšu |
-| N-007 | zakrytí otvoru dveřmi počítat ze všech dílů dveří; `portal.door` jako seznam (doplňuje N-107 sešny A) | dorazy a prahová lišta v sadě; dvoukřídlé dveře nejsou v `portal.door`; zkouška paprsky v `b_t1`, `b_t2` |
+| N-007 | zakrytí otvoru dveřmi počítat ze všech dílů dveří; `portal.door` jako seznam (doplňuje N-107 sešny A). **Bod 1 přijat, bod 2 zamítnut (D-036)** | dorazy a prahová lišta v sadě; křídla dvoukřídlých dveří mají `seeThrough` a první je v `portal.door`; zkouška paprsky v `b_t1`, `b_t2` |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
 
@@ -205,7 +217,7 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 5. **Světla.** Pole `lights` dává základní osvětlení (má se zapékat). Svítidla sady mají vlastní světlo vypnuté (`on: false`) a vypínač u dveří je zapíná přes `io`; pochodně hoří pořád (`on: true`, `flicker`). Stolní lampa je zapojená sama na sebe (`on → turnOn`).
 6. **`io` míří i na vlastní entitu** (stolní lampa) a dvě entity se smí spojit do kruhu (křídla dveří: `opened → open` tam i zpět). Počítám, že `open` na otevřené dveře už výstup `opened` nevyšle.
 7. **Přečti si N-006.** Ondřej chce, aby hra vypadala skutečně a aby projekt unesl silnější stroj. Pro vykreslení z toho plyne: nepočítat s tím, že materiál je jen barva (formát už má `albedo` a `normal`) a že díl je jen `box` nebo `cyl` (formát už má `mesh`). Nic z toho není úkol vlny 1.
-8. **Dveře (od B02).** Všechny dveře sady mají prahovou lištu 12 mm bez kolize a dorazy zárubně; zavřené jsou bez škvír. Dvoukřídlé dveře nejsou v `portal.door` (N-007), jejich portál je pro pohled pořád otevřený. Prkenné dveře mají otvor 1,0 × 2,0 m.
+8. **Dveře (od B02).** Všechny dveře sady mají prahovou lištu 12 mm bez kolize a dorazy zárubně; zavřené jsou bez škvír. Křídla dvoukřídlých dveří mají `seeThrough`, první křídlo je v `portal.door` a druhé se najde přes spojení `opened → open`; jejich portál je pro pohled pořád otevřený (D-036). Prkenné dveře mají otvor 1,0 × 2,0 m.
 9. **Katakomby (od B02)** mají chodby 1,6 až 1,9 m a stropy 2,6 až 3,2 m; `gen_demo` je přegenerovaný, `catacombs_3` má 30 buněk.
 
 ## Poznatky pro skill
@@ -246,4 +258,4 @@ Prvních pět je zodpovězeno (viz Rozhodnutí), pořadí práce a síla odrazu 
 4. *(staženo, viz výše)* Velikost hry: (a) dál jeden soubor HTML a textury nejvýš 512 px, (b) hra a vedle ní složka s balíky, textury 1 024 px a víc.
 5. Silnější stroj, na který mám mířit horní stupeň: (a) novější notebook s integrovanou grafikou, (b) stroj se samostatnou grafickou kartou (napiš jakou, nebo aspoň cenovou třídu).
 
-Dvě věci čekají na tebe mimo sešnu B: push znění 2 základu (svodná sešna) a běh `xbench_0-2.html` na T460 (rozhodne, kolik textur T460 unese).
+Mimo sešnu B na tebe teď nic nečeká: znění 2 je na GitHubu a `xbench_0-2.html` jsi na T460 pustil třikrát (22. 11.; výsledky v `docs/mereni/`).
