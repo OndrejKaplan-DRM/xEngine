@@ -33,7 +33,7 @@
   },
   "inputs": ["open", "close", "lock", "unlock"],
   "outputs": ["opened", "closed"],
-  "tris": 284,
+  "tris": 252,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#photometers",

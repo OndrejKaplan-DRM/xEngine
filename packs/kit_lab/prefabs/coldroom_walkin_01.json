@@ -70,7 +70,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 536,
+  "tris": 492,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#walkIns",

@@ -5,6 +5,13 @@
 import { box, boxc, cyl } from '../lib.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, moving, casing, panel, vessel, label, staticFloor } from './common.mjs';
+import { meshPart } from '../mesh/registry.mjs';
+import { merge, moved, mTranslate } from '../mesh/geo.mjs';
+import { roundedBox, tube } from '../mesh/solids.mjs';
+import { vesselGeom, liquidGeom } from './glassware.mjs';
+import { roundFlaskGeom } from './glass.mjs';
+
+const T = (g, x, y, z) => moved(g, mTranslate(x, y, z));
 
 const CAT = 'lab.bench';
 const gen = (f) => `lab/bench.mjs#${f}`;
@@ -149,10 +156,34 @@ export function benchUtility() {
 
 /** Rotační vakuová odparka s lázní, chladičem a baňkami. */
 export function rotavap() {
-  const parts = [...casing('body', 0.55, 0.45, 0.12, 'plastic_white'), cyl('body', [0.12, 0.17, 0.05], 0.12, 0.1, 'y', 'steel_brushed'), cyl('body', [0.12, 0.215, 0.05], 0.11, 0.004, 'y', 'liquid_water'), box('body', [-0.24, 0.12, -0.2], [-0.16, 0.6, -0.12], 'plastic_white'), box('body', [-0.2, 0.42, -0.16], [0.02, 0.5, -0.06], 'plastic_light'), cyl('body', [-0.08, 0.62, -0.11], 0.04, 0.3, 'y', 'glass_lab')]; // chladič
-  parts.push(...vessel('body', [[0.19, 0.012], [0.22, 0.065], [0.3, 0.06], [0.36, 0.015]], 'glass_lab', 0.4, 'liquid_amber').map((p) => ({ ...p, center: [0.12, p.center[1], 0.05] })));
-  parts.push(...vessel('body', [[0.13, 0.015], [0.16, 0.05], [0.22, 0.05], [0.26, 0.015]], 'glass_lab', 0.3, 'liquid_water').map((p) => ({ ...p, center: [-0.08, p.center[1], -0.11] })));
-  return [one('rotavap_01', 'Rotační vakuová odparka', parts, 'rotavap')];
+  // B04: baňky a chladič z hladkých sítí (dřív stoh válců). Odpařovací baňka skloněná 25° do lázně, nad ní parovod,
+  // svislý chladič se spirálou a jímací baňka; věž s motorem a zdvihem.
+  const part = (role, g, mat) => meshPart('body', 'bench', `rotavap_${role}`, g, mat);
+  const bath = vesselGeom([[0, 0.12], [0.12, 0.12, 0.01, 1], [0.12, 0.215, 0.004, 1], [0.123, 0.22]], { wall: 0.003, seg: 16, lipN: 2 });
+  const evap = roundFlaskGeom(105, 70, 30, 0, 12);
+  const tilt = (g) => moved(g, [Math.cos(0.436), -Math.sin(0.436), 0, 0, Math.sin(0.436), Math.cos(0.436), 0, 0, 0, 0, 1, 0, 0.11, 0.14, 0.05, 1]);
+  const coil = [];
+  for (let i = 0; i <= 20; i++) {
+    const a = i * 1.2;
+    coil.push([-0.08 + Math.cos(a) * 0.022, 0.5 + i * 0.011, -0.11 + Math.sin(a) * 0.022]);
+  }
+  const jacket = vesselGeom([[0, 0], [0.04, 0, 0.01, 1], [0.04, 0.3, 0.012, 1], [0.012, 0.32], [0.012, 0.335], [0.013, 0.336]], { wall: 0.0018, seg: 12, lipN: 2 });
+  const recv = roundFlaskGeom(85, 40, 26, 0, 12);
+  const parts = [
+    ...casing('body', 0.55, 0.45, 0.12, 'plastic_white'),
+    ...panel('body', 0.225, -0.2, -0.04, 0.025, 0.09, 3),
+    part('bath', bath.geom, 'steel_brushed'),
+    part('water', liquidGeom(bath.inner, 0.205, { seg: 18, flat: true }), 'liquid_water'),
+    part('tower', merge(roundedBox([-0.24, 0.12, -0.2], [-0.16, 0.62, -0.12], 0.012, 1), roundedBox([-0.2, 0.4, -0.17], [0.0, 0.5, -0.05], 0.015, 1)), 'plastic_white'),
+    part('flask', tilt(evap.geom), 'glass_lab'),
+    part('flaskliq', tilt(liquidGeom(evap.inner, evap.cy - evap.R * 0.3, { seg: 12, flat: true })), 'liquid_amber'),
+    part('duct', tube([[0.0, 0.45, -0.1], [0.04, 0.32, 0.0], [0.07, 0.25, 0.04]], 0.009, 8, { bend: 0.05, bendSeg: 2 }), 'glass_lab'),
+    part('jacket', T(jacket.geom, -0.08, 0.5, -0.11), 'glass_lab'),
+    part('coil', tube(coil, 0.0035, 5, { caps: false }), 'glass_thin'),
+    part('recv', T(recv.geom, -0.08, 0.25, 0.08), 'glass_lab'),
+    part('recvliq', T(liquidGeom(recv.inner, recv.cy - recv.R * 0.5, { seg: 12, flat: true }), -0.08, 0.25, 0.08), 'liquid_water'),
+  ];
+  return [one('rotavap_01', 'Rotační vakuová odparka', parts, 'rotavap', { params: { assembly: true } })]; // přístroj se sadou skla
 }
 
 /** Tlaková láhev 50 l s redukčním ventilem a barvou hrdla podle EN 1089-3; Dewarovy nádoby 4, 10 a 35 l. */

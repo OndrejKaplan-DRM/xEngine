@@ -27,7 +27,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 548,
+  "tris": 516,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#benchUtility",

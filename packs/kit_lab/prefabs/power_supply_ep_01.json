@@ -29,7 +29,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 712,
+  "tris": 592,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#electrophoresis",

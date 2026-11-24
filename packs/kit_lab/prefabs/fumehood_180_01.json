@@ -49,7 +49,7 @@
   },
   "inputs": ["open", "close", "lock", "unlock"],
   "outputs": ["opened", "closed"],
-  "tris": 356,
+  "tris": 312,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#fumehoodAndMore",

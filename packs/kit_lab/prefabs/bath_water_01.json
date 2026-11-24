@@ -36,7 +36,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 452,
+  "tris": 354,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#benchUtility",

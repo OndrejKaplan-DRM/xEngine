@@ -39,7 +39,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 528,
+  "tris": 408,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#shakers",

@@ -40,7 +40,7 @@
   },
   "inputs": ["open", "close", "lock", "unlock"],
   "outputs": ["opened", "closed"],
-  "tris": 624,
+  "tris": 504,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

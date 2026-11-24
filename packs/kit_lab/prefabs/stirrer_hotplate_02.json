@@ -28,7 +28,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 692,
+  "tris": 660,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

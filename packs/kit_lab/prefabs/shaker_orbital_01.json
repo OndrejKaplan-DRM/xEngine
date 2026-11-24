@@ -26,7 +26,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 428,
+  "tris": 330,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#shakers",

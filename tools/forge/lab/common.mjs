@@ -9,6 +9,9 @@ import { roundedBox, slab, cylinder } from '../mesh/solids.mjs';
 import { lathe as latheMesh, arc } from '../mesh/lathe.mjs';
 import { merge, moved, mTranslate } from '../mesh/geo.mjs';
 
+const inside = (pts, boxes) => pts.every((q) => boxes.some((b) => b.node === undefined || q.every((v, k) => v >= b.min[k] - 0.003 && v <= b.max[k] + 0.003)));
+const coverOf = (colliders, node) => (colliders ? colliders.filter((c) => c.shape === 'box' && c.node === node) : null);
+
 /** Milimetry do jména uzlu sítě (stejný tvar = stejný uzel v souboru, sdílí se mezi prefaby). */
 const mm = (v) => Math.round(v * 1000);
 const shared = (n, name, geom, mat) => meshPart(n, 'parts', name, geom, mat);
@@ -17,8 +20,10 @@ const shared = (n, name, geom, mat) => meshPart(n, 'parts', name, geom, mat);
  * Válec dílu cyl jako hladká síť se zaoblenou hranou (B04): poloměr hrany e = 12 % menšího rozměru, nejvýš 4 mm;
  * stěn 10 až 24 podle poloměru. Ze sady se tím ztratí „schody“ z ostrých válců. Malé válce (r < 6 mm) zůstávají.
  */
-export function roundCyl(p) {
+export function roundCyl(p, cover = null) {
   if (p.shape !== 'cyl' || p.radius < 0.008) return p;
+  // generátor měří místo z kvádrů, válců a kolizí (sítě nečte): válec, který přečnívá zadané kolize, zůstává válcem
+  if (cover && !inside(partPoints(p), cover)) return p;
   const e = Math.min(0.004, Math.min(p.radius, p.height) * 0.12);
   const seg = 2 * Math.round(Math.min(20, Math.max(8, 6 + p.radius * 1000 / 8)) / 2);
   const g = cylinder(p.radius, -p.height / 2, p.height / 2, { edge: e, n: 1, seg });
@@ -51,7 +56,7 @@ export function bbox(parts) {
  * o: { components, group, params, colliders, gen }
  */
 export function simple(id, title, category, parts0, o = {}) {
-  const parts = parts0.map(roundCyl);
+  const parts = parts0.map((p) => roundCyl(p, coverOf(o.colliders, p.node)));
   const b = bbox(parts);
   return definePrefab({
     id,
@@ -110,8 +115,8 @@ export const rim = (n, y, r, mat = 'glass_lab') => cyl(n, [0, y - 0.0015, 0], r 
  */
 export function moving(id, title, category, parts, m, o = {}) {
   const j = m.type === 'slider' ? slider(m.joint, m.node, m.axis, 0, m.max, { damping: 8, drive: 'manual' }) : hinge(m.joint, m.node, m.axis, 0, m.max, { damping: 4, drive: 'manual' });
-  parts = parts.map(roundCyl);
-  m = { ...m, parts: m.parts.map(roundCyl) };
+  parts = parts.map((p) => roundCyl(p, coverOf(o.colliders, p.node)));
+  m = { ...m, parts: m.parts.map((p) => roundCyl(p, coverOf(o.colliders, p.node))) };
   const a = bbox(parts);
   const b = bbox(m.parts);
   return definePrefab(
@@ -136,7 +141,7 @@ export function moving(id, title, category, parts, m, o = {}) {
 export function casing(n, w, d, h, mat = 'plastic_white', b = 0.008, y0 = 0.008) {
   const r = Math.max(b, Math.min(0.018, Math.min(w, d, h - y0) * 0.12));
   const feet = [];
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) feet.push(moved(cylinder(0.012, 0, y0, { seg: 8 }), mTranslate(sx * (w / 2 - 0.03), 0, sz * (d / 2 - 0.03))));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) feet.push(moved(cylinder(0.012, 0, y0, { seg: 6 }), mTranslate(sx * (w / 2 - 0.03), 0, sz * (d / 2 - 0.03))));
   return [shared(n, `casing_${mm(w)}_${mm(d)}_${mm(h)}_${mm(r)}_${mm(y0)}`, roundedBox([-w / 2, y0, -d / 2], [w / 2, h, d / 2], r, 1), mat), shared(n, `feet_${mm(w)}_${mm(d)}_${mm(y0)}`, merge(feet), 'rubber_black')];
 }
 
@@ -144,7 +149,7 @@ export function casing(n, w, d, h, mat = 'plastic_white', b = 0.008, y0 = 0.008)
 export function panel(n, z, x0, x1, y0, y1, buttons = 3, display = 'emit_display') {
   const k = `${mm(z)}_${mm(x0)}_${mm(x1)}_${mm(y0)}_${mm(y1)}`;
   const plate = moved(slab((x0 + x1) / 2, -(y0 + y1) / 2, x1 - x0, y1 - y0, 0, 0.003, 0.004, 2), [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, z - 0.001, 1]);
-  const btn = (bx, by, r) => moved(latheMesh([[r, 0], [r, 0.0015, 'c'], ...arc(0, 0.0015, r, 0, 90, 2).slice(1)], { seg: 8 }), [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, bx, by, z + 0.002, 1]);
+  const btn = (bx, by, r) => moved(latheMesh([[r, 0], [r, 0.0015, 'c'], ...arc(0, 0.0015, r, 0, 90, 1).slice(1)], { seg: 6 }), [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, bx, by, z + 0.002, 1]);
   const out = [shared(n, `panel_${k}`, plate, 'plastic_anthracite'), box(n, [x0 + 0.006, y0 + (y1 - y0) * 0.45, z + 0.002], [x0 + (x1 - x0) * 0.6, y1 - 0.006, z + 0.0035], display)];
   const others = [];
   for (let i = 0; i < buttons; i++) {

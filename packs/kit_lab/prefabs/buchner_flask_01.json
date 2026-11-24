@@ -4,7 +4,7 @@
   "id": "buchner_flask_01",
   "title": "Büchnerova nálevka na odsávací baňce s hadicí k vývěvě",
   "category": "lab.glass",
-  "bounds": { "min": [-0.204, -0.003, -0.051], "max": [0.052, 0.271, 0.086] },
+  "bounds": { "min": [-0.204, -0.002, -0.051], "max": [0.052, 0.271, 0.086] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,7 +18,7 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_rubber", "mat": "rubber_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.203, -0.002, -0.05], "max": [0.051, 0.27, 0.085], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.203, -0.001, -0.05], "max": [0.051, 0.27, 0.085], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },

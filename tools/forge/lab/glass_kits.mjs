@@ -217,7 +217,7 @@ export function newGlass() {
   const by = ff.H + 0.012;
   const buchner = lathe([[0.003, by - 0.05], [0.0045, by - 0.05, 'c'], [0.0055, by - 0.01], [0.012, by, 0.004], [0.045, by + 0.005, 0.003], [0.047, by + 0.055, 0.002], [0.05, by + 0.058], [0.045, by + 0.058], [0.043, by + 0.012], [0, by + 0.012]], { seg: 20 });
   const adapter = lathe([[0.012, by - 0.03], [0.022, by - 0.03, 'c'], [0.026, by + 0.002, 'c'], [0.014, by + 0.002]], { seg: 14 });
-  const hose = tube([[-0.045, ff.H - 0.058, 0], [-0.09, ff.H - 0.065, 0], [-0.12, 0.004, 0.04], [-0.2, 0.004, 0.08]], 0.006, 8, { bend: 0.04, bendSeg: 4 });
+  const hose = tube([[-0.045, ff.H - 0.058, 0], [-0.09, ff.H - 0.065, 0], [-0.12, 0.007, 0.04], [-0.2, 0.007, 0.08]], 0.006, 8, { bend: 0.04, bendSeg: 4 });
   const buchnerPrefab = simple('buchner_flask_01', 'Büchnerova nálevka na odsávací baňce s hadicí k vývěvě', CAT, [
     part('buchner', 'flask', merge(ff.geom, ff.arm), GLASS),
     part('buchner', 'filtrate', liquidGeom(ff.inner, 0.04, { seg: 16 }), 'liquid_green'),

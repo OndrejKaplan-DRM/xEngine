@@ -12,8 +12,8 @@
   "assets": [
     {
       "path": "meshes/glass.glb",
-      "bytes": 1235744,
-      "sha256": "f56c1943fa47103abd07f78f4581889740f53c5a4b598fa9e2d1b3d3dc98462b",
+      "bytes": 1232244,
+      "sha256": "5b737619ab92ed94334ffa035de9fb01040a8c1f645188bddb2137964f3c63d8",
       "license": "own",
       "source": "tools/forge/lab/glass.mjs",
       "author": "xForge (sešna B)"
@@ -36,8 +36,16 @@
     },
     {
       "path": "meshes/parts.glb",
-      "bytes": 1555908,
-      "sha256": "16bb1f68a7cb0b933a28656ce89f4df8cb34ba9211a1b559f9290136bf7b3f17",
+      "bytes": 1397272,
+      "sha256": "9b764fca45b7edcce6d6e8facc6f691581fe0ac68739dd37aefe2453cb747736",
+      "license": "own",
+      "source": "tools/forge/lab/bench.mjs",
+      "author": "xForge (sešna B)"
+    },
+    {
+      "path": "meshes/bench.glb",
+      "bytes": 63068,
+      "sha256": "99c941fc10c131029eafd189b9386efd0632ee5672b62e50cb208c90af3477a2",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"

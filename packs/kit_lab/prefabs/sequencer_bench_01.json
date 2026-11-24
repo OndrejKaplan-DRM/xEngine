@@ -35,7 +35,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 308,
+  "tris": 276,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#sequencers",

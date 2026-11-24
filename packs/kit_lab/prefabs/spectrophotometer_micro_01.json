@@ -26,7 +26,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 348,
+  "tris": 316,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#photometers",

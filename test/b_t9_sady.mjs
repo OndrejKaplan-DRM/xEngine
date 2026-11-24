@@ -56,13 +56,13 @@ for (const [id, t] of Object.entries(THEMES)) {
     // a baňkou, destilace) do 2 500 △, označená source.params.assembly
     const cap = p.source.params?.assembly ? 2500 : 1500;
     if (p.tris > cap) bad.push(`${p.id}: ${p.tris} △ (mez ${cap})`);
-    // díl ze sítě: soubor je v assets a kolize ho obepínají (generátor .glb nečte, místo měří z kolizí)
+    // díl ze sítě: soubor je v assets a v klidu ho obepínají kvádry, válce a kolize (generátor .glb nečte, místo měří z nich)
     for (const part of p.parts.filter((x) => x.shape === 'mesh')) {
       if (!kit.manifest.assets.some((a) => a.path === part.mesh.split('#')[0])) bad.push(`${p.id}: soubor ${part.mesh} není v assets`);
-      const c = meshCorners(part);
-      if (!c) bad.push(`${p.id}: síť ${part.mesh} chybí v registru`);
-      else if (c.some((q) => q.some((v, k) => v < bb.min[k] - 0.003 || v > bb.max[k] + 0.003))) bad.push(`${p.id}: síť ${part.mesh.split('#')[1]} přečnívá kolize o víc než 3 mm`);
+      if (!meshCorners(part)) bad.push(`${p.id}: síť ${part.mesh} chybí v registru`);
     }
+    const full = boundsAt(p, {}, meshCorners);
+    if (full.min.some((v, k) => v < bb.min[k] - 0.003) || full.max.some((v, k) => v > bb.max[k] + 0.003)) bad.push(`${p.id}: sítě přečnívají kolize o víc než 3 mm (${full.min.map((v, k) => (bb.min[k] - v) * 1000).concat(full.max.map((v, k) => (v - bb.max[k]) * 1000)).map((x) => Math.round(x)).join(' ')} mm)`);
     if (!p.components?.place?.mount) bad.push(`${p.id}: chybí components.place (kam se staví)`);
     if (!(p.colliders || []).length) bad.push(`${p.id}: bez kolize`);
     if (p.source.tool !== 'xforge' || !FREE_LICENSES.includes(p.source.license)) bad.push(`${p.id}: původ`);

@@ -4,7 +4,7 @@
   "id": "rotavap_01",
   "title": "Rotační vakuová odparka",
   "category": "lab.bench",
-  "bounds": { "min": [-0.276, -0.001, -0.226], "max": [0.276, 0.771, 0.226] },
+  "bounds": { "min": [-0.276, -0.001, -0.226], "max": [0.276, 0.839, 0.236] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -13,33 +13,33 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_550_450_120_13_8", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_550_450_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_120_100_y_120_170_50", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_110_4_y_120_215_50", "mat": "liquid_water" },
-    { "node": "body", "shape": "box", "min": [-0.24, 0.12, -0.2], "max": [-0.16, 0.6, -0.12], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.2, 0.42, -0.16], "max": [0.02, 0.5, -0.06], "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_300_y_-80_620_-110", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_39_30_y_120_205_50", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_63_80_y_120_260_50", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_60_y_120_330_50", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_37_28_y_120_206_50", "mat": "liquid_amber" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_62_38_y_120_239_50", "mat": "liquid_amber" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_33_30_y_-80_145_-110", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_60_y_-80_190_-110", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_33_40_y_-80_240_-110", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_31_28_y_-80_146_-110", "mat": "liquid_water" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_48_9_y_-80_165_-110", "mat": "liquid_water" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_225_-200_-40_25_90", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.194, 0.0543, 0.227], "max": [-0.104, 0.084, 0.2285], "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_225_-200_-40_25_90_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_225_-200_-40_25_90_3", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_bath", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_tower", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flaskliq", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_duct", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_jacket", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_coil", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recv", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recvliq", "mat": "liquid_water" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.275, 0, -0.225], "max": [0.275, 0.77, 0.225], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.275, 0, -0.225], "max": [0.275, 0.838, 0.235], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1572,
+  "tris": 2458,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#rotavap",
+    "params": { "assembly": true },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

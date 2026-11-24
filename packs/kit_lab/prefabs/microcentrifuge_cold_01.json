@@ -40,7 +40,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 700,
+  "tris": 602,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#microcentrifuges",

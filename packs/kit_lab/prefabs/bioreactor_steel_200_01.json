@@ -34,7 +34,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 1064,
+  "tris": 976,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#reactors",

@@ -131,7 +131,7 @@ export function roundFlaskGeom(d, l, nd, y0 = 0.008, seg = null) {
   const [R, L, rn] = [d / 2000, l / 1000, nd / 2000];
   const cy = y0 + R;
   const u1 = (Math.acos(Math.min(0.98, rn / R)) * 180) / Math.PI;
-  const sph = arc(0, cy, R, -90, u1, 6);
+  const sph = arc(0, cy, R, -90, u1, seg && seg <= 12 ? 4 : 6);
   const yN = cy + R * Math.sin((u1 * Math.PI) / 180);
   const wall = wallFor(R) * 0.9;
   const outer = [...sph.slice(0, -1).map(([r, y]) => [r, y]), [rn, yN, rn * 0.5], [rn, yN + L - 0.003], [rn + wall, yN + L]];

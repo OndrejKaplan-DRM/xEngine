@@ -41,7 +41,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 300,
+  "tris": 234,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#uprights",

@@ -38,7 +38,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 600,
+  "tris": 512,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#autoclaves",
