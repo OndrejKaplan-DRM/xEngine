@@ -28,6 +28,10 @@ function typeOf(d) {
       const r = d.min !== undefined || d.max !== undefined ? ` ${d.min ?? '−∞'} až ${d.max ?? '∞'}` : '';
       return (d.t === 'int' ? 'celé číslo' : 'číslo') + r;
     }
+    case 'ramp': {
+      const r = d.min !== undefined || d.max !== undefined ? ` ${d.min ?? '−∞'} až ${d.max ?? '∞'}` : '';
+      return `číslo${r}, nebo { min, max, curve? } podle nabití`;
+    }
     case 'vec3':
       return '[x, y, z]';
     case 'vec2':

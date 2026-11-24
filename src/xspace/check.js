@@ -1,7 +1,7 @@
 // Pomocné funkce validátoru xSpace: sběrač nálezů a vrstva 1 (tvar hodnoty podle popisu ve formats.js).
 // Odděleno z validate.js kvůli mezi 600 řádků (25. 11. 2026); kódy nálezů se nemění.
 
-import { LIMITS } from './formats.js';
+import { LIMITS, RAMP_CURVES } from './formats.js';
 
 export const ID = /^[a-z][a-z0-9_]*$/;
 export const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -45,6 +45,18 @@ export function checkShape(d, v, path, c) {
       if (d.min !== undefined && v < d.min) c.err('shape.range', path, `${v} je pod mezí ${d.min}`);
       if (d.max !== undefined && v > d.max) c.err('shape.range', path, `${v} je nad mezí ${d.max}`);
       return;
+    case 'ramp': {
+      // číslo, nebo { min, max, curve? } podle nabití zbraně (N-201)
+      if (isNum(v)) return checkShape({ ...d, t: 'num' }, v, path, c);
+      if (!v || typeof v !== 'object' || Array.isArray(v)) return c.err('shape.type', path, 'má být číslo, nebo { min, max, curve? }');
+      for (const k of ['min', 'max']) {
+        if (v[k] === undefined) c.err('shape.required', `${path}.${k}`, 'povinné pole chybí');
+        else checkShape({ t: 'num', min: d.min, max: d.max }, v[k], `${path}.${k}`, c);
+      }
+      if (v.curve !== undefined && !RAMP_CURVES.includes(v.curve)) c.err('shape.enum', `${path}.curve`, `„${v.curve}“ není z výčtu: ${RAMP_CURVES.join(', ')}`);
+      for (const k of Object.keys(v)) if (!['min', 'max', 'curve'].includes(k)) c.warn('shape.unknown', `${path}.${k}`, 'neznámé pole (překlep, nebo pole z novější verze formátu)');
+      return;
+    }
     case 'vec2':
       if (!isVec(v, 2)) c.err('shape.type', path, 'má být pole dvou čísel');
       return;

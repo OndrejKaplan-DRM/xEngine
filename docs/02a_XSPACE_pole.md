@@ -16,6 +16,8 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `materials` |  | text | cesta k souboru materiálů |
 | `prefabs` |  | pole: text | soubory prefabů |
 | `levels` |  | pole: text | soubory levelů |
+| `ammo` |  | text | cesta k souboru druhů munice (zkušební, N-201) |
+| `weapons` |  | pole: text | soubory zbraní (zkušební, N-201) |
 | `assets` |  | pole: objekt | binární soubory balíku s původem a otiskem |
 | `assets[].path` | ano | text | cesta k binárnímu souboru relativně k balíku |
 | `assets[].bytes` | ano | celé číslo 1 až ∞ | velikost v bajtech |
@@ -223,6 +225,98 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `baked.file` | ano | text | soubor se zapečeným světlem |
 | `baked.method` | ano | `vertex` · `lightmap` | způsob |
 | `baked.hash` | ano | text | otisk geometrie a světel, pro které zapečení platí |
+| `source` | ano | objekt | původ a licence |
+| `source.tool` | ano | text | nástroj, který soubor vyrobil (xforge, xsearcher, gen, designer, golden, rucne) |
+| `source.generator` |  | text | jméno generátoru nebo skriptu |
+| `source.params` |  | cokoli | parametry generátoru (pro opakovatelnost) |
+| `source.seed` |  | celé číslo | seed generátoru |
+| `source.license` | ano | `CC0-1.0` · `own` · `CC-BY-4.0` · `MIT` · `OFL-1.1` | licence |
+| `source.author` |  | text | autor nebo původní zdroj |
+| `source.url` |  | text | adresa zdroje, pokud asset pochází z webu |
+| `source.date` |  | text | datum vzniku nebo stažení, RRRR-MM-DD |
+
+## ammo: druhy munice (zkušební, N-201)
+
+| Pole | Povinné | Typ | Význam |
+|---|---|---|---|
+| `xspace` | ano | vždy `1` | verze formátu xSpace |
+| `kind` | ano | vždy `"ammo"` | druh souboru |
+| `ammo` | ano | mapa id → objekt | id munice → druh |
+| `ammo[].title` | ano | text | název česky |
+| `ammo[].max` | ano | celé číslo 1 až 100000 | nejvíc, co hráč unese |
+
+## weapon: zbraň (zkušební, N-201)
+
+| Pole | Povinné | Typ | Význam |
+|---|---|---|---|
+| `xspace` | ano | vždy `1` | verze formátu xSpace |
+| `kind` | ano | vždy `"weapon"` | druh souboru |
+| `id` | ano | id | id zbraně, tvar <co>_<varianta>_<nn> |
+| `title` | ano | text | název česky |
+| `slot` | ano | celé číslo 0 až 9 | klávesa 0–9; víc zbraní ve slotu se střídá podle order |
+| `order` |  | celé číslo 0 až 99 | pořadí ve slotu; výchozí 0 |
+| `ammo` |  | odkaz (ammo) | munice; bez ní zbraň munici nepotřebuje |
+| `view` | ano | objekt | zbraň v ruce |
+| `view.prefab` | ano | odkaz (prefab) | model v ruce |
+| `view.pos` | ano | [x, y, z] | poloha vůči kameře, m (x vpravo, y nahoru, −z dopředu) |
+| `view.rot` |  | [x, y, z] | natočení ve stupních, YXZ |
+| `view.muzzle` | ano | [x, y, z] | ústí v prostoru prefabu |
+| `zoom` |  | objekt | přiblížení |
+| `zoom.fov` | ano | číslo 5 až 120 | vodorovné zorné pole při přiblížení, stupně |
+| `primary` | ano | objekt | hlavní tlačítko |
+| `primary.kind` | ano | `hitscan` · `projectile` · `melee` | paprsek, střela s letem, nebo úder na dosah |
+| `primary.cooldown` | ano | číslo 0.01 až 60 | nejkratší čas mezi výstřely, s |
+| `primary.cost` |  | číslo 0 až 1000, nebo { min, max, curve? } podle nabití | munice na výstřel; výchozí 1, má-li zbraň munici |
+| `primary.pellets` |  | celé číslo 1 až 64 | počet broků; výchozí 1 |
+| `primary.spread` |  | číslo 0 až 45 | rozptyl, polovina vrcholového úhlu kužele ve stupních |
+| `primary.damage` | ano | číslo 0 až 100000, nebo { min, max, curve? } podle nabití | poškození jednoho zásahu |
+| `primary.range` |  | číslo 0.1 až 2000 | dosah paprsku nebo úderu, m (hitscan, melee) |
+| `primary.push` |  | číslo 0 až 200, nebo { min, max, curve? } podle nabití | rychlost, kterou zásah udělí lehkému tělesu, m/s (PUSH_MASS) |
+| `primary.projectile` |  | objekt | střela (kind projectile) |
+| `primary.projectile.speed` | ano | číslo 0.1 až 2000, nebo { min, max, curve? } podle nabití | počáteční rychlost, m/s |
+| `primary.projectile.accel` |  | číslo 0 až 1000 | zrychlení po dráze letu, m/s² |
+| `primary.projectile.gravity` |  | číslo 0 až 10 | násobek tíže; 0 = letí rovně |
+| `primary.projectile.life` | ano | číslo 0.05 až 60 | doba letu, potom zanikne nebo vybuchne, s |
+| `primary.projectile.radius` |  | číslo 0 až 2 | poloměr koule střely pro zásah, m |
+| `primary.projectile.bounce` |  | číslo 0 až 1 | odrazivost od světa 0–1; bez ní se střela při dopadu zastaví |
+| `primary.projectile.fuse` |  | číslo 0.01 až 60 | rozbuška: výbuch po tolika s od výstřelu |
+| `primary.splash` |  | objekt | výbuch nebo šplouchnutí v místě dopadu |
+| `primary.splash.radius` | ano | číslo 0.05 až 100, nebo { min, max, curve? } podle nabití | poloměr, m |
+| `primary.splash.damage` | ano | číslo 0 až 100000, nebo { min, max, curve? } podle nabití | poškození ve středu; k okraji lineárně k nule |
+| `primary.splash.push` |  | číslo 0 až 200, nebo { min, max, curve? } podle nabití | odhození ve středu, m/s |
+| `primary.charge` |  | objekt | nabíjení podržením tlačítka; hodnoty { min, max } se berou podle nabití 0–1 |
+| `primary.charge.time` | ano | číslo 0.05 až 30 | doba do plného nabití, s |
+| `primary.charge.release` |  | číslo 0.05 až 60 | samovolné vystřelení po tolika s držení |
+| `primary.recoil` |  | číslo 0 až 1 | zákluz obrazu zbraně 0–1 |
+| `primary.noise` |  | číslo 0 až 500 | poloměr, na který výstřel slyší nepřátelé, m |
+| `primary.sounds` |  | mapa id → text | fire, charged, empty → zvuková událost (Z-2) |
+| `alt` |  | objekt | druhé tlačítko |
+| `alt.kind` | ano | `hitscan` · `projectile` · `melee` | paprsek, střela s letem, nebo úder na dosah |
+| `alt.cooldown` | ano | číslo 0.01 až 60 | nejkratší čas mezi výstřely, s |
+| `alt.cost` |  | číslo 0 až 1000, nebo { min, max, curve? } podle nabití | munice na výstřel; výchozí 1, má-li zbraň munici |
+| `alt.pellets` |  | celé číslo 1 až 64 | počet broků; výchozí 1 |
+| `alt.spread` |  | číslo 0 až 45 | rozptyl, polovina vrcholového úhlu kužele ve stupních |
+| `alt.damage` | ano | číslo 0 až 100000, nebo { min, max, curve? } podle nabití | poškození jednoho zásahu |
+| `alt.range` |  | číslo 0.1 až 2000 | dosah paprsku nebo úderu, m (hitscan, melee) |
+| `alt.push` |  | číslo 0 až 200, nebo { min, max, curve? } podle nabití | rychlost, kterou zásah udělí lehkému tělesu, m/s (PUSH_MASS) |
+| `alt.projectile` |  | objekt | střela (kind projectile) |
+| `alt.projectile.speed` | ano | číslo 0.1 až 2000, nebo { min, max, curve? } podle nabití | počáteční rychlost, m/s |
+| `alt.projectile.accel` |  | číslo 0 až 1000 | zrychlení po dráze letu, m/s² |
+| `alt.projectile.gravity` |  | číslo 0 až 10 | násobek tíže; 0 = letí rovně |
+| `alt.projectile.life` | ano | číslo 0.05 až 60 | doba letu, potom zanikne nebo vybuchne, s |
+| `alt.projectile.radius` |  | číslo 0 až 2 | poloměr koule střely pro zásah, m |
+| `alt.projectile.bounce` |  | číslo 0 až 1 | odrazivost od světa 0–1; bez ní se střela při dopadu zastaví |
+| `alt.projectile.fuse` |  | číslo 0.01 až 60 | rozbuška: výbuch po tolika s od výstřelu |
+| `alt.splash` |  | objekt | výbuch nebo šplouchnutí v místě dopadu |
+| `alt.splash.radius` | ano | číslo 0.05 až 100, nebo { min, max, curve? } podle nabití | poloměr, m |
+| `alt.splash.damage` | ano | číslo 0 až 100000, nebo { min, max, curve? } podle nabití | poškození ve středu; k okraji lineárně k nule |
+| `alt.splash.push` |  | číslo 0 až 200, nebo { min, max, curve? } podle nabití | odhození ve středu, m/s |
+| `alt.charge` |  | objekt | nabíjení podržením tlačítka; hodnoty { min, max } se berou podle nabití 0–1 |
+| `alt.charge.time` | ano | číslo 0.05 až 30 | doba do plného nabití, s |
+| `alt.charge.release` |  | číslo 0.05 až 60 | samovolné vystřelení po tolika s držení |
+| `alt.recoil` |  | číslo 0 až 1 | zákluz obrazu zbraně 0–1 |
+| `alt.noise` |  | číslo 0 až 500 | poloměr, na který výstřel slyší nepřátelé, m |
+| `alt.sounds` |  | mapa id → text | fire, charged, empty → zvuková událost (Z-2) |
 | `source` | ano | objekt | původ a licence |
 | `source.tool` | ano | text | nástroj, který soubor vyrobil (xforge, xsearcher, gen, designer, golden, rucne) |
 | `source.generator` |  | text | jméno generátoru nebo skriptu |

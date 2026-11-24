@@ -9,6 +9,7 @@ import { doorCoverGap } from './cover.js';
 import { ID, isNum, isVec, collector, checkShape, dupes, boxOk } from './check.js';
 import { checkPrefab } from './check-prefab.js';
 import { interactions, doorInteraction } from './interact.js';
+import { checkArsenal } from './check-weapon.js';
 
 // ---- materiály -------------------------------------------------------------------------
 
@@ -320,6 +321,7 @@ export function validatePack(pack) {
 
   // bez načtených balíků z requires je neznámý prefab jen varování; se spojeným balíkem (complete) chyba
   const external = !pack.complete && Array.isArray(m?.requires) && m.requires.length > 0;
+  const arsenal = checkArsenal(pack, prefabIds, external, c);
   const levelStats = [];
   for (const { file, data } of pack.levels || []) {
     const s = checkLevel(file, data, matIds, prefabById, external, c, pack.materials?.materials || null);
@@ -340,6 +342,8 @@ export function validatePack(pack) {
       prefabs: prefabById.size,
       prefabTris: [...prefabById.values()].reduce((s, p) => s + (isNum(p.tris) ? p.tris : 0), 0),
       assets: assetPaths.size,
+      ammo: arsenal.ammoIds.size,
+      weapons: arsenal.weaponIds.size,
       levels: levelStats,
     },
   };
