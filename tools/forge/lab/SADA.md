@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 212 · materiálů: 38 · trojúhelníků celkem: 70312
+Prefabů: 249 · materiálů: 38 · trojúhelníků celkem: 80272
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -218,6 +218,43 @@ Prefabů: 212 · materiálů: 38 · trojúhelníků celkem: 70312
 | `printer_label_01` | Tiskárna štítků | lab.bench | 0,12 × 0,15 × 0,23 | 96 | — | — |
 | `minicentrifuge_01` | Minicentrifuga | lab.bench | 0,15 × 0,1 × 0,15 | 128 | — | — |
 | `bin_tips_01` | Odpadní nádobka na špičky | lab.bench | 0,15 × 0,16 × 0,15 | 24 | — | — |
+| `uplc_stack_01` | Sestava UPLC (čerpadlo, dávkovač vzorků, termostat kolon) | lab.large | 0,35 × 0,87 × 0,72 | 960 | — | — |
+| `hplc_stack_01` | Sestava HPLC se čtyřmi moduly | lab.large | 0,37 × 0,87 × 0,56 | 828 | — | — |
+| `ms_detector_01` | Hmotnostní detektor (trojitý kvadrupól) | lab.large | 0,45 × 0,7 × 0,81 | 120 | — | — |
+| `gc_01` | Plynový chromatograf s automatickým dávkovačem | lab.large | 0,52 × 0,66 × 0,55 | 296 | — | — |
+| `gc_compact_01` | Kompaktní plynový chromatograf | lab.large | 0,35 × 0,66 × 0,63 | 296 | — | — |
+| `gcms_01` | Plynový chromatograf s hmotnostním detektorem | lab.large | 0,98 × 0,66 × 0,55 | 320 | — | — |
+| `sequencer_bench_01` | Stolní sekvenátor | lab.large | 0,69 × 0,9 × 0,72 | 156 | lid: 0° až 85° | door |
+| `sequencer_floor_01` | Velký sekvenátor (stojací) | lab.large | 0,87 × 1,6 × 0,96 | 96 | — | — |
+| `microscope_confocal_01` | Konfokální mikroskop na antivibračním stole | lab.large | 1,2 × 1,36 × 0,9 | 284 | — | — |
+| `microscope_tem_01` | Transmisní elektronový mikroskop (TEM) | lab.large | 1,8 × 2,25 × 1 | 416 | — | — |
+| `microscope_sem_01` | Rastrovací elektronový mikroskop (SEM) | lab.large | 1,75 × 1,55 × 0,92 | 212 | — | — |
+| `microscope_sem_desk_01` | Stolní rastrovací elektronový mikroskop | lab.large | 0,33 × 0,56 × 0,64 | 172 | — | — |
+| `autoclave_floor_01` | Autokláv stojací 100 l, plněný shora | lab.large | 0,65 × 1,49 × 0,91 | 260 | lid: 0° až 85° | door |
+| `autoclave_bench_01` | Stolní autokláv s čelními dvířky | lab.large | 0,62 × 0,45 × 0,97 | 220 | swing: 0° až 100° | door |
+| `bsc_class2_120_01` | Biologický bezpečnostní box třídy II, 1,2 m | lab.large | 1,3 × 2,23 × 0,81 | 252 | sash: 0 až 0,25 m | drawer |
+| `bsc_class2_180_01` | Biologický bezpečnostní box třídy II, 1,8 m | lab.large | 1,9 × 2,23 × 0,81 | 252 | sash: 0 až 0,25 m | drawer |
+| `laminar_flow_01` | Horizontální laminární box (čistý stůl) | lab.large | 1,2 × 1,45 × 0,7 | 120 | — | — |
+| `incubator_co2_01` | CO₂ inkubátor 165 l na podstavci | lab.large | 0,93 × 1,5 × 1,47 | 180 | swing: 0° až 110° | door |
+| `incubator_co2_stack_01` | Dvojice CO₂ inkubátorů nad sebou | lab.large | 0,93 × 1,92 × 1,47 | 180 | swing: 0° až 110° | door |
+| `lyophilizer_01` | Lyofilizátor s akrylovou komorou | lab.large | 0,65 × 0,81 × 0,61 | 528 | — | — |
+| `liquid_handler_01` | Pipetovací robot v proskleném krytu | lab.large | 1,2 × 0,9 × 0,74 | 168 | — | — |
+| `cytometer_flow_01` | Průtokový cytometr | lab.large | 0,6 × 0,6 × 0,61 | 172 | — | — |
+| `nmr_magnet_01` | NMR spektrometr (supravodivý magnet) | lab.large | 0,72 × 1,85 × 0,72 | 368 | — | — |
+| `washer_labware_01` | Myčka laboratorního skla pod pult | lab.large | 0,6 × 0,85 × 1,21 | 132 | drop: 0° až 90° | door |
+| `ice_maker_01` | Výrobník šupinového ledu | lab.large | 0,5 × 0,9 × 0,63 | 60 | — | — |
+| `water_ultrapure_01` | Úprava ultračisté vody na zeď s výdejním ramenem | lab.large | 0,36 × 0,5 × 0,43 | 188 | — | — |
+| `freezer_ult_01` | Mrazák −80 °C na 500 krabic | lab.cold | 1,37 × 1,98 × 1,74 | 180 | swing: 0° až 120° | door |
+| `freezer_ult_02` | Mrazák −80 °C na 600 krabic | lab.cold | 1,59 × 1,98 × 1,88 | 180 | swing: 0° až 120° | door |
+| `freezer_ult_03` | Mrazák −80 °C na 700 krabic | lab.cold | 1,8 × 1,98 × 2,03 | 180 | swing: 0° až 120° | door |
+| `fridge_lab_tall_01` | Laboratorní lednice | lab.cold | 0,94 × 1,85 × 1,18 | 120 | swing: 0° až 115° | door |
+| `fridge_lab_glass_01` | Laboratorní lednice s prosklenými dveřmi | lab.cold | 0,94 × 1,85 × 1,18 | 132 | swing: 0° až 115° | door |
+| `freezer_lab_20_01` | Laboratorní mrazák −20 °C | lab.cold | 0,94 × 1,85 × 1,18 | 180 | swing: 0° až 115° | door |
+| `fridge_undercounter_01` | Podstolová lednice | lab.cold | 0,94 × 0,82 × 1,13 | 120 | swing: 0° až 115° | door |
+| `freezer_chest_ult_01` | Truhlicový mrazák −80 °C | lab.cold | 1,6 × 1,8 × 0,94 | 144 | lid: 0° až 80° | door |
+| `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,82 × 1,13 × 0,82 | 600 | — | — |
+| `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 444 | swing: 0° až 100° | door |
+| `freezer_walkin_01` | Mrazicí komora −20 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 444 | swing: 0° až 100° | door |
 
 ## Meze kloubů: zdroj nebo úvaha
 
@@ -235,3 +272,21 @@ Prefabů: 212 · materiálů: 38 · trojúhelníků celkem: 70312
 | `transilluminator_uv_01` | shield | 0° až 85° | Oranžový akrylový kryt transiluminátoru se zvedá na zadním pantu až do svislé polohy; 85°. Úvaha, neměřeno. |
 | `bath_water_01` | lid | 0° až 100° | Sedlové víko vodní lázně se odklápí dozadu za svislou polohu, aby kondenzát stékal do vany; 100°. Úvaha, neměřeno. |
 | `oven_drying_01` | swing | 0° až 120° | Dvířka stolní sušárny na levém pantu se otevírají o 90 až 180°, v laboratoři obvykle ke zdi; 120°. Úvaha, neměřeno. |
+| `sequencer_bench_01` | lid | 0° až 85° | Víko prostoru pro reagencie stolního sekvenátoru se zvedá dozadu asi do svislé polohy; 85°. Úvaha, neměřeno. |
+| `autoclave_floor_01` | lid | 0° až 85° | Víko stojacího autoklávu na zadním pantu s protizávažím se zvedá skoro do svislé polohy; 85°. Úvaha podle katalogu výrobce, neměřeno. |
+| `autoclave_bench_01` | swing | 0° až 100° | Kruhová dvířka stolního autoklávu na levém pantu se otvírají o 90 až 110°; 100°. Úvaha, neměřeno. |
+| `bsc_class2_120_01` | sash | 0 až 0,25 m | Čelní sklo boxu třídy II jede svisle; pracovní otvor 20 až 25 cm, nahoru až o 25 cm pro čištění. Úvaha podle katalogů (Thermo Scientific, Esco), neměřeno. |
+| `bsc_class2_180_01` | sash | 0 až 0,25 m | Čelní sklo boxu třídy II jede svisle; pracovní otvor 20 až 25 cm, nahoru až o 25 cm pro čištění. Úvaha podle katalogů (Thermo Scientific, Esco), neměřeno. |
+| `incubator_co2_01` | swing | 0° až 110° | Vnější dvířka CO₂ inkubátoru na pantu se otvírají o 90 až 180° (lze přehodit stranu); 110°. Úvaha podle katalogu výrobce, neměřeno. |
+| `incubator_co2_stack_01` | swing | 0° až 110° | Vnější dvířka CO₂ inkubátoru na pantu se otvírají o 90 až 180° (lze přehodit stranu); 110°. Úvaha podle katalogu výrobce, neměřeno. |
+| `washer_labware_01` | drop | 0° až 90° | Dvířka myčky se sklápějí dolů do vodorovné polohy, jako u kuchyňské myčky; 90°. Úvaha, neměřeno. |
+| `freezer_ult_01` | swing | 0° až 120° | Vnější dveře mrazáku −80 °C se otvírají o 90 až 180°, uvnitř jsou ještě vnitřní dvířka; 120°. Úvaha podle katalogu výrobce, neměřeno. |
+| `freezer_ult_02` | swing | 0° až 120° | Vnější dveře mrazáku −80 °C se otvírají o 90 až 180°, uvnitř jsou ještě vnitřní dvířka; 120°. Úvaha podle katalogu výrobce, neměřeno. |
+| `freezer_ult_03` | swing | 0° až 120° | Vnější dveře mrazáku −80 °C se otvírají o 90 až 180°, uvnitř jsou ještě vnitřní dvířka; 120°. Úvaha podle katalogu výrobce, neměřeno. |
+| `fridge_lab_tall_01` | swing | 0° až 115° | Dveře laboratorní lednice nebo mrazáku na pantu se otvírají asi o 110 až 130°; 115°. Úvaha, neměřeno. |
+| `fridge_lab_glass_01` | swing | 0° až 115° | Dveře laboratorní lednice nebo mrazáku na pantu se otvírají asi o 110 až 130°; 115°. Úvaha, neměřeno. |
+| `freezer_lab_20_01` | swing | 0° až 115° | Dveře laboratorní lednice nebo mrazáku na pantu se otvírají asi o 110 až 130°; 115°. Úvaha, neměřeno. |
+| `fridge_undercounter_01` | swing | 0° až 115° | Dveře laboratorní lednice nebo mrazáku na pantu se otvírají asi o 110 až 130°; 115°. Úvaha, neměřeno. |
+| `freezer_chest_ult_01` | lid | 0° až 80° | Víko truhlicového mrazáku na zadních pantech s vyvážením zůstane stát v otevřené poloze asi 80°; 80°. Úvaha, neměřeno. |
+| `coldroom_walkin_01` | swing | 0° až 100° | Izolované dveře chladicí komory se otvírají ven o 90 až 110°, za nimi visí pásová clona z PVC; 100°. Úvaha, neměřeno. |
+| `freezer_walkin_01` | swing | 0° až 100° | Izolované dveře chladicí komory se otvírají ven o 90 až 110°, za nimi visí pásová clona z PVC; 100°. Úvaha, neměřeno. |

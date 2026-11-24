@@ -1,0 +1,53 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "incubator_co2_01",
+  "title": "CO₂ inkubátor 165 l na podstavci",
+  "category": "lab.large",
+  "bounds": { "min": [-0.612, -0.001, -0.441], "max": [0.32, 1.501, 1.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.3185, 0.62, 0.39] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.29, 0, -0.37], "max": [-0.25, 0.6, -0.33], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.29, 0, 0.33], "max": [-0.25, 0.6, 0.37], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.25, 0, -0.37], "max": [0.29, 0.6, -0.33], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.25, 0, 0.33], "max": [0.29, 0.6, 0.37], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.3, 0.58, -0.4], "max": [0.3, 0.6, 0.35], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.3185, 0.612, -0.428], "max": [0.3185, 1.488, 0.378], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.3065, 0.6, -0.428], "max": [0.3065, 1.5, 0.378], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.3065, 0.612, -0.44], "max": [0.3065, 1.488, 0.39], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.2685, 1.38, 0.389], "max": [0.2685, 1.47, 0.392], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.2625, 1.4205, 0.392], "max": [0.0537, 1.464, 0.3935], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.2605, 1.386, 0.392], "max": [-0.2485, 1.394, 0.395], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.0868, 1.386, 0.392], "max": [-0.0748, 1.394, 0.395], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.0868, 1.386, 0.392], "max": [0.0988, 1.394, 0.395], "mat": "plastic_light" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.05], "mat": "plastic_white" },
+    { "node": "door", "shape": "box", "min": [0.577, 0.27, 0.05], "max": [0.597, 0.495, 0.08], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.319, 0, -0.44], "max": [0.319, 1.5, 0.395], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.08], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "floor" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít inkubátor", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 180,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#cultureAndMore",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -97,7 +97,7 @@ export function moving(id, title, category, parts, m, o = {}) {
       nodes: [node('body'), node(m.node, 'body', m.at)],
       joints: [j],
       parts: [...parts, ...m.parts],
-      colliders: [cbox('body', a.min, a.max, o.group || 'prop'), cbox(m.node, b.min, b.max, o.group || 'prop')],
+      colliders: [...(o.colliders || [cbox('body', a.min, a.max, o.group || 'prop')]), cbox(m.node, b.min, b.max, o.group || 'prop')],
       components: { ...KIN, place: o.place || { mount: 'top' }, interact: { kind: m.kind, joint: m.joint, prompt: m.prompt, range: 1.6, manipulate: true } },
       ...(m.kind === 'drawer' ? IO.drawer : IO.door),
       gen: o.gen,

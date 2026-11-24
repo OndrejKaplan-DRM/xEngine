@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tank_ln2_storage_01",
+  "title": "Zásobník kapalného dusíku na pojízdném podstavci",
+  "category": "lab.cold",
+  "bounds": { "min": [-0.409, -0.002, -0.409], "max": [0.409, 1.132, 0.409] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.09, 0], "radius": 0.4, "height": 0.06, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0.33, 0.03, 0], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [-0.0001, 0.03, 0.33], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [-0.33, 0.03, -0.0001], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0.0002, 0.03, -0.33], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.485, 0], "radius": 0.34, "height": 0.73, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.925, 0], "radius": 0.27, "height": 0.15, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.025, 0], "radius": 0.175, "height": 0.05, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.09, 0], "radius": 0.16, "height": 0.08, "axis": "y", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.08, 0.55, 0.335], "max": [0.08, 0.7, 0.345], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.06, 0.6, 0.345], "max": [0.06, 0.66, 0.347], "mat": "emit_display" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.408, -0.001, -0.408], "max": [0.408, 1.131, 0.408], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 600,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/cold.mjs#chestAndLn2",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lyophilizer_01",
+  "title": "Lyofilizátor s akrylovou komorou",
+  "category": "lab.large",
+  "bounds": { "min": [-0.326, -0.001, -0.301], "max": [0.326, 0.811, 0.306] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.325, 0.016, -0.292], "max": [0.325, 0.442, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.317, 0.008, -0.292], "max": [0.317, 0.45, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.317, 0.016, -0.3], "max": [0.317, 0.442, 0.3], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.307, 0, -0.282], "max": [-0.283, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.307, 0, 0.258], "max": [-0.283, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.283, 0, -0.282], "max": [0.307, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.283, 0, 0.258], "max": [0.307, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.28, 0.3, 0.299], "max": [0, 0.42, 0.302], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.274, 0.354, 0.302], "max": [-0.112, 0.414, 0.3035], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.272, 0.306, 0.302], "max": [-0.26, 0.314, 0.305], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.184, 0.306, 0.302], "max": [-0.172, 0.314, 0.305], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.096, 0.306, 0.302], "max": [-0.084, 0.314, 0.305], "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.62, -0.05], "radius": 0.15, "height": 0.35, "axis": "y", "mat": "plastic_ps" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.8, -0.05], "radius": 0.16, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.52, -0.05], "radius": 0.13, "height": 0.006, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.62, -0.05], "radius": 0.13, "height": 0.006, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.72, -0.05], "radius": 0.13, "height": 0.006, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.2, 0.6, 0.1], "radius": 0.03, "height": 0.3, "axis": "y", "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.3], "max": [0.325, 0.81, 0.305], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 528,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#cultureAndMore",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

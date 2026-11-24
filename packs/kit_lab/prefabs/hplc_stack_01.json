@@ -1,0 +1,76 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "hplc_stack_01",
+  "title": "Sestava HPLC se čtyřmi moduly",
+  "category": "lab.large",
+  "bounds": { "min": [-0.186, -0.001, -0.276], "max": [0.186, 0.871, 0.279] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.185, 0.006, -0.269], "max": [0.185, 0.13, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0, -0.269], "max": [0.179, 0.136, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.006, -0.275], "max": [0.179, 0.13, 0.275], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.165, 0.042, 0.275], "max": [0.165, 0.105, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.125, 0.056, 0.277], "max": [0.155, 0.07, 0.278], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.185, 0.146, -0.269], "max": [0.185, 0.31, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.14, -0.269], "max": [0.179, 0.316, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.146, -0.275], "max": [0.179, 0.31, 0.275], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.165, 0.194, 0.275], "max": [0.165, 0.275, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.125, 0.212, 0.277], "max": [0.155, 0.23, 0.278], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.185, 0.326, -0.269], "max": [0.185, 0.51, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.32, -0.269], "max": [0.179, 0.516, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.326, -0.275], "max": [0.179, 0.51, 0.275], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.165, 0.38, 0.275], "max": [0.165, 0.47, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.125, 0.4, 0.277], "max": [0.155, 0.42, 0.278], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.185, 0.526, -0.269], "max": [0.185, 0.65, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.52, -0.269], "max": [0.179, 0.656, 0.269], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.179, 0.526, -0.275], "max": [0.179, 0.65, 0.275], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.165, 0.562, 0.275], "max": [0.165, 0.625, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.125, 0.576, 0.277], "max": [0.155, 0.59, 0.278], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.185, 0.66, -0.275], "max": [0.185, 0.69, 0.275], "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [-0.135, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.135, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.135, 0.754, -0.15], "radius": 0.038, "height": 0.124, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [-0.04500000000000001, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.04500000000000001, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    {
+      "node": "body",
+      "shape": "cyl",
+      "center": [-0.04500000000000001, 0.754, -0.15],
+      "radius": 0.038,
+      "height": 0.124,
+      "axis": "y",
+      "mat": "liquid_water"
+    },
+    { "node": "body", "shape": "cyl", "center": [0.044999999999999984, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.044999999999999984, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    {
+      "node": "body",
+      "shape": "cyl",
+      "center": [0.044999999999999984, 0.754, -0.15],
+      "radius": 0.038,
+      "height": 0.124,
+      "axis": "y",
+      "mat": "liquid_amber"
+    }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.185, 0, -0.275], "max": [0.185, 0.87, 0.278], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 828,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#liquidChrom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

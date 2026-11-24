@@ -1,0 +1,52 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "autoclave_bench_01",
+  "title": "Stolní autokláv s čelními dvířky",
+  "category": "lab.large",
+  "bounds": { "min": [-0.368, -0.001, -0.311], "max": [0.251, 0.451, 0.658] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.23, 0.04, 0.31] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 100, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0.016, -0.302], "max": [0.25, 0.442, 0.302], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.242, 0.008, -0.302], "max": [0.242, 0.45, 0.302], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.242, 0.016, -0.31], "max": [0.242, 0.442, 0.31], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.232, 0, -0.292], "max": [-0.208, 0.008, -0.268], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.232, 0, 0.268], "max": [-0.208, 0.008, 0.292], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.208, 0, -0.292], "max": [0.232, 0.008, -0.268], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.208, 0, 0.268], "max": [0.232, 0.008, 0.292], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.1, 0.3, 0.309], "max": [0.23, 0.42, 0.312], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.106, 0.354, 0.312], "max": [0.178, 0.414, 0.3135], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [0.108, 0.306, 0.312], "max": [0.12, 0.314, 0.315], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [0.146, 0.306, 0.312], "max": [0.158, 0.314, 0.315], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.184, 0.306, 0.312], "max": [0.196, 0.314, 0.315], "mat": "plastic_light" },
+    { "node": "door", "shape": "cyl", "center": [0.17, 0.18, 0.02], "radius": 0.15, "height": 0.04, "axis": "z", "mat": "steel_brushed" },
+    { "node": "door", "shape": "box", "min": [0.3, 0.16, 0.04], "max": [0.34, 0.2, 0.08], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.31], "max": [0.25, 0.45, 0.315], "group": "prop" },
+    { "node": "door", "shape": "box", "min": [0.017, 0.027, 0], "max": [0.34, 0.333, 0.08], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít autokláv", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 220,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#autoclaves",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

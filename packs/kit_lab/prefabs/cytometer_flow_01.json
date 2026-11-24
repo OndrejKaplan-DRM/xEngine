@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cytometer_flow_01",
+  "title": "Průtokový cytometr",
+  "category": "lab.large",
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.601, 0.311] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.016, -0.292], "max": [0.3, 0.442, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.292, 0.008, -0.292], "max": [0.292, 0.45, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.292, 0.016, -0.3], "max": [0.292, 0.442, 0.3], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.282, 0, -0.282], "max": [-0.258, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.282, 0, 0.258], "max": [-0.258, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.258, 0, -0.282], "max": [0.282, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.258, 0, 0.258], "max": [0.282, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.1, 0.2, 0.3], "max": [0.28, 0.35, 0.302], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "cyl", "center": [-0.18, 0.525, -0.15], "radius": 0.05, "height": 0.15, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "box", "min": [-0.05, 0.3, 0.3], "max": [0.05, 0.32, 0.31], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.6, 0.31], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 172,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#cultureAndMore",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

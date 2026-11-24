@@ -1,0 +1,59 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bsc_class2_180_01",
+  "title": "Biologický bezpečnostní box třídy II, 1,8 m",
+  "category": "lab.large",
+  "bounds": { "min": [-0.951, -0.001, -0.401], "max": [0.951, 2.231, 0.406] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "sash", "parent": "body", "pos": [0, 1.07, 0.34] }
+    ],
+    "joints": [
+      { "id": "sash", "node": "sash", "type": "slider", "axis": [0, 1, 0], "min": 0, "max": 0.25, "rest": 0, "damping": 8, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.925, 0, -0.345], "max": [-0.875, 0.71, -0.295], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.925, 0, 0.295], "max": [-0.875, 0.71, 0.345], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.875, 0, -0.345], "max": [0.925, 0.71, -0.295], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.875, 0, 0.295], "max": [0.925, 0.71, 0.345], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.95, 0.71, -0.4], "max": [0.95, 0.86, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.9, 0.86, -0.35], "max": [0.9, 0.87, 0.32], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.95, 0.86, -0.4], "max": [-0.9, 1.93, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [0.9, 0.86, -0.4], "max": [0.95, 1.93, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.9, 0.86, -0.4], "max": [0.9, 1.93, -0.36], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.95, 1.94, -0.39], "max": [0.95, 2.22, 0.39], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.94, 1.93, -0.39], "max": [0.94, 2.23, 0.39], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.94, 1.94, -0.4], "max": [0.94, 2.22, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.85, 1.98, 0.399], "max": [-0.45, 2.15, 0.402], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.844, 2.0565, 0.402], "max": [-0.61, 2.144, 0.4035], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.842, 1.986, 0.402], "max": [-0.83, 1.994, 0.405], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.746, 1.986, 0.402], "max": [-0.734, 1.994, 0.405], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.65, 1.986, 0.402], "max": [-0.638, 1.994, 0.405], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.554, 1.986, 0.402], "max": [-0.542, 1.994, 0.405], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.9, 1.91, -0.35], "max": [0.9, 1.93, 0.3], "mat": "emit_uv" },
+    { "node": "sash", "shape": "box", "min": [-0.9, 0, 0], "max": [0.9, 0.84, 0.012], "mat": "glass_tinted" },
+    { "node": "sash", "shape": "box", "min": [-0.9, -0.02, 0], "max": [0.9, 0, 0.03], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.95, 0, -0.4], "max": [0.95, 2.23, 0.405], "group": "world" },
+    { "node": "sash", "shape": "box", "min": [-0.9, -0.02, 0], "max": [0.9, 0.84, 0.03], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "floor" },
+    "interact": { "kind": "drawer", "joint": "sash", "prompt": "Posunout čelní sklo", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 252,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#cabinetsBio",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

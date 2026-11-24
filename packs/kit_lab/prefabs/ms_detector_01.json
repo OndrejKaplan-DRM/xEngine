@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "ms_detector_01",
+  "title": "Hmotnostní detektor (trojitý kvadrupól)",
+  "category": "lab.large",
+  "bounds": { "min": [-0.226, -0.001, -0.401], "max": [0.226, 0.701, 0.405] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0.016, -0.392], "max": [0.225, 0.592, 0.392], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.008, -0.392], "max": [0.217, 0.6, 0.392], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.016, -0.4], "max": [0.217, 0.592, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, -0.382], "max": [-0.183, 0.008, -0.358], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, 0.358], "max": [-0.183, 0.008, 0.382], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, -0.382], "max": [0.207, 0.008, -0.358], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, 0.358], "max": [0.207, 0.008, 0.382], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.2, 0.3, 0.4], "max": [0.2, 0.5, 0.402], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.12, 0.6, 0.2], "max": [0.18, 0.7, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.18, 0.44, 0.402], "max": [-0.1, 0.46, 0.404], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.4], "max": [0.225, 0.7, 0.404], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#liquidChrom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

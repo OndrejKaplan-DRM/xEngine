@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "microscope_sem_desk_01",
+  "title": "Stolní rastrovací elektronový mikroskop",
+  "category": "lab.large",
+  "bounds": { "min": [-0.166, -0.001, -0.301], "max": [0.166, 0.561, 0.341] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.165, 0.016, -0.292], "max": [0.165, 0.372, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0.008, -0.292], "max": [0.157, 0.38, 0.292], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0.016, -0.3], "max": [0.157, 0.372, 0.3], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.147, 0, -0.282], "max": [-0.123, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.147, 0, 0.258], "max": [-0.123, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.123, 0, -0.282], "max": [0.147, 0.008, -0.258], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.123, 0, 0.258], "max": [0.147, 0.008, 0.282], "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.47, -0.08], "radius": 0.08, "height": 0.18, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.12, 0.08, 0.3], "max": [0.12, 0.25, 0.32], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.15, 0.32], "max": [0.03, 0.18, 0.34], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.3], "max": [0.165, 0.56, 0.34], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 172,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#microscopes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

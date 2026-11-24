@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "ice_maker_01",
+  "title": "Výrobník šupinového ledu",
+  "category": "lab.large",
+  "bounds": { "min": [-0.251, -0.001, -0.301], "max": [0.251, 0.901, 0.331] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0.01, -0.29], "max": [0.25, 0.89, 0.29], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.24, 0, -0.29], "max": [0.24, 0.9, 0.29], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.24, 0.01, -0.3], "max": [0.24, 0.89, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.2, 0.55, 0.3], "max": [0.2, 0.75, 0.305], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.18, 0.75, 0.3], "max": [0.18, 0.78, 0.33], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.3], "max": [0.25, 0.9, 0.33], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 60,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#utilities",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

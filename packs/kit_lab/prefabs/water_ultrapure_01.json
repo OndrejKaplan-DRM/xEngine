@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "water_ultrapure_01",
+  "title": "Úprava ultračisté vody na zeď s výdejním ramenem",
+  "category": "lab.large",
+  "bounds": { "min": [-0.181, -0.001, -0.001], "max": [0.181, 0.501, 0.43] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.18, 0.01, 0.01], "max": [0.18, 0.49, 0.17], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.17, 0, 0.01], "max": [0.17, 0.5, 0.17], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.17, 0.01, 0], "max": [0.17, 0.49, 0.18], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.12, 0.3, 0.18], "max": [0.12, 0.42, 0.182], "mat": "emit_display" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.25, 0.3], "radius": 0.012, "height": 0.25, "axis": "z", "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.2, 0.42], "radius": 0.008, "height": 0.1, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.16, 0.04, 0.18], "max": [-0.04, 0.12, 0.185], "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.18, 0, 0], "max": [0.18, 0.5, 0.429], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 0.9 }
+  },
+  "tris": 188,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/large.mjs#utilities",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
