@@ -81,7 +81,8 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 2. [x] barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (`6f3141b`)
 3. [x] bohatší tvary, první dávka (z kvádrů a válců, ať je zapeče xBake a nakreslí engine A): bedny, sudy, truhla, skříň, stoly, židle, regály, lavice (`5e03d87`); [ ] další dávka a nové prefaby
 4. [x] zásuvky nezávisle: samostatné entity připojené ke korpusu, duté s přihrádkami, návrh **N-010**; v enginu A ověřeno (`8d52fb5`, `1696306`)
-5. [ ] dřevo: realističtější barva, suky, trhliny, letokruhy
+5. [x] dřevo: realističtější barva, suky, trhliny, letokruhy (`60ddb4c`)
+6. [ ] **600 těles** (Ondřej 20:38; odpovědi: laboratoře a IT první, ~150 tvarů × varianty, tematické balíky `kit_lab` a `kit_it`, do 1 000 △): dávka L1 sklo, plast a chemikálie → L2 stolní přístroje → L3 velké přístroje, chovy, karanténa → I1 počítače, serverovna, open space → zařazení do předvolby `complex` → `kit_home` s předvolbou bytu
 
 **Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 

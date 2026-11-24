@@ -55,6 +55,16 @@ Snímek `test/out/b_zasuvky.png` (kartotéka se spodní a třetí zásuvkou otev
 
 **Znění 5 základu.** Sloučení bez konfliktů. `albedoMean` zapisuje `make-kit.mjs` z průměru hotového souboru v zámku textur; galerie bere zesílení `color / albedoMean` z dat materiálu (zámek už jen jako záloha). `glass_pane` má `opacity` 0,3 (galerie ho kreslí průhledně), terminály `screen.offset` 1 mm před svítícím dílem (0,005 a 0,004 m). Kontrola textury v galerii (B-T3) je teď na dřevěné skříni: nová kartotéka má víc odstínů už v čistém pohledu (45), takže poměr 1,5× k textuře přestal měřit texturu.
 
+**Dřevo (Ondřej 19:55, krok 5; `60ddb4c`).** Smrk `wood_pine` ← ambientCG `Wood096` (suky, výsušné trhliny, letokruhy), dub `wood_oak` ← `Wood049` (vystouplé letokruhy), staré dřevo `wood_old` ← `Wood060` (tmavé, jemné trhliny). Odstín barvy materiálu je z průměru fotky, jas z albeda (smrk 0,38, dub 0,20, staré 0,14), takže textura jde v barvě, ne v šedi (odstín ×1,01 až 1,04). Vybírala jsem z náhledů 17 dřev Poly Haven a 24 ambientCG a z originálů pěti kandidátů (`tools/searcher/ZDROJE.md`). Galerie má tónové mapování Khronos PBR Neutral (AgX dřevo odbarvoval do růžova) a kontrola jasu textury v B-T3 měří lineárně přes celou periodu textury (odchylka nejvýš 2,9 %, mez 5 %; dřív 7,6 % při mezi 10 %, protože okno měření bralo jen kus textury).
+
+**Ondřej ve 20:38: „do začátku bych chtěl cca 600 těles a objektů“** (byty a domy: obývák, ložnice, kuchyně, koupelna, dětský pokoj, okna, topení, lampy; IT: laboratoře, serverovny, open space, superpočítače; vědecké laboratoře: organická chemie, biochemie, molekulární biologie, genové manipulace, fyziologie, genové a tkáňové inženýrství; přístroje od vah po elektronový mikroskop, bioreaktory; terária, akvária, klece, karanténa; laboratorní sklo a plast; inspirace weby P-lab, Thermo Fisher, Waters, Shimadzu, Eppendorf, Sigma-Aldrich, Serva, PragoLab a dalších). Jeho odpovědi na čtyři otázky (20:4x):
+
+- **Pořadí: laboratoře a IT první** (objeví se hned v levelech `complex`); byty a domy potom, s novou předvolbou generátoru.
+- **Počet: asi 150 tvarů × varianty** (rozměr, barva, materiál, textura), ne 600 různých tvarů.
+- **Balíky: tematické** `kit_lab`, `kit_it`, později `kit_home` vedle `kit_base`; level si bere jen ty, které potřebuje (`requires`).
+- **Detail: do 1 000 △ jako dnes**; víc až s polem `lod`.
+- K tomu (moje pravidlo, Ondřejovi napsané v otázce): rozměry a uspořádání přístrojů z katalogů výrobců, tvary obecné, bez log, názvů a kopie konkrétního designu.
+
 **Regrese po B04** (sandbox): `npm test` T0 41, T1 156, T4 46, T2 15, T3 12; `npm run test:b` 209 (B-T1 62, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47) + B-T8 7; `npm run test:axb` 37; 0 selhalo.
 
 ## Sešna B03 (24. 11. 2026)
