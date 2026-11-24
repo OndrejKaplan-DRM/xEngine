@@ -83,6 +83,17 @@ Souvislosti: paměti a grafiky letos zdražily (kit 32 GB DDR5 stojí 12 až 13 
 - Tvar: nejvyšší úroveň detailu prefabu smí mít řádově 5× až 10× víc trojúhelníků než dnes; T460 dostane dnešní hrubý tvar jako nižší úroveň (až bude pole `lod`, D-030).
 - Světlo: na stupních 2 a 3 je místo pro světla po pixelech a stínové mapy; zapečené vrstvy xBake zůstávají základem pro všechny stupně.
 
+**Ondřej ve 02:04** (odpovědi na tři otázky z konce této sešny): mez grafické paměti pro horní stupeň **(a) 8 GB**; co dřív **(a) xSearcher a první textury v galerii**, okna, mříže a zbytek přijatých polí až potom; náhled zapečeného světla pro vygenerované levely **(b) počkat, až soubor načte hra**. K tomu průběžná předávka: `xEngine_sesnaB03_predavka_2026-11-24.md` (poslaná Ondřejovi do chatu, v repu není).
+
+**Co mezitím udělala sešna A** (`origin/sesna-a` = `c131ac4`, její `A_STAV.md` z 24. 11.; v této větvi není):
+
+| Co | Co to znamená pro sešnu B |
+|---|---|
+| Ondřejova zkouška na T460 (F3, 15 pohledů): stavba vrstev světla při načtení trvá v `complex_7` 24,3 s při mřížce 0,5 m a 44,4 s při 0,25 m (xLab 1,2 a 1,5 s) | levely z generátoru potřebují zapečené světlo; soubor z xBake má smysl, až ho běh načte (čtení je připravené v `tools/bake/read.mjs`, do základu ho přenese svodná sešna) |
+| návrh **N-110**, otevřený: Ondřej po zkoušce mřížky 0,25 m řekl „chci ještě míň, chci 0,05 m“; po vrcholech to nejde, navrhuje texturu světla (atlas ploch, bod 5 cm, vrstvy a brány jako dnes) zapékanou v xBake | kdyby byl přijat: xBake a formát N-001 dostanou další druh vrstvy a souřadnice do atlasu ze základu. Do rozhodnutí na tom nepracuju |
+| návrh **N-109**, otevřený: otočné dveře se mají otvírat od hráče (Ondřejova volba 4 b u sešny A); chce v datech kloub na obě strany (`min = −max`, `rest = 0`) u dveří bez dorazů | všechny moje otočné dveře dorazy mají (kryjí škvíry, N-007 a D-036) a otvírají se na jednu stranu. Dveře na obě strany by potřebovaly jiné těsnění škvír než doraz. Do rozhodnutí data neměním |
+| popis pravidla bran pro základ (dodatek k D-035) | shoda v podstatě: brána je množina dveří a svítí součinem otevření, vzorek smí být ve víc úsecích. **Rozdíly, které musí svodná sešna sjednotit:** její stínítka jsou jen kvádry levelu, moje i kolize prefabů; její paprsek začíná 0,03 m směrem ke světlu a končí 0,02 m před ním a světlo na ploše odsouvá o 0,1 m, můj začíná 2 cm po normále a 1 cm ke středu plochy a posledních 0,3 m před světlem nestíní; její vzorek ve stavbě přebírá bránu od souseda, můj dostává průměr platných sousedů |
+
 **Co se stalo 23. 11. po půlnoci.** Po sloučení se základem 2 selhala zkouška A × B ve dvou kontrolách: místnosti za dvoukřídlými dveřmi byly pro kapsli hráče nedosažitelné (`c_store_08`, `c_lab_05`, `c_store_12` v `complex_7`, `c_store_02` v `complex_21`). **Příčina byla moje:** dočasné řešení k N-007 nezapisovalo dvoukřídlé dveře do `portal.door` a navigace robota (`test/t5_lib/robot.mjs`) hledá dveře jen tam. Oprava (`129318d`): křídla mají `interact.seeThrough: true` (pole přijaté v N-107) a první křídlo je zase v `portal.door`. Pohled portál nezavírá, průchod a zvuk ano. Po opravě: všechny buňky dosažitelné, robot došel do nejvzdálenější buňky ve všech třech levelech (`complex_7` 57,9 m, `complex_21` 42,5 m, `catacombs_3` 26,3 m), dveře otevřel rukou, vynuceně žádné. Je to první zkouška nad dnešními katakombami a dveřmi.
 
 **Ondřej 22. 11. ve 23:33** (po zhlédnutí náhledu xBake na svém stroji): odraz slabší; dál předávka a nová sešna. Provedeno: vrstva `indirect` nese v hlavičce `weight: 0,5` (`cc4f1fc`), data vrstvy jsou dál plná. Z jeho snímků: zapečení xLabu v jeho Chrome trvalo 2,37 s; stíny sloupů v hale jsou na podlaze **hranaté skvrny** (vzorky po 0,5 m, stín má u každého vzorku jen dvě hodnoty); vnější strany zdí byly v přehledu černé (opraveno přisvícením přehledu, náhled 0.2).
@@ -98,7 +109,7 @@ Souvislosti: paměti a grafiky letos zdražily (kit 32 GB DDR5 stojí 12 až 13 
 | D-037 (N-108) | základ změní mřížku světla: vrcholy na násobcích `LIGHT_CELL` ve světě, bez ploch schovaných v jiném kvádru; počet a pořadí vzorků se změní | počty a pořadí beru z `brushLightMesh`, natvrdo nikde nejsou; po změně se změní otisk `geometry` a všechna čísla xBake v tomto souboru (vzorky, velikosti, časy). Vzorků „v tělese“ má ubýt | čeká na základ |
 | N-101 proveden | `partMesh`, `partTris`, `partCollider`, `CYL_SEGMENTS` jsou v `src/xspace/geom.js` | vlastní výpočet dílů na čtyřech místech zmizel: `tools/forge/lib.mjs` předává `partTris` ze základu, galerie a náhled xBake kreslí `partMesh`, xBake stíní přes `partCollider`; `packs/kit_base` bajtově beze změny | **hotovo** (B03, `7dd9cd2`) |
 
-Pořadí pro příští sešnu (po B03): B2.2 přijatá pole → B2.3 xSearcher → B2.4 vzhled (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii) → B2.5 zkouška povrchu na jednom kusu.
+Pořadí pro příští sešnu (po B03, podle Ondřejovy volby z 24. 11. ve 02:04): **B2.3 xSearcher → B2.4 vzhled** (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px; z B2.2 jen to, co vzhled potřebuje) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2 (okna, mříže, `components.place`, `speed`).
 
 
 ## Hotovo × neuděláno
@@ -335,10 +346,8 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 
 Zodpovězeno 24. 11. 2026: **1 (a)** opotřebený provoz, **2 (a)** z webu jen materiály a textury, tvary vlastní na vlastních kostrách, **3 (a)** herní vzhled nejdřív v galerii sady. Otázka 5: cílový stroj podle dnešního trhu do 35 000 Kč (oddíl „Sešna B03“, Cílový stroj). Otázka 4 je stažená od B02.
 
-Nové (do odpovědi platí moje doporučení):
+Tři otázky z konce sešny B03 zodpovězeny 24. 11. ve 02:04: mez grafické paměti **(a) 8 GB**; nejdřív **(a) xSearcher a první textury v galerii**; náhled zapečeného světla pro vygenerované levely **(b) počkat, až soubor načte hra**.
 
-1. Mez grafické paměti pro horní stupeň: (a) 8 GB (vejde se do ní notebook s RTX 5060 i stolní PC do 35 tisíc; textury nejvýš 2K), (b) 16 GB (víc a větších textur, ale stolní PC s takovou kartou stojí dnes 34 až 43 tisíc a notebook v té ceně není). Doporučení (a).
-2. Co po přijatých polích (B2.2) dřív: (a) xSearcher a první textury v galerii, tedy první „herní“ vzhled, který uvidíš, (b) okna a mříže v levelech a zbytek polí, vzhled až potom. Doporučení (a): B2.2 zúžit na to, co vzhled potřebuje, zbytek po něm.
-3. Náhled zapečeného světla i pro vygenerované levely (dnes jen xLab): (a) ano, přidat přepínač levelů do náhledu, (b) ne, počkat, až soubor načte hra. Doporučení (b): hra to ukáže líp a sešna A soubor potřebuje dřív.
+Otevřená otázka na mě teď žádná není.
 
-Mimo sešnu B na tebe čeká (z `STATE.md`): zkouška terminálu a `?bench` v sestavení sešny A na T460.
+Mimo sešnu B na tebe čekají čtyři otázky sešny A (`A_STAV.md`, konec): zkouška textury světla hned, nebo později (N-110); dveře od hráče do dat (N-109); měření `?bench`; terminál po Esc.
