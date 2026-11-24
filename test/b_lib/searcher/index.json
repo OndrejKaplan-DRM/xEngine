@@ -1,0 +1,10 @@
+{
+  "note": "Odpovědi rozhraní Poly Haven a ambientCG nahrané 2026-11-24 skriptem nahrat.mjs (User-Agent xSearcheru). Seznam textur Poly Haven zkrácen z 871 na 50 položek: 30 nejlepších z 93 k dotazu „beton podlaha“ a 20 nesouvisejících.",
+  "files": {
+    "https://api.polyhaven.com/assets?t=textures": "e69970e4df23c819.json",
+    "https://api.polyhaven.com/info/concrete_floor_worn_001": "d1858ebfedb242de.json",
+    "https://api.polyhaven.com/files/concrete_floor_worn_001": "98b1f0e2d60158c5.json",
+    "https://ambientcg.com/api/v2/full_json?type=Material&q=concrete%20floor&limit=6&include=downloadData,tagData,displayData": "2884ab842d152d82.json",
+    "https://ambientcg.com/api/v2/full_json?id=Tiles107&include=downloadData,tagData,displayData": "f91b8e0aa416423b.json"
+  }
+}

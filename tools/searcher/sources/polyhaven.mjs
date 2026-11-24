@@ -31,7 +31,7 @@ function toAsset(id, a) {
     license: SOURCE.license,
     page: `${SOURCE.site}/a/${id}`,
     // rozhraní udává rozměr předlohy v milimetrech
-    size: Array.isArray(a.dimensions) ? { w: a.dimensions[0] / 1000, h: a.dimensions[1] / 1000, unit: 'm', from: 'dimensions (mm)' } : null,
+    size: Array.isArray(a.dimensions) ? { w: Math.round(a.dimensions[0]) / 1000, h: Math.round(a.dimensions[1]) / 1000, unit: 'm', from: 'dimensions (mm)' } : null,
     popularity: a.download_count ?? 0,
   };
 }
