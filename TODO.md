@@ -16,10 +16,9 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 | # | Co | Ptá se | Od | Podrobně |
 |---|---|---|---|---|
 | 1 | Dva běhy `?bench` ve sestavení sešny A „krok 5“, na síti a s vypnutou Úsporou energie v Chrome (večerní běhy měly 30 snímků/s): `xlab_tex.html?bench&tex=0` (cena textur) a `xlab_gen.html?bench&rows=1080` (výchozí 1 080 řádků pro velký level) | sešna A | 24. 11. 19:51 | `A_STAV.md`, oddíl 1 |
-| 2 | Černá obrazovka na snímku 3 z 24. 11. 01:42 (celé okno hry černé, bez přehledu F3): jen chvilka, nebo zůstala? | svodná | 24. 11. | `docs/mereni/T460_2026-11-24_D-037_F3.md` |
-| 3 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
+| 2 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
 
-**Zodpovězeno 24. 11. 2026:** 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
+**Zodpovězeno 24. 11. 2026:** 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 
 ## Svodná sešna (základ)
 
