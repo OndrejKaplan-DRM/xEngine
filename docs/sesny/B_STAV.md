@@ -12,7 +12,7 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 |---|---|---|
 | B2.1 průchodnost pro skutečného hráče a katakomby | **hotovo** (24. 11. 2026, `d2e1481`) | katakomby podle volby 2 b, prkenné dveře se světlostí 0,90 m, zkouška A × B zelená. Generátor hledá cestu místností s poloměrem z rozměrů postavy (`src/gen/body.js`: kapsle 0,35 m + odstup kontroléru 0,02 m + rezerva 0,03 m; dřív číslo 0,32 m v kódu) a každý otvor i otevřené dveře musejí pustit postavu (`catalog.clearWidth`). Kontroly levelů měří skutečným hráčem z profilu enginu (`test/b_lib/player.mjs`). 200 seedů × 2 předvolby bez nálezu. Čísla v oddílu „Sešna B03“. Návrh N-008: rozměry postavy do základu |
 | B2.2 přijatá pole (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) | nezačato | `seeThrough` už mají křídla dvoukřídlých dveří |
-| B2.3 xSearcher | nezačato | hotové jen měření zdrojů z 22. 11. (`tools/searcher/ZDROJE.md`) |
+| B2.3 xSearcher | **hotovo** (24. 11. 2026, `5828344`, `24e2358`) | `tools/searcher/find.mjs`: hledání (i česky) a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox` (mimo git) se záznamem o původu, licenci a otiscích; 10 assetů v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` (47 kontrol). Podrobně oddíl „Sešna B03“ a `tools/searcher/ZDROJE.md` |
 | B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | nezačato | |
 | B2.5 zkouška povrchu na jednom kusu (dveře `.glb`, materiál s texturou) | nezačato | |
 | B2.6 xBake a N-001 | **hotovo podle D-035 a zadání vlny 2** (24. 11. 2026, `3d1aa2a`, `7dd9cd2`) | (1) křídla dveří v portálech přímé světlo nestíní; světlo otvorem portálu s dveřmi je v úseku vrstvy s polem `gate` a běh ho násobí otevřením dveří. (2) Stíní kolize prefabů přes `partCollider` ze základu. (3) Vzorek na okraji stínu svítí podílem své plošky (4 × 4 paprsky). (4) Čtení souboru bez Node (`tools/bake/read.mjs`), připravené k přenosu do základu. Běh soubor dál nečte. Podrobně oddíl „Sešna B03“ a návrh N-001, znění 2 |
@@ -29,7 +29,8 @@ Ondřej v 01:11: zápis do repa a push `sesna-b` povolen; pokračovat zbytkem B2
 | xBake podle D-035: brány, stínění kolizemi, okraj stínu po podílech, čtení bez Node | hotovo | `3d1aa2a` |
 | náhled xBake 0.3, díly z `partMesh` a `partTris` v náhledu, galerii a knihovně prefabů, N-001 znění 2 | hotovo | `7dd9cd2` |
 | sloučení `origin/zaklad-2` (`a995347`: mřížka světla znění 2, D-037) a xBake nad `levelLightMeshes` | hotovo, bez konfliktů; svodná sešna to pushla během této sešny | `2cde996`, `9d34aa6` |
-| B2.2 až B2.5, B2.7 | nezačato | |
+| B2.3 xSearcher: nástroj, 10 textur CC0 v příjmu, test bez sítě | hotovo | `5828344`, `24e2358` |
+| B2.2, B2.4, B2.5, B2.7 | nezačato | |
 
 **B2.1: průchodnost.** Rozměry postavy má generátor na jednom místě (`src/gen/body.js`: poloměr 35 cm, odstup kontroléru 2 cm, rezerva 3 cm) a předvolby je předávají v `params().body`. Cestu místností hledá s poloměrem 0,40 m (dřív číslo 0,32 m v `passage.js`). Stavba odmítne pokus, kde by otvor nebo otevřené dveře nepustily 0,80 m (`catalog.clearWidth`: světlost z kolizí prefabu s kloubem dveří na dorazu). Nezávislé kontroly (`test/b_lib/level-checks.mjs`) měří skutečným hráčem levelu: poloměr z `src/play/profiles.js` a odstup z `src/phys/phys.js` (jen čtou; 0,35 + 0,02 m, průchod 0,74 m). Nová zkouška `test/b_lib/door-pass.mjs`: největší kruh, který projde otevřenými dveřmi v půdorysu (kolize prefabu a zeď, mřížka 1 cm).
 
@@ -92,6 +93,14 @@ Souvislosti: paměti a grafiky letos zdražily (kit 32 GB DDR5 stojí 12 až 13 
 - **`ARCHITECTURE.md` a `DECISIONS.md` jsem nezakládala:** existují jako `docs/01_ARCHITEKTURA.md` a `docs/DECISIONS.md` (D-001 až D-037) a `CLAUDE.md` na ně teď odkazuje hned nahoře. Druhá kopie v kořeni by byla druhá pravda.
 - Ostatní sešny uvidí `TODO.md` až po sloučení do základu (push mám jen na `sesna-b`).
 
+**B2.3 xSearcher (24. 11. odpoledne, `5828344`, `24e2358`).** Nástroj `node tools/searcher/find.mjs "<dotaz>"` hledá textury v Poly Haven a ambientCG (český dotaz přeloží malým slovníkem: „beton podlaha“ → concrete floor), u každého výsledku jmenuje zdroj, autora a rozměr předlohy. `--get <zdroj>:<id>` stáhne 2K mapy do `packs/_inbox/<zdroj>/<asset>/` se záznamem `record.json` (licence s doložením a datem přečtení, podmínky rozhraní, autor, adresy, datum, dotaz, rozměr předlohy, u každého souboru velikost, SHA-256, adresa, MD5). Z Poly Haven bere barvu, normálu GL a ARM (okolní stín, drsnost, kovovost v jednom souboru jako glTF), z ambientCG archiv ZIP, ze kterého vybere barvu, normálu GL, drsnost, okolní stín a kovovost nebo průhlednost, jsou-li. Když velikost nebo MD5 souboru nesedí na rozhraní, nezapíše nic. `--inbox` ověří otisky na disku. Brána: jen `CC0-1.0` ze zdroje s doloženou licencí, jen textury; modely nástroj odmítne s odkazem na Ondřejovu volbu 2 a.
+
+Licence ani jedno rozhraní u assetu neuvádí, brána se proto opírá o licenci zdroje, přečtenou 24. 11.: Poly Haven „všechny assety CC0“ (`polyhaven.com/license`), ambientCG „Creative Commons CC0 1.0 Universal“ (`docs.ambientcg.com/license/`). **Podmínky rozhraní Poly Haven** (`ToS.md` v jejich repu na GitHubu) chtějí u každého volání vlastní User-Agent se jménem programu a aby uživatel programu viděl, že obsah je z Poly Haven; nástroj obojí dělá (`xEngine-xSearcher/0.1 (+adresa repa)`, jméno zdroje u výsledků a stažení). Assety samy uvedení autora nevyžadují.
+
+V příjmu je 10 textur pro materiály sady (tabulka v `tools/searcher/ZDROJE.md`): `concrete_floor_worn_001`, `painted_plaster_wall`, `old_linoleum_flooring_01`, `rusty_painted_metal`, `old_planks_02`, `red_brick`, `stone_brick_wall_001` z Poly Haven a `Tiles107`, `DiamondPlate008C`, `Ground110` z ambientCG; 82,5 MB. Do balíků zatím nic nešlo; to je B2.4 (odvozené 512 px a 1K, položky `pack.json.assets` přes `packAsset`).
+
+Test `b_t7_searcher` (47 kontrol) běží bez sítě nad odpověďmi nahranými 24. 11. (`test/b_lib/searcher/`, 160 kB; seznam 871 textur Poly Haven zkrácen na 50 položek skriptem `nahrat.mjs`, který jde pustit znovu). Hlídá hledání a řazení, bránu (CC-BY, neznámá licence, licence mimo slovník, model, id s cestou, zdroj bez doložení), MD5 a velikost, výběr map z archivu, otisky, poškozený soubor v příjmu, User-Agent, validátor balíku s `free: true` (CC0 projde, CC-BY ne) a příkazovou řádku s `--replay`.
+
 **Co mezitím udělala sešna A** (`origin/sesna-a` = `c131ac4`, její `A_STAV.md` z 24. 11.; v této větvi není; od 05:30 je hlava `db6fad0`: zorné pole jako vodorovný úhel při 4 : 3 se stropem 120°, dveře od hráče jako nastavení, Ondřejovy odpovědi z 02:26 „1 b“ a „2 a“):
 
 | Co | Co to znamená pro sešnu B |
@@ -116,7 +125,7 @@ Souvislosti: paměti a grafiky letos zdražily (kit 32 GB DDR5 stojí 12 až 13 
 | D-037 (N-108) | základ změní mřížku světla: vrcholy na násobcích `LIGHT_CELL` ve světě, bez ploch schovaných v jiném kvádru; počet a pořadí vzorků se změní | základ to provedl (`a995347`); vzorky beru z `levelLightMeshes`, počty a pořadí natvrdo nikde nejsou; otisk `geometry` nese znění mřížky, staré soubory neplatí. Vzorků „v tělese“ ubylo (xLab 1 387 → 490, `complex_7` 32 291 → 19 051), čísla v oddílu „Sešna B03“ | **hotovo** (B03, `9d34aa6`) |
 | N-101 proveden | `partMesh`, `partTris`, `partCollider`, `CYL_SEGMENTS` jsou v `src/xspace/geom.js` | vlastní výpočet dílů na čtyřech místech zmizel: `tools/forge/lib.mjs` předává `partTris` ze základu, galerie a náhled xBake kreslí `partMesh`, xBake stíní přes `partCollider`; `packs/kit_base` bajtově beze změny | **hotovo** (B03, `7dd9cd2`) |
 
-Pořadí pro příští sešnu (po B03, podle Ondřejovy volby z 24. 11. ve 02:04): **B2.3 xSearcher → B2.4 vzhled** (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px; z B2.2 jen to, co vzhled potřebuje) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2 (okna, mříže, `components.place`, `speed`).
+Pořadí (podle Ondřejovy volby z 24. 11. ve 02:04): ~~B2.3 xSearcher~~ (hotovo 24. 11. odpoledne) → **B2.4 vzhled** (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px; z B2.2 jen to, co vzhled potřebuje) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2 (okna, mříže, `components.place`, `speed`).
 
 
 ## Hotovo × neuděláno
@@ -126,7 +135,9 @@ Pořadí pro příští sešnu (po B03, podle Ondřejovy volby z 24. 11. ve 02:0
 | B1.1 xGen: stavebnice a rozvržení | hotovo | `b_t1_xgen` 55 (Node) | předvolby `complex` (dvě patra s galerií, nebo jedno patro s plošinou a rampou) a `catacombs`; 500 levelů bez nálezu validátoru; katakomby po Ondřejově volbě 2 (b) |
 | B1.2 xForge: sada prefabů | hotovo, vzhled nevyhovuje | `b_t2_kit` 23 (Node), `b_t3_galerie` 8, `b_t4_levely` 20 (prohlížeč) | `kit_base`: 49 prefabů, 27 s kloubem (33 kloubů), 41 materiálů; galerie `dist/kit.html`; generátor rozmisťuje 47 ze 49. Ondřej 22. 11.: tvary dobré, ale „příliš sterilní“ (viz Rozhodnutí a N-006). Zavřené dveře jsou od B02 bez škvír (N-007) |
 | B1.3 xBake: zapečené světlo | hotovo podle zadání vlny 2 a D-035; běh soubor zatím nečte (čtení přejde do základu) | `b_t5_bake` 26 (Node), `b_t6_bake_nahled` 9 (prohlížeč) | světlo po vrcholech `brushLightMesh`, jedna vrstva na světlo se zastíněním a s úseky za dveřmi (brány), okraj stínu po podílech, k tomu vrstva odrazu (RGB) a přístupnosti okolního světla; xLab 20 509 vzorků za 1,0 s, soubor 476 kB; nástroj `node tools/bake/cli.mjs packs/<balík>`, náhled `dist/xbake.html`, montáž `test/out/b_bake_montaz.png` |
-| B1.4 xSearcher: příjem assetů | začato | | hotové jen měření dosažitelnosti zdrojů (`tools/searcher/ZDROJE.md`); nástroj `find.mjs` neexistuje |
+| B1.4 xSearcher: příjem assetů | hotovo jako B2.3 (24. 11. 2026) | `b_t7_searcher` 47 (Node, bez sítě) | jen textury; modely nestahuje (Ondřejova volba 2 a), zvuky nemají zdroj; tabulka zdrojů a příjmu v `tools/searcher/ZDROJE.md` |
+
+Po B2.3 (24. 11. 2026, `24e2358`, sandbox): `npm test` 254 kontrol, `npm run test:b` 7 sad ze 7, 188 kontrol (`b_t7_searcher` 47 nových), vše zeleně. Skupinu A a zkoušku A × B jsem nepouštěla: změna je jen v `tools/searcher`, `packs/_inbox/.gitignore` a testech B.
 
 Poslední celý běh (24. 11. 2026, `9d34aa6`, po sloučení znění 3 základu 2, `npm run test:all`, sandbox): základ `npm test` 254 kontrol (T0 41, T1 140, T4 46, T2 15, T3 12), skupina A 16 sad z 16 (267 kontrol), skupina B 141 kontrol v 6 sadách (`b_t1_xgen` 55, `b_t2_kit` 23, `b_t3_galerie` 8, `b_t4_levely` 20, `b_t5_bake` 26, `b_t6_bake_nahled` 9), zkouška A × B 28 + 9. Celkem 699 kontrol, 0 selhalo. Před sloučením (`7dd9cd2`, základ `67d2075`): 687 kontrol, 0 selhalo.
 
@@ -145,7 +156,7 @@ Ondřej ve 22:24: zápis do repa a push `sesna-b` ano; znění 2 sloučit hned; 
 | sloučení základu 2 (`origin/zaklad-2`, `b12f8ed`) | hotovo, bez konfliktů | `588ff12` |
 | oprava zkoušky A × B (křídla dvoukřídlých dveří se `seeThrough`) | hotovo | `129318d` |
 | sloučení znění 2 základu 2 (`origin/zaklad-2`, `d2fb217`) | hotovo, bez konfliktů | `8387674` |
-| xSearcher a textury (B2.3, B2.4) | nezačato; nová sešna | |
+| xSearcher a textury (B2.3, B2.4) | nezačato; nová sešna (neplatí: B2.3 hotovo 24. 11. 2026, viz Sešna B03) | |
 
 **Dveře.** Engine sešny A bere zavřené dveře portálu jako neprůhledné a místnost za nimi nekreslí (její N-107). Sada měla kolem křídla skutečné škvíry: 1 cm pod křídlem a pod překladem, 0,5 cm po stranách, 4 mm mezi prkny prkenných dveří, 8 mm mezi křídly dvoukřídlých dveří. Zkouška paprsky (`test/b_lib/door-cover.mjs`) jimi před opravou prostrčila 1 374 až 8 352 paprsků na jedny dveře, po opravě žádný. Oprava: dorazy zárubně za křídlem (přesah 15 mm), prahová lišta 12 mm bez kolize, jádro prkenných dveří, krycí lišta na pravém křídle dvoukřídlých dveří, u posuvných dveří uzavřená štěrbina stojky nad křídlem. Generátor zapisuje do `portal.door` každé dveře, které v otvoru stojí; u dvoukřídlých první křídlo a obě křídla mají `seeThrough` (od `129318d`, shodně s D-036). Prkenné dveře mají otvor 1,0 × 2,0 m místo 0,9 × 2,0 m (světlost 0,90 m): svodná sešna v T5 zjistila, že 0,80 m projde postava široká 0,74 m jen středem.
 
@@ -227,7 +238,9 @@ Pořadí je závazné jen do bodu 2; dál rozhodne, co mezitím udělá svodná 
 | prohlížeč vygenerovaných levelů (cíl `xgen`: xView beze změny + přepínač levelů) | `tools/designer`, `dist/xgen.html` |
 | ukázkový balík: `complex_7` (dvě patra, hádanka), `complex_21` (jedno patro), `catacombs_3` | `packs/gen_demo` (vyžaduje `kit_base`) |
 | vývojové pomůcky: rozložení přes seedy, půdorysy do PNG, snímky levelů, montáž galerie | `tools/designer/dev/stats.mjs`, `plans.cjs`, `shots.cjs`; `tools/forge/dev/kitshot.cjs` |
-| měření dosažitelnosti zdrojů assetů | `tools/searcher/ZDROJE.md` |
+| xSearcher: hledání a příjem textur CC0 (`find.mjs`), síť a záznam odpovědí (`http.mjs`), čtení ZIP (`zip.mjs`), slovník a řazení (`match.mjs`), zdroje (`sources/`), brána licencí a příjem (`inbox.mjs`); zdroje, licence a obsah příjmu `ZDROJE.md` | `tools/searcher` |
+| příjem stažených originálů (mimo git, zůstává jen `.gitignore`) | `packs/_inbox/<zdroj>/<asset>/` s `record.json` |
+| uložené odpovědi rozhraní pro test bez sítě a skript, který je nahraje | `test/b_lib/searcher/` |
 | xBake: vzorky a jejich plochy (`scene.mjs`), stínítka z kolizí a paprsky (`rays.mjs`), brány dveří (`gates.mjs`), vrstvy a okraj stínu (`bake.mjs`), čtení souboru a složení barev bez Node (`read.mjs`), zápis a otisky (`format.mjs`), nástroj `node tools/bake/cli.mjs packs/<balík> [--level id] [--out složka] [--rays 64] [--soft 4] [--no-indirect] [--no-gates]` → `dist/bake/<balík>/<level>.light.bin` | `tools/bake` |
 | náhled zapečeného světla (cíl `xbake`: zapeče v prohlížeči, přepínače Stíny, Jemný okraj stínu, Odraz, Kouty, Lampy, Dveře otevřené; pohledy jako xView, „Stín sloupu“ a „Dveře laboratoře“) | `tools/bake/view.js`, `view.html`, `target.json` → `dist/xbake.html` |
 | rozměry postavy, pro kterou generátor staví (poloměr, odstup kontroléru, rezerva) | `src/gen/body.js` |
@@ -260,7 +273,8 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | okraj stínu po podílech | xLab: 1 964 zjemněných dvojic vzorek × světlo, stínových paprsků 134 283 místo 56 559; součet odchylek proti výpočtu 12 × 12 paprsků 47,4 místo 356,6 | `b_t5_bake` |
 | brány světla | xLab: 2 dveře v portálech, 13 úseků v 10 vrstvách, 584 položek; otevřené dveře pustí 99 % světla, které projde týmž otvorem bez dveří; součet světla se zavřenými dveřmi 62 556 proti 62 557 při stínících křídlech | `b_t5_bake` |
 | náhled xBake 0.4 | `dist/xbake.html` 618 kB; zapečení xLabu v prohlížeči 0,8 s (stránka peče třikrát: se stíny, bez zastínění a s jedním paprskem pro srovnání). Pohled „Stín sloupu“, jen přímé světlo: průměrný jas 147,0 proti 168,2 z 255 bez zastínění. Pohled „Dveře laboratoře“, jen přímé světlo: 152,2 s otevřenými dveřmi proti 140,7 se zavřenými | `b_t6_bake_nahled` (softwarové vykreslení), výpis sestavení |
-| dosažitelnost zdrojů assetů | Poly Haven a ambientCG: rozhraní i soubory ano; OpenGameArt a Quaternius: stránky ano, stažení souboru neměřeno; Kenney: 403 | `curl` 22. 11. kolem 14:00, tabulka v `tools/searcher/ZDROJE.md` |
+| dosažitelnost zdrojů assetů | Poly Haven a ambientCG: rozhraní i soubory ano; OpenGameArt a Quaternius: stránky ano, stažení souboru neměřeno; Kenney: 403 | `curl` 22. 11. kolem 14:00, tabulka v `tools/searcher/ZDROJE.md`; 24. 11. z Node znovu ano (Poly Haven `/types` 293 ms, seznam 871 textur 857 289 B) |
+| příjem xSearcheru | 10 assetů (7 × Poly Haven, 3 × ambientCG), 2K, 82,5 MB map; archivy ambientCG 66,2 MB se neukládají; stažení ve dvou dávkách 3,1 s a 6,3 s | `find.mjs --get`, `--inbox`, sandbox 24. 11. |
 | velikost jedné sady map | ambientCG `Concrete049`: 1K-JPG 10 406 004 B, 2K-JPG 36 432 631 B, 4K-JPG 131 410 218 B | odpověď rozhraní ambientCG |
 
 ## Neověřeno
@@ -280,7 +294,8 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 - **Průzkum cílového stroje** je z webu k 24. 11. 2026: ceny jsem neověřovala nákupem, u bestcomp.cz ani k dnešnímu dni. Poměr výkonu proti T460 je z cizího syntetického testu. Stupně `mid` a `high` nemají žádné měření našeho enginu.
 - **Svislé čárkované čáry na stěnách** v místech, kde na sebe navazují kvádry zdí: sešna A je vidí v enginu u mých levelů i ve zlatém vzorku. Dřív jsem je tady přičetla prohlížeči xView; to neplatí. Příčina neověřená (domněnka sešny A: prosvítají boční plochy kvádrů uvnitř zdi).
 - **Počet entit.** Level `complex` má 320 až 584 entit. Jestli to T460 unese, řekne až engine se slučováním a měření.
-- **Stažení assetu** z OpenGameArt a Quaternius, licenční údaje zdrojů (viz `tools/searcher/ZDROJE.md`).
+- **Stažení assetu** z OpenGameArt a Quaternius (viz `tools/searcher/ZDROJE.md`).
+- **Licence assetu v xSearcheru** je licence zdroje přečtená 24. 11. 2026; rozhraní ji u assetu neuvádí. Kdyby zdroj začal vést assety s jinou licencí, nástroj to nepozná. Rozměr předlohy u ambientCG čtu jako centimetry (rozhraní jednotku neuvádí). Nástroj jsem pouštěla jen v sandboxu (Linux, za proxy), ne na Ondřejově stroji s Windows.
 - **Všechno v N-006** kromě toho, co je tam výslovně označené jako ověřené: stupně kvality a jejich meze jsou návrh bez měření.
 
 ## Návrhy (docs/navrhy)
@@ -348,6 +363,11 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - **Zkouška proti levelu bez dveří je dobré nezávislé měřítko pro brány:** otevřené dveře mají pustit to, co projde otvorem bez nich, a ne víc.
 - **Prostředí se může uprostřed kroku restartovat.** Soubory na disku přežily, běžící příkazy ne. Rozpracovaný stav commitnout hned, jak projde první test v Node, ještě před testy v prohlížeči.
 - **Čísla v testu prohlížeče brát ze stejného výpočtu v Node** (`await import()` z `.cjs`), ne opisovat: `b_t6` měl natvrdo 20 658 vzorků a 16 vrstev.
+- **Vestavěný `fetch` v Node za proxy sandboxu potřebuje `NODE_USE_ENV_PROXY=1`** (Node 22.21 a novější); `curl` proxy čte sám. Nástroj se za proxy spustí znovu s touto proměnnou; na stroji bez proxy nic nedělá.
+- **Rozhraní Poly Haven má vlastní podmínky** (`ToS.md` v repu `Poly-Haven/Public-API`): User-Agent se jménem programu a uživatel musí vidět, že obsah je z Poly Haven. Assety jsou CC0 bez povinnosti uvádět autora; podmínky platí pro používání živého rozhraní.
+- **Ani Poly Haven, ani ambientCG neuvádí licenci u assetu.** Brána se opírá o licenci zdroje a záznam nese adresu stránky s licencí a datum přečtení.
+- **ambientCG dává materiál jen jako ZIP** (2K-JPG 6,7 až 35,2 MB), Poly Haven po souborech s MD5 (2K: 2,0 až 10,3 MB na tři mapy). Na ZIP stačí 70 řádků s `zlib.inflateRawSync` a `zlib.crc32`; závislost není potřeba.
+- **Uložené odpovědi pro test zkrátit skriptem, který jde pustit znovu,** ne ručně: seznam 871 textur měl 857 kB, test potřebuje 50 položek.
 
 ## Otázky pro Ondřeje
 

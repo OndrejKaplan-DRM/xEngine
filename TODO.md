@@ -28,7 +28,7 @@ Krátký přehled celého projektu na jedné stránce. Podrobnosti jsou v odkaze
 |---|---|---|---|
 | svodná | `zaklad-2` = `main` = `a995347` (znění 3 základu 2) | nic neběží | sloučit vlnu 2, dluhy základu (oddíl níže) |
 | A | `sesna-a` = `db6fad0` | A2.5 nová pole základu, A2.6 textury a sítě (Ondřej 24. 11. 02:26: „1 b“) | textura světla N-110 až potom |
-| B | `sesna-b` (hlava v `git log`) | B2.3 xSearcher: hledání a příjem textur CC0 | B2.4 první textury v galerii sady |
+| B | `sesna-b` (hlava v `git log`) | B2.4 první textury v galerii sady | B2.5 zkouška povrchu na jednom kusu |
 
 ## Čeká na Ondřeje
 
@@ -84,14 +84,14 @@ Poslední celá regrese podle sešny A: 728 kontrol, 0 selhalo (sandbox; skupina
 - B2.1 průchodnost pro skutečného hráče 0,74 m, katakomby, světlost dveří (`d2e1481`)
 - B2.6 xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu po podílech, čtení bez Node (`3d1aa2a`, `7dd9cd2`), nad mřížkou D-037 (`9d34aa6`)
 - díly prefabů z `geom.js` v galerii, náhledu a xBake (`7dd9cd2`)
-- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox)
+- B2.3 xSearcher: `tools/searcher/find.mjs` hledá a přijímá textury CC0 z Poly Haven a ambientCG do `packs/_inbox` se záznamem; 10 textur v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` 47 kontrol (`5828344`, `24e2358`)
+- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox); po B2.3 `npm test` 254 a `npm run test:b` 188 kontrol zeleně
 
-**Teď:** B2.3 xSearcher (`tools/searcher/find.mjs`): hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox/`, se záznamem o původu a licenci; test nad uloženými odpověďmi bez sítě.
+**Teď:** B2.4 textury z příjmu do `kit_base` přes `albedo` a `uvScale` (odvozené 512 px pro `low`, 1K pro `mid`; originály 2K zůstávají v příjmu), galerie se třemi pohledy (čistý, T460, grafická karta), montáž aspoň 8 prefabů, součet velikostí do `B_STAV.md`. Směr podle Ondřeje 24. 11.: opotřebený provoz, poprvé v galerii, mez 8 GB grafické paměti.
 
-**Další, v tomto pořadí** (Ondřej 24. 11.: opotřebený provoz; z webu jen materiály a textury; poprvé v galerii; mez 8 GB grafické paměti):
-1. B2.4 textury barvy do `kit_base` přes `albedo`, galerie se třemi pohledy (čistý, T460, grafická karta); originály 2K, odvozeně 1K a 512 px
-2. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
-3. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
-4. B2.7 xDesigner, dům, tvor
+**Další, v tomto pořadí:**
+1. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
+2. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
+3. B2.7 xDesigner, dům, tvor
 
 **Čeká na jiné:** N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).

@@ -1,6 +1,60 @@
-# xSearcher: dosažitelnost zdrojů ze sandboxu
+# xSearcher: zdroje, licence a co je v příjmu
 
-První krok úkolu B1.4. Změřeno **22. 11. 2026 kolem 14:00** z pracovního prostředí sešny B příkazem `curl` (časový limit 12 až 20 s, přes výchozí proxy prostředí). Nástroj `find.mjs` zatím neexistuje; tady je jen měření, na kterém bude stát.
+## Stav 24. 11. 2026: nástroj `find.mjs` (B2.3)
+
+```text
+node tools/searcher/find.mjs "<dotaz>" [--source polyhaven,ambientcg] [--limit 10]     hledání (dotaz smí být česky)
+node tools/searcher/find.mjs --get <zdroj>:<id>[,…] [--res 2k] [--maps albedo,normal,arm] [--query "…"]
+node tools/searcher/find.mjs --inbox                                                    co je v příjmu, sedí otisky?
+--record <složka> uloží odpovědi rozhraní · --replay <složka> bez sítě · --out <složka> jiný příjem
+```
+
+- Stahuje do `packs/_inbox/<zdroj>/<asset>/` (mimo git, `packs/_inbox/.gitignore`) mapy a `record.json`: zdroj, id, název, licence s doložením, podmínky rozhraní, autor, adresa stránky a rozhraní, datum, dotaz, štítky, rozměr předlohy, rozlišení, u každého souboru velikost, SHA-256, adresa a MD5 (Poly Haven), u ambientCG otisk a obsah archivu.
+- Selže-li kterýkoli soubor (velikost nebo MD5 nesedí na rozhraní), nezapíše nic. Do balíků nic nepřesouvá; položku `pack.json.assets` pro odvozený soubor připraví `packAsset` v `inbox.mjs`.
+- **Brána:** jen `CC0-1.0`, zdroj musí mít licenci doloženou (stránka a datum přečtení), druh jen textura. Při pochybnosti ne. Validátor základu navíc odmítne v balíku s `free: true` jinou licenci než CC0 a vlastní (`license.notFree`); hlídá to `test/b_t7_searcher.mjs`.
+- **Druhy:** `--type model` nástroj odmítne (Ondřej 24. 11. 2026, volba 2 a: z webu jen materiály a textury, tvary vlastní). `--type sound`: zdroj se strojovým rozhraním bez účtu a s CC0 zatím nemám.
+- Za proxy sandboxu se nástroj sám spustí znovu s `NODE_USE_ENV_PROXY=1` (vestavěný `fetch` v Node jinak proxy nečte). Na stroji bez proxy se nic takového neděje.
+
+### Licence a podmínky rozhraní (přečteno 24. 11. 2026)
+
+| Zdroj | Licence assetů | Doloženo | Podmínky rozhraní |
+|---|---|---|---|
+| Poly Haven | CC0 pro všechno (textury, HDRI, modely), uvedení autora nepovinné | `https://polyhaven.com/license` | `https://github.com/Poly-Haven/Public-API/blob/master/ToS.md`: každé volání s vlastním User-Agent nebo Referer se jménem programu (2.4); uživatel programu musí vidět, že obsah je z Poly Haven (2.5, krátký popisek nebo „Powered by Poly Haven“); neomezovat výkon rozhraní (2.6). Assety zůstávají CC0 i po stažení. Nástroj posílá `xEngine-xSearcher/0.1 (+https://github.com/OndrejKaplan-DRM/xEngine)` a u výsledků i stažení vypisuje jméno zdroje. |
+| ambientCG | „Creative Commons CC0 1.0 Universal“ pro všechny assety, uvedení autora nepovinné | `https://docs.ambientcg.com/license/` | `https://docs.ambientcg.com/api/`: zvláštní podmínky neuvádí; jen varování, že rozhraní nemusí být spolehlivé pro „enterprise-level“ použití |
+
+Žádné z rozhraní licenci u jednotlivého assetu neuvádí; brána se opírá o licenci zdroje. Kdyby některý zdroj začal vést assety s jinou licencí, nástroj to nepozná. Doložení je potřeba občas přečíst znovu.
+
+### Měření 24. 11. 2026 (z Node, přes proxy sandboxu)
+
+| Adresa | Výsledek |
+|---|---|
+| `https://api.polyhaven.com/types` | 200, 29 B, 293 ms |
+| `https://api.polyhaven.com/assets?t=textures` | 200, 857 289 B, 871 textur |
+| `https://api.polyhaven.com/files/concrete_floor_worn_001` | 200, 37 057 B; mapy v 1k, 2k, 4k, 8k, u každé velikost a MD5 |
+| `https://ambientcg.com/api/v2/full_json?type=Material&q=…` | 200; pro „concrete“ 67 materiálů |
+| `https://ambientcg.com/api/v3/assets?q=concrete` | 200; nástroj ho zatím nepoužívá (v2 vrací název, rozměr a archivy v jedné odpovědi) |
+| stažení 10 assetů (oddíl níže) | 7 × Poly Haven a 3 × ambientCG ve dvou dávkách za 3,1 s a 6,3 s, bez chyby |
+
+### Co je v příjmu (24. 11. 2026, 2K, pro materiály sady `kit_base` ve směru „opotřebený provoz“)
+
+| Zdroj | Asset | Pro materiál | Mapy | MB na disku | Rozměr předlohy (m) | Autor |
+|---|---|---|---|---|---|---|
+| Poly Haven | `concrete_floor_worn_001` | `concrete_raw` | albedo, normal, arm | 2,0 | 3 × 3 | Dimitrios Savva, Rico Cilliers |
+| Poly Haven | `painted_plaster_wall` | `plaster_light`, `plaster_grey` | albedo, normal, arm | 9,3 | 2 × 2 | Amal Kumar |
+| ambientCG | `Tiles107` | `tile_white` | albedo, normal, roughness, ao | 3,2 (archiv 6,7) | 1 × 1 | ambientCG |
+| Poly Haven | `old_linoleum_flooring_01` | `lino_grey` | albedo, normal, arm | 6,6 | 1,99 × 1,99 | Charlotte Baglioni |
+| ambientCG | `DiamondPlate008C` | `metal_floor` | albedo, normal, roughness, ao, metalness | 15,8 (archiv 24,3) | neuvedeno | ambientCG |
+| Poly Haven | `rusty_painted_metal` | `steel_painted` | albedo, normal, arm | 5,8 | 2,2 × 2,2 | Amal Kumar |
+| Poly Haven | `old_planks_02` | `wood_old` | albedo, normal, arm | 4,3 | 2 × 2 | Rob Tuytel |
+| Poly Haven | `red_brick` | `brick_red` | albedo, normal, arm | 10,3 | 1,4 × 1,4 | Rob Tuytel |
+| Poly Haven | `stone_brick_wall_001` | `stone_block` | albedo, normal, arm | 3,2 | 2,5 × 2,5 | Dimitrios Savva, Rico Cilliers |
+| ambientCG | `Ground110` | `dirt_packed` | albedo, normal, roughness, ao | 22,1 (archiv 35,2) | 2,1 × 2,1 | ambientCG |
+
+Celkem 82,5 MB map (archivy ambientCG 66,2 MB se neukládají, jen jejich otisk). Příjem je mimo git; znovu ho vyrobí `--get` se stejnými id (otisky v záznamech pak ukážou, jestli zdroj soubor mezitím změnil). Rozměr u ambientCG čtu jako centimetry (rozhraní jednotku neuvádí; domněnka podle čísel). ARM z Poly Haven je okolní stín (R), drsnost (G), kovovost (B) jako v glTF; u ambientCG jsou mapy zvlášť.
+
+## Měření 22. 11. 2026: dosažitelnost zdrojů ze sandboxu
+
+První krok úkolu B1.4. Změřeno **22. 11. 2026 kolem 14:00** z pracovního prostředí sešny B příkazem `curl` (časový limit 12 až 20 s, přes výchozí proxy prostředí). Tehdy nástroj `find.mjs` ještě neexistoval; tohle je měření, na kterém stojí.
 
 Dosažitelnost se mezi sešnami může lišit. Nástroj proto musí selhání zdroje ohlásit a pokračovat a test musí běžet na uložených odpovědích, bez sítě.
 
