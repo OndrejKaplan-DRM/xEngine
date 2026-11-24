@@ -1,0 +1,12 @@
+{
+  "xspace": 1,
+  "kind": "pack",
+  "id": "kit_all",
+  "title": "Všechny sady xForge (pro galerii)",
+  "version": "0.1.0",
+  "free": true,
+  "requires": ["kit_base", "kit_lab"],
+  "prefabs": [],
+  "levels": [],
+  "assets": []
+}

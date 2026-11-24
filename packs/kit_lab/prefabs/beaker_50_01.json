@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "beaker_50_01",
+  "title": "Kádinka 50 ml",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.024, -0.001, -0.024], "max": [0.024, 0.062, 0.024] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.03, 0], "radius": 0.021, "height": 0.06, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0585, 0], "radius": 0.0225, "height": 0.003, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.018, 0.0205], "max": [0, 0.0192, 0.0217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.03, 0.0205], "max": [0, 0.0312, 0.0217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.042, 0.0205], "max": [0, 0.0432, 0.0217], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.023, 0, -0.023], "max": [0.023, 0.061, 0.023], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 164,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#beakers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

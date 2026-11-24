@@ -1,0 +1,45 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "flask_vol_1000_02",
+  "title": "Odměrná baňka 1000 ml doplněná po rysku",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.063, -0.001, -0.063], "max": [0.063, 0.311, 0.063] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.009, 0], "radius": 0.0525, "height": 0.018, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.042, 0], "radius": 0.06, "height": 0.048, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.084, 0], "radius": 0.048, "height": 0.036, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.111, 0], "radius": 0.0245, "height": 0.018, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.125, 0], "radius": 0.0115, "height": 0.01, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.211, 0], "radius": 0.01, "height": 0.162, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.0505, "height": 0.016, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.042, 0], "radius": 0.058, "height": 0.048, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.084, 0], "radius": 0.046, "height": 0.036, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.111, 0], "radius": 0.0225, "height": 0.018, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.125, 0], "radius": 0.0095, "height": 0.01, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1453, 0], "radius": 0.008, "height": 0.0306, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.298, 0], "radius": 0.0105, "height": 0.016, "axis": "y", "mat": "cap_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.308, 0], "radius": 0.016, "height": 0.004, "axis": "y", "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.012, 0.2055, 0.0095], "max": [0, 0.2067, 0.0107], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.062], "max": [0.062, 0.31, 0.062], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 908,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

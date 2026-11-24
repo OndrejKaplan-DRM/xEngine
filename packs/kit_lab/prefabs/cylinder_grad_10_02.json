@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cylinder_grad_10_02",
+  "title": "Odměrný válec 10 ml s kapalinou",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.024, -0.001, -0.024], "max": [0.024, 0.152, 0.024] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.005, 0], "radius": 0.022, "height": 0.01, "axis": "y", "mat": "plastic_pp" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.08, 0], "radius": 0.0065, "height": 0.14, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.054, 0], "radius": 0.005, "height": 0.08, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1485, 0], "radius": 0.008, "height": 0.003, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.004, 0.146, 0.0055], "max": [0.004, 0.15, 0.0125], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.038, 0.006], "max": [0, 0.0392, 0.0072], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.059, 0.006], "max": [0, 0.0602, 0.0072], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.08, 0.006], "max": [0, 0.0812, 0.0072], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.101, 0.006], "max": [0, 0.1022, 0.0072], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.122, 0.006], "max": [0, 0.1232, 0.0072], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.023, 0, -0.023], "max": [0.023, 0.151, 0.023], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 328,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#measuringCylinders",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

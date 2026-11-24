@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "flask_round_250_01",
+  "title": "Varná baňka 250 ml na korkovém kroužku",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.032, -0.001, -0.032], "max": [0.032, 0.169, 0.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.008, 0], "radius": 0.0298, "height": 0.016, "axis": "y", "mat": "wood_oak" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0175, 0], "radius": 0.0159, "height": 0.0111, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0388, 0], "radius": 0.0297, "height": 0.0315, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0702, 0], "radius": 0.0297, "height": 0.0314, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0894, 0], "radius": 0.0159, "height": 0.0068, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1299, 0], "radius": 0.015, "height": 0.0743, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1655, 0], "radius": 0.0165, "height": 0.003, "axis": "y", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.031, 0, -0.031], "max": [0.031, 0.168, 0.031], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 448,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#roundFlasks",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

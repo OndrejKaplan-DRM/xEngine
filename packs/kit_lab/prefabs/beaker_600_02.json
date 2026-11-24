@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "beaker_600_02",
+  "title": "Kádinka 600 ml s roztokem",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.049, -0.001, -0.049], "max": [0.049, 0.126, 0.049] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.0625, 0], "radius": 0.045, "height": 0.125, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0354, 0], "radius": 0.043, "height": 0.0668, "axis": "y", "mat": "liquid_green" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1235, 0], "radius": 0.0465, "height": 0.003, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.0375, 0.0445], "max": [0, 0.0387, 0.0457], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.0625, 0.0445], "max": [0, 0.0637, 0.0457], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.0875, 0.0445], "max": [0, 0.0887, 0.0457], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.048, 0, -0.048], "max": [0.048, 0.125, 0.048], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 228,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#beakers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

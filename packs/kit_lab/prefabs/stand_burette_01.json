@@ -1,0 +1,42 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "stand_burette_01",
+  "title": "Stojan s byretou a titrační baňkou",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.101, -0.001, -0.091], "max": [0.101, 0.713, 0.081] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.08], "max": [0.1, 0.012, 0.08], "mat": "steel_painted" },
+    { "node": "body", "shape": "cyl", "center": [-0.06, 0.362, -0.05], "radius": 0.006, "height": 0.7, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.07, 0.54, -0.058], "max": [-0.05, 0.56, -0.042], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.05, 0.547, -0.053], "max": [0.01, 0.553, -0.047], "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.45, -0.05], "radius": 0.006, "height": 0.5, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.3, -0.05], "radius": 0.0045, "height": 0.28, "axis": "y", "mat": "liquid_purple" },
+    { "node": "body", "shape": "box", "min": [0, 0.19, -0.056], "max": [0.02, 0.2, -0.044], "mat": "cap_blue" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.185, -0.05], "radius": 0.0015, "height": 0.02, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.026, -0.05], "radius": 0.0385, "height": 0.028, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.055, -0.05], "radius": 0.0255, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.08, -0.05], "radius": 0.015, "height": 0.02, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.01, 0.0228, -0.05], "radius": 0.0376, "height": 0.0175, "axis": "y", "mat": "liquid_pink" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.09], "max": [0.1, 0.712, 0.08], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 560,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#standSetups",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

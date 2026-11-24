@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bottle_gl45_1000_02",
+  "title": "Reagenční lahev 1000 ml, se štítkem",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.053, -0.001, -0.053], "max": [0.053, 0.234, 0.054] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.003, 0], "radius": 0.0495, "height": 0.006, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0942, 0], "radius": 0.0505, "height": 0.1763, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1912, 0], "radius": 0.0409, "height": 0.0177, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.203, 0], "radius": 0.0269, "height": 0.006, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.212, 0], "radius": 0.0225, "height": 0.012, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.004, 0], "radius": 0.0475, "height": 0.004, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0684, 0], "radius": 0.0485, "height": 0.1248, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.222, 0], "radius": 0.0265, "height": 0.022, "axis": "y", "mat": "cap_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.211, 0], "radius": 0.0285, "height": 0.004, "axis": "y", "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.0278, 0.069, 0.0495], "max": [0.0278, 0.138, 0.0513], "mat": "label_paper" },
+    { "node": "body", "shape": "box", "min": [-0.0278, 0.1228, 0.0511], "max": [0.0278, 0.138, 0.0523], "mat": "label_band_orange" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.052, 0, -0.052], "max": [0.052, 0.233, 0.053], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 600,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#reagentBottles",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

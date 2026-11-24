@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "watchglass_01",
+  "title": "Hodinové sklo s krystaly",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.052, -0.001, -0.052], "max": [0.052, 0.011, 0.052] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.003, 0], "radius": 0.05, "height": 0.006, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.007, 0], "radius": 0.02, "height": 0.004, "axis": "y", "mat": "powder_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.051], "max": [0.051, 0.01, 0.051], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 128,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#smallware",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

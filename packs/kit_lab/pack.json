@@ -1,0 +1,13 @@
+{
+  "xspace": 1,
+  "kind": "pack",
+  "id": "kit_lab",
+  "title": "Laboratoře: sklo, plasty, chemikálie, přístroje (xForge)",
+  "version": "0.1.0",
+  "free": true,
+  "requires": ["kit_base"],
+  "materials": "materials.json",
+  "prefabs": ["prefabs/beaker_50_01.json", "prefabs/beaker_50_02.json", "prefabs/beaker_100_01.json", "prefabs/beaker_100_02.json", "prefabs/beaker_250_01.json", "prefabs/beaker_250_02.json", "prefabs/beaker_600_01.json", "prefabs/beaker_600_02.json", "prefabs/beaker_1000_01.json", "prefabs/beaker_1000_02.json", "prefabs/beaker_2000_01.json", "prefabs/beaker_2000_02.json", "prefabs/flask_erlen_100_01.json", "prefabs/flask_erlen_100_02.json", "prefabs/flask_erlen_250_01.json", "prefabs/flask_erlen_250_02.json", "prefabs/flask_erlen_500_01.json", "prefabs/flask_erlen_500_02.json", "prefabs/flask_erlen_1000_01.json", "prefabs/flask_erlen_1000_02.json", "prefabs/cylinder_grad_10_01.json", "prefabs/cylinder_grad_10_02.json", "prefabs/cylinder_grad_100_01.json", "prefabs/cylinder_grad_100_02.json", "prefabs/cylinder_grad_500_01.json", "prefabs/cylinder_grad_500_02.json", "prefabs/cylinder_grad_1000_01.json", "prefabs/cylinder_grad_1000_02.json", "prefabs/flask_vol_50_01.json", "prefabs/flask_vol_50_02.json", "prefabs/flask_vol_100_01.json", "prefabs/flask_vol_100_02.json", "prefabs/flask_vol_250_01.json", "prefabs/flask_vol_250_02.json", "prefabs/flask_vol_1000_01.json", "prefabs/flask_vol_1000_02.json", "prefabs/flask_round_100_01.json", "prefabs/flask_round_100_02.json", "prefabs/flask_round_250_01.json", "prefabs/flask_round_250_02.json", "prefabs/flask_round_500_01.json", "prefabs/flask_round_500_02.json", "prefabs/flask_round_1000_01.json", "prefabs/flask_round_1000_02.json", "prefabs/bottle_gl45_100_01.json", "prefabs/bottle_gl45_100_02.json", "prefabs/bottle_gl45_100_03.json", "prefabs/bottle_gl45_250_01.json", "prefabs/bottle_gl45_250_02.json", "prefabs/bottle_gl45_250_03.json", "prefabs/bottle_gl45_500_01.json", "prefabs/bottle_gl45_500_02.json", "prefabs/bottle_gl45_500_03.json", "prefabs/bottle_gl45_1000_01.json", "prefabs/bottle_gl45_1000_02.json", "prefabs/bottle_gl45_1000_03.json", "prefabs/bottle_gl45_2000_01.json", "prefabs/bottle_gl45_2000_02.json", "prefabs/bottle_gl45_2000_03.json", "prefabs/rack_testtube_01.json", "prefabs/rack_testtube_02.json", "prefabs/rack_testtube_03.json", "prefabs/stand_burette_01.json", "prefabs/stand_funnel_01.json", "prefabs/stand_distill_01.json", "prefabs/desiccator_150_01.json", "prefabs/desiccator_250_01.json", "prefabs/mortar_porcelain_01.json", "prefabs/watchglass_01.json"],
+  "levels": [],
+  "assets": []
+}

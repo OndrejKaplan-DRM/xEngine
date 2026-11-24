@@ -10,19 +10,21 @@ const { launch, open, ok, saveDataUrl, finish, ROOT } = require('./h.cjs');
 
 (async () => {
   execFileSync(process.execPath, ['build.mjs', 'kit'], { cwd: ROOT, stdio: 'pipe' });
-  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'packs/kit_base/pack.json'), 'utf8'));
+  // galerie staví z balíku kit_all: requires na kit_base a tematické sady (kit_lab, kit_it…)
+  const kitAll = JSON.parse(fs.readFileSync(path.join(ROOT, 'packs/kit_all/pack.json'), 'utf8'));
+  const total = kitAll.requires.reduce((n, id) => n + JSON.parse(fs.readFileSync(path.join(ROOT, 'packs', id, 'pack.json'), 'utf8')).prefabs.length, 0);
   const browser = await launch();
   let code = 1;
   try {
     const { page, errs } = await open(browser, { file: 'dist/kit.html', ready: 'window.__kit && window.__kit.ready === true' });
     const head = await page.evaluate(() => ({ e: __kit.findings.errors.length, w: __kit.findings.warnings.length, ids: __kit.ids, jointed: __kit.jointed, listed: document.querySelectorAll('#list button').length }));
     ok(head.e === 0 && head.w === 0, 'validátor v prohlížeči: sada bez nálezů', `${head.e} chyb, ${head.w} varování`);
-    ok(head.ids.length === manifest.prefabs.length && head.listed === head.ids.length, 'galerie nabízí každý prefab balíku', `${head.ids.length} prefabů, ${head.jointed.length} s kloubem`);
+    ok(head.ids.length === total && head.listed === head.ids.length, `galerie nabízí každý prefab sad ${kitAll.requires.join(', ')}`, `${head.ids.length} prefabů, ${head.jointed.length} s kloubem`);
 
     const empty = [];
     const still = [];
     for (const id of head.ids) {
-      const r = await page.evaluate((x) => __kit.check(x), id);
+      const r = await page.evaluate((x) => __kit.check(x, 96), id);
       if (r.rest.colors < 4 || r.far.colors < 4) empty.push(id);
       if (head.jointed.includes(id) && r.moved < 0.0015) still.push(id);
     }
@@ -44,8 +46,10 @@ const { launch, open, ok, saveDataUrl, finish, ROOT } = require('./h.cjs');
     saveDataUrl(all.png, 'b_kit_cela_sada.png');
     ok(all.on, 'režim „Celá sada“ se přepne a vykreslí');
 
-    const png = await page.evaluate(() => __kit.montage(undefined, 150, 6));
+    const png = await page.evaluate(() => __kit.montage(__kit.ids.filter((id) => __kit.packOf(id) === 'kit_base'), 150, 6));
     const file = saveDataUrl(png, 'b_kit_galerie.png');
+    // montáže tematických sad pro Ondřeje (jedna na sadu)
+    for (const id of kitAll.requires.filter((x) => x !== 'kit_base')) saveDataUrl(await page.evaluate((k) => __kit.montage(__kit.ids.filter((x) => __kit.packOf(x) === k), 120, 10), id), `b_${id}_galerie.png`);
     ok(fs.statSync(file).size > 50000, 'montáž galerie uložena', `${path.relative(ROOT, file)}, ${(fs.statSync(file).size / 1024).toFixed(0)} kB`);
 
     // ---- textury (B2.4): pohledy čistý, T460, grafická karta

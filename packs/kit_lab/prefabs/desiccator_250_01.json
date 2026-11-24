@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "desiccator_250_01",
+  "title": "Exsikátor 250 mm se silikagelem",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.134, -0.001, -0.134], "max": [0.134, 0.203, 0.134] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.005, 0], "radius": 0.1063, "height": 0.01, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0613, 0], "radius": 0.125, "height": 0.1025, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1156, 0], "radius": 0.13, "height": 0.0062, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0313, 0], "radius": 0.1125, "height": 0.006, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.015, 0], "radius": 0.075, "height": 0.0225, "axis": "y", "mat": "powder_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1281, 0], "radius": 0.1269, "height": 0.0188, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1531, 0], "radius": 0.0844, "height": 0.0313, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1731, 0], "radius": 0.035, "height": 0.0087, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1895, 0], "radius": 0.016, "height": 0.024, "axis": "y", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.133, 0, -0.133], "max": [0.133, 0.202, 0.133], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 576,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#desiccators",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

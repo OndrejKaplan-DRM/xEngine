@@ -7,6 +7,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { validatePack, partMesh } from '../../../src/xspace/index.js';
 import { buildKit, TEXTURES } from '../kit/index.mjs';
+import { THEMES } from '../themes.mjs';
 import { buildPrefab, figure, useTextures, material } from './scene.js';
 import { TEXTURE_BYTES } from './textures.js';
 
@@ -23,11 +24,14 @@ const fullBounds = (p) =>
     const c = byId.get(a.prefab);
     return c ? { min: b.min.map((v, k) => Math.min(v, c.bounds.min[k] + a.pos[k])), max: b.max.map((v, k) => Math.max(v, c.bounds.max[k] + a.pos[k])) } : b;
   }, p.bounds);
-const notes = buildKit().notes;
+const notes = Object.assign(buildKit().notes, ...Object.values(THEMES).map((t) => t.build().notes));
+// galerie staví z balíku kit_all (requires na všechny sady); každý prefab nese id balíku, ze kterého je
+const packOf = new Map(pack.prefabs.map((p) => [p.data.id, p.from || pack.manifest.id]));
+const PACKS = { kit_base: 'Základní sada', kit_lab: 'Laboratoře', kit_it: 'IT a kanceláře', kit_home: 'Byty a domy' };
 const num = (v) => String(Math.round(v * 1000) / 1000).replace('.', ',');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const range = (j) => (j.type === 'hinge' ? `${num(j.min)}° až ${num(j.max)}°` : `${num(j.min)} až ${num(j.max)} m`);
-const CATEGORY = { 'arch.door': 'Dveře a brány', 'arch.window': 'Okna', 'arch.pipe': 'Potrubí', 'arch.railing': 'Zábradlí', 'device.control': 'Ovládací prvky', 'device.lab': 'Laboratorní přístroje', 'device.terminal': 'Terminály', 'prop.furniture': 'Nábytek', 'prop.light': 'Svítidla', 'prop.container': 'Bedny a sudy', 'prop.crypt': 'Katakomby' };
+const CATEGORY = { 'lab.glass': 'Laboratorní sklo', 'lab.plastic': 'Laboratorní plasty', 'lab.chem': 'Chemikálie a balení', 'lab.bench': 'Stolní přístroje', 'lab.large': 'Velké přístroje', 'lab.cold': 'Chlazení a mrazení', 'lab.furniture': 'Laboratorní nábytek', 'lab.animal': 'Chovy a karanténa', 'it.computer': 'Počítače', 'it.server': 'Serverovna', 'it.office': 'Kancelář', 'arch.door': 'Dveře a brány', 'arch.window': 'Okna', 'arch.pipe': 'Potrubí', 'arch.railing': 'Zábradlí', 'device.control': 'Ovládací prvky', 'device.lab': 'Laboratorní přístroje', 'device.terminal': 'Terminály', 'prop.furniture': 'Nábytek', 'prop.light': 'Svítidla', 'prop.container': 'Bedny a sudy', 'prop.crypt': 'Katakomby' };
 
 const canvas = document.getElementById('c');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: false });
@@ -106,9 +110,11 @@ function showOne(id) {
 function showAll() {
   clear();
   mode = 'all';
-  const cols = Math.ceil(Math.sqrt(prefabs.length * 1.6));
-  const cell = 3.2;
-  prefabs.forEach((prefab, i) => {
+  // celá sada = všechny prefaby balíku, ze kterého je právě vybraný prefab
+  const set = prefabs.filter((p) => packOf.get(p.id) === packOf.get(current));
+  const cols = Math.ceil(Math.sqrt(set.length * 1.6));
+  const cell = packOf.get(current) === 'kit_base' ? 3.2 : 1.2;
+  set.forEach((prefab, i) => {
     const b = { prefab, ...buildPrefab(prefab, matDefs, look, (x) => byId.get(x)) };
     const cx = ((i % cols) - (cols - 1) / 2) * cell;
     const cz = Math.floor(i / cols) * cell;
@@ -117,8 +123,8 @@ function showAll() {
     holder.add(b.root);
     built.push(b);
   });
-  const rows = Math.ceil(prefabs.length / cols);
-  frame([(-cols * cell) / 2, 0, -1], [(cols * cell) / 2, 2.4, rows * cell - 1], [0.25, 0.9, 1.1]);
+  const rows = Math.ceil(set.length / cols);
+  frame([(-cols * cell) / 2, 0, -1], [(cols * cell) / 2, cell * 0.75, rows * cell - 1], [0.25, 0.9, 1.1]);
   ui();
   render();
 }
@@ -181,8 +187,16 @@ function setPose(t) {
 const list = document.getElementById('list');
 document.getElementById('ver').textContent = `${VERSION} · ${prefabs.length} prefabů · validátor ${findings.errors.length} chyb, ${findings.warnings.length} varování`;
 const groups = new Map();
-for (const p of prefabs) groups.set(p.category, [...(groups.get(p.category) || []), p]);
-for (const [cat, items] of groups) {
+for (const p of prefabs) groups.set(`${packOf.get(p.id)} ${p.category}`, [...(groups.get(`${packOf.get(p.id)} ${p.category}`) || []), p]);
+let lastPack = null;
+for (const [key, items] of groups) {
+  const [pk, cat] = key.split(' ');
+  if (pk !== lastPack) {
+    const h2 = document.createElement('h2');
+    h2.textContent = `${PACKS[pk] || pk} (${prefabs.filter((p) => packOf.get(p.id) === pk).length})`;
+    list.appendChild(h2);
+    lastPack = pk;
+  }
   const h = document.createElement('h3');
   h.textContent = CATEGORY[cat] || cat;
   list.appendChild(h);
@@ -322,6 +336,7 @@ globalThis.__kit = {
   version: VERSION,
   findings,
   ids: prefabs.map((p) => p.id),
+  packOf: (id) => packOf.get(id),
   jointed: prefabs.filter((p) => (p.rig.joints || []).length).map((p) => p.id),
   select: showOne,
   all: showAll,

@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "rack_testtube_02",
+  "title": "Stojan se skleněnými zkumavkami 2",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.091, -0.001, -0.031], "max": [0.091, 0.165, 0.031] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.03], "max": [0.09, 0.004, 0.03], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.09, 0.1, -0.03], "max": [0.09, 0.104, 0.03], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.03], "max": [-0.086, 0.104, -0.026], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.09, 0, 0.026], "max": [-0.086, 0.104, 0.03], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.086, 0, -0.03], "max": [0.09, 0.104, -0.026], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.086, 0, 0.026], "max": [0.09, 0.104, 0.03], "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [-0.075, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.075, 0.034, 0], "radius": 0.0065, "height": 0.06, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [-0.045, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.045, 0.044, 0], "radius": 0.0065, "height": 0.08, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [-0.015, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.015, 0.054, 0], "radius": 0.0065, "height": 0.1, "axis": "y", "mat": "liquid_purple" },
+    { "node": "body", "shape": "cyl", "center": [0.015, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.015, 0.034, 0], "radius": 0.0065, "height": 0.06, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0.045, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.045, 0.044, 0], "radius": 0.0065, "height": 0.08, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0.075, 0.084, 0], "radius": 0.008, "height": 0.16, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.075, 0.054, 0], "radius": 0.0065, "height": 0.1, "axis": "y", "mat": "liquid_purple" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.03], "max": [0.09, 0.164, 0.03], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 840,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#testTubeRacks",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

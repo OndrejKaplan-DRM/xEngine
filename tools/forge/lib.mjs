@@ -87,7 +87,8 @@ export function definePrefab(d, notes = {}) {
     ...(d.inputs ? { inputs: d.inputs } : {}),
     ...(d.outputs ? { outputs: d.outputs } : {}),
     tris: d.parts.reduce((s, p) => s + partTris(p), 0),
-    source: source('xforge', `tools/forge/kit/${d.gen}`, d.params ? { params: d.params } : {}),
+    // gen bez lomítka patří sadě kit_base (tools/forge/kit/), s lomítkem je cesta od tools/forge (lab/glass.mjs#beaker)
+    source: source('xforge', d.gen.includes('/') ? `tools/forge/${d.gen}` : `tools/forge/kit/${d.gen}`, d.params ? { params: d.params } : {}),
   };
   return { prefab, notes };
 }

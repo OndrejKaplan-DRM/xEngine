@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cylinder_grad_1000_02",
+  "title": "Odměrný válec 1000 ml s kapalinou",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.065, -0.001, -0.065], "max": [0.065, 0.472, 0.065] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.005, 0], "radius": 0.0618, "height": 0.01, "axis": "y", "mat": "plastic_pp" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.24, 0], "radius": 0.0325, "height": 0.46, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.15, 0], "radius": 0.031, "height": 0.272, "axis": "y", "mat": "liquid_red" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.4685, 0], "radius": 0.034, "height": 0.003, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.004, 0.466, 0.0315], "max": [0.004, 0.47, 0.0385], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.102, 0.032], "max": [0, 0.1032, 0.0332], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.171, 0.032], "max": [0, 0.1722, 0.0332], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.24, 0.032], "max": [0, 0.2412, 0.0332], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.309, 0.032], "max": [0, 0.3102, 0.0332], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.378, 0.032], "max": [0, 0.3792, 0.0332], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.064, 0, -0.064], "max": [0.064, 0.471, 0.064], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 328,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#measuringCylinders",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

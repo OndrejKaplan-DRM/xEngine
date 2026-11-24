@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "flask_round_1000_02",
+  "title": "Varná baňka 1000 ml na korkovém kroužku, s náplní",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.061, -0.001, -0.061], "max": [0.061, 0.234, 0.061] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.008, 0], "radius": 0.0459, "height": 0.016, "axis": "y", "mat": "wood_oak" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0205, 0], "radius": 0.0215, "height": 0.017, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0533, 0], "radius": 0.0458, "height": 0.0485, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1017, 0], "radius": 0.0458, "height": 0.0485, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1312, 0], "radius": 0.0215, "height": 0.0105, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1847, 0], "radius": 0.017, "height": 0.0966, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0215, 0], "radius": 0.0195, "height": 0.015, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0533, 0], "radius": 0.0438, "height": 0.0485, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0834, 0], "radius": 0.0587, "height": 0.0119, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.2315, 0], "radius": 0.0185, "height": 0.003, "axis": "y", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.06], "max": [0.06, 0.233, 0.06], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 640,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#roundFlasks",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

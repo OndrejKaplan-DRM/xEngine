@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "flask_erlen_500_01",
+  "title": "Erlenmeyerova baňka 500 ml",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.055, -0.001, -0.055], "max": [0.055, 0.182, 0.055] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.0108, 0], "radius": 0.0525, "height": 0.0216, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0423, 0], "radius": 0.0478, "height": 0.0414, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.081, 0], "radius": 0.0368, "height": 0.036, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1143, 0], "radius": 0.0259, "height": 0.0306, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.135, 0], "radius": 0.0191, "height": 0.0108, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1602, 0], "radius": 0.017, "height": 0.0396, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1785, 0], "radius": 0.0185, "height": 0.003, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.027, 0.0468], "max": [0, 0.0282, 0.048], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.0504, 0.0389], "max": [0, 0.0516, 0.0401], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.054, 0, -0.054], "max": [0.054, 0.181, 0.054], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 472,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass.mjs#erlenmeyers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

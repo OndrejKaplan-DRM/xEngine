@@ -1,1 +1,1 @@
-{ "id": "kit", "entry": "gallery/main.js", "template": "gallery/index.html", "pack": "../../packs/kit_base" }
+{ "id": "kit", "entry": "gallery/main.js", "template": "gallery/index.html", "pack": "../../packs/kit_all" }
