@@ -80,6 +80,7 @@ export function createGame({ pack, render, now }) {
    */
   const loadOrder = [light, world, entities, vis, io, player, interact];
   let loaded = null;
+  let builtBake = true; // s jakou volbou useBake se level postavil
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
     if (loaded) {
@@ -94,6 +95,7 @@ export function createGame({ pack, render, now }) {
     occlusion.load(ctx, entities);
     render.closeStatic();
     phys.settle();
+    builtBake = game.useBake;
     if (game.useBake) light.setBake(...readBake({ assets, pack, level, world, entities, occlusion, decodeBake })); // D-044
     else light.setBake(null, 'zapečené světlo vypnuto');
     light.prepare();
@@ -168,7 +170,7 @@ export function createGame({ pack, render, now }) {
     /** Nová hra v daném levelu (výchozí = aktuální). Zámek kurzoru řeší aplikace, ne hra. */
     start(levelId) {
       if (levelId && levelId !== loaded) loadLevel(levelId);
-      else if (world.lightCell !== world.stat.lightCell || entities.doorsAway !== entities.builtAway) loadLevel(loaded); // jiná mřížka světla nebo jiné dveře: postavit znovu
+      else if (world.lightCell !== world.stat.lightCell || entities.doorsAway !== entities.builtAway || game.useBake !== builtBake) loadLevel(loaded); // jiná mřížka světla, dveře nebo zdroj světla: postavit znovu
       E.reset();
       if (E.mode !== 'playing') E.setMode('playing');
     },

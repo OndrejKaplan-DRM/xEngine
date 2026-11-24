@@ -93,7 +93,7 @@ export function bakedBase(decoded, map, targets, ambient) {
   const n = decoded.header.samples;
   const ao = decoded.layers.find((L) => L.kind === 'ao');
   const ind = decoded.layers.find((L) => L.kind === 'indirect');
-  const w = (decoded.header.indirectWeight ?? ind?.weight ?? 1) * INV_PI;
+  const w = (ind?.weight ?? decoded.header.indirectWeight ?? 1) * INV_PI; // váha odrazu nese vrstva (xBake), jako v composeColors
   for (let s = 0; s < n; s++) {
     const a = ao ? ao.data[s] : 1;
     const r = ambient[0] * a + (ind ? ind.data[s * 3] * w : 0);
