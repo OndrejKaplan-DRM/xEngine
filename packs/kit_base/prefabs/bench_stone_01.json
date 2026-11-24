@@ -11,9 +11,21 @@
     ]
   },
   "parts": [
-    { "node": "seat", "shape": "box", "min": [-0.8, 0.38, -0.22], "max": [0.8, 0.48, 0.22], "mat": "stone_pale" },
-    { "node": "seat", "shape": "box", "min": [-0.68, 0, -0.18], "max": [-0.48, 0.38, 0.18], "mat": "stone_block" },
-    { "node": "seat", "shape": "box", "min": [0.48, 0, -0.18], "max": [0.68, 0.38, 0.18], "mat": "stone_block" }
+    { "node": "seat", "shape": "box", "min": [-0.8, 0.392, -0.208], "max": [0.8, 0.468, 0.208], "mat": "stone_pale" },
+    { "node": "seat", "shape": "box", "min": [-0.788, 0.38, -0.208], "max": [0.788, 0.48, 0.208], "mat": "stone_pale" },
+    { "node": "seat", "shape": "box", "min": [-0.788, 0.392, -0.22], "max": [0.788, 0.468, 0.22], "mat": "stone_pale" },
+    { "node": "seat", "shape": "box", "min": [-0.68, 0.01, -0.17], "max": [-0.48, 0.175, 0.17], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [-0.67, 0, -0.17], "max": [-0.49, 0.185, 0.17], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [-0.67, 0.01, -0.18], "max": [-0.49, 0.175, 0.18], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [-0.686, 0.2, -0.159], "max": [-0.486, 0.37, 0.181], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [-0.676, 0.19, -0.159], "max": [-0.496, 0.38, 0.181], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [-0.676, 0.2, -0.169], "max": [-0.496, 0.37, 0.191], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.48, 0.01, -0.17], "max": [0.68, 0.175, 0.17], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.49, 0, -0.17], "max": [0.67, 0.185, 0.17], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.49, 0.01, -0.18], "max": [0.67, 0.175, 0.18], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.488, 0.2, -0.169], "max": [0.688, 0.37, 0.171], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.498, 0.19, -0.169], "max": [0.678, 0.38, 0.171], "mat": "stone_block" },
+    { "node": "seat", "shape": "box", "min": [0.498, 0.2, -0.179], "max": [0.678, 0.37, 0.181], "mat": "stone_block" }
   ],
   "colliders": [
     { "node": "seat", "shape": "box", "min": [-0.8, 0, -0.22], "max": [0.8, 0.48, 0.22], "group": "world" }
@@ -21,7 +33,7 @@
   "components": {
     "physics": { "body": "static" }
   },
-  "tris": 36,
+  "tris": 180,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/furniture.mjs#bench",

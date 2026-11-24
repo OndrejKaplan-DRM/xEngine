@@ -4,7 +4,7 @@
   "id": "chair_plain_01",
   "title": "Židle dřevěná",
   "category": "prop.furniture",
-  "bounds": { "min": [-0.201, -0.001, -0.201], "max": [0.201, 0.851, 0.201] },
+  "bounds": { "min": [-0.206, -0.001, -0.201], "max": [0.206, 0.866, 0.211] },
   "rig": {
     "nodes": [
       { "id": "seat" }
@@ -15,10 +15,19 @@
     { "node": "seat", "shape": "box", "min": [-0.2, 0, 0.165], "max": [-0.165, 0.43, 0.2], "mat": "wood_oak" },
     { "node": "seat", "shape": "box", "min": [0.165, 0, -0.2], "max": [0.2, 0.43, -0.165], "mat": "wood_oak" },
     { "node": "seat", "shape": "box", "min": [0.165, 0, 0.165], "max": [0.2, 0.43, 0.2], "mat": "wood_oak" },
-    { "node": "seat", "shape": "box", "min": [-0.2, 0.43, -0.2], "max": [0.2, 0.46, 0.2], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.205, 0.435, -0.195], "max": [0.205, 0.455, 0.205], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.43, -0.195], "max": [0.2, 0.46, 0.205], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.435, -0.2], "max": [0.2, 0.455, 0.21], "mat": "wood_pine" },
     { "node": "seat", "shape": "box", "min": [-0.2, 0.46, -0.2], "max": [-0.165, 0.85, -0.165], "mat": "wood_oak" },
     { "node": "seat", "shape": "box", "min": [0.165, 0.46, -0.2], "max": [0.2, 0.85, -0.165], "mat": "wood_oak" },
-    { "node": "seat", "shape": "box", "min": [-0.2, 0.66, -0.2], "max": [0.2, 0.84, -0.175], "mat": "wood_pine" }
+    { "node": "seat", "shape": "box", "min": [-0.165, 0.66, -0.198], "max": [0.165, 0.705, -0.178], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.165, 0.73, -0.198], "max": [0.165, 0.775, -0.178], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.165, 0.8, -0.198], "max": [0.165, 0.845, -0.178], "mat": "wood_pine" },
+    { "node": "seat", "shape": "box", "min": [-0.2, 0.845, -0.2], "max": [0.2, 0.865, -0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.1925, 0.1275, -0.165], "max": [-0.1725, 0.1525, 0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.165, 0.1875, -0.1925], "max": [0.165, 0.2125, -0.1725], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [0.1725, 0.1275, -0.165], "max": [0.1925, 0.1525, 0.165], "mat": "wood_oak" },
+    { "node": "seat", "shape": "box", "min": [-0.165, 0.1875, 0.1725], "max": [0.165, 0.2125, 0.1925], "mat": "wood_oak" }
   ],
   "colliders": [
     { "node": "seat", "shape": "box", "min": [-0.2, 0, -0.2], "max": [0.2, 0.46, 0.2], "group": "prop" },
@@ -30,7 +39,7 @@
     "health": { "hp": 40, "surface": "wood" }
   },
   "outputs": ["grabbed", "dropped"],
-  "tris": 96,
+  "tris": 204,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/furniture.mjs#chairPlain",

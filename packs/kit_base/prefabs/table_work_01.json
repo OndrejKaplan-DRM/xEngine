@@ -4,20 +4,31 @@
   "id": "table_work_01",
   "title": "Stůl pracovní 1,6 × 0,8 m",
   "category": "prop.furniture",
-  "bounds": { "min": [-0.801, -0.001, -0.401], "max": [0.801, 0.751, 0.401] },
+  "bounds": { "min": [-0.801, -0.001, -0.401], "max": [0.801, 0.752, 0.401] },
   "rig": {
     "nodes": [
       { "id": "top" }
     ]
   },
   "parts": [
-    { "node": "top", "shape": "box", "min": [-0.8, 0.71, -0.4], "max": [0.8, 0.75, 0.4], "mat": "wood_pine" },
-    { "node": "top", "shape": "box", "min": [-0.77, 0, -0.37], "max": [-0.71, 0.71, -0.31], "mat": "steel_dark" },
-    { "node": "top", "shape": "box", "min": [-0.77, 0, 0.31], "max": [-0.71, 0.71, 0.37], "mat": "steel_dark" },
-    { "node": "top", "shape": "box", "min": [0.71, 0, -0.37], "max": [0.77, 0.71, -0.31], "mat": "steel_dark" },
-    { "node": "top", "shape": "box", "min": [0.71, 0, 0.31], "max": [0.77, 0.71, 0.37], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.7999, 0.71, -0.4], "max": [0.7998, 0.7519, -0.1343], "mat": "wood_pine" },
+    { "node": "top", "shape": "box", "min": [-0.7994, 0.71, -0.1328], "max": [0.7998, 0.751, 0.1328], "mat": "wood_pine" },
+    { "node": "top", "shape": "box", "min": [-0.7993, 0.71, 0.1343], "max": [0.7995, 0.751, 0.4], "mat": "wood_pine" },
+    { "node": "top", "shape": "box", "min": [-0.77, 0.012, -0.37], "max": [-0.71, 0.71, -0.31], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.77, 0.012, 0.31], "max": [-0.71, 0.71, 0.37], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [0.71, 0.012, -0.37], "max": [0.77, 0.71, -0.31], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [0.71, 0.012, 0.31], "max": [0.77, 0.71, 0.37], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.776, 0, -0.376], "max": [-0.704, 0.012, -0.304], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [-0.776, 0, 0.304], "max": [-0.704, 0.012, 0.376], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [0.704, 0, -0.376], "max": [0.776, 0.012, -0.304], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [0.704, 0, 0.304], "max": [0.776, 0.012, 0.376], "mat": "rubber_black" },
     { "node": "top", "shape": "box", "min": [-0.73, 0.63, -0.36], "max": [0.73, 0.69, -0.34], "mat": "steel_dark" },
-    { "node": "top", "shape": "box", "min": [-0.73, 0.63, 0.34], "max": [0.73, 0.69, 0.36], "mat": "steel_dark" }
+    { "node": "top", "shape": "box", "min": [-0.76, 0.63, -0.33], "max": [-0.74, 0.69, 0.33], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.73, 0.63, 0.34], "max": [0.73, 0.69, 0.36], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [0.74, 0.63, -0.33], "max": [0.76, 0.69, 0.33], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.74, 0.145, -0.015], "max": [0.74, 0.175, 0.015], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [-0.755, 0.145, -0.34], "max": [-0.725, 0.175, 0.34], "mat": "steel_dark" },
+    { "node": "top", "shape": "box", "min": [0.725, 0.145, -0.34], "max": [0.755, 0.175, 0.34], "mat": "steel_dark" }
   ],
   "colliders": [
     { "node": "top", "shape": "box", "min": [-0.8, 0.71, -0.4], "max": [0.8, 0.75, 0.4], "group": "world" },
@@ -26,7 +37,7 @@
   "components": {
     "physics": { "body": "static" }
   },
-  "tris": 84,
+  "tris": 216,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/furniture.mjs#table",

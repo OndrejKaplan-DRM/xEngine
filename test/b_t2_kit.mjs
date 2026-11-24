@@ -126,8 +126,9 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
 {
   const tris = prefabs.filter((p) => p.tris !== p.parts.reduce((s, x) => s + partTris(x), 0));
   ok(tris.length === 0, 'pole tris odpovídá dílům (kvádr 12, válec 64)', tris.map((p) => p.id).join(' '));
-  const heavy = prefabs.filter((p) => p.tris > (p.category.startsWith('device.') ? 2000 : 500));
-  ok(heavy.length === 0, 'běžný prefab do 500 △, přístroj do 2 000 △', heavy.map((p) => `${p.id} ${p.tris}`).join(' ') || `nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △ (${prefabs.find((p) => p.tris === Math.max(...prefabs.map((q) => q.tris))).id})`);
+  // Dřív 500 △ (odhad z vlny 1). Od 24. 11. bohatší tvary (Ondřej 3 a); scénu hlídá součet levelu v b_t1 (do 300 tisíc △)
+  const heavy = prefabs.filter((p) => p.tris > (p.category.startsWith('device.') ? 2000 : 1000));
+  ok(heavy.length === 0, 'běžný prefab do 1 000 △, přístroj do 2 000 △', heavy.map((p) => `${p.id} ${p.tris}`).join(' ') || `nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △ (${prefabs.find((p) => p.tris === Math.max(...prefabs.map((q) => q.tris))).id})`);
   const out = [];
   for (const p of prefabs) {
     for (const v of jointSamples(joints(p))) {

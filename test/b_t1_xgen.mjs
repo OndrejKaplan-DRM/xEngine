@@ -92,7 +92,7 @@ let slowest = 0;
 const portalDoorPrefabs = new Set();
 const usedAll = new Set();
 for (const run of RUNS) {
-  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [] };
+  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [] };
   let walker = null;
   const ruleBreaks = [];
   const findings = {};
@@ -119,6 +119,7 @@ for (const run of RUNS) {
     agg.attempt.push(info.attempt);
     agg.entities.push(level.entities.length);
     agg.brushes.push(level.brushes.length);
+    agg.tris.push(level.brushes.length * 12 + level.entities.reduce((t, e) => t + (catalog.has(e.prefab) ? catalog.get(e.prefab).tris : 0), 0));
     const res = validatePack(asPack(level));
     for (const x of [...res.errors, ...res.warnings]) findings[x.code] = (findings[x.code] || 0) + 1;
     const insp = inspectLevel(level, catalog);
@@ -137,6 +138,8 @@ for (const run of RUNS) {
   ok(fails.length === 0 && n === run.n, `${run.name}: ${run.n} seedů, každý dal level`, fails.slice(0, 2).join(' | ') || `pokusů na level ${span(agg.attempt.map((a) => a + 1))}`);
   ok(Object.keys(findings).length === 0, `${run.name}: validátor bez chyb a bez varování`, JSON.stringify(findings) === '{}' ? `${n} levelů` : JSON.stringify(findings));
   ok(Math.min(...agg.cells) >= 20 && Math.max(...agg.cells) <= 60, `${run.name}: 20 až 60 buněk`, span(agg.cells));
+  // rozpočet scény (06_ROZPOCTY, měřeno na T460): do 300 tisíc viditelných △; celý level je horní mez toho, co je vidět
+  ok(Math.max(...agg.tris) <= 300000, `${run.name}: celý level do 300 tisíc △ (kvádry + prefaby)`, span(agg.tris));
   ok(Math.min(...agg.doors) >= 3, `${run.name}: aspoň troje dveře v portálech`, span(agg.doors));
   ok(withStairs === n, `${run.name}: každý level má schod nebo rampu`, `${withStairs} z ${n}`);
   ok(problems.length === 0, `${run.name}: prahy, průchody, schody, rozmístění a průchodnost místností`, problems.slice(0, 3).join(' | ') || `cesta široká ${walker.width.toFixed(2)} m (profil ${walker.profile}) ověřena v ${span(agg.passable)} buňkách na level`);

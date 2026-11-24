@@ -11,13 +11,21 @@
     ]
   },
   "parts": [
-    { "node": "top", "shape": "box", "min": [-0.9, 0.86, -0.375], "max": [0.9, 0.9, 0.375], "mat": "plastic_dark" },
-    { "node": "top", "shape": "box", "min": [-0.87, 0, -0.345], "max": [-0.83, 0.86, -0.305], "mat": "steel_brushed" },
-    { "node": "top", "shape": "box", "min": [-0.87, 0, 0.305], "max": [-0.83, 0.86, 0.345], "mat": "steel_brushed" },
-    { "node": "top", "shape": "box", "min": [0.83, 0, -0.345], "max": [0.87, 0.86, -0.305], "mat": "steel_brushed" },
-    { "node": "top", "shape": "box", "min": [0.83, 0, 0.305], "max": [0.87, 0.86, 0.345], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [-0.9, 0.864, -0.371], "max": [0.9, 0.896, 0.371], "mat": "plastic_dark" },
+    { "node": "top", "shape": "box", "min": [-0.896, 0.86, -0.371], "max": [0.896, 0.9, 0.371], "mat": "plastic_dark" },
+    { "node": "top", "shape": "box", "min": [-0.896, 0.864, -0.375], "max": [0.896, 0.896, 0.375], "mat": "plastic_dark" },
+    { "node": "top", "shape": "box", "min": [-0.87, 0.012, -0.345], "max": [-0.83, 0.86, -0.305], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [-0.87, 0.012, 0.305], "max": [-0.83, 0.86, 0.345], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [0.83, 0.012, -0.345], "max": [0.87, 0.86, -0.305], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [0.83, 0.012, 0.305], "max": [0.87, 0.86, 0.345], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [-0.876, 0, -0.351], "max": [-0.824, 0.012, -0.299], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [-0.876, 0, 0.299], "max": [-0.824, 0.012, 0.351], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [0.824, 0, -0.351], "max": [0.876, 0.012, -0.299], "mat": "rubber_black" },
+    { "node": "top", "shape": "box", "min": [0.824, 0, 0.299], "max": [0.876, 0.012, 0.351], "mat": "rubber_black" },
     { "node": "top", "shape": "box", "min": [-0.83, 0.78, -0.335], "max": [0.83, 0.84, -0.315], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [-0.86, 0.78, -0.305], "max": [-0.84, 0.84, 0.305], "mat": "steel_brushed" },
     { "node": "top", "shape": "box", "min": [-0.83, 0.78, 0.315], "max": [0.83, 0.84, 0.335], "mat": "steel_brushed" },
+    { "node": "top", "shape": "box", "min": [0.84, 0.78, -0.305], "max": [0.86, 0.84, 0.305], "mat": "steel_brushed" },
     { "node": "top", "shape": "box", "min": [-0.85, 0.2, -0.325], "max": [0.85, 0.225, 0.325], "mat": "steel_brushed" },
     { "node": "top", "shape": "box", "min": [-0.9, 0.9, -0.375], "max": [0.9, 1, -0.355], "mat": "tile_white" }
   ],
@@ -28,7 +36,7 @@
   "components": {
     "physics": { "body": "static" }
   },
-  "tris": 108,
+  "tris": 204,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/furniture.mjs#table",

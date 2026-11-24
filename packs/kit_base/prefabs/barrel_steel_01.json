@@ -4,7 +4,7 @@
   "id": "barrel_steel_01",
   "title": "Sud ocelový 200 l",
   "category": "prop.container",
-  "bounds": { "min": [-0.311, -0.001, -0.311], "max": [0.311, 0.897, 0.311] },
+  "bounds": { "min": [-0.311, -0.001, -0.311], "max": [0.311, 0.899, 0.311] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -12,11 +12,13 @@
   },
   "parts": [
     { "node": "body", "shape": "cyl", "center": [0, 0.44, 0], "radius": 0.2925, "height": 0.88, "axis": "y", "mat": "paint_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.015, 0], "radius": 0.3045, "height": 0.03, "axis": "y", "mat": "paint_blue" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.012, 0], "radius": 0.3005, "height": 0.024, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.868, 0], "radius": 0.3005, "height": 0.024, "axis": "y", "mat": "steel_dark" },
     { "node": "body", "shape": "cyl", "center": [0, 0.2933, 0], "radius": 0.3045, "height": 0.03, "axis": "y", "mat": "paint_blue" },
     { "node": "body", "shape": "cyl", "center": [0, 0.5867, 0], "radius": 0.3045, "height": 0.03, "axis": "y", "mat": "paint_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.865, 0], "radius": 0.3045, "height": 0.03, "axis": "y", "mat": "paint_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.17, 0.888, 0], "radius": 0.035, "height": 0.016, "axis": "y", "mat": "steel_dark" }
+    { "node": "body", "shape": "cyl", "center": [0, 0.882, 0], "radius": 0.2775, "height": 0.004, "axis": "y", "mat": "steel_painted" },
+    { "node": "body", "shape": "cyl", "center": [0.17, 0.89, 0], "radius": 0.035, "height": 0.016, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [-0.18, 0.888, 0.05], "radius": 0.022, "height": 0.012, "axis": "y", "mat": "steel_dark" }
   ],
   "colliders": [
     { "node": "body", "shape": "cyl", "center": [0, 0.44, 0], "radius": 0.3045, "height": 0.88, "axis": "y", "group": "prop" }
@@ -27,7 +29,7 @@
   },
   "inputs": ["break"],
   "outputs": ["damaged", "broken"],
-  "tris": 384,
+  "tris": 512,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/props.mjs#barrel",

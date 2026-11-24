@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-kit.mjs`. Neupravovat ručně; zdroj je `tools/forge/kit/*.mjs`.
 
-Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 8564
+Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 11212
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -23,16 +23,16 @@ Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 8564
 | `valve_ball_01` | Kohout kulový s pákou | device.control | 0,5 × 0,13 × 0,26 | 176 | turn: 0° až 90° | valve |
 | `tap_wall_01` | Kohoutek nástěnný | device.control | 0,1 × 0,13 × 0,19 | 292 | turn: 0° až 540° | valve |
 | `cabinet_file_01` | Kartotéka zásuvková | prop.furniture | 0,46 × 1,32 × 1,1 | 204 | pull: 0 až 0,45 m | drawer |
-| `cabinet_door_01` | Skříň s dvířky | prop.furniture | 0,7 × 1,8 × 0,9 | 120 | swing: 0° až 110° | door |
-| `table_work_01` | Stůl pracovní 1,6 × 0,8 m | prop.furniture | 1,6 × 0,75 × 0,8 | 84 | — | — |
-| `table_lab_01` | Stůl laboratorní 1,8 × 0,75 m | prop.furniture | 1,8 × 1 × 0,75 | 108 | — | — |
+| `cabinet_door_01` | Skříň s dvířky | prop.furniture | 0,72 × 1,8 × 0,9 | 312 | swing: 0° až 110° | door |
+| `table_work_01` | Stůl pracovní 1,6 × 0,8 m | prop.furniture | 1,6 × 0,75 × 0,8 | 216 | — | — |
+| `table_lab_01` | Stůl laboratorní 1,8 × 0,75 m | prop.furniture | 1,8 × 1 × 0,75 | 204 | — | — |
 | `desk_office_01` | Stůl kancelářský se zásuvkami 1,4 × 0,7 m | prop.furniture | 1,4 × 0,74 × 1,02 | 192 | pull: 0 až 0,33 m | drawer |
 | `chair_office_01` | Židle kancelářská otočná | prop.furniture | 0,75 × 1,02 × 0,75 | 124 | swivel: -180° až 180° | station |
-| `chair_plain_01` | Židle dřevěná | prop.furniture | 0,4 × 0,85 × 0,4 | 96 | — | grab |
-| `shelf_rack_01` | Regál kovový 1,0 × 2,0 m | prop.furniture | 1 × 2 × 0,4 | 108 | — | — |
-| `shelf_rack_02` | Regál kovový 1,5 × 2,0 m s krabicemi | prop.furniture | 1,5 × 2 × 0,4 | 168 | — | — |
+| `chair_plain_01` | Židle dřevěná | prop.furniture | 0,41 × 0,87 × 0,41 | 204 | — | grab |
+| `shelf_rack_01` | Regál kovový 1,0 × 2,0 m | prop.furniture | 1,02 × 2 × 0,42 | 324 | — | — |
+| `shelf_rack_02` | Regál kovový 1,5 × 2,0 m s krabicemi | prop.furniture | 1,52 × 2 × 0,42 | 504 | — | — |
 | `bench_metal_01` | Lavice s dřevěným sedákem 1,5 m | prop.furniture | 1,5 × 0,45 × 0,4 | 108 | — | — |
-| `bench_stone_01` | Lavice kamenná 1,6 m | prop.furniture | 1,6 × 0,48 × 0,44 | 36 | — | — |
+| `bench_stone_01` | Lavice kamenná 1,6 m | prop.furniture | 1,6 × 0,48 × 0,44 | 180 | — | — |
 | `lamp_pendant_01` | Svítidlo stropní závěsné | prop.light | 0,41 × 0,61 × 0,41 | 204 | — | — |
 | `lamp_panel_01` | Svítidlo stropní zářivkové 1,2 m | prop.light | 1,2 × 0,07 × 0,2 | 24 | — | — |
 | `lamp_wall_01` | Svítidlo nástěnné | prop.light | 0,14 × 0,18 × 0,21 | 152 | — | — |
@@ -44,17 +44,17 @@ Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 8564
 | `fridge_lab_01` | Lednice laboratorní | device.lab | 0,96 × 1,85 × 1,2 | 144 | swing: 0° až 120° | door |
 | `terminal_wall_01` | Terminál nástěnný | device.terminal | 0,56 × 0,54 × 0,2 | 60 | — | terminal |
 | `terminal_desk_01` | Terminál stolní | device.terminal | 0,69 × 0,43 × 0,42 | 84 | — | terminal |
-| `crate_plank_01` | Bedna dřevěná 0,6 m | prop.container | 0,6 × 0,6 × 0,6 | 156 | — | — |
-| `crate_large_01` | Bedna dřevěná 1,0 × 0,8 × 0,8 m | prop.container | 1 × 0,8 × 0,8 | 156 | — | — |
+| `crate_plank_01` | Bedna dřevěná 0,6 m | prop.container | 0,63 × 0,6 × 0,63 | 408 | — | — |
+| `crate_large_01` | Bedna dřevěná 1,0 × 0,8 × 0,8 m | prop.container | 1,03 × 0,8 × 0,83 | 540 | — | — |
 | `crate_steel_01` | Přepravka kovová 0,8 × 0,45 × 0,5 m | prop.container | 0,85 × 0,45 × 0,52 | 72 | — | — |
-| `barrel_steel_01` | Sud ocelový 200 l | prop.container | 0,62 × 0,9 × 0,62 | 384 | — | — |
-| `barrel_wood_01` | Sud dřevěný | prop.container | 0,71 × 0,9 × 0,71 | 384 | — | — |
+| `barrel_steel_01` | Sud ocelový 200 l | prop.container | 0,62 × 0,9 × 0,62 | 512 | — | — |
+| `barrel_wood_01` | Sud dřevěný | prop.container | 0,65 × 0,91 × 0,65 | 768 | — | — |
 | `pipe_straight_01` | Potrubí rovné 2 m | arch.pipe | 2 × 0,14 × 0,19 | 216 | — | — |
 | `pipe_double_01` | Potrubí dvojité 2 m | arch.pipe | 2 × 0,26 × 0,2 | 304 | — | — |
 | `railing_steel_01` | Zábradlí ocelové 2 m | arch.railing | 2 × 1,03 × 0,05 | 72 | — | — |
 | `railing_steel_02` | Zábradlí ocelové 1 m | arch.railing | 1 × 1,03 × 0,05 | 60 | — | — |
 | `sarcophagus_01` | Sarkofág kamenný s víkem | prop.crypt | 2,2 × 0,77 × 1,43 | 96 | slide: 0 až 0,45 m | drawer |
-| `chest_wood_01` | Truhla dřevěná s kováním | prop.container | 0,9 × 0,87 × 0,75 | 132 | lid: 0° až 100° | door |
+| `chest_wood_01` | Truhla dřevěná s kováním | prop.container | 0,91 × 0,87 × 0,75 | 408 | lid: 0° až 100° | door |
 
 ## Meze kloubů: zdroj nebo úvaha
 

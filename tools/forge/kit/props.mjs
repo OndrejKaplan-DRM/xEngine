@@ -2,19 +2,35 @@
 // Bedny a sudy jsou dynamická tělesa (hmotnost v kg), potrubí a zábradlí pevná.
 
 import { box, boxc, cyl, cbox, ccyl, collide, node, hinge, slider, definePrefab, IO } from '../lib.mjs';
+import { noise, planks, lathe, tray } from '../shapes.mjs';
 
 const fixed = { physics: { body: 'static' } };
 const kin = { physics: { body: 'kinematic' } };
 const dyn = (mass, hp, surface) => ({ physics: { body: 'dynamic', mass, friction: 0.7, restitution: 0.1 }, health: { hp, surface } });
 
-/** Dřevěná bedna s lištami. size = [šířka, výška, hloubka]. */
+/**
+ * Dřevěná bedna z prken. size = [šířka, výška, hloubka]. Prkna mají škvíry 6 mm a drobně jinou tloušťku a délku
+ * (opakovatelná náhoda podle id); jedno prkno ze čtyř je tmavší (vyměněné). Skrz škvíry je vidět tmavý vnitřek.
+ */
 export function crate(id, title, size, mass) {
   const [hx, h, hz] = [size[0] / 2, size[1], size[2] / 2];
-  const t = 0.03;
-  const parts = [box('body', [-hx + t / 2, t / 2, -hz + t / 2], [hx - t / 2, h - t / 2, hz - t / 2], 'wood_pine')];
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) parts.push(boxc('body', [sx * (hx - t / 2), h / 2, sz * (hz - t / 2)], [t, h, t], 'wood_old'));
-  for (const y of [t / 2, h - t / 2]) for (const sz of [-1, 1]) parts.push(boxc('body', [0, y, sz * (hz - t / 2)], [2 * hx - 2 * t, t, t], 'wood_old'));
-  for (const y of [t / 2, h - t / 2]) for (const sx of [-1, 1]) parts.push(boxc('body', [sx * (hx - t / 2), y, 0], [t, t, 2 * hz - 2 * t], 'wood_old'));
+  const rnd = noise(id);
+  const [t, p, g] = [0.018, 0.04, 0.006]; // tloušťka prkna, průřez rohové lišty, škvíra
+  const ht = h - t; // stěny končí pod víkem
+  const rows = Math.max(3, Math.round(ht / 0.13));
+  const wood = ['wood_pine', 'wood_pine', 'wood_pine', 'wood_old'];
+  const parts = [box('body', [-hx + t, 0.004, -hz + t], [hx - t, ht - 0.002, hz - t], 'wood_old')];
+  for (const s of [-1, 1]) {
+    parts.push(...planks('body', [-hx + p, 0, s > 0 ? hz - t : -hz], [hx - p, ht, s > 0 ? hz : -hz + t], 1, rows, g, wood, rnd, { out: s }));
+    parts.push(...planks('body', [s > 0 ? hx - t : -hx, 0, -hz + p], [s > 0 ? hx : -hx + t, ht, hz - p], 1, rows, g, wood.slice(1).concat(wood[0]), rnd, { out: s }));
+  }
+  parts.push(...planks('body', [-hx, ht, -hz], [hx, h, hz], 0, Math.max(3, Math.round((2 * hx) / 0.13)), g, wood.slice(2).concat(wood.slice(0, 2)), rnd, { out: 1 }));
+  // rohové lišty a obvodové lišty nahoře a dole, přes prkna
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) parts.push(boxc('body', [sx * (hx - p / 2), ht / 2, sz * (hz - p / 2)], [p, ht, p], 'wood_old'));
+  for (const [y0, y1] of [[0, 0.06], [ht - 0.06, ht]]) {
+    for (const sz of [-1, 1]) parts.push(box('body', [-hx + p, y0, sz > 0 ? hz : -hz - 0.012], [hx - p, y1, sz > 0 ? hz + 0.012 : -hz], 'wood_old'));
+    for (const sx of [-1, 1]) parts.push(box('body', [sx > 0 ? hx : -hx - 0.012, y0, -hz + p], [sx > 0 ? hx + 0.012 : -hx, y1, hz - p], 'wood_old'));
+  }
   return definePrefab({
     id,
     title,
@@ -52,20 +68,36 @@ export function crateSteel() {
   });
 }
 
-/** Sud. kind: 'steel' (ocelový 200 l: průměr 0,585 m, výška 0,88 m), 'wood' (dřevěný s obručemi). */
+/**
+ * Sud. kind: 'steel' (ocelový 200 l: průměr 0,585 m, výška 0,88 m, dvě válcovací žebra, okraje a dvě zátky),
+ * 'wood' (dřevěný: vyboulený ze šesti válců, čtyři obruče, víko zapuštěné o okraj dužin, čep na boku).
+ */
 export function barrel(kind = 'steel') {
   const wood = kind === 'wood';
-  const [r, h] = wood ? [0.31, 0.9] : [0.2925, 0.88];
-  const parts = wood
-    ? [cyl('body', [0, h / 2, 0], r, h, 'y', 'wood_oak'), cyl('body', [0, h / 2, 0], r + 0.035, h * 0.5, 'y', 'wood_oak'), ...[0.12, h * 0.25, h * 0.75, h - 0.12].map((y, i) => cyl('body', [0, y, 0], r + (i === 1 || i === 2 ? 0.04 : 0.008), 0.04, 'y', 'iron_black'))]
-    : [cyl('body', [0, h / 2, 0], r, h, 'y', 'paint_blue'), ...[0.015, h / 3, (2 * h) / 3, h - 0.015].map((y) => cyl('body', [0, y, 0], r + 0.012, 0.03, 'y', 'paint_blue')), cyl('body', [0.17, h + 0.008, 0], 0.035, 0.016, 'y', 'steel_dark')];
+  const [r, h] = wood ? [0.27, 0.9] : [0.2925, 0.88];
+  const bulge = 0.04;
+  const rAt = (y) => r + bulge * Math.sin((Math.PI * y) / h);
+  const parts = [];
+  if (wood) {
+    const prof = [0, 1, 2, 3, 4, 5, 6].map((k) => [(h * k) / 6, rAt((h * k) / 6)]);
+    parts.push(...lathe('body', 0, 0, prof, 'wood_oak'));
+    parts.push(cyl('body', [0, h + 0.0015, 0], r - 0.02, 0.003, 'y', 'wood_old'));
+    for (const y of [0.07, h * 0.28, h * 0.72, h - 0.07]) parts.push(cyl('body', [0, y, 0], rAt(y) + 0.007, 0.035, 'y', 'iron_black'));
+    parts.push(cyl('body', [0, h * 0.5, rAt(h * 0.5) + 0.002], 0.022, 0.012, 'z', 'wood_old'));
+  } else {
+    parts.push(cyl('body', [0, h / 2, 0], r, h, 'y', 'paint_blue'));
+    for (const y of [0.012, h - 0.012]) parts.push(cyl('body', [0, y, 0], r + 0.008, 0.024, 'y', 'steel_dark'));
+    for (const y of [h / 3, (2 * h) / 3]) parts.push(cyl('body', [0, y, 0], r + 0.012, 0.03, 'y', 'paint_blue'));
+    parts.push(cyl('body', [0, h + 0.002, 0], r - 0.015, 0.004, 'y', 'steel_painted'));
+    parts.push(cyl('body', [0.17, h + 0.01, 0], 0.035, 0.016, 'y', 'steel_dark'), cyl('body', [-0.18, h + 0.008, 0.05], 0.022, 0.012, 'y', 'steel_dark'));
+  }
   return definePrefab({
     id: wood ? 'barrel_wood_01' : 'barrel_steel_01',
     title: wood ? 'Sud dřevěný' : 'Sud ocelový 200 l',
     category: 'prop.container',
     nodes: [node('body')],
     parts,
-    colliders: [ccyl('body', [0, h / 2, 0], r + (wood ? 0.035 : 0.012), h, 'y', 'prop')],
+    colliders: [ccyl('body', [0, h / 2, 0], (wood ? r + bulge : r) + (wood ? 0.007 : 0.012), h, 'y', 'prop')],
     components: dyn(wood ? 45 : 20, wood ? 120 : 300, wood ? 'wood' : 'metal'),
     ...IO.crate,
     gen: 'props.mjs#barrel',
@@ -147,28 +179,36 @@ export function sarcophagus() {
   );
 }
 
-/** Dřevěná truhla s víkem na zadních pantech. */
+/** Dřevěná truhla z prken s kováním, víko na zadních pantech; uvnitř u zadní stěny vložená přihrádka se dvěma oddíly. */
 export function chest() {
-  const lid = box('lid', [-0.45, 0, 0], [0.45, 0.14, 0.5], 'wood_oak');
+  const rnd = noise('chest_wood_01');
+  const [hx, hz, hb] = [0.45, 0.25, 0.34];
+  const t = 0.022;
+  const wood = ['wood_oak', 'wood_oak', 'wood_old'];
+  const lidCore = box('lid', [-hx + 0.01, 0, 0.01], [hx - 0.01, 0.12, 2 * hz - 0.01], 'wood_old');
   const parts = [
-    box('body', [-0.45, 0, -0.25], [0.45, 0.04, 0.25], 'wood_old'),
-    box('body', [-0.45, 0.04, -0.25], [-0.42, 0.34, 0.25], 'wood_oak'),
-    box('body', [0.42, 0.04, -0.25], [0.45, 0.34, 0.25], 'wood_oak'),
-    box('body', [-0.42, 0.04, -0.25], [0.42, 0.34, -0.22], 'wood_oak'),
-    box('body', [-0.42, 0.04, 0.22], [0.42, 0.34, 0.25], 'wood_oak'),
-    boxc('body', [0, 0.27, 0.256], [0.08, 0.1, 0.012], 'iron_black'),
-    lid,
+    box('body', [-hx, 0, -hz], [hx, 0.04, hz], 'wood_old'),
+    box('body', [-hx + t, 0.04, -hz + t], [hx - t, 0.06, hz - t], 'wood_old'),
+    ...planks('body', [-hx + 0.03, 0.04, hz - t], [hx - 0.03, hb, hz], 1, 3, 0.005, wood, rnd, { out: 1 }),
+    ...planks('body', [-hx + 0.03, 0.04, -hz], [hx - 0.03, hb, -hz + t], 1, 3, 0.005, wood, rnd, { out: -1 }),
+    ...planks('body', [-hx, 0.04, -hz + 0.03], [-hx + t, hb, hz - 0.03], 1, 3, 0.005, wood, rnd, { out: -1 }),
+    ...planks('body', [hx - t, 0.04, -hz + 0.03], [hx, hb, hz - 0.03], 1, 3, 0.005, wood, rnd, { out: 1 }),
+    boxc('body', [0, 0.27, hz + 0.006], [0.08, 0.1, 0.012], 'iron_black'),
+    ...tray('body', [-hx + t, 0.22, -hz + t], [-0.05, hb - 0.01, -0.02], 0.01, 'wood_old', { divX: [-0.25] }),
+    lidCore,
+    ...planks('lid', [-hx, 0.12, 0], [hx, 0.145, 2 * hz], 2, 4, 0.005, wood, rnd, { out: 1 }),
   ];
-  for (const x of [-0.3, 0.3]) parts.push(box('lid', [x - 0.03, -0.001, -0.004], [x + 0.03, 0.146, 0.504], 'iron_black'), box('body', [x - 0.03, 0, 0.25], [x + 0.03, 0.34, 0.256], 'iron_black'));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) parts.push(boxc('body', [sx * (hx - 0.015), hb / 2, sz * (hz - 0.015)], [0.034, hb, 0.034], 'iron_black'));
+  for (const x of [-0.3, 0.3]) parts.push(box('lid', [x - 0.03, -0.001, -0.004], [x + 0.03, 0.151, 2 * hz + 0.004], 'iron_black'), box('body', [x - 0.03, 0, hz], [x + 0.03, hb, hz + 0.006], 'iron_black'));
   return definePrefab(
     {
       id: 'chest_wood_01',
       title: 'Truhla dřevěná s kováním',
       category: 'prop.container',
-      nodes: [node('body'), node('lid', 'body', [0, 0.34, -0.25])],
+      nodes: [node('body'), node('lid', 'body', [0, hb, -hz])],
       joints: [hinge('lid', 'lid', [-1, 0, 0], 0, 100, { damping: 5, drive: 'manual' })],
       parts,
-      colliders: [cbox('body', [-0.45, 0, -0.25], [0.45, 0.34, 0.25]), collide(lid)],
+      colliders: [cbox('body', [-hx, 0, -hz], [hx, hb, hz]), collide(lidCore)],
       components: { ...kin, interact: { kind: 'door', joint: 'lid', prompt: 'Otevřít truhlu', range: 1.6, manipulate: true } },
       inputs: ['open', 'close', 'toggle', 'lock', 'unlock'],
       outputs: ['opened', 'closed'],

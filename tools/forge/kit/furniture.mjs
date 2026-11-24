@@ -2,6 +2,7 @@
 // Rozměry z reality: pracovní deska 0,72–0,76 m (laboratorní 0,9 m ve stoje), sedák 0,45 m.
 
 import { box, boxc, cyl, cbox, collide, node, hinge, slider, definePrefab, IO } from '../lib.mjs';
+import { noise, bevelBox, planks, framedPanel, cornice, handle } from '../shapes.mjs';
 
 const fixed = { physics: { body: 'static' } };
 const kin = { physics: { body: 'kinematic' } };
@@ -44,29 +45,30 @@ export function cabinetFile() {
   );
 }
 
-/** Skříň s dvířky a policemi. */
+/** Skříň s dvířky (rám s vpadlou výplní), římsou nahoře, zapuštěným soklem a třemi policemi uvnitř. */
 export function cabinetDoor() {
   const [hx, h, hz] = [0.25, 1.8, 0.2];
-  const door = box('door', [0.003, 0, 0], [0.497, 1.76, 0.02], 'wood_pine');
+  const doorFrame = box('door', [0.003, 0, 0], [0.497, 1.68, 0.02], 'wood_pine'); // obrys dvířek pro kolizi
   const parts = [
-    box('body', [-hx, 0, -hz], [-hx + 0.02, h, hz], 'wood_pine'),
-    box('body', [hx - 0.02, 0, -hz], [hx, h, hz], 'wood_pine'),
-    box('body', [-hx + 0.02, 0, -hz], [hx - 0.02, h, -hz + 0.015], 'wood_old'),
-    box('body', [-hx + 0.02, h - 0.02, -hz + 0.015], [hx - 0.02, h, hz], 'wood_pine'),
-    box('body', [-hx + 0.02, 0, -hz + 0.015], [hx - 0.02, 0.06, hz], 'wood_pine'),
-    door,
-    box('door', [0.43, 0.82, 0.02], [0.45, 0.98, 0.045], 'steel_brushed'),
+    box('body', [-hx, 0.07, -hz], [-hx + 0.02, h - 0.05, hz], 'wood_pine'),
+    box('body', [hx - 0.02, 0.07, -hz], [hx, h - 0.05, hz], 'wood_pine'),
+    box('body', [-hx + 0.02, 0.07, -hz], [hx - 0.02, h - 0.05, -hz + 0.012], 'wood_old'),
+    box('body', [-hx + 0.02, 0.07, -hz + 0.012], [hx - 0.02, 0.09, hz], 'wood_pine'),
+    box('body', [-hx + 0.03, 0, -hz + 0.02], [hx - 0.03, 0.07, hz - 0.03], 'wood_old'), // sokl zapuštěný o 3 cm
+    ...cornice('body', -hx, hx, -hz, hz, h - 0.05, [[0.02, 0], [0.012, 0.012], [0.018, 0.022]], 'wood_pine').parts,
+    ...framedPanel('door', 0.003, 0.497, 0, 1.68, 0, 0.022, 0.065, 0.008, 'wood_pine'),
+    ...handle('door', 0.44, 0.9, 0.022, 0.012, 'steel_brushed'),
   ];
-  for (const y of [0.5, 0.95, 1.4]) parts.push(box('body', [-hx + 0.02, y, -hz + 0.015], [hx - 0.02, y + 0.02, hz - 0.01], 'wood_pine'));
+  for (const y of [0.5, 0.95, 1.4]) parts.push(box('body', [-hx + 0.02, y, -hz + 0.012], [hx - 0.02, y + 0.02, hz - 0.03], 'wood_pine'), box('body', [-hx + 0.02, y + 0.02, hz - 0.045], [hx - 0.02, y + 0.035, hz - 0.03], 'wood_old'));
   return definePrefab(
     {
       id: 'cabinet_door_01',
       title: 'Skříň s dvířky',
       category: 'prop.furniture',
-      nodes: [node('body'), node('door', 'body', [-hx, 0.02, hz])],
+      nodes: [node('body'), node('door', 'body', [-hx, 0.09, hz])],
       joints: [hinge('swing', 'door', [0, -1, 0], 0, 110, { damping: 3, drive: 'manual' })],
       parts,
-      colliders: [cbox('body', [-hx, 0, -hz], [hx, h, hz]), collide(door)],
+      colliders: [cbox('body', [-hx, 0, -hz], [hx, h, hz]), collide(doorFrame)],
       components: { ...kin, interact: { kind: 'door', joint: 'swing', prompt: 'Otevřít skříň', range: 1.6, manipulate: true } },
       inputs: ['open', 'close', 'toggle', 'lock', 'unlock'],
       outputs: ['opened', 'closed'],
@@ -81,8 +83,14 @@ export function table(kind = 'work') {
   const lab = kind === 'lab';
   const [hx, hz, h] = lab ? [0.9, 0.375, 0.9] : [0.8, 0.4, 0.75];
   const top = box('top', [-hx, h - 0.04, -hz], [hx, h, hz], lab ? 'plastic_dark' : 'wood_pine');
-  const parts = [top, ...legs('top', hx - 0.03, hz - 0.03, 0, h - 0.04, lab ? 0.04 : 0.06, lab ? 'steel_brushed' : 'steel_dark')];
-  for (const s of [-1, 1]) parts.push(boxc('top', [0, h - 0.09, s * (hz - 0.05)], [2 * hx - 0.14, 0.06, 0.02], lab ? 'steel_brushed' : 'steel_dark'));
+  const legMat = lab ? 'steel_brushed' : 'steel_dark';
+  const lt = lab ? 0.04 : 0.06;
+  // deska se sraženými hranami; u dílenského stolu ze tří slepených prken s viditelnými spárami
+  const parts = lab ? bevelBox('top', [-hx, h - 0.04, -hz], [hx, h, hz], 'plastic_dark', 0.004) : planks('top', [-hx, h - 0.04, -hz], [hx, h, hz], 2, 3, 0.0015, ['wood_pine'], noise('table_work_01'), { out: 1, lenJitter: 0.001 });
+  parts.push(...legs('top', hx - 0.03, hz - 0.03, 0.012, h - 0.04, lt, legMat));
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) parts.push(boxc('top', [sx * (hx - 0.03 - lt / 2), 0.006, sz * (hz - 0.03 - lt / 2)], [lt + 0.012, 0.012, lt + 0.012], 'rubber_black'));
+  for (const s of [-1, 1]) parts.push(boxc('top', [0, h - 0.09, s * (hz - 0.05)], [2 * hx - 0.14, 0.06, 0.02], legMat), boxc('top', [s * (hx - 0.05), h - 0.09, 0], [0.02, 0.06, 2 * hz - 0.14], legMat));
+  if (!lab) parts.push(boxc('top', [0, 0.16, 0], [2 * hx - 0.12, 0.03, 0.03], legMat), ...[-1, 1].map((s) => boxc('top', [s * (hx - 0.03 - lt / 2), 0.16, 0], [0.03, 0.03, 2 * hz - 0.12], legMat)));
   if (lab) parts.push(box('top', [-hx + 0.05, 0.2, -hz + 0.05], [hx - 0.05, 0.225, hz - 0.05], 'steel_brushed'), box('top', [-hx, h, -hz], [hx, h + 0.1, -hz + 0.02], 'tile_white'));
   return definePrefab({
     id: lab ? 'table_lab_01' : 'table_work_01',
@@ -165,9 +173,12 @@ export function chairOffice() {
 
 /** Obyčejná židle; dá se zvednout a přenést. */
 export function chairPlain() {
-  const parts = [...legs('seat', 0.2, 0.2, 0, 0.43, 0.035, 'wood_oak'), box('seat', [-0.2, 0.43, -0.2], [0.2, 0.46, 0.2], 'wood_pine')];
+  const parts = [...legs('seat', 0.2, 0.2, 0, 0.43, 0.035, 'wood_oak'), ...bevelBox('seat', [-0.205, 0.43, -0.2], [0.205, 0.46, 0.21], 'wood_pine', 0.005)];
   for (const s of [-1, 1]) parts.push(boxc('seat', [s * 0.1825, 0.655, -0.1825], [0.035, 0.39, 0.035], 'wood_oak'));
-  parts.push(box('seat', [-0.2, 0.66, -0.2], [0.2, 0.84, -0.175], 'wood_pine'));
+  // opěradlo ze tří latí s mezerami, spojky mezi nohami ve dvou výškách
+  for (const y of [0.66, 0.73, 0.8]) parts.push(box('seat', [-0.165, y, -0.198], [0.165, y + 0.045, -0.178], 'wood_pine'));
+  parts.push(box('seat', [-0.2, 0.845, -0.2], [0.2, 0.865, -0.165], 'wood_oak'));
+  for (const s of [-1, 1]) parts.push(boxc('seat', [s * 0.1825, 0.14, 0], [0.02, 0.025, 0.33], 'wood_oak'), boxc('seat', [0, 0.2, s * 0.1825], [0.33, 0.025, 0.02], 'wood_oak'));
   return definePrefab({
     id: 'chair_plain_01',
     title: 'Židle dřevěná',
@@ -186,11 +197,23 @@ export function chairPlain() {
 export function shelfRack(variant = 1) {
   const hx = variant === 1 ? 0.5 : 0.75;
   const [h, hz] = [2, 0.2];
-  const parts = [...legs('rack', hx, hz, 0, h, 0.04, 'steel_painted')];
-  for (const y of [0.1, 0.56, 1.02, 1.48, 1.94]) parts.push(box('rack', [-hx + 0.005, y, -hz + 0.005], [hx - 0.005, y + 0.03, hz - 0.005], 'steel_brushed'));
+  // stojny z úhelníků (dvě lamely 40 × 2 mm), patky, police z plechu s ohnutými okraji
+  const parts = [];
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+    const x = sx * (hx - 0.02);
+    const z = sz * (hz - 0.02);
+    parts.push(boxc('rack', [x, h / 2, z + sz * 0.019], [0.04, h, 0.002], 'steel_painted'), boxc('rack', [x + sx * 0.019, h / 2, z], [0.002, h, 0.04], 'steel_painted'));
+    parts.push(boxc('rack', [x, 0.003, z], [0.06, 0.006, 0.06], 'steel_dark'));
+  }
+  for (const y of [0.1, 0.56, 1.02, 1.48, 1.94]) {
+    parts.push(box('rack', [-hx + 0.005, y + 0.028, -hz + 0.005], [hx - 0.005, y + 0.03, hz - 0.005], 'steel_brushed'));
+    for (const sz of [-1, 1]) parts.push(box('rack', [-hx + 0.005, y, sz > 0 ? hz - 0.007 : -hz + 0.005], [hx - 0.005, y + 0.028, sz > 0 ? hz - 0.005 : -hz + 0.007], 'steel_brushed'));
+  }
+  // krabice s víkem přesahujícím o 5 mm a se štítkem
+  const carton = (x0, y0, z0, x1, y1, z1, mat) => [box('rack', [x0, y0, z0], [x1, y1 - 0.02, z1], mat), box('rack', [x0 - 0.005, y1 - 0.02, z0 - 0.005], [x1 + 0.005, y1, z1 + 0.005], mat), box('rack', [(x0 + x1) / 2 - 0.05, (y0 + y1) / 2 - 0.03, z1], [(x0 + x1) / 2 + 0.05, (y0 + y1) / 2 + 0.03, z1 + 0.002], 'plastic_ivory')];
   if (variant === 2) {
-    parts.push(box('rack', [-0.62, 0.13, -0.15], [-0.22, 0.43, 0.15], 'wood_pine'), box('rack', [-0.1, 0.13, -0.16], [0.4, 0.38, 0.14], 'wood_pine'));
-    parts.push(box('rack', [-0.5, 0.59, -0.14], [-0.05, 0.89, 0.16], 'wood_pine'), box('rack', [0.15, 1.05, -0.15], [0.6, 1.3, 0.15], 'plastic_grey'), box('rack', [-0.6, 1.05, -0.12], [-0.3, 1.36, 0.12], 'plastic_grey'));
+    parts.push(...carton(-0.62, 0.13, -0.15, -0.22, 0.43, 0.15, 'wood_pine'), ...carton(-0.1, 0.13, -0.16, 0.4, 0.38, 0.14, 'wood_pine'));
+    parts.push(...carton(-0.5, 0.59, -0.14, -0.05, 0.89, 0.16, 'wood_pine'), ...carton(0.15, 1.05, -0.15, 0.6, 1.3, 0.15, 'plastic_grey'), ...carton(-0.6, 1.05, -0.12, -0.3, 1.36, 0.12, 'plastic_grey'));
   }
   return definePrefab({
     id: `shelf_rack_0${variant}`,
@@ -209,7 +232,11 @@ export function shelfRack(variant = 1) {
 export function bench(kind = 'metal') {
   const stone = kind === 'stone';
   const parts = stone
-    ? [box('seat', [-0.8, 0.38, -0.22], [0.8, 0.48, 0.22], 'stone_pale'), box('seat', [-0.68, 0, -0.18], [-0.48, 0.38, 0.18], 'stone_block'), box('seat', [0.48, 0, -0.18], [0.68, 0.38, 0.18], 'stone_block')]
+    ? [
+        ...bevelBox('seat', [-0.8, 0.38, -0.22], [0.8, 0.48, 0.22], 'stone_pale', 0.012),
+        // podpěry ze dvou kamenů nad sebou, drobně posunutých, se spárou 5 mm
+        ...[-0.58, 0.58].flatMap((x, i) => [...bevelBox('seat', [x - 0.1, 0, -0.18], [x + 0.1, 0.185, 0.18], 'stone_block', 0.01), ...bevelBox('seat', [x - 0.1 + (i ? 0.008 : -0.006), 0.19, -0.175 + (i ? -0.004 : 0.006)], [x + 0.1 + (i ? 0.008 : -0.006), 0.38, 0.185 + (i ? -0.004 : 0.006)], 'stone_block', 0.01)]),
+      ]
     : [
         ...[-0.13, 0, 0.13].map((z) => boxc('seat', [0, 0.435, z], [1.5, 0.03, 0.11], 'wood_pine')),
         ...[-0.6, 0.6].flatMap((x) => [boxc('seat', [x, 0.21, -0.16], [0.04, 0.42, 0.04], 'steel_dark'), boxc('seat', [x, 0.21, 0.16], [0.04, 0.42, 0.04], 'steel_dark'), boxc('seat', [x, 0.4, 0], [0.04, 0.04, 0.36], 'steel_dark')]),
