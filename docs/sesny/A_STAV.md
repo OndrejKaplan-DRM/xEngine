@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední celá regrese (`npm run test:all`, sandbox): **747 kontrol, 0 selhalo** (základ 254, skupina A 364 ve 24 sadách, skupina B 92, zkouška A × B 37) na kódu A2.5 (sestavení „vlna 2, krok 4“).
+Poslední regrese (sandbox, 24. 11. večer, kód A2.6): `npm run test:a` **402 kontrol ve 26 sadách, 0 selhalo**, `npm test` **254, 0 selhalo**. Skupina B a zkouška A × B naposledy na A2.5 (`npm run test:all` 747, 0 selhalo; A2.6 jejich data nemění). Sestavení „vlna 2, krok 5“.
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
@@ -21,8 +21,9 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Čeká na Ondřeje:**
 1. zorné pole po opravě: a) použitelné, b) nižší strop než 120°, c) promítání Panini
-2. `?bench` znovu s opravenou metodou, **bez vyhlazování, mřížka 0,5 m**: `xlab.html?bench`, `…?bench&rows=1080`, `xlab_gen.html?bench` (poslal zatím dva běhy, jeden s vyhlazováním a mřížkou 0,25 m)
+2. `?bench` na T460, **bez vyhlazování, mřížka 0,5 m**, sestavení krok 5: `xlab_tex.html?bench` a `xlab_tex.html?bench&tex=0` (cena textur: 14 textur 512 px, odhad 18,7 MB grafické paměti), `xlab_gen.html?bench`, `xlab.html?bench&rows=1080` (poslal zatím dva běhy, jeden s vyhlazováním a mřížkou 0,25 m)
 3. terminál: po Esc a Pokračovat dál sedí a kurzor hned poslouchá?
+4. černé boky bez přímého světla (`complex_7`): a) počkat, až běh přečte odražené světlo ze xBake (dluh základu), b) mezitím požádat sešnu B o vyšší `env.ambient` (obraz plošší, ale nic černého)
 
 **Čeká na jiné sešny:**
 - svodná: rozhodnout N-109 (dveře na obě strany v datech), N-110 (světlo v textuře) a **N-111 (binární soubory balíku v buildu)**; sloučit vlnu 2 sešny A do základu
@@ -41,6 +42,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 | dveře od hráče jako nastavení, výchozí zapnuto | `25e17a4`, `db6fad0` | `a_14_swing`; návrh N-109 |
 | A2.5 nová pole: `JOINT_TRAVEL_SECONDS`, `screen.offset`, `seeThrough`, `passable`, `opacity` | `b522e7e` a další | `a_25_fields` (11), `a_25_view` (6): skleněnými zavřenými dveřmi je vidět chodba (střed dveří 200,6 → 30,5 od otevřených), mříž se `seeThrough` nezavírá pohled |
 | A2.6 engine na zkušebních datech: `glb.js` (vlastní čtení glTF, bez knihovny), `assets.js` (soubory balíku), kolize `trimesh`, textura v `materials.js`, `?bench` a F3 | `6e1ab0c`, `3c6bab0` | `a_26_mesh` (Node, 30): transformace uzlů, `#uzel`, `COL_*` a `_LODn`, zrcadlení, UV, chybějící soubor; paprsek zastaví kolize z `.glb` na 1,600 m. `a_26_view` (prohlížeč, 8): WebP 1 024 px → 512 px, šachovnice na síti i na kvádru, zelený pruh nahoře, po zhasnutí lamp jas 30 → 9 |
+| zkušební sestavení `xlab_tex` (textura 1 024 px na všech 14 osvětlených materiálech xLabu, stojan z `.glb`; `?tex=0` bez textur) | `1dcc2a1` | v sandboxu 14 textur → 512 px, 3,67 Mpx, 0 chyb; čas na T460 neměřen |
 | A2.6 na kusu ze sešny B, A2.7 | – | čeká na B2.5 a N-111; A2.7 nezačato |
 
 ## 2. Deník rozhodnutí sešny A
