@@ -32,8 +32,6 @@ E.tick(0);
   const seen = cells();
   const n = calls();
   ok(seen.length === 1 && seen[0] === 'c_start' && get('vis.camera') === 'c_start', 'ze startu se zavřenými dveřmi se kreslí 1 buňka', `${seen.join(', ')}; ${n} volání z ${render.counts.batches + render.counts.movers + render.counts.screens} možných`);
-  const lights = get('vis.lights');
-  ok(lights.length > 0 && lights.every((id) => render.lights.find((l) => l.id === id).cell === 'c_start'), 'za zavřenými dveřmi svítí jen světla startovní místnosti', lights.join(', '));
   // první okamžik otevírání: kloub opustil klidovou polohu, portál se otevírá
   behave.input(entities.byId('e_door_start'), 'open');
   game.sim(0.05);
@@ -47,26 +45,19 @@ E.tick(0);
   ok(m > n, 'víc buněk = víc volání kreslení', `${n} → ${m}`);
   look(sp.pos[0], 1.6, sp.pos[2], 180);
   const back = cells();
-  const backLights = get('vis.lights');
   ok(back.length === 1 && back[0] === 'c_start', 'zády k otevřeným dveřím se zase kreslí jen start', back.join(', '));
   look(sp.pos[0], 1.6, sp.pos[2], 0);
-  const front = get('vis.lights');
-  const corrLights = render.lights.filter((l) => l.cell === 'c_corr').map((l) => l.id);
-  ok(corrLights.every((id) => backLights.includes(id)) && corrLights.every((id) => front.includes(id)), 'světla chodby svítí otevřenými dveřmi do startu, ať se hráč dívá kamkoli (žádné probliknutí při otočení)', `zády: ${backLights.length} světel, čelem: ${front.length}`);
 }
 
 // ---- dveře laboratoře: zavřené portál zavírají, zavřením se zase zavře
 {
   look(3, 1.6, -5.5, -90); // v chodbě, čelem ke dveřím laboratoře
   const closed = cells();
-  const closedLights = get('vis.lights');
   door('e_door_lab', 'open');
   const open = cells();
   look(3, 1.6, -5.5, 90); // zády k laboratoři
   const away = cells();
-  const awayLights = get('vis.lights');
   ok(!closed.includes('c_lab') && open.includes('c_lab') && !away.includes('c_lab'), 'laboratoř se kreslí jen otevřenými dveřmi a jen když je portál v záběru', `zavřeno: ${closed.join(', ')}; otevřeno: ${open.join(', ')}; zády: ${away.join(', ')}`);
-  ok(!closedLights.includes('l_lab_1') && awayLights.includes('l_lab_1'), 'světlo laboratoře do chodby: zavřenými dveřmi ne, otevřenými ano (i zády k nim)');
   door('e_door_lab', 'close');
   look(3, 1.6, -5.5, -90);
   ok(!cells().includes('c_lab') && entities.byId('e_door_lab').joints[0].value === 0, 'po zavření dveří se portál zase uzavře', cells().join(', '));
@@ -228,9 +219,8 @@ E.tick(0);
   look(sp.pos[0], 1.6, sp.pos[2], 180);
   vis.enabled = false;
   const all = cells();
-  const allLights = get('vis.lights');
   vis.enabled = true;
-  ok(all.length === level.cells.length && allLights.length === render.lights.length, 'vypnutá viditelnost kreslí všechny buňky a svítí všemi světly (srovnání s xView)', `${all.length} buněk, ${allLights.length} světel`);
+  ok(all.length === level.cells.length, 'vypnutá viditelnost kreslí všechny buňky (srovnání s xView)', `${all.length} buněk`);
   const lines = vis.debugLines();
   const segments = level.cells.length * 12 + level.portals.length * 6;
   ok(lines.positions.length === segments * 6 && lines.colors.length === segments * 6, 'vývojářská vrstva: obrysy všech buněk a portálů', `${segments} úseček`);

@@ -4,9 +4,10 @@
 
 import RAPIER from '@dimforge/rapier3d-compat';
 import { axisQuat } from './xform.js';
+import { CHARACTER_SKIN } from '../xspace/index.js';
 
 /** Kolizní skupiny (bity). QUERY nemá žádné těleso: je to „člen“ pro paprsky a dotazy. */
-export const GROUP = { WORLD: 1, PLAYER: 2, PROP: 4, DEBRIS: 8, TRIGGER: 16, QUERY: 32 };
+export const GROUP = { WORLD: 1, PLAYER: 2, PROP: 4, DEBRIS: 8, TRIGGER: 16, QUERY: 32, SOLID: 64 };
 /** Číslo skupin pro Rapier: členství v horních 16 bitech, filtr v dolních. */
 export const groups = (member, filter) => ((member << 16) | filter) >>> 0;
 
@@ -14,6 +15,8 @@ const G = GROUP;
 /** Skupina z dat prefabu (pole group u kolideru) → členství a filtr. */
 const DATA_GROUPS = {
   world: groups(G.WORLD, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
+  // stavba levelu z kvádrů: chová se jako svět a navíc stíní světlo (SOLID)
+  brush: groups(G.WORLD | G.SOLID, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
   prop: groups(G.PROP, G.WORLD | G.PLAYER | G.PROP | G.DEBRIS | G.QUERY),
   debris: groups(G.DEBRIS, G.WORLD | G.PROP | G.DEBRIS),
   trigger: groups(G.TRIGGER, G.QUERY), // nic do něj nenarazí, ale paprsek „použít“ ho najde
@@ -23,12 +26,20 @@ export const PLAYER_GROUPS = groups(G.PLAYER, G.WORLD | G.PROP);
 export const USE_RAY = groups(G.QUERY, G.WORLD | G.PROP | G.TRIGGER);
 /** Paprsek viditelnosti: jen pevný svět a rekvizity. */
 export const SIGHT_RAY = groups(G.QUERY, G.WORLD | G.PROP);
+/** Paprsek světla: zastaví ho jen stavba levelu (kvádry). Prefaby ve vlně 1 stín nevrhají. */
+export const LIGHT_RAY = groups(G.QUERY, G.SOLID);
+/** Dotaz „stojí dílu něco v cestě“ (D-025): kapsle postavy a rekvizity; z rekvizit se počítají jen volná tělesa. */
+const OBSTACLE_MASK = groups(G.PROP, G.PLAYER | G.PROP);
+/** Dotyk a klidový průnik (řešič drží ležící tělesa asi 1 mm v sobě) překážka není. */
+const OBSTACLE_TOUCH = 0.002;
+const isObstacle = (c) => ((c.collisionGroups() >>> 16) & G.PLAYER) !== 0 || !!c.parent()?.isDynamic();
 
 /**
- * Odstup, který kontrolér postavy drží od překážek (i od podlahy). Postava se musí umístit o tento odstup nad
- * podlahu: uvnitř odstupu kontrolér občas vrátí krok s nulovým pohybem (změřeno: 6 takových kroků na 15 m běhu).
+ * Odstup, který kontrolér postavy drží od překážek (i od podlahy), je v základu (`src/xspace/body.js`, D-040).
+ * Postava se musí umístit o tento odstup nad podlahu: uvnitř odstupu kontrolér občas vrátí krok s nulovým pohybem
+ * (změřeno: 6 takových kroků na 15 m běhu).
  */
-export const CHARACTER_SKIN = 0.02;
+export { CHARACTER_SKIN };
 
 const IDENTITY = { x: 0, y: 0, z: 0, w: 1 };
 
@@ -38,7 +49,14 @@ export function createPhys() {
   const refs = new Map(); // handle kolideru → { kind, … } (komu kolider patří)
   const v = { x: 0, y: 0, z: 0 };
   const hit = { dist: 0, ref: null, collider: null, nx: 0, ny: 0, nz: 0 };
-  const stat = { fixedColliders: 0 };
+  const stat = { fixedColliders: 0, maps: 0 };
+  /**
+   * Obal Rapieru 0.21 po každém world.step() projde všechna tělesa a všechny kolidery a hledá nová a zrušená
+   * (mapNewSoftBodies: zpětné volání z WASM za každý kus). Změřeno v sandboxu na levelu s 1 079 kolidery:
+   * 91 µs z 95 µs kroku, a to i když se nic nehýbe (A2.3). Tělesa a kolidery tu přitom vznikají a zanikají jen
+   * přes tento soubor, takže stačí projít je v kroku po změně: mapDirty.
+   */
+  let mapDirty = true;
 
   function shapeDesc(shape, scale = 1) {
     switch (shape.type) {
@@ -55,6 +73,11 @@ export function createPhys() {
         if (!d) throw new Error('Konvexní obal se nepodařilo sestavit (body leží v rovině?).');
         return d;
       }
+      case 'trimesh': {
+        // síť trojúhelníků (kolize mesh z .glb, A2.6): jen pro nehybná a kinematická tělesa
+        const v = Float32Array.from(shape.vertices, (x) => x * scale);
+        return RAPIER.ColliderDesc.trimesh(v, Uint32Array.from(shape.indices));
+      }
       default:
         throw new Error(`Neznámý kolizní tvar „${shape.type}“.`);
     }
@@ -65,6 +88,8 @@ export function createPhys() {
     phase: 'physics',
     RAPIER,
     stat,
+    /** Procházet tělesa a kolidery v obalu Rapieru jen po změně (viz mapDirty). false = po každém kroku jako Rapier sám. */
+    lazyMap: true,
     get world() {
       return world;
     },
@@ -80,6 +105,17 @@ export function createPhys() {
       world.timestep = 1 / 120;
       ray = new RAPIER.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: -1 });
       stat.fixedColliders = 0;
+      stat.maps = 0;
+      mapDirty = true;
+      if (sys.lazyMap && typeof world.mapNewSoftBodies === 'function') {
+        const full = world.mapNewSoftBodies.bind(world);
+        world.mapNewSoftBodies = () => {
+          if (!mapDirty) return;
+          mapDirty = false;
+          stat.maps++;
+          full();
+        };
+      }
     },
     close() {
       if (!world) return;
@@ -102,7 +138,7 @@ export function createPhys() {
     /**
      * Kolider. shape: { type: 'box', half } | { type: 'cyl', radius, height, axis } | { type: 'ball', radius } | { type: 'hull', points }.
      * body = null → pevný kolider světa; pos a rot jsou pak světové, jinak místní vůči tělesu.
-     * opts: { group: 'world' | 'prop' | 'debris' | 'trigger', friction, restitution, mass, scale }; ref = komu patří.
+     * opts: { group: 'world' | 'brush' | 'prop' | 'debris' | 'trigger', friction, restitution, mass, scale }; ref = komu patří.
      */
     addCollider(body, shape, pos, rot, opts, ref) {
       const scale = opts?.scale ?? 1;
@@ -119,6 +155,7 @@ export function createPhys() {
       if (opts?.restitution !== undefined) desc.setRestitution(opts.restitution);
       if (opts?.mass !== undefined) desc.setMass(opts.mass);
       const col = body ? world.createCollider(desc, body) : world.createCollider(desc);
+      mapDirty = true;
       if (ref) refs.set(col.handle, ref);
       if (!body) stat.fixedColliders++;
       return col;
@@ -136,6 +173,7 @@ export function createPhys() {
         desc.setLinearDamping(opts?.linDamp ?? 0.05).setAngularDamping(opts?.angDamp ?? 0.3);
         if (opts?.ccd) desc.setCcdEnabled(true);
       }
+      mapDirty = true;
       return world.createRigidBody(desc);
     },
     /** Přepne těleso uzlu mezi pevným (klid) a kinematickým (pohyb). */
@@ -153,6 +191,7 @@ export function createPhys() {
       const half = Math.max(P.height / 2 - P.radius, 0.01);
       const body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(feetX, feetY + P.height / 2, feetZ));
       const col = world.createCollider(RAPIER.ColliderDesc.capsule(half, P.radius).setCollisionGroups(PLAYER_GROUPS), body);
+      mapDirty = true;
       const cc = world.createCharacterController(CHARACTER_SKIN);
       cc.enableAutostep(P.stepHeight, P.stepMinWidth, false);
       cc.enableSnapToGround(P.snap);
@@ -166,6 +205,7 @@ export function createPhys() {
     removeCharacter(ch) {
       world.removeCharacterController(ch.cc);
       world.removeRigidBody(ch.body);
+      mapDirty = true;
     },
 
     // ---- dotazy
@@ -191,12 +231,41 @@ export function createPhys() {
       return hit;
     },
 
+    /**
+     * Stál by tvar kolideru col v poloze (pos, rot) v kapsli postavy nebo ve volném tělese, a to hlouběji než
+     * teď? (D-025) Dotyk a průnik, který posun neprohlubuje (věc ležící v zásuvce se veze s ní), překážka není.
+     */
+    obstructs(col, pos, rot) {
+      const shape = col.shape;
+      let found = false;
+      world.intersectionsWithShape(
+        pos,
+        rot,
+        shape,
+        (o) => {
+          const next = o.contactShape(shape, pos, rot, 0);
+          if (!next || next.distance > -OBSTACLE_TOUCH) return true;
+          const now = o.contactCollider(col, 0.1);
+          if (now && next.distance >= now.distance - 1e-4) return true;
+          found = true;
+          return false;
+        },
+        undefined,
+        OBSTACLE_MASK,
+        col,
+        undefined,
+        isObstacle,
+      );
+      return found;
+    },
+
     bodyCount: () => (world ? world.bodies.len() : 0),
     colliderCount: () => (world ? world.colliders.len() : 0),
     inspect(path) {
       if (path[0] === 'bodies') return sys.bodyCount();
       if (path[0] === 'colliders') return sys.colliderCount();
       if (path[0] === 'fixedColliders') return stat.fixedColliders;
+      if (path[0] === 'maps') return stat.maps;
       return undefined;
     },
     /** Pomocný vektor pro volání Rapieru bez alokace. */

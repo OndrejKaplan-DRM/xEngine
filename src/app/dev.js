@@ -15,6 +15,21 @@ export function createDev({ game, hud }) {
   let linesKey = '';
 
   const ms = (v) => (v || 0).toFixed(2);
+  /** Počty těles a koliderů (A2.3: kolik jich nespí, kolik je kinematických). */
+  function bodiesLine() {
+    const W = game.phys.world;
+    if (!W) return '–';
+    let dyn = 0;
+    let awake = 0;
+    let kin = 0;
+    W.bodies.forEach((b) => {
+      if (b.isDynamic()) {
+        dyn++;
+        if (!b.isSleeping()) awake++;
+      } else if (b.isKinematic()) kin++;
+    });
+    return `kolidery ${W.colliders.len()} · volná tělesa ${dyn}, nespí ${awake} · kinematická ${kin}`;
+  }
   function text() {
     const c = render.counts;
     const v = player.vel;
@@ -27,9 +42,13 @@ export function createDev({ game, hud }) {
     return [
       `${game.VERSION} · level ${game.session.levelId} · profil ${game.session.profileId}`,
       `${fps.toFixed(0)} snímků/s · snímek ${ms(E.stats.frameMs)} ms · krok ${ms(E.stats.stepMs)} ms`,
-      `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells} · světla ${c.activeLights}/${render.lightBudget} (z ${c.lights})`,
+      `obraz ${render.size[0]} × ${render.size[1]}${render.capped ? ` (zvoleno ${render.rows} řádků, strop okna)` : ''}${render.antialias ? ' · vyhlazování hran' : ''} · zorné pole ${render.hfov.toFixed(0)}° × ${render.fov.toFixed(0)}° (nastaveno ${render.baseFov})`,
+      `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells}`,
+      `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms${game.light.progress < 1 ? ` · STAVÍ SE ${(game.light.progress * 100).toFixed(0)} %` : ''}`,
+      ...assetsLine(game),
       `buňka ${vis.cameraCell ?? '?'} · rychlost ${Math.hypot(v[0], v[2]).toFixed(2)} m/s · poloha ${p[0].toFixed(1)} ${p[1].toFixed(1)} ${p[2].toFixed(1)}`,
       `krok po systémech (ms): ${sys || 'měřím…'}`,
+      `fyzika: ${bodiesLine()}`,
     ].join('\n');
   }
   /** Otisk stavu viditelnosti: obrysy se přestaví, jen když se něco změnilo. */
@@ -92,4 +111,13 @@ export function createDev({ game, hud }) {
     text,
   };
   return api;
+}
+
+/** Řádek F3 o texturách a sítích z .glb (A2.6); bez nich se nevypisuje. */
+function assetsLine(game) {
+  const t = game.render.materials?.stat;
+  const a = game.assets?.stat;
+  if (!t?.textures && !t?.pending && !a?.meshParts && !a?.missing && !t?.missing) return [];
+  const mb = t ? ((t.texels * 4 * 4) / 3 / 1048576).toFixed(1).replace('.', ',') : '0';
+  return [`textury ${t?.textures ?? 0}${t?.pending ? ` (+${t.pending} se načítá)` : ''} · ${mb} MB · díly .glb ${a?.meshParts ?? 0} (△ ${a?.meshTris ?? 0})${a?.missing || t?.missing ? ` · CHYBÍ soubory ${(a?.missing ?? 0) + (t?.missing ?? 0)}` : ''}`];
 }

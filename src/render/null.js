@@ -1,12 +1,15 @@
-// xRender bez obrazu: stejné rozhraní jako render.js, jen počítá. Slouží testům v Node (svět, fyzika a hráč
-// se dají ověřit bez prohlížeče za zlomek sekundy) a budoucímu serveru nebo zapékání.
+// xRender bez obrazu: stejné rozhraní jako render.js, jen počítá. Slouží testům v Node (svět, fyzika, hráč a světlo
+// po vrcholech se dají ověřit bez prohlížeče za zlomek sekundy) a budoucímu serveru nebo zapékání.
 
-import { newBatch, appendMesh } from './batch.js';
+import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { cameraVfov } from './fov.js';
+import { DEFAULT_ROWS } from './rows.js';
 
-export function createNullRender() {
+export function createNullRender({ isLit = () => true } = {}) {
   let batches = new Map();
-  const counts = { batches: 0, movers: 0, lights: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0, visibleCells: 0, activeLights: 0, calls: 0 };
-  const lights = [];
+  let lit = isLit;
+  const counts = { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0, visibleCells: 0, calls: 0, touches: 0 };
+  const statics = [];
   const drawables = []; // co by se kreslilo: { cells: [id], meshes, on }
   let visibleIds = null;
   let cellCount = 0;
@@ -14,24 +17,30 @@ export function createNullRender() {
     name: 'render',
     phase: 'view',
     headless: true,
-    fov: 90,
+    fov: cameraVfov(90, 16 / 9),
     baseFov: 90,
-    scale: 1,
-    lightBudget: 8,
+    rows: DEFAULT_ROWS,
+    antialias: false,
+    get size() {
+      return [Math.round(sys.rows * sys.aspect), sys.rows];
+    },
     aspect: 16 / 9,
     view: { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 },
     counts,
-    lights,
+    statics,
     beforeDraw: null,
     debugLines: null,
-    setDefs() {},
+    /** Bez three.js se o materiálech ví jen to, co je v datech: na světlo reaguje model 'lit'. */
+    setDefs(defs) {
+      lit = (id) => defs?.[id]?.model === 'lit';
+    },
     openLevel({ cells }) {
       batches = new Map();
-      lights.length = 0;
+      statics.length = 0;
       drawables.length = 0;
       visibleIds = null;
       cellCount = cells.length;
-      Object.assign(counts, { batches: 0, movers: 0, lights: 0, cells: cells.length, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0, visibleCells: cells.length, activeLights: 0, calls: 0 });
+      Object.assign(counts, { batches: 0, movers: 0, cells: cells.length, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0, visibleCells: cells.length, calls: 0, touches: 0 });
     },
     addStatic(cellId, matId, mesh, start, count, matrix, uvScale) {
       const key = `${cellId}|${matId}`;
@@ -40,18 +49,28 @@ export function createNullRender() {
     },
     closeStatic() {
       counts.batches = batches.size;
-      for (const [key, b] of batches) {
+      for (const [key, pending] of batches) {
+        const [cell, mat] = key.split('|');
+        const b = finishBatch(pending, lit(mat));
+        b.cell = cell;
+        b.mat = mat;
+        b.touch = () => counts.touches++;
+        statics.push(b);
         counts.staticTris += b.tris;
-        drawables.push({ cells: [key.split('|')[0]], meshes: 1, on: true });
+        drawables.push({ cells: [cell], meshes: 1, on: true });
       }
       batches = new Map();
     },
     addMover(cellId, pieces, alsoCells = null) {
       counts.movers++;
-      for (const p of pieces) counts.moverTris += p.batch.tris;
       const rec = { cells: [cellId, ...(alsoCells || [])], meshes: pieces.length, on: true };
       drawables.push(rec);
       return {
+        pieces: pieces.map((p) => {
+          const b = finishBatch(p.batch, lit(p.mat));
+          counts.moverTris += b.tris;
+          return { colors: b.colors, touch: () => counts.touches++ };
+        }),
         setMatrix() {},
         setVisible(on) {
           rec.on = on;
@@ -71,25 +90,35 @@ export function createNullRender() {
         },
       };
     },
-    addLight(rec) {
-      lights.push(rec);
-      counts.lights = lights.length;
+    addShutter(cellIds) {
+      const rec = { cells: cellIds, meshes: 1, on: false };
+      drawables.push(rec);
+      return {
+        setVisible(on) {
+          rec.on = on;
+        },
+      };
     },
     closeLevel() {},
     setView(x, y, z, yaw, pitch) {
       Object.assign(sys.view, { x, y, z, yaw, pitch });
     },
+    redraw() {},
     setFov(v) {
-      sys.fov = sys.baseFov = v;
+      sys.baseFov = v;
+      sys.fov = sys.baseVfov;
+    },
+    get baseVfov() {
+      return cameraVfov(sys.baseFov, sys.aspect);
     },
     setViewFov(v) {
-      sys.fov = v ?? sys.baseFov;
+      sys.fov = v ?? sys.baseVfov;
     },
-    setScale(s) {
-      sys.scale = s;
+    setRows(n) {
+      sys.rows = n;
     },
-    setLightBudget(n) {
-      sys.lightBudget = n;
+    setAntialias(on) {
+      sys.antialias = !!on;
     },
     setVisibleCells(ids) {
       visibleIds = ids ? new Set(ids) : null;
@@ -100,7 +129,7 @@ export function createNullRender() {
     },
     invalidate() {},
     resize() {},
-    /** Místo vykreslení jen přepočet viditelnosti a rozpočtu světel, stejně jako draw() ve skutečném vykreslení. */
+    /** Místo vykreslení jen přepočet viditelnosti a světla, stejně jako draw() ve skutečném vykreslení. */
     frame() {
       sys.measure();
     },
@@ -112,9 +141,6 @@ export function createNullRender() {
       sys.beforeDraw?.();
       let calls = 0;
       for (const d of drawables) if (d.on && (!visibleIds || d.cells.some((c) => visibleIds.has(c)))) calls += d.meshes;
-      let active = 0;
-      for (const l of lights) if (l.on && l.level > 0 && l.intensity > 0 && l.seen !== false) active++;
-      counts.activeLights = Math.min(active, sys.lightBudget);
       counts.calls = calls;
       return { calls, tris: 0 };
     },

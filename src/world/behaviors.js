@@ -3,13 +3,14 @@
 // prefab zapsaná v inputs a outputs (tabulka v docs/02_KONTRAKTY.md je doporučení, data mají poslední slovo).
 // Žádná entita levelu tu není jmenovitě: nové dveře nebo nová páka jsou jen soubor prefabu.
 
+import { rigMatrices, mat4Mul, mat4Point } from '../xspace/index.js';
 import { ARRIVED, SETTLED, MOVED } from './joints.js';
 
 const EPS = 1e-6;
 const VALVE_USE_STEP = 0.25; // „použít“ u ventilu: o čtvrtinu rozsahu dál (pro hráče bez tažení myší)
 const CHANGED_QUANTUM = 0.01; // výstup changed se hlásí po 1 % rozsahu, ne v každém kroku
 
-export function createBehaviors({ entities, io }) {
+export function createBehaviors({ entities, io, world = null }) {
   const outs = new WeakMap(); // entita → Set výstupů z dat
   const ins = new WeakMap();
   const has = (map, ent, key, name) => {
@@ -27,6 +28,37 @@ export function createBehaviors({ entities, io }) {
 
   /** Kam míří kloub: cíl pohonu, jinak současná hodnota. */
   const heading = (j) => (Number.isNaN(j.target) ? j.value : j.target);
+  /**
+   * Dveře na obě strany: kloub má klidovou polohu uvnitř rozsahu (min < rest < max). Otevřená poloha je pak
+   * doraz na té straně, kam se křídlo vzdaluje od toho, kdo otvírá (návrh N-109). Jednostranný kloub má
+   * otevřenou polohu vždy v max.
+   */
+  const twoSided = (j) => j.def.min < j.rest - EPS && j.rest < j.def.max - EPS;
+  const reach = (j) => Math.max(j.def.max - j.rest, j.rest - j.def.min);
+  /** Dveře jsou (nebo budou) spíš otevřené než zavřené. */
+  const openish = (j) => (twoSided(j) ? Math.abs(heading(j) - j.rest) > reach(j) / 2 : heading(j) > (j.def.min + j.def.max) / 2);
+  const probe = [0, 0, 0];
+  /** Vzdálenost (v půdorysu, na druhou) středu dílu kloubu od bodu p, kdyby kloub stál v hodnotě v. */
+  function leafGap(ent, j, v, p) {
+    const c = (ent.prefab.colliders || []).find((k) => k.node === j.def.node && k.min) || (ent.prefab.parts || []).find((k) => k.node === j.def.node && k.min);
+    if (!c) return 0;
+    probe[0] = (c.min[0] + c.max[0]) / 2;
+    probe[1] = (c.min[1] + c.max[1]) / 2;
+    probe[2] = (c.min[2] + c.max[2]) / 2;
+    const w = mat4Point(mat4Mul(ent.em, rigMatrices(ent.prefab, { ...ent.values, [j.def.id]: v })[j.def.node]), probe);
+    return (w[0] - p[0]) ** 2 + (w[2] - p[2]) ** 2;
+  }
+  /** Kam se dveře otvírají: jednostranné do max; oboustranné od toho, kdo otvírá (rozhoduje poloha hráče). */
+  function openTarget(ent, j) {
+    if (!twoSided(j)) return j.def.max;
+    const h = heading(j);
+    if (!at(h, j.rest)) return h > j.rest ? j.def.max : j.def.min; // už jsou na jedné straně: zůstanou na ní
+    const a = world?.actor;
+    if (!a || !a.active) return j.def.max;
+    const p = [(a.min[0] + a.max[0]) / 2, 0, (a.min[2] + a.max[2]) / 2];
+    const step = reach(j) * 0.5;
+    return leafGap(ent, j, j.rest + step, p) >= leafGap(ent, j, j.rest - step, p) ? j.def.max : j.def.min;
+  }
   /** Dvoupolohový kloub (vypínač, páka): dolní a horní poloha. */
   const low = (j) => (j.def.detents?.length ? Math.min(...j.def.detents) : j.def.min);
   const high = (j) => (j.def.detents?.length ? Math.max(...j.def.detents) : j.def.max);
@@ -49,9 +81,9 @@ export function createBehaviors({ entities, io }) {
   /** Vstupy podle druhu. Vrací true, když se vstup zpracoval. */
   const INPUTS = {
     door(ent, j, name) {
-      if (name === 'open') go(ent, j, j.def.max);
+      if (name === 'open') go(ent, j, openTarget(ent, j));
       else if (name === 'close') go(ent, j, j.rest);
-      else if (name === 'toggle') go(ent, j, heading(j) > (j.def.min + j.def.max) / 2 ? j.rest : j.def.max);
+      else if (name === 'toggle') go(ent, j, openish(j) ? j.rest : openTarget(ent, j));
       else return false;
       return true;
     },
@@ -128,7 +160,7 @@ export function createBehaviors({ entities, io }) {
           return api.input(ent, 'press') ? 'ok' : 'none';
         case 'door':
         case 'drawer':
-          return api.input(ent, accepts(ent, 'toggle') ? 'toggle' : heading(j) > (j.def.min + j.def.max) / 2 ? 'close' : 'open') ? 'ok' : 'none';
+          return api.input(ent, accepts(ent, 'toggle') ? 'toggle' : openish(j) ? 'close' : 'open') ? 'ok' : 'none';
         case 'switch':
         case 'lever':
           return api.input(ent, 'toggle') ? 'ok' : 'none';
@@ -157,7 +189,7 @@ export function createBehaviors({ entities, io }) {
         case 'door':
         case 'drawer':
           if (bits & (ARRIVED | SETTLED)) {
-            if (at(j.value, d.max)) out(ent, 'opened');
+            if (at(j.value, d.max) || (twoSided(j) && at(j.value, d.min))) out(ent, 'opened');
             else if (at(j.value, j.rest)) out(ent, 'closed');
           }
           break;

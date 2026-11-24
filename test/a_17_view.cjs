@@ -57,8 +57,11 @@ const hallCalls = (page) => page.evaluate((poses) => poses.map((p) => { const s 
     }
     saveDataUrl(r.open.png, 'a17_start_otevreno.png');
 
-    // ---- skutečná chůze: průchod dveřmi bez černého snímku
+    // ---- skutečná chůze: průchod dveřmi bez díry. Díra = souvislá plocha pozadí v signální barvě; tmavé body
+    // (stín, rub křídla dveří) dírou nejsou, proto se tu nepočítají černé body.
     const walk = await page.evaluate(() => {
+      const bg = __xe.game.render.scene.background.clone();
+      __xe.game.render.scene.background.setRGB(1, 0, 1);
       __xe.tp(3, 0, 1.0, 0);
       __xe.sim(0.1);
       const shots = [];
@@ -68,11 +71,18 @@ const hallCalls = (page) => page.evaluate((poses) => poses.map((p) => { const s 
         shots.push(__xe.shot());
         track.push(`${__xe.game.vis.cameraCell}:${__xe.game.render.counts.visibleCells}`);
       }
+      __xe.game.render.scene.background.copy(bg);
+      __xe.render();
       return { shots, track, z: __xe.game.player.pos[2] };
     });
     let worst = 0;
-    for (const png of walk.shots) worst = Math.max(worst, (await imageStats(page, png)).dark);
-    ok(worst < 0.002 && walk.track.at(-1).startsWith('c_corr'), 'průchod dveřmi ze startu do chodby: žádný snímek s dírou', `buňka kamery a počet kreslených buněk po krocích: ${walk.track.join(' ')}; nejvíc černých bodů ${(worst * 100).toFixed(2)} %`);
+    let seam = 0;
+    for (const png of walk.shots) {
+      const v = await voidPixels(page, png);
+      worst = Math.max(worst, v.core);
+      seam = Math.max(seam, v.n);
+    }
+    ok(worst === 0 && walk.track.at(-1).startsWith('c_corr'), 'průchod dveřmi ze startu do chodby: žádný snímek s dírou', `buňka kamery a počet kreslených buněk po krocích: ${walk.track.join(' ')}; bodů pozadí v souvislé ploše ${worst}, jednotlivých na švech nejvýš ${seam}`);
     saveDataUrl(walk.shots[3], 'a17_ve_dverich.png');
 
     // ---- vývojářská vrstva F4 skutečnou klávesou
@@ -94,14 +104,18 @@ const hallCalls = (page) => page.evaluate((poses) => poses.map((p) => { const s 
     const voidIn = async (poses) => {
       let worst = 0;
       let where = '';
+      let core = 0;
+      let total = 0;
       for (const p of poses) {
-        const n = await voidPixels(page, await page.evaluate((q) => __xe.shotAt(q[0], q[1], q[2], q[3], -5, 75).png, p));
-        if (n > worst) {
-          worst = n;
+        const v = await voidPixels(page, await page.evaluate((q) => __xe.shotAt(q[0], q[1], q[2], q[3], -5, 75).png, p));
+        core += v.core;
+        total += v.n;
+        if (v.n > worst) {
+          worst = v.n;
           where = p.join(', ');
         }
       }
-      return { worst, where };
+      return { worst, where, core, total };
     };
     await page.evaluate(() => {
       __xe.game.render.scene.background.setRGB(1, 0, 1);
@@ -115,8 +129,13 @@ const hallCalls = (page) => page.evaluate((poses) => poses.map((p) => { const s 
       __xe.sim(1.5);
     });
     const opened = await voidIn(ring);
-    ok(control > 100000, 'kontrola zkoušky: pohled mimo level ukáže signální pozadí', `${control} bodů`);
-    ok(shut.worst === 0 && opened.worst === 0, 'žádná díra: z 12 míst a 4 směrů není nikde vidět pozadí (dveře zavřené i otevřené)', `${ring.length} pohledů na každý stav; nejvíc bodů pozadí ${shut.worst} / ${opened.worst} ${shut.where || opened.where}`);
+    ok(control.n > 100000 && control.core > 90000, 'kontrola zkoušky: pohled mimo level ukáže signální pozadí', `${control.n} bodů, z toho ${control.core} v souvislé ploše`);
+    ok(shut.core === 0 && opened.core === 0, 'žádná díra: z 12 míst a 4 směrů není nikde vidět souvislá plocha pozadí (dveře zavřené i otevřené)', `${ring.length} pohledů na každý stav; bodů v souvislé ploše ${shut.core} / ${opened.core}`);
+    // Švy: sousední kvádry mají každý svou mřížku světla a na společné hraně jim vrcholy nelícují (zadání, oddíl 6).
+    // Jednotlivé body pozadí na švech nejsou díra ve viditelnosti; počet se hlídá, aby nerostl. Po D-037 (mřížka
+    // světla na násobcích buňky ve světě) je jich ve 48 pohledech zlatého vzorku 0 (dřív 128); mez je nový stav.
+    const SEAM_LIMIT = 0;
+    ok(shut.worst <= SEAM_LIMIT && opened.worst <= SEAM_LIMIT, 'švy mezi sítěmi: žádný jednotlivý bod pozadí (stav po D-037)', `nejhorší pohled ${shut.worst} / ${opened.worst} bodů z ${1366 * 768} (${shut.where || opened.where}); součet přes ${ring.length} pohledů ${shut.total} / ${opened.total}`);
 
     // ---- hala: volání nezávisí na obsahu laboratoře (druhé načtení s laboratoří bez entit)
     await page.evaluate(() => {

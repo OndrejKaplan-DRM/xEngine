@@ -46,3 +46,29 @@ export function appendMesh(batch, mesh, start = 0, count = mesh.indices.length, 
   }
   batch.tris += count / 3;
 }
+
+/**
+ * Hotová dávka v typovaných polích. Barva vrcholů (světlo po vrcholech, D-022) je lineární a smí být nad 1;
+ * vzniká jen pro materiály, které na světlo reagují. Pole sdílí vykreslení s výpočtem světla (bez kopií).
+ */
+export function finishBatch(b, lit) {
+  const n = b.positions.length / 3;
+  const min = [Infinity, Infinity, Infinity];
+  const max = [-Infinity, -Infinity, -Infinity];
+  for (let i = 0; i < b.positions.length; i++) {
+    const d = i % 3;
+    if (b.positions[i] < min[d]) min[d] = b.positions[i];
+    if (b.positions[i] > max[d]) max[d] = b.positions[i];
+  }
+  return {
+    min,
+    max,
+    positions: new Float32Array(b.positions),
+    normals: new Float32Array(b.normals),
+    uvs: new Float32Array(b.uvs),
+    indices: n > 65535 ? new Uint32Array(b.indices) : new Uint16Array(b.indices),
+    colors: lit ? new Float32Array(n * 3) : null,
+    count: n,
+    tris: b.tris,
+  };
+}

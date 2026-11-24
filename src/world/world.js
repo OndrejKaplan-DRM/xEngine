@@ -1,29 +1,38 @@
-// xWorld: level z dat xSpace. Staví statický svět (kolize přes brushCollider, viditelná geometrie přes brushMesh
-// sloučená po buňce a materiálu), drží buňky, portály, světla levelu a spouštěče. O kvádru neví nic, co neříká
+// xWorld: level z dat xSpace. Staví statický svět (kolize přes brushCollider, viditelná geometrie přes
+// brushLightMesh sloučená po buňce a materiálu; její vrcholy jsou vzorky světla, D-022), drží buňky, portály, světla levelu a spouštěče. O kvádru neví nic, co neříká
 // src/xspace/geom.js; o konkrétním levelu neví nic, co není v datech.
 
-import { brushMesh, brushCollider, inBounds, boundsGap } from '../xspace/index.js';
+import { levelLightMeshes, brushCollider, inBounds, boundsGap, LIGHT_CELL } from '../xspace/index.js';
+import { isTransparent } from '../render/opacity.js';
 import { faceCells } from './cells.js';
 
-export function createWorld({ phys, render, pack }) {
+export function createWorld({ phys, render, light, pack, assets = null }) {
   const matDefs = pack.materials?.materials || {};
   let level = null;
   let cells = [];
   let triggers = []; // { def, inside, done }
   let io = null; // doplní se při načtení (spojení výstupů spouštěčů)
   const lightRecs = [];
-  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 };
+  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: LIGHT_CELL };
   const seenBy = [];
   /** Obal postavy, kterou sledují spouštěče. Zapisuje ho xPlay v každém kroku. */
   const actor = { min: [0, 0, 0], max: [0, 0, 0], active: false };
 
   const uvScale = (matId) => matDefs[matId]?.uvScale || 1;
+  /** Všechny plochy kvádru mají průhledný materiál (vis: false se počítá jako neprůhledný: stíní dál). */
+  const brushSeeThrough = (b) => b.vis !== false && [b.mat, ...Object.values(b.faces || {})].every((m) => isTransparent(matDefs[m]));
 
   const sys = {
     name: 'world',
     phase: 'late',
     actor,
     stat,
+    /**
+     * Krok mřížky světla (m). Výchozí je kontrakt (LIGHT_CELL = 0,5 m; na něm stojí zapečené světlo z xBake).
+     * Jemnější krok je volba pro světlo počítané při načtení: 0,25 m = čtyřikrát víc vzorků a trojúhelníků.
+     * Projeví se při dalším načtení levelu (stat.lightCell říká, s čím je level postavený).
+     */
+    lightCell: LIGHT_CELL,
     get level() {
       return level;
     },
@@ -39,14 +48,18 @@ export function createWorld({ phys, render, pack }) {
       level = ctx.level;
       io = ctx.io || null;
       cells = level.cells;
-      render.setDefs(matDefs);
+      render.setDefs(matDefs, assets); // textury barvy (albedo) bere vykreslení ze souborů balíku
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
-      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0 });
-      for (const b of level.brushes || []) {
+      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell });
+      // vzorky světla levelu podle kontraktu (D-037): mřížka na násobcích buňky ve světě, bez ploch schovaných v jiném kvádru
+      const brushes = level.brushes || [];
+      const meshes = levelLightMeshes(brushes, matDefs, sys.lightCell);
+      for (let bi = 0; bi < brushes.length; bi++) {
+        const b = brushes[bi];
         stat.brushes++;
-        if (b.vis !== false) {
-          const m = brushMesh(b);
+        const m = meshes[bi];
+        if (m) {
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)
@@ -60,9 +73,11 @@ export function createWorld({ phys, render, pack }) {
         }
         if (b.col !== false) {
           const c = brushCollider(b);
+          // kvádr, který je celý průhledný (sklo), koliduje, ale světlo nestíní (skupina world místo brush)
+          const group = brushSeeThrough(b) ? 'world' : 'brush';
           const ref = { kind: 'brush', id: b.id, mat: b.mat };
-          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group: 'world' }, ref);
-          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group: 'world' }, ref);
+          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group }, ref);
+          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group }, ref);
           stat.brushColliders++;
         }
       }
@@ -70,11 +85,9 @@ export function createWorld({ phys, render, pack }) {
 
       lightRecs.length = 0;
       for (const l of level.lights || []) {
-        // vlna 1 svítí bodově; kužel se bere jako bod (bez úhlu), slunce zatím ne (viz A_STAV)
-        if (l.type === 'sun') continue;
-        const rec = { id: l.id, cell: l.cell, pos: l.pos, color: l.color, intensity: l.intensity, range: l.range || 0, on: true, level: 1, fixed: true };
-        lightRecs.push(rec);
-        render.addLight(rec);
+        // bodové, kuželové i slunce počítá lightIrradiance; slunce bez zastínění by svítilo skrz strop, proto až s ním
+        if (l.type === 'sun' && !light.shadows) continue;
+        lightRecs.push(light.addLight(l, { id: l.id, cell: l.cell }));
       }
       triggers = (level.triggers || []).map((def) => ({ def, inside: false, done: false }));
     },

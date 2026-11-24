@@ -1,7 +1,7 @@
 // Háček pro testy: window.__xe podle kontraktu (docs/02_KONTRAKTY.md, oddíl 1). Minimum z kontraktu se nesmí
 // ubírat; co je navíc, je označené. Testy řídí simulaci, ne snímky: sim() nečeká na skutečný čas.
 
-export function installHook({ game, lock, shell, hud, adapter, devTools }) {
+export function installHook({ game, lock, shell, hud, adapter, devTools, bench }) {
   const { E, input, render } = game;
   const xe = {
     ready: true,
@@ -12,7 +12,10 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
     start(levelId, opts = {}) {
       lock.disable();
       if (opts.profile) game.session.setProfile(opts.profile);
+      // testy nečekají na skutečný čas: vrstvy světla se od teď staví celé hned, ne po částech ve snímcích
+      game.light.incremental = false;
       game.start(levelId);
+      game.light.finish();
       return true;
     },
     /** Kroky bez čekání na skutečný čas. vstupy: { hold: ['fwd', 'jump'], yawRate, pitchRate } (stupně za sekundu). */
@@ -35,13 +38,31 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
         colliders: phys ? phys.colliderCount() : 0,
         batches: render.counts.batches,
         movers: render.counts.movers,
-        lights: render.counts.lights,
-        activeLights: render.counts.activeLights,
+        lights: game.light.stat.lights,
+        lightSamples: game.light.stat.samples,
         visibleCells: render.counts.visibleCells,
         sys: { ...E.stats.sys },
       };
     },
     snapshot: () => E.snapshot(),
+    /** Měření skutečné hry (stejné jako adresa ?bench). opts: { rows, aa, quick }. Vrací Promise s výsledkem. */
+    bench: (opts) => bench.run(opts),
+    /** Zastínění světla a brány dveří zapnout nebo vypnout (level se načte znovu). Vypnuté = jako xView: světlo prochází vším. */
+    shadows(on) {
+      game.light.shadows = !!on;
+      game.light.incremental = false;
+      game.loadLevel(game.session.levelId);
+      game.start();
+      return game.light.shadows;
+    },
+    /** Zjemnění okraje stínu zapnout nebo vypnout, případně počet bodů na stranu (level se načte znovu). */
+    soft(on) {
+      game.light.soft = on;
+      game.light.incremental = false;
+      game.loadLevel(game.session.levelId);
+      game.start();
+      return game.light.soft;
+    },
     restore: (data) => E.restore(data),
 
     // ---- navíc
@@ -86,6 +107,11 @@ export function installHook({ game, lock, shell, hud, adapter, devTools }) {
     hud: () => hud.state,
     settings: () => shell.settings.probeAll(),
     lock: () => ({ enabled: lock.enabled, locked: lock.locked }),
+    /** Režim se zámkem kurzoru zapnout nebo vypnout (testy; __xe.start ho vypíná). */
+    lockMode(on) {
+      if (on) lock.enable();
+      else lock.disable();
+    },
     /** Viditelnost po buňkách zapnout nebo vypnout (vypnutá = kreslí se vše a svítí všechna světla, jako v xView). */
     vis(on) {
       game.vis.enabled = on;

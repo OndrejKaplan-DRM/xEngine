@@ -11,19 +11,22 @@ import { createHud } from './hud.js';
 import { settingsDefs } from './settings.js';
 import { installHook } from './hook.js';
 import { createDev } from './dev.js';
+import { createBench } from './bench.js';
+import { ROWS } from '../render/rows.js';
 
 const BOUNCE_MS = 350; // Esc, kterým prohlížeč uvolnil zámek, nesmí vzápětí hru zase spustit
 
 async function boot() {
   const params = new URLSearchParams(location.search);
   const dev = params.has('dev');
-  const canvas = document.getElementById('c');
+  const view = document.getElementById('view'); // stálý obal: plátno uvnitř se při přepnutí vyhlazování vymění
   const style = document.createElement('style');
   style.textContent = shellCss;
   document.head.append(style);
 
-  const render = createRender({ canvas, antialias: params.get('aa') !== '0' });
+  const render = createRender({ canvas: document.getElementById('c') });
   const game = createGame({ pack: globalThis.__PACK__, render });
+  game.light.incremental = true; // vrstvy světla se staví po částech ve snímcích, ne jedním zásekem při načtení
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
   const devTools = createDev({ game, hud });
@@ -33,6 +36,7 @@ async function boot() {
     phase: 'ui',
     frame(real) {
       hud.setPrompt(E.mode === 'playing' ? game.interact.prompt : '');
+      if (game.light.progress < 1) hud.notify(`Počítám světlo: ${Math.round(game.light.progress * 100)} %`, 0.4);
       hud.frame(real);
       devTools.frame(real);
     },
@@ -40,18 +44,18 @@ async function boot() {
 
   let lostAt = -Infinity;
   const lock = createLock({
-    target: canvas,
+    target: view,
     onLost() {
       lostAt = performance.now();
       if (E.mode === 'playing') E.setMode('paused');
     },
   });
   if (params.has('nolock')) lock.disable();
+  const bench = createBench({ game, lock, root: document.body });
 
   /** Vstup do hry: nejdřív zámek kurzoru (voláno z kliknutí), pak teprve režim. */
   async function enter(fresh) {
-    // u terminálu je kurzor volný záměrně: návrat z pauzy ho nezamyká
-    const r = !fresh && game.interact.seated ? 'ok' : await lock.acquire();
+    const r = await lock.acquire(); // i u terminálu: zámek kurzoru drží celý pobyt (D-024)
     if (r === 'retry') {
       hud.notify('Prohlížeč teď zámek kurzoru odmítl. Klikni znovu.', 4);
       return;
@@ -102,34 +106,33 @@ async function boot() {
   E.on('level:complete', () => hud.notify('Level dokončen', 6));
   E.on('level:message', (e) => hud.notify(String(e.value ?? ''), 5));
   E.on('interact:denied', () => hud.notify('Zamčeno', 1.5));
-  // klidný režim: kurzor se uvolní a míří na obrazovku ve světě; Esc vrací do hry (ne do pauzy)
+  // klidný režim (D-024): zámek kurzoru zůstává, myš vede vlastní kurzor po obrazovce ve světě. Esc je i tady pauza
+  // (prohlížeč při Esc zámek uvolní vždy); odchází se šipkou dolů nebo pravým tlačítkem myši.
   E.on('interact:seated', () => {
-    lock.release();
     input.releaseAll();
     hud.setCross(false);
-    hud.notify('Piš na klávesnici, Enter odešle · Esc: odejít', 6);
+    hud.notify('Piš na klávesnici, Enter odešle · odejít: šipka dolů nebo pravé tlačítko myši · Esc: pauza', 8);
   });
-  E.on('interact:left', async () => {
+  E.on('interact:left', () => {
     hud.setCross(E.mode === 'playing');
-    // zámek, který hra uvolnila sama, smí prohlížeč vrátit hned; když odmítne, vrátí ho kliknutí do obrazu
-    if (lock.enabled && (await lock.acquire()) !== 'ok') hud.notify('Klikni do obrazu pro návrat k ovládání.', 4);
+    hud.notify('', 0); // nápověda terminálu po odchodu nezůstává viset
   });
   /** Poloha kurzoru v obraze −1…1 (x vpravo, y nahoru). */
   const toView = (e) => {
-    const r = canvas.getBoundingClientRect();
+    const r = view.getBoundingClientRect();
     return [((e.clientX - r.left) / r.width) * 2 - 1, 1 - ((e.clientY - r.top) / r.height) * 2];
   };
 
   // ---- vstup: klávesy podle event.code, myš jako Mouse0–2
-  // u terminálu jde klávesnice na jeho obrazovku; zachytává se dřív než Shell, aby Esc nepauzoval
+  // u terminálu jde klávesnice na jeho obrazovku (zachytává se dřív než herní akce). Esc se nezachytává: je to pauza.
   addEventListener(
     'keydown',
     (e) => {
       if (E.mode !== 'playing' || !game.interact.seated || e.ctrlKey || e.metaKey || e.altKey) return;
-      if (e.key === 'Escape') game.interact.leave();
+      if (e.code === 'ArrowDown') game.interact.leave(); // krok vzad od stolu
       else if (e.key === 'Enter' || e.key === 'Backspace') game.interact.key(e.key);
       else if (e.key.length === 1) game.interact.type(e.key);
-      else return; // funkční klávesy nechává prohlížeči
+      else return; // Esc (pauza) a funkční klávesy jdou dál
       e.preventDefault();
       e.stopImmediatePropagation();
     },
@@ -141,20 +144,32 @@ async function boot() {
       e.preventDefault();
       return;
     }
+    // F9: měření skutečné hry (totéž co adresa ?bench); funguje z menu i ze hry
+    if (e.code === 'F9' && !e.repeat) {
+      e.preventDefault();
+      if (!bench.active) {
+        lock.release();
+        bench.run();
+      }
+      return;
+    }
     if (E.mode !== 'playing') return;
     const known = e.repeat ? false : input.key(e.code, true);
     if (known || PREVENT_DEFAULT.has(e.code)) e.preventDefault();
   });
   addEventListener('keyup', (e) => input.key(e.code, false));
-  canvas.addEventListener('mousedown', (e) => {
+  view.addEventListener('mousedown', (e) => {
     if (E.mode !== 'playing') return;
-    if (game.interact.seated) {
-      game.interact.pointer(...toView(e), e.button === 0);
-      return;
-    }
-    // ztracený zámek (návrat od terminálu, který prohlížeč nezamkl) vrací první kliknutí a nic jiného nedělá
+    // ztracený zámek vrací první kliknutí a nic jiného nedělá
     if (lock.enabled && !lock.locked) {
       lock.acquire();
+      return;
+    }
+    if (game.interact.seated) {
+      if (e.button === 2) game.interact.leave();
+      else if (lock.locked) {
+        if (e.button === 0) game.interact.click();
+      } else game.interact.pointer(...toView(e), e.button === 0); // bez zámku: kurzor systému
       return;
     }
     input.key(`Mouse${e.button}`, true);
@@ -163,17 +178,25 @@ async function boot() {
   document.addEventListener('mousemove', (e) => {
     if (E.mode !== 'playing') return;
     if (game.interact.seated) {
-      game.interact.pointer(...toView(e));
+      if (lock.locked) game.interact.cursor(e.movementX, e.movementY);
+      else game.interact.pointer(...toView(e));
       return;
     }
     if (lock.locked || (!lock.enabled && e.buttons)) input.look(e.movementX, e.movementY);
   });
-  canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+  view.addEventListener('contextmenu', (e) => e.preventDefault());
   addEventListener('blur', () => input.releaseAll());
   addEventListener('resize', () => render.resize());
 
-  installHook({ game, lock, shell, hud, adapter, devTools });
+  installHook({ game, lock, shell, hud, adapter, devTools, bench });
   E.run();
+  // ?grid=0.25: jemnější mřížka světla pro tento běh (jinak platí nastavení); hodí se k měření ?bench&grid=0.25
+  if (params.has('grid') && [0.5, 0.25].includes(Number(params.get('grid')))) game.world.lightCell = Number(params.get('grid'));
+  // ?bench: měření skutečné hry hned po načtení; volitelně &rows=576|768|1080, &aa=1, &quick (jen první dvě buňky)
+  if (params.has('bench')) {
+    const rows = Number(params.get('rows'));
+    setTimeout(() => bench.run({ rows: ROWS.includes(rows) ? rows : undefined, aa: params.has('aa') ? params.get('aa') !== '0' : undefined, quick: params.has('quick') }), 600);
+  }
 }
 
 boot().catch((err) => {
