@@ -43,5 +43,23 @@ Okraj stínu po podílech (výchozí) a volitelná mřížka 0,25 m (`?grid=0.25
 
 Navrhuju první krok jako zkoušku na jednom kusu: textura světla jen pro halu xLabu, spočtená při načtení za přepínačem, a `?bench` na T460 s ní a bez ní. Podle čísla se rozhodne zbytek.
 
+## Zkouška (D-043), 24. 11. večer
+
+Za přepínačem `?lightmap=5` nebo `?lightmap=10` (cm) a `&lmcell=` (výchozí `c_hall`) v sestavení „vlna 2, krok 6“; kód `src/world/lightmap.js`, testy `a_43_lightmap.mjs` (Node, 8) a `a_43_view.cjs` (prohlížeč, 5).
+
+- Plochy statických dávek vybraných buněk se rozloží na mapy (spojené trojúhelníky jedné roviny; trojúhelník pláště válce sám), poskládají do atlasu po řádcích (okraj 2 body) a dostanou UV 1. Bod = střed texelu uvnitř trojúhelníku; okraje map převezmou hodnotu sousedů (předpočítané pořadí).
+- Světlo stejně jako po vrcholech: `lightIrradiance` ze základu, zastínění a brány z `occlusion.gateOf`. Bez okraje stínu po podílech (bod 5 cm je ostrý sám). Hodnota = E × barva (a π × okolní člen) v RGBA half float; `MeshBasicMaterial.lightMap` ji dělí π. V místě vrcholu dá textura totéž co světlo po vrcholech (medián poměru 1,0000 na 65 161 vrcholech).
+- Vrstvy po světlech a branách: přepnutí lampy nebo otevření dveří texturu jen složí znovu (5 cm: 55 ms v sandboxu) a nahraje.
+- Zapečený soubor (D-044) se s ní nekombinuje: textura se počítá při načtení vždy.
+
+| hala xLabu (sandbox, softwarové vykreslení) | 10 cm | 5 cm |
+|---|---|---|
+| atlas, paměť (half float RGBA) | 1 024 × 512, 4 MB | 2 048 × 1 024, 16 MB |
+| bodů na plochách, map | 263 641, 337 | 1 035 102, 337 |
+| paprsků zastínění | 682 201 | 2 688 304 |
+| výpočet při načtení | 1,2 až 1,7 s | 3,9 až 5,4 s |
+
+Na T460 je pevná práce 5 000 paprsků 11,5 až 23,8 ms (`?bench`), 2,7 mil. paprsků tedy asi 6 až 13 s jen paprsky (odhad). Čeká se na `?bench` z T460 s texturou a bez ní.
+
 ## Rozhodnutí
 

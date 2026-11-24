@@ -57,13 +57,14 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - [x] A2.5 nová pole základu; A2.6 na zkušebních datech (T460: 14 textur v xLabu, vykreslení 2,29 / 2,9 ms)
 - [x] znění 4 základu: D-039 strop řádků, D-040 rozměry postavy, D-042 zkoušky dveří připravené na ±105°, **D-041 a D-044 běh čte zapečené světlo** (shoda s výpočtem, soubor ze xBake se přečte), N-009 barva materiálu s texturou
 - [ ] A2.6 na kusu ze sešny B a zapečené světlo ve hře: potřebuje **N-111** (build vkládá jen JSON) a soubor `levels/<id>.light.bin` v balíku od sešny B
-- [ ] zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043)
+- [x] zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043): `?lightmap=5|10` v sestavení krok 6; čeká na `?bench` z T460
 
 **Rozhodnuto (Ondřej 21:13):** výchozí rozlišení zůstává 768 řádků (`complex_7` na 1 080 řádcích: 95 % 10,2 ms na T460).
 
 **Čeká na jiné:** svodná: N-111, přepnout dveře zlatého vzorku na ±105° (testy A připravené), N-009, `composeColors` bez dělení π (A_STAV, oddíl 9), N-110; sešna B: zapečený soubor do balíků (se vzorky dílů podle D-041), B2.5 (u dílů `mesh` vyplňovat `mat`), `screen.offset` a `opacity` v `kit_base`.
 
 **Nedávno hotovo:**
+- 24. 11. N-110 zkouška: textura světla 5 / 10 cm na hale xLabu (`a_43_*`); sandbox 16 / 4 MB, 3,9 až 5,4 / 1,2 až 1,7 s
 - 24. 11. znění 4: zapečené světlo v běhu (`a_44_bake`), strop řádků, rozměry postavy, zkoušky dveří na ±105°
 - 24. 11. A2.6 na zkušebních datech: `glb.js`, `assets.js`, textura v `materials.js` (`6e1ab0c`, `3c6bab0`); testy `a_26_mesh` (30), `a_26_view` (8)
 - 24. 11. A2.5 nová pole: rychlost kloubu ze základu, `screen.offset`, `seeThrough`, `passable`, `opacity` (sklo průhledné, nestíní světlo)
@@ -71,7 +72,6 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120°; na T460 F3 ukazuje 117° × 74° při 90 (`db6fad0`)
 - 24. 11. `?bench` měří čas grafiky dávkou (`draw.ms`); stará metoda na T460 vracela obnovu displeje
 - 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0 (`25e17a4`)
-- 24. 11. zkouška terminálu na T460 prošla (D-032)
 
 ## Sešna B (obsah a nástroje)
 

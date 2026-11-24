@@ -1,6 +1,6 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 24. 11. 2026, 21:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 24. 11. 2026, 22:45 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
 Poslední regrese (sandbox, 24. 11. 21:40, znění 4 + zapečené světlo, hlava `sesna-a` po `a842098`): `npm run test:a` **417 kontrol ve 27 sadách**, `npm test` **266**, `npm run test:axb` **37**, vše 0 selhalo. Skupina B naposledy na A2.5 (A2.6 a znění 4 její data nemění). Sestavení pro Ondřeje: naposledy „vlna 2, krok 5“.
 
@@ -15,6 +15,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [x] D-042 zkoušky dveří nezávislé na rozsahu dveří zlatého vzorku (`oneSidedDoors`): se zlatým vzorkem ±105° (kopie mimo repo, `PACK=…`) projdou všechny zkoušky A v Node. **Svodná může dveře zlatého vzorku přepnout.**
 - [x] D-041 a D-044: běh čte zapečené světlo `levels/<id>.light.bin` (`src/world/baked.js`). Soubor vyrobený z vrstev běhu dá tytéž barvy (poměrně do 1e-7), i po rozsvícení lampy a otevření dveří; v sandboxu stavba vrstev xLabu 30 ms místo 446 ms. Skutečný soubor ze xBake sešny B (xLab, jen kvádry, před D-041) se přečetl: 14 ze 14 světel, poměr jasu proti výpočtu medián 1,00 (10 % 0,73, 90 % 1,57; odraz a stíny prefabů). Do hry ho zatím nic nedopraví: N-111 a soubor v balíku od sešny B
 - [x] N-009 (návrh sešny B): barva materiálu s texturou = průměr povrchu, textura × (color / průměr); průměr z `albedoMean`, jinak spočítaný při načtení
+- [x] **N-110 zkouška (D-043)**: textura světla s bodem 5 nebo 10 cm na hale xLabu za přepínačem `?lightmap=5|10` (`src/world/lightmap.js`). Ostrý stín sloupů a krytu; v místě vrcholu stejná hodnota jako po vrcholech. Sandbox: 10 cm 4 MB a 1,2 až 1,7 s výpočtu, 5 cm 16 MB a 3,9 až 5,4 s. Čísla z T460 chybí (N-110, oddíl Zkouška)
 - [x] Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): (1) nastavení „Dveře od hráče“ rozšiřovalo rozsah i 16 kusům nábytku v `complex_7` (skříně, lednice, víka centrifug; v katakombách víka truhel), které by se otevřely dovnitř; teď jen dveře v otvoru portálu, včetně druhého křídla (`a_14_swing`). (2) Černá stěna kartotéky není chyba výpočtu: lampa visí přesně nad šířkou kartotéky (x 10,85 m, kartotéka 10,40 až 10,86 m), na boky přímé světlo nedopadne a zbývá okolní člen 0,05. Chybí odražené světlo (vrstva `indirect` ze xBake, D-035); otázka pro Ondřeje
 - [x] A2.5 nová pole základu (podrobně v tabulce „Hotovo“ a v deníku)
 - [x] A2.6 na zkušebních datech: díl `shape: "mesh"` a kolize `hull` / `mesh` z `.glb`, textura barvy `albedo` (stupeň `low` ≤ 512 px), světlo texturu násobí; textury a sítě v `?bench` a F3. Soubory balíku do hry zatím nedostane build: návrh **N-111**
@@ -22,11 +23,11 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Další:**
 - [ ] A2.6 zkouška na kusu ze sešny B, až bude B2.5 a N-111 (bez něj soubor balíku do `dist/*.html` nevloží nikdo)
-- [ ] zkouška textury světla na hale xLabu (N-110); Ondřej 24. 11. 02:26: až po A2.5 a A2.6
+- [ ] N-110: rozhodnutí podle `?bench` z T460 (Ondřej a svodná, D-043)
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:**
-- (nic otevřeného; poslední běh `?bench` přišel 21:26, oddíl 5.1 bod 9)
+1. sestavení krok 6, jen jedna karta s hrou: `xlab.html?bench`, `xlab.html?lightmap=10&bench`, `xlab.html?lightmap=5&bench` (výpočet textury při načtení, paměť, `draw.ms` v hale) a pohled na halu s `?lightmap=5` (lampy: hala B se rozsvítí při vstupu, A pákou v laboratoři)
 
 **Ondřej 24. 11. 21:13:** výchozí rozlišení **(a) zůstává 768 řádků** (rezerva pro textury a světlo; `complex_7` na 1 080 řádcích má 95 % 10,2 ms). Volba 4 b z 23. 11. („1 080, když se vejde do 10 ms“) je tím uzavřená: nevešlo se.
 
@@ -91,6 +92,7 @@ Rozhodnutí, která sešna A udělala sama ve své oblasti. Projektová rozhodnu
 | 24. 11. | soubor bez pole `entities` (před D-041) se bere pro kvádry, díly prefabů počítá běh; soubor s jinými počty vzorků se odmítne | xBake sešny B dnes píše jen kvádry | odmítnout celý | `checkBake`, `a_44_bake` |
 | 24. 11. | sítě z `.glb` a pohnutá světla svítí běh i se souborem | D-041 bere za vzorky jen díly `box` a `cyl`; soubor popisuje světlo v klidové poloze | – | `buildLayer(…, skipBaked)` |
 | 24. 11. | zapečený soubor se čte jen se zastíněním (`light.shadows`) | stíny jsou v souboru; bez zastínění se srovnává s xView | číst vždy | `lighting.prepare` |
+| 24. 11. | zkouška textury světla počítá při načtení, half float RGBA, `MeshBasicMaterial.lightMap` (kanál UV 1), síť dávky bez indexů | D-043: zkouška dřív než formát; `lightMap` dělí π stejně jako kontrakt; vlastní shader zatím zbytečný | formát a xBake (až podle čísla) | `lightmap.js`, `a_43_*` |
 | 24. 11. | díl `mesh` bez `mat` dostane z glTF jen základní barvu | formát říká „bere se z glTF“; textura uvnitř `.glb` by znamenala druhou cestu k materiálům vedle `materials.json` | číst materiály glTF celé | `assets.materialOf`; doporučení pro B v N-111 |
 
 ## 3. Jak je to postavené (moduly sešny A)
@@ -296,6 +298,7 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 - **Zapečené světlo na T460**: čas načtení a vzhled; ve hře soubor zatím není (N-111). Soubor se vzorky dílů prefabů (D-041) sešna B ještě nevyrobila; čtení ověřené jen souborem vyrobeným testem.
 - **Textury a `.glb` na T460**: cena textury ve hře (`draw.ms`), čas dekódování WebP a paměť neměřené; `?bench` je teď vypisuje (`textures`, `textureMB`, `meshParts`, `meshTris`), ale level s texturou zatím není (N-111, B2.5).
 - **Světlo na síti z `.glb` je po jejích vrcholech**: velká plocha ze dvou trojúhelníků má světlo jen v rozích (stojan v `a_26_view` má přední stěnu jedním odstínem). Doporučení pro B v N-111.
+- **Textura světla (N-110) na T460**: čas výpočtu při načtení (stránka během něj stojí), 16 MB textury, cena vykreslení; ve hře se počítá jen hala a jen za přepínačem. Okraj stínu je schodovitý po bodech (10 cm viditelně, 5 cm méně); zjemnění okraje po podílech by stálo 16× paprsků.
 - **`.glb` jen ze zkušebních modelů vyrobených kódem**: model z Blenderu (jiné rozložení bloků, `byteStride`, normalizované UV, víc primitiv) ještě engine neviděl.
 - **Slunce** (`type: sun`) se zastíněním: žádný level ho nemá.
 - **Jak se manipulace drží v ruce** (citlivost): změřené jen robotem, oddíl 6.
