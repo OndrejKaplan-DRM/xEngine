@@ -148,6 +148,8 @@ export function createBench({ game, lock, root }) {
         dpr: devicePixelRatio,
         gpu: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
         image: render.size,
+        rowsChosen: render.rows,
+        rowsCapped: !!render.capped, // D-039: víc řádků, než má plátno fyzických bodů, se nekreslí
         antialias: render.antialias,
       },
       level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, ...assetLine(game, render), lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },

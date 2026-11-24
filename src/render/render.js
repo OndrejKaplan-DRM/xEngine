@@ -361,7 +361,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       camera.updateProjectionMatrix();
       dirty = true;
     },
-    /** Vnitřní rozlišení: pevný počet řádků, šířka podle poměru stran okna. Plátno na velikost okna roztahuje CSS. */
+    /** Vnitřní rozlišení: pevný počet řádků (nejvýš fyzická výška plátna, D-039), šířka podle poměru stran okna. */
     setRows(n) {
       sys.rows = n;
       sys.resize();
@@ -383,10 +383,14 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       renderer = makeRenderer(next, !!on);
       sys.resize();
     },
+    /** Zvolený počet řádků je strop větší než fyzická výška plátna (D-039): víc bodů, než okno ukáže, se nekreslí. */
+    capped: false,
     resize() {
       const w = canvas.clientWidth || globalThis.innerWidth || 1;
       const h = canvas.clientHeight || globalThis.innerHeight || 1;
-      renderer.setSize(Math.max(1, Math.round((sys.rows * w) / h)), sys.rows, false);
+      const rows = Math.max(1, Math.min(sys.rows, Math.round(h * (globalThis.devicePixelRatio || 1))));
+      sys.capped = rows < sys.rows;
+      renderer.setSize(Math.max(1, Math.round((rows * w) / h)), rows, false);
       camera.aspect = w / h;
       if (viewFov === null) camera.fov = sys.baseVfov; // svislý úhel se s oknem mění jen kvůli stropu vodorovného
       camera.updateProjectionMatrix();

@@ -42,7 +42,7 @@ export function createDev({ game, hud }) {
     return [
       `${game.VERSION} · level ${game.session.levelId} · profil ${game.session.profileId}`,
       `${fps.toFixed(0)} snímků/s · snímek ${ms(E.stats.frameMs)} ms · krok ${ms(E.stats.stepMs)} ms`,
-      `obraz ${render.size[0]} × ${render.size[1]}${render.antialias ? ' · vyhlazování hran' : ''} · zorné pole ${render.hfov.toFixed(0)}° × ${render.fov.toFixed(0)}° (nastaveno ${render.baseFov})`,
+      `obraz ${render.size[0]} × ${render.size[1]}${render.capped ? ` (zvoleno ${render.rows} řádků, strop okna)` : ''}${render.antialias ? ' · vyhlazování hran' : ''} · zorné pole ${render.hfov.toFixed(0)}° × ${render.fov.toFixed(0)}° (nastaveno ${render.baseFov})`,
       `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells}`,
       `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms${game.light.progress < 1 ? ` · STAVÍ SE ${(game.light.progress * 100).toFixed(0)} %` : ''}`,
       ...assetsLine(game),

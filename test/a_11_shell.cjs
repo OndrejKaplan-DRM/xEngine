@@ -83,6 +83,19 @@ const wait = (page, ms) => page.waitForTimeout(ms);
     const t460 = await openGame(browser, { context: { viewport: { width: 1536, height: 864 }, deviceScaleFactor: 1.25 } });
     const img = await t460.page.evaluate(() => ({ size: __xe.game.render.size, dpr: devicePixelRatio, aa: __xe.game.render.antialias, css: [document.getElementById('c').clientWidth, document.getElementById('c').clientHeight] }));
     ok(img.dpr === 1.25 && img.size[1] === 768 && img.size[0] === Math.round((768 * 1536) / 864) && !img.aa, 'na displeji T460 se kreslí 768 řádků bez vyhlazování, ne 1920 × 1080', `obraz ${img.size.join(' × ')}, okno ${img.css.join(' × ')}, devicePixelRatio ${img.dpr}`);
+    // D-039: volba 1 080 řádků v okně 864 bodů × 1,25 = 1 080 fyzických bodů kreslí 1 080; okno 702 bodů jen 878
+    const cap = await t460.page.evaluate(async () => {
+      const r = __xe.game.render;
+      r.setRows(1080);
+      const full = [...r.size, r.capped];
+      document.getElementById('view').style.cssText = 'position:absolute;left:0;top:0;width:1532px;height:702px';
+      r.resize();
+      const small = [...r.size, r.capped];
+      document.getElementById('view').style.cssText = '';
+      r.setRows(768);
+      return { full, small };
+    });
+    ok(cap.full[1] === 1080 && !cap.full[2] && cap.small[1] === 878 && cap.small[2], 'strop řádků je fyzická výška plátna (D-039)', `celé okno ${cap.full.slice(0, 2).join(' × ')}; plátno 702 bodů: ${cap.small.slice(0, 2).join(' × ')} (zvoleno 1 080)`);
     await t460.page.context().close();
   } finally {
     await browser.close();
