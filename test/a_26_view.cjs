@@ -49,7 +49,10 @@ const REGION = `async ([src, cx, cy, w, h]) => {
 const region = (page, src, cx, cy, w, h) => page.evaluate(`(${REGION})(${JSON.stringify([src, cx, cy, w, h])})`);
 
 const mutate = (glb64, webp64) => `
-  p.materials.materials.tex_test = { model: 'lit', color: [1, 1, 1], albedo: 'textures/checker.webp', uvScale: 0.5, surface: 'metal' };
+  // N-009: color materiálu s texturou je průměr povrchu; tex_test nese průměr v datech (a1) roven barvě (zesílení 1),
+  // tex_pillar ho nemá a běh ho spočítá z obrázku (a2)
+  p.materials.materials.tex_test = { model: 'lit', color: [0.5, 0.5, 0.5], albedoMean: [0.5, 0.5, 0.5], albedo: 'textures/checker.webp', uvScale: 0.5, surface: 'metal' };
+  p.materials.materials.tex_pillar = { model: 'lit', color: [0.3, 0.3, 0.3], albedo: 'textures/checker.webp', uvScale: 0.5, surface: 'metal' };
   p.prefabs.push({ file: 'prefabs/test_mesh_01.json', data: {
     xspace: 1, kind: 'prefab', id: 'test_mesh_01', title: 'Zkušební stojan z .glb', category: 'prop.test',
     bounds: { min: [-0.4, 0, -0.4], max: [0.4, 1.6, 0.4] }, rig: { nodes: [{ id: 'root' }] },
@@ -58,7 +61,7 @@ const mutate = (glb64, webp64) => `
     components: { physics: { body: 'static' } } } });
   const L = p.levels[0].data;
   L.entities.push({ id: 'e_stand', prefab: 'test_mesh_01', cell: 'c_hall', pos: [-1, 0, -16], rot: [0, 0, 0] });
-  L.brushes.find((b) => b.id === 'b_pillar_051').mat = 'tex_test';
+  L.brushes.find((b) => b.id === 'b_pillar_051').mat = 'tex_pillar';
   for (const l of L.lights || []) l.intensity = 0; // halu svítí jen její lampy (světlo z chodby portálem by srovnání rozmazalo)
   p.files = { 'golden/models/stand.glb': ${JSON.stringify(glb64)}, 'golden/textures/checker.webp': ${JSON.stringify(webp64)} };
 `;
@@ -70,7 +73,11 @@ const shoot = (page, pose, lampsOn) =>
       for (const id of ['e_lamp_hall_a', 'e_lamp_hall_b']) __xe.game.behave.input(__xe.game.entities.byId(id), lampsOn ? 'turnOn' : 'turnOff');
       __xe.sim(0.3);
       const s = __xe.shotAt(...pose, 60);
-      return { png: s.png, tex: __xe.game.render.materials.textures(), stat: { ...__xe.game.render.materials.stat }, assets: { ...__xe.game.assets.stat } };
+      const color = {};
+      __xe.game.render.scene.traverse((o) => {
+        if (o.material && /^tex_/.test(o.material.name)) color[o.material.name] = o.material.color.toArray();
+      });
+      return { png: s.png, color, tex: __xe.game.render.materials.textures(), stat: { ...__xe.game.render.materials.stat }, assets: { ...__xe.game.assets.stat } };
     },
     [pose, lampsOn],
   );
@@ -98,6 +105,13 @@ const shoot = (page, pose, lampsOn) =>
     saveDataUrl(pil.png, 'a26_sloup.png');
     const t = on.tex[0];
     ok(on.tex.length === 1 && t.src[0] === 1024 && t.w === 512 && t.h === 512, 'textura 1 024 px se na stupni low zmenší na 512 px', JSON.stringify(on.tex));
+    // průměr šachovnice lineárně: čtvrtina zelená (30, 200, 30), zbytek napůl červená (220, 40, 40) a modrá (40, 40, 220)
+    const want = [0.279, 0.161, 0.279];
+    const mean = t.mean || [0, 0, 0];
+    ok(mean.every((m, i) => Math.abs(m - want[i]) < want[i] * 0.1), 'průměr textury lineárně spočítaný při načtení (N-009 a2)', `${mean.map((v) => v.toFixed(3))} proti ${want}`);
+    const cp = on.color.tex_pillar || [];
+    const ct = on.color.tex_test || [];
+    ok(cp.length && cp.every((c, i) => Math.abs(c - 0.3 / mean[i]) < 1e-3) && ct.every((c) => Math.abs(c - 1) < 1e-6), 'barva materiálu = color / průměr textury (průměr z dat, nebo spočítaný)', `sloup ${cp.map((v) => v.toFixed(3))}, stojan ${ct.map((v) => v.toFixed(3))}`);
     ok(on.assets.meshParts === 1 && on.assets.trimeshes === 1 && on.assets.missing === 0 && on.stat.failed === 0, 'díl a kolize z .glb postavené, textura bez chyby', JSON.stringify({ assets: on.assets, tex: on.stat }));
 
     // stojan: střed obrazu je na jeho přední stěně (oči 1,0 m, stojan 0 až 1,6 m); zelený pruh nahoře textury je nahoře stojanu

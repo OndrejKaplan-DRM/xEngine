@@ -3,8 +3,10 @@
 // svítící povrch (lampa).
 //
 // Textura barvy (A2.6, D-030): pole `albedo` (cesta vůči kořeni balíku) se čte ze souborů balíku (assets.bytes).
-// Výsledek = barva materiálu × textura × světlo vrcholu, takže zapečené i počítané světlo texturu násobí.
-// Obrázek se dekóduje asynchronně; do té doby kreslí bílá 1 × 1 (vypadá jako materiál bez textury).
+// Barva materiálu s texturou je její PRŮMĚRNÁ barva (návrh N-009, varianta a sešny B; rozhoduje svodná): kreslí se
+// textura × (color / průměr textury) × světlo vrcholu. Průměr bere z pole `albedoMean` (N-009 a1), jinak ho spočítá
+// z dekódovaného obrázku (a2). Bez textury i s ní je tak průměr povrchu týž (stupeň 0, xBake, xView kreslí `color`).
+// Obrázek se dekóduje asynchronně; do té doby kreslí bílá 1 × 1, tedy samotná `color`.
 // Stupeň low (T460): textura nejvýš 512 px na delší straně (zmenšení při dekódování, data nesou plnou kvalitu, D-029).
 
 import * as THREE from 'three';
@@ -13,6 +15,34 @@ import { isTransparent } from './opacity.js';
 const OFF_FACTOR = 0.08;
 /** Nejdelší strana textury na stupni low (zadání A2.6). */
 export const TEXTURE_MAX_LOW = 512;
+/** N-009 varianta a: `color` materiálu s texturou je průměr povrchu (false = glTF: color násobí texturu). */
+export const COLOR_IS_MEAN = true;
+
+const SRGB_TO_LINEAR = Float32Array.from({ length: 256 }, (_, i) => {
+  const c = i / 255;
+  return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+});
+
+/** Průměrná barva obrázku lineárně (N-009 a2): ze všech bodů dekódovaného obrázku, ne ze zmenšeniny na 1 bod. */
+function linearMean(img) {
+  const c = new OffscreenCanvas(img.width, img.height);
+  const g = c.getContext('2d', { willReadFrequently: true });
+  g.drawImage(img, 0, 0);
+  const d = g.getImageData(0, 0, img.width, img.height).data;
+  const m = [0, 0, 0];
+  for (let i = 0; i < d.length; i += 4) {
+    m[0] += SRGB_TO_LINEAR[d[i]];
+    m[1] += SRGB_TO_LINEAR[d[i + 1]];
+    m[2] += SRGB_TO_LINEAR[d[i + 2]];
+  }
+  const n = d.length / 4;
+  return m.map((v) => v / n);
+}
+
+/** Barva materiálu, která s texturou dá průměr `color`. */
+function colorOver(color, mean) {
+  return color.map((c, i) => c / Math.max(mean[i], 1e-3));
+}
 
 function whiteTexture() {
   const t = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
@@ -59,7 +89,7 @@ export function createMaterials({ onChange = null } = {}) {
       textures.set(path, null);
       return null;
     }
-    const rec = { tex: white, users: new Set(), w: 0, h: 0, src: null };
+    const rec = { tex: white, users: new Set(), w: 0, h: 0, src: null, mean: null };
     textures.set(path, rec);
     stat.pending++;
     const g = gen;
@@ -73,9 +103,10 @@ export function createMaterials({ onChange = null } = {}) {
         t.generateMipmaps = true;
         t.minFilter = THREE.LinearMipmapLinearFilter;
         t.needsUpdate = true;
-        Object.assign(rec, { tex: t, w: img.width, h: img.height, src });
+        Object.assign(rec, { tex: t, w: img.width, h: img.height, src, mean: COLOR_IS_MEAN ? linearMean(img) : null });
         for (const m of rec.users) {
           m.map = t;
+          if (COLOR_IS_MEAN) m.color.setRGB(...colorOver(m.userData.color, m.userData.albedoMean || rec.mean));
           m.needsUpdate = true;
         }
         stat.pending--;
@@ -110,7 +141,12 @@ export function createMaterials({ onChange = null } = {}) {
       const e = d.emissive || d.color;
       m = new THREE.MeshBasicMaterial({ color: new THREE.Color(e[0] * k, e[1] * k, e[2] * k), side, ...glass });
     }
-    tex?.users.add(m);
+    if (tex) {
+      m.userData.color = d.color;
+      m.userData.albedoMean = Array.isArray(d.albedoMean) ? d.albedoMean : null; // N-009 a1, když ho data nesou
+      tex.users.add(m);
+      if (COLOR_IS_MEAN && tex.mean) m.color.setRGB(...colorOver(d.color, m.userData.albedoMean || tex.mean));
+    }
     return m;
   }
 
@@ -136,9 +172,9 @@ export function createMaterials({ onChange = null } = {}) {
     isLit: (id) => defs[id]?.model === 'lit',
     /** Materiál je průhledný (opacity pod 1). */
     isTransparent: (id) => isTransparent(defs[id]),
-    /** Načtené textury: [{ path, w, h, src }] (src = rozměr v datech, w × h = po zmenšení na stupeň). */
+    /** Načtené textury: [{ path, w, h, src, mean }] (src = rozměr v datech, w × h po zmenšení na stupeň, mean lineárně). */
     textures() {
-      return [...textures].filter(([, r]) => r && r.src).map(([path, r]) => ({ path, w: r.w, h: r.h, src: r.src }));
+      return [...textures].filter(([, r]) => r && r.src).map(([path, r]) => ({ path, w: r.w, h: r.h, src: r.src, mean: r.mean }));
     },
     get(id) {
       let m = cache.get(id);
