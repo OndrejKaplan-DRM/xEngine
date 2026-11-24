@@ -1,8 +1,8 @@
 # Stav sešny B
 
-**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 3 (`zaklad-2` = `main` = `a995347`: mřížka světla podle D-037), sloučeno 24. 11. 2026 (`2cde996`) · **Stav:** 24. 11. 2026, sešna B03
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 24. 11. 2026 večer, sešna B04
 
-> **Základ.** Větev stojí na základu 2: znění 2 základu 1 + sloučená vlna 1 obou sešen + zkouška A × B (`npm run test:axb`) + rozhodnuté návrhy (D-029 až D-034); znění 2 základu 2 přidalo díly prefabu v `geom.js` (N-101) a rozhodnutí D-035 až D-037. V repu je engine sešny A ve stavu `230b3ee`; její novější práce (světlo po vrcholech, zastínění, dveře jako brány světla, okraj stínu po podílech) je na `origin/sesna-a` (`3b005a7`) a v této větvi není. Mřížku světla podle D-037 základ změnil 24. 11. (`a37bd48`); xBake z ní bere vzorky od `9d34aa6`.
+> **Základ.** Od znění 5 je v základu i engine sešny A z vlny 2 (světlo po vrcholech, textury a `.glb`, `?bench`) a moje vlna 2 do `ba16d8d`. Nová pole a rozhodnutí, která se týkají dat sešny B: `albedoMean` (D-045, N-009 přijat), soubory balíku ve hře (D-046, N-111), zavřené dveře se `seeThrough` zadržují světlo (D-047).
 
 ## Vlna 2: kde jsme (23. 11. 2026)
 
@@ -11,12 +11,51 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 | Úkol vlny 2 | Stav | Poznámka |
 |---|---|---|
 | B2.1 průchodnost pro skutečného hráče a katakomby | **hotovo** (24. 11. 2026, `d2e1481`) | katakomby podle volby 2 b, prkenné dveře se světlostí 0,90 m, zkouška A × B zelená. Generátor hledá cestu místností s poloměrem z rozměrů postavy (`src/gen/body.js`: kapsle 0,35 m + odstup kontroléru 0,02 m + rezerva 0,03 m; dřív číslo 0,32 m v kódu) a každý otvor i otevřené dveře musejí pustit postavu (`catalog.clearWidth`). Kontroly levelů měří skutečným hráčem z profilu enginu (`test/b_lib/player.mjs`). 200 seedů × 2 předvolby bez nálezu. Čísla v oddílu „Sešna B03“. Návrh N-008: rozměry postavy do základu |
-| B2.2 přijatá pole (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) | nezačato | `seeThrough` už mají křídla dvoukřídlých dveří |
+| B2.2 přijatá pole (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) | **rozpracováno** | `opacity` 0,3 u `glass_pane` a `screen.offset` u terminálů (24. 11. večer, `905d029`); `seeThrough` mají křídla dvoukřídlých dveří; zbytek nezačat |
 | B2.3 xSearcher | **hotovo** (24. 11. 2026, `5828344`, `24e2358`) | `tools/searcher/find.mjs`: hledání (i česky) a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox` (mimo git) se záznamem o původu, licenci a otiscích; 10 assetů v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` (47 kontrol). Podrobně oddíl „Sešna B03“ a `tools/searcher/ZDROJE.md` |
-| B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | **textury hotovo** (24. 11. 2026, `7204c2d`, `046f9a7`, `951044a`); bohatší hrubý tvar nezačato | 21 materiálů `kit_base` má `albedo`, `normal` a `uvScale` (30 souborů WebP 512 px, 1 287,4 kB); galerie 0.2 s pohledy čistý / T460 / grafická karta a vzorníkem materiálů; montáž 10 prefabů. Barva materiálu a textura si v kontraktu odporují: návrh N-009. Podrobně oddíl „Sešna B03“ |
+| B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | **textury hotovo** (24. 11. 2026, `7204c2d`, `046f9a7`, `951044a`); **bohatší tvar: první dávka a zásuvky** (24. 11. večer, `5e03d87`, `8d52fb5`) | 21 materiálů `kit_base` má `albedo`, `normal` a `uvScale` (30 souborů WebP 512 px, 1 287,4 kB); galerie 0.2 s pohledy čistý / T460 / grafická karta a vzorníkem materiálů; montáž 10 prefabů. Barva materiálu a textura si v kontraktu odporují: návrh N-009. Podrobně oddíl „Sešna B03“ |
 | B2.5 zkouška povrchu na jednom kusu (dveře `.glb`, materiál s texturou) | nezačato | |
 | B2.6 xBake a N-001 | **hotovo podle D-035 a zadání vlny 2** (24. 11. 2026, `3d1aa2a`, `7dd9cd2`) | (1) křídla dveří v portálech přímé světlo nestíní; světlo otvorem portálu s dveřmi je v úseku vrstvy s polem `gate` a běh ho násobí otevřením dveří. (2) Stíní kolize prefabů přes `partCollider` ze základu. (3) Vzorek na okraji stínu svítí podílem své plošky (4 × 4 paprsky). (4) Čtení souboru bez Node (`tools/bake/read.mjs`), připravené k přenosu do základu. Běh soubor dál nečte. Podrobně oddíl „Sešna B03“ a návrh N-001, znění 2 |
 | B2.7 xDesigner, dům, tvor | nezačato | |
+
+## Sešna B04 (24. 11. 2026 večer, model Opus 5.5)
+
+Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokračovat bez ztráty práce, „používej často Git“). Práce podle Ondřejových odpovědí z 19:55 (níže v oddílu B03).
+
+| Krok | Stav | Commit |
+|---|---|---|
+| dodatek znění 4: `TODO.md` a `CLAUDE.md` verzí základu, `BODY` ze `src/xspace/body.js`, čtení souboru světla ze `src/xspace/bake.js`, `tools/bake/read.mjs` smazán | hotovo | `ba16d8d` |
+| barvy materiálů podle albeda (volba 1 a) a expozice předvoleb | hotovo | `6f3141b` |
+| bohatší tvary, první dávka (volba 3 a) | hotovo | `5e03d87` |
+| zásuvky nezávisle, duté, s přihrádkami; návrh N-010 | hotovo | `8d52fb5`, `1696306` |
+| sloučení znění 5 základu (vlna 2 v `main`) | hotovo, bez konfliktů | `614e4d7` |
+| `albedoMean` (D-045), `opacity` skla (N-005), `screen.offset` terminálů | hotovo | `905d029` |
+| dřevo se suky, trhlinami a letokruhy; další dávka tvarů a nové prefaby; xBake zapeče pevné díly prefabů (D-041) | nezačato | |
+
+**Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
+
+**Mez trojúhelníků.** Bohatší tvar se do odhadu z `06_ROZPOCTY.md` (prefab ≤ 500 △ běžný, ≤ 2 000 △ složitý; je to odhad sešny B, ne měření) nevešel. Změnila jsem kontrolu v `b_t2`: běžný prefab ≤ 1 000 △, přístroj ≤ 2 000 △, a v `b_t1` nově **celý level ≤ 300 tisíc △** (kvádry + prefaby; změřená mez viditelné scény z `06_ROZPOCTY.md`, celý level je horní mez toho, co je vidět). Po zásuvkách: `complex` 101 344 až 191 324 △ na level, `catacombs` 35 496 až 76 880 △ (b_t1, 500 seedů). **Pro svodnou sešnu:** řádek „prefab“ v `06_ROZPOCTY.md` by měl říkat ≤ 1 000 △; rozhoduje měření scény, ne prefab.
+
+**Zásuvky nezávisle (Ondřej: „otevírat i spodní šuplíky nezávisle na prvním“).** Formát verze 1 unese jednu interakci na prefab. Dočasné řešení bez změny formátu: kartotéka (`cabinet_file_01`) a stůl (`desk_office_01`) jsou korpusy bez kloubu a v `source.params.attach` jmenují své zásuvky (`drawer_file_01` 4×, `drawer_desk_01` 3×) s polohou v prostoru korpusu. Generátor je postaví jako vlastní entity hned za korpusem (`furnish.js`, `tryPlace`), katalog (`catalog.js`: `attachments`, `restBox`, `sweptBox`) počítá obaly i se zásuvkami, takže rozmístění nechá místo pro vytažené zásuvky. Trvalé řešení navrhuju v **N-010** (doporučená varianta: `interact` jako seznam).
+
+- Zásuvky jsou **duté**: vana s bočnicemi, zády, dnem a výsuvy. Kartotéka: šest závěsných desek (zelené a z hnědé lepenky `paper_kraft`, nový materiál bez textury) na lištách, štítky, papíry; čelo se sraženými hranami, rámeček na štítek, madlo, zámek nad horní zásuvkou. Stůl: podélná a příčná přepážka (tužky vpředu, papíry vzadu), dvě tužky. Korpusy mají příčky mezi šachtami, výsuvy na bocích a zapuštěný sokl.
+- Tak čtu „vnitřní kompartmentizaci“ (varianta a: přihrádky v zásuvkách a police ve skříních). Otázka na Ondřeje, jestli myslel spíš kresbu dřeva (varianta b), je otevřená.
+- Trojúhelníky: `cabinet_file_01` 316, `drawer_file_01` 456 (kartotéka celkem 2 140), `desk_office_01` 292, `drawer_desk_01` 320 (stůl celkem 1 252). Sada: 51 prefabů (12 200 △), 42 materiálů.
+- Generované levely: `complex` 44 až 189 zásuvek na level (medián 105 až 112 podle běhu), entit 412 až 714 (medián 510 až 543), tedy zhruba o pětinu víc entit než se zásuvkou v korpusu; nejvíc 48 entit v jedné buňce (`complex`, 100 seedů; odhad v `06_ROZPOCTY.md` je ≤ 150). Cena víc entit v běhu na T460 **není změřená**; s xBench nebo `?bench` nad `complex_7` ji změří až Ondřej.
+
+| Kontrola | Výsledek | Kde |
+|---|---|---|
+| připojené zásuvky existují, mají interakci, sedí do korpusu, nepřekrývají se, jsou duté (60 % bodů vnitřku vany volných) | 7 zásuvek u 2 korpusů | `b_t2` |
+| u každého korpusu v levelu stojí jeho zásuvky na místě a s natočením podle korpusu (1 mm, 0,1°) | 0 nálezů na 500 seedech | `checkAttachments` v `b_lib/level-checks.mjs`, `b_t1` |
+| v enginu A (`complex_7`): spodní zásuvka se otevře sama (0,45 m), ostatní tři stojí | ano | `b_t8_zasuvky.cjs` |
+| hráč zamíří na třetí zásuvku zdola a vytáhne ji skutečnou myší (0,29 m); druhá a horní stojí | ano | `b_t8` |
+| prostřední zásuvka stolu se otevře sama (0,33 m) | ano | `b_t8` |
+
+Snímek `test/out/b_zasuvky.png` (kartotéka se spodní a třetí zásuvkou otevřenou, stůl s otevřenou prostřední; engine A s texturami). Past: pohon zásuvky se zastaví o hráče, který stojí v její dráze (D-025); hráč musí stát dál než 0,8 m od čela kartotéky.
+
+**Znění 5 základu.** Sloučení bez konfliktů. `albedoMean` zapisuje `make-kit.mjs` z průměru hotového souboru v zámku textur; galerie bere zesílení `color / albedoMean` z dat materiálu (zámek už jen jako záloha). `glass_pane` má `opacity` 0,3 (galerie ho kreslí průhledně), terminály `screen.offset` 1 mm před svítícím dílem (0,005 a 0,004 m). Kontrola textury v galerii (B-T3) je teď na dřevěné skříni: nová kartotéka má víc odstínů už v čistém pohledu (45), takže poměr 1,5× k textuře přestal měřit texturu.
+
+**Regrese po B04** (sandbox): `npm test` T0 41, T1 156, T4 46, T2 15, T3 12; `npm run test:b` 209 (B-T1 62, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47) + B-T8 7; `npm run test:axb` 37; 0 selhalo.
 
 ## Sešna B03 (24. 11. 2026)
 
@@ -328,11 +367,12 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | N-002 | svázané klouby (dvoukřídlé dveře, mikroskop, klika) | dvě entity spojené přes `io`; nesvázané klouby |
 | N-003 | portál jen pro pohled a průhledné dveře (okno, mříž) | generátor okno a mřížovou bránu nerozmisťuje |
 | N-004 | údaje prefabu pro rozmisťování (uchycení, rozměr otvoru) | výška v pravidlech předvoleb, otvor ze `source.params` |
-| N-005 | průhlednost materiálu (sklo) | `glass_pane` je neprůhledný |
+| N-005 | průhlednost materiálu (sklo). **Přijat**, pole `opacity` v základu | `glass_pane` má `opacity` 0,3 (24. 11. večer) |
 | N-006 | stupně kvality a vrstvy vzhledu (hra má vypadat skutečně; rezerva pro silnější stroj) | bohatší hrubý tvar a textury v polích, která formát už má; nová pole nepíšu |
-| N-008 | rozměry postavy hráče (poloměr, výška, schod) a odstup kontroléru do základu: dnes jsou v enginu, v robotu zkoušky A × B a v generátoru. **Otevřený** | `src/gen/body.js` drží jednu kopii v generátoru; test `b_t1_xgen` ji porovnává s profilem enginu |
-| N-009 | barva materiálu s texturou: `color` jako průměrná barva povrchu, běh kreslí `textura × (color / průměr)`, průměr v poli `albedoMean`. **Otevřený** | `kit_base` má `color` beze změny, průměr a zesílení jen v `tools/forge/kit/textures.lock.json`; galerie kreslí podle návrhu |
+| N-008 | rozměry postavy hráče (poloměr, výška, schod) a odstup kontroléru do základu: dnes jsou v enginu, v robotu zkoušky A × B a v generátoru. **Přijat (D-040)** | `src/gen/body.js` drží jednu kopii v generátoru; test `b_t1_xgen` ji porovnává s profilem enginu |
+| N-009 | barva materiálu s texturou: `color` jako průměrná barva povrchu, běh kreslí `textura × (color / albedoMean)`. **Přijat (D-045)** | `kit_base` zapisuje `albedoMean` (24. 11. večer, `905d029`) |
 | N-007 | zakrytí otvoru dveřmi počítat ze všech dílů dveří; `portal.door` jako seznam (doplňuje N-107 sešny A). **Bod 1 přijat, bod 2 zamítnut (D-036)** | dorazy a prahová lišta v sadě; křídla dvoukřídlých dveří mají `seeThrough` a první je v `portal.door`; zkouška paprsky v `b_t1`, `b_t2` |
+| N-010 | víc interakcí v jednom prefabu (kartotéka se čtyřmi zásuvkami, stůl s kontejnerem); doporučuju `interact` jako seznam. **Otevřený** | korpus jmenuje zásuvky v `source.params.attach`, generátor je staví jako samostatné entity (`8d52fb5`) |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
 
@@ -354,6 +394,9 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 11. **Moje testy čtou tvůj profil hráče** (`src/play/profiles.js`, `CHARACTER_SKIN` z `src/phys/phys.js`), jen čtou. Když změníš poloměr nebo odstup, selže `b_t1_xgen` a je to správně: generátor pak staví pro menší postavu. Návrh N-008 to chce mít v základu.
 
 ## Poznatky pro skill
+- (B04) Víc ovládaných dílů v jednom kusu nábytku: korpus + samostatné prefaby zásuvek v `source.params.attach`, generátor je staví jako entity hned za korpusem, katalog počítá obaly se zásuvkami (N-010). V enginu se zásuvka na pohon zastaví o hráče v dráze (D-025): ve zkoušce stůj dál než dosah výsuvu.
+- (B04) Bohatý tvar z kvádrů a válců (`tools/forge/shapes.mjs`), ne z `.glb`: pevné díly zapeče xBake (D-041) a engine je nakreslí bez načítání modelu. Sražená hrana = tři překryté kvádry (36 △).
+- (B04) Kontrola „je vidět textura“ podle počtu odstínů se rozbije, když prefab zbohatne tvarem (víc odstínů už v čistém pohledu); měř na prefabu s velkými plochami jednoho materiálu.
 
 - **Commit hned, ne až po testech.** Tuhle sešnu přerušil limit dřív, než vznikl první commit; soubory přežily restart kontejneru jen proto, že zůstaly na disku. První rozpracovaný stav patří na větev hned, jak projde validátorem, ne až po testech.
 - **Celé centimetry v generátoru, metry až v datech.** Hrany buněk a zdí se porovnávají přesně a úsek zdi mezi dvěma buňkami je právě jejich společná stěna, takže otvor nikdy nepřesáhne žádnou z nich. Validátor nenašel nic už na prvním běhu.

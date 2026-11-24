@@ -74,22 +74,25 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 
 ## Sešna B (obsah a nástroje)
 
-Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b`, zadání `docs/sesny/START_B.md`. Vede sešna B.
+Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“), zadání `docs/sesny/START_B.md`. Vede sešna B.
 
 **Teď** (Ondřej 24. 11. 19:55: 1 a, 2 a, 3 a a k tomu „více těles, více prefabů, bohatší tvary…, spodní šuplíky nezávisle, realističtější dřevo“):
-1. dodatek znění 4: `BODY` a `decodeBake` ze základu, xBake zapeče i pevné díly prefabů (D-041)
-2. barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (Ondřejova volba 1 a)
-3. tvary ze sítí `.glb` z kódu (zkosení, zaoblení, římsy, výplně, mezery, vyboulení, nepravidelnosti); přestavba nejviditelnějších prefabů a nové prefaby
-4. šuplíky nezávisle: samostatné entity a návrh na víc interakcí v jednom prefabu; duté šuplíky
-5. dřevo se suky, trhlinami a letokruhy
+1. [x] dodatek znění 4: `BODY` a `decodeBake` ze základu (`ba16d8d`); [ ] xBake zapeče i pevné díly prefabů (D-041)
+2. [x] barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (`6f3141b`)
+3. [x] bohatší tvary, první dávka (z kvádrů a válců, ať je zapeče xBake a nakreslí engine A): bedny, sudy, truhla, skříň, stoly, židle, regály, lavice (`5e03d87`); [ ] další dávka a nové prefaby
+4. [x] zásuvky nezávisle: samostatné entity připojené ke korpusu, duté s přihrádkami, návrh **N-010**; v enginu A ověřeno (`8d52fb5`, `1696306`)
+5. [ ] dřevo: realističtější barva, suky, trhliny, letokruhy
 
-**Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) · B2.7.
+**Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
-**Čeká na jiné:** N-009 barva materiálu s texturou (svodná; týká se A2.6) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A.
+**Čeká na jiné:** N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
-- 24. 11. B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB), galerie se třemi pohledy, návrh N-009 (`7204c2d`, `951044a`, `70d2473`)
-- 24. 11. B2.3 xSearcher: hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox`; 19 textur v příjmu; test bez sítě 47 kontrol (`5828344`, `24e2358`)
-- 24. 11. xBake nad mřížkou D-037; brány dveří, stínění kolizemi, okraj stínu po podílech (`3d1aa2a`, `7dd9cd2`, `9d34aa6`)
-- 24. 11. B2.1 průchodnost pro hráče 0,74 m, světlost dveří (`d2e1481`)
-- 24. 11. regrese po B2.4: `npm test` 254, `npm run test:b` 201, `npm run test:axb` 37, 0 selhalo (`951044a`, sandbox)
+- 24. 11. znění 5 základu sloučeno (`614e4d7`); `albedoMean` u 21 materiálů (D-045), `opacity` skla, `screen.offset` terminálů (`905d029`)
+- 24. 11. zásuvky kartotéky a stolu jako samostatné entity; B-T8 v enginu A: spodní se otevře sama, třetí vytáhne hráč myší, ostatní stojí (`8d52fb5`, `1696306`)
+- 24. 11. bohatší tvary, první dávka; mez prefabu 1 000 △, celý level do 300 tisíc △ (`5e03d87`)
+- 24. 11. barvy podle albeda, expozice `complex` 0,95 a `catacombs` 1,03 (`6f3141b`)
+- 24. 11. B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB), galerie se třemi pohledy (`7204c2d`, `951044a`, `70d2473`)
+- 24. 11. B2.3 xSearcher: příjem textur CC0 z Poly Haven a ambientCG, test bez sítě 47 kontrol (`5828344`, `24e2358`)
+- 24. 11. xBake nad mřížkou D-037; brány dveří, stínění kolizemi, okraj stínu po podílech (`3d1aa2a`, `9d34aa6`)
+- 24. 11. regrese po zásuvkách a znění 5: `npm test` 270, `npm run test:b` 209 (+ B-T8 7), `npm run test:axb` 37, 0 selhalo (sandbox)
