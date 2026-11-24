@@ -76,7 +76,7 @@ const prefabs = [
   prefab('door_hinged_01', 'Dveře otočné 1,0 × 2,1 m', 'arch.door', [-0.5, 0, -1], [0.5, 2.1, 1],
     {
       nodes: [{ id: 'frame' }, { id: 'leaf', parent: 'frame', pos: V(-0.5, 0, 0) }],
-      joints: [{ id: 'hinge', node: 'leaf', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, rest: 0, damping: 4, speed: 120, drive: 'both' }],
+      joints: [{ id: 'hinge', node: 'leaf', type: 'hinge', axis: [0, 1, 0], min: 0, max: 105, rest: 0, damping: 4, speed: 120, drive: 'both' }],
     },
     [box('leaf', [0.01, 0.01, -0.02], [0.99, 2.09, 0.02], 'wood_dark'), box('leaf', [0.86, 1.0, 0.02], [0.94, 1.04, 0.08], 'steel'), box('leaf', [0.86, 1.0, -0.08], [0.94, 1.04, -0.02], 'steel')],
     {

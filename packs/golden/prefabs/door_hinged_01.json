@@ -11,7 +11,7 @@
       { "id": "leaf", "parent": "frame", "pos": [-0.5, 0, 0] }
     ],
     "joints": [
-      { "id": "hinge", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": -105, "max": 105, "rest": 0, "damping": 4, "speed": 120, "drive": "both" }
+      { "id": "hinge", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 105, "rest": 0, "damping": 4, "speed": 120, "drive": "both" }
     ]
   },
   "parts": [
