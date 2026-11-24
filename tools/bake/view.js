@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh } from '../../src/xspace/index.js';
 import { bakeLevel } from './bake.mjs';
-import { composeColors } from './read.mjs';
+import { composeColors } from '../../src/xspace/bake.js';
 
 const VERSION = 'xBake náhled 0.4 · 2026-11-24 · mřížka světla znění 2';
 const pack = globalThis.__PACK__;

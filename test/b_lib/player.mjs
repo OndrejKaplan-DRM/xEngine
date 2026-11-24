@@ -1,15 +1,13 @@
-// Skutečný hráč pro kontroly dat sešny B: rozměry se čtou z profilu pohybu enginu a z fyziky (oblast sešny A),
-// ne z generátoru. Když sešna A postavu změní, kontroly průchodnosti to poznají samy.
-
+// Skutečný hráč pro kontroly dat sešny B: rozměry ze základu (src/xspace/body.js, D-040), ne z generátoru.
+// Profil pohybu levelu (`profile`) mění jen rychlosti; tělo je pro všechny profily stejné.
+import { BODY, CHARACTER_SKIN } from '../../src/xspace/body.js';
 import { PROFILES } from '../../src/play/profiles.js';
-import { CHARACTER_SKIN } from '../../src/phys/phys.js';
 
 /** Hráč levelu podle jména profilu: poloměr kapsle, odstup kontroléru, r = obojí dohromady, šířka průchodu. */
 export function playerOf(profileId) {
-  const p = PROFILES[profileId];
-  if (!p) throw new Error(`neznámý profil pohybu „${profileId}“`);
-  const r = p.radius + CHARACTER_SKIN;
-  return { profile: profileId, radius: p.radius, skin: CHARACTER_SKIN, r, width: 2 * r, height: p.height, step: p.stepHeight };
+  if (!PROFILES[profileId]) throw new Error(`neznámý profil pohybu „${profileId}“`);
+  const r = BODY.radius + CHARACTER_SKIN;
+  return { profile: profileId, radius: BODY.radius, skin: CHARACTER_SKIN, r, width: 2 * r, height: BODY.height, step: BODY.stepHeight };
 }
 
 export const PROFILE_IDS = Object.keys(PROFILES);

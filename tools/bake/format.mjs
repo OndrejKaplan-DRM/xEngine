@@ -1,11 +1,11 @@
 // xBake: zápis souboru se zapečeným světlem a otisky (N-001, přijato D-035). Stavbu souboru a čtení popisuje
-// read.mjs; tady je jen to, co potřebuje Node (otisky přes node:crypto, skládání Bufferu).
+// src/xspace/bake.js (D-044, převzato z tools/bake/read.mjs); tady je jen to, co potřebuje Node (otisky, Buffer).
 
 import { createHash } from 'node:crypto';
 import { levelLightMeshes } from '../../src/xspace/index.js';
-import { MAGIC } from './read.mjs';
+import { MAGIC } from '../../src/xspace/bake.js';
 
-export { MAGIC, decodeBake, composeColors, gateLevel } from './read.mjs';
+export { MAGIC, decodeBake, composeColors, gateLevel } from '../../src/xspace/bake.js';
 
 const sha = (v) => createHash('sha256').update(JSON.stringify(v)).digest('hex');
 
