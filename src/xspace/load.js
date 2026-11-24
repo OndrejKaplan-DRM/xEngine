@@ -27,10 +27,11 @@ export async function loadPack(read) {
 /**
  * Spojí balík s balíky, na kterých stojí (manifest.requires). Výsledek má materiály a prefaby všech,
  * levely jen hlavního. Převzaté prefaby nesou `from` = id balíku původu; validátor je znovu nekontroluje,
- * jen na ně řeší odkazy. Kolize id materiálu nebo prefabu mezi balíky je chyba (mergeErrors).
+ * jen na ně řeší odkazy. `materialFrom` říká u každého materiálu id balíku původu (N-111).
+ * Kolize id materiálu nebo prefabu mezi balíky je chyba (mergeErrors).
  */
 export function mergePacks(main, deps) {
-  const out = { manifest: main.manifest, materials: { xspace: 1, kind: 'materials', materials: {} }, prefabs: [], levels: main.levels, loadErrors: [...main.loadErrors], mergeErrors: [], complete: true, foreignMaterials: [] };
+  const out = { manifest: main.manifest, materials: { xspace: 1, kind: 'materials', materials: {} }, prefabs: [], levels: main.levels, loadErrors: [...main.loadErrors], mergeErrors: [], complete: true, foreignMaterials: [], materialFrom: {} };
   const want = Array.isArray(main.manifest?.requires) ? main.manifest.requires : [];
   const have = new Map(deps.filter((d) => d.manifest).map((d) => [d.manifest.id, d]));
   const seenPrefab = new Map();
@@ -39,6 +40,7 @@ export function mergePacks(main, deps) {
       if (id in out.materials.materials) out.mergeErrors.push({ code: 'pack.dupeMaterial', msg: `materiál „${id}“ je ve více balících` });
       else {
         out.materials.materials[id] = m;
+        out.materialFrom[id] = from || main.manifest?.id; // N-111: odkud hledat albedo a normal
         if (from) out.foreignMaterials.push(id);
       }
     }

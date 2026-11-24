@@ -220,6 +220,7 @@ const MUTATIONS = [
   ['phys.mass', 'dynamické těleso bez hmotnosti', (p) => delete P(p, 'crate_wood_01').components.physics.mass],
   ['phys.noCollider', 'těleso bez kolize', (p) => delete P(p, 'crate_wood_01').colliders],
   ['phys.staticJoint', 'pohyblivý předmět jako static (varování)', (p) => (P(p, 'door_hinged_01').components.physics.body = 'static')],
+  ['ref.asset', 'textura materiálu, která není v manifestu (N-111)', (p) => (Object.values(p.materials.materials)[0].albedo = 'textures/neni.webp')],
   ['ref.asset', 'síť, která není v manifestu', (p) => (P(p, 'crate_wood_01').parts[0] = { node: 'body', shape: 'mesh', mesh: 'assets/crate.glb' })],
   ['license.notFree', 'cizí licence ve volném balíku', (p) => (P(p, 'crate_wood_01').source.license = 'CC-BY-4.0')],
   ['pack.version', 'verze balíku ve špatném tvaru', (p) => (p.manifest.version = 'první')],
@@ -250,6 +251,26 @@ ok(new Set(MUTATIONS.map((m) => m[0])).size >= 40, 'mutace pokrývají aspoň 40
   ok(broken.manifest === null && broken.loadErrors.length === 1, 'adresář bez pack.json vrátí chybu načtení, ne výjimku');
 }
 
+// ---- soubory balíků ve hře (N-111): readPackFull(dir, { files: true })
+{
+  const { mkdirSync, writeFileSync } = await import('node:fs');
+  const { readPackFull } = await import('../tools/lib/read-pack.mjs');
+  const tmp = mkdtempSync(path.join(os.tmpdir(), 'files-'));
+  const bytes = new Uint8Array([1, 2, 3, 250]);
+  const mk = (id, manifest) => {
+    mkdirSync(path.join(tmp, id, 'tex'), { recursive: true });
+    writeFileSync(path.join(tmp, id, 'pack.json'), JSON.stringify({ xspace: 1, kind: 'pack', id, title: id, version: '0.1.0', free: true, ...manifest }));
+  };
+  mk('dep', { assets: [{ path: 'tex/a.webp', bytes: 4, sha256: '0'.repeat(64), license: 'CC0-1.0' }] });
+  writeFileSync(path.join(tmp, 'dep', 'tex/a.webp'), bytes);
+  mk('main', { requires: ['dep'], assets: [{ path: 'tex/a.webp', bytes: 4, sha256: '0'.repeat(64), license: 'CC0-1.0' }, { path: 'tex/chybi.webp', bytes: 1, sha256: '0'.repeat(64), license: 'CC0-1.0' }] });
+  writeFileSync(path.join(tmp, 'main', 'tex/a.webp'), new Uint8Array([9]));
+  const withFiles = await readPackFull(path.join(tmp, 'main'), { files: true });
+  const without = await readPackFull(path.join(tmp, 'main'));
+  const f = withFiles.files || {};
+  ok(Object.keys(f).sort().join() === 'dep/tex/a.webp,main/tex/a.webp' && f['dep/tex/a.webp'].join() === bytes.join() && f['main/tex/a.webp'][0] === 9 && without.files === undefined, 'readPackFull s files: soubory z assets hlavního balíku i závislostí, klíč id balíku/cesta; chybějící přeskočí; bez volby nic');
+}
+
 // ---- balík, který stojí na jiném balíku (requires)
 {
   const golden = await readPackDir(GOLDEN);
@@ -266,6 +287,7 @@ ok(new Set(MUTATIONS.map((m) => m[0])).size >= 40, 'mutace pokrývají aspoň 40
   const full = validatePack(merged);
   ok(full.ok && full.warnings.length === 0, 'balík spojený se závislostí je bez nálezů', [...full.errors, ...full.warnings].map((x) => x.code).join(' '));
   ok(full.stats.prefabs === 12 && full.stats.requires.join() === 'golden', 'spojený balík vidí prefaby závislosti');
+  ok(merged.materialFrom.steel === 'golden' && Object.keys(merged.materialFrom).length === Object.keys(golden.materials.materials).length, 'spojený balík ví u každého materiálu, z kterého balíku je (N-111)');
   const missing = validatePack(mergePacks(child, []));
   ok(missing.errors.some((e) => e.code === 'pack.missingDep') && missing.errors.some((e) => e.code === 'ref.prefab'), 'chybějící závislost je chyba a odkazy do ní také');
   const clash = clone(child);

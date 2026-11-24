@@ -4,7 +4,8 @@
 // Cíl se nezapisuje sem: každý má vlastní soubor target.json ve své složce
 // (tools/<jméno>/target.json nebo src/app/target.json, src/app/<jméno>/target.json):
 //   { "id": "xview", "entry": "main.js", "template": "index.html", "pack": "../../packs/golden" }
-// entry, template a pack jsou cesty vůči složce cíle. pack je volitelný: balík se vloží do stránky jako __PACK__.
+// entry, template a pack jsou cesty vůči složce cíle. pack je volitelný: balík se vloží do stránky jako __PACK__,
+// jeho soubory z assets (i z balíků v requires) jako base64 v __PACK__.files (N-111).
 // Díky tomu dvě sešny přidávají cíle, aniž by upravovaly stejný soubor.
 
 import { build } from 'esbuild';
@@ -58,17 +59,27 @@ async function buildTarget(t) {
   const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
   const js = safe(bundle.outputFiles[0].text);
   let data = '';
+  let fileInfo = '';
   if (t.pack) {
-    const pack = await readPackFull(path.join(root, t.dir, t.pack));
+    const pack = await readPackFull(path.join(root, t.dir, t.pack), { files: true });
     if (pack.loadErrors.length) throw new Error(`Balík ${t.pack} se nenačetl: ${pack.loadErrors.map((e) => e.file).join(', ')}`);
-    data = safe(`globalThis.__PACK__=${JSON.stringify(pack)};`);
+    // N-111: binární soubory balíku (textury, .glb) jako base64 v pack.files, klíč "<id balíku>/<cesta>"
+    const files = {};
+    let raw = 0;
+    for (const [k, v] of Object.entries(pack.files || {})) {
+      files[k] = Buffer.from(v).toString('base64');
+      raw += v.length;
+    }
+    const n = Object.keys(files).length;
+    if (n) fileInfo = `, soubory balíku ${n} (${(raw / 1024).toFixed(1)} kB, v base64 ${(Object.values(files).reduce((a, x) => a + x.length, 0) / 1024).toFixed(1)} kB)`;
+    data = safe(`globalThis.__PACK__=${JSON.stringify({ ...pack, files })};`);
   }
   const template = await readFile(path.join(root, t.dir, t.template), 'utf8');
   // nahrazení funkcí: řetězec by interpretoval znaky $& v kódu
   const html = template.replace('/*__DATA__*/', () => data).replace('/*__JS__*/', () => js);
   await mkdir(path.join(root, 'dist'), { recursive: true });
   await writeFile(path.join(root, 'dist', `${t.id}.html`), html);
-  console.log(`dist/${t.id}.html  ${(html.length / 1024).toFixed(1)} kB  (js ${(js.length / 1024).toFixed(1)} kB${data ? `, data ${(data.length / 1024).toFixed(1)} kB` : ''})`);
+  console.log(`dist/${t.id}.html  ${(html.length / 1024).toFixed(1)} kB  (js ${(js.length / 1024).toFixed(1)} kB${data ? `, data ${(data.length / 1024).toFixed(1)} kB` : ''}${fileInfo})`);
 }
 
 const targets = await discover();
