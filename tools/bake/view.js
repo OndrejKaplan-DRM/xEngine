@@ -1,13 +1,15 @@
 // xBake, náhled: zapeče světlo levelu přímo v prohlížeči (stejným kódem jako nástroj) a ukáže ho bez světel za běhu.
 // Barva vrcholu = barva materiálu / π × osvětlení; materiál bez výpočtu světel s barvou vrcholů. Tak má statický
 // svět kreslit běh (D-022). Převod na displej je stejný jako v xView (ACES, expozice levelu), aby šly snímky srovnat.
+// Přepínač „Dveře otevřené“ ukazuje brány světla (D-035): úseky vrstev za dveřmi se násobí jejich otevřením.
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { brushLightMesh, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul } from '../../src/xspace/index.js';
-import { bakeLevel, DEFAULTS } from './bake.mjs';
+import { brushLightMesh, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh } from '../../src/xspace/index.js';
+import { bakeLevel } from './bake.mjs';
+import { composeColors } from './read.mjs';
 
-const VERSION = 'xBake náhled 0.2 · 2026-11-22';
+const VERSION = 'xBake náhled 0.3 · 2026-11-24';
 const pack = globalThis.__PACK__;
 const q = new URLSearchParams(location.search);
 const level = (pack.levels.find((l) => l.data.id === q.get('level')) || pack.levels[0]).data;
@@ -17,28 +19,24 @@ const albedo = (id) => (mats[id] && mats[id].color) || [0.5, 0.5, 0.5];
 
 const full = bakeLevel(level, prefabs, mats);
 const flat = bakeLevel(level, prefabs, mats, { occlusion: false });
+const coarse = bakeLevel(level, prefabs, mats, { soft: 0, indirect: false }); // jeden paprsek na vzorek, pro srovnání okraje stínu
 const N = full.samples;
 const S = full.scene;
-const layer = (bake, id) => bake.layers.find((L) => L.id === id);
-const state = { shadows: true, indirect: true, ao: true, lamps: false };
+const byId = new Map(full.lights.map((L) => [L.id, L]));
+const wings = new Set(full.wings);
+const OPEN = Object.fromEntries(full.doors.map((d) => [d.id, 1]));
+const state = { shadows: true, soft: true, indirect: true, ao: true, lamps: false, doors: false };
 let fill = 0; // přisvícení přehledu shora: vnější strany zdí by jinak byly černé (ven žádné světlo nesvítí)
 
 /** Osvětlení vzorků (RGB) pro daný stav přepínačů. */
 function sampleLight() {
-  const bake = state.shadows ? full : flat;
-  const out = new Float32Array(N * 3);
-  const amb = level.env.ambient;
-  const ao = state.shadows && state.ao ? layer(full, 'ao') : null;
-  for (let s = 0; s < N; s++) for (let c = 0; c < 3; c++) out[s * 3 + c] = amb[c] * (ao ? ao.data[s] : 1) + fill;
-  for (const L of bake.lights) {
-    if (!(L.base || (state.lamps && L.kind === 'entity'))) continue;
-    const d = layer(bake, L.id).data;
-    for (let s = 0; s < N; s++) if (d[s]) for (let c = 0; c < 3; c++) out[s * 3 + c] += d[s] * L.color[c];
-  }
-  if (state.shadows && state.indirect) {
-    const d = layer(full, 'indirect').data;
-    for (let i = 0; i < N * 3; i++) out[i] += d[i] * full.indirectWeight;
-  }
+  const bake = !state.shadows ? flat : state.soft ? full : coarse;
+  const extra = state.shadows ? full.layers.filter((L) => (L.kind === 'ao' && state.ao) || (L.kind === 'indirect' && state.indirect)) : [];
+  const layers = [...bake.layers.filter((L) => L.kind === 'light' || L.kind === 'entity'), ...extra];
+  const levels = { indirect: full.indirectWeight };
+  for (const L of full.lights) levels[L.id] = L.base || (state.lamps && L.kind === 'entity') ? 1 : 0;
+  const out = composeColors({ header: { samples: N }, layers }, byId, level.env.ambient, levels, state.doors ? OPEN : {});
+  if (fill) for (let i = 0; i < out.length; i++) out[i] += fill;
   return out;
 }
 
@@ -68,47 +66,60 @@ for (const [name, g] of Object.entries(groups)) {
   scene.add(meshes[name]);
 }
 
-// ---- díly prefabů v klidu: světlo se počítá ve vrcholech dílu (lightIrradiance + paprsek), svítící materiály svítí samy
-// Kvádr má jednu hodnotu na stěnu (počítá se ve středu stěny), válec hodnotu ve vrcholu: tak díly osvětluje i běh.
-// Díly téže entity si navzájem nestíní (střed stěny skříně leží za čelem zásuvky).
+// ---- díly prefabů: síť dílu dává partMesh ze základu (N-101), polohu uzlů rigMatrices. Dveře portálů se kreslí
+// zavřené nebo otevřené na doraz podle přepínače. Světlo dílu: kvádr má jednu hodnotu na stěnu (počítá se
+// ve středu stěny), válec hodnotu ve vrcholu; díly téže entity si navzájem nestíní.
 const props = { pos: [], nrm: [], idx: [], mat: [], at: [], ent: [] };
-for (const e of level.entities || []) {
-  const pf = prefabs.get(e.prefab);
-  if (!pf) continue;
-  const E = entityMatrix(e);
-  const rig = rigMatrices(pf, {});
-  for (const p of pf.parts) {
-    let geo;
-    if (p.shape === 'box') {
-      geo = new THREE.BoxGeometry(p.max[0] - p.min[0], p.max[1] - p.min[1], p.max[2] - p.min[2]);
-      geo.translate((p.min[0] + p.max[0]) / 2, (p.min[1] + p.max[1]) / 2, (p.min[2] + p.max[2]) / 2);
-    } else if (p.shape === 'cyl') {
-      geo = new THREE.CylinderGeometry(p.radius, p.radius, p.height, 16);
-      if (p.axis === 'x') geo.rotateZ(Math.PI / 2);
-      if (p.axis === 'z') geo.rotateX(Math.PI / 2);
-      geo.translate(...p.center);
-    } else continue;
-    geo.applyMatrix4(new THREE.Matrix4().fromArray(mat4Mul(E, rig[p.node])));
-    const base = props.pos.length / 3;
-    for (const v of geo.attributes.position.array) props.pos.push(v);
-    for (const v of geo.attributes.normal.array) props.nrm.push(v);
-    for (const i of geo.index.array) props.idx.push(base + i);
-    const P = geo.attributes.position.array;
-    for (let v = 0; v < geo.attributes.position.count; v++) {
-      props.mat.push(p.mat);
-      props.ent.push(e.id);
-      const f = p.shape === 'box' ? v - (v % 4) : -1; // BoxGeometry: čtyři vrcholy na stěnu za sebou
-      if (f < 0) props.at.push(P[v * 3], P[v * 3 + 1], P[v * 3 + 2]);
-      else for (let c = 0; c < 3; c++) props.at.push((P[f * 3 + c] + P[(f + 1) * 3 + c] + P[(f + 2) * 3 + c] + P[(f + 3) * 3 + c]) / 4);
-    }
-  }
-}
 const propGeo = new THREE.BufferGeometry();
-propGeo.setAttribute('position', new THREE.Float32BufferAttribute(props.pos, 3));
-propGeo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(props.pos.length), 3));
-propGeo.setIndex(props.idx);
 meshes.props = new THREE.Mesh(propGeo, material);
 scene.add(meshes.props);
+
+function openPose(pf) {
+  const it = (pf.components || {}).interact;
+  const j = it && (pf.rig.joints || []).find((x) => x.id === it.joint);
+  if (!j) return {};
+  const rest = j.rest ?? j.min;
+  return { [j.id]: Math.abs(j.max - rest) >= Math.abs(j.min - rest) ? j.max : j.min };
+}
+
+function buildProps(doorsOpen) {
+  for (const k of Object.keys(props)) props[k].length = 0;
+  for (const e of level.entities || []) {
+    const pf = prefabs.get(e.prefab);
+    if (!pf) continue;
+    const E = entityMatrix(e);
+    const rig = rigMatrices(pf, doorsOpen && wings.has(e.id) ? openPose(pf) : {});
+    for (const p of pf.parts) {
+      const mesh = partMesh(p);
+      if (!mesh) continue; // díl ze souboru .glb náhled nekreslí
+      const M = mat4Mul(E, rig[p.node]);
+      const zero = mat4Point(M, [0, 0, 0]);
+      const base = props.pos.length / 3;
+      const count = mesh.positions.length / 3;
+      const world = [];
+      for (let v = 0; v < count; v++) {
+        const w = mat4Point(M, [mesh.positions[v * 3], mesh.positions[v * 3 + 1], mesh.positions[v * 3 + 2]]);
+        const n = mat4Point(M, [mesh.normals[v * 3], mesh.normals[v * 3 + 1], mesh.normals[v * 3 + 2]]).map((x, k) => x - zero[k]);
+        const len = Math.hypot(n[0], n[1], n[2]) || 1;
+        world.push(w);
+        props.pos.push(w[0], w[1], w[2]);
+        props.nrm.push(n[0] / len, n[1] / len, n[2] / len);
+        props.mat.push(p.mat);
+        props.ent.push(e.id);
+      }
+      for (const i of mesh.indices) props.idx.push(base + i);
+      for (let v = 0; v < count; v++) {
+        const f = p.shape === 'box' ? v - (v % 4) : -1; // kvádr: čtyři vrcholy na stěnu za sebou (brushMesh)
+        if (f < 0) props.at.push(...world[v]);
+        else for (let c = 0; c < 3; c++) props.at.push((world[f][c] + world[f + 1][c] + world[f + 2][c] + world[f + 3][c]) / 4);
+      }
+    }
+  }
+  propGeo.setAttribute('position', new THREE.Float32BufferAttribute(props.pos, 3));
+  propGeo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(props.pos.length), 3));
+  propGeo.setIndex(props.idx);
+  propGeo.computeBoundingSphere();
+}
 
 function propColors() {
   const col = propGeo.attributes.color.array;
@@ -135,7 +146,8 @@ function propColors() {
         }
         const len = Math.hypot(d[0], d[1], d[2]);
         for (let c = 0; c < 3; c++) d[c] /= len;
-        if (len > DEFAULTS.clear && S.any(o, d, len - DEFAULTS.clear, props.ent[v])) continue;
+        // zavřená křídla dveří dílům stíní; otevřená ne (jejich stín v otevřené poloze náhled nepočítá)
+        if (len > full.clear && S.any(o, d, len - full.clear, props.ent[v], !state.doors)) continue;
       }
       for (let c = 0; c < 3; c++) sum[c] += e * L.color[c];
     }
@@ -178,10 +190,15 @@ const VIEWS = {
   iso: () => ({ pos: [center.x + size.x * 0.8, size.z * 0.6, center.z + size.z * 0.5], look: [center.x, 0, center.z - size.z * 0.05], ceiling: false, fill: 0.12 * Math.PI }),
   start: () => ({ pos: [player.pos[0], player.pos[1] + 1.6, player.pos[2]], look: [player.pos[0], player.pos[1] + 1.5, player.pos[2] - 4], ceiling: true }),
   ...(pack.manifest.id === 'golden'
-    ? { lab: () => ({ pos: [5, 1.6, -3], look: [11, 1.0, -6.5], ceiling: true }), hall: () => ({ pos: [3, 1.6, -9.2], look: [1.5, 1.2, -22], ceiling: true }), pillar: () => ({ pos: [4.5, 1.6, -17], look: [-1.5, 0.2, -11.5], ceiling: true }) }
+    ? {
+        lab: () => ({ pos: [5, 1.6, -3], look: [11, 1.0, -6.5], ceiling: true }),
+        hall: () => ({ pos: [3, 1.6, -9.2], look: [1.5, 1.2, -22], ceiling: true }),
+        pillar: () => ({ pos: [4.5, 1.6, -17], look: [-1.5, 0.2, -11.5], ceiling: true }),
+        door: () => ({ pos: [2.2, 1.6, -7.4], look: [4.1, 0.6, -5.4], ceiling: true }),
+      }
     : {}),
 };
-const LABELS = { iso: 'Přehled', start: 'Start', lab: 'Laboratoř', hall: 'Hala', pillar: 'Stín sloupu' };
+const LABELS = { iso: 'Přehled', start: 'Start', lab: 'Laboratoř', hall: 'Hala', pillar: 'Stín sloupu', door: 'Dveře laboratoře' };
 let current = 'iso';
 const render = () => renderer.render(scene, camera);
 function view(name) {
@@ -210,10 +227,12 @@ controls.addEventListener('change', render);
 addEventListener('resize', resize);
 
 // ---- panel
+const sections = full.layers.reduce((n, L) => n + L.gates.length, 0);
 document.getElementById('ver').textContent = VERSION;
 document.getElementById('info').innerHTML = [
   `<b>${level.title}</b> · balík ${pack.manifest.id}`,
   `vzorků ${N} (schovaných v tělese ${full.stats.invalid}) · vrstev ${full.layers.length} · zapečeno za ${(full.stats.ms / 1000).toFixed(2)} s v tomto prohlížeči`,
+  `dveří v portálech ${full.doors.length} · úseků s bránou ${sections} · zjemněných vzorků na okraji stínu ${full.stats.softened}`,
   `Bez světel za běhu: barva vrcholů × barva materiálu. Odraz s vahou ${full.indirectWeight}. V přehledu je scéna přisvícená, aby byly vidět vnější stěny.`,
 ].join('<br>');
 for (const name of Object.keys(VIEWS)) {
@@ -223,10 +242,15 @@ for (const name of Object.keys(VIEWS)) {
   b.onclick = () => view(name);
   document.getElementById('views').appendChild(b);
 }
-const TOGGLES = { shadows: 'Stíny', indirect: 'Odraz', ao: 'Kouty', lamps: 'Lampy (vypínače)' };
+const TOGGLES = { shadows: 'Stíny', soft: 'Jemný okraj stínu', indirect: 'Odraz', ao: 'Kouty', lamps: 'Lampy (vypínače)', doors: 'Dveře otevřené' };
+let posed = null;
 function set(patch) {
   Object.assign(state, patch);
   document.querySelectorAll('#toggles button').forEach((b) => b.classList.toggle('on', state[b.dataset.key]));
+  if (posed !== state.doors) {
+    posed = state.doors;
+    buildProps(posed);
+  }
   recolor();
 }
 for (const [key, label] of Object.entries(TOGGLES)) {
@@ -249,7 +273,7 @@ globalThis.__xbake = {
   view,
   set,
   state: () => ({ ...state }),
-  stats: { samples: N, invalid: full.stats.invalid, layers: full.layers.length, ms: full.stats.ms },
+  stats: { samples: N, invalid: full.stats.invalid, layers: full.layers.length, ms: full.stats.ms, doors: full.doors.length, sections, softened: full.stats.softened },
   shot() {
     render();
     return canvas.toDataURL('image/png');
