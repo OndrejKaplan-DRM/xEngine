@@ -59,7 +59,7 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - [ ] A2.6 na kusu ze sešny B a zapečené světlo ve hře: potřebuje **N-111** (build vkládá jen JSON) a soubor `levels/<id>.light.bin` v balíku od sešny B
 - [ ] zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043)
 
-**Potom:** výchozí 1 080 řádků (na plátně, které je má), pokud `complex_7` na T460 vyjde do 10 ms (xLab: 95 % 7,38 ms).
+**Rozhodnuto (Ondřej 21:13):** výchozí rozlišení zůstává 768 řádků (`complex_7` na 1 080 řádcích: 95 % 10,2 ms na T460).
 
 **Čeká na jiné:** svodná: N-111, přepnout dveře zlatého vzorku na ±105° (testy A připravené), N-009, `composeColors` bez dělení π (A_STAV, oddíl 9), N-110; sešna B: zapečený soubor do balíků (se vzorky dílů podle D-041), B2.5 (u dílů `mesh` vyplňovat `mat`), `screen.offset` a `opacity` v `kit_base`.
 

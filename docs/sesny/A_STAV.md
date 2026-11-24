@@ -26,8 +26,9 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:**
-1. výchozí rozlišení: a) zůstává 768 řádků, b) 1 080 se stropem okna (D-039); `complex_7` na 1 080: 95 % 10,2 ms (oddíl 5.1, bod 6)
-2. běh `xlab_tex.html?bench&rows=1080` s jedinou kartou hry (cena textur proti `&tex=0` na stejném rozlišení)
+1. běh `xlab_tex.html?bench&rows=1080` s jedinou kartou hry (cena textur proti `&tex=0` na stejném rozlišení); Ondřej 21:13: pouští ho
+
+**Ondřej 24. 11. 21:13:** výchozí rozlišení **(a) zůstává 768 řádků** (rezerva pro textury a světlo; `complex_7` na 1 080 řádcích má 95 % 10,2 ms). Volba 4 b z 23. 11. („1 080, když se vejde do 10 ms“) je tím uzavřená: nevešlo se.
 
 **Ondřej 24. 11. 19:49** (k otázkám z kroku 5): zorné pole po opravě **(a) použitelné**; terminál po Esc a Pokračovat **(a) sedí dál a kurzor poslouchá**; černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru** (D-044 je v základu, čtení souboru je úkol sešny A). Poslal tři běhy `?bench` (oddíl 5.1).
 
@@ -273,7 +274,6 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 
 ## 7. Neověřeno
 
-- **Výchozí 1 080 řádků pro velký level**: `complex_7` na 1 080 řádcích neměřený (xLab 95 % 7,38 ms, oddíl 5.1).
 - **Cena samotných textur na T460**: běh bez textur ve stejném sestavení chybí (`xlab_tex.html?bench&tex=0`).
 - **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozšiřují se jen dveře v otvoru portálu (37 v `complex_7`), nábytek ne.
 - **Průhlednost na T460**: průhledné materiály se kreslí bez zápisu do hloubky a po neprůhledných; cena na T460 neměřená, sklo zatím v datech není.
@@ -364,7 +364,7 @@ Vlna 2:
 
 ## 11. Otázky pro Ondřeje
 
-Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Zodpovězeno 24. 11. 19:49: zorné pole (a) použitelné, terminál (a) funguje, černé boky (a) počkat na odražené světlo ze zapečeného souboru. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“).
+Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Zodpovězeno 24. 11. 19:49: zorné pole (a) použitelné, terminál (a) funguje, černé boky (a) počkat na odražené světlo ze zapečeného souboru. 21:13: výchozí rozlišení (a) zůstává 768 řádků. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“).
 
 ## 12. Historie (zkráceně; podrobně `git log` a starší znění tohoto souboru)
 
