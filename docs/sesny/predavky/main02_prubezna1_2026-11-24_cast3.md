@@ -66,3 +66,16 @@ Průběžná předávka č. 1 — xEngine, svodná sešna „main 02“ — 2026
 - Skilly k načtení: `xengine` (nové znění; rozcestník a pasti), `session-handoff` (tato předávka), při práci s testy v prohlížeči `headless-webgl-testing`.
 - Startovní prompt pro novou sešnu (ke zkopírování):
   > Jsi svodná sešna projektu xEngine („main 03“), navazuješ na „main 02“. Načti skilly `xengine` a `session-handoff`. Připoj repo `OndrejKaplan-DRM/xEngine` s právem zápisu a přečti celé `docs/sesny/predavky/main02_prubezna1_2026-11-24_cast1.md`, `_cast2.md` a `_cast3.md` (i s dodatkem na konci části 3), potom `CLAUDE.md`, `docs/00_ZADANI.md`, `docs/STATE.md` a `docs/sesny/START_SVOD.md`. Před čímkoli dalším `git fetch` a zjisti hlavy větví. Push větví `main`, `zaklad-2` a `integrace-1` ti povoluji. Projekt v claude.ai je plný: nic do něj nepiš, stav piš do repa a posílej mi soubory. Řekni mi v 8 řádcích, kde jsme, a navrhni další krok.
+
+## Dodatek po průběžné předávce č. 1 (2026-11-24, D-037 provedeno)
+
+Psáno po odeslání tří částí do chatu; v chatu tento dodatek není.
+
+- **D-037 je v základu** (`a37bd48`, `3380bf2`): `brushLightMesh(b, cell, skip)` s vrcholy na násobcích buňky ve světě, `brushHiddenFaces`, `levelLightMeshes` (definice vzorků levelu), strop dílků hrany 256 místo 64, nástroj `tools/light-stat.mjs`. T1 má 140 kontrol, základ 254, celá regrese základu 650, 0 selhalo.
+- **Změřeno:** švy na zlatém vzorku 128 → 0 bodů (`a_17_view` sešny A po sloučení nanečisto); T-spoje xLab 1 321 → 139, `catacombs_3` 5 422 → 1 278, `complex_21` 7 727 → 1 534, `complex_7` 9 500 → 2 000; vzorky xLab 20 658 → 20 509, `catacombs_3` 39 136 → 35 352, `complex_21` 64 393 → 61 075, `complex_7` 73 092 → 65 618. Varianta (b) není potřeba.
+- **Zvrat:** D-037 čekalo úsporu třetiny až poloviny vzorků; celé schované plochy jich nesou jen 4 až 22 % a samo zarovnání vzorky přidává (+3,7 až +15 %).
+- **Slepá ulička:** se stropem 64 dílků se při buňce 0,25 m plochy delší než 16 m dělily po 0,5 m; test sešny A `a_18_soft` na tom ve zkoušce selhal (24 009 → 50 450 vzorků). Po zvýšení stropu prochází (24 009 → 75 418).
+- **Sloučení nanečisto** (`3380bf2` + `3b005a7` + `64e622b`): základ 254, A 21 sad z 21 (336), A × B 28 + 9, B 5 sad ze 6. Selže `b_t6_bake_nahled`: počet vzorků xLabu natvrdo (20 658).
+- **Čeká:** sešny A a B mají přejít na `levelLightMeshes` (dodatky z 24. 11. v `START_A.md` a `START_B.md`); `env.lightCell` nerozhodnuto, čeká na `?bench` s `grid=0.25` z T460.
+- **Poznatek pro skill `xengine`:** věta „Mřížka vzorků se změní (D-037)“ už neplatí; vzorky levelu definuje `levelLightMeshes`. Upravit při příští úpravě skillu.
+- Pomocné skripty měření v `/home/claude/scratch/d037` (stará funkce z `d2fb217` pro sloupec „dřív“) jsou jen v kontejneru.
