@@ -131,7 +131,7 @@ const hinge = door.joints[0];
 {
   game.start();
   entities.drive(door, hinge, hinge.def.max);
-  const t = (hinge.def.max - hinge.def.min) / hinge.def.speed;
+  const t = (hinge.def.max - (hinge.def.rest ?? hinge.def.min)) / hinge.def.speed; // z klidové polohy (D-042: rest smí být uvnitř rozsahu)
   game.sim(t - 0.1);
   const mid = hinge.value;
   game.sim(0.1 + 2 * E.STEP);

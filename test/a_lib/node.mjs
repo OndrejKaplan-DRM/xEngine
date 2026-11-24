@@ -32,6 +32,27 @@ export function barePack(pack) {
   return copy;
 }
 
+/**
+ * Kopie balíku, ve které mají otočné dveře rozsah jen na jednu stranu (min = rest), ať je v datech jakkoli (D-042).
+ * Zkoušky, které chování jednostranných dveří potřebují (D-025: křídlo se otvírá do hráče), si ho tak udělají samy
+ * a nezávisí na tom, jak má dveře zlatý vzorek. Vrací [kopie, počet upravených kloubů].
+ */
+export function oneSidedDoors(pack) {
+  const copy = structuredClone(pack);
+  let n = 0;
+  for (const { data } of copy.prefabs) {
+    if (data?.components?.interact?.kind !== 'door') continue;
+    for (const j of data.rig?.joints || []) {
+      const rest = j.rest ?? j.min;
+      if (j.type === 'hinge' && j.min < rest && rest < j.max) {
+        j.min = rest;
+        n++;
+      }
+    }
+  }
+  return [copy, n];
+}
+
 /** Hra připravená v menu (po init). opts.shadows === false: světlo bez zastínění (prochází zdmi jako v xView). opts.soft: okraj stínu. */
 export async function makeGame(opts = {}) {
   const pack = opts.pack || (await loadPack());

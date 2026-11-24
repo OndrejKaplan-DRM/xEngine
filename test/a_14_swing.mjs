@@ -2,7 +2,7 @@
 // otvírá. Chování řídí data; přepínač doorsAway (adresa ?doors=away) jen rozšíří rozsah dveřím, které ho v datech
 // mají na jednu stranu. Polohy se počítají z dat prefabu.
 
-import { h, makeGame, loadPack, fmt } from './a_lib/node.mjs';
+import { h, makeGame, loadPack, oneSidedDoors, fmt } from './a_lib/node.mjs';
 import { rigMatrices, mat4Mul, mat4Point } from '../src/xspace/index.js';
 
 const { ok } = h;
@@ -34,9 +34,13 @@ function setup(game) {
   return { E, door, j, stand, fired, leaf };
 }
 
+// Body 1 a 2 potřebují dveře s rozsahem na jednu stranu: test si je udělá sám (D-042: zlatý vzorek může mít dveře
+// na obě strany, pak by přepínač neměl co rozšiřovat).
+const [onePack] = oneSidedDoors(await loadPack());
+
 // ---- 1. bez přepínače: data mají rozsah na jednu stranu a dveře se chovají jako dosud
 {
-  const game = await makeGame({ shadows: false });
+  const game = await makeGame({ shadows: false, pack: onePack });
   game.start();
   const { door, j, stand, fired } = setup(game);
   stand(-1);
@@ -47,7 +51,7 @@ function setup(game) {
 
 // ---- 2. přepínač doorsAway: rozsah na obě strany, otevření od hráče
 {
-  const game = await makeGame({ doorsAway: true }); // se zastíněním: dveře jsou brána světla
+  const game = await makeGame({ doorsAway: true, pack: structuredClone(onePack) }); // se zastíněním: dveře jsou brána světla
   game.start();
   const { door, j, stand, fired } = setup(game);
   ok(j.def.min === -j.def.max && j.rest === 0 && game.pack.prefabs.find((p) => p.data.id === door.prefab.id).data.rig.joints[0].min === 0, 'přepínač dá dveřím rozsah na obě strany a data balíku nezmění', `kloub ${j.def.min}° až ${j.def.max}°, v balíku min ${game.pack.prefabs.find((p) => p.data.id === door.prefab.id).data.rig.joints[0].min}°`);

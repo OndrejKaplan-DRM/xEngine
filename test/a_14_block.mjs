@@ -2,12 +2,14 @@
 // zastaví se a po 0,5 s se vrátí tam, odkud vyjely. Polohy pro zkoušky se počítají z dat prefabu (rigMatrices),
 // ne z pevných souřadnic; dveře se hledají podle druhu interakce a typu kloubu.
 
-import { h, makeGame, fmt } from './a_lib/node.mjs';
+import { h, makeGame, loadPack, oneSidedDoors, fmt } from './a_lib/node.mjs';
 import { rigMatrices, mat4Mul, mat4Point } from '../src/xspace/index.js';
 import { BLOCK_RETURN } from '../src/world/blocking.js';
 
 const { ok } = h;
-const game = await makeGame();
+// D-025 se zkouší na dveřích, které se otvírají do hráče: jednostranná kopie, ať má zlatý vzorek dveře jakkoli (D-042)
+const [onePack] = oneSidedDoors(await loadPack());
+const game = await makeGame({ pack: onePack });
 const { E, entities, phys, player, io, session } = game;
 const level = session.level;
 const behave = game.behave;
