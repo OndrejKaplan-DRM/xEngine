@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bottle_hdpe_250_01",
+  "title": "Lahev z HDPE 250 ml",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.032, -0.001, -0.032], "max": [0.032, 0.135, 0.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.0425, 0], "radius": 0.03, "height": 0.085, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.095, 0], "radius": 0.021, "height": 0.02, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.11, 0], "radius": 0.012, "height": 0.01, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.124, 0], "radius": 0.016, "height": 0.02, "axis": "y", "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.0165, 0.03, 0.029], "max": [0.0165, 0.066, 0.0308], "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.031, 0, -0.031], "max": [0.031, 0.134, 0.031], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 268,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#hdpeBottles",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "box_tips_1000_01",
+  "title": "Krabička špiček 1000 µl",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.064, -0.001, -0.044], "max": [0.064, 0.131, 0.044] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.042], "max": [0.062, 0.088, 0.042], "mat": "plastic_navy" },
+    { "node": "body", "shape": "box", "min": [-0.06, 0.088, -0.04], "max": [0.06, 0.092, 0.04], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, -0.036], "max": [0.055, 0.098, -0.031], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, -0.0265], "max": [0.055, 0.098, -0.0215], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, -0.017], "max": [0.055, 0.098, -0.012], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, -0.0075], "max": [0.055, 0.098, -0.0025], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, 0.002], "max": [0.055, 0.098, 0.007], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, 0.0115], "max": [0.055, 0.098, 0.0165], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, 0.021], "max": [0.055, 0.098, 0.026], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.092, 0.0305], "max": [0.055, 0.098, 0.0355], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.063, 0.1, -0.043], "max": [0.063, 0.13, 0.043], "mat": "plastic_ps" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.063, 0, -0.043], "max": [0.063, 0.13, 0.043], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#tipBoxes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

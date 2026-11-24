@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "box_kit_01",
+  "title": "Krabice s kitem 1",
+  "category": "lab.chem",
+  "bounds": { "min": [-0.046, -0.001, -0.067], "max": [0.046, 0.053, 0.067] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.065], "max": [0.045, 0.05, 0.065], "mat": "label_paper" },
+    { "node": "body", "shape": "box", "min": [-0.045, 0.0325, -0.066], "max": [0.045, 0.0425, 0.066], "mat": "label_band_blue" },
+    { "node": "body", "shape": "box", "min": [-0.027, 0.05, -0.039], "max": [0.027, 0.0515, 0.013], "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.066], "max": [0.045, 0.052, 0.066], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/chem.mjs#sacksAndBoxes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "box_dryice_02",
+  "title": "Polystyrenový box na suchý led velký",
+  "category": "lab.chem",
+  "bounds": { "min": [-0.226, -0.001, -0.176], "max": [0.226, 0.351, 0.178] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.175], "max": [0.225, 0.3, 0.175], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.225, 0.3, -0.175], "max": [0.225, 0.35, 0.175], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.135, 0.105, 0.175], "max": [0.135, 0.21, 0.1765], "mat": "label_band_orange" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.175], "max": [0.225, 0.35, 0.177], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/chem.mjs#shippers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "container_sample_02",
+  "title": "Vzorkovnice 100 ml se vzorkem",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.033, -0.001, -0.033], "max": [0.033, 0.085, 0.033] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.035, 0], "radius": 0.027, "height": 0.07, "axis": "y", "mat": "plastic_ps" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0185, 0], "radius": 0.024, "height": 0.033, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.077, 0], "radius": 0.031, "height": 0.014, "axis": "y", "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.0175, 0.02, 0.026], "max": [0.0175, 0.05, 0.0278], "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.032, 0, -0.032], "max": [0.032, 0.084, 0.032], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 204,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#hdpeBottles",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

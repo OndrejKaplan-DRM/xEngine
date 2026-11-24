@@ -1,0 +1,51 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "rack_cryotube_01",
+  "title": "Stojánek s kryozkumavkami",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.071, -0.001, -0.036], "max": [0.071, 0.089, 0.036] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.035], "max": [0.07, 0.03, 0.035], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.062, 0.03, -0.02], "max": [-0.05, 0.08, -0.008], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0625, 0.08, -0.0205], "max": [-0.0495, 0.088, -0.0075], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [-0.034, 0.03, -0.02], "max": [-0.022, 0.08, -0.008], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0345, 0.08, -0.0205], "max": [-0.0215, 0.088, -0.0075], "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.03, -0.02], "max": [0.006, 0.08, -0.008], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.08, -0.0205], "max": [0.0065, 0.088, -0.0075], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.022, 0.03, -0.02], "max": [0.034, 0.08, -0.008], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [0.0215, 0.08, -0.0205], "max": [0.0345, 0.088, -0.0075], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [0.05, 0.03, -0.02], "max": [0.062, 0.08, -0.008], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [0.0495, 0.08, -0.0205], "max": [0.0625, 0.088, -0.0075], "mat": "cap_purple" },
+    { "node": "body", "shape": "box", "min": [-0.062, 0.03, 0.008], "max": [-0.05, 0.08, 0.02], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0625, 0.08, 0.0075], "max": [-0.0495, 0.088, 0.0205], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [-0.034, 0.03, 0.008], "max": [-0.022, 0.08, 0.02], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0345, 0.08, 0.0075], "max": [-0.0215, 0.088, 0.0205], "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.03, 0.008], "max": [0.006, 0.08, 0.02], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.08, 0.0075], "max": [0.0065, 0.088, 0.0205], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.022, 0.03, 0.008], "max": [0.034, 0.08, 0.02], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [0.0215, 0.08, 0.0075], "max": [0.0345, 0.088, 0.0205], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [0.05, 0.03, 0.008], "max": [0.062, 0.08, 0.02], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [0.0495, 0.08, 0.0075], "max": [0.0625, 0.088, 0.0205], "mat": "cap_purple" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.035], "max": [0.07, 0.088, 0.035], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 252,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#vialTrays",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "plate_pcr_01",
+  "title": "Destička PCR s 96 jamkami",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.065, -0.001, -0.044], "max": [0.065, 0.019, 0.044] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.0639, 0, -0.0427], "max": [0.0639, 0.016, 0.0427], "mat": "plastic_pp" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, -0.034], "max": [0.055, 0.0172, -0.0295], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, -0.025], "max": [0.055, 0.0172, -0.0205], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, -0.016], "max": [0.055, 0.0172, -0.0115], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, -0.007], "max": [0.055, 0.0172, -0.0025], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, 0.002], "max": [0.055, 0.0172, 0.0065], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, 0.011], "max": [0.055, 0.0172, 0.0155], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, 0.02], "max": [0.055, 0.0172, 0.0245], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.055, 0.016, 0.029], "max": [0.055, 0.0172, 0.0335], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.064, 0, -0.043], "max": [0.064, 0.018, 0.043], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#plates",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

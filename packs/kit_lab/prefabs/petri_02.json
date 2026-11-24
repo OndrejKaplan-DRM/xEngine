@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "petri_02",
+  "title": "Petriho miska s agarem",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.047, -0.001, -0.047], "max": [0.047, 0.015, 0.047] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.007, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0035, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.046], "max": [0.046, 0.014, 0.046], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 128,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#petriDishes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

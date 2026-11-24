@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bottle_chem_500_01",
+  "title": "Lahev s chemikálií 500 ml (bez výstrahy)",
+  "category": "lab.chem",
+  "bounds": { "min": [-0.042, -0.001, -0.042], "max": [0.042, 0.182, 0.043] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.0612, 0], "radius": 0.04, "height": 0.1224, "axis": "y", "mat": "glass_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1343, 0], "radius": 0.027, "height": 0.0238, "axis": "y", "mat": "glass_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.153, 0], "radius": 0.014, "height": 0.0136, "axis": "y", "mat": "glass_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.0569, 0], "radius": 0.038, "height": 0.1099, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1698, 0], "radius": 0.017, "height": 0.022, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.026, 0.034, 0.039], "max": [0.026, 0.1054, 0.0408], "mat": "label_paper" },
+    { "node": "body", "shape": "box", "min": [-0.026, 0.0897, 0.0406], "max": [0.026, 0.1054, 0.0418], "mat": "label_band_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.041, 0, -0.041], "max": [0.041, 0.181, 0.042], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 344,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/chem.mjs#chemBottles",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

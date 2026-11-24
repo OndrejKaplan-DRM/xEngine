@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "jar_powder_500_02",
+  "title": "Dóza s práškem 500 g",
+  "category": "lab.chem",
+  "bounds": { "min": [-0.047, -0.001, -0.047], "max": [0.047, 0.127, 0.048] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.049, 0], "radius": 0.045, "height": 0.098, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.102, 0], "radius": 0.0416, "height": 0.008, "axis": "y", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.116, 0], "radius": 0.0405, "height": 0.02, "axis": "y", "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.0281, 0.022, 0.044], "max": [0.0281, 0.077, 0.0458], "mat": "label_paper" },
+    { "node": "body", "shape": "box", "min": [-0.0281, 0.0649, 0.0456], "max": [0.0281, 0.077, 0.0468], "mat": "label_band_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.046], "max": [0.046, 0.126, 0.047], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 216,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/chem.mjs#powderJars",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

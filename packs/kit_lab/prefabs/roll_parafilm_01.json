@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "roll_parafilm_01",
+  "title": "Parafilm v krabičce",
+  "category": "lab.plastic",
+  "bounds": { "min": [-0.056, -0.001, -0.056], "max": [0.056, 0.056, 0.056] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.055, 0, -0.055], "max": [0.055, 0.05, 0.055], "mat": "label_paper" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.05, 0], "radius": 0.045, "height": 0.01, "axis": "y", "mat": "plastic_pp" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.055, 0, -0.055], "max": [0.055, 0.055, 0.055], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 76,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/plastic.mjs#benchware",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

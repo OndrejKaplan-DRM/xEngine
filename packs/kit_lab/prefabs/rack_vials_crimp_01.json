@@ -1,0 +1,81 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "rack_vials_crimp_01",
+  "title": "Vialky se zalisovaným víčkem v kartonu 1",
+  "category": "lab.chem",
+  "bounds": { "min": [-0.046, -0.001, -0.046], "max": [0.046, 0.067, 0.046] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.045], "max": [0.045, 0.03, 0.045], "mat": "paper_kraft" },
+    { "node": "body", "shape": "box", "min": [-0.042, 0.02, -0.042], "max": [-0.03, 0.06, -0.03], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [-0.0425, 0.06, -0.0425], "max": [-0.0295, 0.066, -0.0295], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.024, 0.02, -0.042], "max": [-0.012, 0.06, -0.03], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0245, 0.06, -0.0425], "max": [-0.0115, 0.066, -0.0295], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.02, -0.042], "max": [0.006, 0.06, -0.03], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.06, -0.0425], "max": [0.0065, 0.066, -0.0295], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.012, 0.02, -0.042], "max": [0.024, 0.06, -0.03], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [0.0115, 0.06, -0.0425], "max": [0.0245, 0.066, -0.0295], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.02, -0.042], "max": [0.042, 0.06, -0.03], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0295, 0.06, -0.0425], "max": [0.0425, 0.066, -0.0295], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.042, 0.02, -0.024], "max": [-0.03, 0.06, -0.012], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0425, 0.06, -0.0245], "max": [-0.0295, 0.066, -0.0115], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.024, 0.02, -0.024], "max": [-0.012, 0.06, -0.012], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [-0.0245, 0.06, -0.0245], "max": [-0.0115, 0.066, -0.0115], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.02, -0.024], "max": [0.006, 0.06, -0.012], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.06, -0.0245], "max": [0.0065, 0.066, -0.0115], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.012, 0.02, -0.024], "max": [0.024, 0.06, -0.012], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0115, 0.06, -0.0245], "max": [0.0245, 0.066, -0.0115], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.02, -0.024], "max": [0.042, 0.06, -0.012], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [0.0295, 0.06, -0.0245], "max": [0.0425, 0.066, -0.0115], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.042, 0.02, -0.006], "max": [-0.03, 0.06, 0.006], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0425, 0.06, -0.0065], "max": [-0.0295, 0.066, 0.0065], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.024, 0.02, -0.006], "max": [-0.012, 0.06, 0.006], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0245, 0.06, -0.0065], "max": [-0.0115, 0.066, 0.0065], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.02, -0.006], "max": [0.006, 0.06, 0.006], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.06, -0.0065], "max": [0.0065, 0.066, 0.0065], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.012, 0.02, -0.006], "max": [0.024, 0.06, 0.006], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0115, 0.06, -0.0065], "max": [0.0245, 0.066, 0.0065], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.02, -0.006], "max": [0.042, 0.06, 0.006], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0295, 0.06, -0.0065], "max": [0.0425, 0.066, 0.0065], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.042, 0.02, 0.012], "max": [-0.03, 0.06, 0.024], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [-0.0425, 0.06, 0.0115], "max": [-0.0295, 0.066, 0.0245], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.024, 0.02, 0.012], "max": [-0.012, 0.06, 0.024], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0245, 0.06, 0.0115], "max": [-0.0115, 0.066, 0.0245], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.02, 0.012], "max": [0.006, 0.06, 0.024], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.06, 0.0115], "max": [0.0065, 0.066, 0.0245], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.012, 0.02, 0.012], "max": [0.024, 0.06, 0.024], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [0.0115, 0.06, 0.0115], "max": [0.0245, 0.066, 0.0245], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.02, 0.012], "max": [0.042, 0.06, 0.024], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0295, 0.06, 0.0115], "max": [0.0425, 0.066, 0.0245], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.042, 0.02, 0.03], "max": [-0.03, 0.06, 0.042], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0425, 0.06, 0.0295], "max": [-0.0295, 0.066, 0.0425], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.024, 0.02, 0.03], "max": [-0.012, 0.06, 0.042], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [-0.0245, 0.06, 0.0295], "max": [-0.0115, 0.066, 0.0425], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.02, 0.03], "max": [0.006, 0.06, 0.042], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.0065, 0.06, 0.0295], "max": [0.0065, 0.066, 0.0425], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.012, 0.02, 0.03], "max": [0.024, 0.06, 0.042], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [0.0115, 0.06, 0.0295], "max": [0.0245, 0.066, 0.0425], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.02, 0.03], "max": [0.042, 0.06, 0.042], "mat": "liquid_amber" },
+    { "node": "body", "shape": "box", "min": [0.0295, 0.06, 0.0295], "max": [0.0425, 0.066, 0.0425], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.045], "max": [0.045, 0.066, 0.045], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 612,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/chem.mjs#vialsAndCrystals",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
