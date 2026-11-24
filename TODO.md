@@ -18,7 +18,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 | 1 | Dva běhy `?bench` ve sestavení sešny A „krok 5“, na síti a s vypnutou Úsporou energie v Chrome (večerní běhy měly 30 snímků/s): `xlab_tex.html?bench&tex=0` (cena textur) a `xlab_gen.html?bench&rows=1080` (výchozí 1 080 řádků pro velký level) | sešna A | 24. 11. 19:51 | `A_STAV.md`, oddíl 1 |
 | 2 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
 
-**Zodpovězeno 24. 11. 2026:** 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
+**Zodpovězeno 24. 11. 2026:** 23:38 svodné: kód staré hry **(a) jen Aréna v2** z GitHubu (`OndrejKaplan-DRM/Arena`, připojit jen pro čtení, sepsat co převzít); další krok **(b) N-102** (kostry bez alokací), N-010 až potom. 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 
 ## Svodná sešna (základ)
 
@@ -40,7 +40,9 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 **Čeká na sešny:** A dělí okolní světlo π (D-049) → potom svodná vynásobí okolní světlo zlatého vzorku π; A zapojí `jointFollow` v enginu. B zapisuje `albedoMean`, zapéká pevné díly prefabů (D-041), dvoukřídlé dveře jako jeden prefab bez `seeThrough` (N-002).
 
-**Další na řadě:** rozhodnout N-010 (víc interakcí v prefabu; sešna B dělá ~600 těles, každý den zpoždění je předělávka) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Teď (Ondřej 23:38):** `rigCompile`, `rigSolve` (N-102) a soupis, co převzít z Arény v2 (`docs/prevzeti/ARENA.md`).
+
+**Další na řadě:** rozhodnout N-010 (víc interakcí v prefabu; sešna B dělá ~600 těles) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 
