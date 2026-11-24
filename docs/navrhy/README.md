@@ -66,7 +66,7 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | N-005 průhlednost materiálu | přijat | `materials[].opacity`, T1 |
 | N-006 stupně kvality a vrstvy vzhledu | přijat po částech | D-029, D-030 |
 | N-101 díly prefabu v `geom.js` | přijat a proveden 23. 11. 2026 | `partMesh`, `partCollider`, `partTris`, `CYL_SEGMENTS`; xView je používá; T1 |
-| N-102 `rigMatrices` bez alokací | přijat, základ dluží | D-034 |
+| N-102 `rigMatrices` bez alokací | **proveden** 24. 11. 2026 (`rigCompile`, `rigValues`, `rigFollow`, `rigSolve`) | D-034 |
 | N-103 výchozí rychlost kloubu | přijaty body 1 a 2, varování odloženo | `JOINT_TRAVEL_SECONDS`, kontrakty |
 | N-104 dosah interakce | přijat | kontrakty |
 | N-105 přesvícený xLab | přijat, provede se po převodu světla | D-034 |

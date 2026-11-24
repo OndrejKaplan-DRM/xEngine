@@ -1,10 +1,23 @@
 # Stav
 
-**Verze:** základ 2, znění 6 · 24. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
+**Verze:** základ 2, znění 7 · 24. 11. 2026 pozdě v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 7 základu 2 (24. 11. 2026 pozdě v noci): kostry bez alokací (N-102)
+
+Ondřej ve 23:38: další krok (b) N-102; kód staré hry (a) jen Aréna v2.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| `rigCompile`, `rigValues`, `rigFollow`, `rigSolve`; `rigMatrices` je obálka nad nimi | `src/xspace/rig.js` (262 řádků) | T1b: 40 případů na prefabech zlatého vzorku, rozdíl proti původnímu výpočtu 0; mimo testy 802 případů na 478 prefabech (`golden`, `kit_base`, `kit_lab`, `kit_it` ze `sesna-b` `42b7dae`), rozdíl 0; `rigFollow` = `jointFollow` |
+| testy koster odděleny z T1 (608 řádků, přes mez 600) | `test/t1b_rig.mjs` (134 řádků), `test/t1_xspace.mjs` (502), `package.json` `test:node` | `npm test`: T1 155 + T1b 14 = 169 jako před rozdělením |
+| regrese na `main` (`c4bac67`) | **926 kontrol, 0 selhalo**: základ 283, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, 23:41 až 23:46 |
+| Aréna v2 připojena jen pro čtení | `OndrejKaplan-DRM/Arena`, větev `hra` `a04e8c0` (v2.9) | soupis v `docs/prevzeti/ARENA.md` |
+
+Rychlost `rigSolve` jen pro představu (sandbox, o T460 nic neříká): 100 000 kroků kostry se 4 uzly a 3 klouby 62 ms. Sešna A zatím volá `rigMatrices` v kroku (`src/world/entities.js`); přechod je v dodatku znění 7 ve `START_A.md`.
 
 ## Znění 6 základu 2 (24. 11. 2026 v noci): zakrytí dveří a svázané klouby
 

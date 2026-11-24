@@ -116,7 +116,7 @@ snapshot()  restore(data)
 - `rig.nodes`: první uzel je kořen a je vůči entitě pevný. Ostatní mají `parent`.
 - `rig.joints`: kloub hýbe uzlem vůči jeho rodiči. `hinge` ve stupních kolem osy, `slider` v metrech po ose. Osa je jednotkový vektor v prostoru rodiče.
 - Jeden kloub na uzel. Víc stupňů volnosti = mezilehlý uzel.
-- Místní matice uzlu = posun · natočení · kloub. Počítá ji výhradně `src/xspace/rig.js` (`rigMatrices`, `entityMatrix`).
+- Místní matice uzlu = posun · natočení · kloub. Počítá ji výhradně `src/xspace/rig.js` (`rigMatrices`, `entityMatrix`). V kroku simulace se kostra kompiluje jednou na prefab (`rigCompile`) a řeší bez alokací do připraveného pole (`rigValues` mimo krok, potom `rigFollow` a `rigSolve`, N-102); `rigMatrices` je obálka nad týmž výpočtem.
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
 - Jedna interakce na prefab (verze 1).
