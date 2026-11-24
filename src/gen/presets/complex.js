@@ -2,6 +2,8 @@
 // Dvě patra spojuje galerie haly se schodištěm; jednopatrová varianta má v hale plošinu s rampou.
 // Délky v centimetrech. Jména prefabů a materiálů jsou ze sady kit_base.
 
+import { BODY } from '../body.js';
+
 const WARM = [1, 0.9, 0.75];
 const COOL = [0.85, 0.93, 1];
 const NAMES = { hall: 'Hala', corridor: 'Chodba', lab: 'Laboratoř', office: 'Kancelář', store: 'Sklad', tech: 'Strojovna' };
@@ -41,6 +43,7 @@ export const complex = {
     return {
       T: 20,
       grid: 10,
+      body: BODY,
       floors,
       storeyH: 300,
       plot: floors > 1 ? { w: [2400, 3000], d: [1900, 2400] } : { w: [3400, 4200], d: [2600, 3200] },

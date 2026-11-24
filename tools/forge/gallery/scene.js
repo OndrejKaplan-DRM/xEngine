@@ -1,37 +1,61 @@
 // Galerie: stavba sítí prefabu pro three.js. Díly visí na skupinách uzlů; polohu skupin určují výhradně
 // matice z src/xspace/rig.js (rigMatrices), takže se kloub v galerii hýbe stejně jako v enginu.
-// Válec je šestnáctiboký hranol jako v prohlížeči xView.
+// Síť dílu dává partMesh ze základu (N-101): galerie, xView, xBake i engine kreslí tentýž tvar.
 
 import * as THREE from 'three';
-import { rigMatrices } from '../../../src/xspace/index.js';
+import { rigMatrices, partMesh } from '../../../src/xspace/index.js';
 
+// Pohledy (look): „clean“ = jen barva materiálu (stupeň 0); „t460“ = textura barvy, světlo bez odlesků a bez normál
+// (co unese stupeň low); „gpu“ = textura, normálová mapa, drsnost, kovovost a odrazy okolí (stupně 2 a 3).
+// Textura se násobí zesílením color / průměr textury ze zámku textur, ne samotnou barvou (návrh N-009):
+// průměr povrchu pak odpovídá barvě materiálu a kresba zůstane celá.
 const cache = new Map();
-export function material(id, defs) {
-  if (!cache.has(id)) {
-    const d = defs[id];
-    cache.set(id, d.model === 'lit' ? new THREE.MeshLambertMaterial({ color: new THREE.Color(...d.color) }) : new THREE.MeshBasicMaterial({ color: new THREE.Color(...(d.emissive || d.color)) }));
+let textures = null; // cesta v balíku → THREE.Texture
+let gains = {}; // id materiálu → [r, g, b]
+export function useTextures(map, gainMap) {
+  textures = map;
+  gains = gainMap;
+  for (const m of cache.values()) m.dispose();
+  cache.clear();
+}
+function tiled(t, uvScale = 1) {
+  const c = t.clone();
+  c.repeat.set(1 / uvScale, 1 / uvScale);
+  return c;
+}
+export function material(id, defs, look = 'clean') {
+  const key = `${look}:${id}`;
+  if (cache.has(key)) return cache.get(key);
+  const d = defs[id];
+  let m;
+  if (d.model !== 'lit') m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...(d.emissive || d.color)) });
+  else if (look === 'clean' || !textures) m = new THREE.MeshLambertMaterial({ color: new THREE.Color(...d.color) });
+  else {
+    const map = d.albedo && textures[d.albedo] && gains[id] ? tiled(textures[d.albedo], d.uvScale) : null;
+    const color = new THREE.Color(...(map ? gains[id] : d.color));
+    if (look === 't460') m = new THREE.MeshLambertMaterial({ color, map });
+    else {
+      const normalMap = map && d.normal && textures[d.normal] ? tiled(textures[d.normal], d.uvScale) : null;
+      m = new THREE.MeshStandardMaterial({ color, map, normalMap, roughness: d.rough ?? 0.9, metalness: d.metal ?? 0 });
+    }
   }
-  return cache.get(id);
+  cache.set(key, m);
+  return m;
 }
 
 function partGeometry(part) {
-  if (part.shape === 'box') {
-    const g = new THREE.BoxGeometry(...[0, 1, 2].map((i) => part.max[i] - part.min[i]));
-    g.translate(...[0, 1, 2].map((i) => (part.min[i] + part.max[i]) / 2));
-    return g;
-  }
-  if (part.shape === 'cyl') {
-    const g = new THREE.CylinderGeometry(part.radius, part.radius, part.height, 16);
-    if (part.axis === 'x') g.rotateZ(Math.PI / 2);
-    if (part.axis === 'z') g.rotateX(Math.PI / 2);
-    g.translate(...part.center);
-    return g;
-  }
-  return null; // sítě .glb sada nemá
+  const m = partMesh(part);
+  if (!m) return null; // díl ze souboru (.glb) sada zatím nemá
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+  g.setIndex(m.indices);
+  return g;
 }
 
 /** Postaví prefab: { root, setPose(values), dispose() }. values = { idKloubu: hodnota }. */
-export function buildPrefab(prefab, matDefs) {
+export function buildPrefab(prefab, matDefs, look = 'clean') {
   const root = new THREE.Group();
   const groups = {};
   for (const n of prefab.rig.nodes) {
@@ -45,7 +69,7 @@ export function buildPrefab(prefab, matDefs) {
     const geo = partGeometry(part);
     if (!geo) continue;
     geos.push(geo);
-    groups[part.node].add(new THREE.Mesh(geo, material(part.mat, matDefs)));
+    groups[part.node].add(new THREE.Mesh(geo, material(part.mat, matDefs, look)));
   }
   const setPose = (values = {}) => {
     const mats = rigMatrices(prefab, values);

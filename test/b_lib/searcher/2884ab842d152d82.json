@@ -1,0 +1,607 @@
+{
+    "searchQuery": {
+        "forceSpecificAssetId": false,
+        "category": [],
+        "assetId": [],
+        "dataType": [
+            "Material"
+        ],
+        "creationMethod": null,
+        "queryString": "concrete floor",
+        "sort": "Popular",
+        "createdUsingAssetId": null,
+        "basedOnAssetId": null,
+        "variationsOfAssetId": null,
+        "limit": 6,
+        "offset": 0
+    },
+    "numberOfResults": 3,
+    "currentPageHttp": "https://ambientcg.com/api/v2/full_json?type=material&q=concrete+floor&sort=popular&limit=6&include=statisticsData%2ClabelData%2CpreviewData%2CtechnicalData%2CfileData",
+    "foundAssets": [
+        {
+            "assetId": "Concrete048",
+            "releaseDate": "2025-10-10 13:00:00",
+            "earlyReleaseDate": "2025-09-23 16:00:00",
+            "dataType": "Material",
+            "creationMethod": "PBRPhotogrammetry",
+            "category": null,
+            "downloadCount": 71713,
+            "downloadCountMonth": 22343,
+            "downloadCountWeek": 6104,
+            "popularityScore": 47.18831938888386,
+            "tags": [
+                "048",
+                "48",
+                "beige",
+                "clean",
+                "concrete",
+                "floor",
+                "grey",
+                "hard",
+                "indoor",
+                "industrial",
+                "layered",
+                "minimalist",
+                "modern",
+                "outdoor",
+                "smooth",
+                "stone",
+                "subtle",
+                "uniform",
+                "urban"
+            ],
+            "dataTypeName": "Material",
+            "dataTypeDescription": "A photo texture with PBR maps.",
+            "creationMethodName": "Height field photogrammetry",
+            "creationMethodDescription": "Displacement generated using photogrammetry.",
+            "displayName": "Concrete 048",
+            "customDisplayName": "",
+            "description": "",
+            "displayCategory": "Concrete",
+            "shortLink": "https://ambientcg.com/a/Concrete048",
+            "dimensionX": 0,
+            "dimensionY": 0,
+            "dimensionZ": 0,
+            "createdUsing": [],
+            "basedOnThis": [],
+            "variations": [],
+            "nextVariationAssetId": null,
+            "previousVariationAssetId": null,
+            "nextAssetId": null,
+            "previousAssetId": null,
+            "downloadFolders": {
+                "default": {
+                    "title": "default",
+                    "downloadFiletypeCategories": {
+                        "zip": {
+                            "title": "zip",
+                            "downloads": [
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_1K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_1K-JPG.zip",
+                                    "fileName": "Concrete048_1K-JPG.zip",
+                                    "size": 7536748,
+                                    "filetype": "zip",
+                                    "attribute": "1K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_2K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_2K-JPG.zip",
+                                    "fileName": "Concrete048_2K-JPG.zip",
+                                    "size": 28990525,
+                                    "filetype": "zip",
+                                    "attribute": "2K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_4K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_4K-JPG.zip",
+                                    "fileName": "Concrete048_4K-JPG.zip",
+                                    "size": 117441433,
+                                    "filetype": "zip",
+                                    "attribute": "4K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_8K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_8K-JPG.zip",
+                                    "fileName": "Concrete048_8K-JPG.zip",
+                                    "size": 444848460,
+                                    "filetype": "zip",
+                                    "attribute": "8K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_1K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_1K-PNG.zip",
+                                    "fileName": "Concrete048_1K-PNG.zip",
+                                    "size": 16914694,
+                                    "filetype": "zip",
+                                    "attribute": "1K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_2K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_2K-PNG.zip",
+                                    "fileName": "Concrete048_2K-PNG.zip",
+                                    "size": 66152061,
+                                    "filetype": "zip",
+                                    "attribute": "2K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_4K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_4K-PNG.zip",
+                                    "fileName": "Concrete048_4K-PNG.zip",
+                                    "size": 263421240,
+                                    "filetype": "zip",
+                                    "attribute": "4K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete048_8K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete048_8K-PNG.zip",
+                                    "fileName": "Concrete048_8K-PNG.zip",
+                                    "size": 1031397154,
+                                    "filetype": "zip",
+                                    "attribute": "8K-PNG",
+                                    "zipContent": []
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "previewLinks": [
+                {
+                    "url": "https://releases.pbr.one/main/material-shading.html#normal_type=directx&color_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Color.jpg?88866&displacement_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Displacement.jpg?90568&normal_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_NormalDX.jpg?36754&roughness_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Roughness.jpg?70739&ambientocclusion_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_AmbientOcclusion.jpg?11803&metalness_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Metalness.jpg?18501",
+                    "name": {
+                        "id": 4,
+                        "slug": "pbr-one-material-shading",
+                        "title": "3D Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                },
+                {
+                    "url": "https://releases.pbr.one/main/texture-tiling.html#texture_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Color.jpg?24908,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Displacement.jpg?98090,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_NormalDX.jpg?31813,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Roughness.jpg?21228,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_AmbientOcclusion.jpg?73820,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete048/Concrete048_SQ_Metalness.jpg?95290&texture_name=Color,Displacement,Normal,Roughness,Ambient Occlusion,Metalness",
+                    "name": {
+                        "id": 3,
+                        "slug": "pbr-one-material-maps",
+                        "title": "Tiling Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                }
+            ],
+            "previewType": "Default",
+            "maps": [
+                "color",
+                "displacement",
+                "normal",
+                "roughness",
+                "ambient-occlusion",
+                "metalness"
+            ],
+            "hasUsd": false,
+            "previewImage": {
+                "64-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-PNG/Concrete048.png",
+                "128-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-PNG/Concrete048.png",
+                "256-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-PNG/Concrete048.png",
+                "512-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-PNG/Concrete048.png",
+                "1024-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-PNG/Concrete048.png",
+                "2048-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-PNG/Concrete048.png",
+                "64-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-FFFFFF/Concrete048.jpg",
+                "128-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-FFFFFF/Concrete048.jpg",
+                "256-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-FFFFFF/Concrete048.jpg",
+                "512-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-FFFFFF/Concrete048.jpg",
+                "1024-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Concrete048.jpg",
+                "2048-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-FFFFFF/Concrete048.jpg",
+                "64-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-242424/Concrete048.jpg",
+                "128-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-242424/Concrete048.jpg",
+                "256-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-242424/Concrete048.jpg",
+                "512-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-242424/Concrete048.jpg",
+                "1024-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-242424/Concrete048.jpg",
+                "2048-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-242424/Concrete048.jpg",
+                "64-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-WEBP/Concrete048.webp",
+                "128-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-WEBP/Concrete048.webp",
+                "256-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-WEBP/Concrete048.webp",
+                "512-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Concrete048.webp",
+                "1024-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-WEBP/Concrete048.webp",
+                "2048-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-WEBP/Concrete048.webp"
+            }
+        },
+        {
+            "assetId": "Concrete047A",
+            "releaseDate": "2025-10-09 13:00:00",
+            "earlyReleaseDate": "2025-09-23 16:00:00",
+            "dataType": "Material",
+            "creationMethod": "PBRPhotogrammetry",
+            "category": null,
+            "downloadCount": 49618,
+            "downloadCountMonth": 10638,
+            "downloadCountWeek": 2787,
+            "popularityScore": 32.856538799652554,
+            "tags": [
+                "047",
+                "47",
+                "beige",
+                "clean",
+                "concrete",
+                "construction",
+                "durable",
+                "floor",
+                "grey",
+                "industrial",
+                "layered",
+                "minimalist",
+                "modern",
+                "neutral",
+                "outdoor",
+                "pavement",
+                "rough",
+                "solid",
+                "stone",
+                "urban"
+            ],
+            "dataTypeName": "Material",
+            "dataTypeDescription": "A photo texture with PBR maps.",
+            "creationMethodName": "Height field photogrammetry",
+            "creationMethodDescription": "Displacement generated using photogrammetry.",
+            "displayName": "Concrete 047 A",
+            "customDisplayName": "",
+            "description": "",
+            "displayCategory": "Concrete",
+            "shortLink": "https://ambientcg.com/a/Concrete047A",
+            "dimensionX": 0,
+            "dimensionY": 0,
+            "dimensionZ": 0,
+            "createdUsing": [],
+            "basedOnThis": [],
+            "variations": [],
+            "nextVariationAssetId": null,
+            "previousVariationAssetId": null,
+            "nextAssetId": null,
+            "previousAssetId": null,
+            "downloadFolders": {
+                "default": {
+                    "title": "default",
+                    "downloadFiletypeCategories": {
+                        "zip": {
+                            "title": "zip",
+                            "downloads": [
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_1K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_1K-JPG.zip",
+                                    "fileName": "Concrete047A_1K-JPG.zip",
+                                    "size": 8614118,
+                                    "filetype": "zip",
+                                    "attribute": "1K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_2K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_2K-JPG.zip",
+                                    "fileName": "Concrete047A_2K-JPG.zip",
+                                    "size": 32918448,
+                                    "filetype": "zip",
+                                    "attribute": "2K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_4K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_4K-JPG.zip",
+                                    "fileName": "Concrete047A_4K-JPG.zip",
+                                    "size": 124769608,
+                                    "filetype": "zip",
+                                    "attribute": "4K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_8K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_8K-JPG.zip",
+                                    "fileName": "Concrete047A_8K-JPG.zip",
+                                    "size": 427467459,
+                                    "filetype": "zip",
+                                    "attribute": "8K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_1K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_1K-PNG.zip",
+                                    "fileName": "Concrete047A_1K-PNG.zip",
+                                    "size": 18151324,
+                                    "filetype": "zip",
+                                    "attribute": "1K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_2K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_2K-PNG.zip",
+                                    "fileName": "Concrete047A_2K-PNG.zip",
+                                    "size": 69893946,
+                                    "filetype": "zip",
+                                    "attribute": "2K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_4K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_4K-PNG.zip",
+                                    "fileName": "Concrete047A_4K-PNG.zip",
+                                    "size": 271934860,
+                                    "filetype": "zip",
+                                    "attribute": "4K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047A_8K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047A_8K-PNG.zip",
+                                    "fileName": "Concrete047A_8K-PNG.zip",
+                                    "size": 1033558405,
+                                    "filetype": "zip",
+                                    "attribute": "8K-PNG",
+                                    "zipContent": []
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "previewLinks": [
+                {
+                    "url": "https://releases.pbr.one/main/material-shading.html#normal_type=directx&color_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Color.jpg?51564&displacement_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Displacement.jpg?24557&normal_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_NormalDX.jpg?88788&roughness_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Roughness.jpg?14480&ambientocclusion_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_AmbientOcclusion.jpg?90475",
+                    "name": {
+                        "id": 4,
+                        "slug": "pbr-one-material-shading",
+                        "title": "3D Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                },
+                {
+                    "url": "https://releases.pbr.one/main/texture-tiling.html#texture_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Color.jpg?71612,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Displacement.jpg?4221,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_NormalDX.jpg?17804,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_Roughness.jpg?97530,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047A/Concrete047A_SQ_AmbientOcclusion.jpg?70410&texture_name=Color,Displacement,Normal,Roughness,Ambient Occlusion",
+                    "name": {
+                        "id": 3,
+                        "slug": "pbr-one-material-maps",
+                        "title": "Tiling Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                }
+            ],
+            "previewType": "Default",
+            "maps": [
+                "color",
+                "displacement",
+                "normal",
+                "roughness",
+                "ambient-occlusion"
+            ],
+            "hasUsd": false,
+            "previewImage": {
+                "64-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-PNG/Concrete047A.png",
+                "128-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-PNG/Concrete047A.png",
+                "256-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-PNG/Concrete047A.png",
+                "512-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-PNG/Concrete047A.png",
+                "1024-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-PNG/Concrete047A.png",
+                "2048-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-PNG/Concrete047A.png",
+                "64-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-FFFFFF/Concrete047A.jpg",
+                "128-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-FFFFFF/Concrete047A.jpg",
+                "256-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-FFFFFF/Concrete047A.jpg",
+                "512-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-FFFFFF/Concrete047A.jpg",
+                "1024-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Concrete047A.jpg",
+                "2048-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-FFFFFF/Concrete047A.jpg",
+                "64-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-242424/Concrete047A.jpg",
+                "128-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-242424/Concrete047A.jpg",
+                "256-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-242424/Concrete047A.jpg",
+                "512-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-242424/Concrete047A.jpg",
+                "1024-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-242424/Concrete047A.jpg",
+                "2048-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-242424/Concrete047A.jpg",
+                "64-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-WEBP/Concrete047A.webp",
+                "128-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-WEBP/Concrete047A.webp",
+                "256-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-WEBP/Concrete047A.webp",
+                "512-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Concrete047A.webp",
+                "1024-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-WEBP/Concrete047A.webp",
+                "2048-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-WEBP/Concrete047A.webp"
+            }
+        },
+        {
+            "assetId": "Concrete047B",
+            "releaseDate": "2025-10-09 13:00:00",
+            "earlyReleaseDate": "2025-09-23 16:00:00",
+            "dataType": "Material",
+            "creationMethod": "PBRPhotogrammetry",
+            "category": null,
+            "downloadCount": 10825,
+            "downloadCountMonth": 2916,
+            "downloadCountWeek": 808,
+            "popularityScore": 7.950038947685091,
+            "tags": [
+                "047",
+                "47",
+                "beige",
+                "concrete",
+                "drainage",
+                "durable",
+                "floor",
+                "gray",
+                "industrial",
+                "metal",
+                "old",
+                "outdoor",
+                "rough",
+                "rustic",
+                "solid",
+                "stone",
+                "urban"
+            ],
+            "dataTypeName": "Material",
+            "dataTypeDescription": "A photo texture with PBR maps.",
+            "creationMethodName": "Height field photogrammetry",
+            "creationMethodDescription": "Displacement generated using photogrammetry.",
+            "displayName": "Concrete 047 B",
+            "customDisplayName": "",
+            "description": "",
+            "displayCategory": "Concrete",
+            "shortLink": "https://ambientcg.com/a/Concrete047B",
+            "dimensionX": 0,
+            "dimensionY": 0,
+            "dimensionZ": 0,
+            "createdUsing": [],
+            "basedOnThis": [],
+            "variations": [],
+            "nextVariationAssetId": null,
+            "previousVariationAssetId": null,
+            "nextAssetId": null,
+            "previousAssetId": null,
+            "downloadFolders": {
+                "default": {
+                    "title": "default",
+                    "downloadFiletypeCategories": {
+                        "zip": {
+                            "title": "zip",
+                            "downloads": [
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_1K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_1K-JPG.zip",
+                                    "fileName": "Concrete047B_1K-JPG.zip",
+                                    "size": 8751402,
+                                    "filetype": "zip",
+                                    "attribute": "1K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_2K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_2K-JPG.zip",
+                                    "fileName": "Concrete047B_2K-JPG.zip",
+                                    "size": 33060166,
+                                    "filetype": "zip",
+                                    "attribute": "2K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_4K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_4K-JPG.zip",
+                                    "fileName": "Concrete047B_4K-JPG.zip",
+                                    "size": 124597437,
+                                    "filetype": "zip",
+                                    "attribute": "4K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_8K-JPG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_8K-JPG.zip",
+                                    "fileName": "Concrete047B_8K-JPG.zip",
+                                    "size": 427263447,
+                                    "filetype": "zip",
+                                    "attribute": "8K-JPG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_1K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_1K-PNG.zip",
+                                    "fileName": "Concrete047B_1K-PNG.zip",
+                                    "size": 18204431,
+                                    "filetype": "zip",
+                                    "attribute": "1K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_2K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_2K-PNG.zip",
+                                    "fileName": "Concrete047B_2K-PNG.zip",
+                                    "size": 69830174,
+                                    "filetype": "zip",
+                                    "attribute": "2K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_4K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_4K-PNG.zip",
+                                    "fileName": "Concrete047B_4K-PNG.zip",
+                                    "size": 271430620,
+                                    "filetype": "zip",
+                                    "attribute": "4K-PNG",
+                                    "zipContent": []
+                                },
+                                {
+                                    "fullDownloadPath": "https://ambientcg.com/get?file=Concrete047B_8K-PNG.zip",
+                                    "downloadLink": "https://ambientcg.com/get?file=Concrete047B_8K-PNG.zip",
+                                    "fileName": "Concrete047B_8K-PNG.zip",
+                                    "size": 1031789000,
+                                    "filetype": "zip",
+                                    "attribute": "8K-PNG",
+                                    "zipContent": []
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "previewLinks": [
+                {
+                    "url": "https://releases.pbr.one/main/material-shading.html#normal_type=directx&color_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Color.jpg?40117&displacement_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Displacement.jpg?51449&normal_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_NormalDX.jpg?88968&roughness_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Roughness.jpg?88092&ambientocclusion_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_AmbientOcclusion.jpg?81385",
+                    "name": {
+                        "id": 4,
+                        "slug": "pbr-one-material-shading",
+                        "title": "3D Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                },
+                {
+                    "url": "https://releases.pbr.one/main/texture-tiling.html#texture_url=https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Color.jpg?48932,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Displacement.jpg?17493,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_NormalDX.jpg?15434,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_Roughness.jpg?37049,https://f003.backblazeb2.com/file/ambientCG-Web/media/surface-preview/Concrete047B/Concrete047B_SQ_AmbientOcclusion.jpg?31&texture_name=Color,Displacement,Normal,Roughness,Ambient Occlusion",
+                    "name": {
+                        "id": 3,
+                        "slug": "pbr-one-material-maps",
+                        "title": "Tiling Preview",
+                        "description": "description"
+                    },
+                    "displayName": "",
+                    "iconName": ""
+                }
+            ],
+            "previewType": "Default",
+            "maps": [
+                "color",
+                "displacement",
+                "normal",
+                "roughness",
+                "ambient-occlusion"
+            ],
+            "hasUsd": false,
+            "previewImage": {
+                "64-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-PNG/Concrete047B.png",
+                "128-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-PNG/Concrete047B.png",
+                "256-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-PNG/Concrete047B.png",
+                "512-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-PNG/Concrete047B.png",
+                "1024-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-PNG/Concrete047B.png",
+                "2048-PNG": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-PNG/Concrete047B.png",
+                "64-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-FFFFFF/Concrete047B.jpg",
+                "128-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-FFFFFF/Concrete047B.jpg",
+                "256-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-FFFFFF/Concrete047B.jpg",
+                "512-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-FFFFFF/Concrete047B.jpg",
+                "1024-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-FFFFFF/Concrete047B.jpg",
+                "2048-JPG-FFFFFF": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-FFFFFF/Concrete047B.jpg",
+                "64-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-JPG-242424/Concrete047B.jpg",
+                "128-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-JPG-242424/Concrete047B.jpg",
+                "256-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-JPG-242424/Concrete047B.jpg",
+                "512-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-JPG-242424/Concrete047B.jpg",
+                "1024-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-JPG-242424/Concrete047B.jpg",
+                "2048-JPG-242424": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-JPG-242424/Concrete047B.jpg",
+                "64-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/64-WEBP/Concrete047B.webp",
+                "128-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/128-WEBP/Concrete047B.webp",
+                "256-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/256-WEBP/Concrete047B.webp",
+                "512-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/512-WEBP/Concrete047B.webp",
+                "1024-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/1024-WEBP/Concrete047B.webp",
+                "2048-WEBP": "https://acg-media.struffelproductions.com/file/ambientCG-Web/media/thumbnail/2048-WEBP/Concrete047B.webp"
+            }
+        }
+    ]
+}

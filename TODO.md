@@ -74,20 +74,22 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 
 ## Sešna B (obsah a nástroje)
 
-Oddíl převzat doslova z `TODO.md` na `sesna-b` (`b43d0bd`); vede ho sešna B.
+Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b`, zadání `docs/sesny/START_B.md`. Vede sešna B.
 
-**Hotovo ve vlně 2:**
-- B2.1 průchodnost pro skutečného hráče 0,74 m, katakomby, světlost dveří (`d2e1481`)
-- B2.6 xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu po podílech, čtení bez Node (`3d1aa2a`, `7dd9cd2`), nad mřížkou D-037 (`9d34aa6`)
-- díly prefabů z `geom.js` v galerii, náhledu a xBake (`7dd9cd2`)
-- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox)
+**Teď** (Ondřej 24. 11. 19:55: 1 a, 2 a, 3 a a k tomu „více těles, více prefabů, bohatší tvary…, spodní šuplíky nezávisle, realističtější dřevo“):
+1. dodatek znění 4: `BODY` a `decodeBake` ze základu, xBake zapeče i pevné díly prefabů (D-041)
+2. barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (Ondřejova volba 1 a)
+3. tvary ze sítí `.glb` z kódu (zkosení, zaoblení, římsy, výplně, mezery, vyboulení, nepravidelnosti); přestavba nejviditelnějších prefabů a nové prefaby
+4. šuplíky nezávisle: samostatné entity a návrh na víc interakcí v jednom prefabu; duté šuplíky
+5. dřevo se suky, trhlinami a letokruhy
 
-**Teď:** B2.3 xSearcher (`tools/searcher/find.mjs`): hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox/`, se záznamem o původu a licenci; test nad uloženými odpověďmi bez sítě.
+**Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) · B2.7.
 
-**Další, v tomto pořadí** (Ondřej 24. 11.: opotřebený provoz; z webu jen materiály a textury; poprvé v galerii; mez 8 GB grafické paměti):
-1. B2.4 textury barvy do `kit_base` přes `albedo`, galerie se třemi pohledy (čistý, T460, grafická karta); originály 2K, odvozeně 1K a 512 px
-2. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
-3. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
-4. B2.7 xDesigner, dům, tvor
+**Čeká na jiné:** N-009 barva materiálu s texturou (svodná; týká se A2.6) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A.
 
-**Čeká na jiné:** N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).
+**Nedávno hotovo:**
+- 24. 11. B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB), galerie se třemi pohledy, návrh N-009 (`7204c2d`, `951044a`, `70d2473`)
+- 24. 11. B2.3 xSearcher: hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox`; 19 textur v příjmu; test bez sítě 47 kontrol (`5828344`, `24e2358`)
+- 24. 11. xBake nad mřížkou D-037; brány dveří, stínění kolizemi, okraj stínu po podílech (`3d1aa2a`, `7dd9cd2`, `9d34aa6`)
+- 24. 11. B2.1 průchodnost pro hráče 0,74 m, světlost dveří (`d2e1481`)
+- 24. 11. regrese po B2.4: `npm test` 254, `npm run test:b` 201, `npm run test:axb` 37, 0 selhalo (`951044a`, sandbox)
