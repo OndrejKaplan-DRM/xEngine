@@ -328,6 +328,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       for (const p of ctx.level.portals || []) if (p.door) doorCells.set(p.door, [p.a, p.b]);
       sys.builtAway = sys.doorsAway;
       roomDoors = portalDoorIds(ctx.level);
+      assets.beginLevel();
       list = (ctx.level.entities || []).map(instantiate);
       byId = new Map(list.map((e) => [e.id, e]));
       for (const ent of list) {

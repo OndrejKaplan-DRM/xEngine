@@ -21,6 +21,13 @@ function summary(arr, n) {
   return { median: +quantile(s, 0.5).toFixed(2), p95: +quantile(s, 0.95).toFixed(2), max: +(s[s.length - 1] || 0).toFixed(2) };
 }
 
+/** Textury a sítě z .glb (A2.6): kolik jich level má a kolik zabírají v grafické paměti (odhad RGBA8 s mipmapami). */
+function assetLine(game, render) {
+  const t = render.materials?.stat;
+  const a = game.assets?.stat;
+  return { textures: t?.textures ?? 0, textureMpx: t ? +(t.texels / 1e6).toFixed(2) : 0, textureMB: t ? +((t.texels * 4 * 4) / 3 / 1048576).toFixed(1) : 0, meshParts: a?.meshParts ?? 0, meshTris: a?.meshTris ?? 0 };
+}
+
 export function createBench({ game, lock, root }) {
   const { E, input, player, world, entities, behave, session, render, light } = game;
   const work = new Float32Array(MAX_SAMPLES);
@@ -143,7 +150,7 @@ export function createBench({ game, lock, root }) {
         image: render.size,
         antialias: render.antialias,
       },
-      level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },
+      level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, ...assetLine(game, render), lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1) },
       run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports },
       frame: { workMs: summary(work, n), intervalMs: g, fps: g.median ? +(1000 / g.median).toFixed(1) : 0 },
       step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech', sys: pr.sys },

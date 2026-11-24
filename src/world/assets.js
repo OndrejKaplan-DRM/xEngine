@@ -83,7 +83,11 @@ export function createAssets(pack) {
   }
 
   return {
+    /** Počty v stat platí pro level, který se právě staví (sítě a modely zůstávají v paměti pro další načtení). */
     stat,
+    beginLevel() {
+      Object.assign(stat, { meshParts: 0, meshTris: 0, hulls: 0, trimeshes: 0, missing: 0 });
+    },
     /** Bajty souboru balíku, nebo null. */
     bytes,
     /** Je soubor ve hře? */

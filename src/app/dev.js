@@ -45,6 +45,7 @@ export function createDev({ game, hud }) {
       `obraz ${render.size[0]} × ${render.size[1]}${render.antialias ? ' · vyhlazování hran' : ''} · zorné pole ${render.hfov.toFixed(0)}° × ${render.fov.toFixed(0)}° (nastaveno ${render.baseFov})`,
       `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells}`,
       `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms${game.light.progress < 1 ? ` · STAVÍ SE ${(game.light.progress * 100).toFixed(0)} %` : ''}`,
+      ...assetsLine(game),
       `buňka ${vis.cameraCell ?? '?'} · rychlost ${Math.hypot(v[0], v[2]).toFixed(2)} m/s · poloha ${p[0].toFixed(1)} ${p[1].toFixed(1)} ${p[2].toFixed(1)}`,
       `krok po systémech (ms): ${sys || 'měřím…'}`,
       `fyzika: ${bodiesLine()}`,
@@ -110,4 +111,13 @@ export function createDev({ game, hud }) {
     text,
   };
   return api;
+}
+
+/** Řádek F3 o texturách a sítích z .glb (A2.6); bez nich se nevypisuje. */
+function assetsLine(game) {
+  const t = game.render.materials?.stat;
+  const a = game.assets?.stat;
+  if (!t?.textures && !t?.pending && !a?.meshParts && !a?.missing && !t?.missing) return [];
+  const mb = t ? ((t.texels * 4 * 4) / 3 / 1048576).toFixed(1).replace('.', ',') : '0';
+  return [`textury ${t?.textures ?? 0}${t?.pending ? ` (+${t.pending} se načítá)` : ''} · ${mb} MB · díly .glb ${a?.meshParts ?? 0} (△ ${a?.meshTris ?? 0})${a?.missing || t?.missing ? ` · CHYBÍ soubory ${(a?.missing ?? 0) + (t?.missing ?? 0)}` : ''}`];
 }
