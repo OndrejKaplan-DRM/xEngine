@@ -178,6 +178,19 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 - **Dveře v portálu při zapékání nestíní.** Vzorek, ke kterému vede volná cesta od světla otvorem portálu s dveřmi, svítí úrovní světla × otevření dveří (úsek vrstvy s polem `gate`). Zavřenými dveřmi tak světlo neprochází a při otevírání přibývá (D-035).
 - **Mřížka vzorků, znění 2** (D-037, v základu od 24. 11. 2026). Hrana plochy rovnoběžná s osou má vrcholy na násobcích buňky ve světových souřadnicích a na obou svých koncích; šikmá hrana klínu a jeho trojúhelníkové boky se dělí rovnoměrně. Plochy, které sdílejí přímku, na ní proto mají stejné vrcholy. Plocha, která leží celá v jiném neprůhledném viditelném kvádru (včetně jeho povrchu), vzorky nemá (`brushHiddenFaces`); kvádr s `vis: false` také ne. Nikdo nesmí mít počet ani pořadí vzorků natvrdo; obojí se bere z `geom.js`. Na plochách rovnoběžných s osami jsou vrcholy mřížky 0,5 m podmnožinou mřížky 0,25 m.
 
+### Zkušební: zbraně, munice a boj (N-201, D-053)
+
+Pole jsou **zkušební**: po zkoušce na plazmové pušce zlatého vzorku se smějí změnit bez zachování zpětné slučitelnosti. Podrobně `docs/navrhy/N-201-zbrane-a-udalosti-boje.md`, pole `docs/02a_XSPACE_pole.md` (druhy `ammo` a `weapon`).
+
+- Munice je v souboru `ammo.json` (manifest `ammo`), zbraně v `weapons/<id>.json` (manifest `weapons`). Spojení balíků (`mergePacks`) bere munici a zbraně i z balíků v `requires`.
+- **Zbraň v ruce je prefab** (`view.prefab`); ústí `view.muzzle` je v prostoru prefabu (přední strana +Z), `view.pos` a `view.rot` ho staví vůči kameře (x vpravo, y nahoru, −z dopředu). Kreslí se ve druhém průchodu po vymazání hloubky (nikdy neprojde zdí), na stupni `low` bez světla po pixelech (D-022); záblesk ústí smí být to jediné efektové bodové světlo. Když ústí leží za zdí (paprsek od oka k ústí narazí), střela vychází z oka (Aréna).
+- Zbraň na zemi je prefab s `interact.kind: "pickup"`; `pickup.item` je id zbraně (dá zbraň a `amount` její munice), id munice, nebo `health` / `armor` (`PICKUP_ITEMS`); jiný předmět validátor hlásí varováním `pickup.item`.
+- **Hodnota podle nabití** `{ min, max, curve? }` se počítá jen funkcí `rampValue(hodnota, nabití)` ze `src/xspace/weapon.js`; munici zaokrouhluje běh na celé (`Math.round`). Nabití je 0 až 1 = držení / `charge.time`; v `charge.release` zbraň vystřelí sama.
+- **Výbuch:** poškození i odhození klesají lineárně se vzdáleností, `splashFalloff(d, r) = 1 − d/r`. Těleso o hmotnosti `m` dostane změnu rychlosti `pushDelta(push, d, r, m) = push · (1 − d/r) / (1 + m / PUSH_MASS)`, `PUSH_MASS = 800` kg. Bod, ke kterému vede paprsek ze středu výbuchu přes statický svět, nedostane nic (kryt).
+- **Zásah:** entita s `components.health` ztrácí `hp`; každý zásah vyšle výstup `hit`, při `hp ≤ 0` výstup `destroyed` a entitu nahradí `breakInto`, nebo zmizí. Povrch pro částice a zvuk je `health.surface`, jinak povrch materiálu.
+- **Události boje:** `weapon:fired` `{ weapon, mode, pos, dir }`, `weapon:switched` `{ weapon }`, `combat:hit` `{ target, point, normal, damage, surface, weapon }` (`target` = id entity, `null` = svět), `combat:exploded` `{ pos, radius, damage, push, weapon }`, `combat:destroyed` `{ target, weapon }`, `combat:noise` `{ pos, radius }`. Deklarují se ve vlastnosti `events` systému, který je vysílá.
+- Náhoda rozptylu jen přes `rngNext` (pevný krok, jádro).
+
 ### Profily
 
 `level.profile` je `arena`, nebo `real`. Konstanty pohybu jsou data sešny A (`src/play/profiles`), výchozí hodnoty podle `10_CASE_FPS` z Level 1. Hodnoty pro Counter-Strike a Half-Life mají jistotu 3/5 a ladí se na xLabu.

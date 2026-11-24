@@ -38,7 +38,7 @@ export function checkArsenal(pack, prefabIds, external, c) {
       if (!ID.test(k)) c.err('shape.id', `${ammoFile}.ammo.${k}`, 'id munice má být malými písmeny, číslicemi a podtržítkem');
       ammoIds.add(k);
     }
-  } else if (m?.ammo) c.err('pack.missingFile', 'pack.json.ammo', `soubor „${m.ammo}“ se nenačetl`);
+  } else if (m?.ammo && pack.ammo === null) c.err('pack.missingFile', 'pack.json.ammo', `soubor „${m.ammo}“ se nenačetl`); // null = loadPack ho zkusil; balík poskládaný v testu pole nemá
 
   const weaponIds = new Set();
   const slots = new Map();

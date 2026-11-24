@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 8 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 23:50: `sesna-a` = `728a9a5`, `sesna-b` = `235b38a`. Regrese na `main`: 953 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 9 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 23:50: `sesna-a` = `728a9a5`, `sesna-b` = `235b38a`. Regrese na `main`: 984 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -40,7 +40,7 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 **Hotovo dnes odpoledne:** `TODO.md` a mapa v `CLAUDE.md` (D-038); měření F3 z 24. 11.; D-039 až D-044; `body.js`, `samples.js`, `bake.js`.
 
-**Čeká na sešny:** A dělí okolní světlo π (D-049) → potom svodná vynásobí okolní světlo zlatého vzorku π; A zapojí svázané klouby a zkompilovanou kostru v kroku (`rigCompile` / `rigFollow` / `rigSolve`, dodatek znění 7). B zapisuje `albedoMean`, zapéká pevné díly prefabů (D-041), dvoukřídlé dveře jako jeden prefab bez `seeThrough` (N-002). Pořadí N-010: nejdřív A vybírá interakci přes `interactionOf`, potom B vrátí kartotéku a stůl do jednoho prefabu.
+**Čeká na sešny:** A dělí okolní světlo π (D-049) → potom svodná vynásobí okolní světlo zlatého vzorku π; A zapojí svázané klouby a zkompilovanou kostru v kroku (`rigCompile` / `rigFollow` / `rigSolve`, dodatek znění 7). B zapisuje `albedoMean`, zapéká pevné díly prefabů (D-041), dvoukřídlé dveře jako jeden prefab bez `seeThrough` (N-002). Pořadí N-010: nejdřív A vybírá interakci přes `interactionOf`, potom B vrátí kartotéku a stůl do jednoho prefabu. Zkouška zbraní: A3.1 (sešna A) a B3.1 (sešna B), dodatky znění 9.
 
 - [x] N-102 kostry bez alokací (`rigCompile`, `rigValues`, `rigFollow`, `rigSolve`; T1b; regrese 926 kontrol, 0 selhalo)
 
@@ -48,9 +48,11 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 - [x] N-010 víc interakcí v prefabu (D-052, `src/xspace/interact.js`, T1c; regrese 953 kontrol, 0 selhalo)
 
-**Teď:** zbraně, munice a události boje jako zkušební formát se zkouškou na plazmové pušce (N-201, D-051).
+- [x] zkušební formát zbraní a munice, události boje, plazmová puška ve zlatém vzorku (N-201, D-053, T1d; regrese 984 kontrol, 0 selhalo)
 
-**Další na řadě:** svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Teď:** čeká na zkoušku zbraní u sešen A (A3.1) a B (B3.1); potom zmrazit formát zbraní (D-030). Mezitím svítivosti zlatého vzorku (N-105) a `rig.noSpeed` (N-103).
+
+**Další na řadě:** zvuk z Arény (Z-2, D-051) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 

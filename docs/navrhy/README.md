@@ -4,7 +4,7 @@ Sešna A ani B nemění soubory základu ani soubory druhé sešny. Když něco 
 
 ## Postup
 
-1. Soubor `N-<číslo>-<téma>.md` v této složce, číslo další volné (obě sešny číslují ve vlastní řadě: A od 101, B od 001, aby se nesrazily).
+1. Soubor `N-<číslo>-<téma>.md` v této složce, číslo další volné (každá sešna čísluje ve vlastní řadě: B od 001, A od 101, svodná od 201, aby se nesrazily; svodná tak píše zadání zkoušky nového formátu).
 2. Dočasné řešení ve vlastní složce, za přepínačem nebo ve vlastním poli, které validátor ohlásí jen jako varování `shape.unknown`.
 3. Práce pokračuje. Na rozhodnutí se nečeká.
 
@@ -85,3 +85,4 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | N-009 barva materiálu s texturou (B) | přijata varianta a1 (`color` = průměr povrchu, pole `albedoMean`) | D-045; `formats.js`, validátor `mat.albedoMean`, T1 |
 | N-010 víc interakcí v prefabu (B) | **přijata varianta a a provedena** 25. 11. 2026: `components.interact` jako seznam s `id`, výběr podle zasaženého uzlu (`interactionOf`), `from` / `to` ve spojeních | D-052; `src/xspace/interact.js`, validátor `interact.id`, `interact.jointTwice`, `interact.solo`, `io.from`, `io.to`, T1c |
 | N-111 soubory balíku ve hře (A) | přijat, body 1 až 4 provedeny; kontrola uzlu v `.glb` a strop velikosti odloženy | D-046; `read-pack.mjs`, `build.mjs`, `load.js` (`materialFrom`), validátor `ref.asset` pro textury, T1 |
+| N-201 zbraně, munice a události boje (svodná) | **přijat ke zkoušce** 25. 11. 2026: zkušební druhy `ammo` a `weapon`, plazmová puška ve zlatém vzorku; zmrazí se po zkoušce sešen A a B | D-051, D-053; `formats.js`, `weapon.js`, `check-weapon.js`, T1d |

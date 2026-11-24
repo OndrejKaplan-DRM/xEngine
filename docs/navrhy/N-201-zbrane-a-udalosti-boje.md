@@ -65,13 +65,13 @@ Zbraň v ruce je **prefab** (díly `box`, `cyl` nebo `mesh` z `.glb`): stejná c
 | kadence | `cooldown` 0,1 s (10 ran/s) | 0,5 s |
 | munice | 1 článek | 5 až 20 článků (lineárně) |
 | střela | 45 m/s, život 4 s | 14 až 40 m/s (lineárně), život 6 s |
-| poškození | 12 při zásahu, šplouchnutí 1,0 m za 6 | výbuch 2,5 až 5,5 m (lineárně), 30 až 200 (s druhou mocninou) |
+| poškození | 12 při zásahu, šplouchnutí 1,0 m za 6 | přímý zásah 0, výbuch 2,5 až 5,5 m (lineárně), 30 až 200 (s druhou mocninou) |
 | odhození | – | `push` 12 až 33 m/s (s druhou mocninou; Aréna `power` (8 + 14 e) / 12 × 18) |
 | rozptyl | 0,46° (Aréna 0,008 rad) | 0 |
 | nabití | – | plné za 2,0 s, samo vystřelí ve 2,6 s |
 | hluk | 30 m | 40 m |
 
-Munice `cells`: nejvýš 200. Přiblížení u plazmy Aréna nemá (má ho paprskomet, 24°); zkouška ho dá plazmě, aby se zoom ověřil na stejném kusu.
+Munice `cells`: nejvýš 200. Zbraň na zemi dá pušku a 40 článků (Aréna: bonus 40). Přiblížení u plazmy Aréna nemá (má ho paprskomet, 24°); zkouška ho dá plazmě s 45° (volba svodné sešny), aby se zoom ověřil na stejném kusu. Střela je v Aréně bod (paprsek po dráze za krok), proto `projectile.radius` chybí.
 
 ### Výbuch a odhození
 
@@ -103,7 +103,7 @@ Systémy je deklarují ve vlastnosti `events`; nedeklarovaná událost shodí te
 
 ## Dočasné řešení
 
-Žádné; formát je v základu jako zkušební od znění 8 základu 2.
+Žádné; formát je v základu jako zkušební od znění 9 základu 2 (`9aaedd9`): `formats.js` (druhy `ammo`, `weapon`, typ `ramp`), `src/xspace/weapon.js`, `src/xspace/check-weapon.js`, zlatý vzorek (`ammo.json`, `weapons/plasma_rifle_01.json`, `wpn_plasma_rifle_01`, `pickup_plasma_rifle_01`, entita `e_plasma`), test T1d (31 kontrol).
 
 ## Rozhodnutí
 
