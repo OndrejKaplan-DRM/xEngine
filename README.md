@@ -2,19 +2,22 @@
 
 Engine pro 3D z pohledu první osoby v prohlížeči, datový formát xSpace a nástroje kolem něj. Cílový stroj: Lenovo T460 (Intel HD 520, 8 GB).
 
-**Stav: základ 1 (22. 11. 2026).** Hotové jsou kontrakty, jádro, formát dat s validátorem, zkušební level xLab, prohlížeč dat a měření stroje. Engine sám vzniká ve vlně 1. Podrobně `docs/STATE.md`.
+**Co se dělá a co je hotové: `TODO.md`.** Stav základu a čísla: `docs/STATE.md`. Počty kontrol tady záměrně nejsou, stárnou.
 
 ## Rychlý start
 
 ```text
 npm install
-npm test            jádro, formát, zlatý vzorek, sestavení, prohlížeč dat, měření (165 kontrol)
-npm run build       dist/xview.html a dist/xbench.html
+npm test            jádro, formát, zlatý vzorek, sestavení, prohlížeč dat, měření
+npm run test:all    + sešna A, sešna B a zkouška A × B
+node build.mjs xlab           dist/xlab.html: hra se zlatým vzorkem
+node build.mjs xlab_gen       dist/xlab_gen.html?level=N: hra s levely sešny B
 npm run check       kontrola zlatého vzorku validátorem
 ```
 
-- `dist/xview.html`: prohlížeč zkušebního levelu (otevři dvojklikem).
+- `dist/xview.html`: prohlížeč balíku (otevři dvojklikem).
 - `dist/xbench.html`: měření stroje. Spusť na T460 a pošli výsledek; podle něj se nastaví rozpočty.
+- Ve hře: F3 přehled, F4 buňky a portály; adresa `?bench` změří celý snímek a vydá JSON.
 
 ## Mapa
 
@@ -36,7 +39,7 @@ docs/           00 vize · 01 architektura · 02 kontrakty · 02a pole formátu 
 
 ## Pro sešny
 
-Začni v `CLAUDE.md`. Zadání je v `docs/sesny/START_A.md`, `START_B.md` nebo `START_SVOD.md`.
+Začni v `CLAUDE.md` (mapa, kde co je) a `TODO.md`. Zadání je v `docs/sesny/START_A.md`, `START_B.md` nebo `START_SVOD.md`. Moduly a kdo je vlastní: `docs/01_ARCHITEKTURA.md`, oddíl 9.
 
 ## Licence a původ
 

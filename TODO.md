@@ -1,100 +1,90 @@
-# TODO: co je hotové, co se dělá, co čeká
+# TODO: co se dělá, co čeká, co je hotové
 
-Krátký přehled celého projektu na jedné stránce. Podrobnosti jsou v odkazech, ne tady.
+Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků); tady je jen to, co potřebuješ vědět, než začneš.
 
-**Pravidla tohoto souboru**
-- Každá sešna přepisuje **jen svůj oddíl** (svodná, A, B), po každém uzavřeném kroku, ve stejném commitu jako práce.
-- „Hotovo“ jen s commitem a zeleným testem. Bez toho je to „rozpracované“.
-- Co je hotové, z oddílu „Teď“ zmizí a zůstane jedním řádkem v „Hotovo“. Dlouhé popisy patří do `*_STAV.md`.
-- Na začátku sešny: `git fetch` a přečíst tento soubor z větve základu i z větví sešen (`git show origin/sesna-a:TODO.md`). Než se soubor dostane do základu, je jen na větvi `sesna-b`.
+**Pravidla souboru** (D-038):
+- Každá sešna mění **jen svůj oddíl**. Svodná sešna navíc oddíl „Čeká na Ondřeje“ a hlavičku.
+- Aktualizuje se na konci každého kroku spolu s commitem, ne až na konci sešny.
+- „Nedávno hotovo“ drží posledních 8 položek; starší jsou v `git log` a v `*_STAV.md`.
+- Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
+- Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Kde je co**
-
-| Co | Kde |
-|---|---|
-| pravidla pro AI (čte se samo v každé sešně) | `CLAUDE.md` |
-| Ondřejovo zadání (platí nad rozhodnutími sešen) | `docs/00_ZADANI.md` |
-| moduly, tok dat, vrstvy běhu | `docs/01_ARCHITEKTURA.md`; mapa složek v `README.md` |
-| závazná rozhraní a pole formátu | `docs/02_KONTRAKTY.md`, `docs/02a_XSPACE_pole.md` (z `src/xspace/formats.js`) |
-| deník rozhodnutí (D-001 a dál: co, proč, co se zvažovalo, jak vrátit) | `docs/DECISIONS.md` |
-| návrhy změn N-xxx a jejich osud | `docs/navrhy/` |
-| podrobný stav | `docs/STATE.md` (základ), `docs/sesny/A_STAV.md`, `docs/sesny/B_STAV.md` (na větvích sešen) |
-| zadání vlny pro sešny | `docs/sesny/START_A.md`, `START_B.md`, `START_SVOD.md` |
-| změřeno na T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` |
-
-## Teď (2026-11-24, 16:00)
-
-| Sešna | Větev a hlava | Dělá teď | Potom |
-|---|---|---|---|
-| svodná | `zaklad-2` = `main` = `a995347` (znění 3 základu 2) | nic neběží | sloučit vlnu 2, dluhy základu (oddíl níže) |
-| A | `sesna-a` = `db6fad0` | A2.5 nová pole základu, A2.6 textury a sítě (Ondřej 24. 11. 02:26: „1 b“) | textura světla N-110 až potom |
-| B | `sesna-b` (hlava v `git log`) | čeká na Ondřejovy odpovědi k texturám (B2.4) | zbytek B2.4 (bohatší hrubý tvar) nebo B2.5 |
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 4 (24. 11. 2026). Hlavy sešen v 16:33: `sesna-a` = `c7a2a64`, `sesna-b` = `4aeeeb4`. Regrese: `main` 662 kontrol, sloučení nanečisto s oběma sešnami 855, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
-| Kdo se ptá | Otázka | Kde |
-|---|---|---|
-| A | zorné pole po opravě: a) použitelné, b) nižší strop než 120°, c) promítání Panini | `A_STAV.md`, Otázky |
-| A | tři měření `?bench` s opravenou metodou (bez vyhlazování, mřížka 0,5 m; `?bench`, `&rows=1080`, `xLab_gen…?bench`) | tamtéž |
-| A | terminál: po Esc a Pokračovat kurzor hned poslouchá? a) ano, b) ne | tamtéž |
-| B | barvy materiálů k realistickému albedu? textury v galerii sedí? dál bohatší tvar, nebo B2.5? | `B_STAV.md`, Otázky |
+| # | Co | Ptá se | Od | Podrobně |
+|---|---|---|---|---|
+| 1 | Zorné pole po opravě (vodorovný úhel při 4 : 3, strop 120°): a) použitelné, b) nižší strop, c) promítání Panini | sešna A | 24. 11. | `A_STAV.md`, konec |
+| 2 | `?bench` znovu s opravenou metodou, bez vyhlazování, mřížka 0,5 m: `xlab.html?bench`, `…?bench&rows=1080`, `xlab_gen.html?bench`. Rozhodne výchozí rozlišení a o textuře světla (N-110). | sešna A, svodná | 24. 11. | `A_STAV.md`, konec |
+| 3 | Terminál: po Esc a Pokračovat dál sedíš u terminálu a kurzor hned poslouchá? | sešna A | 23. 11. | D-032 |
+| 4 | Černá obrazovka (snímek 3 z 24. 11. 01:42): jen okamžik, nebo trvala? | svodná | 24. 11. | `docs/mereni/T460_2026-11-24_D-037_F3.md` |
+| 5 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
+| 6 | Sloučit práci vlny 2 obou sešen do základu (světlo po vrcholech, xBake, zorné pole…): a) teď, b) až po A2.6 a B2.5 | svodná | 24. 11. | `docs/STATE.md` |
 
-## Otevřené návrhy (rozhoduje svodná sešna)
+## Svodná sešna (základ)
 
-| Návrh | Co | Podala | Stav |
-|---|---|---|---|
-| N-001 znění 2 | zapečené světlo: potvrdit `gate` jako seznam id dveří a pole `doors` v hlavičce | B | přijato se změnou (D-035), dvě věci k potvrzení |
-| N-002 | svázané klouby (`follow`): dvoukřídlé dveře jako jeden prefab | B | přijato, základ dluží |
-| N-008 | rozměry postavy (poloměr, výška, schod, odstup kontroléru) do `src/xspace` | B | otevřený |
-| N-009 | barva materiálu s texturou: `color` = průměr povrchu, běh kreslí `textura × (color / průměr)`, pole `albedoMean` | B | otevřený; týká se A2.6 |
-| N-102 | `rigCompile`, `rigSolve` bez alokací | A | přijato, základ dluží |
-| N-105 | xLab je přesvícený (svítivosti a expozice zlatého vzorku) | A | čeká na čísla jasu |
-| N-109 | otočné dveře se otvírají od hráče: kloub na obě strany v datech | A | Ondřej chce do dat (24. 11., „2 a“); čeká na svodnou, potom data sešny B |
-| N-110 | světlo v textuře, bod 5 cm, zapéká xBake | A | Ondřej: až po A2.5 a A2.6 |
+Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodnutí `docs/DECISIONS.md`.
 
-## Svodná sešna (oddíl mění jen svodná)
+**Hotovo dnes (main 03, 24. 11.):**
+- [x] paměť projektu v repu: tento soubor, mapa v `CLAUDE.md`, moduly v `docs/01_ARCHITEKTURA.md` (D-038)
+- [x] měření z tvých snímků F3 z 24. 11.: `docs/mereni/T460_2026-11-24_D-037_F3.md`
+- [x] rozhodnuto: D-039 řádky podle okna; D-040 N-008 přijat; D-041 vzorky i z pevných dílů prefabů; D-042 N-109 přijat; D-043 N-110 jako směr se zkouškou 5 a 10 cm, `env.lightCell` zamítnuto; D-044 brána jako seznam a `doors` v hlavičce přijaty, čtení souboru do základu
+- [x] základ: `src/xspace/body.js` (N-008) a varování `portal.narrow`; `src/xspace/samples.js` (`levelSamples`); `src/xspace/bake.js` (`decodeBake`, `composeColors`, `gateLevel`, `doorOpenness`)
+- [x] věty do `02_KONTRAKTY.md`: vzorky (D-041), soubor světla (D-044), dveře na obě strany (D-042)
+- [ ] zlatý vzorek: `door_hinged_01` na obě strany (N-109) **čeká na sešnu A**: 8 jejích kontrol počítá s jednostrannými dveřmi
+- [x] celá regrese po skupinách a sloučení nanečisto s hlavami sešen (855 kontrol, 0 selhalo); `STATE.md` znění 4; dodatky nahoře ve `START_A.md` a `START_B.md`
 
-Zapsala sešna B 2026-11-24 podle `docs/sesny/START_SVOD.md` (`a995347`).
+**Čeká na sešny:** A upraví testy jednostranných dveří (potom přepnu zlatý vzorek na ±105°), převezme `BODY` a `levelSamples`, strop řádků (D-039). B vyřeší srážku `TODO.md` a `CLAUDE.md` verzí základu, převezme `BODY` a `bake.js`, zapeče pevné díly prefabů (D-041).
 
-**Hotovo ve vlně 2:** N-101 díly prefabů v `geom.js` (23. 11.); D-037 mřížka světla znění 2 (24. 11., `a995347`).
+**Návrhy, které základ dluží:** N-002 `follow`, N-102 `rigCompile` a `rigSolve`, N-103 `rig.noSpeed`, N-105 svítivosti xLabu. Otevřený žádný; přehled `docs/navrhy/README.md`.
 
-**Dluhy základu (pořadí z `START_SVOD.md`):**
-1. při sloučení ověřit, že A i B berou vzorky z `levelLightMeshes`; rozhodnout `env.lightCell` (N-108) po měření T460
-2. D-036: pravidlo validátoru `portal.door.cover` ze všech neprůhledných dílů dveří
-3. N-002: `rig.joints[].follow`
-4. D-035: převzít do `src/xspace` čtení souboru světla (`tools/bake/read.mjs` sešny B) a pravidlo bran (`occlusion.js` sešny A); sjednotit tři rozdíly (`B_STAV.md`, „Sešna B03“)
-5. N-102 · 6. N-105 · 7. N-103 (`rig.noSpeed`) · 8. D-030 zmrazit jména polí N-006 po zkoušce na jednom kusu · 9. D-032 výsledek zkoušky terminálu · 10. zkoušky Shellu v prohlížeči · 11. xBench: strop metody u nejtěžších případů · 12. stavy řádků v `REQUIREMENTS.md` a `05_PARITA_2003.md`
+**Další na řadě** (po dnešku, pořadí z `START_SVOD.md`): pravidlo validátoru `portal.door.cover` (D-036, počítané v poloze `rest`, D-042) → svázané klouby `follow` (N-002, dvoukřídlé dveře jako jeden prefab) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md`.
 
-**Rozhodnout:** N-008, N-009, N-109, N-110 a dvě věci N-001 znění 2. Sloučení `sesna-a` + `sesna-b` nanečisto nikdo nepouštěl.
+**Nedávno hotovo:**
+- 24. 11. D-037 mřížka světla: vrcholy na násobcích buňky ve světě, schované plochy pryč; švy na zlatém vzorku 128 → 0 (`a995347`)
+- 24. 11. průběžná předávka main 02 (`docs/sesny/predavky/`)
+- 23. 11. díly prefabů v základu: `partMesh`, `partTris`, `partCollider` (N-101, `cc5078f`)
+- 23. 11. rozhodnutí D-035 (zapečené světlo), D-036 (zakrytí otvoru dveřmi), D-037 (mřížka světla)
+- 22. 11. `zaklad-2`: sloučená vlna 1, zkouška A × B (`npm run test:axb`), rozhodnutí D-029 až D-034, zadání vlny 2
+- 22. 11. rozpočty podle tří běhů xBench 0.2 (`docs/06_ROZPOCTY.md`)
 
-## Sešna A (oddíl mění jen sešna A)
+## Sešna A (běh)
 
-Zapsala sešna B 2026-11-24 podle `A_STAV.md` z `db6fad0`; od příštího kroku ho vede sešna A.
+Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a`, zadání `docs/sesny/START_A.md`.
 
-**Hotovo ve vlně 2:** A2.1 světlo po vrcholech · A2.2 obraz a měření (`?bench`) · A2.3 krok simulace (na T460 medián 0,55 až 0,68 ms) · A2.4 dluhy vlny 1 · zorné pole jako vodorovný úhel při 4 : 3, strop 120° (`db6fad0`) · dveře od hráče jako nastavení, výchozí zapnuto (`db6fad0`)
+**Teď:** A2.5 nová pole základu (`screen.offset`, `JOINT_TRAVEL_SECONDS`, `seeThrough`, `passable`, `opacity`) → A2.6 textura a síť `.glb` na jednom kusu se sešnou B (D-030).
 
-**Teď:** A2.5 nová pole základu, A2.6 textury a sítě.
+**Potom:** zkouška textury světla na hale xLabu (N-110; Ondřej 24. 11. 02:26: až po A2.5 a A2.6).
 
-**Neuděláno:** A2.7; čtení souboru se zapečeným světlem z xBake (čeká na přenos čtení do základu; na T460 trvá stavba světla `complex_7` při načtení 24,3 s).
+**Nedávno hotovo** (stav `A_STAV.md` z 24. 11., 05:30):
+- 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120° (`db6fad0`)
+- 24. 11. `?bench` měří čas grafiky dávkou (stará metoda na T460 vracela obnovu displeje)
+- 24. 11. dveře od hráče jako nastavení, výchozí zapnuto; návrh N-109 do dat
+- 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0
+- 24. 11. zkouška terminálu na T460 prošla (D-032)
+- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (Ondřejův `?bench` 24. 11.)
+- 23. 11. A2.1 světlo po vrcholech se zastíněním, branami dveří a okrajem stínu po podílech; A2.2 pevné řádky a `?bench`
+- 23. 11. A2.4 dluhy vlny 1 (skok, D-024, D-025)
 
-Poslední celá regrese podle sešny A: 728 kontrol, 0 selhalo (sandbox; skupina B v její větvi je starý stav, 92 kontrol).
+## Sešna B (obsah a nástroje)
 
-## Sešna B (oddíl mění jen sešna B)
+Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b`, zadání `docs/sesny/START_B.md`. Vede sešna B.
 
-**Hotovo ve vlně 2:**
-- B2.1 průchodnost pro skutečného hráče 0,74 m, katakomby, světlost dveří (`d2e1481`)
-- B2.6 xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu po podílech, čtení bez Node (`3d1aa2a`, `7dd9cd2`), nad mřížkou D-037 (`9d34aa6`)
-- díly prefabů z `geom.js` v galerii, náhledu a xBake (`7dd9cd2`)
-- B2.3 xSearcher: `tools/searcher/find.mjs` hledá a přijímá textury CC0 z Poly Haven a ambientCG do `packs/_inbox` se záznamem; 10 textur v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` 47 kontrol (`5828344`, `24e2358`)
-- B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB) z nástroje `tools/forge/textures.mjs`; galerie se třemi pohledy (čistý, T460, grafická karta) a vzorníkem; návrh N-009 (`7204c2d`, `046f9a7`, `951044a`, `70d2473`)
-- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox); po B2.4 `npm test` 254, `npm run test:b` 201 a `npm run test:axb` 37 kontrol zeleně
+**Teď** (Ondřej 24. 11. 19:55: 1 a, 2 a, 3 a a k tomu „více těles, více prefabů, bohatší tvary…, spodní šuplíky nezávisle, realističtější dřevo“):
+1. dodatek znění 4: `BODY` a `decodeBake` ze základu, xBake zapeče i pevné díly prefabů (D-041)
+2. barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (Ondřejova volba 1 a)
+3. tvary ze sítí `.glb` z kódu (zkosení, zaoblení, římsy, výplně, mezery, vyboulení, nepravidelnosti); přestavba nejviditelnějších prefabů a nové prefaby
+4. šuplíky nezávisle: samostatné entity a návrh na víc interakcí v jednom prefabu; duté šuplíky
+5. dřevo se suky, trhlinami a letokruhy
 
-**Teď:** čeká na Ondřejovy odpovědi k texturám (tři otázky v `B_STAV.md`).
+**Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) · B2.7.
 
-**Další, v tomto pořadí** (podle odpovědí):
-1. zbytek B2.4: bohatší hrubý tvar nejviditelnějších prefabů (zkosení, drobné díly)
-2. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
-3. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
-4. B2.7 xDesigner, dům, tvor
+**Čeká na jiné:** N-009 barva materiálu s texturou (svodná; týká se A2.6) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A.
 
-**Čeká na jiné:** N-009 (barva materiálu s texturou; potřebuje ho sešna A pro A2.6) · N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).
+**Nedávno hotovo:**
+- 24. 11. B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB), galerie se třemi pohledy, návrh N-009 (`7204c2d`, `951044a`, `70d2473`)
+- 24. 11. B2.3 xSearcher: hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox`; 19 textur v příjmu; test bez sítě 47 kontrol (`5828344`, `24e2358`)
+- 24. 11. xBake nad mřížkou D-037; brány dveří, stínění kolizemi, okraj stínu po podílech (`3d1aa2a`, `7dd9cd2`, `9d34aa6`)
+- 24. 11. B2.1 průchodnost pro hráče 0,74 m, světlost dveří (`d2e1481`)
+- 24. 11. regrese po B2.4: `npm test` 254, `npm run test:b` 201, `npm run test:axb` 37, 0 selhalo (`951044a`, sandbox)
