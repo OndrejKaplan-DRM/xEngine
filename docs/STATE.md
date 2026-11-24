@@ -18,6 +18,8 @@ Podle Ondřejova pořadí D-051 (nejdřív zbraně). Rozhodnutí D-053.
 | plazmová puška ve zlatém vzorku: munice `cells` (200), zbraň `plasma_rifle_01`, model v ruce `wpn_plasma_rifle_01`, zbraň na zemi `pickup_plasma_rifle_01` (40 článků) jako entita `e_plasma` ve startovní místnosti, materiál `plasma_glow` | `tools/golden/make.mjs`, `packs/golden` | `xspace-check --strict` 0 nálezů; vzorků světla xLabu beze změny 22 111 (sebratelná věc vzorky nemá, D-041) |
 | regrese na `main` (`9aaedd9` + oprava pravidla `pack.missingFile` u munice) | **984 kontrol, 0 selhalo**: základ 341, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 0:16 až 0:21; skupina B po opravě znovu 0:25 |
 
+**Sloučení nanečisto** `main` `0e77921` + `sesna-a` `17b8176` + `sesna-b` `5ed1070` (25. 11. 0:24 až 0:30): bez konfliktu, **1 059 kontrol, 0 selhalo** (základ 341, A 430, B 248, A × B 40). Obě sešny tedy mohou znění 9 sloučit.
+
 Past při zavádění: test sešny B `b_t7_searcher` skládá balík z manifestu zlatého vzorku a odebere jen `materials`, `prefabs` a `levels`; nové pole `ammo` v manifestu pak hlásilo `pack.missingFile`. Pravidlo teď hlásí chybějící soubor munice jen u balíku z `loadPack` (`ammo: null`); sešna B má test upravit (dodatek znění 9).
 
 ## Znění 8 základu 2 (25. 11. 2026 v noci): víc interakcí v prefabu (N-010)

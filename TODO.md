@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 9 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 23:50: `sesna-a` = `728a9a5`, `sesna-b` = `235b38a`. Regrese na `main`: 984 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 9 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 984 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
