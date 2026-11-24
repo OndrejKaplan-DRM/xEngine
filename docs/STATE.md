@@ -16,6 +16,7 @@ Ondřej ve 21:19: další krok (a). Provedeno:
 | svázané klouby `rig.joints[].follow` a `jointFollow` (N-002) | `formats.js`, `rig.js`, `validate.js` | T1 (dvoukřídlé dveře jako jeden prefab, řetěz, ořez, pět mutací) |
 | regrese na `main` (`1cf0261`) | **923 kontrol, 0 selhalo**: základ 280, A 405, B 201, A × B 37 | testy po skupinách |
 | balíky sešny B ve stavu `42b7dae` (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo`) | 0 chyb, 0 varování s novými pravidly | `xspace-check --strict` |
+| sloučení nanečisto `main` (`6d0a9e0`) + `sesna-a` `38c1c07` + `sesna-b` `3f45c21` | bez konfliktu; 982 kontrol, **1 selhala**: `b_t8_zasuvky` (spodní zásuvka kartotéky se neotevře). Selže stejně na samotné `sesna-b` `3f45c21` (commit „rozpracováno“: generátor vybavuje i ze sad `kit_lab` a `kit_it`), tedy rozpracovaný stav sešny B, ne základ. Ostatní: základ 280, A 417 ve 27 sadách, B 8 z 9 sad, A × B 40 | testy po skupinách, 21:30 až 21:36 |
 
 ## Znění 5 základu 2 (24. 11. 2026 večer): sloučená vlna 2
 
