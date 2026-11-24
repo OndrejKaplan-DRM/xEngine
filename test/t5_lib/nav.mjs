@@ -4,6 +4,7 @@
 
 import RAPIER from '@dimforge/rapier3d-compat';
 import { SIGHT_RAY } from '../../src/phys/phys.js';
+import { CHARACTER_SKIN } from '../../src/xspace/body.js';
 
 const STEP_UP = 0.3; // m, největší výškový rozdíl dvou sousedních míst (schod, práh)
 const FOOT = 0.35; // m, o kolik je zkušební kapsle nad podlahou (nižší překážku řeší krok postavy)
@@ -31,7 +32,7 @@ export function buildNav(game, { g = 0.1, skip = null } = {}) {
   const down = new RAPIER.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: -1, z: 0 });
   const up = new RAPIER.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: 1, z: 0 });
   const cast = (ray, max) => world.castRayAndGetNormal(ray, max, true, undefined, SIGHT_RAY, undefined, undefined, pred);
-  const r = P.radius + 0.02;
+  const r = P.radius + CHARACTER_SKIN; // N-008: odstup kontroléru ze základu
   const half = Math.max((P.height - FOOT) / 2 - r, 0.01);
   const capsule = new RAPIER.Capsule(half, r);
   const noRot = { x: 0, y: 0, z: 0, w: 1 };

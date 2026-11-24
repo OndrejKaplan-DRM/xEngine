@@ -28,7 +28,9 @@ Chat se ztrácí, repo ne. Co má přežít sešnu, patří sem, ne do chatu.
 ```text
 npm install
 npm test                  základ: jádro, formát, zlatý vzorek, sestavení, xView, xBench
-npm run test:all          základ + sešna A + sešna B + zkouška A × B (několik minut)
+npm run test:a | test:b   testy sešny A | B
+npm run test:axb          zkouška A × B: level sešny B v enginu sešny A
+npm run test:all          všechno (několik minut)
 node build.mjs --list     cíle sestavení; node build.mjs xlab_gen → dist/xlab_gen.html
 node tools/xspace-check.mjs packs/<balík> --strict      validátor dat
 ```

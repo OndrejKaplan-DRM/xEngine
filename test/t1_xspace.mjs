@@ -85,6 +85,91 @@ ok(res.stats.xspace === XSPACE_VERSION && res.stats.levels.length === 1, 'statis
   );
 }
 
+// ---- postava (N-008, D-040): jedno místo pro rozměry
+ok(
+  X.BODY.radius === 0.35 && X.BODY.height === 1.8 && Math.abs(X.BODY.stepHeight - 0.4572) < 1e-9 && X.CHARACTER_SKIN === 0.02 && Math.abs(X.bodyWidth() - 0.74) < 1e-9 && Object.isFrozen(X.BODY),
+  'postava v základu: poloměr 0,35 m, výška 1,8 m, schod 0,4572 m, odstup 0,02 m, průchod 0,74 m',
+);
+
+// ---- vzorky světla levelu (D-041): kvádry, potom pevné díly prefabů
+{
+  const lvl = pack.levels[0].data;
+  const pf = new Map(pack.prefabs.map((p) => [p.data.id, p.data]));
+  const mats = pack.materials?.materials || null;
+  const s = X.levelSamples(lvl, pf, mats);
+  const lm = X.levelLightMeshes(lvl.brushes, mats);
+  const sameBrushes = lm.every((m, i) => (m === null ? s.brushes[i] === null : m.positions.join() === s.brushes[i].positions.join()));
+  const sum = [...s.brushCounts, ...s.entityCounts].reduce((a, [, n]) => a + n, 0);
+  ok(sameBrushes && sum === s.count && s.brushCounts.length === lvl.brushes.length && s.entityCounts.length === lvl.entities.length, 'levelSamples: nejdřív kvádry z levelLightMeshes, potom entity v pořadí levelu; počty sedí', `${s.count} vzorků`);
+  const cnt = Object.fromEntries(s.entityCounts);
+  ok(cnt.e_crate_s1 === 0 && cnt.e_medkit === 0, 'bedna (dynamické těleso) a sebratelný předmět vzorky nemají');
+  let movingOut = true;
+  for (const p of pf.values()) {
+    const mv = X.movingNodes(p);
+    if (X.staticPartIndices(p).some((i) => mv.has(p.parts[i].node))) movingOut = false;
+  }
+  ok(movingOut && cnt.e_door_start === 0 && cnt.e_door_lab === 0 && cnt.e_desk > 0, 'díly na uzlech s kloubem (a pod nimi) do vzorků nepatří; křídla dveří ne, stůl s terminálem ano');
+  let inside = true;
+  let unit = true;
+  lvl.entities.forEach((e, i) => {
+    const m = s.entities[i];
+    if (!m) return;
+    const b = pf.get(e.prefab).bounds;
+    const em = X.entityMatrix(e);
+    const corners = [];
+    for (const x of [b.min[0], b.max[0]]) for (const y of [b.min[1], b.max[1]]) for (const z of [b.min[2], b.max[2]]) corners.push(X.mat4Point(em, [x, y, z]));
+    const lo = [0, 1, 2].map((k) => Math.min(...corners.map((c) => c[k])) - 1e-6);
+    const hi = [0, 1, 2].map((k) => Math.max(...corners.map((c) => c[k])) + 1e-6);
+    for (let v = 0; v < m.positions.length / 3; v++) {
+      for (let k = 0; k < 3; k++) if (m.positions[v * 3 + k] < lo[k] || m.positions[v * 3 + k] > hi[k]) inside = false;
+      if (Math.abs(Math.hypot(m.normals[v * 3], m.normals[v * 3 + 1], m.normals[v * 3 + 2]) - 1) > 1e-6) unit = false;
+    }
+  });
+  ok(inside && unit, 'vrcholy pevných dílů leží ve světovém obalu prefabu entity, normály mají délku 1 (natočení YXZ)');
+  const again = X.levelSamples(lvl, Object.fromEntries(pf), mats);
+  ok(again.count === s.count && again.entities.every((m, i) => (m ? m.positions.join() === s.entities[i].positions.join() : !s.entities[i])), 'levelSamples je opakovatelný a bere prefaby z Map i z objektu');
+}
+
+// ---- zapečené světlo (D-044): čtení souboru, brány a otevření dveří
+{
+  const enc = (header, parts) => {
+    let json = JSON.stringify(header);
+    while ((json.length + 8) % 4) json += ' ';
+    const body = Buffer.concat(parts.map((t) => Buffer.from(t.buffer, t.byteOffset, t.byteLength)));
+    const out = Buffer.alloc(8 + json.length + body.length);
+    out.write('XLV1', 0, 'latin1');
+    out.writeUInt32LE(json.length, 4);
+    out.write(json, 8, 'utf8');
+    body.copy(out, 8 + json.length);
+    return out;
+  };
+  const header = {
+    format: 'xspace-light', version: 1, samples: 3,
+    layers: [
+      { id: 'l1', kind: 'light', channels: 1, encoding: 'sparse', count: 2, offset: 0, gates: [{ gate: ['e_door'], count: 1, offset: 16 }] },
+      { id: 'indirect', kind: 'indirect', channels: 3, encoding: 'dense', count: 3, offset: 24, weight: 0.5 },
+      { id: 'ao', kind: 'ao', channels: 1, encoding: 'dense', count: 3, offset: 60 },
+    ],
+  };
+  const file = enc(header, [new Uint32Array([0, 2]), new Float32Array([1, 2]), new Uint32Array([1]), new Float32Array([4]), new Float32Array([0, 0, 0, 0.2, 0.2, 0.2, 0, 0, 0]), new Float32Array([1, 0.5, 1])]);
+  const d = X.decodeBake(file);
+  const d2 = X.decodeBake(file.buffer.slice(file.byteOffset, file.byteOffset + file.byteLength));
+  ok(d.header.samples === 3 && [...d.layers[0].data].join() === '1,0,2' && d.layers[0].gates[0].gate[0] === 'e_door' && d2.layers[2].data[1] === 0.5, 'decodeBake: hustá i řídká vrstva, úsek s bránou; čte Buffer i ArrayBuffer');
+  const lights = new Map([['l1', { color: [1, 1, 1], base: true }]]);
+  const shut = X.composeColors(d, lights, [0.1, 0.1, 0.1], {}, {});
+  const open = X.composeColors(d, lights, [0.1, 0.1, 0.1], {}, { e_door: 1 });
+  const half = X.composeColors(d, lights, [0.1, 0.1, 0.1], {}, { e_door: 0.5 });
+  const near = (a, b) => Math.abs(a - b) < 1e-6;
+  ok(near(shut[3], 0.05 + 0.1) && near(open[3], 0.05 + 4 + 0.1) && near(half[3], 0.05 + 2 + 0.1) && near(shut[0], 0.1 + 1), 'composeColors: okolí × ao + světlo + úsek × otevření dveří + odraz × váha', `${shut[3].toFixed(3)} / ${half[3].toFixed(3)} / ${open[3].toFixed(3)}`);
+  ok(X.gateLevel(['a', 'b'], { a: 1, b: 0.5 }) === 0.5 && X.gateLevel(['a'], {}) === 0, 'gateLevel: součin otevření, dveře bez údaje jsou zavřené');
+  const one = { min: 0, max: 105 };
+  const both = { min: -105, max: 105, rest: 0 };
+  ok(X.doorOpenness(one, 105) === 1 && X.doorOpenness(one, 52.5) === 0.5 && X.doorOpenness(both, -105) === 1 && X.doorOpenness(both, 52.5) === 0.5 && X.doorOpenness(both, 0) === 0 && X.doorOpenness({ min: 0, max: 0.98 }, 0.49) === 0.5, 'doorOpenness: jednostranné i oboustranné dveře (N-109), posuvné');
+  let bad = false;
+  try { X.decodeBake(Buffer.from('XYZW0000')); } catch { bad = true; }
+  ok(bad, 'decodeBake odmítne soubor bez značky XLV1');
+}
+
 // ---- mutace: každá musí vyvolat právě svůj kód nálezu
 const L = (p) => p.levels[0].data;
 const P = (p, id) => p.prefabs.find((x) => x.data.id === id).data;
@@ -104,6 +189,7 @@ const MUTATIONS = [
   ['portal.between', 'portál mimo zeď mezi buňkami', (p) => L(p).portals[0].quad.forEach((q) => (q[2] = 3))],
   ['portal.plane', 'portál, jehož rohy neleží v rovině', (p) => (L(p).portals[0].quad[2][2] = -0.5)],
   ['portal.extent', 'portál širší než buňka', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 5.5)],
+  ['portal.narrow', 'průchozí portál užší než postava (N-008)', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 3.2)],
   ['level.cellOverlap', 'překryv buněk', (p) => (L(p).cells[1].bounds.max[2] = 1)],
   ['level.unreachable', 'buňka bez portálu', (p) => L(p).portals.splice(1, 1)],
   ['level.dupe', 'dvě entity se stejným id', (p) => (L(p).entities[5].id = L(p).entities[4].id)],
@@ -118,7 +204,7 @@ const MUTATIONS = [
   ['shape.type', 'poloha jako řetězec', (p) => (L(p).entities[0].pos = '3 0 0')],
   ['shape.range', 'barva mimo rozsah', (p) => (p.materials.materials.steel.color = [2, 0, 0])],
   ['shape.unknown', 'překlep v názvu pole (varování)', (p) => (L(p).entities[0].postion = [0, 0, 0])],
-  ['rig.limits', 'kloub s min ≥ max', (p) => (P(p, 'door_hinged_01').rig.joints[0].max = 0)],
+  ['rig.limits', 'kloub s min ≥ max', (p) => { const j = P(p, 'door_hinged_01').rig.joints[0]; j.min = j.max; }],
   ['rig.limits', 'zarážka mimo meze', (p) => (P(p, 'lever_wall_01').rig.joints[0].detents = [-40, 90])],
   ['rig.rootJoint', 'kloub na kořeni', (p) => (P(p, 'door_hinged_01').rig.joints[0].node = 'frame')],
   ['rig.cycle', 'kruh v kostře', (p) => (P(p, 'door_hinged_01').rig.nodes = [{ id: 'frame' }, { id: 'a', parent: 'b' }, { id: 'b', parent: 'a' }, { id: 'leaf', parent: 'frame' }])],

@@ -4,6 +4,7 @@
 
 import { FORMATS, LIMITS, LEVEL_TARGETS, FREE_LICENSES, FACE_KEYS, XSPACE_VERSION } from './formats.js';
 import { inBounds, boundsGap, wedgeRunRise } from './geom.js';
+import { bodyWidth } from './body.js';
 
 const ID = /^[a-z][a-z0-9_]*$/;
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -328,6 +329,10 @@ function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
         }
       }
       if (qmax - qmin < 0.05) c.err('portal.extent', `${path}.quad`, `otvor má v ose ${'xyz'[o]} nulový rozměr`);
+      // průchozí otvor ve svislé zdi musí pustit postavu (N-008, D-040)
+      if (o !== 1 && k !== 1 && p.passable !== false && qmax - qmin >= 0.05 && qmax - qmin < bodyWidth() - 1e-6) {
+        c.warn('portal.narrow', `${path}.quad`, `otvor je široký ${+(qmax - qmin).toFixed(3)} m, postava potřebuje ${bodyWidth().toFixed(2)} m (nebo passable: false)`);
+      }
     }
   });
 
