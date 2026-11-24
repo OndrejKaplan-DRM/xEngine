@@ -113,6 +113,17 @@ Jak to čtu: realistický inventář je hlavní úkol teď, D-041 hned po něm (
 
 **Proč byly tvary schodovité:** formát má pro díly jen kvádr a válec se 16 stěnami (64 △); kužel, zaoblení ani tenkou stěnu válec neumí, takže profil baňky jsem skládala ze stohu válců s různým poloměrem. Formát ale má díl `mesh` (soubor .glb, volitelně `#uzel`) a engine A ho kreslí. Dočasné řešení: xForge vyrobí hladké sítě (rotační plochy z profilu, kužely, zaoblené kvádry, trubky) a zapíše je do .glb v balíku sady. Trvalé řešení navrhnu svodné sešně: rotační díl ve formátu (profil + počet stěn), aby ho zapékal xBake (D-041 dnes bere jen kvádry a válce) a balík nenesl megabajty sítí.
 
+### Ondřej 25. 11. 2026, 0:19: běh `?bench` na T460 a otázky na test
+
+Poslal výsledek `xlab_gen.html?level=complex_7&bench` (sestavení A02 „krok 5“, ještě bez sítí skla; surový výstup `docs/navrhy/N-011-bench-T460-2026-11-24.json`) a snímek nastavení: zorné pole 90°, 1 080 řádků, vyhlazování zapnuto, mřížka světla 0,25 m. Ptá se: (1) „mám podezření, že máš v testu nějakou chybu… měl jsem puštěnou jedinou kartu“; (2) „počítáš s tím dlouhým zapékáním světla na začátku? A nastavení si hlídáš?“; (3) „obraz celou dobu skáče zleva doprava… je to celou dobu schválně tak kývavá chůze?“
+
+Co jsem zjistila (podrobně návrh **N-011** pro sešnu A, `src/app/bench.js`):
+- **Kývání je chyba robota měření**, ne záměr: řídí se o krok pozadu (systém `input` sebere otočení dřív, než ho robot pošle), smyčka kmitá 20 Hz. Simulace v Node: 10 obratů za 0,75 s, s opravou 1.
+- **30 snímků/s způsobuje měření**: každý snímek se kvůli času vykreslení kreslí ještě v dávce 12 až 40 ms; 16,4 ms práce + dávka ≈ naměřených 33,4 ms. Platí `workMs` (medián 16,4 ms, 95 % 23,4 ms) a `draw.ms` (11,1 / 17,45 ms); rozestup snímků ne.
+- **Nastavení ve výstupu jsou** (`env.rowsChosen` 1 080, `env.antialias` true, `level.lightGrid` 0,25), chybí zorné pole.
+- **Světlo se počítá 33,3 s** (`lightBuildMs`, 368 136 vzorků při mřížce 0,25 m): běh ho počítá sám, soubor z xBake ještě nečte. Tohle odstraní D-041 (xBake zapeče i díly prefabů) a čtení souboru v enginu A.
+- Pro mě: **nejvýš 490 volání kreslení** v `c_corr_01` (mez 400, sandbox T5 ukázal 255) a 135 488 △ v pohledu. Laboratoře přidaly materiály; hlídat při přestavbě inventáře.
+
 ## Sešna B03 (24. 11. 2026)
 
 Ondřej v 01:11: zápis do repa a push `sesna-b` povolen; pokračovat zbytkem B2.1, potom xBake podle D-035 a dál podle stavu; do projektu v claude.ai nic nezapisovat. Odpovědi na otevřené otázky: **1 (a)** opotřebený provoz, **2 (a)** z webu jen materiály a textury, tvary vlastní, **3 (a)** herní vzhled nejdřív v galerii sady. K otázce 5 (silnější stroj): „podívej se na alza.cz nebo na jiný web, co je dneska zlatý standard pro hry a udělej to podle takovéhle konfigurace (řekněme celý počítač bez monitoru do 35.000,- s DPH, nebo notebook)“.

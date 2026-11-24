@@ -86,7 +86,7 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 
 **Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
-**Čeká na jiné:** N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
+**Čeká na jiné:** **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
 - 24. 11. sady v levelech: `complex` staví laboratoře podle oboru, serverovny v řadách, open space a zasedačky; 200 seedů bez nálezu, level ≤ 228 516 △, A × B zelená, nejvýš 255 volání kreslení (B_STAV, oddíl „Sady v generovaných levelech“)
