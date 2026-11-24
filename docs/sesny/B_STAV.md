@@ -13,7 +13,7 @@ Zadání vlny 2 je nahoře v `docs/sesny/START_B.md` a má přednost. Stav proti
 | B2.1 průchodnost pro skutečného hráče a katakomby | **hotovo** (24. 11. 2026, `d2e1481`) | katakomby podle volby 2 b, prkenné dveře se světlostí 0,90 m, zkouška A × B zelená. Generátor hledá cestu místností s poloměrem z rozměrů postavy (`src/gen/body.js`: kapsle 0,35 m + odstup kontroléru 0,02 m + rezerva 0,03 m; dřív číslo 0,32 m v kódu) a každý otvor i otevřené dveře musejí pustit postavu (`catalog.clearWidth`). Kontroly levelů měří skutečným hráčem z profilu enginu (`test/b_lib/player.mjs`). 200 seedů × 2 předvolby bez nálezu. Čísla v oddílu „Sešna B03“. Návrh N-008: rozměry postavy do základu |
 | B2.2 přijatá pole (`components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`) | nezačato | `seeThrough` už mají křídla dvoukřídlých dveří |
 | B2.3 xSearcher | **hotovo** (24. 11. 2026, `5828344`, `24e2358`) | `tools/searcher/find.mjs`: hledání (i česky) a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox` (mimo git) se záznamem o původu, licenci a otiscích; 10 assetů v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` (47 kontrol). Podrobně oddíl „Sešna B03“ a `tools/searcher/ZDROJE.md` |
-| B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | nezačato | |
+| B2.4 vzhled v polích, která formát má (hrubý tvar, textury barvy, přepínač v galerii) | **textury hotovo** (24. 11. 2026, `7204c2d`, `046f9a7`, `951044a`); bohatší hrubý tvar nezačato | 21 materiálů `kit_base` má `albedo`, `normal` a `uvScale` (30 souborů WebP 512 px, 1 287,4 kB); galerie 0.2 s pohledy čistý / T460 / grafická karta a vzorníkem materiálů; montáž 10 prefabů. Barva materiálu a textura si v kontraktu odporují: návrh N-009. Podrobně oddíl „Sešna B03“ |
 | B2.5 zkouška povrchu na jednom kusu (dveře `.glb`, materiál s texturou) | nezačato | |
 | B2.6 xBake a N-001 | **hotovo podle D-035 a zadání vlny 2** (24. 11. 2026, `3d1aa2a`, `7dd9cd2`) | (1) křídla dveří v portálech přímé světlo nestíní; světlo otvorem portálu s dveřmi je v úseku vrstvy s polem `gate` a běh ho násobí otevřením dveří. (2) Stíní kolize prefabů přes `partCollider` ze základu. (3) Vzorek na okraji stínu svítí podílem své plošky (4 × 4 paprsky). (4) Čtení souboru bez Node (`tools/bake/read.mjs`), připravené k přenosu do základu. Běh soubor dál nečte. Podrobně oddíl „Sešna B03“ a návrh N-001, znění 2 |
 | B2.7 xDesigner, dům, tvor | nezačato | |
@@ -30,7 +30,8 @@ Ondřej v 01:11: zápis do repa a push `sesna-b` povolen; pokračovat zbytkem B2
 | náhled xBake 0.3, díly z `partMesh` a `partTris` v náhledu, galerii a knihovně prefabů, N-001 znění 2 | hotovo | `7dd9cd2` |
 | sloučení `origin/zaklad-2` (`a995347`: mřížka světla znění 2, D-037) a xBake nad `levelLightMeshes` | hotovo, bez konfliktů; svodná sešna to pushla během této sešny | `2cde996`, `9d34aa6` |
 | B2.3 xSearcher: nástroj, 10 textur CC0 v příjmu, test bez sítě | hotovo | `5828344`, `24e2358` |
-| B2.2, B2.4, B2.5, B2.7 | nezačato | |
+| B2.4 textury: 21 materiálů, galerie se třemi pohledy, návrh N-009 | hotovo | `7204c2d`, `046f9a7`, `951044a`, `70d2473` |
+| B2.2, B2.4 bohatší hrubý tvar, B2.5, B2.7 | nezačato | |
 
 **B2.1: průchodnost.** Rozměry postavy má generátor na jednom místě (`src/gen/body.js`: poloměr 35 cm, odstup kontroléru 2 cm, rezerva 3 cm) a předvolby je předávají v `params().body`. Cestu místností hledá s poloměrem 0,40 m (dřív číslo 0,32 m v `passage.js`). Stavba odmítne pokus, kde by otvor nebo otevřené dveře nepustily 0,80 m (`catalog.clearWidth`: světlost z kolizí prefabu s kloubem dveří na dorazu). Nezávislé kontroly (`test/b_lib/level-checks.mjs`) měří skutečným hráčem levelu: poloměr z `src/play/profiles.js` a odstup z `src/phys/phys.js` (jen čtou; 0,35 + 0,02 m, průchod 0,74 m). Nová zkouška `test/b_lib/door-pass.mjs`: největší kruh, který projde otevřenými dveřmi v půdorysu (kolize prefabu a zeď, mřížka 1 cm).
 
@@ -101,6 +102,16 @@ V příjmu je 10 textur pro materiály sady (tabulka v `tools/searcher/ZDROJE.md
 
 Test `b_t7_searcher` (47 kontrol) běží bez sítě nad odpověďmi nahranými 24. 11. (`test/b_lib/searcher/`, 160 kB; seznam 871 textur Poly Haven zkrácen na 50 položek skriptem `nahrat.mjs`, který jde pustit znovu). Hlídá hledání a řazení, bránu (CC-BY, neznámá licence, licence mimo slovník, model, id s cestou, zdroj bez doložení), MD5 a velikost, výběr map z archivu, otisky, poškozený soubor v příjmu, User-Agent, validátor balíku s `free: true` (CC0 projde, CC-BY ne) a příkazovou řádku s `--replay`.
 
+**B2.4 textury (24. 11. odpoledne, `7204c2d`, `046f9a7`, `951044a`, `70d2473`).** Z příjmu xSearcheru (19 assetů, 157,1 MB, 2K) vyrábí `tools/forge/textures.mjs` textury sady: barvu a normálovou mapu GL jako WebP 512 px (stupeň `low`) do `packs/kit_base/textures/` a zámek `tools/forge/kit/textures.lock.json` s otisky, původem (zdroj, autor, licence, adresa originálu a jeho otisk) a průměrnou barvou hotového souboru lineárně. Přiřazení je v `tools/forge/kit/textures.mjs`: 21 materiálů z 15 textur (beton, omítka, dlaždice, linoleum, plech, natřená a broušená ocel, tři dřeva, cihla, tři kameny, hlína). `make-kit.mjs` z něj doplní materiálům `albedo`, `normal`, `uvScale` (rozměr předlohy ze záznamu) a do `pack.json` 30 položek `assets`; příjem k tomu nepotřebuje. 30 souborů, 1 287,4 kB (1 318 258 B); dva běhy dají stejné bajty. `sharp` 0.35.5 je nově v `devDependencies` (výjimka pro sešnu B; zámek balíčků necommitován).
+
+Jen 512 px: formát má na mapu jednu cestu a tu čte i T460. Rozlišení 1K a 2K pro stupně 2 a 3 čekají na jména polí z N-006 (D-030); originály 2K leží v příjmu. Normálové mapy jsou v poli `normal` také 512 px; T460 je nepoužije (světlo po vrcholech).
+
+**Rozpor v kontraktu, návrh N-009.** Formát říká, že `color` „násobí texturu“, N-006 a D-029 berou `color` jako vzhled stupně 0 a zálohu. Platí to současně jen pro texturu s průměrem 1. Změřeno: barvy materiálů jsou proti průměru vyfocených textur u 18 z 21 materiálů světlejší, většinou 1,5× až 5,5× (beton 0,50 proti 0,09 lineárně), zesílení vychází 0,53 až 7,18. Doslovné násobení by povrch s texturou ztmavilo až sedmkrát, zapečené zesílení by useklo světlá místa. Návrh N-009 (varianta a): `color` je průměrná barva povrchu a běh kreslí `textura × (color / průměr textury)`, průměr v novém poli `albedoMean`. Data `kit_base` tomu odpovídají už teď (`color` beze změny), průměr je zatím jen v zámku. Kde odstín textury nesedí na barvu materiálu víc než 1,35×, bere sada z textury jen šedou kresbu (5 z 21: linoleum, natřená ocel, tři kameny; dub 1,47× také).
+
+**Galerie 0.2** (`dist/kit.html`, 2 573 327 B, dřív 745 kB): přepínač pohledů **Čistý** (barva), **T460** (textura barvy, Lambert, bez normál) a **Grafická karta** (`MeshStandardMaterial`, normálová mapa, drsnost, kovovost, odrazy okolí z `RoomEnvironment`). Textury bere přímo z balíku přes `import … with { type: 'bytes' }` (esbuild 0.28; `build.mjs` beze změny), tónové mapování AgX ve všech pohledech stejně. Panel prefabu vypisuje u každého materiálu zdroj, autora a licenci textury. Měřeno v sandboxu (`swatchStats`, stěna 2 × 2 m čelně): průměrný jas s texturou je u 21 materiálů do 7,6 % od jasu bez textury (pravidlo N-009 drží); v pohledu Grafická karta je obraz o 15 až 30 bodů z 255 světlejší, protože přibude světlo okolí. Montáže: `test/out/b_kit_pohledy.png` (10 prefabů ve třech pohledech) a `test/out/b_kit_vzornik.png` (21 materiálů).
+
+Co z obrazu vidím (softwarové vykreslení, ne grafická karta): kresba je výrazná u cihly, hlíny, kamenů, natřeného plechu a prken; beton, omítka a dlaždice jsou jemné. Smrk (`kitchen_wood`) má kvůli světlé barvě materiálu a zesílení 4 až 5 bledé pruhy. Světlé kameny vypadají spíš jako mramor. Obojí souvisí s tím, že barvy materiálů jsou světlejší než skutečné povrchy (N-009, vedlejší nález); jestli je ztmavit, je otázka na Ondřeje.
+
 **Co mezitím udělala sešna A** (`origin/sesna-a` = `c131ac4`, její `A_STAV.md` z 24. 11.; v této větvi není; od 05:30 je hlava `db6fad0`: zorné pole jako vodorovný úhel při 4 : 3 se stropem 120°, dveře od hráče jako nastavení, Ondřejovy odpovědi z 02:26 „1 b“ a „2 a“):
 
 | Co | Co to znamená pro sešnu B |
@@ -125,7 +136,7 @@ Test `b_t7_searcher` (47 kontrol) běží bez sítě nad odpověďmi nahranými 
 | D-037 (N-108) | základ změní mřížku světla: vrcholy na násobcích `LIGHT_CELL` ve světě, bez ploch schovaných v jiném kvádru; počet a pořadí vzorků se změní | základ to provedl (`a995347`); vzorky beru z `levelLightMeshes`, počty a pořadí natvrdo nikde nejsou; otisk `geometry` nese znění mřížky, staré soubory neplatí. Vzorků „v tělese“ ubylo (xLab 1 387 → 490, `complex_7` 32 291 → 19 051), čísla v oddílu „Sešna B03“ | **hotovo** (B03, `9d34aa6`) |
 | N-101 proveden | `partMesh`, `partTris`, `partCollider`, `CYL_SEGMENTS` jsou v `src/xspace/geom.js` | vlastní výpočet dílů na čtyřech místech zmizel: `tools/forge/lib.mjs` předává `partTris` ze základu, galerie a náhled xBake kreslí `partMesh`, xBake stíní přes `partCollider`; `packs/kit_base` bajtově beze změny | **hotovo** (B03, `7dd9cd2`) |
 
-Pořadí (podle Ondřejovy volby z 24. 11. ve 02:04): ~~B2.3 xSearcher~~ (hotovo 24. 11. odpoledne) → **B2.4 vzhled** (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px; z B2.2 jen to, co vzhled potřebuje) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2 (okna, mříže, `components.place`, `speed`).
+Pořadí (podle Ondřejovy volby z 24. 11. ve 02:04): ~~B2.3 xSearcher~~ a ~~B2.4 textury~~ (hotovo 24. 11. odpoledne) → zbytek B2.4 (bohatší hrubý tvar) a B2.5; původně **B2.4 vzhled** (směr „opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px; z B2.2 jen to, co vzhled potřebuje) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2 (okna, mříže, `components.place`, `speed`).
 
 
 ## Hotovo × neuděláno
@@ -133,9 +144,11 @@ Pořadí (podle Ondřejovy volby z 24. 11. ve 02:04): ~~B2.3 xSearcher~~ (hotovo
 | Úkol | Stav | Test | Poznámka |
 |---|---|---|---|
 | B1.1 xGen: stavebnice a rozvržení | hotovo | `b_t1_xgen` 55 (Node) | předvolby `complex` (dvě patra s galerií, nebo jedno patro s plošinou a rampou) a `catacombs`; 500 levelů bez nálezu validátoru; katakomby po Ondřejově volbě 2 (b) |
-| B1.2 xForge: sada prefabů | hotovo, vzhled nevyhovuje | `b_t2_kit` 23 (Node), `b_t3_galerie` 8, `b_t4_levely` 20 (prohlížeč) | `kit_base`: 49 prefabů, 27 s kloubem (33 kloubů), 41 materiálů; galerie `dist/kit.html`; generátor rozmisťuje 47 ze 49. Ondřej 22. 11.: tvary dobré, ale „příliš sterilní“ (viz Rozhodnutí a N-006). Zavřené dveře jsou od B02 bez škvír (N-007) |
+| B1.2 xForge: sada prefabů | hotovo, vzhled nevyhovuje | `b_t2_kit` 32 (Node), `b_t3_galerie` 12, `b_t4_levely` 20 (prohlížeč) | `kit_base`: 49 prefabů, 27 s kloubem (33 kloubů), 41 materiálů; galerie `dist/kit.html`; generátor rozmisťuje 47 ze 49. Ondřej 22. 11.: tvary dobré, ale „příliš sterilní“ (viz Rozhodnutí a N-006). Zavřené dveře jsou od B02 bez škvír (N-007) |
 | B1.3 xBake: zapečené světlo | hotovo podle zadání vlny 2 a D-035; běh soubor zatím nečte (čtení přejde do základu) | `b_t5_bake` 26 (Node), `b_t6_bake_nahled` 9 (prohlížeč) | světlo po vrcholech `brushLightMesh`, jedna vrstva na světlo se zastíněním a s úseky za dveřmi (brány), okraj stínu po podílech, k tomu vrstva odrazu (RGB) a přístupnosti okolního světla; xLab 20 509 vzorků za 1,0 s, soubor 476 kB; nástroj `node tools/bake/cli.mjs packs/<balík>`, náhled `dist/xbake.html`, montáž `test/out/b_bake_montaz.png` |
 | B1.4 xSearcher: příjem assetů | hotovo jako B2.3 (24. 11. 2026) | `b_t7_searcher` 47 (Node, bez sítě) | jen textury; modely nestahuje (Ondřejova volba 2 a), zvuky nemají zdroj; tabulka zdrojů a příjmu v `tools/searcher/ZDROJE.md` |
+
+Po B2.4 (24. 11. 2026, `951044a`, sandbox): `npm test` 254 kontrol, `npm run test:b` 7 sad ze 7, 201 kontrol (`b_t2_kit` 32, `b_t3_galerie` 12), `npm run test:axb` 28 + 9: engine sešny A balík s texturami načte a robot projde. Skupinu A jsem nepouštěla (její testy berou zlatý vzorek).
 
 Po B2.3 (24. 11. 2026, `24e2358`, sandbox): `npm test` 254 kontrol, `npm run test:b` 7 sad ze 7, 188 kontrol (`b_t7_searcher` 47 nových), vše zeleně. Skupinu A a zkoušku A × B jsem nepouštěla: změna je jen v `tools/searcher`, `packs/_inbox/.gitignore` a testech B.
 
@@ -244,6 +257,8 @@ Pořadí je závazné jen do bodu 2; dál rozhodne, co mezitím udělá svodná 
 | xBake: vzorky a jejich plochy (`scene.mjs`), stínítka z kolizí a paprsky (`rays.mjs`), brány dveří (`gates.mjs`), vrstvy a okraj stínu (`bake.mjs`), čtení souboru a složení barev bez Node (`read.mjs`), zápis a otisky (`format.mjs`), nástroj `node tools/bake/cli.mjs packs/<balík> [--level id] [--out složka] [--rays 64] [--soft 4] [--no-indirect] [--no-gates]` → `dist/bake/<balík>/<level>.light.bin` | `tools/bake` |
 | náhled zapečeného světla (cíl `xbake`: zapeče v prohlížeči, přepínače Stíny, Jemný okraj stínu, Odraz, Kouty, Lampy, Dveře otevřené; pohledy jako xView, „Stín sloupu“ a „Dveře laboratoře“) | `tools/bake/view.js`, `view.html`, `target.json` → `dist/xbake.html` |
 | rozměry postavy, pro kterou generátor staví (poloměr, odstup kontroléru, rezerva) | `src/gen/body.js` |
+| textury sady: který materiál bere kterou texturu z příjmu (`kit/textures.mjs`), odvození WebP 512 px a zámek s otisky a průměry (`textures.mjs`, `kit/textures.lock.json`; potřebuje příjem a `sharp`), modul textur galerie (`gallery/textures.js`, píše `make-kit.mjs`), montáž pohledů (`dev/kitlooks.cjs`) | `tools/forge` |
+| odvozené textury v balíku | `packs/kit_base/textures/*.512.webp` |
 | skutečný hráč pro kontroly dat (čte profil enginu) a průchod otevřenými dveřmi kruhem v půdorysu | `test/b_lib/player.mjs`, `test/b_lib/door-pass.mjs` |
 | zkouška zakrytí otvoru dveřmi paprsky | `test/b_lib/door-cover.mjs` |
 
@@ -275,6 +290,8 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | náhled xBake 0.4 | `dist/xbake.html` 618 kB; zapečení xLabu v prohlížeči 0,8 s (stránka peče třikrát: se stíny, bez zastínění a s jedním paprskem pro srovnání). Pohled „Stín sloupu“, jen přímé světlo: průměrný jas 147,0 proti 168,2 z 255 bez zastínění. Pohled „Dveře laboratoře“, jen přímé světlo: 152,2 s otevřenými dveřmi proti 140,7 se zavřenými | `b_t6_bake_nahled` (softwarové vykreslení), výpis sestavení |
 | dosažitelnost zdrojů assetů | Poly Haven a ambientCG: rozhraní i soubory ano; OpenGameArt a Quaternius: stránky ano, stažení souboru neměřeno; Kenney: 403 | `curl` 22. 11. kolem 14:00, tabulka v `tools/searcher/ZDROJE.md`; 24. 11. z Node znovu ano (Poly Haven `/types` 293 ms, seznam 871 textur 857 289 B) |
 | příjem xSearcheru | 10 assetů (7 × Poly Haven, 3 × ambientCG), 2K, 82,5 MB map; archivy ambientCG 66,2 MB se neukládají; stažení ve dvou dávkách 3,1 s a 6,3 s | `find.mjs --get`, `--inbox`, sandbox 24. 11. |
+| textury sady (B2.4) | 21 materiálů, 30 souborů WebP 512 px, 1 287,4 kB; příjem 19 assetů, 157,1 MB; `dist/kit.html` 2 573 327 B (dřív 745 kB) | `tools/forge/textures.mjs`, `make-kit.mjs`, výpis sestavení |
+| jas stěny s texturou proti barvě (galerie, pohled T460 proti čistému) | do 7,6 % u 21 materiálů; zesílení color / průměr textury 0,53 až 7,18 | `b_t3_galerie`, `swatchStats`, softwarové vykreslení |
 | velikost jedné sady map | ambientCG `Concrete049`: 1K-JPG 10 406 004 B, 2K-JPG 36 432 631 B, 4K-JPG 131 410 218 B | odpověď rozhraní ambientCG |
 
 ## Neověřeno
@@ -295,6 +312,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 - **Svislé čárkované čáry na stěnách** v místech, kde na sebe navazují kvádry zdí: sešna A je vidí v enginu u mých levelů i ve zlatém vzorku. Dřív jsem je tady přičetla prohlížeči xView; to neplatí. Příčina neověřená (domněnka sešny A: prosvítají boční plochy kvádrů uvnitř zdi).
 - **Počet entit.** Level `complex` má 320 až 584 entit. Jestli to T460 unese, řekne až engine se slučováním a měření.
 - **Stažení assetu** z OpenGameArt a Quaternius (viz `tools/searcher/ZDROJE.md`).
+- **Textury viděl jen softwarový vykreslovač** v galerii. Engine sešny A je nečte, na T460 ani na grafické kartě je nikdo neviděl. Cenu 30 textur na T460 nikdo neměřil (xBench 0.2 má jednu texturu přes celý obraz: 3,48 ms proti 2,44 ms bez ní). Osvětlení galerie a tónové mapování AgX jsou vlastnost náhledu, ne enginu. `uvScale` u `DiamondPlate008C` a `Metal009` je odhad 1 m (zdroj rozměr neuvádí), u ostatních ambientCG čtu rozměr jako centimetry.
 - **Licence assetu v xSearcheru** je licence zdroje přečtená 24. 11. 2026; rozhraní ji u assetu neuvádí. Kdyby zdroj začal vést assety s jinou licencí, nástroj to nepozná. Rozměr předlohy u ambientCG čtu jako centimetry (rozhraní jednotku neuvádí). Nástroj jsem pouštěla jen v sandboxu (Linux, za proxy), ne na Ondřejově stroji s Windows.
 - **Všechno v N-006** kromě toho, co je tam výslovně označené jako ověřené: stupně kvality a jejich meze jsou návrh bez měření.
 
@@ -309,6 +327,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | N-005 | průhlednost materiálu (sklo) | `glass_pane` je neprůhledný |
 | N-006 | stupně kvality a vrstvy vzhledu (hra má vypadat skutečně; rezerva pro silnější stroj) | bohatší hrubý tvar a textury v polích, která formát už má; nová pole nepíšu |
 | N-008 | rozměry postavy hráče (poloměr, výška, schod) a odstup kontroléru do základu: dnes jsou v enginu, v robotu zkoušky A × B a v generátoru. **Otevřený** | `src/gen/body.js` drží jednu kopii v generátoru; test `b_t1_xgen` ji porovnává s profilem enginu |
+| N-009 | barva materiálu s texturou: `color` jako průměrná barva povrchu, běh kreslí `textura × (color / průměr)`, průměr v poli `albedoMean`. **Otevřený** | `kit_base` má `color` beze změny, průměr a zesílení jen v `tools/forge/kit/textures.lock.json`; galerie kreslí podle návrhu |
 | N-007 | zakrytí otvoru dveřmi počítat ze všech dílů dveří; `portal.door` jako seznam (doplňuje N-107 sešny A). **Bod 1 přijat, bod 2 zamítnut (D-036)** | dorazy a prahová lišta v sadě; křídla dvoukřídlých dveří mají `seeThrough` a první je v `portal.door`; zkouška paprsky v `b_t1`, `b_t2` |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
@@ -327,6 +346,7 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 8. **Dveře (od B02).** Všechny dveře sady mají prahovou lištu 12 mm bez kolize a dorazy zárubně; zavřené jsou bez škvír. Křídla dvoukřídlých dveří mají `seeThrough`, první křídlo je v `portal.door` a druhé se najde přes spojení `opened → open`; jejich portál je pro pohled pořád otevřený (D-036). Prkenné dveře mají otvor 1,0 × 2,0 m.
 9. **Katakomby (od B02)** mají chodby 1,6 až 1,9 m a stropy 2,6 až 3,2 m; `gen_demo` je přegenerovaný, `catacombs_3` má 30 buněk.
 10. **Zapečené světlo s branami (od B03).** Soubor `<level>.light.bin` má u vrstev `light` a `entity` pole `gates: [{ gate: [id dveří…], count, offset }]`; čtení a složení barev je v `tools/bake/read.mjs` (bez Node, `decodeBake` bere `ArrayBuffer`). Úsek se násobí součinem otevření dveří v `gate`, stejně jako tvoje brány. Část vrstvy bez brány a vrstvy `indirect` a `ao` platí pro zavřené dveře. Vzorek smí být ve víc úsecích (okraj stínu po podílech).
+12. **Textury v `kit_base` (od B2.4, N-009).** 21 materiálů má `albedo` (WebP 512 px), `normal` (512 px) a `uvScale` (metry na dlaždici; sítě základu dávají UV v metrech). `pack.json.assets` je nese s otiskem. Pozor: `color` u nich zůstal průměrnou barvou povrchu. Doslovné `color × textura` dá povrch až 7× tmavší; kresli `textura × (color / průměr textury)` (průměr spočítej při načtení, než svodná rozhodne N-009), nebo texturu zatím nekresli.
 11. **Moje testy čtou tvůj profil hráče** (`src/play/profiles.js`, `CHARACTER_SKIN` z `src/phys/phys.js`), jen čtou. Když změníš poloměr nebo odstup, selže `b_t1_xgen` a je to správně: generátor pak staví pro menší postavu. Návrh N-008 to chce mít v základu.
 
 ## Poznatky pro skill
@@ -367,6 +387,12 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - **Rozhraní Poly Haven má vlastní podmínky** (`ToS.md` v repu `Poly-Haven/Public-API`): User-Agent se jménem programu a uživatel musí vidět, že obsah je z Poly Haven. Assety jsou CC0 bez povinnosti uvádět autora; podmínky platí pro používání živého rozhraní.
 - **Ani Poly Haven, ani ambientCG neuvádí licenci u assetu.** Brána se opírá o licenci zdroje a záznam nese adresu stránky s licencí a datum přečtení.
 - **ambientCG dává materiál jen jako ZIP** (2K-JPG 6,7 až 35,2 MB), Poly Haven po souborech s MD5 (2K: 2,0 až 10,3 MB na tři mapy). Na ZIP stačí 70 řádků s `zlib.inflateRawSync` a `zlib.crc32`; závislost není potřeba.
+- **esbuild 0.28 umí `import x from './a.webp' with { type: 'bytes' }`** (Uint8Array v balíku). Atribut `loader` neumí. Binární soubor se tak dostane do sestaveného HTML bez úpravy `build.mjs`.
+- **Ploché barvy materiálů sady jsou proti vyfoceným povrchům většinou 1,5× až 5,5× světlejší** (lineárně). Textura násobená takovou barvou je tmavá, zesílení zapečené do textury useká světlá místa. Řešení v galerii: `textura × (color / průměr textury)`, N-009.
+- **Kde odstín textury nesedí na barvu materiálu, brát z ní jen šedou kresbu** (práh 1,35× mezi kanály). Rezavě červený plech přebarvený do modrošedé měl modrou rez.
+- **Pravidlo „průměr drží“ ověřit měřením jasu v obraze, ne okem z montáže:** šedé dlaždice vypadaly v montáži světlejší, změřený rozdíl byl 0 %.
+- **Galerie bez tónového mapování přepálí textury do bílé,** jakmile k polokulovému světlu přibude světlo okolí. AgX ve všech pohledech stejně.
+- **`sharp` 0.35.5 dává při stejné verzi stejné bajty WebP;** verzi připnout přesně, jinak se změní otisky v `pack.json`.
 - **Uložené odpovědi pro test zkrátit skriptem, který jde pustit znovu,** ne ručně: seznam 871 textur měl 857 kB, test potřebuje 50 položek.
 
 ## Otázky pro Ondřeje
@@ -375,6 +401,10 @@ Zodpovězeno 24. 11. 2026: **1 (a)** opotřebený provoz, **2 (a)** z webu jen m
 
 Tři otázky z konce sešny B03 zodpovězeny 24. 11. ve 02:04: mez grafické paměti **(a) 8 GB**; nejdřív **(a) xSearcher a první textury v galerii**; náhled zapečeného světla pro vygenerované levely **(b) počkat, až soubor načte hra**.
 
-Otevřená otázka na mě teď žádná není.
+Nové otázky z 24. 11. odpoledne (B2.4; galerie `dist/kit.html`, montáže `b_kit_pohledy.png` a `b_kit_vzornik.png`):
+
+1. **Barvy materiálů jsou proti skutečným povrchům světlejší** (beton 5×, omítka 2×). (a) stáhnout je k barvě textur a v generovaných levelech přidat expozici; kresba bude výraznější a povrchy přirozenější. (b) nechat dnešní světlé barvy, textura se jim přizpůsobuje. Doporučuju (a).
+2. **Textury v galerii:** (a) směr sedí, pokračuj; (b) některé vyměnit (napiš které); (c) jinak.
+3. **Co dál:** (a) bohatší hrubý tvar prefabů (zkosení, drobné díly; zbytek B2.4); (b) B2.5 zkouška povrchu na jednom kusu (dveře ze sítě `.glb`). Doporučuju (a).
 
 Mimo sešnu B na tebe čekají čtyři otázky sešny A (`A_STAV.md`, konec): zkouška textury světla hned, nebo později (N-110); dveře od hráče do dat (N-109); měření `?bench`; terminál po Esc.

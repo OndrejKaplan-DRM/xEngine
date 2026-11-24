@@ -28,7 +28,7 @@ Krátký přehled celého projektu na jedné stránce. Podrobnosti jsou v odkaze
 |---|---|---|---|
 | svodná | `zaklad-2` = `main` = `a995347` (znění 3 základu 2) | nic neběží | sloučit vlnu 2, dluhy základu (oddíl níže) |
 | A | `sesna-a` = `db6fad0` | A2.5 nová pole základu, A2.6 textury a sítě (Ondřej 24. 11. 02:26: „1 b“) | textura světla N-110 až potom |
-| B | `sesna-b` (hlava v `git log`) | B2.4 první textury v galerii sady | B2.5 zkouška povrchu na jednom kusu |
+| B | `sesna-b` (hlava v `git log`) | čeká na Ondřejovy odpovědi k texturám (B2.4) | zbytek B2.4 (bohatší hrubý tvar) nebo B2.5 |
 
 ## Čeká na Ondřeje
 
@@ -37,7 +37,7 @@ Krátký přehled celého projektu na jedné stránce. Podrobnosti jsou v odkaze
 | A | zorné pole po opravě: a) použitelné, b) nižší strop než 120°, c) promítání Panini | `A_STAV.md`, Otázky |
 | A | tři měření `?bench` s opravenou metodou (bez vyhlazování, mřížka 0,5 m; `?bench`, `&rows=1080`, `xLab_gen…?bench`) | tamtéž |
 | A | terminál: po Esc a Pokračovat kurzor hned poslouchá? a) ano, b) ne | tamtéž |
-| B | nic | |
+| B | barvy materiálů k realistickému albedu? textury v galerii sedí? dál bohatší tvar, nebo B2.5? | `B_STAV.md`, Otázky |
 
 ## Otevřené návrhy (rozhoduje svodná sešna)
 
@@ -46,6 +46,7 @@ Krátký přehled celého projektu na jedné stránce. Podrobnosti jsou v odkaze
 | N-001 znění 2 | zapečené světlo: potvrdit `gate` jako seznam id dveří a pole `doors` v hlavičce | B | přijato se změnou (D-035), dvě věci k potvrzení |
 | N-002 | svázané klouby (`follow`): dvoukřídlé dveře jako jeden prefab | B | přijato, základ dluží |
 | N-008 | rozměry postavy (poloměr, výška, schod, odstup kontroléru) do `src/xspace` | B | otevřený |
+| N-009 | barva materiálu s texturou: `color` = průměr povrchu, běh kreslí `textura × (color / průměr)`, pole `albedoMean` | B | otevřený; týká se A2.6 |
 | N-102 | `rigCompile`, `rigSolve` bez alokací | A | přijato, základ dluží |
 | N-105 | xLab je přesvícený (svítivosti a expozice zlatého vzorku) | A | čeká na čísla jasu |
 | N-109 | otočné dveře se otvírají od hráče: kloub na obě strany v datech | A | Ondřej chce do dat (24. 11., „2 a“); čeká na svodnou, potom data sešny B |
@@ -64,7 +65,7 @@ Zapsala sešna B 2026-11-24 podle `docs/sesny/START_SVOD.md` (`a995347`).
 4. D-035: převzít do `src/xspace` čtení souboru světla (`tools/bake/read.mjs` sešny B) a pravidlo bran (`occlusion.js` sešny A); sjednotit tři rozdíly (`B_STAV.md`, „Sešna B03“)
 5. N-102 · 6. N-105 · 7. N-103 (`rig.noSpeed`) · 8. D-030 zmrazit jména polí N-006 po zkoušce na jednom kusu · 9. D-032 výsledek zkoušky terminálu · 10. zkoušky Shellu v prohlížeči · 11. xBench: strop metody u nejtěžších případů · 12. stavy řádků v `REQUIREMENTS.md` a `05_PARITA_2003.md`
 
-**Rozhodnout:** N-008, N-109, N-110 a dvě věci N-001 znění 2. Sloučení `sesna-a` + `sesna-b` nanečisto nikdo nepouštěl.
+**Rozhodnout:** N-008, N-009, N-109, N-110 a dvě věci N-001 znění 2. Sloučení `sesna-a` + `sesna-b` nanečisto nikdo nepouštěl.
 
 ## Sešna A (oddíl mění jen sešna A)
 
@@ -85,13 +86,15 @@ Poslední celá regrese podle sešny A: 728 kontrol, 0 selhalo (sandbox; skupina
 - B2.6 xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu po podílech, čtení bez Node (`3d1aa2a`, `7dd9cd2`), nad mřížkou D-037 (`9d34aa6`)
 - díly prefabů z `geom.js` v galerii, náhledu a xBake (`7dd9cd2`)
 - B2.3 xSearcher: `tools/searcher/find.mjs` hledá a přijímá textury CC0 z Poly Haven a ambientCG do `packs/_inbox` se záznamem; 10 textur v příjmu (82,5 MB, 2K); test bez sítě `b_t7_searcher` 47 kontrol (`5828344`, `24e2358`)
-- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox); po B2.3 `npm test` 254 a `npm run test:b` 188 kontrol zeleně
+- B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB) z nástroje `tools/forge/textures.mjs`; galerie se třemi pohledy (čistý, T460, grafická karta) a vzorníkem; návrh N-009 (`7204c2d`, `046f9a7`, `951044a`, `70d2473`)
+- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox); po B2.4 `npm test` 254, `npm run test:b` 201 a `npm run test:axb` 37 kontrol zeleně
 
-**Teď:** B2.4 textury z příjmu do `kit_base` přes `albedo` a `uvScale` (odvozené 512 px pro `low`, 1K pro `mid`; originály 2K zůstávají v příjmu), galerie se třemi pohledy (čistý, T460, grafická karta), montáž aspoň 8 prefabů, součet velikostí do `B_STAV.md`. Směr podle Ondřeje 24. 11.: opotřebený provoz, poprvé v galerii, mez 8 GB grafické paměti.
+**Teď:** čeká na Ondřejovy odpovědi k texturám (tři otázky v `B_STAV.md`).
 
-**Další, v tomto pořadí:**
-1. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
-2. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
-3. B2.7 xDesigner, dům, tvor
+**Další, v tomto pořadí** (podle odpovědí):
+1. zbytek B2.4: bohatší hrubý tvar nejviditelnějších prefabů (zkosení, drobné díly)
+2. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
+3. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
+4. B2.7 xDesigner, dům, tvor
 
-**Čeká na jiné:** N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).
+**Čeká na jiné:** N-009 (barva materiálu s texturou; potřebuje ho sešna A pro A2.6) · N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).
