@@ -92,7 +92,8 @@ let slowest = 0;
 const portalDoorPrefabs = new Set();
 const usedAll = new Set();
 for (const run of RUNS) {
-  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [] };
+  const attachIds = new Set(catalog.ids.flatMap((id) => catalog.attachments(id).map((a) => a.prefab)));
+  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [] };
   let walker = null;
   const ruleBreaks = [];
   const findings = {};
@@ -118,6 +119,7 @@ for (const run of RUNS) {
     for (const p of level.portals) if (p.door) portalDoorPrefabs.add(level.entities.find((e) => e.id === p.door).prefab);
     agg.attempt.push(info.attempt);
     agg.entities.push(level.entities.length);
+    agg.drawers.push(level.entities.filter((e) => attachIds.has(e.prefab)).length);
     agg.brushes.push(level.brushes.length);
     agg.tris.push(level.brushes.length * 12 + level.entities.reduce((t, e) => t + (catalog.has(e.prefab) ? catalog.get(e.prefab).tris : 0), 0));
     const res = validatePack(asPack(level));
@@ -145,6 +147,7 @@ for (const run of RUNS) {
   ok(problems.length === 0, `${run.name}: prahy, průchody, schody, rozmístění a průchodnost místností`, problems.slice(0, 3).join(' | ') || `cesta široká ${walker.width.toFixed(2)} m (profil ${walker.profile}) ověřena v ${span(agg.passable)} buňkách na level`);
   ok(ruleBreaks.length === 0, `${run.name}: strop nikde pod 2,6 m, chodba nikde užší než 1,6 m`, ruleBreaks.slice(0, 3).join(' | ') || `nejnižší strop ${Math.min(...agg.ceil).toFixed(2)} m, nejužší chodba ${Math.min(...agg.corr).toFixed(2)} m`);
   ok(Math.max(...agg.ms) < 1000, `${run.name}: generování pod 1 s`, `${span(agg.ms, 1)} ms; kvádrů ${span(agg.brushes)}, entit ${span(agg.entities)}`);
+  if (run.preset === 'complex') ok(Math.min(...agg.drawers) > 0, `${run.name}: zásuvky kartoték a stolů stojí jako samostatné entity (každá se otevírá zvlášť)`, `zásuvek na level ${span(agg.drawers)}`);
   if (run.opts.puzzle) ok(puzzles >= n * 0.9, `${run.name}: zamčená místnost s pákou`, `${puzzles} z ${n}`);
   if (!run.opts.puzzle && !run.opts.floors) ok(prefabsUsed.size >= (run.preset === 'complex' ? 25 : 8), `${run.name}: generátor rozmisťuje prefaby sady`, `${prefabsUsed.size} různých prefabů z ${catalog.ids.length}`);
 }

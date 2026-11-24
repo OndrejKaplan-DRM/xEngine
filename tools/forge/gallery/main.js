@@ -7,7 +7,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { validatePack, partMesh } from '../../../src/xspace/index.js';
 import { buildKit, TEXTURES } from '../kit/index.mjs';
-import { buildPrefab, poseAt, figure, useTextures, material } from './scene.js';
+import { buildPrefab, figure, useTextures, material } from './scene.js';
 import { TEXTURE_BYTES } from './textures.js';
 
 const VERSION = 'xForge galerie 0.2 · 2026-11-24 · textury (B2.4)';
@@ -17,6 +17,12 @@ const findings = validatePack(pack);
 const matDefs = pack.materials.materials;
 const prefabs = pack.prefabs.map((p) => p.data);
 const byId = new Map(prefabs.map((p) => [p.id, p]));
+/** Obal prefabu přes celý rozsah pohybu včetně připojených zásuvek (source.params.attach). */
+const fullBounds = (p) =>
+  (((p.source || {}).params || {}).attach || []).reduce((b, a) => {
+    const c = byId.get(a.prefab);
+    return c ? { min: b.min.map((v, k) => Math.min(v, c.bounds.min[k] + a.pos[k])), max: b.max.map((v, k) => Math.max(v, c.bounds.max[k] + a.pos[k])) } : b;
+  }, p.bounds);
 const notes = buildKit().notes;
 const num = (v) => String(Math.round(v * 1000) / 1000).replace('.', ',');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
@@ -83,15 +89,16 @@ function showOne(id) {
   mode = 'one';
   current = id;
   const prefab = byId.get(id);
-  const b = { prefab, ...buildPrefab(prefab, matDefs, look) };
+  const b = { prefab, ...buildPrefab(prefab, matDefs, look, (x) => byId.get(x)) };
+  const fb = fullBounds(prefab);
   // nástěnné a stropní prefaby zvedni, ať nevisí pod mřížkou
-  b.root.position.y = Math.max(0, -prefab.bounds.min[1]) + (prefab.bounds.min[1] < -0.001 ? 1.2 : 0);
+  b.root.position.y = Math.max(0, -fb.min[1]) + (fb.min[1] < -0.001 ? 1.2 : 0);
   holder.add(b.root);
   built.push(b);
-  b.setPose(poseAt(prefab, pose));
+  b.setPose(pose);
   const y = b.root.position.y;
-  frame([prefab.bounds.min[0], prefab.bounds.min[1] + y, prefab.bounds.min[2]], [prefab.bounds.max[0], prefab.bounds.max[1] + y, prefab.bounds.max[2]]);
-  man.position.set(prefab.bounds.max[0] + 0.5, 0, 0);
+  frame([fb.min[0], fb.min[1] + y, fb.min[2]], [fb.max[0], fb.max[1] + y, fb.max[2]]);
+  man.position.set(fb.max[0] + 0.5, 0, 0);
   ui();
   render();
 }
@@ -101,11 +108,11 @@ function showAll() {
   const cols = Math.ceil(Math.sqrt(prefabs.length * 1.6));
   const cell = 3.2;
   prefabs.forEach((prefab, i) => {
-    const b = { prefab, ...buildPrefab(prefab, matDefs, look) };
+    const b = { prefab, ...buildPrefab(prefab, matDefs, look, (x) => byId.get(x)) };
     const cx = ((i % cols) - (cols - 1) / 2) * cell;
     const cz = Math.floor(i / cols) * cell;
     b.root.position.set(cx - (prefab.bounds.min[0] + prefab.bounds.max[0]) / 2, Math.max(0, -prefab.bounds.min[1]), cz);
-    b.setPose(poseAt(prefab, pose));
+    b.setPose(pose);
     holder.add(b.root);
     built.push(b);
   });
@@ -162,7 +169,7 @@ loadTextures().then(
 
 function setPose(t) {
   pose = Math.min(1, Math.max(0, t));
-  for (const b of built) b.setPose(poseAt(b.prefab, pose));
+  for (const b of built) b.setPose(pose);
   const s = document.getElementById('pose');
   if (s) s.value = String(Math.round(pose * 100));
   render();

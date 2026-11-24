@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-kit.mjs`. Neupravovat ručně; zdroj je `tools/forge/kit/*.mjs`.
 
-Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 11212
+Prefabů: 51 · materiálů: 42 · trojúhelníků celkem: 12200
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -22,11 +22,13 @@ Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 11212
 | `valve_gate_01` | Šoupátko s ručním kolem | device.control | 0,7 × 0,37 × 0,29 | 380 | turn: 0° až 1800° | valve |
 | `valve_ball_01` | Kohout kulový s pákou | device.control | 0,5 × 0,13 × 0,26 | 176 | turn: 0° až 90° | valve |
 | `tap_wall_01` | Kohoutek nástěnný | device.control | 0,1 × 0,13 × 0,19 | 292 | turn: 0° až 540° | valve |
-| `cabinet_file_01` | Kartotéka zásuvková | prop.furniture | 0,46 × 1,32 × 1,1 | 204 | pull: 0 až 0,45 m | drawer |
+| `cabinet_file_01` | Kartotéka, korpus pro čtyři zásuvky | prop.furniture | 0,47 × 1,32 × 0,63 | 316 | — | — |
+| `drawer_file_01` | Zásuvka kartotéky se závěsnými deskami | prop.furniture | 0,41 × 0,3 × 1,05 | 456 | pull: 0 až 0,45 m | drawer |
 | `cabinet_door_01` | Skříň s dvířky | prop.furniture | 0,72 × 1,8 × 0,9 | 312 | swing: 0° až 110° | door |
 | `table_work_01` | Stůl pracovní 1,6 × 0,8 m | prop.furniture | 1,6 × 0,75 × 0,8 | 216 | — | — |
 | `table_lab_01` | Stůl laboratorní 1,8 × 0,75 m | prop.furniture | 1,8 × 1 × 0,75 | 204 | — | — |
-| `desk_office_01` | Stůl kancelářský se zásuvkami 1,4 × 0,7 m | prop.furniture | 1,4 × 0,74 × 1,02 | 192 | pull: 0 až 0,33 m | drawer |
+| `desk_office_01` | Stůl kancelářský s kontejnerem 1,4 × 0,7 m | prop.furniture | 1,4 × 0,75 × 0,7 | 292 | — | — |
+| `drawer_desk_01` | Zásuvka stolu s přihrádkami | prop.furniture | 0,33 × 0,19 × 0,88 | 320 | pull: 0 až 0,33 m | drawer |
 | `chair_office_01` | Židle kancelářská otočná | prop.furniture | 0,75 × 1,02 × 0,75 | 124 | swivel: -180° až 180° | station |
 | `chair_plain_01` | Židle dřevěná | prop.furniture | 0,41 × 0,87 × 0,41 | 204 | — | grab |
 | `shelf_rack_01` | Regál kovový 1,0 × 2,0 m | prop.furniture | 1,02 × 2 × 0,42 | 324 | — | — |
@@ -81,9 +83,9 @@ Prefabů: 49 · materiálů: 41 · trojúhelníků celkem: 11212
 | `valve_gate_01` | turn | 0° až 1800° | Šoupátko DN 50: z plného zavření do plného otevření zhruba 5–6 otáček kola (zdvih klínu ≈ světlost, stoupání vřetene kolem 10 mm); 5 otáček. Úvaha, neměřeno. |
 | `valve_ball_01` | turn | 0° až 90° | Kulový kohout je čtvrtotáčkový: páka napříč potrubím = zavřeno, podél = otevřeno, dorazy na 0° a 90°. |
 | `tap_wall_01` | turn | 0° až 540° | Vřetenový kohoutek s těsněním: z dotažení do plného průtoku 1 až 2 otáčky; 1,5 otáčky (540°). Úvaha, neměřeno. |
-| `cabinet_file_01` | pull | 0 až 0,45 m | Kartotéka hloubky 0,62 m s plnovýsuvem: zásuvka vyjede asi o tři čtvrtiny hloubky (0,45 m), dál ji drží doraz. Úvaha, neměřeno. |
+| `drawer_file_01` | pull | 0 až 0,45 m | Kartotéka hloubky 0,62 m s plnovýsuvem: zásuvka vyjede asi o tři čtvrtiny hloubky (0,45 m), dál ji drží doraz. Úvaha, neměřeno. |
 | `cabinet_door_01` | swing | 0° až 110° | Nábytkový hrncový závěs má běžný úhel otevření 110°. |
-| `desk_office_01` | pull | 0 až 0,33 m | Zásuvka stolu na kuličkových výsuvech délky 400 mm s částečným výsuvem: 0,30–0,35 m; 0,33 m. Úvaha, neměřeno. |
+| `drawer_desk_01` | pull | 0 až 0,33 m | Zásuvka stolu na kuličkových výsuvech délky 400 mm s částečným výsuvem: 0,30–0,35 m; 0,33 m. Úvaha, neměřeno. |
 | `chair_office_01` | swivel | -180° až 180° | Otočná židle se točí dokola; meze ±180° jsou zápis jedné otáčky, protože formát chce konečné meze. Sedák 0,46 m nad zemí. |
 | `lamp_desk_01` | toggle | -10° až 10° | Kolébkový vypínač na podstavě: ±10°, dvě zarážky. |
 | `lamp_desk_01` | shoulder | -20° až 50° | Kloubová lampa (typ „architekt“): spodní rameno se sklápí od mírného záklonu po asi 50° dopředu; polohu drží tření, proto tlumení bez pružiny. Úvaha, neměřeno. |

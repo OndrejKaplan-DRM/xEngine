@@ -15,14 +15,14 @@ export function makeCatalog(pack) {
     if (!p) throw new Error(`katalog: prefab „${id}“ v sadě není`);
     return p;
   };
-  /** Obal dílů v klidové poloze, v prostoru prefabu (metry). */
-  const restBox = (id) => {
-    if (!restCache.has(id)) restCache.set(id, boundsAt(get(id)));
-    return restCache.get(id);
-  };
-  /** Obal umístěné entity ve světě (metry). which: 'rest' = v klidu, 'swept' = přes celý rozsah pohybu. */
-  const worldBox = (id, pos, ry = 0, which = 'rest') => {
-    const b = which === 'swept' ? get(id).bounds : restBox(id);
+  /**
+   * Připojené prefaby (source.params.attach): samostatné entity, které generátor postaví s rodičem, např. zásuvky
+   * kartotéky, každá se svou interakcí (formát verze 1 unese jednu interakci na prefab; návrh N-010).
+   * Položka { prefab, pos: [x, y, z] v prostoru rodiče, ry: stupně }.
+   */
+  const attachments = (id) => ((get(id).source || {}).params || {}).attach || [];
+  /** Obal kvádru b po přesunutí a otočení kolem Y (pos, ry). */
+  const moved = (b, pos, ry) => {
     const mtx = entityMatrix({ pos, rot: [0, ry, 0] });
     const min = [Infinity, Infinity, Infinity];
     const max = [-Infinity, -Infinity, -Infinity];
@@ -39,11 +39,23 @@ export function makeCatalog(pack) {
     }
     return { min, max };
   };
+  const union = (a, b) => ({ min: a.min.map((v, k) => Math.min(v, b.min[k])), max: a.max.map((v, k) => Math.max(v, b.max[k])) });
+  /** Obal dílů v klidové poloze, v prostoru prefabu (metry), včetně připojených prefabů. */
+  const restBox = (id) => {
+    if (!restCache.has(id)) restCache.set(id, attachments(id).reduce((b, a) => union(b, moved(restBox(a.prefab), a.pos, a.ry || 0)), boundsAt(get(id))));
+    return restCache.get(id);
+  };
+  /** Obal přes celý rozsah pohybu, v prostoru prefabu, včetně připojených prefabů. */
+  const sweptBox = (id) => attachments(id).reduce((b, a) => union(b, moved(sweptBox(a.prefab), a.pos, a.ry || 0)), get(id).bounds);
+  /** Obal umístěné entity ve světě (metry). which: 'rest' = v klidu, 'swept' = přes celý rozsah pohybu. */
+  const worldBox = (id, pos, ry = 0, which = 'rest') => moved(which === 'swept' ? sweptBox(id) : restBox(id), pos, ry);
   return {
     id: pack.manifest.id,
     get,
     has: (id) => byId.has(id),
+    attachments,
     restBox,
+    sweptBox,
     worldBox,
     /** Stavební otvor dveří v centimetrech (z parametrů generátoru prefabu). */
     opening(id) {

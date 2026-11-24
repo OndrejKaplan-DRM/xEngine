@@ -2,7 +2,7 @@
 // ne z vnitřností generátoru. Každá kontrola vrací seznam problémů (prázdný = v pořádku).
 // Šířky průchodů se měří skutečným hráčem levelu (profil pohybu enginu a odstup kontroléru, b_lib/player.mjs).
 
-import { inBounds } from '../../src/xspace/index.js';
+import { inBounds, entityMatrix, mat4Point } from '../../src/xspace/index.js';
 import { playerOf } from './player.mjs';
 import { doorPass } from './door-pass.mjs';
 
@@ -136,11 +136,36 @@ export function checkStairs(level) {
   return { problems: out, stairs: stairs.length, ramps: level.brushes.filter((x) => x.shape === 'wedge').length };
 }
 
+/**
+ * Připojené prefaby (source.params.attach, např. zásuvky kartotéky): u každého rodiče stojí každý připojený kus
+ * jako vlastní entita ve stejné buňce, na místě a s natočením podle rodiče (do 1 mm a 0,1°). Vrací problémy
+ * a množinu id připojených entit (ty se nepočítají do překryvů s rodičem).
+ */
+export function checkAttachments(level, catalog) {
+  const out = [];
+  const attached = new Set();
+  const free = level.entities.filter((e) => !catalog.attachments(e.prefab).length);
+  for (const e of level.entities) {
+    const list = catalog.attachments(e.prefab);
+    if (!list.length) continue;
+    const mtx = entityMatrix(e);
+    const ry = e.rot ? e.rot[1] : 0;
+    for (const a of list) {
+      const want = mat4Point(mtx, a.pos);
+      const c = free.find((x) => !attached.has(x.id) && x.prefab === a.prefab && x.cell === e.cell && Math.hypot(...want.map((v, k) => v - x.pos[k])) < 0.001 && Math.abs((((x.rot ? x.rot[1] : 0) - ry - (a.ry || 0)) % 360 + 540) % 360 - 180) < 0.1);
+      if (c) attached.add(c.id);
+      else out.push(`${e.id}: chybí připojený ${a.prefab} v ${want.map((v) => v.toFixed(3)).join(', ')}`);
+    }
+  }
+  return { problems: out, attached };
+}
+
 /** Entity stojící na podlaze se v klidové poloze nepřekrývají; zeď se dotýká buňky, která ji vlastní. */
 export function checkPlacement(level, catalog) {
   const out = [];
   const cellById = new Map(level.cells.map((c) => [c.id, c]));
-  const floor = level.entities.filter((e) => !isDoor(catalog, e) && Math.abs(e.pos[1] - cellById.get(e.cell).bounds.min[1]) < 0.001 && catalog.restBox(e.prefab).min[1] > -0.001).map((e) => ({ e, box: restBox(catalog, e) }));
+  const { attached } = checkAttachments(level, catalog);
+  const floor = level.entities.filter((e) => !isDoor(catalog, e) && !attached.has(e.id) && Math.abs(e.pos[1] - cellById.get(e.cell).bounds.min[1]) < 0.001 && catalog.restBox(e.prefab).min[1] > -0.001).map((e) => ({ e, box: restBox(catalog, e) }));
   for (let i = 0; i < floor.length; i++) {
     for (let j = i + 1; j < floor.length; j++) {
       if (floor[i].e.cell === floor[j].e.cell && hit(floor[i].box, floor[j].box, 0.01)) out.push(`${floor[i].e.id} a ${floor[j].e.id} stojí v sobě`);
@@ -250,7 +275,7 @@ export function inspectLevel(raw, catalog, player = playerOf(raw.profile)) {
   const pass = checkPassable(level, catalog, player);
   const rules = checkContentRules(level);
   return {
-    problems: [...checkReach(level), ...checkPortals(level, catalog, player), ...checkSpawns(level, catalog), ...st.problems, ...checkPlacement(level, catalog), ...pass.problems],
+    problems: [...checkReach(level), ...checkPortals(level, catalog, player), ...checkSpawns(level, catalog), ...st.problems, ...checkPlacement(level, catalog), ...checkAttachments(level, catalog).problems, ...pass.problems],
     stairs: st.stairs,
     ramps: st.ramps,
     passableCells: pass.tested,

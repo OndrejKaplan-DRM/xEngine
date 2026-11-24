@@ -2,44 +2,88 @@
 // Rozměry z reality: pracovní deska 0,72–0,76 m (laboratorní 0,9 m ve stoje), sedák 0,45 m.
 
 import { box, boxc, cyl, cbox, collide, node, hinge, slider, definePrefab, IO } from '../lib.mjs';
-import { noise, bevelBox, planks, framedPanel, cornice, handle } from '../shapes.mjs';
+import { noise, bevelBox, planks, framedPanel, cornice, handle, tray } from '../shapes.mjs';
 
 const fixed = { physics: { body: 'static' } };
 const kin = { physics: { body: 'kinematic' } };
 /** Čtyři nohy čtvercového průřezu v rozích obdélníku. */
 const legs = (n, hx, hz, y0, y1, t, mat) => [-1, 1].flatMap((sx) => [-1, 1].map((sz) => boxc(n, [sx * (hx - t / 2), (y0 + y1) / 2, sz * (hz - t / 2)], [t, y1 - y0, t], mat)));
 
-/** Kartotéka se čtyřmi zásuvkami; pohyblivá je horní (formát verze 1: jedna interakce na prefab). */
+/**
+ * Kartotéka: korpus se čtyřmi šachtami. Zásuvky jsou samostatné prefaby (drawer_file_01) připojené přes
+ * source.params.attach; generátor je postaví jako vlastní entity, takže se každá otevírá zvlášť
+ * (formát verze 1 unese jednu interakci na prefab; návrh N-010).
+ */
+const FILE = { hx: 0.23, h: 1.32, hz: 0.31, slots: [0.05, 0.365, 0.68, 0.995], slot: 0.305 };
 export function cabinetFile() {
-  const [hx, h, hz] = [0.23, 1.32, 0.31];
+  const { hx, h, hz, slots, slot } = FILE;
   const parts = [
-    box('body', [-hx, 0, -hz], [-hx + 0.02, h, hz - 0.02], 'steel_painted'),
-    box('body', [hx - 0.02, 0, -hz], [hx, h, hz - 0.02], 'steel_painted'),
-    box('body', [-hx + 0.02, 0, -hz], [hx - 0.02, h, -hz + 0.02], 'steel_painted'),
-    box('body', [-hx + 0.02, h - 0.02, -hz + 0.02], [hx - 0.02, h, hz - 0.02], 'steel_painted'),
-    box('body', [-hx + 0.02, 0, -hz + 0.02], [hx - 0.02, 0.045, hz - 0.02], 'steel_dark'),
+    box('body', [-hx, 0.045, -hz], [-hx + 0.018, h - 0.02, hz], 'steel_painted'),
+    box('body', [hx - 0.018, 0.045, -hz], [hx, h - 0.02, hz], 'steel_painted'),
+    box('body', [-hx + 0.018, 0.045, -hz], [hx - 0.018, h - 0.02, -hz + 0.012], 'steel_painted'),
+    box('body', [-hx + 0.018, 0.045, -hz + 0.012], [hx - 0.018, h - 0.025, -hz + 0.016], 'steel_dark'), // vnitřek zad
+    ...bevelBox('body', [-hx - 0.004, h - 0.02, -hz], [hx + 0.004, h, hz + 0.004], 'steel_painted', 0.004),
+    box('body', [-hx + 0.012, 0, -hz + 0.012], [hx - 0.012, 0.045, hz - 0.035], 'steel_dark'), // sokl zapuštěný o 3,5 cm
+    box('body', [-hx, 0.04, -hz], [hx, 0.05, hz], 'steel_painted'), // dno
+    cyl('body', [0, h - 0.045, hz + 0.003], 0.011, 0.008, 'z', 'steel_brushed'), // zámek nad horní zásuvkou
   ];
-  for (const y of [0.05, 0.365, 0.68]) parts.push(box('body', [-hx + 0.025, y, hz - 0.02], [hx - 0.025, y + 0.305, hz], 'steel_painted'), box('body', [-0.06, y + 0.2, hz], [0.06, y + 0.22, hz + 0.025], 'steel_brushed'));
-  parts.push(
-    box('drawer', [-hx + 0.025, 0, hz - 0.02], [hx - 0.025, 0.3, hz], 'steel_painted'),
-    box('drawer', [-0.2, 0.02, -0.27], [0.2, 0.035, hz - 0.02], 'steel_dark'),
-    box('drawer', [-0.2, 0.035, -0.27], [-0.19, 0.22, hz - 0.02], 'steel_dark'),
-    box('drawer', [0.19, 0.035, -0.27], [0.2, 0.22, hz - 0.02], 'steel_dark'),
-    box('drawer', [-0.19, 0.035, -0.27], [0.19, 0.22, -0.26], 'steel_dark'),
-    box('drawer', [-0.06, 0.2, hz], [0.06, 0.22, hz + 0.025], 'steel_brushed'),
-  );
+  for (const y of slots) {
+    // příčka za spárou mezi zásuvkami a teleskopické výsuvy na bocích šachty
+    if (y > 0.06) parts.push(box('body', [-hx + 0.018, y - 0.006, hz - 0.03], [hx - 0.018, y - 0.001, hz - 0.004], 'steel_dark'));
+    for (const sx of [-1, 1]) parts.push(box('body', [sx > 0 ? hx - 0.03 : -hx + 0.018, y + 0.12, -hz + 0.03], [sx > 0 ? hx - 0.018 : -hx + 0.03, y + 0.14, hz - 0.03], 'steel_brushed'));
+  }
+  parts.push(box('body', [-hx + 0.018, h - 0.032, hz - 0.03], [hx - 0.018, h - 0.02, hz - 0.004], 'steel_dark'));
+  return definePrefab({
+    id: 'cabinet_file_01',
+    title: 'Kartotéka, korpus pro čtyři zásuvky',
+    category: 'prop.furniture',
+    nodes: [node('body')],
+    parts,
+    colliders: [cbox('body', [-hx, 0, -hz], [hx, h, hz - 0.025])],
+    components: fixed,
+    gen: 'furniture.mjs#cabinetFile',
+    params: { attach: slots.map((y) => ({ prefab: 'drawer_file_01', pos: [0, y, hz] })) },
+  });
+}
+
+/**
+ * Zásuvka kartotéky: čelo se sraženými hranami, rámeček na štítek, madlo, dutá vana na závěsné desky
+ * (lišty nahoře, šest desek se štítky, papíry) a výsuvy. Počátek = spodní hrana čela na líci (z = 0).
+ */
+export function drawerFile() {
+  const rnd = noise('drawer_file_01');
+  const [w, hgt, d] = [0.205, 0.297, 0.58];
+  const parts = [
+    ...bevelBox('drawer', [-w, 0.004, -0.02], [w, hgt + 0.004, 0], 'steel_painted', 0.004),
+    box('drawer', [-0.05, 0.232, 0], [0.05, 0.268, 0.004], 'steel_brushed'), // rámeček na štítek
+    box('drawer', [-0.042, 0.238, 0.004], [0.042, 0.262, 0.005], 'plastic_ivory'),
+    ...handle('drawer', 0, 0.19, 0, 0.13, 'steel_brushed', 0.022),
+    ...tray('drawer', [-0.19, 0.025, -d], [0.19, 0.245, -0.02], 0.008, 'steel_dark'),
+  ];
+  for (const sx of [-1, 1]) {
+    parts.push(box('drawer', [sx * 0.19 - (sx > 0 ? 0 : 0.008), 0.245, -d], [sx * 0.19 + (sx > 0 ? 0.008 : 0), 0.253, -0.03], 'steel_brushed')); // lišta závěsných desek
+    parts.push(box('drawer', [sx > 0 ? 0.19 : -0.2, 0.125, -d + 0.02], [sx > 0 ? 0.2 : -0.19, 0.14, -0.04], 'steel_brushed')); // výsuv
+  }
+  for (let i = 0; i < 6; i++) {
+    const z = -0.09 - i * 0.075 + rnd(0.012);
+    const top = 0.235 + rnd(0.006);
+    parts.push(box('drawer', [-0.182, 0.06, z - 0.004], [0.182, top, z], i % 3 === 2 ? 'paper_kraft' : 'paint_green')); // závěsná deska
+    parts.push(box('drawer', [-0.182, top, z - 0.002], [0.188, top + 0.012, z + 0.002], 'steel_dark')); // závěs na lištu
+    parts.push(box('drawer', [-0.15 + i * 0.05, top + 0.012, z - 0.003], [-0.11 + i * 0.05, top + 0.03, z - 0.001], 'plastic_ivory')); // štítek
+    if (i % 2 === 0) parts.push(box('drawer', [-0.17, 0.07, z - 0.012], [0.165 + rnd(0.01), top - 0.02 - rnd(0.02), z - 0.005], 'plastic_ivory')); // papíry
+  }
   return definePrefab(
     {
-      id: 'cabinet_file_01',
-      title: 'Kartotéka zásuvková',
+      id: 'drawer_file_01',
+      title: 'Zásuvka kartotéky se závěsnými deskami',
       category: 'prop.furniture',
-      nodes: [node('body'), node('drawer', 'body', [0, 0.995, 0])],
+      nodes: [node('base'), node('drawer', 'base')],
       joints: [slider('pull', 'drawer', [0, 0, 1], 0, 0.45, { damping: 10, drive: 'manual' })],
       parts,
-      colliders: [cbox('body', [-hx, 0, -hz], [hx, h, hz - 0.02]), cbox('drawer', [-hx + 0.025, 0, -0.27], [hx - 0.025, 0.3, hz + 0.025])],
+      colliders: [cbox('drawer', [-w, 0.004, -d], [w, hgt + 0.004, 0.022])],
       components: { ...kin, interact: { kind: 'drawer', joint: 'pull', prompt: 'Vysunout zásuvku', range: 1.6, manipulate: true } },
       ...IO.drawer,
-      gen: 'furniture.mjs#cabinetFile',
+      gen: 'furniture.mjs#drawerFile',
     },
     { pull: 'Kartotéka hloubky 0,62 m s plnovýsuvem: zásuvka vyjede asi o tři čtvrtiny hloubky (0,45 m), dál ji drží doraz. Úvaha, neměřeno.' },
   );
@@ -105,40 +149,69 @@ export function table(kind = 'work') {
   });
 }
 
-/** Kancelářský stůl se zásuvkovým kontejnerem; pohyblivá je horní zásuvka. */
+/**
+ * Kancelářský stůl s kontejnerem pro tři zásuvky (drawer_desk_01, připojené přes source.params.attach, každá se
+ * otevírá zvlášť). Deska se sraženými hranami, krycí panel, průchodka na kabely, zapuštěný sokl kontejneru.
+ */
+const DESK = { hx: 0.7, hz: 0.35, h: 0.74, slots: [0.11, 0.31, 0.51] };
 export function deskOffice() {
-  const [hx, hz, h] = [0.7, 0.35, 0.74];
-  const top = box('desk', [-hx, h - 0.03, -hz], [hx, h, hz], 'wood_oak');
+  const { hx, hz, h, slots } = DESK;
   const parts = [
-    top,
-    box('desk', [-hx + 0.02, 0, -hz + 0.03], [-hx + 0.045, h - 0.03, hz - 0.03], 'wood_oak'),
-    box('desk', [-hx + 0.045, 0.3, -hz + 0.03], [0.3, h - 0.03, -hz + 0.05], 'wood_oak'),
+    ...bevelBox('desk', [-hx, h - 0.03, -hz], [hx, h, hz], 'wood_oak', 0.005),
+    cyl('desk', [-0.45, h + 0.001, -hz + 0.08], 0.03, 0.004, 'y', 'plastic_dark'), // průchodka na kabely
+    box('desk', [-hx + 0.02, 0, -hz + 0.03], [-hx + 0.045, h - 0.03, hz - 0.03], 'wood_oak'), // bočnice
+    box('desk', [-hx + 0.015, 0, -hz + 0.025], [-hx + 0.05, 0.012, hz - 0.025], 'rubber_black'), // patka
+    box('desk', [-hx + 0.045, 0.3, -hz + 0.03], [0.3, h - 0.03, -hz + 0.05], 'wood_oak'), // krycí panel
     box('desk', [0.3, 0.08, -hz + 0.03], [0.32, h - 0.03, hz - 0.03], 'wood_oak'),
     box('desk', [0.66, 0.08, -hz + 0.03], [0.68, h - 0.03, hz - 0.03], 'wood_oak'),
     box('desk', [0.32, 0.08, -hz + 0.03], [0.66, 0.1, hz - 0.03], 'wood_oak'),
+    box('desk', [0.31, 0, -hz + 0.05], [0.67, 0.08, hz - 0.07], 'wood_old'), // sokl zapuštěný o 4 cm
     box('desk', [0.32, 0.1, -hz + 0.03], [0.66, h - 0.03, -hz + 0.045], 'wood_old'),
   ];
-  for (const y of [0.11, 0.31]) parts.push(box('desk', [0.325, y, hz - 0.045], [0.655, y + 0.19, hz - 0.03], 'wood_oak'), box('desk', [0.43, y + 0.09, hz - 0.03], [0.55, y + 0.105, hz - 0.01], 'steel_brushed'));
-  parts.push(
-    box('drawer', [-0.165, 0, hz - 0.045], [0.165, 0.19, hz - 0.03], 'wood_oak'),
-    box('drawer', [-0.16, 0.015, -0.22], [0.16, 0.025, hz - 0.045], 'wood_pine'),
-    box('drawer', [-0.16, 0.025, -0.22], [-0.15, 0.15, hz - 0.045], 'wood_pine'),
-    box('drawer', [0.15, 0.025, -0.22], [0.16, 0.15, hz - 0.045], 'wood_pine'),
-    box('drawer', [-0.06, 0.09, hz - 0.03], [0.06, 0.105, hz - 0.01], 'steel_brushed'),
-  );
+  for (const y of slots) {
+    if (y > 0.12) parts.push(box('desk', [0.32, y - 0.008, hz - 0.06], [0.66, y - 0.002, hz - 0.035], 'wood_old')); // příčka
+    for (const x of [0.32, 0.648]) parts.push(box('desk', [x, y + 0.07, -hz + 0.06], [x + 0.012, y + 0.085, hz - 0.04], 'steel_brushed')); // výsuv
+  }
+  return definePrefab({
+    id: 'desk_office_01',
+    title: 'Stůl kancelářský s kontejnerem 1,4 × 0,7 m',
+    category: 'prop.furniture',
+    nodes: [node('desk')],
+    parts,
+    colliders: [cbox('desk', [-hx, h - 0.03, -hz], [hx, h, hz]), cbox('desk', [0.3, 0.08, -hz + 0.03], [0.68, h - 0.03, hz - 0.045]), cbox('desk', [-hx + 0.02, 0, -hz + 0.03], [-hx + 0.045, h - 0.03, hz - 0.03])],
+    components: fixed,
+    gen: 'furniture.mjs#deskOffice',
+    params: { top: h, attach: slots.map((y) => ({ prefab: 'drawer_desk_01', pos: [0.49, y, hz - 0.03] })) },
+  });
+}
+
+/**
+ * Zásuvka stolu: dubové čelo, madlo, dutá vana s přihrádkami (podélná a příčná přepážka: tužky vpředu,
+ * papíry vzadu), výsuvy. Počátek = spodní hrana čela na líci (z = 0).
+ */
+export function drawerDesk() {
+  const [w, hgt, d] = [0.164, 0.186, 0.53];
+  const parts = [
+    ...bevelBox('drawer', [-w, 0.002, -0.015], [w, hgt + 0.002, 0], 'wood_oak', 0.004),
+    ...handle('drawer', 0, 0.1, 0, 0.11, 'steel_brushed', 0.022),
+    ...tray('drawer', [-0.15, 0.015, -d], [0.15, 0.15, -0.015], 0.01, 'wood_pine', { bottomMat: 'wood_old', divX: [0.04], divZ: [-0.17], hDiv: 0.03 }),
+    box('drawer', [-0.135, 0.025, -0.5], [0.03, 0.04, -0.19], 'plastic_ivory'), // papíry v zadní přihrádce
+    cyl('drawer', [0.09, 0.03, -0.1], 0.006, 0.12, 'x', 'paint_yellow'), // tužka
+    cyl('drawer', [0.095, 0.03, -0.07], 0.006, 0.1, 'x', 'paint_red'),
+  ];
+  for (const sx of [-1, 1]) parts.push(box('drawer', [sx > 0 ? 0.15 : -0.16, 0.07, -d + 0.02], [sx > 0 ? 0.16 : -0.15, 0.085, -0.03], 'steel_brushed'));
   return definePrefab(
     {
-      id: 'desk_office_01',
-      title: 'Stůl kancelářský se zásuvkami 1,4 × 0,7 m',
+      id: 'drawer_desk_01',
+      title: 'Zásuvka stolu s přihrádkami',
       category: 'prop.furniture',
-      nodes: [node('desk'), node('drawer', 'desk', [0.49, 0.51, 0])],
+      nodes: [node('base'), node('drawer', 'base')],
       joints: [slider('pull', 'drawer', [0, 0, 1], 0, 0.33, { damping: 8, drive: 'manual' })],
       parts,
-      colliders: [collide(top), cbox('desk', [0.3, 0.08, -hz + 0.03], [0.68, h - 0.03, hz - 0.045]), cbox('desk', [-hx + 0.02, 0, -hz + 0.03], [-hx + 0.045, h - 0.03, hz - 0.03]), cbox('drawer', [-0.165, 0, -0.22], [0.165, 0.19, hz - 0.01])],
+      colliders: [cbox('drawer', [-w, 0.002, -d], [w, hgt + 0.002, 0.022])],
       components: { ...kin, interact: { kind: 'drawer', joint: 'pull', prompt: 'Vysunout zásuvku', range: 1.6, manipulate: true } },
       ...IO.drawer,
-      gen: 'furniture.mjs#deskOffice',
-      params: { top: h },
+      gen: 'furniture.mjs#drawerDesk',
     },
     { pull: 'Zásuvka stolu na kuličkových výsuvech délky 400 mm s částečným výsuvem: 0,30–0,35 m; 0,33 m. Úvaha, neměřeno.' },
   );
@@ -254,4 +327,4 @@ export function bench(kind = 'metal') {
   });
 }
 
-export const FURNITURE = [cabinetFile, cabinetDoor, () => table('work'), () => table('lab'), deskOffice, chairOffice, chairPlain, () => shelfRack(1), () => shelfRack(2), () => bench('metal'), () => bench('stone')];
+export const FURNITURE = [cabinetFile, drawerFile, cabinetDoor, () => table('work'), () => table('lab'), deskOffice, drawerDesk, chairOffice, chairPlain, () => shelfRack(1), () => shelfRack(2), () => bench('metal'), () => bench('stone')];

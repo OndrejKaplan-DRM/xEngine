@@ -1,0 +1,74 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "drawer_file_01",
+  "title": "Zásuvka kartotéky se závěsnými deskami",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.206, 0.003, -0.581], "max": [0.206, 0.302, 0.473] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "drawer", "parent": "base" }
+    ],
+    "joints": [
+      { "id": "pull", "node": "drawer", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.45, "rest": 0, "damping": 10, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "drawer", "shape": "box", "min": [-0.205, 0.008, -0.016], "max": [0.205, 0.297, -0.004], "mat": "steel_painted" },
+    { "node": "drawer", "shape": "box", "min": [-0.201, 0.004, -0.016], "max": [0.201, 0.301, -0.004], "mat": "steel_painted" },
+    { "node": "drawer", "shape": "box", "min": [-0.201, 0.008, -0.02], "max": [0.201, 0.297, 0], "mat": "steel_painted" },
+    { "node": "drawer", "shape": "box", "min": [-0.05, 0.232, 0], "max": [0.05, 0.268, 0.004], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.042, 0.238, 0.004], "max": [0.042, 0.262, 0.005], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.065, 0.184, 0], "max": [-0.053, 0.196, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [0.053, 0.184, 0], "max": [0.065, 0.196, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.065, 0.184, 0.01], "max": [0.065, 0.196, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.19, 0.025, -0.58], "max": [0.19, 0.033, -0.02], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.19, 0.033, -0.58], "max": [-0.182, 0.245, -0.02], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [0.182, 0.033, -0.58], "max": [0.19, 0.245, -0.02], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.033, -0.58], "max": [0.182, 0.245, -0.572], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.033, -0.028], "max": [0.182, 0.245, -0.02], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.198, 0.245, -0.58], "max": [-0.19, 0.253, -0.03], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.2, 0.125, -0.56], "max": [-0.19, 0.14, -0.04], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [0.19, 0.245, -0.58], "max": [0.198, 0.253, -0.03], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [0.19, 0.125, -0.56], "max": [0.2, 0.14, -0.04], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.0983], "max": [0.182, 0.2354, -0.0943], "mat": "paint_green" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2354, -0.0963], "max": [0.188, 0.2474, -0.0923], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.15, 0.2474, -0.0973], "max": [-0.11, 0.2654, -0.0953], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.17, 0.07, -0.1063], "max": [0.1747, 0.2046, -0.0993], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.1766], "max": [0.182, 0.2392, -0.1726], "mat": "paint_green" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2392, -0.1746], "max": [0.188, 0.2512, -0.1706], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.1, 0.2512, -0.1756], "max": [-0.06, 0.2692, -0.1736], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.2335], "max": [0.182, 0.2294, -0.2295], "mat": "paper_kraft" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2294, -0.2315], "max": [0.188, 0.2414, -0.2275], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [-0.05, 0.2414, -0.2325], "max": [-0.01, 0.2594, -0.2305], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.17, 0.07, -0.2415], "max": [0.173, 0.1976, -0.2345], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.3098], "max": [0.182, 0.2314, -0.3058], "mat": "paint_green" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2314, -0.3078], "max": [0.188, 0.2434, -0.3038], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [0, 0.2434, -0.3088], "max": [0.04, 0.2614, -0.3068], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.3879], "max": [0.182, 0.2382, -0.3839], "mat": "paint_green" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2382, -0.3859], "max": [0.188, 0.2502, -0.3819], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [0.05, 0.2502, -0.3869], "max": [0.09, 0.2682, -0.3849], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.17, 0.07, -0.3959], "max": [0.1733, 0.2245, -0.3889], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.06, -0.4622], "max": [0.182, 0.2343, -0.4582], "mat": "paper_kraft" },
+    { "node": "drawer", "shape": "box", "min": [-0.182, 0.2343, -0.4602], "max": [0.188, 0.2463, -0.4562], "mat": "steel_dark" },
+    { "node": "drawer", "shape": "box", "min": [0.1, 0.2463, -0.4612], "max": [0.14, 0.2643, -0.4592], "mat": "plastic_ivory" }
+  ],
+  "colliders": [
+    { "node": "drawer", "shape": "box", "min": [-0.205, 0.004, -0.58], "max": [0.205, 0.301, 0.022], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "drawer", "joint": "pull", "prompt": "Vysunout zásuvku", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 456,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#drawerFile",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

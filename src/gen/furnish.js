@@ -51,6 +51,11 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     occ.push({ ...rest, kind: 'solid', e });
     if (moves) occ.push({ ...swept, kind: 'zone', e });
     S.entities.push(e);
+    // připojené prefaby (zásuvky): vlastní entity hned za rodičem; místo za ně drží obaly rodiče z katalogu
+    const mtx = entityMatrix(e);
+    for (const a of catalog.attachments(prefab)) {
+      S.entities.push({ id: S.eid(stem(a.prefab)), prefab: a.prefab, cell: e.cell, pos: V(...mat4Point(mtx, a.pos).map(r4)), rot: V(0, ry + (a.ry || 0), 0) });
+    }
     return e;
   }
 
@@ -60,7 +65,7 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const [ry, sgn] = facing(wall);
     const along = m(low) - (sgn > 0 ? rb.min[0] : -rb.max[0]);
     // odstup od zdi podle rozsahu pohybu: víko truhly se sklápí dozadu a musí se za ni vejít
-    const back = Math.min(rb.min[2], catalog.get(prefab).bounds.min[2]);
+    const back = Math.min(rb.min[2], catalog.sweptBox(prefab).min[2]);
     const normal = m(wall.face) + wall.n * ((height ? 0 : 0.02) - back);
     const y = m(cells[ci].y0 + height);
     return tryPlace(ci, prefab, wall.run === RUN_X ? [along, y, normal] : [normal, y, along], ry, o);

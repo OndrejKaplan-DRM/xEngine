@@ -56,14 +56,14 @@ const { launch, open, ok, saveDataUrl, finish, ROOT } = require('./h.cjs');
     const looks = await page.evaluate(() => {
       const shot = (l) => {
         __kit.look(l);
-        __kit.select('cabinet_file_01');
-        return __kit.check('cabinet_file_01', 128).rest;
+        __kit.select('cabinet_door_01');
+        return __kit.check('cabinet_door_01', 128).rest;
       };
       const out = { clean: shot('clean'), t460: shot('t460'), gpu: shot('gpu') };
       __kit.look('clean');
       return out;
     });
-    ok(looks.t460.colors > looks.clean.colors * 1.5 && looks.gpu.colors > looks.clean.colors * 1.5, 'v pohledech T460 a Grafická karta je na kartotéce kresba textury (víc odstínů než čistá barva)', `odstínů: čistý ${looks.clean.colors}, T460 ${looks.t460.colors}, grafická karta ${looks.gpu.colors}`);
+    ok(looks.t460.colors > looks.clean.colors * 1.5 && looks.gpu.colors > looks.clean.colors * 1.5, 'v pohledech T460 a Grafická karta je na skříni kresba textury (víc odstínů než čistá barva)', `odstínů: čistý ${looks.clean.colors}, T460 ${looks.t460.colors}, grafická karta ${looks.gpu.colors}`);
     const sw = await page.evaluate(() => __kit.swatchStats());
     const off = Object.entries(sw).filter(([, v]) => Math.abs(v.t460 / v.clean - 1) > 0.1);
     ok(off.length === 0 && Object.keys(sw).length === Object.keys(lock.materials).length, 'textura se zesílením drží průměrný jas stěny u barvy materiálu (pohled T460 proti čistému, do 10 %; návrh N-009)', off.map(([id, v]) => `${id} ${(v.t460 / v.clean).toFixed(2)}`).join(', ') || `${Object.keys(sw).length} materiálů, nejvíc ${Math.max(...Object.values(sw).map((v) => Math.abs(v.t460 / v.clean - 1))).toFixed(3)}`);

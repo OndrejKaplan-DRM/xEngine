@@ -1,0 +1,54 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "drawer_desk_01",
+  "title": "Zásuvka stolu s přihrádkami",
+  "category": "prop.furniture",
+  "bounds": { "min": [-0.165, 0.001, -0.531], "max": [0.165, 0.189, 0.353] },
+  "rig": {
+    "nodes": [
+      { "id": "base" },
+      { "id": "drawer", "parent": "base" }
+    ],
+    "joints": [
+      { "id": "pull", "node": "drawer", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.33, "rest": 0, "damping": 8, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "drawer", "shape": "box", "min": [-0.164, 0.006, -0.011], "max": [0.164, 0.184, -0.004], "mat": "wood_oak" },
+    { "node": "drawer", "shape": "box", "min": [-0.16, 0.002, -0.011], "max": [0.16, 0.188, -0.004], "mat": "wood_oak" },
+    { "node": "drawer", "shape": "box", "min": [-0.16, 0.006, -0.015], "max": [0.16, 0.184, 0], "mat": "wood_oak" },
+    { "node": "drawer", "shape": "box", "min": [-0.055, 0.094, 0], "max": [-0.043, 0.106, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [0.043, 0.094, 0], "max": [0.055, 0.106, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.055, 0.094, 0.01], "max": [0.055, 0.106, 0.022], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [-0.15, 0.015, -0.53], "max": [0.15, 0.025, -0.015], "mat": "wood_old" },
+    { "node": "drawer", "shape": "box", "min": [-0.15, 0.025, -0.53], "max": [-0.14, 0.15, -0.015], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [0.14, 0.025, -0.53], "max": [0.15, 0.15, -0.015], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [-0.14, 0.025, -0.53], "max": [0.14, 0.15, -0.52], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [-0.14, 0.025, -0.025], "max": [0.14, 0.15, -0.015], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [0.035, 0.025, -0.52], "max": [0.045, 0.12, -0.025], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [-0.14, 0.025, -0.175], "max": [0.14, 0.12, -0.165], "mat": "wood_pine" },
+    { "node": "drawer", "shape": "box", "min": [-0.135, 0.025, -0.5], "max": [0.03, 0.04, -0.19], "mat": "plastic_ivory" },
+    { "node": "drawer", "shape": "cyl", "center": [0.09, 0.03, -0.1], "radius": 0.006, "height": 0.12, "axis": "x", "mat": "paint_yellow" },
+    { "node": "drawer", "shape": "cyl", "center": [0.095, 0.03, -0.07], "radius": 0.006, "height": 0.1, "axis": "x", "mat": "paint_red" },
+    { "node": "drawer", "shape": "box", "min": [-0.16, 0.07, -0.51], "max": [-0.15, 0.085, -0.03], "mat": "steel_brushed" },
+    { "node": "drawer", "shape": "box", "min": [0.15, 0.07, -0.51], "max": [0.16, 0.085, -0.03], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "drawer", "shape": "box", "min": [-0.164, 0.002, -0.53], "max": [0.164, 0.188, 0.022], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "interact": { "kind": "drawer", "joint": "pull", "prompt": "Vysunout zásuvku", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 320,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/kit/furniture.mjs#drawerDesk",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

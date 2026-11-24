@@ -54,8 +54,12 @@ function partGeometry(part) {
   return g;
 }
 
-/** Postaví prefab: { root, setPose(values), dispose() }. values = { idKloubu: hodnota }. */
-export function buildPrefab(prefab, matDefs, look = 'clean') {
+/**
+ * Postaví prefab: { root, setPose(t), dispose() }; t = 0 klid až 1 krajní poloha kloubů.
+ * Připojené prefaby (source.params.attach, zásuvky kartotéky) postaví jako vlastní skupiny na jejich místě, když
+ * dostane lookup(id) → prefab. Při t z 0 do 1 se otevírají jedna po druhé: každá má svůj kloub a jde zvlášť.
+ */
+export function buildPrefab(prefab, matDefs, look = 'clean', lookup = null) {
   const root = new THREE.Group();
   const groups = {};
   for (const n of prefab.rig.nodes) {
@@ -71,15 +75,26 @@ export function buildPrefab(prefab, matDefs, look = 'clean') {
     geos.push(geo);
     groups[part.node].add(new THREE.Mesh(geo, material(part.mat, matDefs, look)));
   }
-  const setPose = (values = {}) => {
-    const mats = rigMatrices(prefab, values);
+  const kids = [];
+  for (const a of lookup ? ((prefab.source || {}).params || {}).attach || [] : []) {
+    const c = lookup(a.prefab);
+    if (!c) continue;
+    const k = buildPrefab(c, matDefs, look);
+    k.root.position.set(...a.pos);
+    k.root.rotation.y = ((a.ry || 0) * Math.PI) / 180;
+    root.add(k.root);
+    kids.push(k);
+  }
+  const setPose = (t = 0) => {
+    const mats = rigMatrices(prefab, poseAt(prefab, t));
     for (const id of Object.keys(groups)) {
       groups[id].matrix.fromArray(mats[id]);
       groups[id].matrixWorldNeedsUpdate = true;
     }
+    kids.forEach((k, i) => k.setPose(Math.min(1, Math.max(0, t * kids.length - i))));
   };
   setPose();
-  return { root, setPose, dispose: () => geos.forEach((g) => g.dispose()) };
+  return { root, setPose, dispose: () => [...geos, ...kids].forEach((g) => g.dispose()) };
 }
 
 /** Poloha kloubů pro t = 0 (klid) až 1 (krajní poloha nejdál od klidu). */

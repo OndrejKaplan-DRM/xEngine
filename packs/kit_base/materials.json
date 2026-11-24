@@ -220,6 +220,7 @@
     "plastic_grey": { "model": "lit", "color": [0.5, 0.51, 0.52], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "plastic_dark": { "model": "lit", "color": [0.08, 0.08, 0.09], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "rubber_black": { "model": "lit", "color": [0.04, 0.04, 0.04], "rough": 0.95, "metal": 0, "uvScale": 1, "surface": "rubber" },
+    "paper_kraft": { "model": "lit", "color": [0.42, 0.28, 0.15], "rough": 0.95, "metal": 0, "uvScale": 1, "surface": "wood" },
     "fabric_blue": { "model": "lit", "color": [0.15, 0.22, 0.38], "rough": 1, "metal": 0, "uvScale": 1, "surface": "carpet" },
     "glass_pane": { "model": "lit", "color": [0.6, 0.75, 0.8], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass" },
     "paint_red": { "model": "lit", "color": [0.72, 0.08, 0.06], "rough": 0.45, "metal": 0, "uvScale": 1, "surface": "metal" },

@@ -43,6 +43,7 @@ export const MATERIALS = {
   plastic_grey: lit([0.5, 0.51, 0.52], 'plastic', { rough: 0.5 }),
   plastic_dark: lit([0.08, 0.08, 0.09], 'plastic', { rough: 0.5 }),
   rubber_black: lit([0.04, 0.04, 0.04], 'rubber', { rough: 0.95 }),
+  paper_kraft: lit([0.42, 0.28, 0.15], 'wood', { rough: 0.95 }), // hnědá lepenka, závěsné desky
   fabric_blue: lit([0.15, 0.22, 0.38], 'carpet', { rough: 1 }),
   glass_pane: lit([0.6, 0.75, 0.8], 'glass', { rough: 0.05 }),
   // nátěry

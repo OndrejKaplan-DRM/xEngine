@@ -2,53 +2,56 @@
   "xspace": 1,
   "kind": "prefab",
   "id": "desk_office_01",
-  "title": "Stůl kancelářský se zásuvkami 1,4 × 0,7 m",
+  "title": "Stůl kancelářský s kontejnerem 1,4 × 0,7 m",
   "category": "prop.furniture",
-  "bounds": { "min": [-0.701, -0.001, -0.351], "max": [0.701, 0.741, 0.671] },
+  "bounds": { "min": [-0.701, -0.001, -0.351], "max": [0.701, 0.744, 0.351] },
   "rig": {
     "nodes": [
-      { "id": "desk" },
-      { "id": "drawer", "parent": "desk", "pos": [0.49, 0.51, 0] }
-    ],
-    "joints": [
-      { "id": "pull", "node": "drawer", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.33, "rest": 0, "damping": 8, "drive": "manual" }
+      { "id": "desk" }
     ]
   },
   "parts": [
-    { "node": "desk", "shape": "box", "min": [-0.7, 0.71, -0.35], "max": [0.7, 0.74, 0.35], "mat": "wood_oak" },
+    { "node": "desk", "shape": "box", "min": [-0.7, 0.715, -0.345], "max": [0.7, 0.735, 0.345], "mat": "wood_oak" },
+    { "node": "desk", "shape": "box", "min": [-0.695, 0.71, -0.345], "max": [0.695, 0.74, 0.345], "mat": "wood_oak" },
+    { "node": "desk", "shape": "box", "min": [-0.695, 0.715, -0.35], "max": [0.695, 0.735, 0.35], "mat": "wood_oak" },
+    { "node": "desk", "shape": "cyl", "center": [-0.45, 0.741, -0.27], "radius": 0.03, "height": 0.004, "axis": "y", "mat": "plastic_dark" },
     { "node": "desk", "shape": "box", "min": [-0.68, 0, -0.32], "max": [-0.655, 0.71, 0.32], "mat": "wood_oak" },
+    { "node": "desk", "shape": "box", "min": [-0.685, 0, -0.325], "max": [-0.65, 0.012, 0.325], "mat": "rubber_black" },
     { "node": "desk", "shape": "box", "min": [-0.655, 0.3, -0.32], "max": [0.3, 0.71, -0.3], "mat": "wood_oak" },
     { "node": "desk", "shape": "box", "min": [0.3, 0.08, -0.32], "max": [0.32, 0.71, 0.32], "mat": "wood_oak" },
     { "node": "desk", "shape": "box", "min": [0.66, 0.08, -0.32], "max": [0.68, 0.71, 0.32], "mat": "wood_oak" },
     { "node": "desk", "shape": "box", "min": [0.32, 0.08, -0.32], "max": [0.66, 0.1, 0.32], "mat": "wood_oak" },
+    { "node": "desk", "shape": "box", "min": [0.31, 0, -0.3], "max": [0.67, 0.08, 0.28], "mat": "wood_old" },
     { "node": "desk", "shape": "box", "min": [0.32, 0.1, -0.32], "max": [0.66, 0.71, -0.305], "mat": "wood_old" },
-    { "node": "desk", "shape": "box", "min": [0.325, 0.11, 0.305], "max": [0.655, 0.3, 0.32], "mat": "wood_oak" },
-    { "node": "desk", "shape": "box", "min": [0.43, 0.2, 0.32], "max": [0.55, 0.215, 0.34], "mat": "steel_brushed" },
-    { "node": "desk", "shape": "box", "min": [0.325, 0.31, 0.305], "max": [0.655, 0.5, 0.32], "mat": "wood_oak" },
-    { "node": "desk", "shape": "box", "min": [0.43, 0.4, 0.32], "max": [0.55, 0.415, 0.34], "mat": "steel_brushed" },
-    { "node": "drawer", "shape": "box", "min": [-0.165, 0, 0.305], "max": [0.165, 0.19, 0.32], "mat": "wood_oak" },
-    { "node": "drawer", "shape": "box", "min": [-0.16, 0.015, -0.22], "max": [0.16, 0.025, 0.305], "mat": "wood_pine" },
-    { "node": "drawer", "shape": "box", "min": [-0.16, 0.025, -0.22], "max": [-0.15, 0.15, 0.305], "mat": "wood_pine" },
-    { "node": "drawer", "shape": "box", "min": [0.15, 0.025, -0.22], "max": [0.16, 0.15, 0.305], "mat": "wood_pine" },
-    { "node": "drawer", "shape": "box", "min": [-0.06, 0.09, 0.32], "max": [0.06, 0.105, 0.34], "mat": "steel_brushed" }
+    { "node": "desk", "shape": "box", "min": [0.32, 0.18, -0.29], "max": [0.332, 0.195, 0.31], "mat": "steel_brushed" },
+    { "node": "desk", "shape": "box", "min": [0.648, 0.18, -0.29], "max": [0.66, 0.195, 0.31], "mat": "steel_brushed" },
+    { "node": "desk", "shape": "box", "min": [0.32, 0.302, 0.29], "max": [0.66, 0.308, 0.315], "mat": "wood_old" },
+    { "node": "desk", "shape": "box", "min": [0.32, 0.38, -0.29], "max": [0.332, 0.395, 0.31], "mat": "steel_brushed" },
+    { "node": "desk", "shape": "box", "min": [0.648, 0.38, -0.29], "max": [0.66, 0.395, 0.31], "mat": "steel_brushed" },
+    { "node": "desk", "shape": "box", "min": [0.32, 0.502, 0.29], "max": [0.66, 0.508, 0.315], "mat": "wood_old" },
+    { "node": "desk", "shape": "box", "min": [0.32, 0.58, -0.29], "max": [0.332, 0.595, 0.31], "mat": "steel_brushed" },
+    { "node": "desk", "shape": "box", "min": [0.648, 0.58, -0.29], "max": [0.66, 0.595, 0.31], "mat": "steel_brushed" }
   ],
   "colliders": [
     { "node": "desk", "shape": "box", "min": [-0.7, 0.71, -0.35], "max": [0.7, 0.74, 0.35], "group": "world" },
     { "node": "desk", "shape": "box", "min": [0.3, 0.08, -0.32], "max": [0.68, 0.71, 0.305], "group": "world" },
-    { "node": "desk", "shape": "box", "min": [-0.68, 0, -0.32], "max": [-0.655, 0.71, 0.32], "group": "world" },
-    { "node": "drawer", "shape": "box", "min": [-0.165, 0, -0.22], "max": [0.165, 0.19, 0.34], "group": "world" }
+    { "node": "desk", "shape": "box", "min": [-0.68, 0, -0.32], "max": [-0.655, 0.71, 0.32], "group": "world" }
   ],
   "components": {
-    "physics": { "body": "kinematic" },
-    "interact": { "kind": "drawer", "joint": "pull", "prompt": "Vysunout zásuvku", "range": 1.6, "manipulate": true }
+    "physics": { "body": "static" }
   },
-  "inputs": ["open", "close", "lock", "unlock"],
-  "outputs": ["opened", "closed"],
-  "tris": 192,
+  "tris": 292,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/kit/furniture.mjs#deskOffice",
-    "params": { "top": 0.74 },
+    "params": {
+      "top": 0.74,
+      "attach": [
+        { "prefab": "drawer_desk_01", "pos": [0.49, 0.11, 0.31999999999999995] },
+        { "prefab": "drawer_desk_01", "pos": [0.49, 0.31, 0.31999999999999995] },
+        { "prefab": "drawer_desk_01", "pos": [0.49, 0.51, 0.31999999999999995] }
+      ]
+    },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

@@ -80,7 +80,50 @@ const WANT = {
 const missing = Object.entries(WANT).filter(([, id]) => !byId.has(id));
 ok(missing.length === 0, 'sada obsahuje všechny druhy jmenované v zadání', missing.length ? missing.map(([n]) => n).join(', ') : `${Object.keys(WANT).length} druhů`);
 const MOVING = ['door_wood_01', 'door_sliding_01', 'door_dleft_01', 'window_sash_01', 'button_round_01', 'switch_rocker_01', 'lever_knife_01', 'valve_gate_01', 'tap_wall_01', 'cabinet_file_01', 'cabinet_door_01', 'centrifuge_bench_01', 'fumehood_01', 'microscope_01', 'fridge_lab_01'];
-ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, který se má hýbat, má kloub');
+const movesOrAttached = (id) => joints(byId.get(id)).length > 0 || catalog.attachments(id).some((a) => byId.has(a.prefab) && joints(byId.get(a.prefab)).length > 0);
+ok(MOVING.every(movesOrAttached), 'každý předmět, který se má hýbat, má kloub (sám, nebo v připojené zásuvce)');
+
+// ---- připojené prefaby (zásuvky jako samostatné entity, Ondřej 24. 11. 2026; návrh N-010)
+{
+  const bad = [];
+  let n = 0;
+  const inBox = (q, b) => q.every((v, k) => v > b.min[k] && v < b.max[k]);
+  for (const p of prefabs) {
+    const list = catalog.attachments(p.id);
+    if (!list.length) continue;
+    const own = boundsAt(p);
+    const boxes = [];
+    for (const a of list) {
+      n++;
+      const c = byId.get(a.prefab);
+      if (!c) {
+        bad.push(`${p.id}: připojený prefab ${a.prefab} v sadě není`);
+        continue;
+      }
+      if (!(c.components || {}).interact) bad.push(`${p.id}: ${a.prefab} nemá interakci`);
+      if (catalog.attachments(a.prefab).length) bad.push(`${a.prefab}: připojený prefab má další připojené (jen jedna úroveň)`);
+      const b = boundsAt(c);
+      const w = { min: b.min.map((v, k) => v + a.pos[k]), max: b.max.map((v, k) => v + a.pos[k]) };
+      if ([0, 1].some((k) => w.min[k] < own.min[k] - 0.005 || w.max[k] > own.max[k] + 0.005)) bad.push(`${p.id}: ${a.prefab} v ${a.pos.join(', ')} trčí z korpusu do strany nebo výšky`);
+      if (w.max[2] > own.max[2] + 0.03) bad.push(`${p.id}: ${a.prefab} trčí z čela víc než 3 cm`);
+      for (const o of boxes) if ([0, 1, 2].every((k) => w.min[k] < o.max[k] - 0.001 && o.min[k] < w.max[k] - 0.001)) bad.push(`${p.id}: zásuvky v ${a.pos.join(', ')} a vedle se v klidu překrývají`);
+      boxes.push(w);
+      // dutá zásuvka: vnitřek vany (mřížka bodů v 60 % výšky) je z velké části prázdný
+      const inner = (c.parts || []).filter((q) => q.shape === 'box' && q.node === 'drawer');
+      let empty = 0;
+      let all = 0;
+      for (let i = 1; i <= 4; i++) {
+        for (let j = 1; j <= 6; j++) {
+          const q = [b.min[0] + ((b.max[0] - b.min[0]) * i) / 5, b.min[1] + (b.max[1] - b.min[1]) * 0.6, b.min[2] + ((-0.03 - b.min[2]) * j) / 7];
+          all++;
+          if (!inner.some((x) => inBox(q, x))) empty++;
+        }
+      }
+      if (empty < all * 0.6) bad.push(`${a.prefab}: zásuvka není dutá (${empty} z ${all} bodů vnitřku volných)`);
+    }
+  }
+  ok(n >= 7 && bad.length === 0, 'připojené zásuvky existují, mají interakci, sedí do korpusu, nepřekrývají se a jsou duté', bad.slice(0, 3).join(' | ') || `${n} zásuvek u ${prefabs.filter((p) => catalog.attachments(p.id).length).length} korpusů`);
+}
 
 // ---- kostra před tvarem: meze, zdůvodnění, těleso
 {
