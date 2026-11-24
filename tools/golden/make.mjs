@@ -78,7 +78,8 @@ const prefabs = [
       nodes: [{ id: 'frame' }, { id: 'leaf', parent: 'frame', pos: V(-0.5, 0, 0) }],
       joints: [{ id: 'hinge', node: 'leaf', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, rest: 0, damping: 4, speed: 120, drive: 'both' }],
     },
-    [box('leaf', [0.01, 0.01, -0.02], [0.99, 2.09, 0.02], 'wood_dark'), box('leaf', [0.86, 1.0, 0.02], [0.94, 1.04, 0.08], 'steel'), box('leaf', [0.86, 1.0, -0.08], [0.94, 1.04, -0.02], 'steel')],
+    // viditelné křídlo zakryje celý otvor (D-036); kolize drží odstup 1 cm, aby se křídlo o zárubeň nezadrhlo
+    [box('leaf', [0, 0, -0.02], [1, 2.1, 0.02], 'wood_dark'), box('leaf', [0.86, 1.0, 0.02], [0.94, 1.04, 0.08], 'steel'), box('leaf', [0.86, 1.0, -0.08], [0.94, 1.04, -0.02], 'steel')],
     {
       colliders: [cbox('leaf', [0.01, 0.01, -0.02], [0.99, 2.09, 0.02], 'world')],
       components: { physics: { body: 'kinematic' }, interact: { kind: 'door', joint: 'hinge', prompt: 'Otevřít', range: 1.8, manipulate: true }, health: { hp: 250, surface: 'wood' } },

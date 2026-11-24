@@ -189,6 +189,8 @@ const MUTATIONS = [
   ['portal.between', 'portál mimo zeď mezi buňkami', (p) => L(p).portals[0].quad.forEach((q) => (q[2] = 3))],
   ['portal.plane', 'portál, jehož rohy neleží v rovině', (p) => (L(p).portals[0].quad[2][2] = -0.5)],
   ['portal.extent', 'portál širší než buňka', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 5.5)],
+  ['portal.door.cover', 'křídlo dveří nezakryje otvor (D-036)', (p) => (P(p, 'door_hinged_01').parts[0].max[0] = 0.9)],
+  ['portal.door.cover', 'dveře, které jsou v klidové poloze otevřené (N-109: zakrytí v rest)', (p) => (P(p, 'door_hinged_01').rig.joints[0].rest = 90)],
   ['portal.narrow', 'průchozí portál užší než postava (N-008)', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 3.2)],
   ['level.cellOverlap', 'překryv buněk', (p) => (L(p).cells[1].bounds.max[2] = 1)],
   ['level.unreachable', 'buňka bez portálu', (p) => L(p).portals.splice(1, 1)],

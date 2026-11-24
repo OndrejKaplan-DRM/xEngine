@@ -15,7 +15,7 @@
     ]
   },
   "parts": [
-    { "node": "leaf", "shape": "box", "min": [0.01, 0.01, -0.02], "max": [0.99, 2.09, 0.02], "mat": "wood_dark" },
+    { "node": "leaf", "shape": "box", "min": [0, 0, -0.02], "max": [1, 2.1, 0.02], "mat": "wood_dark" },
     { "node": "leaf", "shape": "box", "min": [0.86, 1, 0.02], "max": [0.94, 1.04, 0.08], "mat": "steel" },
     { "node": "leaf", "shape": "box", "min": [0.86, 1, -0.08], "max": [0.94, 1.04, -0.02], "mat": "steel" }
   ],

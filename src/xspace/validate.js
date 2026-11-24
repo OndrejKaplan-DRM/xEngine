@@ -5,6 +5,7 @@
 import { FORMATS, LIMITS, LEVEL_TARGETS, FREE_LICENSES, FACE_KEYS, XSPACE_VERSION } from './formats.js';
 import { inBounds, boundsGap, wedgeRunRise } from './geom.js';
 import { bodyWidth } from './body.js';
+import { doorCoverGap } from './cover.js';
 
 const ID = /^[a-z][a-z0-9_]*$/;
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -255,7 +256,7 @@ function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
 
 // ---- level -----------------------------------------------------------------------------
 
-function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
+function checkLevel(file, L, matIds, prefabById, externalPrefabs, c, mats = null) {
   checkShape(FORMATS.level, L, file, c);
   if (!L || typeof L !== 'object') return null;
   const cells = Array.isArray(L.cells) ? L.cells : [];
@@ -307,6 +308,16 @@ function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
       else {
         const pf = prefabById.get(entById.get(p.door).prefab);
         if (pf && pf.components?.interact?.kind !== 'door') c.err('portal.door', `${path}.door`, 'entita u portálu není dveřmi (interact.kind = door)');
+        else if (pf && !pf.components?.interact?.seeThrough && Array.isArray(p.quad) && p.quad.length === 4 && p.quad.every((q) => isVec(q, 3))) {
+          // zavřené dveře musí zakrýt celý otvor (D-036): kolmý průmět neprůhledných dílů v klidové poloze
+          let gap = null;
+          try {
+            gap = doorCoverGap(p, entById.get(p.door), pf, mats);
+          } catch {
+            /* poškozená data entity nebo prefabu hlásí jiná pravidla */
+          }
+          if (gap) c.err('portal.door.cover', `${path}.door`, `dveře „${p.door}“ v klidu nezakryjí otvor: škvíra ${(gap.w * 100).toFixed(1)} × ${(gap.h * 100).toFixed(1)} cm u [${gap.at.map((x) => x.toFixed(2)).join(', ')}], nezakryto celkem ${(gap.area * 1e4).toFixed(1)} cm² (nebo interact.seeThrough)`);
+        }
       }
     }
     const A = cellById.get(p.a)?.bounds;
@@ -526,7 +537,7 @@ export function validatePack(pack) {
   const external = !pack.complete && Array.isArray(m?.requires) && m.requires.length > 0;
   const levelStats = [];
   for (const { file, data } of pack.levels || []) {
-    const s = checkLevel(file, data, matIds, prefabById, external, c);
+    const s = checkLevel(file, data, matIds, prefabById, external, c, pack.materials?.materials || null);
     if (s) levelStats.push(s);
   }
 
