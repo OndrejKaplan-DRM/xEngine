@@ -1,6 +1,6 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 17:00 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
 Poslední celá regrese (`npm run test:all`, sandbox): **747 kontrol, 0 selhalo** (základ 254, skupina A 364 ve 24 sadách, skupina B 92, zkouška A × B 37) na kódu A2.5 (sestavení „vlna 2, krok 4“).
 
@@ -11,10 +11,11 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 **Teď:**
 - [x] Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): (1) nastavení „Dveře od hráče“ rozšiřovalo rozsah i 16 kusům nábytku v `complex_7` (skříně, lednice, víka centrifug; v katakombách víka truhel), které by se otevřely dovnitř; teď jen dveře v otvoru portálu, včetně druhého křídla (`a_14_swing`). (2) Černá stěna kartotéky není chyba výpočtu: lampa visí přesně nad šířkou kartotéky (x 10,85 m, kartotéka 10,40 až 10,86 m), na boky přímé světlo nedopadne a zbývá okolní člen 0,05. Chybí odražené světlo (vrstva `indirect` ze xBake, D-035); otázka pro Ondřeje
 - [x] A2.5 nová pole základu (podrobně v tabulce „Hotovo“ a v deníku)
-- [ ] A2.6: engine na texturu barvy a díl `.glb` připravit na zkušebních datech (data sešny B zatím nejsou)
+- [x] A2.6 na zkušebních datech: díl `shape: "mesh"` a kolize `hull` / `mesh` z `.glb`, textura barvy `albedo` (stupeň `low` ≤ 512 px), světlo texturu násobí; textury a sítě v `?bench` a F3. Soubory balíku do hry zatím nedostane build: návrh **N-111**
+- [ ] A2.6 hotovo, když: kus ze sešny B (B2.5) je ve hře vidět a `?bench` z T460 ukáže cenu
 
 **Další:**
-- [ ] A2.6 zkouška na kusu ze sešny B, až bude B2.5
+- [ ] A2.6 zkouška na kusu ze sešny B, až bude B2.5 a N-111 (bez něj soubor balíku do `dist/*.html` nevloží nikdo)
 - [ ] zkouška textury světla na hale xLabu (N-110); Ondřej 24. 11. 02:26: až po A2.5 a A2.6
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
@@ -24,7 +25,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 3. terminál: po Esc a Pokračovat dál sedí a kurzor hned poslouchá?
 
 **Čeká na jiné sešny:**
-- svodná: rozhodnout N-109 (dveře na obě strany v datech) a N-110 (světlo v textuře); sloučit vlnu 2 sešny A do základu
+- svodná: rozhodnout N-109 (dveře na obě strany v datech), N-110 (světlo v textuře) a **N-111 (binární soubory balíku v buildu)**; sloučit vlnu 2 sešny A do základu
 - B: dveře s kloubem na obě strany (N-109), B2.5 (prefab `.glb` a materiál s texturou); v sadě `kit_base` chybí přijatá pole: `screen.offset` u `terminal_desk_01` a `terminal_wall_01` (běh zatím odvozuje plochu z dílů a hlásí to), `opacity` u `glass_pane` (sklo je dnes neprůhledné)
 
 **Hotovo ve vlně 2** (podrobnosti v oddílech 3 a 5):
@@ -39,7 +40,8 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 | zorné pole: vodorovný úhel při 4 : 3, strop 120° | `db6fad0` | na T460 F3 ukazuje 117° × 74° při nastavení 90 (snímek 24. 11. 09:57) |
 | dveře od hráče jako nastavení, výchozí zapnuto | `25e17a4`, `db6fad0` | `a_14_swing`; návrh N-109 |
 | A2.5 nová pole: `JOINT_TRAVEL_SECONDS`, `screen.offset`, `seeThrough`, `passable`, `opacity` | `b522e7e` a další | `a_25_fields` (11), `a_25_view` (6): skleněnými zavřenými dveřmi je vidět chodba (střed dveří 200,6 → 30,5 od otevřených), mříž se `seeThrough` nezavírá pohled |
-| A2.6, A2.7 | – | nezačato |
+| A2.6 engine na zkušebních datech: `glb.js` (vlastní čtení glTF, bez knihovny), `assets.js` (soubory balíku), kolize `trimesh`, textura v `materials.js`, `?bench` a F3 | `6e1ab0c`, `3c6bab0` | `a_26_mesh` (Node, 30): transformace uzlů, `#uzel`, `COL_*` a `_LODn`, zrcadlení, UV, chybějící soubor; paprsek zastaví kolize z `.glb` na 1,600 m. `a_26_view` (prohlížeč, 8): WebP 1 024 px → 512 px, šachovnice na síti i na kvádru, zelený pruh nahoře, po zhasnutí lamp jas 30 → 9 |
+| A2.6 na kusu ze sešny B, A2.7 | – | čeká na B2.5 a N-111; A2.7 nezačato |
 
 ## 2. Deník rozhodnutí sešny A
 
@@ -68,6 +70,12 @@ Rozhodnutí, která sešna A udělala sama ve své oblasti. Projektová rozhodnu
 | 24. 11. | `seeThrough` otvírá portál jen pro pohled; světlo dál řídí otevření dveří | tak počítá i xBake (D-035); dvoukřídlé dveře mají `seeThrough` jen kvůli druhému křídlu, ne proto, že by byly průhledné | pustit světlo skrz | `visibility.js`; otázka pro svodnou |
 | 24. 11. | kvádr, jehož všechny plochy jsou průhledné, koliduje, ale světlo nestíní (skupina `world` místo `brush`) | sklo by jinak vrhalo plný stín | stínit vším | `world.js`, `a_25_fields` |
 | 24. 11. | portál s `passable: false` je pro pohled otevřený, trasa měření jím nevede | okno (N-003) | – | `bench.js`, `a_25_fields` |
+| 24. 11. | `.glb` čte vlastní kód (`glb.js`, asi 200 řádků), ne `GLTFLoader` | totéž musí běžet v Node (testy, xBake, zapékání) a engine z modelu potřebuje jen síť a uzly; `GLTFLoader` je asynchronní a staví objekty three.js | `GLTFLoader` + převod | `src/world/glb.js`, `a_26_mesh` |
+| 24. 11. | soubory balíku ve hře = `pack.files`, klíč `<id balíku>/<cesta>` | dva balíky smí mít stejnou cestu; prefab ví, odkud je (`from`) | klíč jen cesta | `assets.js`, N-111 |
+| 24. 11. | UV sítě z `.glb` se nedělí `uvScale` | glTF má vlastní UV 0..1; `uvScale` je pro krabicovou projekci v metrech | dělit vždy | `entities.js` (`uvOf`), `a_26_mesh` |
+| 24. 11. | kolize `mesh` u dynamického tělesa → konvexní obal týchž vrcholů | Rapier dynamickému tělesu síť trojúhelníků nedovolí | odmítnout | `assets.colliderOf` |
+| 24. 11. | textura se zmenšuje při dekódování (`createImageBitmap`), do té doby kreslí bílá 1 × 1 | data nesou originál (D-029), stupeň `low` ≤ 512 px; načtení levelu nečeká na obrázky | čekat na textury před startem | `materials.js`, `a_26_view` |
+| 24. 11. | díl `mesh` bez `mat` dostane z glTF jen základní barvu | formát říká „bere se z glTF“; textura uvnitř `.glb` by znamenala druhou cestu k materiálům vedle `materials.json` | číst materiály glTF celé | `assets.materialOf`; doporučení pro B v N-111 |
 
 ## 3. Jak je to postavené (moduly sešny A)
 
@@ -86,7 +94,8 @@ Mapa modulů celého projektu je v `docs/01_ARCHITEKTURA.md`, oddíl 9. Tady jen
 - **Viditelnost** (`visibility.js`, `cells.js`): před vykreslením se z buňky kamery projdou portály a každý zúží výhled na svůj obdélník na obrazovce; dveře v klidu portál zavírají a otvor kryje černá clona. Plochy kvádrů jsou v dávce buňky, kam míří; plochy, které nemíří nikam, ve všech dotčených buňkách.
 - **Světlo po vrcholech** (D-022; `lightfield.js`, `lighting.js`): vzorky = vrcholy `levelLightMeshes` (D-037) a pevných dílů prefabů. Vrstva světla = řídký seznam (index vzorku, E), po úsecích podle brány. Barva = okolní člen + Σ úroveň × barva × E / π; `MeshBasicMaterial` s barvou vrcholů. Změna úrovně se přičte jako rozdíl jednou před vykreslením (`light.flush`). Pohyblivé díly mají jednu hodnotu na stěnu (`facets.js`).
 - **Zastínění a brány** (`occlusion.js`): paprsek Rapieru ze vzorku ke světlu, stíní jen stavba levelu (skupina `SOLID`). Vede-li cesta otvorem portálu s dveřmi, vzorek patří do úseku s bránou a svítí × otevření dveří. Okraj stínu: 4 × 4 paprsky z plošky (`soften`). Pravidlo pro základ je v oddílu 8.
-- **Fyzika** (`phys.js`): jediná instance Rapieru; `lazyMap` pouští obal Rapieru jen po změně těles.
+- **Fyzika** (`phys.js`): jediná instance Rapieru; `lazyMap` pouští obal Rapieru jen po změně těles. Tvary `box`, `cyl`, `ball`, `hull`, `trimesh` (síť jen pro pevná a kinematická tělesa).
+- **Soubory balíku** (A2.6; `assets.js`, `glb.js`): bajty z `pack.files` (base64 nebo `Uint8Array`), čtení `.glb` (polohy, normály, UV, indexy, transformace uzlů, výběr `#uzel`, úmluvy `COL_*` a `_LODn`), síť dílu `mesh`, kolize `hull` a `mesh`. Ostatní tvary dál `geom.js`. Textura barvy v `materials.js`: barva × textura × barva vrcholu, `low` ≤ 512 px, sRGB, opakování, mipmapy.
 - **Měření** (`bench.js`, `probe.js`): robot projde trasu z dat (buňky, portály) a v každé buňce se rozhlédne. JSON: `draw.ms` (vykreslení dávkou, metoda xBench), rozestup snímků, krok po systémech, počty těles, profil Rapieru, pevná práce (smyčka ve skriptu a 5 000 paprsků) pro srovnání strojů. Volby `&rows=`, `&aa=1`, `&quick`, `&grid=0.25`.
 - **F3** (`dev.js`): snímky, čas snímku a kroku, obraz, zorné pole (skutečné úhly), volání, △, buňky, světla, mřížka, vzorky, průběh stavby světla, krok po systémech, fyzika (kolidery, volná tělesa, kolik nespí, kinematická). **F4** obrysy buněk a portálů.
 
@@ -218,7 +227,10 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 - **D-025 v levelech sešny B**: jestli se tam dveře někde zastaví o hráče tak, že překáží, jsem nehledala.
 - **Odchylka barev po tisících přepnutí** světel nebo dveří (rozdíl v jednoduché přesnosti; po jednom cyklu pod 1e-5).
 - **Scissor** (ořez bodů na obdélník portálu) není; podle xBench by ušetřil zlomky ms.
-- **Prefaby nevrhají stín** (stůl, skříň, bedna); stíní jen kvádry levelu.
+- **Prefaby nevrhají stín** (stůl, skříň, bedna); stíní jen kvádry levelu. Platí i pro sítě z `.glb`.
+- **Textury a `.glb` na T460**: cena textury ve hře (`draw.ms`), čas dekódování WebP a paměť neměřené; `?bench` je teď vypisuje (`textures`, `textureMB`, `meshParts`, `meshTris`), ale level s texturou zatím není (N-111, B2.5).
+- **Světlo na síti z `.glb` je po jejích vrcholech**: velká plocha ze dvou trojúhelníků má světlo jen v rozích (stojan v `a_26_view` má přední stěnu jedním odstínem). Doporučení pro B v N-111.
+- **`.glb` jen ze zkušebních modelů vyrobených kódem**: model z Blenderu (jiné rozložení bloků, `byteStride`, normalizované UV, víc primitiv) ještě engine neviděl.
 - **Slunce** (`type: sun`) se zastíněním: žádný level ho nemá.
 - **Jak se manipulace drží v ruce** (citlivost): změřené jen robotem, oddíl 6.
 - Text terminálu se neukládá. Zámek kurzoru ve vloženém rámci claude.ai nejspíš neprojde (hra pak přejde na tažení myší).
@@ -248,8 +260,9 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 | N-108 | švy a hrubost mřížky světla | proveden (D-037) | – |
 | N-109 | dveře na obě strany v datech | otevřený | nastavení „Dveře od hráče“, `swing.js` |
 | N-110 | světlo v textuře (bod 5 cm) | otevřený | okraj stínu po podílech, mřížka 0,25 m |
+| N-111 | binární soubory balíku (textury, `.glb`) v buildu a v Node | otevřený | engine čte `pack.files`, když jsou; testy je vkládají samy |
 
-**Pro svodnou sešnu:** (1) v `docs/01_ARCHITEKTURA.md`, oddíl 9, chybí `src/app/probe.js` (sonda fyziky pro `?bench`) a `src/render/opacity.js`, `src/world/swing.js`; `terminal.js` je obsah obrazovky (text na plátně), klidný režim sám je v `interact.js`. (2) Kontrakt neříká, jestli světlo prochází zavřenými dveřmi se `seeThrough` (mříž ano, dvoukřídlé dveře ne); běh i xBake ho dnes zadržují.
+**Pro svodnou sešnu:** (1) v `docs/01_ARCHITEKTURA.md`, oddíl 9, chybí `src/app/probe.js` (sonda fyziky pro `?bench`) a `src/render/opacity.js`, `src/world/swing.js`, `src/world/glb.js`, `src/world/assets.js`; `terminal.js` je obsah obrazovky (text na plátně), klidný režim sám je v `interact.js`. (2) Kontrakt neříká, jestli světlo prochází zavřenými dveřmi se `seeThrough` (mříž ano, dvoukřídlé dveře ne); běh i xBake ho dnes zadržují.
 
 ## 10. Poznatky pro skill
 
@@ -284,6 +297,11 @@ Vlna 2:
 - **Čtení jednoho bodu po každém snímku na skutečné grafice čeká na obnovu displeje** (T460: 15,2 až 16,1 ms ve všech buňkách); v sandboxu se to neprojeví. Čas vykreslení měřit dávkou opakovaných snímků a jedním čtením (xBench).
 - **Kamera three.js chce svislý úhel.** Nastavení zorného pole ve hrách je vodorovný úhel při 4 : 3 (Quake, Source); svislý úhel z okna 2,18 : 1 dal při „110“ 144° na šířku.
 - Rozšíření rozsahu kloubu dveřím musí platit jen pro dveře v portálech, ne pro dvířka nábytku (stejná interakce `door`).
+- **`h.ok(podmínka, jméno)`: podmínka je první.** S obráceným pořadím je „podmínkou“ neprázdný text a projde všechno (a_26_mesh: 30 zelených, z toho jedna kontrola ve skutečnosti padala). Test psát s pomocnou funkcí v pořadí věty a podmínku obalit `!!`.
+- Zkouška „světlo násobí texturu“: v xLabu svítí do haly i chodba portálem a přední stěnu stojanu za sloupem lampa haly nevidí (stín sloupu). Srovnání zapnuto × vypnuto dělat se zhasnutými světly levelu (intenzita 0 v úpravě balíku) a na místě, které lampa opravdu vidí.
+- `ImageBitmap` nebere `flipY` z WebGL; převrátit při dekódování (`imageOrientation: 'flipY'`) a textuře dát `flipY = false`.
+- Po dekódování vzniká nová `Texture` a materiálům se vymění `map` (výměnu obrázku jiného rozměru v už nahrané textuře jsem nezkoušela; podle čtení three.js 0.187 je úložiště textury alokované na první rozměr).
+- glTF má v = 0 nahoře; engine (geom.js) dole: v čtení `.glb` převrátit `v → 1 − v`.
 
 ## 11. Otázky pro Ondřeje
 
@@ -297,3 +315,4 @@ Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře
 - **24. 11. v noci**: sloučeno znění 3 základu (D-037, N-101; `25e17a4`), dveře od hráče, nápověda terminálu, N-109 a N-110, měření F3 z T460 (`c131ac4`). Ondřej: terminál funguje, stíny chce po 5 cm, dveře od hráče, dál A2.5 i A2.6.
 - **24. 11. ráno**: zorné pole, `draw.ms`, dveře od hráče v nastavení (`db6fad0`). Ondřej: nejdřív A2.5 a A2.6, dveře od hráče do dat, dva běhy `?bench`.
 - **24. 11. odpoledne**: přechod na model Opus 5.5 po limitu; sloučeno D-038 (paměť projektu v repu, `TODO.md`); tento soubor přestavěn (nahoře přehled, deník rozhodnutí, historie dole); dveře od hráče jen v otvoru portálu (`afb5b0a`); A2.5.
+- **24. 11. večer**: A2.6 na zkušebních datech (`6e1ab0c`, `3c6bab0`), návrh N-111.

@@ -46,25 +46,24 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, oddíl 2 deník rozhodnutí sešny A), zadání `docs/sesny/START_A.md`.
 
-**Teď (24. 11. odpoledne):**
-- [x] sloučeno `zaklad-2` s D-038; `A_STAV.md` přestavěn: nahoře přehled, deník rozhodnutí, historie dole
-- [x] snímek z T460 (`complex_7`): nastavení „Dveře od hráče“ už nerozšiřuje dvířka nábytku; černý bok kartotéky = chybí odražené světlo (otázka pro Ondřeje)
+**Teď (24. 11. večer):**
 - [x] A2.5 nová pole základu
-- [ ] A2.6: textura barvy a díl `.glb` v enginu, zatím na zkušebních datech
+- [x] A2.6 na zkušebních datech: díl `.glb`, kolize `hull` / `mesh`, textura barvy (na T460 nejvýš 512 px), světlo texturu násobí; čísla textur a sítí v `?bench` a F3
+- [ ] A2.6 na kusu ze sešny B: potřebuje B2.5 a návrh **N-111** (build zatím do `dist/*.html` vkládá jen JSON, textury a `.glb` ne)
 
-**Potom:** A2.6 na kusu ze sešny B (až bude B2.5) → zkouška textury světla na hale xLabu (N-110) → výchozí 1 080 řádků, pokud `draw.ms` na T460 vyjde do 10 ms.
+**Potom:** zkouška textury světla na hale xLabu (N-110) → výchozí 1 080 řádků, pokud `draw.ms` na T460 vyjde do 10 ms.
 
-**Čeká na jiné:** svodná rozhoduje N-109 a N-110 a jestli světlo prochází dveřmi se `seeThrough`; sešna B dveře na obě strany v datech (N-109), B2.5, chybějící pole v `kit_base` (`screen.offset` u terminálů, `opacity` u `glass_pane`).
+**Čeká na jiné:** svodná rozhoduje N-109, N-110, **N-111** a jestli světlo prochází dveřmi se `seeThrough`; sešna B dveře na obě strany v datech (N-109), B2.5 (u dílů `mesh` vyplňovat `mat`, velké plochy modelu dělit asi po 0,5 m kvůli světlu po vrcholech), chybějící pole v `kit_base` (`screen.offset` u terminálů, `opacity` u `glass_pane`).
 
 **Nedávno hotovo:**
+- 24. 11. A2.6 na zkušebních datech: `glb.js`, `assets.js`, textura v `materials.js` (`6e1ab0c`, `3c6bab0`); testy `a_26_mesh` (30), `a_26_view` (8)
 - 24. 11. A2.5 nová pole: rychlost kloubu ze základu, `screen.offset`, `seeThrough`, `passable`, `opacity` (sklo průhledné, nestíní světlo)
-- 24. 11. dveře od hráče jen v otvoru portálu, ne dvířka nábytku (`afb5b0a`)
+- 24. 11. snímek z T460 (`complex_7`): „Dveře od hráče“ jen v otvoru portálu, ne dvířka nábytku (`afb5b0a`); černý bok kartotéky = chybí odražené světlo
 - 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120°; na T460 F3 ukazuje 117° × 74° při 90 (`db6fad0`)
 - 24. 11. `?bench` měří čas grafiky dávkou (`draw.ms`); stará metoda na T460 vracela obnovu displeje
-- 24. 11. dveře od hráče jako nastavení, výchozí zapnuto; návrh N-109 do dat
 - 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0 (`25e17a4`)
 - 24. 11. zkouška terminálu na T460 prošla (D-032)
-- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (Ondřejův `?bench` 24. 11.; `b77837f`)
+- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (`b77837f`)
 
 ## Sešna B (obsah a nástroje)
 
