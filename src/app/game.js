@@ -17,7 +17,7 @@ import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
-export const VERSION = 'xEngine 0.1 · vlna 2, krok 4 (A02) · 2026-11-24';
+export const VERSION = 'xEngine 0.1 · vlna 2, krok 5 (A02) · 2026-11-24';
 
 /**
  * @param {object} o
