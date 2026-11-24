@@ -3,10 +3,9 @@
 // (kromě dveří, tlačítka a vypínače zlatého vzorku, které zadání jmenuje).
 
 import { h, makeGame, fmt } from './a_lib/node.mjs';
-import { entityMatrix, rigMatrices, mat4Mul } from '../src/xspace/index.js';
+import { entityMatrix, rigMatrices, mat4Mul, partMesh } from '../src/xspace/index.js';
 import { decompose } from '../src/phys/xform.js';
 import { SIGHT_RAY } from '../src/phys/phys.js';
-import { partMesh } from '../src/world/parts.js';
 
 const { ok } = h;
 const game = await makeGame();

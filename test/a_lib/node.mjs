@@ -37,6 +37,7 @@ export async function makeGame(opts = {}) {
   const pack = opts.pack || (await loadPack());
   const game = createGame({ pack, render: createNullRender(), ...opts });
   if (opts.shadows === false) game.light.shadows = false;
+  if (opts.doorsAway) game.entities.doorsAway = true; // zkouška k N-109: otočné dveře na obě strany
   if (opts.soft !== undefined) game.light.soft = opts.soft; // zjemnění okraje stínu: false, true nebo bodů na stranu
   await game.E.init();
   return game;

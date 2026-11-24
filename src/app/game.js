@@ -16,7 +16,7 @@ import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
-export const VERSION = 'xEngine 0.1 · vlna 2, krok 1 (A02) · 2026-11-23';
+export const VERSION = 'xEngine 0.1 · vlna 2, krok 2 (A02) · 2026-11-24';
 
 /**
  * @param {object} o
@@ -62,7 +62,7 @@ export function createGame({ pack, render, now }) {
     light.flush();
   };
   const io = createIo({ entities, world });
-  const behave = createBehaviors({ entities, io });
+  const behave = createBehaviors({ entities, io, world });
   entities.behave = behave;
   io.behave = behave;
   const player = createPlayer({ phys, world, render, input, session });

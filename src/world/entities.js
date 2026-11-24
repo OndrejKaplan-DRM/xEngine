@@ -3,13 +3,13 @@
 // vykreslení (pohyblivé díly) a do fyziky (kinematická tělesa uzlů, dynamická tělesa beden).
 // Engine o „dveřích“ neví nic: co kloub znamená, říká interakce prefabu (behaviors.js).
 
-import { entityMatrix, rigMatrices, mat4Mul, mat4Point } from '../xspace/index.js';
+import { entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh, partCollider } from '../xspace/index.js';
 import { newBatch, appendMesh } from '../render/batch.js';
 import { decompose, compose, mul4 } from '../phys/xform.js';
-import { partMesh, colliderShape } from './parts.js';
 import { addFacets } from './facets.js';
 import { makeJoint, stepJoint, MOVED } from './joints.js';
 import { GUARDED, guardOf, obstructed, revertStep } from './blocking.js';
+import { swingBoth } from './swing.js';
 
 const CELL_CHECK_FRAMES = 16;
 
@@ -41,8 +41,9 @@ export function createEntities({ phys, render, world, light, pack }) {
   const doorCells = new Map();
 
   function instantiate(def, index) {
-    const prefab = prefabs.get(def.prefab);
+    let prefab = prefabs.get(def.prefab);
     if (!prefab) throw new Error(`Entita „${def.id}“ odkazuje na prefab „${def.prefab}“, který v balíku není.`);
+    if (sys.doorsAway) prefab = swingBoth(prefab);
     const comp = prefab.components || {};
     const bodyKind = comp.physics?.body || 'static';
     const kind = comp.interact?.kind || null;
@@ -156,7 +157,7 @@ export function createEntities({ phys, render, world, light, pack }) {
 
     // ---- fyzika
     const opts = (c) => ({ group: c.group || (bodyKind === 'static' ? 'world' : 'prop'), friction: comp.physics?.friction, restitution: comp.physics?.restitution, scale });
-    const cols = (prefab.colliders || []).map((c) => ({ c, s: colliderShape(c) })).filter((x) => {
+    const cols = (prefab.colliders || []).map((c) => ({ c, s: partCollider(c) })).filter((x) => {
       if (!x.s) warn(`kolizní tvar „${x.c.shape}“ (prefab ${prefab.id}) zatím neumím`);
       return !!x.s;
     });
@@ -304,6 +305,8 @@ export function createEntities({ phys, render, world, light, pack }) {
       return list;
     },
     byId: (id) => byId.get(id),
+    /** Zkouška k N-109: otočné dveře na obě strany, otvírají se od hráče. Platí pro level načtený potom. */
+    doorsAway: false,
     set behave(b) {
       behave = b;
     },

@@ -2,7 +2,7 @@
 // brushLightMesh sloučená po buňce a materiálu; její vrcholy jsou vzorky světla, D-022), drží buňky, portály, světla levelu a spouštěče. O kvádru neví nic, co neříká
 // src/xspace/geom.js; o konkrétním levelu neví nic, co není v datech.
 
-import { brushLightMesh, brushCollider, inBounds, boundsGap, LIGHT_CELL } from '../xspace/index.js';
+import { levelLightMeshes, brushCollider, inBounds, boundsGap, LIGHT_CELL } from '../xspace/index.js';
 import { faceCells } from './cells.js';
 
 export function createWorld({ phys, render, light, pack }) {
@@ -49,10 +49,14 @@ export function createWorld({ phys, render, light, pack }) {
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
       Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell });
-      for (const b of level.brushes || []) {
+      // vzorky světla levelu podle kontraktu (D-037): mřížka na násobcích buňky ve světě, bez ploch schovaných v jiném kvádru
+      const brushes = level.brushes || [];
+      const meshes = levelLightMeshes(brushes, matDefs, sys.lightCell);
+      for (let bi = 0; bi < brushes.length; bi++) {
+        const b = brushes[bi];
         stat.brushes++;
-        if (b.vis !== false) {
-          const m = brushLightMesh(b, sys.lightCell);
+        const m = meshes[bi];
+        if (m) {
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)

@@ -30,6 +30,7 @@ async function boot() {
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
   const devTools = createDev({ game, hud });
+  if (params.get('doors') === 'away') game.entities.doorsAway = true; // zkouška k návrhu N-109: dveře se otvírají od hráče
   if (params.has('novis')) game.vis.enabled = false; // kreslit vše (srovnání s xView, hledání chyb viditelnosti)
   E.add({
     name: 'hud',
@@ -113,7 +114,10 @@ async function boot() {
     hud.setCross(false);
     hud.notify('Piš na klávesnici, Enter odešle · odejít: šipka dolů nebo pravé tlačítko myši · Esc: pauza', 8);
   });
-  E.on('interact:left', () => hud.setCross(E.mode === 'playing'));
+  E.on('interact:left', () => {
+    hud.setCross(E.mode === 'playing');
+    hud.notify('', 0); // nápověda terminálu po odchodu nezůstává viset
+  });
   /** Poloha kurzoru v obraze −1…1 (x vpravo, y nahoru). */
   const toView = (e) => {
     const r = view.getBoundingClientRect();

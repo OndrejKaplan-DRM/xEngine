@@ -132,9 +132,10 @@ const hallCalls = (page) => page.evaluate((poses) => poses.map((p) => { const s 
     ok(control.n > 100000 && control.core > 90000, 'kontrola zkoušky: pohled mimo level ukáže signální pozadí', `${control.n} bodů, z toho ${control.core} v souvislé ploše`);
     ok(shut.core === 0 && opened.core === 0, 'žádná díra: z 12 míst a 4 směrů není nikde vidět souvislá plocha pozadí (dveře zavřené i otevřené)', `${ring.length} pohledů na každý stav; bodů v souvislé ploše ${shut.core} / ${opened.core}`);
     // Švy: sousední kvádry mají každý svou mřížku světla a na společné hraně jim vrcholy nelícují (zadání, oddíl 6).
-    // Jednotlivé body pozadí na švech nejsou díra ve viditelnosti; počet se hlídá, aby nerostl. Viz N-108.
-    const SEAM_LIMIT = Math.round(1366 * 768 * 0.0001); // 0,01 % obrazu
-    ok(shut.worst <= SEAM_LIMIT && opened.worst <= SEAM_LIMIT, 'švy mezi sítěmi: jednotlivých bodů pozadí nejvýš 0,01 % obrazu', `nejhorší pohled ${shut.worst} / ${opened.worst} bodů z ${1366 * 768} (${shut.where || opened.where}); součet přes ${ring.length} pohledů ${shut.total} / ${opened.total}`);
+    // Jednotlivé body pozadí na švech nejsou díra ve viditelnosti; počet se hlídá, aby nerostl. Po D-037 (mřížka
+    // světla na násobcích buňky ve světě) je jich ve 48 pohledech zlatého vzorku 0 (dřív 128); mez je nový stav.
+    const SEAM_LIMIT = 0;
+    ok(shut.worst <= SEAM_LIMIT && opened.worst <= SEAM_LIMIT, 'švy mezi sítěmi: žádný jednotlivý bod pozadí (stav po D-037)', `nejhorší pohled ${shut.worst} / ${opened.worst} bodů z ${1366 * 768} (${shut.where || opened.where}); součet přes ${ring.length} pohledů ${shut.total} / ${opened.total}`);
 
     // ---- hala: volání nezávisí na obsahu laboratoře (druhé načtení s laboratoří bez entit)
     await page.evaluate(() => {
