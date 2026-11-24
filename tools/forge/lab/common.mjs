@@ -2,8 +2,8 @@
 // kapalina v nádobě, ryska a štítek. Rozměry v metrech, počátek na podlaze nebo na desce stolu ve středu půdorysu,
 // přední strana +Z.
 
-import { box, cyl, cbox, node, definePrefab, partPoints } from '../lib.mjs';
-import { lathe } from '../shapes.mjs';
+import { box, cyl, cbox, node, hinge, slider, definePrefab, partPoints, IO } from '../lib.mjs';
+import { lathe, bevelBox } from '../shapes.mjs';
 
 export const STATIC_TOP = { physics: { body: 'static' }, place: { mount: 'top' } };
 export const staticFloor = (top) => ({ physics: { body: 'static' }, place: top ? { mount: 'floor', top } : { mount: 'floor' } });
@@ -79,3 +79,47 @@ export function vessel(n, profile, mat, fill = 0, liquid = null) {
 
 /** Okraj hrdla: krátký válec o 1,5 mm širší (sklo), výška 3 mm. */
 export const rim = (n, y, r, mat = 'glass_lab') => cyl(n, [0, y - 0.0015, 0], r + 0.0015, 0.003, 'y', mat);
+
+/**
+ * Přístroj s jedním pohyblivým dílem (víko, dvířka, šuplík, okno): pevné díly na uzlu body, pohyblivé na uzlu
+ * m.node v poloze m.at (místní souřadnice pohyblivých dílů). m: { node, at, joint, type: 'hinge'|'slider', axis,
+ * max, parts, kind, prompt, note, io }. Kolize: obal pevných dílů a obal pohyblivých dílů na jejich uzlu.
+ */
+export function moving(id, title, category, parts, m, o = {}) {
+  const j = m.type === 'slider' ? slider(m.joint, m.node, m.axis, 0, m.max, { damping: 8, drive: 'manual' }) : hinge(m.joint, m.node, m.axis, 0, m.max, { damping: 4, drive: 'manual' });
+  const a = bbox(parts);
+  const b = bbox(m.parts);
+  return definePrefab(
+    {
+      id,
+      title,
+      category,
+      nodes: [node('body'), node(m.node, 'body', m.at)],
+      joints: [j],
+      parts: [...parts, ...m.parts],
+      colliders: [cbox('body', a.min, a.max, o.group || 'prop'), cbox(m.node, b.min, b.max, o.group || 'prop')],
+      components: { ...KIN, place: o.place || { mount: 'top' }, interact: { kind: m.kind, joint: m.joint, prompt: m.prompt, range: 1.6, manipulate: true } },
+      ...(m.kind === 'drawer' ? IO.drawer : IO.door),
+      gen: o.gen,
+      params: o.params,
+    },
+    { [m.joint]: m.note },
+  );
+}
+
+/** Plášť přístroje: kvádr se sraženými hranami, čtyři gumové nožky; vrací díly. */
+export function casing(n, w, d, h, mat = 'plastic_white', b = 0.008, y0 = 0.008) {
+  const out = [...bevelBox(n, [-w / 2, y0, -d / 2], [w / 2, y0 + h - y0, d / 2], mat, b)];
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) out.push(box(n, [sx * (w / 2 - 0.03) - 0.012, 0, sz * (d / 2 - 0.03) - 0.012], [sx * (w / 2 - 0.03) + 0.012, y0, sz * (d / 2 - 0.03) + 0.012], 'rubber_black'));
+  return out;
+}
+
+/** Ovládací panel na čele (z = d/2): displej a řada tlačítek. */
+export function panel(n, z, x0, x1, y0, y1, buttons = 3, display = 'emit_display') {
+  const out = [box(n, [x0, y0, z - 0.001], [x1, y1, z + 0.002], 'plastic_anthracite'), box(n, [x0 + 0.006, y0 + (y1 - y0) * 0.45, z + 0.002], [x0 + (x1 - x0) * 0.6, y1 - 0.006, z + 0.0035], display)];
+  for (let i = 0; i < buttons; i++) {
+    const bx = x0 + 0.008 + (i * (x1 - x0 - 0.016)) / Math.max(1, buttons);
+    out.push(box(n, [bx, y0 + 0.006, z + 0.002], [bx + 0.012, y0 + 0.014, z + 0.005], i === 0 ? 'cap_green' : 'plastic_light'));
+  }
+  return out;
+}

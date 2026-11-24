@@ -1,0 +1,49 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "plate_reader_01",
+  "title": "Čtečka mikrotitračních destiček",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.201, -0.001, -0.251], "max": [0.201, 0.351, 0.396] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "tray", "parent": "body", "pos": [0.08, 0.08, 0.25] }
+    ],
+    "joints": [
+      { "id": "tray", "node": "tray", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.14, "rest": 0, "damping": 8, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0.016, -0.242], "max": [0.2, 0.342, 0.242], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.192, 0.008, -0.242], "max": [0.192, 0.35, 0.242], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.192, 0.016, -0.25], "max": [0.192, 0.342, 0.25], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.182, 0, -0.232], "max": [-0.158, 0.008, -0.208], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.182, 0, 0.208], "max": [-0.158, 0.008, 0.232], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.158, 0, -0.232], "max": [0.182, 0.008, -0.208], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.158, 0, 0.208], "max": [0.182, 0.008, 0.232], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.18, 0.25, 0.248], "max": [-0.02, 0.32, 0.252], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.16, 0.27, 0.252], "max": [-0.04, 0.31, 0.254], "mat": "emit_display" },
+    { "node": "tray", "shape": "box", "min": [-0.075, 0, -0.14], "max": [0.075, 0.015, 0.005], "mat": "plastic_anthracite" },
+    { "node": "tray", "shape": "box", "min": [-0.064, 0.015, -0.12], "max": [0.064, 0.03, -0.035], "mat": "plastic_ps" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.25], "max": [0.2, 0.35, 0.254], "group": "prop" },
+    { "node": "tray", "shape": "box", "min": [-0.075, 0, -0.14], "max": [0.075, 0.03, 0.005], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "drawer", "joint": "tray", "prompt": "Vysunout podavač destiček", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "lock", "unlock"],
+  "outputs": ["opened", "closed"],
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#photometers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

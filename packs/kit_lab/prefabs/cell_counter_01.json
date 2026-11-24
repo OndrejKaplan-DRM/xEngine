@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cell_counter_01",
+  "title": "Automatický počítač buněk",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.091, -0.001, -0.111], "max": [0.091, 0.171, 0.116] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.09, 0.016, -0.102], "max": [0.09, 0.162, 0.102], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.082, 0.008, -0.102], "max": [0.082, 0.17, 0.102], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.082, 0.016, -0.11], "max": [0.082, 0.162, 0.11], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.072, 0, -0.092], "max": [-0.048, 0.008, -0.068], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.072, 0, 0.068], "max": [-0.048, 0.008, 0.092], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.048, 0, -0.092], "max": [0.072, 0.008, -0.068], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.048, 0, 0.068], "max": [0.072, 0.008, 0.092], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.07, 0.07, 0.11], "max": [0.07, 0.15, 0.112], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.03, 0.11], "max": [0.03, 0.04, 0.115], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.11], "max": [0.09, 0.17, 0.115], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

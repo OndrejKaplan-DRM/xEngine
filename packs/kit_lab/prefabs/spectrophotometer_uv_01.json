@@ -1,0 +1,56 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "spectrophotometer_uv_01",
+  "title": "Spektrofotometr UV-VIS",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.226, -0.001, -0.276], "max": [0.226, 0.472, 0.281] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0.135, 0.22, -0.2] }
+    ],
+    "joints": [
+      { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 90, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0.016, -0.267], "max": [0.225, 0.212, 0.267], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.008, -0.267], "max": [0.217, 0.22, 0.267], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.016, -0.275], "max": [0.217, 0.212, 0.275], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, -0.257], "max": [-0.183, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, 0.233], "max": [-0.183, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, -0.257], "max": [0.207, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, 0.233], "max": [0.207, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.2, 0.04, 0.274], "max": [0.05, 0.17, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.194, 0.0985, 0.277], "max": [-0.05, 0.164, 0.2785], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.192, 0.046, 0.277], "max": [-0.18, 0.054, 0.28], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.1452, 0.046, 0.277], "max": [-0.1332, 0.054, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.0984, 0.046, 0.277], "max": [-0.0864, 0.054, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.0516, 0.046, 0.277], "max": [-0.0396, 0.054, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.0048, 0.046, 0.277], "max": [0.0072, 0.054, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.07, 0.22, -0.2], "max": [0.2, 0.225, 0.05], "mat": "plastic_anthracite" },
+    { "node": "lid", "shape": "box", "min": [-0.07, 0.006, 0.006], "max": [0.07, 0.034, 0.244], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.064, 0, 0.006], "max": [0.064, 0.04, 0.244], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.064, 0.006, 0], "max": [0.064, 0.034, 0.25], "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.275], "max": [0.225, 0.225, 0.28], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.07, 0, 0], "max": [0.07, 0.04, 0.25], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "lid", "prompt": "Otevřít kyvetový prostor", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 216,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#photometers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pump_vacuum_membrane_01",
+  "title": "Membránová vývěva",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.126, -0.001, -0.151], "max": [0.126, 0.261, 0.153] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.125, 0.016, -0.142], "max": [0.125, 0.192, 0.142], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.117, 0.008, -0.142], "max": [0.117, 0.2, 0.142], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.117, 0.016, -0.15], "max": [0.117, 0.192, 0.15], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.107, 0, -0.132], "max": [-0.083, 0.008, -0.108], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.107, 0, 0.108], "max": [-0.083, 0.008, 0.132], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.083, 0, -0.132], "max": [0.107, 0.008, -0.108], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.083, 0, 0.108], "max": [0.107, 0.008, 0.132], "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.12, 0], "radius": 0.07, "height": 0.18, "axis": "z", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "cyl", "center": [0.08, 0.23, 0], "radius": 0.02, "height": 0.06, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.11, 0.06, 0.15], "max": [-0.05, 0.1, 0.152], "mat": "cap_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.125, 0, -0.15], "max": [0.125, 0.26, 0.152], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 224,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

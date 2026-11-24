@@ -1,0 +1,52 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "rotavap_01",
+  "title": "Rotační vakuová odparka",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.276, -0.001, -0.226], "max": [0.276, 0.771, 0.226] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.275, 0.016, -0.217], "max": [0.275, 0.112, 0.217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.267, 0.008, -0.217], "max": [0.267, 0.12, 0.217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.267, 0.016, -0.225], "max": [0.267, 0.112, 0.225], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.257, 0, -0.207], "max": [-0.233, 0.008, -0.183], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.257, 0, 0.183], "max": [-0.233, 0.008, 0.207], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.233, 0, -0.207], "max": [0.257, 0.008, -0.183], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.233, 0, 0.183], "max": [0.257, 0.008, 0.207], "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.17, 0.05], "radius": 0.12, "height": 0.1, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.215, 0.05], "radius": 0.11, "height": 0.004, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.24, 0.12, -0.2], "max": [-0.16, 0.6, -0.12], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.2, 0.42, -0.16], "max": [0.02, 0.5, -0.06], "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.62, -0.11], "radius": 0.04, "height": 0.3, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.205, 0.05], "radius": 0.0385, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.26, 0.05], "radius": 0.0625, "height": 0.08, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.33, 0.05], "radius": 0.0375, "height": 0.06, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.206, 0.05], "radius": 0.0365, "height": 0.028, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0.12, 0.239, 0.05], "radius": 0.0618, "height": 0.038, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.145, -0.11], "radius": 0.0325, "height": 0.03, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.19, -0.11], "radius": 0.05, "height": 0.06, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.24, -0.11], "radius": 0.0325, "height": 0.04, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.146, -0.11], "radius": 0.0305, "height": 0.028, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.1645, -0.11], "radius": 0.048, "height": 0.009, "axis": "y", "mat": "liquid_water" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.275, 0, -0.225], "max": [0.275, 0.77, 0.225], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 940,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#rotavap",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

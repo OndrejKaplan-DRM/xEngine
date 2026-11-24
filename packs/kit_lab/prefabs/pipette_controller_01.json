@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pipette_controller_01",
+  "title": "Pipetovací nástavec na sérologické pipety",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.021, -0.001, -0.031], "max": [0.021, 0.221, 0.041] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.03], "max": [0.02, 0.1, 0.03], "mat": "plastic_navy" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.14, 0.02], "radius": 0.012, "height": 0.08, "axis": "y", "mat": "plastic_navy" },
+    { "node": "body", "shape": "box", "min": [-0.006, 0.09, 0.025], "max": [0.006, 0.1, 0.04], "mat": "cap_red" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.2, 0.02], "radius": 0.006, "height": 0.04, "axis": "y", "mat": "plastic_pp" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.03], "max": [0.02, 0.22, 0.04], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 152,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#pipettes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

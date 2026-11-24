@@ -1,0 +1,55 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shaker_orbital_02",
+  "title": "Orbitální třepačka s baňkami",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 0.261, 0.231] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0.016, -0.217], "max": [0.225, 0.112, 0.217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.008, -0.217], "max": [0.217, 0.12, 0.217], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.217, 0.016, -0.225], "max": [0.217, 0.112, 0.225], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, -0.207], "max": [-0.183, 0.008, -0.183], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.207, 0, 0.183], "max": [-0.183, 0.008, 0.207], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, -0.207], "max": [0.207, 0.008, -0.183], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.183, 0, 0.183], "max": [0.207, 0.008, 0.207], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.12, 0.02, 0.224], "max": [0.12, 0.09, 0.227], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.114, 0.0515, 0.227], "max": [0.024, 0.084, 0.2285], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.112, 0.026, 0.227], "max": [-0.1, 0.034, 0.23], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.0373, 0.026, 0.227], "max": [-0.0253, 0.034, 0.23], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.0373, 0.026, 0.227], "max": [0.0493, 0.034, 0.23], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.21, 0.12, -0.21], "max": [0.21, 0.13, 0.21], "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.17, 0.1], "radius": 0.037, "height": 0.08, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.235, 0.1], "radius": 0.0205, "height": 0.05, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.1473, 0.1], "radius": 0.0427, "height": 0.0305, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.17, 0.1], "radius": 0.037, "height": 0.08, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.235, 0.1], "radius": 0.0205, "height": 0.05, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.1473, 0.1], "radius": 0.0427, "height": 0.0305, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.17, -0.1], "radius": 0.037, "height": 0.08, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.235, -0.1], "radius": 0.0205, "height": 0.05, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.1473, -0.1], "radius": 0.0427, "height": 0.0305, "axis": "y", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.17, -0.1], "radius": 0.037, "height": 0.08, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.235, -0.1], "radius": 0.0205, "height": 0.05, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.1473, -0.1], "radius": 0.0427, "height": 0.0305, "axis": "y", "mat": "liquid_yellow" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 0.26, 0.23], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 924,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#shakers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

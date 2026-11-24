@@ -1,0 +1,55 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "oven_drying_01",
+  "title": "Laboratorní sušárna se dvířky",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.621, -0.001, -0.276], "max": [0.301, 0.701, 0.836] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.28, 0.04, 0.275] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 120, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.016, -0.267], "max": [0.3, 0.692, 0.267], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.292, 0.008, -0.267], "max": [0.292, 0.7, 0.267], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.292, 0.016, -0.275], "max": [0.292, 0.692, 0.275], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.282, 0, -0.257], "max": [-0.258, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.282, 0, 0.233], "max": [-0.258, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.258, 0, -0.257], "max": [0.282, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.258, 0, 0.233], "max": [0.282, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0.05, 0.265], "max": [0.27, 0.58, 0.275], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.25, 0.6, 0.274], "max": [0.25, 0.68, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.244, 0.636, 0.277], "max": [0.05, 0.674, 0.2785], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.242, 0.606, 0.277], "max": [-0.23, 0.614, 0.28], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.121, 0.606, 0.277], "max": [-0.109, 0.614, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0, 0.606, 0.277], "max": [0.012, 0.614, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.121, 0.606, 0.277], "max": [0.133, 0.614, 0.28], "mat": "plastic_light" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.56, 0.55, 0.04], "mat": "plastic_white" },
+    { "node": "door", "shape": "box", "min": [0.12, 0.14, 0.04], "max": [0.45, 0.385, 0.042], "mat": "glass_tinted" },
+    { "node": "door", "shape": "box", "min": [0.5, 0.21, 0.04], "max": [0.52, 0.35, 0.07], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.275], "max": [0.3, 0.7, 0.28], "group": "prop" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.56, 0.55, 0.07], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít sušárnu", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 204,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#opticsAndOven",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

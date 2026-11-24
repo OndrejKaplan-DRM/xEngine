@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "minicentrifuge_01",
+  "title": "Minicentrifuga",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.073, -0.001, -0.073], "max": [0.073, 0.101, 0.073] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.04, 0], "radius": 0.07, "height": 0.08, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.09, 0], "radius": 0.065, "height": 0.02, "axis": "y", "mat": "plastic_ps" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.072, 0, -0.072], "max": [0.072, 0.1, 0.072], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 128,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

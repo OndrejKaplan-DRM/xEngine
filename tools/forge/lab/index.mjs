@@ -7,9 +7,10 @@ import { LAB_MATERIALS } from './materials.mjs';
 import { GLASS } from './glass.mjs';
 import { PLASTIC } from './plastic.mjs';
 import { CHEM } from './chem.mjs';
+import { BENCH } from './bench.mjs';
 
 export const LAB_ID = 'kit_lab';
-export const LAB_MAKERS = [...GLASS, ...PLASTIC, ...CHEM];
+export const LAB_MAKERS = [...GLASS, ...PLASTIC, ...CHEM, ...BENCH];
 
 export const buildLab = () =>
   buildTheme({ id: LAB_ID, title: 'Laboratoře: sklo, plasty, chemikálie, přístroje (xForge)', version: '0.1.0', requires: ['kit_base'], makers: LAB_MAKERS, materials: LAB_MATERIALS });

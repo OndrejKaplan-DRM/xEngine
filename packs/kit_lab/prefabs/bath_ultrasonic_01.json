@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bath_ultrasonic_01",
+  "title": "Ultrazvuková lázeň",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.151, -0.001, -0.091], "max": [0.151, 0.151, 0.098] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0.016, -0.082], "max": [0.15, 0.142, 0.082], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.142, 0.008, -0.082], "max": [0.142, 0.15, 0.082], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.142, 0.016, -0.09], "max": [0.142, 0.142, 0.09], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.132, 0, -0.072], "max": [-0.108, 0.008, -0.048], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.132, 0, 0.048], "max": [-0.108, 0.008, 0.072], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.108, 0, -0.072], "max": [0.132, 0.008, -0.048], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.108, 0, 0.048], "max": [0.132, 0.008, 0.072], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.13, 0.13, -0.075], "max": [0.13, 0.14, 0.075], "mat": "liquid_water" },
+    { "node": "body", "shape": "cyl", "center": [-0.1, 0.07, 0.092], "radius": 0.012, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "cyl", "center": [0.1, 0.07, 0.092], "radius": 0.012, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.09], "max": [0.15, 0.15, 0.097], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 224,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

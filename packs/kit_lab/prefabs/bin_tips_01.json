@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bin_tips_01",
+  "title": "Odpadní nádobka na špičky",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.076, -0.001, -0.076], "max": [0.076, 0.161, 0.076] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.07], "max": [0.07, 0.15, 0.07], "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "box", "min": [-0.075, 0.15, -0.075], "max": [0.075, 0.16, 0.075], "mat": "plastic_orange" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.075, 0, -0.075], "max": [0.075, 0.16, 0.075], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 24,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

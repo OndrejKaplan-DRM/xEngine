@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lamp_uv_hand_01",
+  "title": "Ruční UV lampa",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.121, -0.001, -0.031], "max": [0.121, 0.061, 0.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.03], "max": [0.12, 0.04, 0.03], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.1, 0, 0.025], "max": [0.1, 0.03, 0.031], "mat": "emit_uv" },
+    { "node": "body", "shape": "box", "min": [-0.04, 0.04, -0.01], "max": [0.04, 0.06, 0.01], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.03], "max": [0.12, 0.06, 0.031], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

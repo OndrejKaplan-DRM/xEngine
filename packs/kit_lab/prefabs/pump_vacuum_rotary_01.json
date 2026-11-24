@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pump_vacuum_rotary_01",
+  "title": "Olejová rotační vývěva",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.221, -0.001, -0.083], "max": [0.221, 0.241, 0.083] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.08], "max": [0.22, 0.02, 0.08], "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [-0.08, 0.11, 0], "radius": 0.08, "height": 0.2, "axis": "x", "mat": "paint_blue" },
+    { "node": "body", "shape": "cyl", "center": [0.11, 0.11, 0], "radius": 0.07, "height": 0.18, "axis": "x", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0.11, 0.21, 0], "radius": 0.02, "height": 0.06, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.18, 0.06, 0.07], "max": [0.21, 0.1, 0.08], "mat": "glass_tinted" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.082], "max": [0.22, 0.24, 0.082], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 216,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

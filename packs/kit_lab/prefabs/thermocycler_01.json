@@ -1,0 +1,52 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "thermocycler_01",
+  "title": "Termocykler PCR",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.166, -0.001, -0.286], "max": [0.166, 0.377, 0.231] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0, 0.12, -0.2] }
+    ],
+    "joints": [
+      { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 70, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.165, 0.016, -0.222], "max": [0.165, 0.112, 0.222], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0.008, -0.222], "max": [0.157, 0.12, 0.222], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0.016, -0.23], "max": [0.157, 0.112, 0.23], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.147, 0, -0.212], "max": [-0.123, 0.008, -0.188], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.147, 0, 0.188], "max": [-0.123, 0.008, 0.212], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.123, 0, -0.212], "max": [0.147, 0.008, -0.188], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.123, 0, 0.188], "max": [0.147, 0.008, 0.212], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.13, 0.12, 0.08], "max": [0.13, 0.13, 0.22], "mat": "plastic_white" },
+    { "node": "body", "shape": "box", "min": [-0.11, 0.13, 0.1], "max": [0.11, 0.131, 0.2], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.07, 0.12, -0.15], "max": [0.07, 0.128, -0.02], "mat": "steel_brushed" },
+    { "node": "lid", "shape": "box", "min": [-0.12, 0.01, 0.01], "max": [0.12, 0.07, 0.23], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.11, 0, 0.01], "max": [0.11, 0.08, 0.23], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.11, 0.01, 0], "max": [0.11, 0.07, 0.24], "mat": "plastic_light" },
+    { "node": "lid", "shape": "cyl", "center": [0, 0.085, 0.12], "radius": 0.03, "height": 0.01, "axis": "y", "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.23], "max": [0.165, 0.131, 0.23], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.12, 0, 0], "max": [0.12, 0.091, 0.24], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "lid", "prompt": "Otevřít vyhřívané víko", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 220,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#thermocyclers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

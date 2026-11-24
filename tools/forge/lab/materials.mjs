@@ -23,6 +23,7 @@ export const LAB_MATERIALS = {
   plastic_teal: lit([0.03, 0.3, 0.33], 'plastic', { rough: 0.45 }),
   plastic_lime: lit([0.35, 0.6, 0.08], 'plastic', { rough: 0.45 }),
   plastic_orange: lit([0.78, 0.27, 0.03], 'plastic', { rough: 0.45 }),
+  paint_brown: lit([0.2, 0.09, 0.04], 'metal', { rough: 0.5 }), // hrdlo lahve s heliem (EN 1089-3)
   bench_phenolic: lit([0.05, 0.05, 0.055], 'plastic', { rough: 0.4 }), // černá pracovní deska
   // víčka a štítky
   cap_blue: lit([0.03, 0.15, 0.5], 'plastic', { rough: 0.4 }),

@@ -1,0 +1,53 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bath_water_01",
+  "title": "Vodní lázeň s víkem",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.176, -0.001, -0.438], "max": [0.176, 0.775, 0.281] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0, 0.26, -0.275] }
+    ],
+    "joints": [
+      { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 100, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.175, 0.016, -0.267], "max": [0.175, 0.252, 0.267], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.167, 0.008, -0.267], "max": [0.167, 0.26, 0.267], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.167, 0.016, -0.275], "max": [0.167, 0.252, 0.275], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0, -0.257], "max": [-0.133, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0, 0.233], "max": [-0.133, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.133, 0, -0.257], "max": [0.157, 0.008, -0.233], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.133, 0, 0.233], "max": [0.157, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.155, 0.23, -0.255], "max": [0.155, 0.235, 0.215], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.14, 0.03, 0.274], "max": [0.14, 0.1, 0.277], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.134, 0.0615, 0.277], "max": [0.028, 0.094, 0.2785], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.132, 0.036, 0.277], "max": [-0.12, 0.044, 0.28], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.044, 0.036, 0.277], "max": [-0.032, 0.044, 0.28], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.044, 0.036, 0.277], "max": [0.056, 0.044, 0.28], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.175, 0, 0], "max": [0.175, 0.06, 0.51], "mat": "steel_brushed" },
+    { "node": "lid", "shape": "box", "min": [-0.06, 0.06, 0.47], "max": [0.06, 0.075, 0.5], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.275], "max": [0.175, 0.26, 0.28], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.175, 0, 0], "max": [0.175, 0.075, 0.51], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "lid", "prompt": "Otevřít víko lázně", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 180,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

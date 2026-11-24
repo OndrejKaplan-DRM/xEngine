@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "dewar_10l_01",
+  "title": "Dewarova nádoba na kapalný dusík 10 l",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.135, -0.001, -0.135], "max": [0.135, 0.547, 0.135] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.1277, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.2148, 0], "radius": 0.131, "height": 0.3895, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.4505, 0], "radius": 0.1015, "height": 0.0819, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.5037, 0], "radius": 0.055, "height": 0.0246, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.531, 0], "radius": 0.036, "height": 0.03, "axis": "y", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.0917, 0.4641, -0.012], "max": [-0.072, 0.5023, 0.012], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [0.0721, 0.4641, -0.012], "max": [0.0917, 0.5023, 0.012], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.134, 0, -0.134], "max": [0.134, 0.546, 0.134], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 344,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#gasAndCryo",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

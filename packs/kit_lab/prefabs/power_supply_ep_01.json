@@ -1,0 +1,47 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "power_supply_ep_01",
+  "title": "Zdroj napětí pro elektroforézu",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.111, -0.001, -0.161], "max": [0.111, 0.091, 0.168] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.11, 0.016, -0.152], "max": [0.11, 0.082, 0.152], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.102, 0.008, -0.152], "max": [0.102, 0.09, 0.152], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.102, 0.016, -0.16], "max": [0.102, 0.082, 0.16], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.092, 0, -0.142], "max": [-0.068, 0.008, -0.118], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.092, 0, 0.118], "max": [-0.068, 0.008, 0.142], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.068, 0, -0.142], "max": [0.092, 0.008, -0.118], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.068, 0, 0.118], "max": [0.092, 0.008, 0.142], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.1, 0.012, 0.159], "max": [0.1, 0.08, 0.162], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.094, 0.0426, 0.162], "max": [0.02, 0.074, 0.1635], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.092, 0.018, 0.162], "max": [-0.08, 0.026, 0.165], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.046, 0.018, 0.162], "max": [-0.034, 0.026, 0.165], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0, 0.018, 0.162], "max": [0.012, 0.026, 0.165], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.046, 0.018, 0.162], "max": [0.058, 0.026, 0.165], "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [-0.06, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "cap_red" },
+    { "node": "body", "shape": "cyl", "center": [-0.03, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "cyl", "center": [0.03, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "cap_red" },
+    { "node": "body", "shape": "cyl", "center": [0.06, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.11, 0, -0.16], "max": [0.11, 0.09, 0.167], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 412,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

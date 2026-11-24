@@ -1,0 +1,51 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pipettes_carousel_01",
+  "title": "Otočný stojan s pipetami",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.093, -0.001, -0.093], "max": [0.093, 0.231, 0.093] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.006, 0], "radius": 0.09, "height": 0.012, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.12, 0], "radius": 0.01, "height": 0.22, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.2, 0], "radius": 0.06, "height": 0.012, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [0.05, 0.125, 0], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.043, 0.18, -0.007], "max": [0.057, 0.2, 0.007], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [0.047, 0.03, -0.003], "max": [0.053, 0.07, 0.003], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0.025, 0.125, 0.0433], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.018, 0.18, 0.0363], "max": [0.032, 0.2, 0.0503], "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [0.022, 0.03, 0.0403], "max": [0.028, 0.07, 0.0463], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [-0.025, 0.125, 0.0433], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.032, 0.18, 0.0363], "max": [-0.018, 0.2, 0.0503], "mat": "cap_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.028, 0.03, 0.0403], "max": [-0.022, 0.07, 0.0463], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [-0.05, 0.125, 0], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.057, 0.18, -0.007], "max": [-0.043, 0.2, 0.007], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.053, 0.03, -0.003], "max": [-0.047, 0.07, 0.003], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [-0.025, 0.125, -0.0433], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.032, 0.18, -0.0503], "max": [-0.018, 0.2, -0.0363], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.028, 0.03, -0.0463], "max": [-0.022, 0.07, -0.0403], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0.025, 0.125, -0.0433], "radius": 0.011, "height": 0.11, "axis": "y", "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.018, 0.18, -0.0503], "max": [0.032, 0.2, -0.0363], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [0.022, 0.03, -0.0463], "max": [0.028, 0.07, -0.0403], "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.092, 0, -0.092], "max": [0.092, 0.23, 0.092], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 720,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#pipettes",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

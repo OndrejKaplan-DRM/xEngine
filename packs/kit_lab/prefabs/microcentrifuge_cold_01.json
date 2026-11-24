@@ -1,0 +1,57 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "microcentrifuge_cold_01",
+  "title": "Mikrocentrifuga chlazená",
+  "category": "lab.bench",
+  "bounds": { "min": [-0.146, -0.001, -0.338], "max": [0.146, 0.598, 0.246] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "lid", "parent": "body", "pos": [0, 0.1612, -0.24] }
+    ],
+    "joints": [
+      { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 75, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.145, 0.016, -0.232], "max": [0.145, 0.1532, 0.232], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.137, 0.008, -0.232], "max": [0.137, 0.1612, 0.232], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.137, 0.016, -0.24], "max": [0.137, 0.1532, 0.24], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.127, 0, -0.222], "max": [-0.103, 0.008, -0.198], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.127, 0, 0.198], "max": [-0.103, 0.008, 0.222], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.103, 0, -0.222], "max": [0.127, 0.008, -0.198], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.103, 0, 0.198], "max": [0.127, 0.008, 0.222], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.1015, 0.0312, 0.239], "max": [0.1015, 0.1248, 0.242], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.0955, 0.0733, 0.242], "max": [0.0203, 0.1188, 0.2435], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.0935, 0.0372, 0.242], "max": [-0.0815, 0.0452, 0.245], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.0312, 0.0372, 0.242], "max": [-0.0192, 0.0452, 0.245], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.0312, 0.0372, 0.242], "max": [0.0432, 0.0452, 0.245], "mat": "plastic_light" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1612, -0.02], "radius": 0.1044, "height": 0.01, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.1664, -0.02], "radius": 0.02, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "lid", "shape": "box", "min": [-0.145, 0.006, 0.006], "max": [0.145, 0.0928, 0.4068], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.139, 0, 0.006], "max": [0.139, 0.0988, 0.4068], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.139, 0.006, 0], "max": [0.139, 0.0928, 0.4128], "mat": "plastic_light" },
+    { "node": "lid", "shape": "box", "min": [-0.0725, 0.0988, 0.144], "max": [0.0725, 0.1008, 0.336], "mat": "glass_tinted" },
+    { "node": "lid", "shape": "box", "min": [-0.03, 0.052, 0.4128], "max": [0.03, 0.078, 0.4248], "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.24], "max": [0.145, 0.177, 0.245], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.145, 0, 0], "max": [0.145, 0.101, 0.425], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "top" },
+    "interact": { "kind": "door", "joint": "lid", "prompt": "Otevřít víko", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 332,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/bench.mjs#microcentrifuges",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
