@@ -7,8 +7,9 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Aktualizuje se na konci každého kroku spolu s commitem, ne až na konci sešny.
 - „Nedávno hotovo“ drží posledních 8 položek; starší jsou v `git log` a v `*_STAV.md`.
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
+- Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1` = `a995347` (základ 2, znění 3). Hlavy sešen: `sesna-a` = `db6fad0`, `sesna-b` = `8be5b71`. Stav k 24. 11. 2026 16:05.
+**Základ:** `zaklad-2` = `main` = `integrace-1` (hlava v `git log`; znění 3 základu 2 + dnešní změny svodné sešny, viz její oddíl). Hlavy sešen k 24. 11. 2026 16:20: `sesna-a` = `63a7554`, `sesna-b` = `b43d0bd`.
 
 ## Čeká na Ondřeje
 
@@ -26,13 +27,16 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodnutí `docs/DECISIONS.md`.
 
 **Teď (main 03, 24. 11.):**
-- [x] paměť projektu v repu: tento soubor, mapa v `CLAUDE.md`, moduly v `docs/01_ARCHITEKTURA.md`
-- [ ] měření z tvých snímků F3 z 24. 11. do `docs/mereni/`
-- [ ] rozhodnout N-008, N-109, N-110, pole `env.lightCell`, dvě místa „k potvrzení“ v N-001, vzorky dílů prefabů v zapečeném souboru
-- [ ] základ: rozměry postavy (N-008), čtení zapečeného světla do `src/xspace` (dluh 4), vzorky pevných dílů prefabů
-- [ ] celá regrese, sloučení nanečisto s hlavami sešen, znění 4 základu 2, dodatky pro sešny A a B
+- [x] paměť projektu v repu: tento soubor, mapa v `CLAUDE.md`, moduly v `docs/01_ARCHITEKTURA.md` (D-038)
+- [x] měření z tvých snímků F3 z 24. 11.: `docs/mereni/T460_2026-11-24_D-037_F3.md`
+- [x] rozhodnuto: D-039 řádky podle okna; D-040 N-008 přijat; D-041 vzorky i z pevných dílů prefabů; D-042 N-109 přijat; D-043 N-110 jako směr se zkouškou 5 a 10 cm, `env.lightCell` zamítnuto; D-044 brána jako seznam a `doors` v hlavičce přijaty, čtení souboru do základu
+- [x] základ: `src/xspace/body.js` (N-008) a varování `portal.narrow`; `src/xspace/samples.js` (`levelSamples`); `src/xspace/bake.js` (`decodeBake`, `composeColors`, `gateLevel`, `doorOpenness`)
+- [ ] zlatý vzorek: `door_hinged_01` na obě strany (N-109); věty do `02_KONTRAKTY.md`
+- [ ] celá regrese, sloučení nanečisto s hlavami sešen, `STATE.md`, dodatky pro sešny A a B
 
-**Další na řadě** (po dnešku, pořadí z `START_SVOD.md`): pravidlo validátoru `portal.door.cover` (D-036) → svázané klouby `follow` (N-002, dvoukřídlé dveře jako jeden prefab) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md`.
+**Návrhy, které základ dluží:** N-002 `follow`, N-102 `rigCompile` a `rigSolve`, N-103 `rig.noSpeed`, N-105 svítivosti xLabu. Otevřený žádný; přehled `docs/navrhy/README.md`.
+
+**Další na řadě** (po dnešku, pořadí z `START_SVOD.md`): pravidlo validátoru `portal.door.cover` (D-036, počítané v poloze `rest`, D-042) → svázané klouby `follow` (N-002, dvoukřídlé dveře jako jeden prefab) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md`.
 
 **Nedávno hotovo:**
 - 24. 11. D-037 mřížka světla: vrcholy na násobcích buňky ve světě, schované plochy pryč; švy na zlatém vzorku 128 → 0 (`a995347`)
@@ -62,17 +66,20 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a`, zadání `docs/sesny/STAR
 
 ## Sešna B (obsah a nástroje)
 
-Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b`, zadání `docs/sesny/START_B.md`.
+Oddíl převzat doslova z `TODO.md` na `sesna-b` (`b43d0bd`); vede ho sešna B.
 
-**Teď** (Ondřej 24. 11. 02:04): B2.3 xSearcher → B2.4 vzhled („opotřebený provoz“, z webu jen materiály a textury, poprvé v galerii; originály 2K, odvozeně 1K a 512 px) → B2.5 zkouška povrchu na jednom kusu → zbytek B2.2.
+**Hotovo ve vlně 2:**
+- B2.1 průchodnost pro skutečného hráče 0,74 m, katakomby, světlost dveří (`d2e1481`)
+- B2.6 xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu po podílech, čtení bez Node (`3d1aa2a`, `7dd9cd2`), nad mřížkou D-037 (`9d34aa6`)
+- díly prefabů z `geom.js` v galerii, náhledu a xBake (`7dd9cd2`)
+- poslední celá regrese: 699 kontrol, 0 selhalo (`9d34aa6`, sandbox)
 
-**Čeká na základ:** svázané klouby (N-002) pro dvoukřídlé dveře; rozhodnutí N-109 (dveře na obě strany potřebují jiné těsnění škvír než doraz); čtení zapečeného souboru v běhu.
+**Teď:** B2.3 xSearcher (`tools/searcher/find.mjs`): hledání a příjem textur CC0 z Poly Haven a ambientCG do `packs/_inbox/`, se záznamem o původu a licenci; test nad uloženými odpověďmi bez sítě.
 
-**Nedávno hotovo** (stav `B_STAV.md` z 24. 11., 02:11):
-- 24. 11. xBake nad mřížkou znění 3 (`levelLightMeshes`); xLab 20 509 vzorků, 1,0 s, 476 kB (sandbox)
-- 24. 11. xBake podle D-035: dveře jako brány světla, stínění kolizemi prefabů, okraj stínu 4 × 4 paprsky, čtení bez Node (`tools/bake/read.mjs`)
-- 24. 11. B2.1 průchodnost pro skutečného hráče (0,74 m), světlost dveří, návrh N-008
-- 24. 11. cílový stroj pro horní stupně: mez grafické paměti 8 GB (Ondřej 02:04)
-- 23. 11. díly v nástrojích z `partMesh` a `partTris` ze základu
-- 23. 11. oprava zkoušky A × B: dvoukřídlé dveře v `portal.door` se `seeThrough`
-- 22. 11. katakomby podle volby 2 b, škvíry u dveří (N-007), xBake 0.1 a náhled
+**Další, v tomto pořadí** (Ondřej 24. 11.: opotřebený provoz; z webu jen materiály a textury; poprvé v galerii; mez 8 GB grafické paměti):
+1. B2.4 textury barvy do `kit_base` přes `albedo`, galerie se třemi pohledy (čistý, T460, grafická karta); originály 2K, odvozeně 1K a 512 px
+2. B2.5 zkouška povrchu na jednom kusu (dveře `.glb` na stejné kostře)
+3. zbytek B2.2: `components.place`, `opacity`, `passable`, `seeThrough` u mříže, `speed`
+4. B2.7 xDesigner, dům, tvor
+
+**Čeká na jiné:** N-109 (data dveří na obě strany, až rozhodne svodná) · N-002 (jeden prefab dvoukřídlých dveří) · N-110 (nový druh vrstvy v xBake).

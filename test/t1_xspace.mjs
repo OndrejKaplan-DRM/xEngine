@@ -204,7 +204,7 @@ const MUTATIONS = [
   ['shape.type', 'poloha jako řetězec', (p) => (L(p).entities[0].pos = '3 0 0')],
   ['shape.range', 'barva mimo rozsah', (p) => (p.materials.materials.steel.color = [2, 0, 0])],
   ['shape.unknown', 'překlep v názvu pole (varování)', (p) => (L(p).entities[0].postion = [0, 0, 0])],
-  ['rig.limits', 'kloub s min ≥ max', (p) => (P(p, 'door_hinged_01').rig.joints[0].max = 0)],
+  ['rig.limits', 'kloub s min ≥ max', (p) => { const j = P(p, 'door_hinged_01').rig.joints[0]; j.min = j.max; }],
   ['rig.limits', 'zarážka mimo meze', (p) => (P(p, 'lever_wall_01').rig.joints[0].detents = [-40, 90])],
   ['rig.rootJoint', 'kloub na kořeni', (p) => (P(p, 'door_hinged_01').rig.joints[0].node = 'frame')],
   ['rig.cycle', 'kruh v kostře', (p) => (P(p, 'door_hinged_01').rig.nodes = [{ id: 'frame' }, { id: 'a', parent: 'b' }, { id: 'b', parent: 'a' }, { id: 'leaf', parent: 'frame' }])],
