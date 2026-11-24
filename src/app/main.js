@@ -26,6 +26,9 @@ async function boot() {
 
   const render = createRender({ canvas: document.getElementById('c') });
   const game = createGame({ pack: globalThis.__PACK__, render });
+  // ?lightmap=5|10: zkouška textury světla s bodem 5 nebo 10 cm (N-110, D-043) na buňkách z &lmcell= (výchozí hala xLabu)
+  const lmcm = Number(params.get('lightmap'));
+  if ([5, 10].includes(lmcm)) game.lightmap = { texel: lmcm / 100, cells: (params.get('lmcell') || 'c_hall').split(',') };
   game.light.incremental = true; // vrstvy světla se staví po částech ve snímcích, ne jedním zásekem při načtení
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });

@@ -62,6 +62,11 @@ export function createNullRender({ isLit = () => true } = {}) {
       }
       batches = new Map();
     },
+    /** Zkouška textury světla (N-110): bez obrazu se jen zapamatuje rozměr. */
+    setLightmap(lm) {
+      counts.lightmap = { w: lm.W, h: lm.H, mb: +((lm.W * lm.H * 8) / 1048576).toFixed(1) };
+      return { refresh() {} };
+    },
     addMover(cellId, pieces, alsoCells = null) {
       counts.movers++;
       const rec = { cells: [cellId, ...(alsoCells || [])], meshes: pieces.length, on: true };

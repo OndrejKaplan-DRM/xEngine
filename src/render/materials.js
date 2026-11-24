@@ -54,6 +54,7 @@ export function createMaterials({ onChange = null } = {}) {
   let defs = {};
   let assets = null;
   const cache = new Map();
+  const variants = []; // odvozené materiály (textura světla, N-110); uvolní se s levelem
   const textures = new Map(); // cesta → { tex, users: Set(materiál), w, h, src: [w, h] }
   const white = whiteTexture();
   let gen = 0; // načtení levelu: dekódování ze starého levelu se zahodí
@@ -158,6 +159,8 @@ export function createMaterials({ onChange = null } = {}) {
     setDefs(next, files = null) {
       for (const m of cache.values()) m.dispose();
       cache.clear();
+      for (const m of variants) m.dispose();
+      variants.length = 0;
       for (const rec of textures.values()) if (rec && rec.tex !== white) rec.tex.dispose();
       textures.clear();
       gen++;
@@ -187,6 +190,20 @@ export function createMaterials({ onChange = null } = {}) {
     },
     get count() {
       return cache.size;
+    },
+    /**
+     * Varianta materiálu s texturou světla (zkouška N-110): bez barvy vrcholů, světlo z lightMap (kanál UV 1).
+     * Když materiál čeká na texturu barvy, dostane ji varianta taky.
+     */
+    withLightMap(id, lightMap) {
+      const base = sys.get(id);
+      const m = base.clone();
+      m.name = `${id}|lightmap`;
+      m.vertexColors = false;
+      m.lightMap = lightMap;
+      for (const rec of textures.values()) if (rec && rec.users.has(base)) rec.users.add(m);
+      variants.push(m);
+      return m;
     },
   };
   return sys;

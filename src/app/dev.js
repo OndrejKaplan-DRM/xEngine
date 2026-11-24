@@ -46,6 +46,7 @@ export function createDev({ game, hud }) {
       `volání ${c.calls} · △ ${c.tris} · buňky ${c.visibleCells}/${c.cells}`,
       `světla ${game.light.stat.lights} · mřížka ${String(game.world.stat.lightCell).replace('.', ',')} m · vzorky světla ${game.light.stat.samples} (okraj stínu ${game.light.stat.softened}) · výpočet vrstev ${ms(game.light.stat.buildMs)} ms${game.light.stat.baked ? ` · ze souboru ${game.light.stat.baked}/${game.light.stat.lights}` : ''}${game.light.progress < 1 ? ` · STAVÍ SE ${(game.light.progress * 100).toFixed(0)} %` : ''}`,
       ...assetsLine(game),
+      ...(game.lightmapStat ? [`textura světla (N-110): bod ${game.lightmapStat.texel * 100} cm · ${game.lightmapStat.w} × ${game.lightmapStat.h} (${game.lightmapStat.mb} MB) · bodů ${game.lightmapStat.texels} · výpočet ${game.lightmapStat.ms} ms`] : []),
       `buňka ${vis.cameraCell ?? '?'} · rychlost ${Math.hypot(v[0], v[2]).toFixed(2)} m/s · poloha ${p[0].toFixed(1)} ${p[1].toFixed(1)} ${p[2].toFixed(1)}`,
       `krok po systémech (ms): ${sys || 'měřím…'}`,
       `fyzika: ${bodiesLine()}`,

@@ -153,6 +153,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
           const color = geo.getAttribute('color');
           b.cell = cell.group.name;
           b.mat = matId;
+          b.mesh = mesh; // zkouška textury světla (setLightmap) mu vymění geometrii a materiál
           b.touch = () => {
             color.needsUpdate = true;
             dirty = true;
@@ -162,6 +163,39 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
         cell.pending.clear();
       }
       dirty = true;
+    },
+    /**
+     * Zkouška textury světla (N-110, src/world/lightmap.js): dávkám z lm.meshes vymění geometrii (bez indexů, s UV 1)
+     * a materiál za variantu s lightMap. Textura je RGBA half float (osvětlení až do tisíců). Vrací { refresh() }.
+     */
+    setLightmap(lm) {
+      const tex = new THREE.DataTexture(lm.data, lm.W, lm.H, THREE.RGBAFormat, THREE.HalfFloatType);
+      tex.magFilter = THREE.LinearFilter;
+      tex.minFilter = THREE.LinearFilter;
+      tex.generateMipmaps = false;
+      tex.channel = 1;
+      tex.needsUpdate = true;
+      for (const m of lm.meshes) {
+        const mesh = m.target.mesh;
+        if (!mesh) continue;
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(m.positions, 3));
+        geo.setAttribute('normal', new THREE.BufferAttribute(m.normals, 3));
+        geo.setAttribute('uv', new THREE.BufferAttribute(m.uvs, 2));
+        geo.setAttribute('uv1', new THREE.BufferAttribute(m.uv1, 2));
+        geo.computeBoundingSphere();
+        mesh.geometry.dispose();
+        mesh.geometry = geo;
+        mesh.material = materials.withLightMap(m.target.mat, tex);
+      }
+      counts.lightmap = { w: lm.W, h: lm.H, mb: +((lm.W * lm.H * 8) / 1048576).toFixed(1) };
+      dirty = true;
+      return {
+        refresh() {
+          tex.needsUpdate = true;
+          dirty = true;
+        },
+      };
     },
     /**
      * Pohyblivý díl (uzel kostry nebo dynamické těleso): pieces = [{ mat, batch }] v prostoru uzlu.
@@ -275,6 +309,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       }
       screens.length = 0;
       shared.length = 0;
+      counts.lightmap = null;
       sys.setDebugLines(null);
       scene.remove(levelRoot);
       levelRoot = null;

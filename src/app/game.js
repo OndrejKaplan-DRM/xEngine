@@ -10,6 +10,7 @@ import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
 import { createAssets } from '../world/assets.js';
 import { readBake } from '../world/baked.js';
+import { buildLightmap } from '../world/lightmap.js';
 import { decodeBake } from '../xspace/index.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
@@ -61,9 +62,11 @@ export function createGame({ pack, render, now }) {
   const entities = createEntities({ phys, render, world, light, pack, assets });
   const vis = createVisibility({ world, entities, render });
   // před každým vykreslením: které buňky jsou vidět, potom poznamenané změny světla do barev vrcholů
+  let lightmap = null; // zkouška textury světla (N-110): { lm, view }
   render.beforeDraw = () => {
     vis.update();
     light.flush();
+    if (lightmap && lightmap.lm.update()) lightmap.view.refresh();
   };
   const io = createIo({ entities, world });
   const behave = createBehaviors({ entities, io, world });
@@ -81,6 +84,7 @@ export function createGame({ pack, render, now }) {
   const loadOrder = [light, world, entities, vis, io, player, interact];
   let loaded = null;
   let builtBake = true; // s jakou volbou useBake se level postavil
+  let builtLightmap = 'null'; // s jakou zkouškou textury světla
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
     if (loaded) {
@@ -96,9 +100,18 @@ export function createGame({ pack, render, now }) {
     render.closeStatic();
     phys.settle();
     builtBake = game.useBake;
+    builtLightmap = JSON.stringify(game.lightmap);
     if (game.useBake) light.setBake(...readBake({ assets, pack, level, world, entities, occlusion, decodeBake })); // D-044
     else light.setBake(null, 'zapečené světlo vypnuto');
     light.prepare();
+    lightmap = null;
+    game.lightmapStat = null;
+    if (game.lightmap) {
+      // zkouška N-110 (D-043): plochy vybraných buněk dostanou světlo z textury s bodem game.lightmap.texel
+      const lm = buildLightmap({ targets: render.statics, cells: new Set(game.lightmap.cells), texel: game.lightmap.texel, lights: light.lights, gateOf: light.shadows ? occlusion.gateOf : null, gate: light.gate, ambient: level.env?.ambient || [0, 0, 0], now });
+      lightmap = { lm, view: render.setLightmap(lm) };
+      game.lightmapStat = { texel: lm.texel, w: lm.W, h: lm.H, texels: lm.texels, charts: lm.charts, rays: lm.rays, ms: +lm.ms.toFixed(0), mb: +((lm.W * lm.H * 8) / 1048576).toFixed(1) };
+    }
     loaded = id;
   }
 
@@ -131,6 +144,9 @@ export function createGame({ pack, render, now }) {
     VERSION,
     /** Číst zapečené světlo levelu (D-044), když je v balíku. false = vždy počítat při načtení (srovnání, testy). */
     useBake: true,
+    /** Zkouška textury světla (N-110): null, nebo { texel: 0,05 | 0,1 (m), cells: [id buněk] }; platí od načtení levelu. */
+    lightmap: null,
+    lightmapStat: null,
     E,
     pack,
     assets,
@@ -170,7 +186,7 @@ export function createGame({ pack, render, now }) {
     /** Nová hra v daném levelu (výchozí = aktuální). Zámek kurzoru řeší aplikace, ne hra. */
     start(levelId) {
       if (levelId && levelId !== loaded) loadLevel(levelId);
-      else if (world.lightCell !== world.stat.lightCell || entities.doorsAway !== entities.builtAway || game.useBake !== builtBake) loadLevel(loaded); // jiná mřížka světla, dveře nebo zdroj světla: postavit znovu
+      else if (world.lightCell !== world.stat.lightCell || entities.doorsAway !== entities.builtAway || game.useBake !== builtBake || JSON.stringify(game.lightmap) !== builtLightmap) loadLevel(loaded); // jiná mřížka světla, dveře nebo zdroj světla: postavit znovu
       E.reset();
       if (E.mode !== 'playing') E.setMode('playing');
     },
