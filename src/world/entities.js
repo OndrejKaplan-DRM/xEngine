@@ -11,6 +11,7 @@ import { makeJoint, stepJoint, MOVED } from './joints.js';
 import { GUARDED, guardOf, obstructed, revertStep } from './blocking.js';
 import { swingBoth, portalDoorIds } from './swing.js';
 import { createAssets } from './assets.js';
+import { sampleBases } from './baked.js';
 
 const CELL_CHECK_FRAMES = 16;
 
@@ -44,6 +45,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
   const doorCells = new Map();
   /** Dveře v průchodech mezi buňkami (jen jim nastavení „Dveře od hráče“ rozšíří rozsah). */
   let roomDoors = new Set();
+  let partBases = new Map(); // index entity → (index dílu → index vzorku světla jeho prvního vrcholu), D-041
 
   function instantiate(def, index) {
     let prefab = prefabs.get(def.prefab);
@@ -118,7 +120,8 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     };
     // dveře v portálu jsou vidět z obou buněk: pevné díly jdou do dávek obou, pohyblivé jsou sdílené
     const also = (doorCells.get(def.id) || []).filter((c) => c !== ent.cell);
-    for (let part of prefab.parts) {
+    for (const [pi, p0] of prefab.parts.entries()) {
+      let part = p0;
       const mesh = assets.meshOf(part, packOf.get(def.prefab));
       if (!mesh) {
         if (part.shape !== 'mesh') warn(`díl tvaru „${part.shape}“ (prefab ${prefab.id}) se zatím nekreslí`);
@@ -136,8 +139,8 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         addPart(nodePieces.get(part.node), part, mesh, null);
       } else if (hasLight && isEmissive(part.mat)) appendMesh(piece(glowPieces, part.mat), mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
       else {
-        render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
-        for (const c of also) render.addStatic(c, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
+        render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part), partBases.get(index)?.get(pi) ?? -1);
+        for (const c of also) render.addStatic(c, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part), partBases.get(index)?.get(pi) ?? -1);
       }
     }
     const toPieces = (map) => [...map].map(([mat, batch]) => ({ mat, batch }));
@@ -329,6 +332,8 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       sys.builtAway = sys.doorsAway;
       roomDoors = portalDoorIds(ctx.level);
       assets.beginLevel();
+      const sb = sampleBases(ctx.level, prefabs, world.stat.brushSamples); // vzorky pevných dílů pro zapečené světlo
+      [partBases, sys.samples] = [sb.bases, { counts: sb.counts, total: sb.total }];
       list = (ctx.level.entities || []).map(instantiate);
       byId = new Map(list.map((e) => [e.id, e]));
       for (const ent of list) {

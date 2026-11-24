@@ -1,7 +1,7 @@
 // xRender bez obrazu: stejné rozhraní jako render.js, jen počítá. Slouží testům v Node (svět, fyzika, hráč a světlo
 // po vrcholech se dají ověřit bez prohlížeče za zlomek sekundy) a budoucímu serveru nebo zapékání.
 
-import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { newBatch, appendMesh, finishBatch, noteSamples } from './batch.js';
 import { cameraVfov } from './fov.js';
 import { DEFAULT_ROWS } from './rows.js';
 
@@ -42,10 +42,11 @@ export function createNullRender({ isLit = () => true } = {}) {
       cellCount = cells.length;
       Object.assign(counts, { batches: 0, movers: 0, cells: cells.length, staticTris: 0, moverTris: 0, screens: 0, screenDraws: 0, visibleCells: cells.length, calls: 0, touches: 0 });
     },
-    addStatic(cellId, matId, mesh, start, count, matrix, uvScale) {
+    addStatic(cellId, matId, mesh, start, count, matrix, uvScale, sampleBase = -1) {
       const key = `${cellId}|${matId}`;
       if (!batches.has(key)) batches.set(key, newBatch());
-      appendMesh(batches.get(key), mesh, start, count, matrix, uvScale);
+      const b = batches.get(key);
+      noteSamples(b, appendMesh(b, mesh, start, count, matrix, uvScale), sampleBase);
     },
     closeStatic() {
       counts.batches = batches.size;

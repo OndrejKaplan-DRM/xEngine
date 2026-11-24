@@ -13,7 +13,7 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
   let triggers = []; // { def, inside, done }
   let io = null; // doplní se při načtení (spojení výstupů spouštěčů)
   const lightRecs = [];
-  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: LIGHT_CELL };
+  const stat = { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: LIGHT_CELL, brushSamples: 0, brushCounts: [] };
   const seenBy = [];
   /** Obal postavy, kterou sledují spouštěče. Zapisuje ho xPlay v každém kroku. */
   const actor = { min: [0, 0, 0], max: [0, 0, 0], active: false };
@@ -51,7 +51,7 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
       render.setDefs(matDefs, assets); // textury barvy (albedo) bere vykreslení ze souborů balíku
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
-      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell });
+      Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell, brushSamples: 0, brushCounts: [] });
       // vzorky světla levelu podle kontraktu (D-037): mřížka na násobcích buňky ve světě, bez ploch schovaných v jiném kvádru
       const brushes = level.brushes || [];
       const meshes = levelLightMeshes(brushes, matDefs, sys.lightCell);
@@ -59,12 +59,17 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
         const b = brushes[bi];
         stat.brushes++;
         const m = meshes[bi];
+        // vzorky světla v pořadí kontraktu (D-041): vrcholy sítí kvádrů za sebou, kvádr po kvádru
+        const base = stat.brushSamples;
+        const n = m ? m.positions.length / 3 : 0;
+        stat.brushCounts.push([b.id, n]);
+        stat.brushSamples += n;
         if (m) {
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)
             for (const cellId of faceCells(m, g, b, cells, seenBy)) {
-              render.addStatic(cellId, matId, m, g.start, g.count, null, uvScale(matId));
+              render.addStatic(cellId, matId, m, g.start, g.count, null, uvScale(matId), base);
               keys.add(`${cellId}|${matId}`);
               stat.drawnTris += g.count / 3;
             }

@@ -210,8 +210,9 @@ function soften(light, T, state, gateOf, soft) {
  *
  * soft = { reach(x0, y0, z0, x1, y1, z1), n? } zapne zjemnění okraje stínu (viz soften); výsledek pak nese i
  * počet zjemněných vzorků (softened). Jeden vzorek smí být ve více úsecích (v každé bráně svým podílem).
+ * skipBaked: vrcholy se značkou T.baked (světlo z nich má zapečený soubor) se přeskočí.
  */
-export function buildLayer(light, targets, gateOf = null, soft = null) {
+export function buildLayer(light, targets, gateOf = null, soft = null, skipBaked = false) {
   const segs = [];
   let samples = 0;
   let softened = 0;
@@ -220,7 +221,8 @@ export function buildLayer(light, targets, gateOf = null, soft = null) {
   let val = new Float32Array(0);
   for (let t = 0; t < targets.length; t++) {
     const T = targets[t];
-    if (!T.colors || !reaches(light, T.min, T.max)) continue;
+    if (!T.colors || (skipBaked && T.bakedAll) || !reaches(light, T.min, T.max)) continue;
+    const baked = skipBaked ? T.baked : null; // vrcholy, které světlo dostanou ze zapečeného souboru (D-044)
     const P = T.positions;
     const N = T.normals;
     if (state.length < T.count) {
@@ -231,7 +233,7 @@ export function buildLayer(light, targets, gateOf = null, soft = null) {
     let any = false;
     for (let v = 0; v < T.count; v++) {
       const k = v * 3;
-      const e = lightIrradiance(light, P[k], P[k + 1], P[k + 2], N[k], N[k + 1], N[k + 2]);
+      const e = baked && baked[v] ? 0 : lightIrradiance(light, P[k], P[k + 1], P[k + 2], N[k], N[k + 1], N[k + 2]);
       if (!(e > E_MIN)) {
         state[v] = OUT;
         continue;

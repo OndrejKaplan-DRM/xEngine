@@ -59,12 +59,16 @@ export function createOcclusion({ phys, light }) {
       crossed.push(i);
     }
     if (!crossed.length) return 0;
-    const key = crossed.length === 1 ? crossed[0] : crossed.join(',');
+    return register(crossed);
+  }
+  /** Brána pro kombinaci dveří (indexy vzestupně); stejná kombinace = stejná brána. */
+  function register(list) {
+    const key = list.length === 1 ? list[0] : list.join(',');
     let g = combo.get(key);
     if (g === undefined) {
       g = gateDoors.length;
-      gateDoors.push([...crossed]);
-      for (const i of crossed) doorGates[i].push(g);
+      gateDoors.push([...list]);
+      for (const i of list) doorGates[i].push(g);
       combo.set(key, g);
       light.setGate(g, gateLevel(g));
     }
@@ -173,6 +177,21 @@ export function createOcclusion({ phys, light }) {
       const b = !!phys.raycast(x, y, z, 0, 1, 0, INSIDE, LIGHT_RAY);
       if (b) stat.buried++;
       return b;
+    },
+
+    /**
+     * Brána pro seznam id dveří ze zapečeného souboru (D-044): 0 = prázdný seznam, −1 = některé dveře v levelu nejsou
+     * dveřmi portálu (úsek se pak nepoužije).
+     */
+    gateFor(ids) {
+      if (!ids.length) return 0;
+      const list = [];
+      for (const id of ids) {
+        const i = doors.findIndex((d) => d.ent.id === id);
+        if (i < 0) return -1;
+        if (!list.includes(i)) list.push(i);
+      }
+      return register(list.sort((a, b) => a - b));
     },
 
     /** Stav dveří do bran. Volá se před každým vykreslením; bez změny otevření nedělá nic. */

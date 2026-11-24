@@ -11,6 +11,7 @@ const remap = new Map();
 /**
  * Přidá do dávky část sítě danou rozsahem indexů (start, count). matrix (4×4 po sloupcích) vrcholy převede;
  * normály se otáčejí horní 3×3 částí a normalizují (měřítko entity je rovnoměrné). uvScale dělí souřadnice UV.
+ * Vrací mapu vrchol sítě → vrchol dávky (sdílenou: přečíst hned).
  */
 export function appendMesh(batch, mesh, start = 0, count = mesh.indices.length, matrix = null, uvScale = 1) {
   remap.clear();
@@ -45,6 +46,7 @@ export function appendMesh(batch, mesh, start = 0, count = mesh.indices.length, 
     batch.indices.push(nv);
   }
   batch.tris += count / 3;
+  return remap; // starý vrchol sítě → vrchol dávky (platí do dalšího volání; vzorky světla, D-041)
 }
 
 /**
@@ -70,5 +72,14 @@ export function finishBatch(b, lit) {
     colors: lit ? new Float32Array(n * 3) : null,
     count: n,
     tris: b.tris,
+    // dvojice (index vzorku levelu, vrchol dávky) pro zapečené světlo (D-041, D-044); null = dávka vzorky nenese
+    sampleMap: b.sampleMap ? Uint32Array.from(b.sampleMap) : null,
   };
+}
+
+/** Zapamatuje si, které vrcholy dávky jsou vzorky levelu: base = index vzorku prvního vrcholu sítě (remap z appendMesh). */
+export function noteSamples(batch, remap, base) {
+  if (!(base >= 0)) return;
+  const m = batch.sampleMap || (batch.sampleMap = []);
+  for (const [v, nv] of remap) m.push(base + v, nv);
 }

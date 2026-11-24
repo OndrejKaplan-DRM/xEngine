@@ -6,7 +6,7 @@
 
 import * as THREE from 'three';
 import { createMaterials } from './materials.js';
-import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { newBatch, appendMesh, finishBatch, noteSamples } from './batch.js';
 import { cameraVfov, hfovOf } from './fov.js';
 import { DEFAULT_ROWS } from './rows.js';
 
@@ -133,12 +133,12 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       dirty = true;
     },
     /** Statická geometrie: sbírá se do dávek po buňce a materiálu, sítě vzniknou v closeStatic(). */
-    addStatic(cellId, matId, mesh, start, count, matrix, uvScale) {
+    addStatic(cellId, matId, mesh, start, count, matrix, uvScale, sampleBase = -1) {
       const cell = cells.get(cellId);
       if (!cell) throw new Error(`Statická geometrie pro neznámou buňku „${cellId}“.`);
       let b = cell.pending.get(matId);
       if (!b) cell.pending.set(matId, (b = newBatch()));
-      appendMesh(b, mesh, start, count, matrix, uvScale);
+      noteSamples(b, appendMesh(b, mesh, start, count, matrix, uvScale), sampleBase); // sampleBase: index vzorku vrcholu 0 sítě (D-041)
     },
     closeStatic() {
       for (const cell of cells.values()) {

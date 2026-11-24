@@ -9,6 +9,8 @@ import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
 import { createAssets } from '../world/assets.js';
+import { readBake } from '../world/baked.js';
+import { decodeBake } from '../xspace/index.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
@@ -92,6 +94,8 @@ export function createGame({ pack, render, now }) {
     occlusion.load(ctx, entities);
     render.closeStatic();
     phys.settle();
+    if (game.useBake) light.setBake(...readBake({ assets, pack, level, world, entities, occlusion, decodeBake })); // D-044
+    else light.setBake(null, 'zapečené světlo vypnuto');
     light.prepare();
     loaded = id;
   }
@@ -123,6 +127,8 @@ export function createGame({ pack, render, now }) {
 
   const game = {
     VERSION,
+    /** Číst zapečené světlo levelu (D-044), když je v balíku. false = vždy počítat při načtení (srovnání, testy). */
+    useBake: true,
     E,
     pack,
     assets,

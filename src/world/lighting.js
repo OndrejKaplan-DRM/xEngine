@@ -7,6 +7,7 @@
 
 import { lightIrradiance } from '../xspace/index.js';
 import { buildLayer, adjacency, addSeg, fillAmbient, E_MIN, INV_PI, SAMPLE_LIFT } from './lightfield.js';
+import { mapSamples, bakedBase, bakedSegs, bakeId } from './baked.js';
 
 const MOVER_REACH = 2.5; // m; díl takhle daleko za dosahem světla se při změně světla nepřepočítává (rozměr dílu)
 const BUILD_SLICE_MS = 8; // při postupné stavbě vrstev: kolik času smí stavba zabrat v jednom snímku
@@ -29,7 +30,10 @@ export function createLighting({ render, now = () => performance.now() }) {
   /** Úroveň bran: index 0 = volná cesta (vždy 1), další = otevření dveří 0 až 1. */
   let gateLevel = [1];
   let gateLights = [[]]; // brána → světla, která skrz ni svítí
-  const stat = { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 };
+  /** Zapečené světlo levelu (D-044): { decoded, gateFor, brushOnly } nebo null; bakeMap = vzorky → vrcholy dávek. */
+  let bake = null;
+  let bakeMap = null;
+  const stat = { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0, baked: 0, bakeNote: '' };
 
   const effective = (L) => (L.on && L.level > 0 && L.intensity > 0 ? L.level : 0);
 
@@ -62,7 +66,12 @@ export function createLighting({ render, now = () => performance.now() }) {
     }
   }
   function buildLight(L) {
-    L.layer = buildLayer(L, targets, gateOf, softOpts);
+    if (L.bakedLayer && bakeMap) {
+      // zapečená vrstva (D-044) + běh jen pro vrcholy, které soubor nenese (sítě .glb, díly bez vzorku)
+      const b = bakedSegs(L.bakedLayer, bakeMap, bake.gateFor);
+      const rt = buildLayer(L, targets, gateOf, softOpts, true);
+      L.layer = { segs: b.segs.concat(rt.segs), samples: b.samples + rt.samples, softened: rt.softened };
+    } else L.layer = buildLayer(L, targets, gateOf, softOpts);
     L.layer.built = true;
     stat.entries += L.layer.samples;
     stat.softened += L.layer.softened;
@@ -104,6 +113,7 @@ export function createLighting({ render, now = () => performance.now() }) {
     stat.entries -= L.layer.samples;
     for (const seg of L.layer.segs) if (seg.gate > 0) stat.gated -= seg.idx.length;
     L.eye = null; // bod pro zkoušku zastínění se určí znovu
+    L.bakedLayer = null; // pohnuté světlo zapečený soubor nepopisuje
     buildLight(L);
     applyLight(L);
   }
@@ -215,9 +225,16 @@ export function createLighting({ render, now = () => performance.now() }) {
       targets = [];
       gateLevel = [1];
       gateLights = [[]];
+      bake = null;
+      bakeMap = null;
       built = false;
       toBuild = 0;
-      Object.assign(stat, { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0 });
+      Object.assign(stat, { lights: 0, samples: 0, entries: 0, softened: 0, gated: 0, movers: 0, buildMs: 0, prepMs: 0, flushes: 0, applied: 0, relit: 0, baked: 0, bakeNote: '' });
+    },
+    /** Zapečené světlo pro příští prepare (D-044): { decoded, gateFor, brushOnly } nebo null; note = proč není. */
+    setBake(b, note = '') {
+      bake = b;
+      stat.bakeNote = note;
     },
 
     /**
@@ -323,6 +340,16 @@ export function createLighting({ render, now = () => performance.now() }) {
       gateOf = sys.shadows && occ ? occ.gateOf : null;
       softOpts = gateOf && sys.soft ? { reach: occ.reach, n: sys.soft === true ? undefined : sys.soft } : null;
       dirtyTargets.length = 0;
+      // zapečený soubor platí jen se zastíněním (stíny jsou v něm); bez něj světlo prochází vším jako v xView
+      const useBake = !!(bake && gateOf);
+      bakeMap = useBake ? mapSamples(targets, bake.decoded.header.samples) : null;
+      if (!useBake) for (const T of targets) [T.baked, T.bakedAll] = [null, false];
+      stat.baked = 0;
+      for (const L of lights) {
+        L.bakedLayer = useBake ? bake.decoded.layers.find((y) => (y.kind === 'light' || y.kind === 'entity') && y.id === bakeId(L)) || null : null;
+        if (L.bakedLayer) stat.baked++;
+      }
+      const allBaked = lights.every((L) => L.bakedLayer);
       let samples = 0;
       for (const T of targets) {
         T.dirty = false;
@@ -330,7 +357,7 @@ export function createLighting({ render, now = () => performance.now() }) {
         fillAmbient(T.colors, ambient);
         touchTarget(T);
         samples += T.count;
-        if (gateOf) {
+        if (gateOf && !(allBaked && T.bakedAll)) {
           // které vzorky leží ve stavbě (jednou na dávku) a sousedé vrcholů pro převzetí viditelnosti
           const P = T.positions;
           const N = T.normals;
@@ -339,6 +366,7 @@ export function createLighting({ render, now = () => performance.now() }) {
           T.adj = adjacency(T.indices, T.count);
         }
       }
+      if (useBake) bakedBase(bake.decoded, bakeMap, targets, ambient); // okolní člen × přístupnost + odražené světlo
       for (const L of lights) L.eye = null;
       pending.length = 0;
       for (const m of movers) {
