@@ -110,7 +110,7 @@ Omezení verze 1 (vědomé): jeden kloub na uzel a jedna interakce na prefab. Sk
 | obsah z nástrojů | Blender skripty na zakázku | generátory s parametry a seedem | 200 seedů bez nálezu |
 | regrese | asi 60 minut | testy dat v Node do sekundy, prohlížeč jen na obraz | čas `npm test` |
 
-Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`.
+Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`. Co dalšího převzít (zbraně, výbuchy, zvuk, tvorové, modely) a komu: `docs/prevzeti/ARENA.md` (soupis z větve `hra`, v2.9, 24. 11. 2026).
 
 ## 8. Co se záměrně odkládá
 

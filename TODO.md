@@ -9,16 +9,17 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 6 (24. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 20:20: `sesna-a` = `3250dd6`, `sesna-b` = `5e03d87` (obě bez konfliktu se základem). Regrese na `main`: 923 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 7 (24. 11. 2026 pozdě v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 23:50: `sesna-a` = `728a9a5`, `sesna-b` = `235b38a`. Regrese na `main`: 926 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
 | # | Co | Ptá se | Od | Podrobně |
 |---|---|---|---|---|
-| 1 | Dva běhy `?bench` ve sestavení sešny A „krok 5“, na síti a s vypnutou Úsporou energie v Chrome (večerní běhy měly 30 snímků/s): `xlab_tex.html?bench&tex=0` (cena textur) a `xlab_gen.html?bench&rows=1080` (výchozí 1 080 řádků pro velký level) | sešna A | 24. 11. 19:51 | `A_STAV.md`, oddíl 1 |
-| 2 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
+| 1 | **Textura světla (N-110)** po tvém měření z T460 (23:13 až 23:16): vykreslení +0,7 až +0,9 ms (levné), výpočet jedné haly při načtení 1,8 s po 10 cm a 6,1 s po 5 cm (za běhu nejde, musí zapéct xBake předem), paměť 4 / 16 MB na halu. a) do formátu a xBake s bodem 5 cm, b) totéž s 10 cm, c) zůstat u světla po vrcholech. **Svodná doporučuje a)** s velikostí bodu jako polem dat (T460 smí načíst zmenšeně po 10 cm, D-029); definitivně rozhodne zkouška celého `complex_7` v xBake (čas zapékání, velikost souboru, paměť) | sešna A | 24. 11. 23:18 | `docs/navrhy/N-110-svetlo-v-texture.md` na `sesna-a`, oddíl „Zkouška“ |
+| 2 | **Pořadí převzetí z Arény v2:** a) nejdřív zbraně, střelba, zoom a výbuchy (formát zbraně se zkouškou na plazmové pušce), potom zvuk, potom tvorové; b) nejdřív tvorové a nepřátelé; c) nejdřív zvuk | svodná | 24. 11. 23:55 | `docs/prevzeti/ARENA.md`, oddíl 5 |
+| 3 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
 
-**Zodpovězeno 24. 11. 2026:** 23:38 svodné: kód staré hry **(a) jen Aréna v2** z GitHubu (`OndrejKaplan-DRM/Arena`, připojit jen pro čtení, sepsat co převzít); další krok **(b) N-102** (kostry bez alokací), N-010 až potom. 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
+**Zodpovězeno 24. 11. 2026:** 21:13 a 21:20 sešně A: výchozí rozlišení **(a) zůstává 768 řádků** (`complex_7` na 1 080 řádcích 95 % 10,2 ms); dva běhy s texturami: textury barvy na T460 únosné (`A_STAV.md`, oddíl 5). 23:38 svodné: kód staré hry **(a) jen Aréna v2** z GitHubu (`OndrejKaplan-DRM/Arena`, připojit jen pro čtení, sepsat co převzít); další krok **(b) N-102** (kostry bez alokací), N-010 až potom. 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 
 ## Svodná sešna (základ)
 
@@ -42,7 +43,9 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 - [x] N-102 kostry bez alokací (`rigCompile`, `rigValues`, `rigFollow`, `rigSolve`; T1b; regrese 926 kontrol, 0 selhalo)
 
-**Teď (Ondřej 23:38):** soupis, co převzít z Arény v2 (`docs/prevzeti/ARENA.md`).
+- [x] soupis převzetí z Arény v2 (`docs/prevzeti/ARENA.md`: co komu, co chybí ve formátu, co nepřebírat, pořadí)
+
+**Teď:** čeká na tvé odpovědi 1 a 2 výše; mezitím N-010 (víc interakcí v prefabu).
 
 **Další na řadě:** rozhodnout N-010 (víc interakcí v prefabu; sešna B dělá ~600 těles) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
