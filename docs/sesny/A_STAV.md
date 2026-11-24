@@ -1,6 +1,6 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 24. 11. 2026, 22:45 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 25. 11. 2026, 0:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
 Poslední regrese (sandbox, 24. 11. 22:40, krok 6: znění 4, zapečené světlo, zkouška textury světla): `npm run test:a` **430 kontrol ve 29 sadách**, `npm test` **266**, vše 0 selhalo; `npm run test:axb` 37, 0 selhalo (21:40, od té doby se data ani běh levelů B nezměnily, jen zkouška za přepínačem). Sestavení pro Ondřeje: „vlna 2, krok 6“.
 
@@ -24,18 +24,19 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Další:**
 - [ ] A2.6 zkouška na kusu ze sešny B, až bude B2.5 a N-111 (bez něj soubor balíku do `dist/*.html` nevloží nikdo)
-- [ ] N-110: rozhodnutí podle `?bench` z T460 (Ondřej a svodná, D-043)
+- [ ] N-112 (textura světla 5 cm ve formátu): čeká na svodnou (atlas, formát) a sešnu B (xBake); běh potom
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
-**Čeká na Ondřeje:**
-1. N-110 podle měření z T460 (23:16, tabulka v návrhu N-110): vykreslení s texturou světla +0,7 až +0,9 ms, výpočet jedné haly při načtení 1,8 s (10 cm) a 6,1 s (5 cm). Otázka: a) textura světla do formátu a do xBake s bodem 5 cm (návrh pro svodnou), b) totéž s bodem 10 cm, c) zůstat u světla po vrcholech
+**Čeká na Ondřeje:** nic otevřeného.
+
+**Ondřej 24. 11. 23:58:** stíny **(a) textura světla do formátu a do xBake s bodem 5 cm**. Návrh pro svodnou: **N-112** (atlas v základu, soubor `levels/<id>.lightmap.bin`, xBake, běh: přímé světlo z textury, odraz po vrcholech).
 
 **Ondřej 24. 11. 21:13:** výchozí rozlišení **(a) zůstává 768 řádků** (rezerva pro textury a světlo; `complex_7` na 1 080 řádcích má 95 % 10,2 ms). Volba 4 b z 23. 11. („1 080, když se vejde do 10 ms“) je tím uzavřená: nevešlo se.
 
 **Ondřej 24. 11. 19:49** (k otázkám z kroku 5): zorné pole po opravě **(a) použitelné**; terminál po Esc a Pokračovat **(a) sedí dál a kurzor poslouchá**; černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru** (D-044 je v základu, čtení souboru je úkol sešny A). Poslal tři běhy `?bench` (oddíl 5.1).
 
 **Čeká na jiné sešny:**
-- svodná: **N-111** (textury, `.glb` a zapečené světlo do stránky); přepnout dveře zlatého vzorku na ±105° (testy A jsou připravené); N-009; `composeColors` v `bake.js` nedělí π (oddíl 9); sloučit vlnu 2 sešny A do základu
+- svodná: **N-112** (Ondřejova volba a: textura světla 5 cm ve formátu), **N-111** (textury, `.glb` a zapečené světlo do stránky); přepnout dveře zlatého vzorku na ±105° (testy A jsou připravené); N-009; `composeColors` v `bake.js` nedělí π (oddíl 9); sloučit vlnu 2 sešny A do základu
 - B: soubor `levels/<id>.light.bin` do balíků (`pack.json.assets`) a se vzorky dílů prefabů (D-041, pole `entities` v hlavičce)
 - B: dveře s kloubem na obě strany (N-109), B2.5 (prefab `.glb` a materiál s texturou); v sadě `kit_base` chybí přijatá pole: `screen.offset` u `terminal_desk_01` a `terminal_wall_01` (běh zatím odvozuje plochu z dílů a hlásí to), `opacity` u `glass_pane` (sklo je dnes neprůhledné)
 
@@ -94,6 +95,7 @@ Rozhodnutí, která sešna A udělala sama ve své oblasti. Projektová rozhodnu
 | 24. 11. | sítě z `.glb` a pohnutá světla svítí běh i se souborem | D-041 bere za vzorky jen díly `box` a `cyl`; soubor popisuje světlo v klidové poloze | – | `buildLayer(…, skipBaked)` |
 | 24. 11. | zapečený soubor se čte jen se zastíněním (`light.shadows`) | stíny jsou v souboru; bez zastínění se srovnává s xView | číst vždy | `lighting.prepare` |
 | 24. 11. | zkouška textury světla počítá při načtení, half float RGBA, `MeshBasicMaterial.lightMap` (kanál UV 1), síť dávky bez indexů | D-043: zkouška dřív než formát; `lightMap` dělí π stejně jako kontrakt; vlastní shader zatím zbytečný | formát a xBake (až podle čísla) | `lightmap.js`, `a_43_*` |
+| 25. 11. | test sestavení hlídá zadání bod 5 ve znění změny 2 (kód enginu ≤ 50 MB, data se nepočítají), ne starých 10 MB | zadání se 22. 11. změnilo; zapečené světlo a textury by staré pravidlo porušily, nové ne | – | `a_00_build` |
 | 24. 11. | díl `mesh` bez `mat` dostane z glTF jen základní barvu | formát říká „bere se z glTF“; textura uvnitř `.glb` by znamenala druhou cestu k materiálům vedle `materials.json` | číst materiály glTF celé | `assets.materialOf`; doporučení pro B v N-111 |
 
 ## 3. Jak je to postavené (moduly sešny A)
@@ -330,7 +332,8 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 | N-108 | švy a hrubost mřížky světla | proveden (D-037) | – |
 | N-109 | dveře na obě strany v datech | otevřený | nastavení „Dveře od hráče“, `swing.js` |
 | N-110 | světlo v textuře (bod 5 cm) | otevřený | okraj stínu po podílech, mřížka 0,25 m |
-| N-111 | binární soubory balíku (textury, `.glb`) v buildu a v Node | otevřený | engine čte `pack.files`, když jsou; testy je vkládají samy |
+| N-111 | binární soubory balíku (textury, `.glb`, zapečené světlo) v buildu a v Node | otevřený | engine čte `pack.files`, když jsou; testy je vkládají samy |
+| N-112 | textura světla 5 cm ve formátu a v xBake (Ondřej 23:58, volba a) | otevřený | zkouška `?lightmap=5|10` počítaná při načtení |
 
 **Pro svodnou sešnu:** (0) `composeColors` v `src/xspace/bake.js` sčítá úroveň × barva × E bez dělení π, kontrakt říká jas = barva / π × E; běh π dělí (barvy ze souboru = výpočet při načtení), `composeColors` nevolá. Totéž odraz: xBake ukládá osvětlení (E), dělí se taky. (0b) D-041 bere za vzorky jen díly `box` a `cyl`; díly `mesh` (`.glb`) ve vzorcích nejsou a svítí je běh. (1) v `docs/01_ARCHITEKTURA.md`, oddíl 9, chybí `src/app/probe.js` (sonda fyziky pro `?bench`) a `src/render/opacity.js`, `src/world/swing.js`, `src/world/glb.js`, `src/world/assets.js`; `terminal.js` je obsah obrazovky (text na plátně), klidný režim sám je v `interact.js`. (2) Kontrakt neříká, jestli světlo prochází zavřenými dveřmi se `seeThrough` (mříž ano, dvoukřídlé dveře ne); běh i xBake ho dnes zadržují.
 

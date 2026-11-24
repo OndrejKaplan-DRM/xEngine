@@ -34,6 +34,8 @@ for (const out of Object.values(meta.metafile.outputs)) {
 const kB = (n) => `${(n / 1024).toFixed(0)} kB`;
 const engine = sums.three + sums.vendor + sums.kernel + sums.xspace + sums.a + sums.other;
 h.ok(engine <= 1.5 * 1024 * 1024, 'kód enginu bez Rapieru a dat ≤ 1,5 MB', `engine ${kB(engine)} = three ${kB(sums.three)} + kód sešny A ${kB(sums.a)} + základ ${kB(sums.kernel + sums.xspace)} + Shell ${kB(sums.vendor)}; Rapier ${kB(sums.rapier)}; celé HTML ${kB(html)}`);
-h.ok(html <= 10 * 1024 * 1024, 'celý soubor hry ≤ 10 MB (zadání, bod 5)', kB(html));
+// zadání, bod 5 (změna 2 z 22. 11.): kód enginu do 50 MB, grafika a zvuky (data balíku) se nezapočítávají
+const code = engine + sums.rapier;
+h.ok(code <= 50 * 1024 * 1024, 'kód enginu včetně Rapieru ≤ 50 MB (zadání, bod 5, změna 2; data se nepočítají)', `kód ${kB(code)}, celé HTML s daty ${kB(html)}`);
 
 process.exit(h.finish('A0 sestavení'));

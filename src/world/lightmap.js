@@ -287,7 +287,7 @@ export function buildLightmap({ targets, cells, texel, lights, gateOf, gate, amb
     return true;
   }
   update(true);
-  return { W, H, texel, texels: used.length, charts: all.length, rays, layers: layers.length, ms: now() - t0, data, rgb, inside, meshes, update };
+  return { W, H, texel, texels: used.length, charts: all.length, rays, layers: layers.length, layerData: layers, ms: now() - t0, data, rgb, inside, meshes, update };
 }
 
 /**
