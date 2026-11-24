@@ -54,16 +54,17 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, oddíl 2 deník rozhodnutí sešny A), zadání `docs/sesny/START_A.md`.
 
 **Teď (24. 11. večer):**
-- [x] A2.5 nová pole základu
-- [x] A2.6 na zkušebních datech: díl `.glb`, kolize `hull` / `mesh`, textura barvy (na T460 nejvýš 512 px), světlo texturu násobí; T460: 14 textur v xLabu, vykreslení 2,29 / 2,9 ms (medián / 95 %, `?bench` 24. 11. 19:39)
-- [ ] sloučit znění 4 základu 2 a dodatek: D-039 strop řádků, testy nezávislé na rozsahu dveří zlatého vzorku (D-042), rozměry postavy z `body.js` (D-040), pořadí vzorků `levelSamples` (D-041), **čtení zapečeného světla `bake.js` (D-044)**: odstraní 54 s stavby světla v `complex_7` a přinese odražené světlo (Ondřej 19:49: černé boky řešit tímhle)
-- [ ] A2.6 na kusu ze sešny B: potřebuje B2.5 a návrh **N-111**
+- [x] A2.5 nová pole základu; A2.6 na zkušebních datech (T460: 14 textur v xLabu, vykreslení 2,29 / 2,9 ms)
+- [x] znění 4 základu: D-039 strop řádků, D-040 rozměry postavy, D-042 zkoušky dveří připravené na ±105°, **D-041 a D-044 běh čte zapečené světlo** (shoda s výpočtem, soubor ze xBake se přečte), N-009 barva materiálu s texturou
+- [ ] A2.6 na kusu ze sešny B a zapečené světlo ve hře: potřebuje **N-111** (build vkládá jen JSON) a soubor `levels/<id>.light.bin` v balíku od sešny B
+- [ ] zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043)
 
-**Potom:** zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043) → výchozí 1 080 řádků, pokud `complex_7` na T460 vyjde do 10 ms (xLab: 95 % 7,38 ms).
+**Potom:** výchozí 1 080 řádků (na plátně, které je má), pokud `complex_7` na T460 vyjde do 10 ms (xLab: 95 % 7,38 ms).
 
-**Čeká na jiné:** svodná rozhoduje N-109, N-110, **N-111** a jestli světlo prochází dveřmi se `seeThrough`; sešna B dveře na obě strany v datech (N-109), B2.5 (u dílů `mesh` vyplňovat `mat`, velké plochy modelu dělit asi po 0,5 m kvůli světlu po vrcholech), chybějící pole v `kit_base` (`screen.offset` u terminálů, `opacity` u `glass_pane`).
+**Čeká na jiné:** svodná: N-111, přepnout dveře zlatého vzorku na ±105° (testy A připravené), N-009, `composeColors` bez dělení π (A_STAV, oddíl 9), N-110; sešna B: zapečený soubor do balíků (se vzorky dílů podle D-041), B2.5 (u dílů `mesh` vyplňovat `mat`), `screen.offset` a `opacity` v `kit_base`.
 
 **Nedávno hotovo:**
+- 24. 11. znění 4: zapečené světlo v běhu (`a_44_bake`), strop řádků, rozměry postavy, zkoušky dveří na ±105°
 - 24. 11. A2.6 na zkušebních datech: `glb.js`, `assets.js`, textura v `materials.js` (`6e1ab0c`, `3c6bab0`); testy `a_26_mesh` (30), `a_26_view` (8)
 - 24. 11. A2.5 nová pole: rychlost kloubu ze základu, `screen.offset`, `seeThrough`, `passable`, `opacity` (sklo průhledné, nestíní světlo)
 - 24. 11. snímek z T460 (`complex_7`): „Dveře od hráče“ jen v otvoru portálu, ne dvířka nábytku (`afb5b0a`); černý bok kartotéky = chybí odražené světlo
@@ -71,7 +72,6 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - 24. 11. `?bench` měří čas grafiky dávkou (`draw.ms`); stará metoda na T460 vracela obnovu displeje
 - 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0 (`25e17a4`)
 - 24. 11. zkouška terminálu na T460 prošla (D-032)
-- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (`b77837f`)
 
 ## Sešna B (obsah a nástroje)
 

@@ -20,6 +20,8 @@ A2.6 (D-030): engine umí díl `shape: "mesh"`, kolize `hull` a `mesh` z `.glb` 
 
 Otázka pro svodnou sešnu (D-029): jednosouborová hra s texturami 2K naroste rychle (odhad, neměřeno: jedna 2K WebP asi 0,5 až 2 MB, v base64 o třetinu víc). Engine na stupni `low` zmenšuje při dekódování na 512 px, takže velký originál stojí jen místo v souboru a čas dekódování. Možnosti: (a) vkládat originály a nechat zmenšení na běhu; (b) cíl sestavení zvolí strop (`"assetsMax": 512`) a build vloží odvozenou verzi, pokud ji manifest uvádí (sešna B odvozuje 512 px a 1K podle B_STAV). Pro T460 a jeden soubor bych volila (b), data dál nesou originál.
 
+**Dodatek 24. 11. večer (D-044):** stejnou cestou musí do hry i zapečené světlo `levels/<id>.light.bin`. Běh ho už čte (`src/world/baked.js`, test `a_44_bake.mjs`): hledá `pack.files["<id balíku>/levels/<id levelu>.light.bin"]`. Soubor ze xBake sešny B pro xLab (20 509 vzorků, 476 kB) se v Node přečetl celý (14 ze 14 světel); v `complex_7` by odpadla stavba světla při načtení (na T460 13,1 s výpočtu, při 30 snímcích/s asi 54 s, než je světlo hotové). Do balíku ho musí dát sešna B (`pack.json.assets`), do stránky build.
+
 ## Dopad
 
 - Základ: `read-pack.mjs`, `build.mjs`, případně `mergePacks` a validátor. Formát se nemění (pole `assets`, `albedo`, `mesh` jsou od základu 1).
