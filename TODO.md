@@ -44,19 +44,24 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 ## Sešna A (běh)
 
-Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a`, zadání `docs/sesny/START_A.md`.
+Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, oddíl 2 deník rozhodnutí sešny A), zadání `docs/sesny/START_A.md`.
 
-**Teď:** A2.5 nová pole základu (`screen.offset`, `JOINT_TRAVEL_SECONDS`, `seeThrough`, `passable`, `opacity`) → A2.6 textura a síť `.glb` na jednom kusu se sešnou B (D-030).
+**Teď (A03, 24. 11. odpoledne):**
+- [x] sloučeno `zaklad-2` s D-038; `A_STAV.md` přestavěn: nahoře přehled, deník rozhodnutí, historie dole
+- [ ] prověřit snímek z T460 (24. 11. 09:57, `complex_7`): nastavení „Dveře od hráče“ nejspíš rozšiřuje rozsah i dvířkům nábytku
+- [ ] A2.5 nová pole základu (`screen.offset`, `JOINT_TRAVEL_SECONDS`, `seeThrough`, `passable`, `opacity`)
 
-**Potom:** zkouška textury světla na hale xLabu (N-110; Ondřej 24. 11. 02:26: až po A2.5 a A2.6).
+**Potom:** A2.6 textura a síť `.glb` na jednom kusu (D-030; čeká na B2.5, engine připravím na vlastních zkušebních datech) → zkouška textury světla na hale xLabu (N-110) → výchozí 1 080 řádků, pokud `draw.ms` na T460 vyjde do 10 ms.
 
-**Nedávno hotovo** (stav `A_STAV.md` z 24. 11., 05:30):
-- 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120° (`db6fad0`)
-- 24. 11. `?bench` měří čas grafiky dávkou (stará metoda na T460 vracela obnovu displeje)
+**Čeká na jiné:** svodná rozhoduje N-109 a N-110; sešna B dveře na obě strany v datech (N-109) a B2.5.
+
+**Nedávno hotovo:**
+- 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120°; na T460 F3 ukazuje 117° × 74° při 90 (`db6fad0`)
+- 24. 11. `?bench` měří čas grafiky dávkou (`draw.ms`); stará metoda na T460 vracela obnovu displeje
 - 24. 11. dveře od hráče jako nastavení, výchozí zapnuto; návrh N-109 do dat
-- 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0
+- 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0 (`25e17a4`)
 - 24. 11. zkouška terminálu na T460 prošla (D-032)
-- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (Ondřejův `?bench` 24. 11.)
+- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (Ondřejův `?bench` 24. 11.; `b77837f`)
 - 23. 11. A2.1 světlo po vrcholech se zastíněním, branami dveří a okrajem stínu po podílech; A2.2 pevné řádky a `?bench`
 - 23. 11. A2.4 dluhy vlny 1 (skok, D-024, D-025)
 
