@@ -2,16 +2,13 @@
 // Zdroj hodnot: sada Level 1, 10_CASE_FPS, invariant F3. Jedna herní jednotka původních her = 0,0254 m.
 // Jistota: arena 5/5 (Quake III Arena), real 3/5 (Counter-Strike, Half-Life): výchozí odhad, neladit naslepo.
 
+import { BODY as BODY_DIMS } from '../xspace/index.js';
+
 const U = 0.0254;
 
-/** Rozměry postavy a pravidla terénu společná oběma profilům (18 jednotek schod, normála 0,7 jako mez chůze). */
+/** Rozměry postavy a pravidla terénu jsou v základu (`src/xspace/body.js`, D-040); profil k nim přidává jen chování. */
 const BODY = {
-  height: 1.8, // m, výška kapsle
-  radius: 0.35, // m
-  eye: 1.6, // m nad nohama
-  stepHeight: 18 * U, // m, nejvyšší schod, který postava vyjde bez skoku
-  stepMinWidth: 0.15, // m, nejmenší hloubka schodu
-  walkNormal: 0.7, // nejmenší svislá složka normály, po které se dá chodit (asi 45,6°)
+  ...BODY_DIMS,
   snap: 0.3, // m, přichycení k zemi při chůzi dolů
   mass: 80, // kg, čím postava tlačí do beden
 };

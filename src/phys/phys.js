@@ -4,6 +4,7 @@
 
 import RAPIER from '@dimforge/rapier3d-compat';
 import { axisQuat } from './xform.js';
+import { CHARACTER_SKIN } from '../xspace/index.js';
 
 /** Kolizní skupiny (bity). QUERY nemá žádné těleso: je to „člen“ pro paprsky a dotazy. */
 export const GROUP = { WORLD: 1, PLAYER: 2, PROP: 4, DEBRIS: 8, TRIGGER: 16, QUERY: 32, SOLID: 64 };
@@ -34,10 +35,11 @@ const OBSTACLE_TOUCH = 0.002;
 const isObstacle = (c) => ((c.collisionGroups() >>> 16) & G.PLAYER) !== 0 || !!c.parent()?.isDynamic();
 
 /**
- * Odstup, který kontrolér postavy drží od překážek (i od podlahy). Postava se musí umístit o tento odstup nad
- * podlahu: uvnitř odstupu kontrolér občas vrátí krok s nulovým pohybem (změřeno: 6 takových kroků na 15 m běhu).
+ * Odstup, který kontrolér postavy drží od překážek (i od podlahy), je v základu (`src/xspace/body.js`, D-040).
+ * Postava se musí umístit o tento odstup nad podlahu: uvnitř odstupu kontrolér občas vrátí krok s nulovým pohybem
+ * (změřeno: 6 takových kroků na 15 m běhu).
  */
-export const CHARACTER_SKIN = 0.02;
+export { CHARACTER_SKIN };
 
 const IDENTITY = { x: 0, y: 0, z: 0, w: 1 };
 
