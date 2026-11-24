@@ -213,39 +213,39 @@
         "originalSha256": "8773d9e97a4b057ced3e538d8ecc6069d27c8948191d61daf79b9ad93d93e3b3"
       }
     },
-    "textures/oak_veneer_05_albedo.512.webp": {
-      "kind": "albedo",
-      "bytes": 15710,
-      "sha256": "11f449c14eec2d9d818a3c2fe26655e0041ed4d9360c886ae35941a9f66ddb0a",
+    "textures/oak_veneer_01_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 25006,
+      "sha256": "8511e428139cc4d47f06aaa0ff20e304729c01dd09592e6fc844f67f166a43c1",
       "px": 512,
-      "mean": [0.394, 0.2566, 0.1638],
+      "mean": [0.2345, 0.2345, 0.2345],
       "from": {
         "source": "polyhaven",
-        "id": "oak_veneer_05",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_diff_2k.jpg",
-        "page": "https://polyhaven.com/a/oak_veneer_05",
+        "id": "oak_veneer_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/oak_veneer_01",
         "author": "Jenelle van Heerden",
         "license": "CC0-1.0",
         "date": "2026-11-24",
-        "original": "oak_veneer_05_diff_2k.jpg",
-        "originalSha256": "4989abfa70db76fdfcfa8532e7af83b774e501ebead9a22d9f0737c2db6951f1"
+        "original": "oak_veneer_01_diff_2k.jpg",
+        "originalSha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4"
       }
     },
-    "textures/oak_veneer_05_normal.512.webp": {
+    "textures/oak_veneer_01_normal.512.webp": {
       "kind": "normal",
-      "bytes": 3522,
-      "sha256": "9b71bce0cc0b91ff251aa3a788d12f3b6fc23058256ecc80210e3186f27af8b4",
+      "bytes": 6036,
+      "sha256": "ef054f3badfdf0ca7d138475adb60ad28492f22cc7585bbf3392ebdd3e535dc1",
       "px": 512,
       "from": {
         "source": "polyhaven",
-        "id": "oak_veneer_05",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_nor_gl_2k.jpg",
-        "page": "https://polyhaven.com/a/oak_veneer_05",
+        "id": "oak_veneer_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/oak_veneer_01",
         "author": "Jenelle van Heerden",
         "license": "CC0-1.0",
         "date": "2026-11-24",
-        "original": "oak_veneer_05_nor_gl_2k.jpg",
-        "originalSha256": "2ddcc2419ed7891a2ea3f9f4e125da85dcaec5001c7b1c51bb7e6e3938fcaca2"
+        "original": "oak_veneer_01_nor_gl_2k.jpg",
+        "originalSha256": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9"
       }
     },
     "textures/old_linoleum_flooring_01_albedo_gray.512.webp": {
@@ -693,13 +693,13 @@
       "gain": [0.8665, 0.8903, 0.8908]
     },
     "wood_oak": {
-      "source": "polyhaven:oak_veneer_05",
-      "albedo": "textures/oak_veneer_05_albedo.512.webp",
-      "normal": "textures/oak_veneer_05_normal.512.webp",
-      "uvScale": 1,
-      "mode": "color",
-      "hue": 1.149,
-      "gain": [1.269, 1.403, 1.221]
+      "source": "polyhaven:oak_veneer_01",
+      "albedo": "textures/oak_veneer_01_albedo_gray.512.webp",
+      "normal": "textures/oak_veneer_01_normal.512.webp",
+      "uvScale": 1.83,
+      "mode": "gray",
+      "hue": 1.4732,
+      "gain": [2.1322, 1.5352, 0.8529]
     },
     "wood_old": {
       "source": "polyhaven:old_planks_02",

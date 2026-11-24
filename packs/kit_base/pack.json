@@ -106,19 +106,19 @@
       "author": "ambientCG"
     },
     {
-      "path": "textures/oak_veneer_05_albedo.512.webp",
-      "bytes": 15710,
-      "sha256": "11f449c14eec2d9d818a3c2fe26655e0041ed4d9360c886ae35941a9f66ddb0a",
+      "path": "textures/oak_veneer_01_albedo_gray.512.webp",
+      "bytes": 25006,
+      "sha256": "8511e428139cc4d47f06aaa0ff20e304729c01dd09592e6fc844f67f166a43c1",
       "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_diff_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
       "author": "Jenelle van Heerden"
     },
     {
-      "path": "textures/oak_veneer_05_normal.512.webp",
-      "bytes": 3522,
-      "sha256": "9b71bce0cc0b91ff251aa3a788d12f3b6fc23058256ecc80210e3186f27af8b4",
+      "path": "textures/oak_veneer_01_normal.512.webp",
+      "bytes": 6036,
+      "sha256": "ef054f3badfdf0ca7d138475adb60ad28492f22cc7585bbf3392ebdd3e535dc1",
       "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_nor_gl_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
       "author": "Jenelle van Heerden"
     },
     {

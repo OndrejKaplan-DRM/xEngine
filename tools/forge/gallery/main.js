@@ -4,11 +4,14 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { validatePack } from '../../../src/xspace/index.js';
-import { buildKit } from '../kit/index.mjs';
-import { buildPrefab, poseAt, figure } from './scene.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { validatePack, partMesh } from '../../../src/xspace/index.js';
+import { buildKit, TEXTURES } from '../kit/index.mjs';
+import { buildPrefab, poseAt, figure, useTextures, material } from './scene.js';
+import { TEXTURE_BYTES } from './textures.js';
 
-const VERSION = 'xForge galerie 0.1 · 2026-11-22';
+const VERSION = 'xForge galerie 0.2 · 2026-11-24 · textury (B2.4)';
+const LOOKS = { clean: 'Čistý', t460: 'T460', gpu: 'Grafická karta' };
 const pack = globalThis.__PACK__;
 const findings = validatePack(pack);
 const matDefs = pack.materials.materials;
@@ -28,7 +31,11 @@ scene.background = new THREE.Color(0x12151d);
 const camera = new THREE.PerspectiveCamera(40, 1, 0.02, 200);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = false;
-scene.add(new THREE.HemisphereLight(0xffffff, 0x556070, 2.2));
+// tónové mapování ve všech pohledech stejné, ať se dají porovnat; bez něj se světlé části textur useknou do bílé
+renderer.toneMapping = THREE.AgXToneMapping;
+renderer.toneMappingExposure = 1.15;
+const hemi = new THREE.HemisphereLight(0xffffff, 0x556070, 2.2);
+scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffffff, 2.0);
 sun.position.set(2.5, 5, 4);
 scene.add(sun);
@@ -41,6 +48,8 @@ const holder = new THREE.Group();
 scene.add(holder);
 
 let built = []; // { prefab, root, setPose, dispose }
+let look = 'clean';
+let texState = 'načítám'; // 'ok' | text chyby
 let mode = 'one';
 let current = prefabs[0].id;
 let pose = 0;
@@ -74,7 +83,7 @@ function showOne(id) {
   mode = 'one';
   current = id;
   const prefab = byId.get(id);
-  const b = { prefab, ...buildPrefab(prefab, matDefs) };
+  const b = { prefab, ...buildPrefab(prefab, matDefs, look) };
   // nástěnné a stropní prefaby zvedni, ať nevisí pod mřížkou
   b.root.position.y = Math.max(0, -prefab.bounds.min[1]) + (prefab.bounds.min[1] < -0.001 ? 1.2 : 0);
   holder.add(b.root);
@@ -92,7 +101,7 @@ function showAll() {
   const cols = Math.ceil(Math.sqrt(prefabs.length * 1.6));
   const cell = 3.2;
   prefabs.forEach((prefab, i) => {
-    const b = { prefab, ...buildPrefab(prefab, matDefs) };
+    const b = { prefab, ...buildPrefab(prefab, matDefs, look) };
     const cx = ((i % cols) - (cols - 1) / 2) * cell;
     const cz = Math.floor(i / cols) * cell;
     b.root.position.set(cx - (prefab.bounds.min[0] + prefab.bounds.max[0]) / 2, Math.max(0, -prefab.bounds.min[1]), cz);
@@ -105,6 +114,52 @@ function showAll() {
   ui();
   render();
 }
+// ---- textury a pohledy ------------------------------------------------------------------------
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+let envMap = null;
+const texBytes = Object.values(TEXTURE_BYTES).reduce((s, b) => s + b.length, 0);
+/** Přepne pohled a přestaví scénu; bez načtených textur jde jen „Čistý“. */
+function setLook(l) {
+  if (!LOOKS[l] || (l !== 'clean' && texState !== 'ok')) return false;
+  look = l;
+  // grafická karta: okolí dává odrazy i rozptýlené světlo, polokulové světlo se proto ubere
+  if (look === 'gpu') scene.environment = envMap ??= pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  else scene.environment = null;
+  scene.environmentIntensity = 0.55;
+  hemi.intensity = look === 'gpu' ? 0.8 : 2.2;
+  if (mode === 'all') showAll();
+  else showOne(current);
+  return true;
+}
+async function loadTextures() {
+  const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const map = {};
+  await Promise.all(
+    Object.entries(TEXTURE_BYTES).map(async ([rel, bytes]) => {
+      const bmp = await createImageBitmap(new Blob([bytes], { type: 'image/webp' }), { colorSpaceConversion: 'none', premultiplyAlpha: 'none' });
+      const t = new THREE.Texture(bmp);
+      t.wrapS = t.wrapT = THREE.RepeatWrapping;
+      t.colorSpace = TEXTURES.files[rel].kind === 'normal' ? THREE.NoColorSpace : THREE.SRGBColorSpace;
+      t.anisotropy = aniso;
+      t.flipY = false;
+      t.needsUpdate = true;
+      map[rel] = t;
+    }),
+  );
+  useTextures(map, Object.fromEntries(Object.entries(TEXTURES.materials).map(([id, t]) => [id, t.gain])));
+}
+loadTextures().then(
+  () => {
+    texState = 'ok';
+    ui();
+  },
+  (e) => {
+    texState = `textury se nenačetly: ${e.message}`;
+    ui();
+  },
+);
+
 function setPose(t) {
   pose = Math.min(1, Math.max(0, t));
   for (const b of built) b.setPose(poseAt(b.prefab, pose));
@@ -136,6 +191,11 @@ function ui() {
   document.getElementById('mode-one').classList.toggle('on', mode === 'one');
   document.getElementById('mode-all').classList.toggle('on', mode === 'all');
   document.getElementById('man').classList.toggle('on', man.visible);
+  document.querySelectorAll('button.look').forEach((b) => {
+    b.classList.toggle('on', b.dataset.look === look);
+    b.disabled = b.dataset.look !== 'clean' && texState !== 'ok';
+  });
+  document.getElementById('tex').textContent = texState === 'ok' ? `textury: ${Object.keys(TEXTURE_BYTES).length} souborů, ${(texBytes / 1024).toFixed(0)} kB, ${Object.keys(TEXTURES.materials).length} materiálů` : texState;
   const bar = document.getElementById('bar');
   bar.innerHTML = `<label>Poloha kloubů: klid <input type="range" id="pose" min="0" max="100" value="${Math.round(pose * 100)}"> krajní</label><button class="b" id="play">${playing ? 'Zastavit' : 'Rozhýbat'}</button>`;
   document.getElementById('pose').oninput = (e) => {
@@ -170,8 +230,17 @@ function ui() {
       <tr><td>uzly kostry</td><td>${esc(p.rig.nodes.map((n) => n.id).join(' → '))}</td></tr>
     </table>
     ${joints.length ? joints.join('') : '<div class="joint">Bez kloubu: pevný předmět.</div>'}
+    <div class="mats"><b>Materiály</b>${[...new Set(p.parts.map((x) => x.mat))].map((m) => `<p>${esc(m)}: ${texLine(m)}</p>`).join('')}</div>
     <div id="hint">Tažení myší otáčí, kolečko přibližuje. Meze kloubů jsou úvaha z obecné znalosti předmětu, žádná nebyla změřena.</div>`;
 }
+function texLine(m) {
+  const t = TEXTURES.materials[m];
+  if (!t) return 'jen barva';
+  const f = TEXTURES.files[t.albedo].from;
+  return esc(`${f.source === 'polyhaven' ? 'Poly Haven' : 'ambientCG'} ${f.id}${t.mode === 'gray' ? ' (jen kresba v šedi, barvu dává materiál)' : ''}, ${f.author}, ${f.license}, dlaždice ${String(t.uvScale).replace('.', ',')} m`);
+}
+document.querySelectorAll('button.look').forEach((b) => (b.onclick = () => setLook(b.dataset.look)));
+
 let phase = 0;
 function tick() {
   if (!playing) return;
@@ -248,6 +317,137 @@ globalThis.__kit = {
   jointed: prefabs.filter((p) => (p.rig.joints || []).length).map((p) => p.id),
   select: showOne,
   all: showAll,
+  look: setLook,
+  textures: () => ({ state: texState, files: Object.keys(TEXTURE_BYTES).length, bytes: texBytes, materials: Object.keys(TEXTURES.materials).length, look }),
+  /** Jas středu stěny 2 × 2 m čelně v každém pohledu (průměr bodů 0–255): zesílení má držet průměr u barvy materiálu. */
+  swatchStats(ids = Object.keys(TEXTURES.materials), px = 96) {
+    const keep = look;
+    const m = partMesh({ shape: 'box', min: [-1, 0, -0.05], max: [1, 2, 0.05] });
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+    geo.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+    geo.setIndex(m.indices);
+    const keepSize = { w: canvas.width, h: canvas.height, aspect: camera.aspect, man: man.visible };
+    man.visible = false;
+    grid.visible = false;
+    renderer.setSize(px, px, false);
+    camera.aspect = 1;
+    const copy = document.createElement('canvas');
+    copy.width = copy.height = px;
+    const g = copy.getContext('2d', { willReadFrequently: true });
+    const out = {};
+    for (const l of Object.keys(LOOKS)) {
+      setLook(l);
+      clear();
+      for (const id of ids) {
+        const mesh = new THREE.Mesh(geo, material(id, matDefs, l));
+        holder.add(mesh);
+        frame([-0.5, 0.5, -0.05], [0.5, 1.5, 0.05], [0, 0, 1]);
+        render();
+        g.drawImage(canvas, 0, 0);
+        const d = g.getImageData(px / 4, px / 4, px / 2, px / 2).data;
+        let sum = 0;
+        for (let i = 0; i < d.length; i += 4) sum += (d[i] + d[i + 1] + d[i + 2]) / 3;
+        (out[id] ??= {})[l] = Math.round((sum / (d.length / 4)) * 10) / 10;
+        holder.remove(mesh);
+      }
+    }
+    geo.dispose();
+    grid.visible = true;
+    man.visible = keepSize.man;
+    renderer.setSize(keepSize.w, keepSize.h, false);
+    camera.aspect = keepSize.aspect;
+    camera.updateProjectionMatrix();
+    setLook(keep);
+    return out;
+  },
+  /** Vzorník materiálů s texturou: stěna 2 × 2 m v každém pohledu (zdi a podlahy na prefabech vidět nejsou). */
+  swatches(px = 180, cols = 3, ids = Object.keys(TEXTURES.materials)) {
+    const keep = look;
+    const looks = Object.keys(LOOKS);
+    const geo = new THREE.BufferGeometry();
+    const m = partMesh({ shape: 'box', min: [-1, 0, -0.05], max: [1, 2, 0.05] });
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+    geo.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+    geo.setIndex(m.indices);
+    const tw = looks.length * (px + 4);
+    const th = px + 22;
+    const out = document.createElement('canvas');
+    out.width = cols * (tw + 12) + 12;
+    out.height = Math.ceil(ids.length / cols) * (th + 10) + 34;
+    const g = out.getContext('2d');
+    g.fillStyle = '#0b0d12';
+    g.fillRect(0, 0, out.width, out.height);
+    g.font = '13px system-ui, sans-serif';
+    g.fillStyle = '#8b93a5';
+    for (let c = 0; c < cols; c++) looks.forEach((l, k) => g.fillText(LOOKS[l], 12 + c * (tw + 12) + k * (px + 4) + 4, 22));
+    const keepSize = { w: canvas.width, h: canvas.height, aspect: camera.aspect, man: man.visible };
+    clear();
+    man.visible = false;
+    grid.visible = false;
+    renderer.setSize(px, px, false);
+    camera.aspect = 1;
+    looks.forEach((l, k) => {
+      setLook(l);
+      clear();
+      ids.forEach((id, i) => {
+        const mesh = new THREE.Mesh(geo, material(id, matDefs, l));
+        holder.add(mesh);
+        frame([-1, 0, -0.05], [1, 2, 0.05], [0.45, 0.25, 1.2]);
+        render();
+        const x = 12 + (i % cols) * (tw + 12) + k * (px + 4);
+        const y = 34 + Math.floor(i / cols) * (th + 10);
+        g.drawImage(canvas, x, y, px, px);
+        holder.remove(mesh);
+        if (k === 0) {
+          const t = TEXTURES.materials[id];
+          g.fillStyle = '#d8dbe2';
+          g.fillText(`${id} · ${t.source.split(':')[1]}${t.mode === 'gray' ? ' (šedá kresba)' : ''}`.slice(0, 64), x + 2, y + px + 16);
+        }
+      });
+    });
+    geo.dispose();
+    grid.visible = true;
+    man.visible = keepSize.man;
+    renderer.setSize(keepSize.w, keepSize.h, false);
+    camera.aspect = keepSize.aspect;
+    camera.updateProjectionMatrix();
+    setLook(keep);
+    return out.toDataURL('image/png');
+  },
+  /** Porovnání pohledů: u každého prefabu v klidu čistý, T460 a grafická karta vedle sebe. */
+  compare(ids, px = 200, cols = 2) {
+    const keep = look;
+    const looks = Object.keys(LOOKS);
+    const tw = looks.length * (px + 4);
+    const th = px + 22;
+    const rows = Math.ceil(ids.length / cols);
+    const out = document.createElement('canvas');
+    out.width = cols * (tw + 12) + 12;
+    out.height = rows * (th + 10) + 34;
+    const g = out.getContext('2d');
+    g.fillStyle = '#0b0d12';
+    g.fillRect(0, 0, out.width, out.height);
+    g.font = '13px system-ui, sans-serif';
+    g.fillStyle = '#8b93a5';
+    for (let c = 0; c < cols; c++) looks.forEach((l, k) => g.fillText(LOOKS[l], 12 + c * (tw + 12) + k * (px + 4) + 4, 22));
+    const tiles = new Map();
+    for (const l of looks) {
+      setLook(l);
+      for (const id of ids) tiles.set(`${l}:${id}`, tile(id, 0, px));
+    }
+    ids.forEach((id, i) => {
+      const x = 12 + (i % cols) * (tw + 12);
+      const y = 34 + Math.floor(i / cols) * (th + 10);
+      looks.forEach((l, k) => g.drawImage(tiles.get(`${l}:${id}`), x + k * (px + 4), y));
+      g.fillStyle = '#d8dbe2';
+      g.fillText(byId.get(id).title.slice(0, 60), x + 2, y + px + 16);
+    });
+    setLook(keep);
+    return out.toDataURL('image/png');
+  },
   pose: setPose,
   shot() {
     render();

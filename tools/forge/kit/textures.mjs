@@ -18,7 +18,7 @@ export const TEXTURE_PLAN = {
   steel_brushed: 'ambientcg:Metal009',
   steel_dark: 'ambientcg:Metal009',
   wood_old: 'polyhaven:old_planks_02',
-  wood_oak: 'polyhaven:oak_veneer_05',
+  wood_oak: 'polyhaven:oak_veneer_01',
   wood_pine: 'polyhaven:kitchen_wood',
   brick_red: 'polyhaven:red_brick',
   stone_block: 'polyhaven:stone_brick_wall_001',

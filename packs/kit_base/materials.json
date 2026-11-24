@@ -191,10 +191,10 @@
       "color": [0.5, 0.36, 0.2],
       "rough": 0.7,
       "metal": 0,
-      "uvScale": 1,
+      "uvScale": 1.83,
       "surface": "wood",
-      "albedo": "textures/oak_veneer_05_albedo.512.webp",
-      "normal": "textures/oak_veneer_05_normal.512.webp"
+      "albedo": "textures/oak_veneer_01_albedo_gray.512.webp",
+      "normal": "textures/oak_veneer_01_normal.512.webp"
     },
     "wood_pine": {
       "model": "lit",

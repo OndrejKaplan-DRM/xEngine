@@ -11,8 +11,8 @@ import t8 from '../../../packs/kit_base/textures/kitchen_wood_albedo.512.webp' w
 import t9 from '../../../packs/kit_base/textures/kitchen_wood_normal.512.webp' with { type: 'bytes' };
 import t10 from '../../../packs/kit_base/textures/metal009_albedo.512.webp' with { type: 'bytes' };
 import t11 from '../../../packs/kit_base/textures/metal009_normal.512.webp' with { type: 'bytes' };
-import t12 from '../../../packs/kit_base/textures/oak_veneer_05_albedo.512.webp' with { type: 'bytes' };
-import t13 from '../../../packs/kit_base/textures/oak_veneer_05_normal.512.webp' with { type: 'bytes' };
+import t12 from '../../../packs/kit_base/textures/oak_veneer_01_albedo_gray.512.webp' with { type: 'bytes' };
+import t13 from '../../../packs/kit_base/textures/oak_veneer_01_normal.512.webp' with { type: 'bytes' };
 import t14 from '../../../packs/kit_base/textures/old_linoleum_flooring_01_albedo_gray.512.webp' with { type: 'bytes' };
 import t15 from '../../../packs/kit_base/textures/old_linoleum_flooring_01_normal.512.webp' with { type: 'bytes' };
 import t16 from '../../../packs/kit_base/textures/old_planks_02_albedo.512.webp' with { type: 'bytes' };
@@ -43,8 +43,8 @@ export const TEXTURE_BYTES = {
   'textures/kitchen_wood_normal.512.webp': t9,
   'textures/metal009_albedo.512.webp': t10,
   'textures/metal009_normal.512.webp': t11,
-  'textures/oak_veneer_05_albedo.512.webp': t12,
-  'textures/oak_veneer_05_normal.512.webp': t13,
+  'textures/oak_veneer_01_albedo_gray.512.webp': t12,
+  'textures/oak_veneer_01_normal.512.webp': t13,
   'textures/old_linoleum_flooring_01_albedo_gray.512.webp': t14,
   'textures/old_linoleum_flooring_01_normal.512.webp': t15,
   'textures/old_planks_02_albedo.512.webp': t16,
