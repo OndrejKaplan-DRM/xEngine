@@ -1,5 +1,5 @@
 // xBake, paprsky: co stíní a dotazy na první překážku.
-// Stínítka jsou kvádry a klíny levelu a kolizní tvary prefabů v klidové poloze. Tvar kolize se bere z partCollider
+// Stínítka jsou viditelné neprůhledné kvádry a klíny levelu a kolizní tvary prefabů v klidové poloze. Tvar kolize se bere z partCollider
 // ze základu (N-101), tady je jen průsečík paprsku s kvádrem, válcem a koulí v prostoru uzlu.
 // Křídla dveří v portálech mají značku wing: přímé světlo jimi prochází (zadrží ho brána za běhu, D-035),
 // odraz a přístupnost okolního světla se počítají se zavřenými dveřmi a křídla v nich stíní.
@@ -29,15 +29,24 @@ export function movingNodes(prefab) {
   return out;
 }
 
+/** Stíní materiál? Průhledný (opacity pod 1, N-005) nebo s alphaTest světlo pouští. Stejné pravidlo má základ v geom.js. */
+const opaque = (m) => !m || (!(m.opacity < 1) && m.alphaTest == null);
+
 /**
  * Stínítka levelu. wingEntities = id entit dveří v portálech (jejich pohyblivé kolize dostanou wing: true).
- * Volná tělesa (dynamic) nestíní: hráč je odnese. Kolize skupiny trigger nejsou těleso.
+ * Kvádr levelu stíní, když je vidět (vis není false) a jeho materiály jsou neprůhledné: neviditelná kolize
+ * stín nevrhá a sklem světlo projde. Volná tělesa (dynamic) nestíní: hráč je odnese. Kolize skupiny trigger
+ * nejsou těleso. materials = { id: materiál } (bez nich se bere vše jako neprůhledné).
  * @returns {{ list: object[], skipped: number }} skipped = kolize tvaru hull a mesh, které partCollider neumí
  */
-export function buildBlockers(level, prefabs, wingEntities = new Set()) {
+export function buildBlockers(level, prefabs, wingEntities = new Set(), materials = null) {
   const list = [];
   let skipped = 0;
-  level.brushes.forEach((b, bi) => list.push({ type: b.shape === 'wedge' ? 'wedge' : 'box', min: b.min, max: b.max, brush: bi, rise: b.rise }));
+  const mat = (id) => (materials ? materials[id] : null);
+  level.brushes.forEach((b, bi) => {
+    if (b.vis === false || !opaque(mat(b.mat)) || !Object.values(b.faces || {}).every((id) => opaque(mat(id)))) return;
+    list.push({ type: b.shape === 'wedge' ? 'wedge' : 'box', min: b.min, max: b.max, brush: bi, rise: b.rise });
+  });
   for (const e of level.entities || []) {
     const pf = prefabs.get(e.prefab);
     if (!pf || (pf.components && pf.components.physics && pf.components.physics.body === 'dynamic')) continue;

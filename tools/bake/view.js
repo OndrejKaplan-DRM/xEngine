@@ -5,11 +5,11 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { brushLightMesh, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh } from '../../src/xspace/index.js';
+import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh } from '../../src/xspace/index.js';
 import { bakeLevel } from './bake.mjs';
 import { composeColors } from './read.mjs';
 
-const VERSION = 'xBake náhled 0.3 · 2026-11-24';
+const VERSION = 'xBake náhled 0.4 · 2026-11-24 · mřížka světla znění 2';
 const pack = globalThis.__PACK__;
 const q = new URLSearchParams(location.search);
 const level = (pack.levels.find((l) => l.data.id === q.get('level')) || pack.levels[0]).data;
@@ -42,8 +42,9 @@ function sampleLight() {
 
 // ---- kvádry levelu: tatáž síť, ze které jsou vzorky; strop zvlášť kvůli přehledu shora
 const groups = { world: { pos: [], idx: [], sample: [], brush: [] }, ceiling: { pos: [], idx: [], sample: [], brush: [] } };
-level.brushes.forEach((b, bi) => {
-  const m = brushLightMesh(b, LIGHT_CELL);
+levelLightMeshes(level.brushes, mats, LIGHT_CELL).forEach((m, bi) => {
+  if (!m) return; // kvádr s vis: false se nekreslí a vzorky nemá
+  const b = level.brushes[bi];
   const g = b.tag === 'ceiling' ? groups.ceiling : groups.world;
   const base = g.pos.length / 3;
   for (const v of m.positions) g.pos.push(v);

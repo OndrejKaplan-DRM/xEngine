@@ -39,7 +39,7 @@ const only = flag('--level');
 for (const { data: level } of pack.levels) {
   if (only && level.id !== only) continue;
   const bake = bakeLevel(level, prefabs, materials, { rays: Number(flag('--rays') || DEFAULTS.rays), soft: Number(flag('--soft') ?? DEFAULTS.soft), indirect: !args.includes('--no-indirect'), gates: !args.includes('--no-gates') });
-  const buf = encodeBake(bake, level, prefabs);
+  const buf = encodeBake(bake, level, prefabs, materials);
   const file = path.join(out, `${level.id}.light.bin`);
   writeFileSync(file, buf);
   const s = bake.stats;

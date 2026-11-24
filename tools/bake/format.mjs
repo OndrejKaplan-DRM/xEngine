@@ -2,14 +2,22 @@
 // read.mjs; tady je jen to, co potřebuje Node (otisky přes node:crypto, skládání Bufferu).
 
 import { createHash } from 'node:crypto';
+import { levelLightMeshes } from '../../src/xspace/index.js';
 import { MAGIC } from './read.mjs';
 
 export { MAGIC, decodeBake, composeColors, gateLevel } from './read.mjs';
 
 const sha = (v) => createHash('sha256').update(JSON.stringify(v)).digest('hex');
 
-/** Otisk geometrie: tvary kvádrů v pořadí levelu a buňka mřížky. Když nesedí, vzorky neodpovídají a soubor neplatí. */
-export const geometryHash = (level, cell) => sha([cell, level.brushes.map((b) => [b.shape || 'box', b.min, b.max, b.rise || ''])]);
+/** Znění mřížky světla v základu (D-037). Soubor zapečený jiným zněním neplatí, i když se kvádry nezměnily. */
+export const GRID = 2;
+/**
+ * Otisk geometrie: znění mřížky, buňka, tvary kvádrů v pořadí levelu a počet vzorků každého kvádru (ten závisí
+ * i na viditelnosti kvádrů a průhlednosti materiálů, protože schované plochy vzorky nemají).
+ * Když nesedí, vzorky neodpovídají a soubor neplatí.
+ */
+export const geometryHash = (level, cell, materials = null) =>
+  sha([GRID, cell, level.brushes.map((b) => [b.shape || 'box', b.min, b.max, b.rise || '']), levelLightMeshes(level.brushes, materials, cell).map((m) => (m ? m.positions.length / 3 : 0))]);
 /** Otisk světla: vše, z čeho se počítá E při plné úrovni (barva ne, tou násobí běh). */
 export const lightHash = (l) => sha([l.type, l.pos || null, l.dir || null, l.intensity, l.range ?? null, l.angle ?? null]);
 /** Otisk stínítek a bran: entity, jejich prefaby a dveře portálů. Když nesedí, vzorky platí, ale stíny a brány mohou být jinde. */
@@ -17,7 +25,7 @@ export const sceneHash = (level, prefabs) =>
   sha([(level.entities || []).map((e) => [e.id, e.prefab, e.pos, e.rot || null, e.scale ?? 1, (prefabs.get(e.prefab) || {}).tris ?? null]), (level.portals || []).filter((p) => p.door).map((p) => [p.id, p.door, p.quad])]);
 
 /** Výsledek bakeLevel → Buffer. */
-export function encodeBake(bake, level, prefabs) {
+export function encodeBake(bake, level, prefabs, materials = null) {
   const chunks = [];
   let offset = 0;
   const push = (typed) => {
@@ -62,7 +70,8 @@ export function encodeBake(bake, level, prefabs) {
     cell: bake.cell,
     samples: bake.samples,
     brushes: bake.brushes.map((b) => [b.id, b.count]),
-    geometry: geometryHash(level, bake.cell),
+    grid: GRID,
+    geometry: geometryHash(level, bake.cell, materials),
     scene: sceneHash(level, prefabs),
     doors: (bake.doors || []).map((d) => d.id),
     layers,

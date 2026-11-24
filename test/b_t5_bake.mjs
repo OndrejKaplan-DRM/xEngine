@@ -5,7 +5,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
-import { brushLightMesh, lightIrradiance, LIGHT_CELL } from '../src/xspace/index.js';
+import { levelLightMeshes, lightIrradiance, LIGHT_CELL } from '../src/xspace/index.js';
 import { bakeLevel } from '../tools/bake/bake.mjs';
 import { encodeBake, decodeBake, composeColors, geometryHash, lightHash, sceneHash } from '../tools/bake/format.mjs';
 import { makeChecker } from './b_lib/check.mjs';
@@ -26,13 +26,14 @@ const totals = (L, n) => {
   return out;
 };
 
-// ---- vzorky podle kontraktu
-const meshes = level.brushes.map((b) => brushLightMesh(b, LIGHT_CELL));
+// ---- vzorky podle kontraktu: levelLightMeshes ze základu (mřížka znění 2, D-037); kvádr bez sítě má 0 vzorků
+const EMPTY = { positions: [], normals: [] };
+const meshes = levelLightMeshes(level.brushes, G.materials, LIGHT_CELL).map((m) => m || EMPTY);
 const total = meshes.reduce((n, m) => n + m.positions.length / 3, 0);
 const t0 = performance.now();
 const bake = bakeLevel(level, G.prefabs, G.materials);
 const ms = performance.now() - t0;
-ok(bake.samples === total && bake.brushes.every((b, i) => b.id === level.brushes[i].id && b.count === meshes[i].positions.length / 3), 'vzorky = vrcholy brushLightMesh, po kvádrech v pořadí levelu', `${total} vzorků, ${level.brushes.length} kvádrů`);
+ok(bake.samples === total && bake.brushes.every((b, i) => b.id === level.brushes[i].id && b.count === meshes[i].positions.length / 3), 'vzorky = vrcholy levelLightMeshes, po kvádrech v pořadí levelu', `${total} vzorků, ${level.brushes.length} kvádrů`);
 ok(ms < 60000, 'zapečení xLabu do 60 s', `${(ms / 1000).toFixed(2)} s v sandboxu (orientační); ${bake.stats.shadowRays} stínových a ${bake.stats.bounceRays} odrazových paprsků, ${bake.stats.blockers} stínítek`);
 ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollider ze základu; žádná se nepřeskočila', `${bake.stats.blockers - level.brushes.length} kolizí prefabů, ${level.brushes.length} kvádrů`);
 
@@ -105,9 +106,9 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
   const byId = new Map(bake.lights.map((x) => [x.id, x]));
   const amb = level.env.ambient;
   // odraz se do srovnání nepočítá: výpočet bez zastínění ho nemá, takže by vyšel tmavší než výpočet se stíny
-  const lit = composeColors(decodeBake(encodeBake(bake, level, G.prefabs)), byId, amb, { indirect: 0 });
-  const unl = composeColors(decodeBake(encodeBake(flat, level, G.prefabs)), new Map(flat.lights.map((x) => [x.id, x])), amb);
-  const all = composeColors(decodeBake(encodeBake(bake, level, G.prefabs)), byId, amb);
+  const lit = composeColors(decodeBake(encodeBake(bake, level, G.prefabs, G.materials)), byId, amb, { indirect: 0 });
+  const unl = composeColors(decodeBake(encodeBake(flat, level, G.prefabs, G.materials)), new Map(flat.lights.map((x) => [x.id, x])), amb);
+  const all = composeColors(decodeBake(encodeBake(bake, level, G.prefabs, G.materials)), byId, amb);
   const uniq = [...new Set(list)];
   const mean = (arr) => uniq.reduce((n, s) => n + (arr[s * 3] + arr[s * 3 + 1] + arr[s * 3 + 2]) / 3, 0) / Math.max(1, uniq.length);
   ok(uniq.length > 0 && mean(lit) < mean(unl) * 0.9, 'místa ve stínu sloupu jsou měřitelně tmavší i po přičtení ostatních světel', `průměrné přímé osvětlení ${mean(lit).toFixed(2)} proti ${mean(unl).toFixed(2)} bez zastínění (${uniq.length} vzorků); s odrazem ${mean(all).toFixed(2)}`);
@@ -153,7 +154,7 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
 
   // složení barev: zavřeno < pootevřeno < otevřeno, a právě na vzorcích z úseků s bránou
   const byId = new Map(bake.lights.map((x) => [x.id, x]));
-  const dec = decodeBake(encodeBake(bake, level, G.prefabs));
+  const dec = decodeBake(encodeBake(bake, level, G.prefabs, G.materials));
   const all = Object.fromEntries(bake.lights.map((x) => [x.id, 1]));
   const sumOf = (doors) => composeColors(dec, byId, [0, 0, 0], { ...all, indirect: 0 }, doors).reduce((a, v) => a + v, 0);
   const openAll = Object.fromEntries(doorIds.map((id) => [id, 1]));
@@ -217,18 +218,19 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
 
 // ---- soubor: zápis, čtení, opakovatelnost, otisky
 {
-  const buf = encodeBake(bake, level, G.prefabs);
+  const buf = encodeBake(bake, level, G.prefabs, G.materials);
   const dec = decodeBake(buf);
   const eq = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
   const same = dec.layers.length === bake.layers.length && dec.layers.every((L, k) => eq(L.data, bake.layers[k].data) && L.gates.length === bake.layers[k].gates.length && L.gates.every((g, j) => g.gate.join() === bake.layers[k].gates[j].gate.join() && eq(g.idx, bake.layers[k].gates[j].idx) && eq(g.e, bake.layers[k].gates[j].e)));
   ok(dec.header.samples === bake.samples && same, 'soubor: zápis a čtení vrátí tytéž hodnoty včetně úseků s bránou', `${buf.length} B, hlavička ${buf.readUInt32LE(4)} B, ${dec.layers.filter((L) => L.encoding === 'sparse').length} řídkých vrstev z ${dec.layers.length}, ${dec.layers.reduce((n, L) => n + L.gates.length, 0)} úseků s bránou`);
   const view = decodeBake(new Uint8Array(buf).buffer);
   ok(view.layers.every((L, k) => eq(L.data, dec.layers[k].data)), 'soubor jde přečíst i z ArrayBuffer (čtení bez Node, pro prohlížeč a základ)');
-  const again = encodeBake(bakeLevel(level, G.prefabs, G.materials), level, G.prefabs);
+  const again = encodeBake(bakeLevel(level, G.prefabs, G.materials), level, G.prefabs, G.materials);
   ok(buf.equals(again), 'stejný vstup dvakrát = stejné bajty');
   const moved = { ...level, brushes: level.brushes.map((b, i) => (i ? b : { ...b, max: [b.max[0] + 0.5, b.max[1], b.max[2]] })) };
   const l0 = level.lights[0];
-  ok(dec.header.geometry === geometryHash(level, LIGHT_CELL) && geometryHash(moved, LIGHT_CELL) !== dec.header.geometry, 'otisk geometrie se změní s kvádrem');
+  const hidden = { ...level, brushes: level.brushes.map((b, i) => (i ? b : { ...b, vis: false })) };
+  ok(dec.header.geometry === geometryHash(level, LIGHT_CELL, G.materials) && geometryHash(moved, LIGHT_CELL, G.materials) !== dec.header.geometry && geometryHash(hidden, LIGHT_CELL, G.materials) !== dec.header.geometry, 'otisk geometrie se změní s kvádrem i s jeho viditelností; hlavička nese znění mřížky', `mřížka znění ${dec.header.grid}`);
   ok(lightHash({ ...l0, intensity: l0.intensity + 1 }) !== lightHash(l0) && lightHash({ ...l0, color: [0, 0, 1] }) === lightHash(l0), 'otisk světla se změní se svítivostí, ne s barvou');
 }
 
@@ -242,7 +244,7 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
     const b = bakeLevel(lv, D.prefabs, D.materials);
     const t = performance.now() - a;
     slow = Math.max(slow, t);
-    rows.push(`${lv.id}: ${b.samples} vzorků, ${b.layers.length} vrstev, ${b.stats.doors} dveří a ${b.layers.reduce((n, L) => n + L.gates.length, 0)} úseků s bránou, ${(t / 1000).toFixed(1)} s, ${(encodeBake(b, lv, D.prefabs).length / 1024).toFixed(0)} kB`);
+    rows.push(`${lv.id}: ${b.samples} vzorků, ${b.layers.length} vrstev, ${b.stats.doors} dveří a ${b.layers.reduce((n, L) => n + L.gates.length, 0)} úseků s bránou, ${(t / 1000).toFixed(1)} s, ${(encodeBake(b, lv, D.prefabs, D.materials).length / 1024).toFixed(0)} kB`);
     if (b.stats.skippedColliders) rows.push(`CHYBA: ${b.stats.skippedColliders} kolizí bez tvaru`);
   }
   ok(rows.length === 3 && slow < 60000, 'levely z generátoru se zapečou do 60 s', rows.join(' | '));

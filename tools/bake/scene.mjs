@@ -1,9 +1,10 @@
 // xBake, scéna: vzorky světla a jejich plochy.
-// Vzorky jsou vrcholy sítě brushLightMesh ve stejném pořadí (kontrakt: 02_KONTRAKTY, Světlo). Počet, pořadí ani
-// rozteč vrcholů se tu nikde nepředpokládá: plocha si nese skutečné souřadnice svých řad a sloupců, takže
-// změna mřížky v základu (D-037) tenhle soubor nerozbije. Stínítka a paprsky jsou v rays.mjs.
+// Vzorky levelu definuje levelLightMeshes ze základu (kontrakt: 02_KONTRAKTY, Světlo; mřížka znění 2, D-037):
+// jedna síť na kvádr v pořadí kvádrů, bez ploch schovaných celé v jiném kvádru, null pro kvádr s vis: false.
+// Počet, pořadí ani rozteč vrcholů se tu nikde nepředpokládá: plocha si nese skutečné souřadnice svých řad
+// a sloupců (vrcholy leží na násobcích buňky ve světě, krajní dílky jsou kratší). Stínítka a paprsky jsou v rays.mjs.
 
-import { brushLightMesh, LIGHT_CELL } from '../../src/xspace/index.js';
+import { levelLightMeshes, LIGHT_CELL } from '../../src/xspace/index.js';
 import { buildBlockers, buildRays } from './rays.mjs';
 
 export const NORMAL_OFFSET = 0.02; // počátek paprsku leží 2 cm nad plochou (stejně jako běh)…
@@ -24,9 +25,9 @@ function nearestIndex(arr, x) {
 }
 
 /** Vzorky: polohy, normály, počátky paprsků, plochy (kvůli nejbližšímu vzorku, plošce vzorku a doplnění zakrytých). */
-export function buildSamples(level, cell = LIGHT_CELL) {
-  const meshes = level.brushes.map((b) => brushLightMesh(b, cell));
-  const counts = meshes.map((m) => m.positions.length / 3);
+export function buildSamples(level, cell = LIGHT_CELL, materials = null) {
+  const meshes = levelLightMeshes(level.brushes, materials, cell);
+  const counts = meshes.map((m) => (m ? m.positions.length / 3 : 0));
   const offsets = [];
   let n = 0;
   for (const c of counts) {
@@ -44,6 +45,7 @@ export function buildSamples(level, cell = LIGHT_CELL) {
   const nbrStart = new Uint32Array(n + 1);
   const pairs = [];
   meshes.forEach((m, bi) => {
+    if (!m) return;
     const off = offsets[bi];
     pos.set(m.positions, off * 3);
     nrm.set(m.normals, off * 3);
@@ -117,7 +119,9 @@ export function buildSamples(level, cell = LIGHT_CELL) {
   return { n, counts, offsets, pos, nrm, org, faces, facesOf, faceOf, nbr, nbrStart };
 }
 
-/** Nejbližší vzorek kvádru `bi` k bodu h na ploše přivrácené proti směru d. */
+const ON_FACE = 0.05; // m; bod zásahu musí ležet v rovině plochy, jinak plocha se vzorky pro něj neexistuje
+
+/** Nejbližší vzorek kvádru `bi` k bodu h na ploše přivrácené proti směru d; −1, když taková plocha vzorky nemá. */
 export function sampleAt(S, bi, h, d) {
   let best = null;
   let bestGap = Infinity;
@@ -130,7 +134,7 @@ export function sampleAt(S, bi, h, d) {
       best = f;
     }
   }
-  if (!best) return -1;
+  if (!best || bestGap > ON_FACE) return -1; // schovaná plocha (D-037) nebo kvádr bez vzorků
   const f = best;
   if (f.cols) {
     const rel = [h[0] - f.p0[0], h[1] - f.p0[1], h[2] - f.p0[2]];
@@ -168,8 +172,8 @@ export function samplePatch(S, s, out = {}) {
 }
 
 /** Scéna pro zapékání: vzorky, stínítka a dotazy any() a nearest() (viz rays.mjs). */
-export function buildScene(level, prefabs, cell = LIGHT_CELL, wingEntities = new Set()) {
-  const S = buildSamples(level, cell);
-  const { list, skipped } = buildBlockers(level, prefabs, wingEntities);
+export function buildScene(level, prefabs, cell = LIGHT_CELL, wingEntities = new Set(), materials = null) {
+  const S = buildSamples(level, cell, materials);
+  const { list, skipped } = buildBlockers(level, prefabs, wingEntities, materials);
   return { ...S, blockers: list, skippedColliders: skipped, ...buildRays(list) };
 }
