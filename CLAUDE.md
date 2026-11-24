@@ -22,6 +22,7 @@ Chat se ztrácí, repo ne. Co má přežít sešnu, patří sem, ne do chatu.
 | Zadání a stav sešny | `docs/sesny/START_*.md`, `docs/sesny/*_STAV.md` (na větvi sešny) |
 | Měření z T460 a rozpočty | `docs/mereni/`, `docs/06_ROZPOCTY.md` |
 | Předávky svodné sešny | `docs/sesny/predavky/` |
+| Co převzít ze staré hry Aréna v2 | `docs/prevzeti/ARENA.md` |
 
 ## Jak to spustit
 

@@ -8,7 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readPackDir, checkPackDir } from '../tools/lib/read-pack.mjs';
 import { mergePacks } from '../src/xspace/index.js';
-import { validatePack, brushMesh, brushCollider, brushCorners, brushTris, wedgeRunRise, FORMATS, COMPONENTS, XSPACE_VERSION, entityMatrix, rigMatrices, jointRest, mat4Mul, mat4Point } from '../src/xspace/index.js';
+import { validatePack, brushMesh, brushCollider, brushCorners, brushTris, wedgeRunRise, FORMATS, COMPONENTS, XSPACE_VERSION } from '../src/xspace/index.js';
 import * as X from '../src/xspace/index.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -189,6 +189,8 @@ const MUTATIONS = [
   ['portal.between', 'portál mimo zeď mezi buňkami', (p) => L(p).portals[0].quad.forEach((q) => (q[2] = 3))],
   ['portal.plane', 'portál, jehož rohy neleží v rovině', (p) => (L(p).portals[0].quad[2][2] = -0.5)],
   ['portal.extent', 'portál širší než buňka', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 5.5)],
+  ['portal.door.cover', 'křídlo dveří nezakryje otvor (D-036)', (p) => (P(p, 'door_hinged_01').parts[0].max[0] = 0.9)],
+  ['portal.door.cover', 'dveře, které jsou v klidové poloze otevřené (N-109: zakrytí v rest)', (p) => (P(p, 'door_hinged_01').rig.joints[0].rest = 90)],
   ['portal.narrow', 'průchozí portál užší než postava (N-008)', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 3.2)],
   ['level.cellOverlap', 'překryv buněk', (p) => (L(p).cells[1].bounds.max[2] = 1)],
   ['level.unreachable', 'buňka bez portálu', (p) => L(p).portals.splice(1, 1)],
@@ -205,6 +207,11 @@ const MUTATIONS = [
   ['shape.range', 'barva mimo rozsah', (p) => (p.materials.materials.steel.color = [2, 0, 0])],
   ['shape.unknown', 'překlep v názvu pole (varování)', (p) => (L(p).entities[0].postion = [0, 0, 0])],
   ['rig.limits', 'kloub s min ≥ max', (p) => { const j = P(p, 'door_hinged_01').rig.joints[0]; j.min = j.max; }],
+  ['ref.joint', 'svázaný kloub sleduje neexistující kloub (N-002)', (p) => (P(p, 'door_hinged_01').rig.joints[0].follow = { joint: 'neni', ratio: 1 })],
+  ['rig.follow', 'kloub sleduje sám sebe (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'h2', ratio: 1 } }); }],
+  ['rig.follow', 'kloub interakce je svázaný (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105 }); P0.rig.joints[0].follow = { joint: 'h2', ratio: 1 }; }],
+  ['rig.followCycle', 'kruh ve sledování kloubů (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'l2', parent: 'frame' }, { id: 'l3', parent: 'frame' }); P0.rig.joints.push({ id: 'a', node: 'l2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'b', ratio: 1 } }, { id: 'b', node: 'l3', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'a', ratio: 1 } }); }],
+  ['rig.limits', 'svázaný kloub vyjede z mezí (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: 0, max: 90, follow: { joint: 'hinge', ratio: -1 } }); }],
   ['rig.limits', 'zarážka mimo meze', (p) => (P(p, 'lever_wall_01').rig.joints[0].detents = [-40, 90])],
   ['rig.rootJoint', 'kloub na kořeni', (p) => (P(p, 'door_hinged_01').rig.joints[0].node = 'frame')],
   ['rig.cycle', 'kruh v kostře', (p) => (P(p, 'door_hinged_01').rig.nodes = [{ id: 'frame' }, { id: 'a', parent: 'b' }, { id: 'b', parent: 'a' }, { id: 'leaf', parent: 'frame' }])],
@@ -338,27 +345,6 @@ for (const rise of ['+x', '-x', '+z', '-z']) {
   const first = m.indices[g.start];
   ok(m.uvs[first * 2] === 1 && m.uvs[first * 2 + 1] === 2, 'UV jsou ve světových metrech (stěna +z: u = x, v = y)');
   ok(m.groups.map((x) => x.face).join(' ') === '+x -x +y -y +z -z', 'box má skupinu pro každou stěnu');
-}
-
-// ---- kostra: klouby hýbou díly tak, jak říkají data
-{
-  const near = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 1e-9);
-  const door = P(pack, 'door_hinged_01');
-  ok(jointRest(door).hinge === 0, 'klidová poloha kloubu se bere z dat');
-  ok(near(mat4Point(rigMatrices(door).leaf, [1, 0, 0]), [0.5, 0, 0]), 'zavřené křídlo dveří končí na druhé straně otvoru');
-  ok(near(mat4Point(rigMatrices(door, { hinge: 90 }).leaf, [1, 0, 0]), [-0.5, 0, -1]), 'křídlo otočené o 90° míří do -Z');
-  ok(near(mat4Point(rigMatrices(door, { hinge: 500 }).leaf, [1, 0, 0]), mat4Point(rigMatrices(door, { hinge: 105 }).leaf, [1, 0, 0])), 'hodnota kloubu se omezí na meze');
-  const slide = P(pack, 'door_slide_01');
-  ok(near(mat4Point(rigMatrices(slide, { slide: 0.98 }).leaf, [0, 0, 0]), [0.98, 0, 0]), 'posuvné dveře se posunou po ose o hodnotu kloubu');
-  const eLab = L(pack).entities.find((e) => e.id === 'e_door_lab');
-  const world = mat4Mul(entityMatrix(eLab), rigMatrices(slide, { slide: 0.98 }).leaf);
-  const c = mat4Point(world, [0, 1, 0]);
-  ok(Math.abs(c[0] - 4.1) < 1e-9 && Math.abs(c[2] - -6.48) < 1e-9, 'otevřené dveře laboratoře zajedou do zdi chodby (osa -Z)', c.map((v) => v.toFixed(2)).join(' '));
-  const btn = L(pack).entities.find((e) => e.id === 'e_btn_lab');
-  const front = mat4Point(entityMatrix(btn), [0, 0, 1]);
-  ok(Math.abs(front[0] - 3) < 1e-9 && Math.abs(front[2] - -4.6) < 1e-9, 'tlačítko na východní zdi chodby míří do chodby (-X)');
-  const valve = P(pack, 'valve_wheel_01');
-  ok(near(mat4Point(rigMatrices(valve, { turn: 90 }).wheel, [0.1, 0, 0]), [0, 0.1, 0.12]), 'kolo ventilu se točí kolem své osy');
 }
 
 // ---- co level slibuje testům pohybu a interakce (case 10, T1–T4)

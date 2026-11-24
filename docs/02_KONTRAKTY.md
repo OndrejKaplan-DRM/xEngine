@@ -103,7 +103,7 @@ snapshot()  restore(data)
 - **Buňka** je vnitřní objem vzduchu, osově zarovnaný kvádr. Buňky se nepřekrývají. Místnost do L jsou dvě buňky se širokým portálem.
 - **Zeď patří právě jedné buňce.** Dvě buňky nikdy nestaví tutéž zeď dvakrát (dvojité plochy blikají a zapečené světlo na nich nesedí). Validátor překryvy hlásí.
 - **Portál** jsou čtyři rohy v rovině kolmé na osu, uprostřed tloušťky zdi mezi dvěma buňkami. Pod otvorem je vždy práh (kvádr podlahy), jinak je v podlaze díra.
-- **Dveře u portálu** (`door`) portál zavírají pro viditelnost a zvuk, dokud je jejich kloub v klidové poloze. Dveře, kterými je vidět (mříž, prosklené), mají v prefabu `interact.seeThrough: true`: portál zavírají pro průchod a zvuk, pro viditelnost ne (N-003, N-107).
+- **Dveře u portálu** (`door`) portál zavírají pro viditelnost a zvuk, dokud je jejich kloub v klidové poloze. **V klidové poloze musí zakrýt celý otvor**: kolmý průmět všech neprůhledných dílů `box` prefabu (pevných i pohyblivých, osově zarovnaných, nejvýš 0,3 m od roviny portálu) pokryje obdélník portálu; jinak validátor hlásí `portal.door.cover` (D-036, `src/xspace/cover.js`). Dveře, kterými je vidět (mříž, prosklené), mají v prefabu `interact.seeThrough: true`: portál zavírají pro průchod a zvuk, pro viditelnost ne (N-003, N-107).
 - **Portál jen pro pohled** (okno) má `passable: false`: počítá se do viditelnosti a zvuku, ne do dosažitelnosti a navigace (N-003).
 - Engine řadí viditelnou geometrii po plochách: plocha kvádru jde do buňky, do které míří. Pole `cell` kvádru rozhoduje jen u ploch, které nemíří do žádné buňky (ostění, práh, vnější strana) (N-107).
 - Každá buňka je portály dosažitelná z výchozího místa hráče, nebo má `isolated: true`.
@@ -116,7 +116,7 @@ snapshot()  restore(data)
 - `rig.nodes`: první uzel je kořen a je vůči entitě pevný. Ostatní mají `parent`.
 - `rig.joints`: kloub hýbe uzlem vůči jeho rodiči. `hinge` ve stupních kolem osy, `slider` v metrech po ose. Osa je jednotkový vektor v prostoru rodiče.
 - Jeden kloub na uzel. Víc stupňů volnosti = mezilehlý uzel.
-- Místní matice uzlu = posun · natočení · kloub. Počítá ji výhradně `src/xspace/rig.js` (`rigMatrices`, `entityMatrix`).
+- Místní matice uzlu = posun · natočení · kloub. Počítá ji výhradně `src/xspace/rig.js` (`rigMatrices`, `entityMatrix`). V kroku simulace se kostra kompiluje jednou na prefab (`rigCompile`) a řeší bez alokací do připraveného pole (`rigValues` mimo krok, potom `rigFollow` a `rigSolve`, N-102); `rigMatrices` je obálka nad týmž výpočtem.
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
 - Jedna interakce na prefab (verze 1).
@@ -161,7 +161,7 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 
 - Svítivost bodového a kuželového světla je v **kandelách**. Osvětlení plochy ve vzdálenosti `d`, na kterou světlo dopadá pod úhlem `θ` od kolmice:
   `E = I · cos θ · okno(d) / max(d², 0,01)`, `okno(d) = clamp(1 − (d / range)⁴, 0, 1)²`. Je to výchozí chování `PointLight` v three.js s `decay = 2` a `distance = range`.
-- Jas povrchu = barva materiálu / π · E. Převod do rozsahu displeje dělá engine expozicí `env.exposure`.
+- Jas povrchu = barva materiálu / π · E. Převod do rozsahu displeje dělá engine expozicí `env.exposure`. **Okolní světlo (`env.ambient`, `cells[].ambient`) je také osvětlení E** a dělí se π stejně (D-049): jas vzorku = barva / π × (okolní × ao + Σ úroveň × barva světla × E + odraz × váha); závorku vrací `composeColors`.
 - **Zapečené světlo ukládá osvětlení E (lineárně, před expozicí), ne hotovou barvu.** Engine ho násobí barvou materiálu stejně jako světlo za běhu.
 - Kuželové světlo (`spot`): `angle` je plný úhel kužele; posledních 20 % úhlu je měkký okraj. Slunce (`sun`): `intensity` je osvětlení plochy kolmé ke směru, bez zeslabení vzdáleností.
 - **Jediná implementace vzorce je `lightIrradiance` v `src/xspace/light.js`.** Počítá osvětlení bez zastínění; zda je mezi bodem a světlem překážka, řeší volající.

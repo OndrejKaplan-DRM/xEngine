@@ -77,6 +77,10 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `rig.joints[].damping` |  | číslo 0 až 1000 | tlumení |
 | `rig.joints[].speed` |  | číslo 0.001 až 10000 | rychlost pohonu (stupně nebo metry za sekundu) |
 | `rig.joints[].drive` |  | `manual` · `motor` · `both` | kdo kloubem hýbe: hráč, pohon, nebo oba |
+| `rig.joints[].follow` |  | objekt | svázaný kloub (N-002): nepohání se sám, jeho hodnotu dopočítá jointFollow ze sledovaného kloubu (dvoukřídlé dveře, kolečko a stolek mikroskopu) |
+| `rig.joints[].follow.joint` | ano | odkaz (joint) | kloub téhož prefabu, který tento kloub sleduje |
+| `rig.joints[].follow.ratio` | ano | číslo | hodnota = offset + ratio × hodnota sledovaného kloubu (jednotky tohoto kloubu na jednotku sledovaného) |
+| `rig.joints[].follow.offset` |  | číslo | posun; výchozí 0 |
 | `rig.clips` |  | pole: objekt | animační klipy (tvorové) |
 | `rig.clips[].id` | ano | id | id klipu (idle, walk, attack1…) |
 | `rig.clips[].file` | ano | text | cesta k souboru animace |

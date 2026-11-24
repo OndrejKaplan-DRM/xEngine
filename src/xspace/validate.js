@@ -5,6 +5,7 @@
 import { FORMATS, LIMITS, LEVEL_TARGETS, FREE_LICENSES, FACE_KEYS, XSPACE_VERSION } from './formats.js';
 import { inBounds, boundsGap, wedgeRunRise } from './geom.js';
 import { bodyWidth } from './body.js';
+import { doorCoverGap } from './cover.js';
 
 const ID = /^[a-z][a-z0-9_]*$/;
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -190,6 +191,32 @@ function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
     }
   });
 
+  // svázané klouby (N-002): odkaz, ne sám na sebe, bez kruhu, meze, ne kloub interakce
+  const jointById = new Map(joints.filter((j) => j && j.id).map((j) => [j.id, j]));
+  joints.forEach((j, i) => {
+    if (!j || !j.follow || typeof j.follow !== 'object') return;
+    const path = `${file}.rig.joints[${i}].follow`;
+    const src = jointById.get(j.follow.joint);
+    if (!src) return c.err('ref.joint', `${path}.joint`, `kloub „${j.follow.joint}“ neexistuje`);
+    if (src === j) return c.err('rig.follow', `${path}.joint`, 'kloub nemůže sledovat sám sebe');
+    if (p.components?.interact?.joint === j.id) c.err('rig.follow', path, 'svázaný kloub nesmí být kloubem interakce; interakce pohání kloub, který sleduje');
+    const seen = new Set([j.id]);
+    for (let cur = src; cur && cur.follow; cur = jointById.get(cur.follow.joint)) {
+      if (seen.has(cur.id)) {
+        c.err('rig.followCycle', path, `řetěz sledování kloubů se vrací ke kloubu „${cur.id}“`);
+        break;
+      }
+      seen.add(cur.id);
+    }
+    if (isNum(j.follow.ratio) && isNum(src.min) && isNum(src.max) && isNum(j.min) && isNum(j.max)) {
+      const off = isNum(j.follow.offset) ? j.follow.offset : 0;
+      for (const v of [src.min, src.max]) {
+        const w = off + j.follow.ratio * v;
+        if (w < j.min - 1e-9 || w > j.max + 1e-9) c.err('rig.limits', path, `pro „${src.id}“ = ${v} vyjde ${+w.toFixed(4)}, mimo meze ${j.min} až ${j.max}`);
+      }
+    }
+  });
+
   const needsBox = (x, path) => {
     if (x.min === undefined || x.max === undefined) c.err('shape.required', path, 'tvar box vyžaduje min a max');
     else boxOk(x.min, x.max, path, c, LIMITS.partMinSize);
@@ -255,7 +282,7 @@ function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
 
 // ---- level -----------------------------------------------------------------------------
 
-function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
+function checkLevel(file, L, matIds, prefabById, externalPrefabs, c, mats = null) {
   checkShape(FORMATS.level, L, file, c);
   if (!L || typeof L !== 'object') return null;
   const cells = Array.isArray(L.cells) ? L.cells : [];
@@ -307,6 +334,16 @@ function checkLevel(file, L, matIds, prefabById, externalPrefabs, c) {
       else {
         const pf = prefabById.get(entById.get(p.door).prefab);
         if (pf && pf.components?.interact?.kind !== 'door') c.err('portal.door', `${path}.door`, 'entita u portálu není dveřmi (interact.kind = door)');
+        else if (pf && !pf.components?.interact?.seeThrough && Array.isArray(p.quad) && p.quad.length === 4 && p.quad.every((q) => isVec(q, 3))) {
+          // zavřené dveře musí zakrýt celý otvor (D-036): kolmý průmět neprůhledných dílů v klidové poloze
+          let gap = null;
+          try {
+            gap = doorCoverGap(p, entById.get(p.door), pf, mats);
+          } catch {
+            /* poškozená data entity nebo prefabu hlásí jiná pravidla */
+          }
+          if (gap) c.err('portal.door.cover', `${path}.door`, `dveře „${p.door}“ v klidu nezakryjí otvor: škvíra ${(gap.w * 100).toFixed(1)} × ${(gap.h * 100).toFixed(1)} cm u [${gap.at.map((x) => x.toFixed(2)).join(', ')}], nezakryto celkem ${(gap.area * 1e4).toFixed(1)} cm² (nebo interact.seeThrough)`);
+        }
       }
     }
     const A = cellById.get(p.a)?.bounds;
@@ -526,7 +563,7 @@ export function validatePack(pack) {
   const external = !pack.complete && Array.isArray(m?.requires) && m.requires.length > 0;
   const levelStats = [];
   for (const { file, data } of pack.levels || []) {
-    const s = checkLevel(file, data, matIds, prefabById, external, c);
+    const s = checkLevel(file, data, matIds, prefabById, external, c, pack.materials?.materials || null);
     if (s) levelStats.push(s);
   }
 

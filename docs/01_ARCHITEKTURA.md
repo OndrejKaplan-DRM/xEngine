@@ -110,7 +110,7 @@ Omezení verze 1 (vědomé): jeden kloub na uzel a jedna interakce na prefab. Sk
 | obsah z nástrojů | Blender skripty na zakázku | generátory s parametry a seedem | 200 seedů bez nálezu |
 | regrese | asi 60 minut | testy dat v Node do sekundy, prohlížeč jen na obraz | čas `npm test` |
 
-Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`.
+Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`. Co dalšího převzít (zbraně, výbuchy, zvuk, tvorové, modely) a komu: `docs/prevzeti/ARENA.md` (soupis z větve `hra`, v2.9, 24. 11. 2026).
 
 ## 8. Co se záměrně odkládá
 
@@ -125,7 +125,7 @@ Stav 24. 11. 2026 večer, po sloučení vlny 2 do základu (D-048): všechny mod
 | Modul | Složka, hlavní soubory | Co dělá | Testy |
 |---|---|---|---|
 | xKernel | `src/kernel`: `engine.js`, `store.js`, `rng.js` | registr systémů, fáze a závislosti `after`, deklarované události, pevný krok 120 Hz, režimy, uložení stavu, náhoda přes `rngNext` | T0 |
-| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů), `load.js` (balíky, `mergePacks`, `materialFrom`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `samples.js` (vzorky světla levelu `levelSamples`, D-041), `light.js` (vzorec osvětlení), `bake.js` (čtení zapečeného světla, `doorOpenness`, D-044), `body.js` (rozměry postavy, D-040), `rig.js` (matice koster) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), kontrola dokumentu polí |
+| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů), `load.js` (balíky, `mergePacks`, `materialFrom`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `samples.js` (vzorky světla levelu `levelSamples`, D-041), `light.js` (vzorec osvětlení), `bake.js` (čtení zapečeného světla, `doorOpenness`, D-044), `body.js` (rozměry postavy, D-040), `rig.js` (matice koster: `rigCompile` / `rigSolve` bez alokací, obálka `rigMatrices`, svázané klouby `jointFollow` / `rigFollow`) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), kontrola dokumentu polí |
 | xShell | `src/shell` | menu, pauza, nastavení z deklarací, katalog nabídek; engine nezná, mluví přes adaptér (D-006) | T4 (jen nastavení) |
 | zlatý vzorek | `packs/golden` (level xLab, 12 prefabů), generátor `tools/golden/make.mjs` | referenční data; výstup generátoru je bajtově shodný s repem | T1 |
 | xView | `tools/xview` → `dist/xview.html` | prohlížeč balíku: pět pohledů, vrstvy, validátor v prohlížeči | T2 |

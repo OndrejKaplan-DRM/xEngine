@@ -1,6 +1,6 @@
 # N-102: `rigMatrices` bez alokací pro použití v kroku simulace
 
-Sešna: A · Datum: 2026-11-22 · Stav: přijatý, provede základ ve vlně 2
+Sešna: A · Datum: 2026-11-22 · Stav: proveden v základu 24. 11. 2026 (znění 7 základu 2)
 
 ## Co potřebuju
 
@@ -34,3 +34,13 @@ Volám `rigMatrices` jen pro entity s kloubem v pohybu a jen v krocích, kdy se 
 ## Rozhodnutí
 
 **Přijato** (svodná sešna, 22. 11. 2026, D-034). `rigCompile` a `rigSolve` vzniknou v `rig.js`, `rigMatrices` zůstane obálkou. Provede svodná sešna dřív, než sešna B dodá prvního tvora s kostrou; do té doby stačí dočasné řešení sešny A (halda podle `a_15` neroste).
+
+**Provedeno** (svodná sešna, 24. 11. 2026 v noci, `c4bac67`). V `src/xspace/rig.js`:
+
+- `rigCompile(prefab)` jednou na prefab: `count`, `nodeIds`, `nodeIndex`, `order` (rodič před dítětem), `parent` (−1 = kořen), `joint` (index kloubu uzlu, −1 = bez kloubu), klidové místní matice `local` (posun · natočení), pole kloubů (`jointIds`, `jointIndex`, typ, osa, meze, klid) a pořadí svázaných kloubů (N-002).
+- `rigValues(compiled, values)` → `Float64Array` hodnot kloubů v pořadí `jointIds`; `NaN` = klidová poloha. Volá se mimo krok (alokuje).
+- `rigFollow(compiled, values)` dopočítá svázané klouby v poli na místě (totéž co `jointFollow`).
+- `rigSolve(compiled, values, out)` zapíše matice uzlů do `out` (`Float64Array` 16 × `count`, uzel `i` od `16 i`) a vrátí `out`. Nealokuje; ořez na meze dělá sám.
+- `rigMatrices(prefab, values)` zůstává jako obálka (kompiluje při každém volání, pro nástroje a testy).
+
+Shoda: `rigSolve` i obálka dávají bit po bitu totéž co původní rekurzivní výpočet. T1b: 40 případů na prefabech zlatého vzorku (klid, meze, třetina rozsahu, hodnota za mezí), největší rozdíl 0. Mimo testy: 802 případů na 478 prefabech (`golden`, `kit_base` základu i sešny B, `kit_lab`, `kit_it` ze `sesna-b`), rozdíl 0. Rychlost jen pro představu, sandbox: 100 000 kroků kostry se 4 uzly a 3 klouby (`rigFollow` + `rigSolve`) 62 ms; o T460 to nic neříká.

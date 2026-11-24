@@ -245,6 +245,14 @@ const rig = obj(
         damping: num('tlumení', { min: 0, max: 1000 }),
         speed: num('rychlost pohonu (stupně nebo metry za sekundu)', { min: 0.001, max: 10000 }),
         drive: en(JOINT_DRIVES, 'kdo kloubem hýbe: hráč, pohon, nebo oba'),
+        follow: obj(
+          {
+            joint: R(ref('joint', 'kloub téhož prefabu, který tento kloub sleduje')),
+            ratio: R(num('hodnota = offset + ratio × hodnota sledovaného kloubu (jednotky tohoto kloubu na jednotku sledovaného)')),
+            offset: num('posun; výchozí 0'),
+          },
+          'svázaný kloub (N-002): nepohání se sám, jeho hodnotu dopočítá jointFollow ze sledovaného kloubu (dvoukřídlé dveře, kolečko a stolek mikroskopu)',
+        ),
       }),
       'klouby = stupně volnosti předmětu',
     ),
