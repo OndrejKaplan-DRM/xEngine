@@ -7,8 +7,8 @@ import { rigMatrices, partMesh } from '../../../src/xspace/index.js';
 
 // Pohledy (look): „clean“ = jen barva materiálu (stupeň 0); „t460“ = textura barvy, světlo bez odlesků a bez normál
 // (co unese stupeň low); „gpu“ = textura, normálová mapa, drsnost, kovovost a odrazy okolí (stupně 2 a 3).
-// Textura se násobí zesílením color / průměr textury ze zámku textur, ne samotnou barvou (návrh N-009):
-// průměr povrchu pak odpovídá barvě materiálu a kresba zůstane celá.
+// Textura se násobí zesílením color / albedoMean z dat materiálu, ne samotnou barvou (D-045, N-009): průměr povrchu
+// pak odpovídá barvě materiálu a kresba zůstane celá. Bez pole albedoMean platí zesílení ze zámku textur.
 const cache = new Map();
 let textures = null; // cesta v balíku → THREE.Texture
 let gains = {}; // id materiálu → [r, g, b]
@@ -31,14 +31,16 @@ export function material(id, defs, look = 'clean') {
   if (d.model !== 'lit') m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...(d.emissive || d.color)) });
   else if (look === 'clean' || !textures) m = new THREE.MeshLambertMaterial({ color: new THREE.Color(...d.color) });
   else {
-    const map = d.albedo && textures[d.albedo] && gains[id] ? tiled(textures[d.albedo], d.uvScale) : null;
-    const color = new THREE.Color(...(map ? gains[id] : d.color));
+    const gain = d.albedoMean ? d.color.map((c, k) => c / Math.max(d.albedoMean[k], 1e-4)) : gains[id];
+    const map = d.albedo && textures[d.albedo] && gain ? tiled(textures[d.albedo], d.uvScale) : null;
+    const color = new THREE.Color(...(map ? gain : d.color));
     if (look === 't460') m = new THREE.MeshLambertMaterial({ color, map });
     else {
       const normalMap = map && d.normal && textures[d.normal] ? tiled(textures[d.normal], d.uvScale) : null;
       m = new THREE.MeshStandardMaterial({ color, map, normalMap, roughness: d.rough ?? 0.9, metalness: d.metal ?? 0 });
     }
   }
+  if (d.opacity !== undefined && d.opacity < 1) Object.assign(m, { transparent: true, opacity: d.opacity, depthWrite: false }); // sklo (N-005)
   cache.set(key, m);
   return m;
 }

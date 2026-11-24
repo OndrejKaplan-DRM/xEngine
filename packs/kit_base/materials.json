@@ -10,6 +10,7 @@
       "uvScale": 3,
       "surface": "concrete",
       "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "albedoMean": [0.0922, 0.0957, 0.0885],
       "normal": "textures/concrete_floor_worn_001_normal.512.webp"
     },
     "concrete_smooth": {
@@ -20,6 +21,7 @@
       "uvScale": 3,
       "surface": "concrete",
       "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "albedoMean": [0.0922, 0.0957, 0.0885],
       "normal": "textures/concrete_floor_worn_001_normal.512.webp"
     },
     "concrete_dark": {
@@ -30,6 +32,7 @@
       "uvScale": 3,
       "surface": "concrete",
       "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "albedoMean": [0.0922, 0.0957, 0.0885],
       "normal": "textures/concrete_floor_worn_001_normal.512.webp"
     },
     "plaster_light": {
@@ -40,6 +43,7 @@
       "uvScale": 2,
       "surface": "concrete",
       "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "albedoMean": [0.4075, 0.3664, 0.349],
       "normal": "textures/painted_plaster_wall_normal.512.webp"
     },
     "plaster_grey": {
@@ -50,6 +54,7 @@
       "uvScale": 2,
       "surface": "concrete",
       "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "albedoMean": [0.4075, 0.3664, 0.349],
       "normal": "textures/painted_plaster_wall_normal.512.webp"
     },
     "plaster_green": {
@@ -60,6 +65,7 @@
       "uvScale": 2,
       "surface": "concrete",
       "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "albedoMean": [0.4075, 0.3664, 0.349],
       "normal": "textures/painted_plaster_wall_normal.512.webp"
     },
     "tile_white": {
@@ -70,6 +76,7 @@
       "uvScale": 1,
       "surface": "tile",
       "albedo": "textures/tiles107_albedo.512.webp",
+      "albedoMean": [0.9463, 0.9435, 0.943],
       "normal": "textures/tiles107_normal.512.webp"
     },
     "tile_grey": {
@@ -80,6 +87,7 @@
       "uvScale": 1,
       "surface": "tile",
       "albedo": "textures/tiles107_albedo.512.webp",
+      "albedoMean": [0.9463, 0.9435, 0.943],
       "normal": "textures/tiles107_normal.512.webp"
     },
     "lino_grey": {
@@ -90,6 +98,7 @@
       "uvScale": 1.99,
       "surface": "rubber",
       "albedo": "textures/old_linoleum_flooring_01_albedo_gray.512.webp",
+      "albedoMean": [0.2679, 0.2679, 0.2679],
       "normal": "textures/old_linoleum_flooring_01_normal.512.webp"
     },
     "metal_floor": {
@@ -100,6 +109,7 @@
       "uvScale": 1,
       "surface": "metal",
       "albedo": "textures/diamondplate008c_albedo.512.webp",
+      "albedoMean": [0.1483, 0.153, 0.1658],
       "normal": "textures/diamondplate008c_normal.512.webp"
     },
     "stone_block": {
@@ -110,6 +120,7 @@
       "uvScale": 2.5,
       "surface": "stone",
       "albedo": "textures/stone_brick_wall_001_albedo_gray.512.webp",
+      "albedoMean": [0.0585, 0.0585, 0.0585],
       "normal": "textures/stone_brick_wall_001_normal.512.webp"
     },
     "stone_rough": {
@@ -120,6 +131,7 @@
       "uvScale": 2,
       "surface": "stone",
       "albedo": "textures/castle_wall_varriation_albedo_gray.512.webp",
+      "albedoMean": [0.2337, 0.2337, 0.2337],
       "normal": "textures/castle_wall_varriation_normal.512.webp"
     },
     "stone_slab": { "model": "lit", "color": [0.185, 0.179, 0.173], "rough": 0.8, "metal": 0, "uvScale": 1, "surface": "stone" },
@@ -131,6 +143,7 @@
       "uvScale": 3,
       "surface": "stone",
       "albedo": "textures/sandstone_blocks_05_albedo_gray.512.webp",
+      "albedoMean": [0.3626, 0.3625, 0.3626],
       "normal": "textures/sandstone_blocks_05_normal.512.webp"
     },
     "brick_red": {
@@ -141,6 +154,7 @@
       "uvScale": 1.4,
       "surface": "stone",
       "albedo": "textures/red_brick_albedo.512.webp",
+      "albedoMean": [0.2767, 0.1377, 0.0849],
       "normal": "textures/red_brick_normal.512.webp"
     },
     "dirt_packed": {
@@ -151,6 +165,7 @@
       "uvScale": 2.1,
       "surface": "dirt",
       "albedo": "textures/ground110_albedo.512.webp",
+      "albedoMean": [0.1417, 0.1178, 0.0909],
       "normal": "textures/ground110_normal.512.webp"
     },
     "steel_brushed": {
@@ -161,6 +176,7 @@
       "uvScale": 1,
       "surface": "metal",
       "albedo": "textures/metal009_albedo.512.webp",
+      "albedoMean": [0.2892, 0.2991, 0.316],
       "normal": "textures/metal009_normal.512.webp"
     },
     "steel_dark": {
@@ -171,6 +187,7 @@
       "uvScale": 1,
       "surface": "metal",
       "albedo": "textures/metal009_albedo.512.webp",
+      "albedoMean": [0.2892, 0.2991, 0.316],
       "normal": "textures/metal009_normal.512.webp"
     },
     "steel_painted": {
@@ -181,6 +198,7 @@
       "uvScale": 2.2,
       "surface": "metal",
       "albedo": "textures/rusty_painted_metal_albedo_gray.512.webp",
+      "albedoMean": [0.0695, 0.0693, 0.0695],
       "normal": "textures/rusty_painted_metal_normal.512.webp"
     },
     "iron_black": { "model": "lit", "color": [0.07, 0.07, 0.08], "rough": 0.7, "metal": 0.9, "uvScale": 1, "surface": "metal" },
@@ -194,6 +212,7 @@
       "uvScale": 1.83,
       "surface": "wood",
       "albedo": "textures/oak_veneer_01_albedo_gray.512.webp",
+      "albedoMean": [0.2345, 0.2345, 0.2345],
       "normal": "textures/oak_veneer_01_normal.512.webp"
     },
     "wood_pine": {
@@ -204,6 +223,7 @@
       "uvScale": 0.6,
       "surface": "wood",
       "albedo": "textures/kitchen_wood_albedo.512.webp",
+      "albedoMean": [0.1658, 0.1159, 0.071],
       "normal": "textures/kitchen_wood_normal.512.webp"
     },
     "wood_old": {
@@ -214,6 +234,7 @@
       "uvScale": 2,
       "surface": "wood",
       "albedo": "textures/old_planks_02_albedo.512.webp",
+      "albedoMean": [0.1223, 0.092, 0.0634],
       "normal": "textures/old_planks_02_normal.512.webp"
     },
     "plastic_ivory": { "model": "lit", "color": [0.709, 0.701, 0.66], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
@@ -222,7 +243,7 @@
     "rubber_black": { "model": "lit", "color": [0.04, 0.04, 0.04], "rough": 0.95, "metal": 0, "uvScale": 1, "surface": "rubber" },
     "paper_kraft": { "model": "lit", "color": [0.42, 0.28, 0.15], "rough": 0.95, "metal": 0, "uvScale": 1, "surface": "wood" },
     "fabric_blue": { "model": "lit", "color": [0.15, 0.22, 0.38], "rough": 1, "metal": 0, "uvScale": 1, "surface": "carpet" },
-    "glass_pane": { "model": "lit", "color": [0.6, 0.75, 0.8], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass" },
+    "glass_pane": { "model": "lit", "color": [0.6, 0.75, 0.8], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.3 },
     "paint_red": { "model": "lit", "color": [0.72, 0.08, 0.06], "rough": 0.45, "metal": 0, "uvScale": 1, "surface": "metal" },
     "paint_yellow": { "model": "lit", "color": [0.9, 0.72, 0.05], "rough": 0.55, "metal": 0, "uvScale": 1, "surface": "metal" },
     "paint_green": { "model": "lit", "color": [0.1, 0.45, 0.2], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "metal" },

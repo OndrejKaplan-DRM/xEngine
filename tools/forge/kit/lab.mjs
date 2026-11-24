@@ -169,7 +169,7 @@ export function terminalWall() {
     components: {
       physics: { body: 'static' },
       interact: { kind: 'terminal', prompt: 'Použít terminál', range: 1.8, station: { eye: [0, 0.2, 0.65], look: [0, 0.04, 0.1], fov: 50 } },
-      screen: { node: 'screen', size: [0.44, 0.28], res: [640, 400], app: 'wall_console' },
+      screen: { node: 'screen', size: [0.44, 0.28], res: [640, 400], app: 'wall_console', offset: 0.005 }, // 1 mm před svítícím dílem (z 0,004)
     },
     ...IO.terminal,
     gen: 'lab.mjs#terminalWall',
@@ -196,7 +196,7 @@ export function terminalDesk() {
     components: {
       physics: { body: 'static' },
       interact: { kind: 'terminal', prompt: 'Použít počítač', range: 1.8, station: { eye: [0, 0.42, 0.55], look: [0, 0.27, -0.1], fov: 50 } },
-      screen: { node: 'screen', size: [0.46, 0.28], res: [640, 400], app: 'desk_console' },
+      screen: { node: 'screen', size: [0.46, 0.28], res: [640, 400], app: 'desk_console', offset: 0.004 }, // 1 mm před svítícím dílem (z 0,003)
     },
     ...IO.terminal,
     gen: 'lab.mjs#terminalDesk',

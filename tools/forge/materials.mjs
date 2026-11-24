@@ -45,7 +45,7 @@ export const MATERIALS = {
   rubber_black: lit([0.04, 0.04, 0.04], 'rubber', { rough: 0.95 }),
   paper_kraft: lit([0.42, 0.28, 0.15], 'wood', { rough: 0.95 }), // hnědá lepenka, závěsné desky
   fabric_blue: lit([0.15, 0.22, 0.38], 'carpet', { rough: 1 }),
-  glass_pane: lit([0.6, 0.75, 0.8], 'glass', { rough: 0.05 }),
+  glass_pane: lit([0.6, 0.75, 0.8], 'glass', { rough: 0.05, opacity: 0.3 }), // N-005: sklo průhledné, nestíní světlo
   // nátěry
   paint_red: lit([0.72, 0.08, 0.06], 'metal', { rough: 0.45 }),
   paint_yellow: lit([0.9, 0.72, 0.05], 'metal', { rough: 0.55 }),

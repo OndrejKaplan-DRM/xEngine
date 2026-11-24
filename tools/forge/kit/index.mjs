@@ -20,7 +20,8 @@ export function texturedMaterials(lock = TEXTURES) {
   const out = {};
   for (const [id, m] of Object.entries(MATERIALS)) {
     const t = lock.materials[id];
-    out[id] = t ? { ...m, uvScale: t.uvScale, albedo: t.albedo, normal: t.normal } : m;
+    // albedoMean = průměr souboru albedo lineárně (D-045, N-009): engine násobí texturu color / albedoMean
+    out[id] = t ? { ...m, uvScale: t.uvScale, albedo: t.albedo, albedoMean: lock.files[t.albedo].mean, normal: t.normal } : m;
   }
   return out;
 }

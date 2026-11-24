@@ -289,9 +289,9 @@ ok(MOVING.every(movesOrAttached), 'každý předmět, který se má hýbat, má 
   const wrong = textured.filter((m) => {
     const t = TEXTURES.materials[m];
     const x = mats[m];
-    return x.albedo !== t.albedo || x.normal !== t.normal || x.uvScale !== t.uvScale || String(x.color) !== String(MATERIALS[m].color) || x.rough !== MATERIALS[m].rough;
+    return x.albedo !== t.albedo || x.normal !== t.normal || x.uvScale !== t.uvScale || String(x.albedoMean) !== String(TEXTURES.files[t.albedo].mean) || String(x.color) !== String(MATERIALS[m].color) || x.rough !== MATERIALS[m].rough;
   });
-  ok(wrong.length === 0, 'materiál s texturou má albedo, normal a uvScale ze zámku; barva a drsnost zůstaly', wrong.join(', '));
+  ok(wrong.length === 0, 'materiál s texturou má albedo, albedoMean (D-045), normal a uvScale ze zámku; barva a drsnost zůstaly', wrong.join(', '));
   const plain = Object.keys(MATERIALS).filter((m) => !TEXTURES.materials[m]);
   ok(plain.every((m) => JSON.stringify(mats[m]) === JSON.stringify(MATERIALS[m])), 'materiály bez textury jsou beze změny', `${plain.length} materiálů`);
   const modes = textured.filter((m) => {
