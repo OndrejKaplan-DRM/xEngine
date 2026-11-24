@@ -173,6 +173,26 @@ ok(
 // ---- mutace: každá musí vyvolat právě svůj kód nálezu
 const L = (p) => p.levels[0].data;
 const P = (p, id) => p.prefabs.find((x) => x.data.id === id).data;
+// ---- svázané klouby (N-002): dvoukřídlé dveře jako jeden prefab
+{
+  const m = clone(pack);
+  const D = P(m, 'door_hinged_01');
+  D.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] });
+  D.rig.joints.push({ id: 'hinge2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, rest: 0, follow: { joint: 'hinge', ratio: -1 } });
+  const r = validatePack(m);
+  ok(r.ok && !r.errors.some((e) => e.code.startsWith('rig.') || e.code === 'ref.joint'), 'platný svázaný kloub projde validátorem', r.errors.map((e) => e.code).join(' '));
+  const v = X.jointFollow(D, { hinge: 60 });
+  const chain = clone(D);
+  chain.rig.nodes.push({ id: 'knob', parent: 'leaf2' });
+  chain.rig.joints.push({ id: 'k', node: 'knob', type: 'slider', axis: [1, 0, 0], min: 0, max: 0.1, follow: { joint: 'hinge2', ratio: -0.001, offset: 0 } });
+  const w = X.jointFollow(chain, { hinge: 60 });
+  const clampD = clone(D);
+  clampD.rig.joints[1].min = -30;
+  ok(v.hinge === 60 && v.hinge2 === -60 && Math.abs(w.k - 0.06) < 1e-12 && X.jointFollow(clampD, { hinge: 60 }).hinge2 === -30 && X.jointFollow(D).hinge2 === -0, 'jointFollow: offset + ratio × sledovaný kloub, řetěz, ořez na meze, bez hodnot z klidové polohy', `${v.hinge2}, ${w.k}`);
+  const M = X.rigMatrices(D, X.jointFollow(D, { hinge: 90 }));
+  ok(Math.abs(M.leaf[8] - 1) < 1e-9 && Math.abs(M.leaf2[8] + 1) < 1e-9, 'rigMatrices s dopočítanými hodnotami otočí obě křídla proti sobě');
+}
+
 const MUTATIONS = [
   ['ref.material', 'kvádr s neexistujícím materiálem', (p) => (L(p).brushes[0].mat = 'neni')],
   ['ref.material', 'díl prefabu s neexistujícím materiálem', (p) => (P(p, 'crate_wood_01').parts[0].mat = 'neni')],
@@ -207,6 +227,11 @@ const MUTATIONS = [
   ['shape.range', 'barva mimo rozsah', (p) => (p.materials.materials.steel.color = [2, 0, 0])],
   ['shape.unknown', 'překlep v názvu pole (varování)', (p) => (L(p).entities[0].postion = [0, 0, 0])],
   ['rig.limits', 'kloub s min ≥ max', (p) => { const j = P(p, 'door_hinged_01').rig.joints[0]; j.min = j.max; }],
+  ['ref.joint', 'svázaný kloub sleduje neexistující kloub (N-002)', (p) => (P(p, 'door_hinged_01').rig.joints[0].follow = { joint: 'neni', ratio: 1 })],
+  ['rig.follow', 'kloub sleduje sám sebe (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'h2', ratio: 1 } }); }],
+  ['rig.follow', 'kloub interakce je svázaný (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105 }); P0.rig.joints[0].follow = { joint: 'h2', ratio: 1 }; }],
+  ['rig.followCycle', 'kruh ve sledování kloubů (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'l2', parent: 'frame' }, { id: 'l3', parent: 'frame' }); P0.rig.joints.push({ id: 'a', node: 'l2', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'b', ratio: 1 } }, { id: 'b', node: 'l3', type: 'hinge', axis: [0, 1, 0], min: -105, max: 105, follow: { joint: 'a', ratio: 1 } }); }],
+  ['rig.limits', 'svázaný kloub vyjede z mezí (N-002)', (p) => { const P0 = P(p, 'door_hinged_01'); P0.rig.nodes.push({ id: 'leaf2', parent: 'frame', pos: [0.5, 0, 0] }); P0.rig.joints.push({ id: 'h2', node: 'leaf2', type: 'hinge', axis: [0, 1, 0], min: 0, max: 90, follow: { joint: 'hinge', ratio: -1 } }); }],
   ['rig.limits', 'zarážka mimo meze', (p) => (P(p, 'lever_wall_01').rig.joints[0].detents = [-40, 90])],
   ['rig.rootJoint', 'kloub na kořeni', (p) => (P(p, 'door_hinged_01').rig.joints[0].node = 'frame')],
   ['rig.cycle', 'kruh v kostře', (p) => (P(p, 'door_hinged_01').rig.nodes = [{ id: 'frame' }, { id: 'a', parent: 'b' }, { id: 'b', parent: 'a' }, { id: 'leaf', parent: 'frame' }])],

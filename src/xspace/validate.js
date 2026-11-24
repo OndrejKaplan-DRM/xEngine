@@ -191,6 +191,32 @@ function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
     }
   });
 
+  // svázané klouby (N-002): odkaz, ne sám na sebe, bez kruhu, meze, ne kloub interakce
+  const jointById = new Map(joints.filter((j) => j && j.id).map((j) => [j.id, j]));
+  joints.forEach((j, i) => {
+    if (!j || !j.follow || typeof j.follow !== 'object') return;
+    const path = `${file}.rig.joints[${i}].follow`;
+    const src = jointById.get(j.follow.joint);
+    if (!src) return c.err('ref.joint', `${path}.joint`, `kloub „${j.follow.joint}“ neexistuje`);
+    if (src === j) return c.err('rig.follow', `${path}.joint`, 'kloub nemůže sledovat sám sebe');
+    if (p.components?.interact?.joint === j.id) c.err('rig.follow', path, 'svázaný kloub nesmí být kloubem interakce; interakce pohání kloub, který sleduje');
+    const seen = new Set([j.id]);
+    for (let cur = src; cur && cur.follow; cur = jointById.get(cur.follow.joint)) {
+      if (seen.has(cur.id)) {
+        c.err('rig.followCycle', path, `řetěz sledování kloubů se vrací ke kloubu „${cur.id}“`);
+        break;
+      }
+      seen.add(cur.id);
+    }
+    if (isNum(j.follow.ratio) && isNum(src.min) && isNum(src.max) && isNum(j.min) && isNum(j.max)) {
+      const off = isNum(j.follow.offset) ? j.follow.offset : 0;
+      for (const v of [src.min, src.max]) {
+        const w = off + j.follow.ratio * v;
+        if (w < j.min - 1e-9 || w > j.max + 1e-9) c.err('rig.limits', path, `pro „${src.id}“ = ${v} vyjde ${+w.toFixed(4)}, mimo meze ${j.min} až ${j.max}`);
+      }
+    }
+  });
+
   const needsBox = (x, path) => {
     if (x.min === undefined || x.max === undefined) c.err('shape.required', path, 'tvar box vyžaduje min a max');
     else boxOk(x.min, x.max, path, c, LIMITS.partMinSize);

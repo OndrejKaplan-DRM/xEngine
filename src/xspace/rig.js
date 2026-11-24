@@ -71,6 +71,28 @@ export function jointClamp(joint, value) {
 }
 
 /**
+ * Svázané klouby (N-002): hodnoty kloubů s `follow` dopočítané ze sledovaných kloubů, oříznuté na jejich meze.
+ * Vrací nový objekt { idKloubu: hodnota }; ostatní hodnoty (chybějící = klidová poloha) převezme beze změny.
+ * Řetěz sledování se řeší do hloubky; kruh validátor nepustí (rig.followCycle), tady se jen nezacyklí.
+ */
+export function jointFollow(prefab, values = {}) {
+  const joints = prefab.rig.joints || [];
+  const byId = new Map(joints.map((j) => [j.id, j]));
+  const out = { ...values };
+  const done = new Set();
+  const solve = (j, depth) => {
+    if (done.has(j.id) || depth > joints.length) return out[j.id] ?? j.rest ?? j.min;
+    const f = j.follow;
+    const src = f && byId.get(f.joint);
+    if (src && src !== j) out[j.id] = jointClamp(j, (f.offset ?? 0) + f.ratio * solve(src, depth + 1));
+    done.add(j.id);
+    return out[j.id] ?? j.rest ?? j.min;
+  };
+  for (const j of joints) solve(j, 0);
+  return out;
+}
+
+/**
  * Matice uzlů v prostoru prefabu pro dané hodnoty kloubů (chybějící = klidová poloha).
  * Místní matice uzlu = posun · natočení · kloub (hinge: otočení kolem osy, slider: posun po ose).
  * @returns {Record<string, number[]>} id uzlu → matice 4×4
