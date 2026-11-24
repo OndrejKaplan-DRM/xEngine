@@ -225,6 +225,11 @@ export function buildLightmap({ targets, cells, texel, lights, gateOf, gate, amb
   }
   const rgb = new Float32Array(W * H * 3);
   const data = new Uint16Array(W * H * 4);
+  const used = [];
+  for (let k = 0; k < W * H; k++) if (inside[k]) used.push(k);
+  const dil = dilation(inside, W, H); // okraje map: pořadí a sousedé se spočítají jednou
+  const touched = Uint32Array.from([...used, ...dil.target]);
+  for (const k of touched) data[k * 4 + 3] = 0x3c00; // alfa 1,0
   const state = new Map(); // klíč světla nebo brány → úroveň při posledním složení
   const levelOf = (L) => (L.on && L.level > 0 && L.intensity > 0 ? L.level : 0);
   /** Složí vrstvy do textury; vrací true, když se něco změnilo (volat každý snímek). */
@@ -241,10 +246,10 @@ export function buildLightmap({ targets, cells, texel, lights, gateOf, gate, amb
     }
     if (!changed) return false;
     const a = [ambient[0] * Math.PI, ambient[1] * Math.PI, ambient[2] * Math.PI];
-    for (let k = 0; k < W * H * 3; k += 3) {
-      rgb[k] = a[0];
-      rgb[k + 1] = a[1];
-      rgb[k + 2] = a[2];
+    for (const k of used) {
+      rgb[k * 3] = a[0];
+      rgb[k * 3 + 1] = a[1];
+      rgb[k * 3 + 2] = a[2];
     }
     for (const { L, segs } of layers) {
       const lv = levelOf(L);
@@ -262,54 +267,60 @@ export function buildLightmap({ targets, cells, texel, lights, gateOf, gate, amb
         }
       }
     }
-    dilate(rgb, inside, W, H);
-    for (let k = 0; k < W * H; k++) {
+    const { target, start, src } = dil;
+    for (let i = 0; i < target.length; i++) {
+      const k = target[i] * 3;
+      const n = start[i + 1] - start[i];
+      rgb[k] = rgb[k + 1] = rgb[k + 2] = 0;
+      for (let q = start[i]; q < start[i + 1]; q++) {
+        rgb[k] += rgb[src[q] * 3] / n;
+        rgb[k + 1] += rgb[src[q] * 3 + 1] / n;
+        rgb[k + 2] += rgb[src[q] * 3 + 2] / n;
+      }
+    }
+    for (let i = 0; i < touched.length; i++) {
+      const k = touched[i];
       data[k * 4] = toHalf(rgb[k * 3]);
       data[k * 4 + 1] = toHalf(rgb[k * 3 + 1]);
       data[k * 4 + 2] = toHalf(rgb[k * 3 + 2]);
-      data[k * 4 + 3] = 0x3c00; // 1,0
     }
     return true;
   }
   update(true);
-  let used = 0;
-  for (let k = 0; k < W * H; k++) used += inside[k];
-  return { W, H, texel, texels: used, charts: all.length, rays, layers: layers.length, ms: now() - t0, data, rgb, inside, meshes, update };
+  return { W, H, texel, texels: used.length, charts: all.length, rays, layers: layers.length, ms: now() - t0, data, rgb, inside, meshes, update };
 }
 
-/** Texely mimo plochu převezmou průměr sousedů na ploše (jinak by filtr textury přimíchal černou do okraje). */
-function dilate(rgb, inside, W, H) {
+/**
+ * Okraje map: texely mimo plochu převezmou průměr sousedů, kteří už hodnotu mají (jinak by filtr textury přimíchal
+ * černou do okraje). Spočítá se jednou: { target: texely v pořadí plnění, start, src: sousedé (CSR) }.
+ */
+function dilation(inside, W, H) {
   const filled = Uint8Array.from(inside);
+  const target = [];
+  const start = [0];
+  const src = [];
+  const near = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]];
   for (let pass = 0; pass < PAD + 1; pass++) {
     const add = [];
     for (let y = 0; y < H; y++) {
       for (let x = 0; x < W; x++) {
         const k = y * W + x;
         if (filled[k]) continue;
-        let n = 0;
-        let r = 0;
-        let g = 0;
-        let b = 0;
-        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
+        const from = [];
+        for (const [dx, dy] of near) {
           const xx = x + dx;
           const yy = y + dy;
-          if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
-          const q = yy * W + xx;
-          if (!filled[q]) continue;
-          n++;
-          r += rgb[q * 3];
-          g += rgb[q * 3 + 1];
-          b += rgb[q * 3 + 2];
+          if (xx >= 0 && yy >= 0 && xx < W && yy < H && filled[yy * W + xx]) from.push(yy * W + xx);
         }
-        if (n) add.push(k, r / n, g / n, b / n);
+        if (from.length) add.push([k, from]);
       }
     }
-    for (let i = 0; i < add.length; i += 4) {
-      const k = add[i];
-      rgb[k * 3] = add[i + 1];
-      rgb[k * 3 + 1] = add[i + 2];
-      rgb[k * 3 + 2] = add[i + 3];
+    for (const [k, from] of add) {
+      target.push(k);
+      src.push(...from);
+      start.push(src.length);
       filled[k] = 1;
     }
   }
+  return { target: Uint32Array.from(target), start: Uint32Array.from(start), src: Uint32Array.from(src) };
 }
