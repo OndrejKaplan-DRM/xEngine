@@ -1,6 +1,6 @@
 # Stav sešny B
 
-**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 24. 11. 2026 večer, sešna B04
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 24. 11. 2026 v noci, sešna B04 (krok 20: sady `kit_lab` a `kit_it` v levelech)
 
 > **Základ.** Od znění 5 je v základu i engine sešny A z vlny 2 (světlo po vrcholech, textury a `.glb`, `?bench`) a moje vlna 2 do `ba16d8d`. Nová pole a rozhodnutí, která se týkají dat sešny B: `albedoMean` (D-045, N-009 přijat), soubory balíku ve hře (D-046, N-111), zavřené dveře se `seeThrough` zadržují světlo (D-047).
 
@@ -30,7 +30,10 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | zásuvky nezávisle, duté, s přihrádkami; návrh N-010 | hotovo | `8d52fb5`, `1696306` |
 | sloučení znění 5 základu (vlna 2 v `main`) | hotovo, bez konfliktů | `614e4d7` |
 | `albedoMean` (D-045), `opacity` skla (N-005), `screen.offset` terminálů | hotovo | `905d029` |
-| dřevo se suky, trhlinami a letokruhy; další dávka tvarů a nové prefaby; xBake zapeče pevné díly prefabů (D-041) | nezačato | |
+| dřevo se suky, trhlinami a letokruhy | hotovo | `60ddb43` |
+| sady `kit_lab` (286 prefabů) a `kit_it` (80 prefabů) | hotovo | `611f325`, `334315f`, `1952f28`, `105c8ac`, `428b2e8`, `42b7dae` |
+| zařazení obou sad do předvolby `complex` (obory laboratoří, serverovna, výpočetní sál, open space, zasedačka) | hotovo | `3f45c21` a následující |
+| `kit_home` s předvolbou bytu; xBake zapeče pevné díly prefabů (D-041) | nezačato | |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
 
@@ -66,6 +69,39 @@ Snímek `test/out/b_zasuvky.png` (kartotéka se spodní a třetí zásuvkou otev
 - K tomu (moje pravidlo, Ondřejovi napsané v otázce): rozměry a uspořádání přístrojů z katalogů výrobců, tvary obecné, bez log, názvů a kopie konkrétního designu.
 
 **Regrese po B04** (sandbox): `npm test` T0 41, T1 156, T4 46, T2 15, T3 12; `npm run test:b` 209 (B-T1 62, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47) + B-T8 7; `npm run test:axb` 37; 0 selhalo.
+
+### Sady `kit_lab` a `kit_it` (Ondřej 20:38, „600 těles“)
+
+Tematické balíky vedle `kit_base` (volba Ondřeje): každý má `requires` (`kit_lab` → `kit_base`; `kit_it` → `kit_base`, `kit_lab`), vlastní materiály a prefaby a id se s ostatními nesmí potkat. Rozměry z katalogů výrobců a obvyklých norem (`tools/forge/lab/ROZMERY.md`), tvary obecné, bez log a názvů. Jen kvádry a válce (zapeče je xBake, D-041), do 1 000 △ na prefab.
+
+| Sada | Prefabů | △ celkem (nejvíc) | Materiálů | Obsah |
+|---|---|---|---|---|
+| `kit_lab` | 286 | 93 580 (968) | 38 | sklo (kádinky, baňky Erlenmeyerovy, varné a odměrné, odměrné válce, reagenční láhve, exsikátory, stojany s byretou a s nálevkou, destilace); plasty (zkumavky, stojánky, špičky, Petriho misky, destičky, kryoboxy, střičky, kanystry, láhve HDPE, sáčky, rukavice, nádoby na ostré předměty a led); chemikálie ve 20 druzích balení (láhve 100 ml až 2,5 l s piktogramy, dózy s práškem, papírový pytel, kity, plechovka a bezpečnostní kanystr na rozpouštědla, roztoky, odpad); stolní přístroje (52: váhy, centrifugy, termomixér, vortexy, míchačky, třepačky, termocyklér, qPCR, spektrofotometry, elektroforézy, gel-doc, elektroporátor, UV lampa, pipety, vývěvy, odparka, lázně, pH metr, mikroskopy, tlakové láhve, Dewarovy nádoby); velké přístroje (UPLC, HPLC, MS, GC, GC-MS, sekvenátory, konfokální mikroskop, TEM, SEM, autoklávy, boxy třídy II, laminární box, CO₂ inkubátory, lyofilizátor, pipetovací robot, cytometr, NMR, myčka, výrobník ledu, ultračistá voda); chlazení (mrazáky −80 °C ve třech šířkách, lednice, mrazák −20 °C, truhlicový mrazák, zásobník LN2, chladicí a mrazicí komora, do které se dá vejít); nábytek (stoly ke zdi 1,2 až 1,8 m s nástavbou, ostrůvek, stůl s výlevkou, regály, bezpečnostní skříně, digestoř 1,8 m, židle, vozík, nouzová sprcha); reaktory a bioreaktory; akvária, terária, klece IVC a regál, klec pro králíka, průchozí box, izolátor, dekontaminační sprcha, odpad |
+| `kit_it` | 80 | 15 128 (888) | 33 | počítače (monitory 24 až 34" i na výšku, skříně, mini, vše v jednom, notebooky, tablety, telefon, klávesnice, sestavy na stůl, tiskárny, multifunkce); serverovna (racky 42U se servery, síťový, diskové pole, otevřený rám, superpočítač, UPS, baterie, chlazení do řady a CRAH, kabelové žlaby, perforovaná dlaždice, hasicí plyn, čtečka karet, kamera, Wi-Fi); open space (stoly pro čtyři, stoly s nastavitelnou výškou, židle, jednací stoly 2,4 a 4 m, telefonní budka, tabule, akustické panely, televize, projektor a plátno, rostliny, sedačky a sedací vaky, kuchyňka, skříňky, stolní tenis, fotbálek, skleněná příčka, recepce) |
+
+Zápis: `node tools/forge/make-pack.mjs [kit_lab|kit_it|all]` → `packs/<sada>`, přehled `tools/forge/<lab|it>/SADA.md` (generovaný) a meta balík `packs/kit_all` (jen `requires`, pro galerii). Kontroly v **B-T9** (`test/b_t9_sady.mjs`, 14): validátor, bajtová shoda zápisu, jména, do 1 000 △, `place` podle uchycení (podlaha a deska y ≥ 0, strop pod počátkem, zeď z ≥ 0), kolize, materiály i ze závislých sad, poznámky ke kloubům, rozměry 2 mm až 4 m, kolize id mezi sadami. Galerie (`dist/kit.html`) ukazuje všechny tři sady s nadpisy, B-T3 dělá montáž každé sady (`test/out/b_kit_lab_galerie.png`, `b_kit_it_galerie.png`).
+
+### Sady v generovaných levelech (krok 20)
+
+- **Více sad v generátoru.** `mergeKits` (`src/gen/catalog.js`) spojí sady do jednoho katalogu; sada, jejíž `requires` mezi ostatními chybí, i kolize id jsou chyba. `cli.mjs`: `--kit` se dá opakovat, bez něj bere `kit_base`, `kit_lab`, `kit_it` z `packs/`. Balík levelů má `requires` všech sad (`levelPackManifest` bere seznam), level má v `source.params.kit` id spojená „+“. `packs/gen_demo` teď vyžaduje všechny tři.
+- **Obor místnosti** (`refine` v předvolbě, volá ho `build.js` před jmény buněk; `src/gen/presets/complex_kits.js`): laboratoř dostane obor organická chemie, tkáňové kultury, molekulární biologie, analytika nebo vivárium (vivárium od 16 m²); technická místnost od 18 m² s pravděpodobností 0,45 serverovnu (od 40 m² výpočetní sál), aspoň jedna serverovna na level, když je technická místnost od 16 m²; kancelář od 24 m² open space, od 12 m² s pravděpodobností 0,3 zasedačku; velká laboratoř (od 36 m²) s pravděpodobností 0,3 open space. Buňky mají id podle oboru (`c_chem_01`, `c_server_01`, `c_open_01`…) a české jméno. Bez sad (`catalog.has`) zůstává všechno jako dřív.
+- **Vybavení.** Laboratoř má frontu podle oboru (digestoř, stoly s věcmi na desce, bezpečnostní skříně, mrazáky, boxy, inkubátory, sekvenátor, plyny, akvária…), delší než kancelář (obvod / 0,95 m, 4 až 14 kusů), velká laboratoř ostrůvek nebo velký přístroj uprostřed. Na desku stolu jde 1 až 2 přístroje a 3 až 6 drobností oboru (sklo, láhve, stojánky, špičky). Laboratoře míchají i stoly a přístroje z `kit_base`. Serverovna a výpočetní sál: **řady skříní** podél delší osy, dvojice zády k sobě, nad osou kabelový žlab, v úzké místnosti jedna řada; u zdí chlazení, UPS, baterie, hasicí plyn. Open space: řady stolů pro čtyři se židlemi, nebo dvojice stolů s nastavitelnou výškou se sestavami počítačů a židlí; u zdí skříňky, tabule, rostliny, kuchyňka, kopírka. Zasedačka: jednací stůl se šesti židlemi, televize, tabule, projektor. Chodba, hala a sklad dostanou doplňky (rostlina, voda, koše; dusík, Dewarovy nádoby, regály, kanystry, chladicí komora).
+- **Rozmisťování** (`furnish.js`): `dressTop` staví věci na desku zleva doprava podle šířek se stejnými mezerami; výška desky z `components.place.top`, pruh desky z **`source.params.deck` = [z od, z do]** (laboratorní stoly −0,065 až 0,37 m před policemi nástavby, ostrůvek 0,19 až 0,74 m, stoly IT −0,38 až 0,38 m; věc stojí zády u začátku pruhu a nesmí přečnívat). `rowsIn` (řady, varianty od největší, platí první, která se vejde), `seatsAround` (židle kolem stolu), `ceilingItems` (kamera, Wi-Fi, projektor), `rowsFirst` (serverovna a open space staví řady před nábytkem u zdí).
+
+| Kontrola (B-T1, sandbox) | Výsledek |
+|---|---|
+| `complex` se sadami, 200 seedů: validátor, prahy, průchodnost místností skutečným hráčem, strop, chodby | 0 nálezů |
+| laboratoří oboru na level (dvě patra) / serveroven / open space a zasedaček | 3 až 15 (medián 8) / 0 až 6 (medián 1, aspoň jedna v 90 % levelů) / 0 až 10 (medián 4) |
+| celý level (kvádry + prefaby), dvě patra | 108 308 až 228 516 △, medián 159 064 (mez 300 tisíc) |
+| entit na level, dvě patra | 416 až 809, medián 600 (jen `kit_base`: 417 až 709, medián 541) |
+| generování | medián 8,1 ms, nejvíc 46,5 ms (mez 1 s) |
+| prefabů ze sad `kit_lab` a `kit_it`, které generátor použije | 200 z 366 |
+| `complex` jen s `kit_base` (50 seedů): bez oborů, vybavení jako dřív, každý prefab `kit_base` použit kromě okna a mříže (N-003) | ano |
+| zkouška A × B (`gen_demo` v enginu A): robot dojde, dveře rukou, volání kreslení na cestě | ano; nejvýš 255 (`complex_7`, dřív 221), mez 400 |
+
+Snímky z enginu A: `test/out/b_mistnosti.png` (12 místností z `complex_7` a `complex_21`, kamera ve dveřích) a detail desek a stolů; pomůcka `test/b_lib/room-shots.cjs`. **Sestavení `dist/xlab_gen.html` má 8,0 MB** (data 3,1 MB): build přibalí všechny prefaby obou sad, i nepoužité. Cena víc entit a materiálů v laboratořích na T460 **není změřená** (F3 nebo `?bench` nad `complex_7`).
+
+**Regrese po kroku 20** (sandbox): `npm test` T0 41, T1 156, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47, B-T8 7, B-T9 14); `npm run test:axb` 31 + 9; 0 selhalo.
 
 ## Sešna B03 (24. 11. 2026)
 
@@ -302,7 +338,10 @@ Pořadí je závazné jen do bodu 2; dál rozhodne, co mezitím udělá svodná 
 | zápis sady: `node tools/forge/make-kit.mjs` | `packs/kit_base` |
 | galerie (cíl `kit`) | `tools/forge/gallery`, `dist/kit.html` |
 | prohlížeč vygenerovaných levelů (cíl `xgen`: xView beze změny + přepínač levelů) | `tools/designer`, `dist/xgen.html` |
-| ukázkový balík: `complex_7` (dvě patra, hádanka), `complex_21` (jedno patro), `catacombs_3` | `packs/gen_demo` (vyžaduje `kit_base`) |
+| ukázkový balík: `complex_7` (dvě patra, hádanka), `complex_21` (jedno patro), `catacombs_3` | `packs/gen_demo` (vyžaduje `kit_base`, `kit_lab`, `kit_it`) |
+| tematické sady: stavba (`theme.mjs`), seznam (`themes.mjs`), zápis `node tools/forge/make-pack.mjs [id|all]`; zdroje `tools/forge/lab/*.mjs` (rozměry `ROZMERY.md`), `tools/forge/it/*.mjs`; přehledy `SADA.md` | `packs/kit_lab`, `packs/kit_it`, meta balík `packs/kit_all` |
+| vybavení ze sad v předvolbě `complex` (obory, serverovna, open space, zasedačka) | `src/gen/presets/complex_kits.js` |
+| snímky místností z enginu A do montáže | `test/b_lib/room-shots.cjs` |
 | vývojové pomůcky: rozložení přes seedy, půdorysy do PNG, snímky levelů, montáž galerie | `tools/designer/dev/stats.mjs`, `plans.cjs`, `shots.cjs`; `tools/forge/dev/kitshot.cjs` |
 | xSearcher: hledání a příjem textur CC0 (`find.mjs`), síť a záznam odpovědí (`http.mjs`), čtení ZIP (`zip.mjs`), slovník a řazení (`match.mjs`), zdroje (`sources/`), brána licencí a příjem (`inbox.mjs`); zdroje, licence a obsah příjmu `ZDROJE.md` | `tools/searcher` |
 | příjem stažených originálů (mimo git, zůstává jen `.gitignore`) | `packs/_inbox/<zdroj>/<asset>/` s `record.json` |
@@ -405,6 +444,12 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 
 ## Poznatky pro skill
 - (B04) Víc ovládaných dílů v jednom kusu nábytku: korpus + samostatné prefaby zásuvek v `source.params.attach`, generátor je staví jako entity hned za korpusem, katalog počítá obaly se zásuvkami (N-010). V enginu se zásuvka na pohon zastaví o hráče v dráze (D-025): ve zkoušce stůj dál než dosah výsuvu.
+- (B04, krok 20) Sady vedle `kit_base`: balík levelů vyžaduje všechny sady přímo (`mergePacks` neřeší `requires` tranzitivně); generátor je spojí `mergeKits` a kolizi id hlásí hned. Vybavení podle sady se zapíná `catalog.has(<prefab>)`, takže `kit_base` sám dává stejné místnosti jako dřív.
+- (B04) Řada skříní v ploše místnosti je `againstWall` u **pomyslné zdi** (osa řady, `n` = směr čela): dvojice zády k sobě jsou dvě pomyslné zdi na téže ose s opačným `n`. Rozměry a natočení řeší stejný kód jako nábytek u zdi.
+- (B04) Věci na desku: šířky z `restBox`, výška z `components.place.top`, hloubka z `source.params.deck`; bez pruhu desky stojí vysoký přístroj v polici nástavby.
+- (B04) `TODO.md` má oddíl „Nedávno hotovo“ v každé sešně: nahrazování textu podle prvního výskytu zapíše do oddílu svodné. Hledej od nadpisu svého oddílu.
+- (B04) Kamera pro snímek místnosti: ve dveřích, 0,6 m za středem portálu (to místo generátor drží volné), ne v rohu (tam stojí nábytek).
+
 - (B04) Bohatý tvar z kvádrů a válců (`tools/forge/shapes.mjs`), ne z `.glb`: pevné díly zapeče xBake (D-041) a engine je nakreslí bez načítání modelu. Sražená hrana = tři překryté kvádry (36 △).
 - (B04) Kontrola „je vidět textura“ podle počtu odstínů se rozbije, když prefab zbohatne tvarem (víc odstínů už v čistém pohledu); měř na prefabu s velkými plochami jednoho materiálu.
 

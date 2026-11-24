@@ -82,18 +82,18 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 3. [x] bohatší tvary, první dávka (z kvádrů a válců, ať je zapeče xBake a nakreslí engine A): bedny, sudy, truhla, skříň, stoly, židle, regály, lavice (`5e03d87`); [ ] další dávka a nové prefaby
 4. [x] zásuvky nezávisle: samostatné entity připojené ke korpusu, duté s přihrádkami, návrh **N-010**; v enginu A ověřeno (`8d52fb5`, `1696306`)
 5. [x] dřevo: realističtější barva, suky, trhliny, letokruhy (`60ddb4c`)
-6. [ ] **600 těles** (Ondřej 20:38; odpovědi: laboratoře a IT první, ~150 tvarů × varianty, tematické balíky `kit_lab` a `kit_it`, do 1 000 △): dávka L1 sklo, plast a chemikálie → L2 stolní přístroje → L3 velké přístroje, chovy, karanténa → I1 počítače, serverovna, open space → zařazení do předvolby `complex` → `kit_home` s předvolbou bytu
+6. [ ] **600 těles** (Ondřej 20:38; odpovědi: laboratoře a IT první, ~150 tvarů × varianty, tematické balíky, do 1 000 △): [x] `kit_lab` 286 prefabů, [x] `kit_it` 80 prefabů, [x] zařazení do předvolby `complex` (obory laboratoří, serverovna, výpočetní sál, open space, zasedačka; `gen_demo` vyžaduje všechny tři sady) → [ ] `kit_home` s předvolbou bytu
 
 **Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
 **Čeká na jiné:** N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 24. 11. sady v levelech: `complex` staví laboratoře podle oboru, serverovny v řadách, open space a zasedačky; 200 seedů bez nálezu, level ≤ 228 516 △, A × B zelená, nejvýš 255 volání kreslení (B_STAV, oddíl „Sady v generovaných levelech“)
+- 24. 11. `kit_lab` 286 prefabů (sklo, plasty, chemikálie ve 20 baleních, 52 stolních a 26 velkých přístrojů, chlazení, nábytek, reaktory, chovy a karanténa) a `kit_it` 80 prefabů (počítače, serverovna, open space); B-T9 (`611f325` až `42b7dae`)
 - 24. 11. znění 5 základu sloučeno (`614e4d7`); `albedoMean` u 21 materiálů (D-045), `opacity` skla, `screen.offset` terminálů (`905d029`)
 - 24. 11. zásuvky kartotéky a stolu jako samostatné entity; B-T8 v enginu A: spodní se otevře sama, třetí vytáhne hráč myší, ostatní stojí (`8d52fb5`, `1696306`)
 - 24. 11. bohatší tvary, první dávka; mez prefabu 1 000 △, celý level do 300 tisíc △ (`5e03d87`)
 - 24. 11. barvy podle albeda, expozice `complex` 0,95 a `catacombs` 1,03 (`6f3141b`)
 - 24. 11. B2.4 textury: 21 materiálů `kit_base` s `albedo`, `normal`, `uvScale` (30 souborů WebP 512 px, 1 287,4 kB), galerie se třemi pohledy (`7204c2d`, `951044a`, `70d2473`)
 - 24. 11. B2.3 xSearcher: příjem textur CC0 z Poly Haven a ambientCG, test bez sítě 47 kontrol (`5828344`, `24e2358`)
-- 24. 11. xBake nad mřížkou D-037; brány dveří, stínění kolizemi, okraj stínu po podílech (`3d1aa2a`, `9d34aa6`)
-- 24. 11. regrese po zásuvkách a znění 5: `npm test` 270, `npm run test:b` 209 (+ B-T8 7), `npm run test:axb` 37, 0 selhalo (sandbox)

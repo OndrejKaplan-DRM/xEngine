@@ -63,8 +63,10 @@ const bench = (rng, kind, p) => ({ p, top: deck(rng, kind), ...(rng.chance(0.5) 
 const wallBench = (rng, kind) => bench(rng, kind, rng.pick(['bench_lab_wall_01', 'bench_lab_wall_02', 'bench_lab_wall_03']));
 
 /** Fronta laboratoře podle oboru. take(fixed, pool) skládá frontu jako v complex.js. */
-export function labPlan(c, rng, take) {
+export function labPlan(c, rng, take0) {
   const v = c.variant;
+  // laboratoř má nábytek po celém obvodu: fronta delší než u kanceláře (kolik se vejde, rozhodne místo u zdí)
+  const take = (fixed, pool) => take0(fixed, pool, Math.max(4, Math.min(14, Math.round((c.w + c.d) / 95))));
   const B = (n = 1) => Array.from({ length: n }, () => wallBench(rng, v));
   const big = c.area >= 26;
   const island = big && rng.chance(0.6) ? [{ p: 'bench_lab_island_01', yaw: false, aisle: 0.9, top: deck(rng, v) }] : [];
@@ -77,7 +79,7 @@ export function labPlan(c, rng, take) {
       return {
         walls: take(
           [{ p: 'fumehood_180_01' }, ...B(), { p: 'cabinet_flammable_01' }],
-          [...B(2), { p: 'bench_lab_sink_01' }, { p: 'cabinet_corrosive_01' }, { p: 'fumehood_01' }, { p: 'shelf_wire_02' }, { p: 'shower_emergency_01' }, { p: 'reactor_jacketed_20_01' }, { p: 'cylinder_gas_nitrogen_01', chain: 2 }, { p: 'fridge_lab_tall_01' }, { p: 'table_lab_01', top: deck(rng, 'chem', 1), over: { p: 'tap_wall_01', h: 118 } }, { p: 'canister_25_01', chain: 2 }],
+          [...B(3), { p: 'bench_lab_sink_01' }, { p: 'cabinet_corrosive_01' }, { p: 'fumehood_01' }, { p: 'shelf_wire_02' }, { p: 'shower_emergency_01' }, { p: 'reactor_jacketed_20_01' }, { p: 'cylinder_gas_nitrogen_01', chain: 2 }, { p: 'fridge_lab_tall_01' }, { p: 'table_lab_01', top: deck(rng, 'chem', 1), over: { p: 'tap_wall_01', h: 118 } }, { p: 'canister_25_01', chain: 2 }],
         ),
         center: [...island, ...(big && rng.chance(0.5) ? [{ p: 'cart_lab_01' }] : [])],
       };
@@ -85,7 +87,7 @@ export function labPlan(c, rng, take) {
       return {
         walls: take(
           [{ p: 'bsc_class2_120_01' }, { p: 'incubator_co2_stack_01' }, ...B()],
-          [...B(2), { p: 'freezer_ult_01' }, { p: 'fridge_lab_glass_01' }, { p: 'bench_lab_sink_01' }, { p: 'autoclave_floor_01' }, { p: 'shaker_incubator_01' }, { p: 'tank_ln2_storage_01' }, { p: 'bsc_class2_180_01' }, { p: 'bin_biohazard_01' }, { p: 'incubator_co2_01' }, { p: 'fridge_lab_01' }, { p: 'bioreactor_steel_50_01' }],
+          [...B(3), { p: 'freezer_ult_01' }, { p: 'fridge_lab_glass_01' }, { p: 'bench_lab_sink_01' }, { p: 'autoclave_floor_01' }, { p: 'shaker_incubator_01' }, { p: 'tank_ln2_storage_01' }, { p: 'bsc_class2_180_01' }, { p: 'bin_biohazard_01' }, { p: 'incubator_co2_01' }, { p: 'fridge_lab_01' }, { p: 'bioreactor_steel_50_01' }],
         ),
         center: [...island, ...(big && rng.chance(0.5) ? [{ p: 'cart_lab_01' }] : [])],
       };
@@ -93,7 +95,7 @@ export function labPlan(c, rng, take) {
       return {
         walls: take(
           [...B(), { p: 'freezer_ult_02' }, { p: 'laminar_flow_01' }],
-          [...B(2), { p: 'sequencer_floor_01' }, { p: 'fridge_undercounter_01' }, { p: 'freezer_lab_20_01' }, { p: 'shelf_wire_04' }, { p: 'ice_maker_01' }, { p: 'dewar_35l_01' }, { p: 'bench_lab_sink_01' }, { p: 'cabinet_file_01' }, { p: 'bench_lab_wall_03', top: ['liquid_handler_01', ...rng.shuffle(SMALL.mol).slice(0, 2)] }],
+          [...B(3), { p: 'sequencer_floor_01' }, { p: 'fridge_undercounter_01' }, { p: 'freezer_lab_20_01' }, { p: 'shelf_wire_04' }, { p: 'ice_maker_01' }, { p: 'dewar_35l_01' }, { p: 'bench_lab_sink_01' }, { p: 'cabinet_file_01' }, { p: 'bench_lab_wall_03', top: ['liquid_handler_01', ...rng.shuffle(SMALL.mol).slice(0, 2)] }],
         ),
         center: island,
       };
@@ -101,7 +103,7 @@ export function labPlan(c, rng, take) {
       return {
         walls: take(
           [bench(rng, 'anal', 'bench_lab_wall_03'), bench(rng, 'anal', 'bench_lab_wall_02'), { p: 'cylinder_gas_helium_01', chain: 2 }],
-          [...B(2), { p: 'cylinder_gas_nitrogen_01' }, { p: 'cylinder_gas_argon_01' }, { p: 'water_ultrapure_01', h: 120 }, { p: 'shelf_wire_02' }, { p: 'cabinet_corrosive_01' }, { p: 'microscope_confocal_01' }, { p: 'fridge_undercounter_01' }, { p: 'terminal_wall_01', h: 135 }],
+          [...B(3), { p: 'cylinder_gas_nitrogen_01' }, { p: 'cylinder_gas_argon_01' }, { p: 'water_ultrapure_01', h: 120 }, { p: 'shelf_wire_02' }, { p: 'cabinet_corrosive_01' }, { p: 'microscope_confocal_01' }, { p: 'fridge_undercounter_01' }, { p: 'terminal_wall_01', h: 135 }],
         ),
         center: big ? [rng.pick([{ p: 'microscope_sem_01', yaw: false, aisle: 0.7 }, { p: 'nmr_magnet_01', aisle: 0.9 }, { p: 'microscope_tem_01', yaw: false, aisle: 0.8 }])] : [],
       };

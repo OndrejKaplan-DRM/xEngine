@@ -129,7 +129,7 @@ export const complex = {
   /** Fronta vybavení podle účelu místnosti: první položky jsou jisté, zbytek se losuje podle obvodu. */
   furniture(c, rng, catalog) {
     const n = Math.max(3, Math.min(9, Math.round((c.w + c.d) / 190)));
-    const take = (fixed, pool) => [...fixed, ...rng.shuffle(pool)].slice(0, n);
+    const take = (fixed, pool, k = n) => [...fixed, ...rng.shuffle(pool)].slice(0, k);
     const tops = () => rng.shuffle(['microscope_01', 'centrifuge_bench_01', 'terminal_desk_01', 'microscope_01']).slice(0, 2);
     const crates = () => rng.weighted([[{ p: 'crate_large_01', stack: 'crate_plank_01' }, 3], [{ p: 'crate_large_01' }, 2], [{ p: 'crate_plank_01', stack: 'crate_plank_01' }, 2], [{ p: 'crate_steel_01' }, 2], [{ p: 'barrel_steel_01' }, 3]]);
     const kits = c.variant && (c.role === 'lab' ? labPlan(c, rng, take) : itPlan(c, rng, take));
