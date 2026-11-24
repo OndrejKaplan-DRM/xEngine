@@ -1,10 +1,21 @@
 # Stav
 
-**Verze:** základ 2, znění 5 · 24. 11. 2026 večer · větev `zaklad-2` (shodná s `main`) · **vlna 2 sloučená v polovině** (D-048)
+**Verze:** základ 2, znění 6 · 24. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 6 základu 2 (24. 11. 2026 v noci): zakrytí dveří a svázané klouby
+
+Ondřej ve 21:19: další krok (a). Provedeno:
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| pravidlo validátoru `portal.door.cover` (D-036): kolmý průmět neprůhledných dílů `box` dveří v klidové poloze (`rest`, N-109) do roviny portálu pokryje otvor; neplatí pro `seeThrough` | `src/xspace/cover.js`, `validate.js` | T1 (dvě mutace); zlatý vzorek měl u `door_hinged_01` škvíru 1 cm (616 cm²), viditelné křídlo je teď přes celý otvor; `gen_demo` (main i `sesna-b`): 94 portálů s dveřmi, škvíra nikde |
+| svázané klouby `rig.joints[].follow` a `jointFollow` (N-002) | `formats.js`, `rig.js`, `validate.js` | T1 (dvoukřídlé dveře jako jeden prefab, řetěz, ořez, pět mutací) |
+| regrese na `main` (`1cf0261`) | **923 kontrol, 0 selhalo**: základ 280, A 405, B 201, A × B 37 | testy po skupinách |
+| balíky sešny B ve stavu `42b7dae` (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo`) | 0 chyb, 0 varování s novými pravidly | `xspace-check --strict` |
 
 ## Znění 5 základu 2 (24. 11. 2026 večer): sloučená vlna 2
 
@@ -144,13 +155,13 @@ Obě hlavy jdou se základem sloučit bez konfliktu (`git merge-tree`, 20:20); t
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 270 kontrol; celá regrese na `main` (základ, A, B, A × B): 913 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026 ve 20:17). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
+`npm test`: 280 kontrol; celá regrese na `main` (základ, A, B, A × B): 923 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026 v noci). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
 
 ## Co hotové není
 
 - **Zapečené světlo ve hře.** Běh ho čte jen na `sesna-a` (od `652f7ea`); xBake zatím nezapéká pevné díly prefabů (D-041) a balíky soubor `.light.bin` nenesou. Okolní světlo: sešna A ho má dělit π (D-049).
 - Shell je přestěhovaný, ne zapojený. Jeho zkoušky v prohlížeči a zkouška katalogu zůstaly ve `vibe-game-frameworks`.
-- Načítání `.glb`, textury ve hře, zvuk, tvorové, editor. Pravidlo validátoru `portal.door.cover` (D-036) a svázané klouby (N-002).
+- Zvuk, tvorové, editor. Svázané klouby v enginu (sešna A) a dvoukřídlé dveře jako jeden prefab (sešna B); víc interakcí v prefabu (N-010, nerozhodnuto).
 
 ## Neověřeno
 

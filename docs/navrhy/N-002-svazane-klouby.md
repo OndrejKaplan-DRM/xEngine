@@ -40,3 +40,5 @@ Dvě entity svázané spojením (`src/gen/build.js`, komentář u `doorIds.lengt
 ## Rozhodnutí
 
 **Přijato** (svodná sešna, 22. 11. 2026, D-034). Pole `rig.joints[].follow` s navrženými pravidly validátoru a funkce `jointFollow` v `rig.js` vzniknou v základu během vlny 2 (dluh základu). Do té doby platí dočasné řešení sešny B (dvě entity spojené přes `io`); zkouška A × B s ním prošla, robot otevřel dvoukřídlé dveře rukou. Sešna B pole `follow` do dat nepíše, dokud není ve `formats.js`.
+
+**Provedeno** (svodná sešna main 03, 24. 11. 2026, `1cf0261`): pole `follow { joint, ratio, offset? }` ve `formats.js`, `jointFollow(prefab, values)` v `rig.js` (řetěz do hloubky, ořez na meze sledujícího kloubu), validátor `ref.joint`, `rig.follow` (sám sebe; kloub interakce), `rig.followCycle`, `rig.limits` (offset + ratio × min a max sledovaného kloubu v mezích). Klika před otevřením křídla (`latch` → `swing`) poměrem vyjádřit nejde; to je pořadí pohybů, ne vazba, a do verze 1 nepatří.

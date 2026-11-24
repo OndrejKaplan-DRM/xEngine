@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 5 (24. 11. 2026 večer, vlna 2 sloučená). Hlavy sešen ve 20:20: `sesna-a` = `3250dd6`, `sesna-b` = `5e03d87` (obě bez konfliktu se základem). Regrese na `main`: 913 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 6 (24. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen ve 20:20: `sesna-a` = `3250dd6`, `sesna-b` = `5e03d87` (obě bez konfliktu se základem). Regrese na `main`: 923 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -24,6 +24,11 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 
 Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodnutí `docs/DECISIONS.md`.
 
+**Hotovo v noci (main 03, 24. 11.):**
+- [x] pravidlo validátoru `portal.door.cover` (D-036); zlatý vzorek bez škvíry u dveří
+- [x] svázané klouby `follow` a `jointFollow` (N-002)
+- [x] regrese na `main` 923 kontrol, 0 selhalo; `STATE.md` znění 6; dodatky pro A a B
+
 **Hotovo dnes večer (main 03, 24. 11.):**
 - [x] vlna 2 sloučená do základu na Ondřejovo slovo (D-048): A do `85d6a6d`, B do `ba16d8d`; 909 kontrol, 0 selhalo
 - [x] dveře zlatého vzorku na obě strany ±105° (N-109)
@@ -33,9 +38,9 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 **Hotovo dnes odpoledne:** `TODO.md` a mapa v `CLAUDE.md` (D-038); měření F3 z 24. 11.; D-039 až D-044; `body.js`, `samples.js`, `bake.js`.
 
-**Čeká na sešny:** A dělí okolní světlo π (D-049) → potom svodná vynásobí okolní světlo zlatého vzorku π. B zapisuje `albedoMean`, zapéká pevné díly prefabů (D-041).
+**Čeká na sešny:** A dělí okolní světlo π (D-049) → potom svodná vynásobí okolní světlo zlatého vzorku π; A zapojí `jointFollow` v enginu. B zapisuje `albedoMean`, zapéká pevné díly prefabů (D-041), dvoukřídlé dveře jako jeden prefab bez `seeThrough` (N-002).
 
-**Další na řadě** (pořadí z `START_SVOD.md`): pravidlo validátoru `portal.door.cover` (D-036, v poloze `rest`, D-042) → svázané klouby `follow` (N-002, dvoukřídlé dveře jako jeden prefab) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Další na řadě:** rozhodnout N-010 (víc interakcí v prefabu; sešna B dělá ~600 těles, každý den zpoždění je předělávka) → `rigCompile`, `rigSolve` (N-102) → svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 
