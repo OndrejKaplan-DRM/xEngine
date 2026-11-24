@@ -6,7 +6,7 @@ import { levelLightMeshes, brushCollider, inBounds, boundsGap, LIGHT_CELL } from
 import { isTransparent } from '../render/opacity.js';
 import { faceCells } from './cells.js';
 
-export function createWorld({ phys, render, light, pack }) {
+export function createWorld({ phys, render, light, pack, assets = null }) {
   const matDefs = pack.materials?.materials || {};
   let level = null;
   let cells = [];
@@ -48,7 +48,7 @@ export function createWorld({ phys, render, light, pack }) {
       level = ctx.level;
       io = ctx.io || null;
       cells = level.cells;
-      render.setDefs(matDefs);
+      render.setDefs(matDefs, assets); // textury barvy (albedo) bere vykreslení ze souborů balíku
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
       Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell });

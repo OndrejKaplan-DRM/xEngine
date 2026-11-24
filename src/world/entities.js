@@ -3,20 +3,23 @@
 // vykreslení (pohyblivé díly) a do fyziky (kinematická tělesa uzlů, dynamická tělesa beden).
 // Engine o „dveřích“ neví nic: co kloub znamená, říká interakce prefabu (behaviors.js).
 
-import { entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh, partCollider } from '../xspace/index.js';
+import { entityMatrix, rigMatrices, mat4Mul, mat4Point } from '../xspace/index.js';
 import { newBatch, appendMesh } from '../render/batch.js';
 import { decompose, compose, mul4 } from '../phys/xform.js';
 import { addFacets } from './facets.js';
 import { makeJoint, stepJoint, MOVED } from './joints.js';
 import { GUARDED, guardOf, obstructed, revertStep } from './blocking.js';
 import { swingBoth, portalDoorIds } from './swing.js';
+import { createAssets } from './assets.js';
 
 const CELL_CHECK_FRAMES = 16;
 
-export function createEntities({ phys, render, world, light, pack }) {
+export function createEntities({ phys, render, world, light, pack, assets = createAssets(pack) }) {
   const prefabs = new Map(pack.prefabs.map((p) => [p.data.id, p.data]));
+  const packOf = new Map(pack.prefabs.map((p) => [p.data.id, p.from || null])); // balík původu (soubory .glb)
   const matDefs = pack.materials?.materials || {};
-  const uvScale = (m) => matDefs[m]?.uvScale || 1;
+  // síť z .glb nese vlastní UV (0..1 na texturu); krabicová projekce kvádrů a válců je v metrech a dělí se uvScale
+  const uvOf = (part) => (part.shape === 'mesh' ? 1 : matDefs[part.mat]?.uvScale || 1);
   const isEmissive = (m) => matDefs[m]?.model === 'emissive';
 
   let list = [];
@@ -110,26 +113,31 @@ export function createEntities({ phys, render, world, light, pack }) {
     const addPart = (map, part, mesh, matrix) => {
       const b = piece(map, part.mat);
       const v0 = b.positions.length / 3;
-      appendMesh(b, mesh, 0, mesh.indices.length, matrix, uvScale(part.mat));
+      appendMesh(b, mesh, 0, mesh.indices.length, matrix, uvOf(part));
       addFacets(b.facets, b, v0, b.positions.length / 3);
     };
     // dveře v portálu jsou vidět z obou buněk: pevné díly jdou do dávek obou, pohyblivé jsou sdílené
     const also = (doorCells.get(def.id) || []).filter((c) => c !== ent.cell);
-    for (const part of prefab.parts) {
-      const mesh = partMesh(part);
+    for (let part of prefab.parts) {
+      const mesh = assets.meshOf(part, packOf.get(def.prefab));
       if (!mesh) {
-        warn(`díl tvaru „${part.shape}“ (prefab ${prefab.id}) se zatím nekreslí`);
+        if (part.shape !== 'mesh') warn(`díl tvaru „${part.shape}“ (prefab ${prefab.id}) se zatím nekreslí`);
         continue;
+      }
+      const own = assets.materialOf(part, packOf.get(def.prefab)); // díl mesh bez mat: materiál z glTF
+      if (own) {
+        matDefs[own.id] ??= own.def;
+        part = { ...part, mat: own.id };
       }
       const len = mesh.indices.length;
       if (whole) addPart(wholePieces, part, mesh, M[part.node]);
       else if (moves(part.node)) {
         if (!nodePieces.has(part.node)) nodePieces.set(part.node, new Map());
         addPart(nodePieces.get(part.node), part, mesh, null);
-      } else if (hasLight && isEmissive(part.mat)) appendMesh(piece(glowPieces, part.mat), mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
+      } else if (hasLight && isEmissive(part.mat)) appendMesh(piece(glowPieces, part.mat), mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
       else {
-        render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
-        for (const c of also) render.addStatic(c, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvScale(part.mat));
+        render.addStatic(ent.cell, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
+        for (const c of also) render.addStatic(c, part.mat, mesh, 0, len, ent.nodeWorld[part.node], uvOf(part));
       }
     }
     const toPieces = (map) => [...map].map(([mat, batch]) => ({ mat, batch }));
@@ -159,7 +167,7 @@ export function createEntities({ phys, render, world, light, pack }) {
 
     // ---- fyzika
     const opts = (c) => ({ group: c.group || (bodyKind === 'static' ? 'world' : 'prop'), friction: comp.physics?.friction, restitution: comp.physics?.restitution, scale });
-    const cols = (prefab.colliders || []).map((c) => ({ c, s: partCollider(c) })).filter((x) => {
+    const cols = (prefab.colliders || []).map((c) => ({ c, s: assets.colliderOf(c, packOf.get(def.prefab), bodyKind === 'dynamic') })).filter((x) => {
       if (!x.s) warn(`kolizní tvar „${x.c.shape}“ (prefab ${prefab.id}) zatím neumím`);
       return !!x.s;
     });

@@ -39,7 +39,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
   const camera = new THREE.PerspectiveCamera(90, 1, 0.05, 400);
   camera.rotation.order = 'YXZ';
   scene.add(camera);
-  const materials = createMaterials();
+  const materials = createMaterials({ onChange: () => (dirty = true) }); // dokončená textura: překreslit
   const shutterMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide, fog: false, toneMapped: false });
 
   let E = null;
@@ -106,8 +106,8 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
     },
 
     // ---- level
-    setDefs(defs) {
-      materials.setDefs(defs);
+    setDefs(defs, assets = null) {
+      materials.setDefs(defs, assets);
     },
     openLevel({ env, cells: cellDefs }) {
       sys.closeLevel();

@@ -71,6 +71,11 @@ export function createPhys() {
         if (!d) throw new Error('Konvexní obal se nepodařilo sestavit (body leží v rovině?).');
         return d;
       }
+      case 'trimesh': {
+        // síť trojúhelníků (kolize mesh z .glb, A2.6): jen pro nehybná a kinematická tělesa
+        const v = Float32Array.from(shape.vertices, (x) => x * scale);
+        return RAPIER.ColliderDesc.trimesh(v, Uint32Array.from(shape.indices));
+      }
       default:
         throw new Error(`Neznámý kolizní tvar „${shape.type}“.`);
     }

@@ -8,6 +8,7 @@ import { createPlayer } from '../play/player.js';
 import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
+import { createAssets } from '../world/assets.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
@@ -53,8 +54,9 @@ export function createGame({ pack, render, now }) {
   const light = createLighting({ render, now });
   const occlusion = createOcclusion({ phys, light });
   light.setOcclusion(occlusion);
-  const world = createWorld({ phys, render, light, pack });
-  const entities = createEntities({ phys, render, world, light, pack });
+  const assets = createAssets(pack); // textury a .glb z pack.files (A2.6)
+  const world = createWorld({ phys, render, light, pack, assets });
+  const entities = createEntities({ phys, render, world, light, pack, assets });
   const vis = createVisibility({ world, entities, render });
   // před každým vykreslením: které buňky jsou vidět, potom poznamenané změny světla do barev vrcholů
   render.beforeDraw = () => {
@@ -123,6 +125,7 @@ export function createGame({ pack, render, now }) {
     VERSION,
     E,
     pack,
+    assets,
     session,
     input,
     phys,
