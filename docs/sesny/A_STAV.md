@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 24. 11. 2026, 21:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 24. 11. večer, kód A2.6): `npm run test:a` **402 kontrol ve 26 sadách, 0 selhalo**, `npm test` **254, 0 selhalo**. Skupina B a zkouška A × B naposledy na A2.5 (`npm run test:all` 747, 0 selhalo; A2.6 jejich data nemění). Sestavení „vlna 2, krok 5“.
+Poslední regrese (sandbox, 24. 11. 21:40, znění 4 + zapečené světlo, hlava `sesna-a` po `a842098`): `npm run test:a` **417 kontrol ve 27 sadách**, `npm test` **266**, `npm run test:axb` **37**, vše 0 selhalo. Skupina B naposledy na A2.5 (A2.6 a znění 4 její data nemění). Sestavení pro Ondřeje: naposledy „vlna 2, krok 5“.
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
