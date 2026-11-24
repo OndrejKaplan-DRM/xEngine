@@ -266,6 +266,8 @@ export function createBench({ game, lock, root }) {
     get active() {
       return active;
     },
+    /** Trasa měření pro současný level (testy): body { x, y, z, cell, look }. */
+    plan: (quick = false) => plan(quick),
     /**
      * Spustí měření. opts: { rows, aa, quick }. rows a aa se nastaví jen pro tento běh (neukládají se).
      * Vrací Promise s výsledkem.

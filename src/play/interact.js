@@ -447,7 +447,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
           return manip ? { id: manip.ent.id, joint: manip.j.def.id, value: manip.j.value, screenDir: [...screenDir] } : null;
         case 'term': {
           const t = terms.get(path[1]);
-          return t ? { lines: [...t.term.lines], input: t.term.input, active: t.term.active, pointer: t.term.pointer } : undefined;
+          return t ? { lines: [...t.term.lines], input: t.term.input, active: t.term.active, pointer: t.term.pointer, front: t.front } : undefined;
         }
         default:
           return undefined;
