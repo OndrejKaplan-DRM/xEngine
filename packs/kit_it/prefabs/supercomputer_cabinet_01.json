@@ -30,8 +30,8 @@
     { "node": "body", "shape": "box", "min": [-0.32, 1.55, 0.605], "max": [0.32, 1.65, 0.61], "mat": "server_face" },
     { "node": "body", "shape": "box", "min": [-0.32, 1.7, 0.605], "max": [0.32, 1.8, 0.61], "mat": "server_face" },
     { "node": "body", "shape": "box", "min": [-0.32, 1.85, 0.605], "max": [0.32, 1.95, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "cyl", "center": [-0.2, 2.35, -0.3], "radius": 0.05, "height": 0.3, "axis": "y", "mat": "paint_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 2.35, -0.3], "radius": 0.05, "height": 0.3, "axis": "y", "mat": "paint_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_300_y_-200_2350_-300", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_300_y_200_2350_-300", "mat": "paint_red" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.4, 0, -0.6], "max": [0.4, 2.5, 0.61], "group": "world" }
@@ -40,7 +40,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 356,
+  "tris": 420,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#supercomputer",

@@ -4,7 +4,7 @@
 // vody, šatní skříňky, televize a projektor, stolní tenis a fotbálek, třídění odpadu, věšák, skleněná příčka,
 // recepce. Rozměry podle norem kancelářského nábytku (deska 0,72 až 0,75 m, sedák 0,42 až 0,5 m), úvaha.
 
-import { box, boxc, cyl, collide } from '../lib.mjs';
+import { box, boxc, cyl, collide, shiftPart, shiftParts } from '../lib.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, moving, staticFloor } from '../lab/common.mjs';
 import { monitorParts, keyboardParts, laptopParts } from './computers.mjs';
@@ -14,7 +14,7 @@ const gen = (f) => `it/office.mjs#${f}`;
 const pad = (i) => String(i).padStart(2, '0');
 const floor = (top) => ({ components: staticFloor(top), group: 'world' });
 const one = (id, title, parts, f, o = {}) => simple(id, title, CAT, parts, { gen: gen(f), ...floor(), ...o });
-const at = (parts, dx, dy, dz) => parts.map((p) => (p.shape === 'box' ? { ...p, min: [p.min[0] + dx, p.min[1] + dy, p.min[2] + dz], max: [p.max[0] + dx, p.max[1] + dy, p.max[2] + dz] } : { ...p, center: [p.center[0] + dx, p.center[1] + dy, p.center[2] + dz] }));
+const at = (parts, dx, dy, dz) => shiftParts(parts, dx, dy, dz);
 
 /** Stoly: blok pro čtyři s přepážkami (prázdný a vybavený), stůl s nastavitelnou výškou (bílý a dubový). */
 export function desks() {

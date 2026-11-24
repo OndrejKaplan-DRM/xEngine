@@ -11,9 +11,9 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.175, 0], "radius": 0.2, "height": 0.35, "axis": "y", "mat": "key_white" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.34, 0], "radius": 0.184, "height": 0.02, "axis": "y", "mat": "soil_dark" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.75, 0], "radius": 0.02, "height": 0.8, "axis": "y", "mat": "wood_old" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_350_y_0_175_0", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_184_20_y_0_340_0", "mat": "soil_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_800_y_0_750_0", "mat": "wood_old" },
     { "node": "body", "shape": "box", "min": [-0.25, 1.175, -0.25], "max": [0.25, 1.625, 0.25], "mat": "leaf_green" },
     { "node": "body", "shape": "box", "min": [-0.025, 0.9425, -0.125], "max": [0.325, 1.2575, 0.225], "mat": "leaf_green" },
     { "node": "body", "shape": "box", "min": [-0.295, 1.0425, -0.255], "max": [0.055, 1.3575, 0.095], "mat": "leaf_green" }
@@ -25,7 +25,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 228,
+  "tris": 420,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#lounge",

@@ -16,7 +16,7 @@
     { "node": "body", "shape": "box", "min": [-1, -0.6, 0.144], "max": [1, -0.52, 0.15], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.91, -0.52, -0.01], "max": [-0.89, 0, 0.01], "mat": "steel_dark" },
     { "node": "body", "shape": "box", "min": [0.89, -0.52, -0.01], "max": [0.91, 0, 0.01], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-1, -0.594, -0.13], "max": [1, -0.5499999999999999, -0.02], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [-1, -0.594, -0.13], "max": [1, -0.55, -0.02], "mat": "cable_yellow" },
     { "node": "body", "shape": "box", "min": [-1, -0.594, 0], "max": [1, -0.54, 0.12], "mat": "cable_blue" }
   ],
   "colliders": [

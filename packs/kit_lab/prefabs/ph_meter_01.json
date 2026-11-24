@@ -4,35 +4,30 @@
   "id": "ph_meter_01",
   "title": "pH metr s elektrodou na rameni",
   "category": "lab.bench",
-  "bounds": { "min": [-0.101, -0.001, -0.111], "max": [0.101, 0.341, 0.113] },
+  "bounds": { "min": [-0.101, -0.001, -0.112], "max": [0.101, 0.341, 0.113] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0.016, -0.102], "max": [0.1, 0.062, 0.102], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.092, 0.008, -0.102], "max": [0.092, 0.07, 0.102], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.092, 0.016, -0.11], "max": [0.092, 0.062, 0.11], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.082, 0, -0.092], "max": [-0.058, 0.008, -0.068], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.082, 0, 0.068], "max": [-0.058, 0.008, 0.092], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.058, 0, -0.092], "max": [0.082, 0.008, -0.068], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.058, 0, 0.068], "max": [0.082, 0.008, 0.092], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_200_220_70_8_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_200_220_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.08, 0.05, 0.11], "max": [0.04, 0.065, 0.112], "mat": "emit_display" },
     { "node": "body", "shape": "cyl", "center": [0.08, 0.2, -0.06], "radius": 0.006, "height": 0.28, "axis": "y", "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [0, 0.3, -0.07], "max": [0.09, 0.31, -0.05], "mat": "plastic_light" },
     { "node": "body", "shape": "cyl", "center": [0.01, 0.2, -0.06], "radius": 0.006, "height": 0.16, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.01, 0.105, -0.06], "radius": 0.03, "height": 0.07, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.01, 0.092, -0.06], "radius": 0.028, "height": 0.04, "axis": "y", "mat": "liquid_yellow" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_70_y_10_105_-60", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_28_40_y_10_92_-60", "mat": "liquid_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.11], "max": [0.1, 0.34, 0.112], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.111], "max": [0.1, 0.34, 0.112], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 364,
+  "tris": 548,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#benchUtility",

@@ -4,7 +4,7 @@
   "id": "stool_lab_high_01",
   "title": "Vysoká laboratorní židle s kruhem pro nohy",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.224, -0.002, -0.265], "max": [0.271, 0.832, 0.265] },
+  "bounds": { "min": [-0.224, 0.024, -0.274], "max": [0.271, 0.832, 0.274] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,23 +16,23 @@
     { "node": "body", "shape": "box", "min": [-0.2224, 0.03, 0.1268], "max": [-0.1824, 0.07, 0.1668], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.2221, 0.03, -0.1672], "max": [-0.1821, 0.07, -0.1272], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.0576, 0.03, -0.2577], "max": [0.0976, 0.07, -0.2177], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.25, 0.025, 0], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.0772, 0.025, 0.2378], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.2024, 0.025, 0.1468], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.2021, 0.025, -0.1472], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.0776, 0.025, -0.2377], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.4, 0], "radius": 0.03, "height": 0.75, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.8, 0], "radius": 0.2, "height": 0.06, "axis": "y", "mat": "plastic_navy" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.45, 0], "radius": 0.2, "height": 0.02, "axis": "y", "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_250_25_0", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_77_25_238", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-202_25_147", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-202_25_-147", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_78_25_-238", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_750_y_0_400_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_60_y_0_800_0", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_20_y_0_450_0", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.223, -0.001, -0.264], "max": [0.27, 0.831, 0.264], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.223, 0.025, -0.273], "max": [0.27, 0.831, 0.273], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 572,
+  "tris": 860,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#fumehoodAndMore",

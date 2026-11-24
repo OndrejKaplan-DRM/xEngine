@@ -4,7 +4,7 @@
   "id": "bench_lab_sink_01",
   "title": "Laboratorní stůl s výlevkou, baterií a oční sprchou",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.751, -0.001, -0.376], "max": [0.751, 1.212, 0.401] },
+  "bounds": { "min": [-0.751, -0.001, -0.376], "max": [0.751, 1.211, 0.401] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -24,20 +24,20 @@
     { "node": "body", "shape": "box", "min": [-0.746, 0.874, -0.375], "max": [0.746, 0.896, 0.375], "mat": "bench_phenolic" },
     { "node": "body", "shape": "box", "min": [-0.25, 0.7, -0.25], "max": [0.25, 0.9, 0.25], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.23, 0.71, -0.23], "max": [0.23, 0.73, 0.23], "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.05, -0.32], "radius": 0.012, "height": 0.3, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.2, -0.22], "radius": 0.01, "height": 0.2, "axis": "z", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.5, 0.98, -0.3], "radius": 0.025, "height": 0.12, "axis": "y", "mat": "paint_green" },
-    { "node": "body", "shape": "cyl", "center": [0.5, 1.05, -0.3], "radius": 0.05, "height": 0.02, "axis": "y", "mat": "paint_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_300_y_0_1050_-320", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_10_200_z_0_1200_-220", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_120_y_500_980_-300", "mat": "paint_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_20_y_500_1050_-300", "mat": "paint_yellow" },
     { "node": "body", "shape": "box", "min": [-0.75, 0.9, -0.375], "max": [0.75, 1.2, -0.345], "mat": "tile_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.75, 0, -0.375], "max": [0.75, 1.211, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.75, 0, -0.375], "max": [0.75, 1.21, 0.4], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.9 }
   },
-  "tris": 424,
+  "tris": 472,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#benches",

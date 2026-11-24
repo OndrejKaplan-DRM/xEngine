@@ -4,26 +4,19 @@
   "id": "thermomixer_01",
   "title": "Termomixér s blokem na mikrozkumavky",
   "category": "lab.bench",
-  "bounds": { "min": [-0.106, -0.001, -0.151], "max": [0.106, 0.153, 0.156] },
+  "bounds": { "min": [-0.106, -0.001, -0.151], "max": [0.106, 0.153, 0.161] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.105, 0.016, -0.142], "max": [0.105, 0.122, 0.142], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.097, 0.008, -0.142], "max": [0.097, 0.13, 0.142], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.097, 0.016, -0.15], "max": [0.097, 0.122, 0.15], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.087, 0, -0.132], "max": [-0.063, 0.008, -0.108], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.087, 0, 0.108], "max": [-0.063, 0.008, 0.132], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.063, 0, -0.132], "max": [0.087, 0.008, -0.108], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.063, 0, 0.108], "max": [0.087, 0.008, 0.132], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.09, 0.015, 0.149], "max": [0.09, 0.06, 0.152], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_210_300_130_15_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_210_300_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_150_-90_90_15_60", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.084, 0.0353, 0.152], "max": [0.018, 0.054, 0.1535], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.082, 0.021, 0.152], "max": [-0.07, 0.029, 0.155], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [-0.041, 0.021, 0.152], "max": [-0.029, 0.029, 0.155], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0, 0.021, 0.152], "max": [0.012, 0.029, 0.155], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.041, 0.021, 0.152], "max": [0.053, 0.029, 0.155], "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_150_-90_90_15_60_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_150_-90_90_15_60_4", "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.07, 0.13, -0.12], "max": [0.07, 0.15, 0.02], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.11], "max": [0.06, 0.152, -0.1], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.08], "max": [0.06, 0.152, -0.07], "mat": "plastic_anthracite" },
@@ -31,13 +24,13 @@
     { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.02], "max": [0.06, 0.152, -0.01], "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.15], "max": [0.105, 0.152, 0.155], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.15], "max": [0.105, 0.152, 0.16], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 216,
+  "tris": 516,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

@@ -6,7 +6,7 @@
 import { partTris } from '../../src/xspace/index.js';
 import { CYL_SIDES, partPoints, boundsAt } from '../../src/gen/measure.js';
 import { r4, V, source } from '../../src/gen/util.js';
-import { meshTris, meshCorners } from './mesh/registry.mjs';
+import { meshTris, meshCorners, shiftMeshPart } from './mesh/registry.mjs';
 
 // ---- díly a kolize -----------------------------------------------------------------------
 
@@ -16,6 +16,14 @@ export const boxc = (node, c, s, mat) => box(node, [c[0] - s[0] / 2, c[1] - s[1]
 export const cyl = (node, center, radius, height, axis, mat) => ({ node, shape: 'cyl', center: V(...center), radius: r4(radius), height: r4(height), axis, mat });
 export const cbox = (node, min, max, group = 'world') => ({ node, shape: 'box', min: V(...min), max: V(...max), group });
 export const ccyl = (node, center, radius, height, axis, group = 'world') => ({ node, shape: 'cyl', center: V(...center), radius: r4(radius), height: r4(height), axis, group });
+/** Díl (box, cyl, mesh) posunutý o (dx, dy, dz). */
+export function shiftPart(p, dx, dy, dz) {
+  if (p.shape === 'box') return { ...p, min: V(p.min[0] + dx, p.min[1] + dy, p.min[2] + dz), max: V(p.max[0] + dx, p.max[1] + dy, p.max[2] + dz) };
+  if (p.shape === 'cyl') return { ...p, center: V(p.center[0] + dx, p.center[1] + dy, p.center[2] + dz) };
+  return shiftMeshPart(p, dx, dy, dz);
+}
+export const shiftParts = (parts, dx, dy, dz) => parts.map((p) => shiftPart(p, dx, dy, dz));
+
 /** Kolize přesně podle dílu. */
 export const collide = (part, group = 'world') => {
   const { mat, ...rest } = part;

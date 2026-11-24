@@ -11,19 +11,14 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.085, 0.016, -0.132], "max": [0.085, 0.092, 0.132], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.077, 0.008, -0.132], "max": [0.077, 0.1, 0.132], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.077, 0.016, -0.14], "max": [0.077, 0.092, 0.14], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.067, 0, -0.122], "max": [-0.043, 0.008, -0.098], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.067, 0, 0.098], "max": [-0.043, 0.008, 0.122], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.043, 0, -0.122], "max": [0.067, 0.008, -0.098], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.043, 0, 0.098], "max": [0.067, 0.008, 0.122], "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1, -0.04], "radius": 0.07, "height": 0.008, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [-0.05, 0.05, 0.142], "radius": 0.013, "height": 0.012, "axis": "z", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.05, 0.05, 0.142], "radius": 0.013, "height": 0.012, "axis": "z", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_170_280_100_11_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_170_280_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_8_y_0_100_-40", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_-50_50_142", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_50_50_142", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.02, 0.08, 0.14], "max": [0.02, 0.09, 0.142], "mat": "emit_red" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.152, -0.04], "radius": 0.045, "height": 0.096, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1338, -0.04], "radius": 0.043, "height": 0.0556, "axis": "y", "mat": "liquid_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_45_96_y_0_152_-40", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_43_56_y_0_134_-40", "mat": "liquid_blue" },
     { "node": "body", "shape": "box", "min": [-0.012, 0.106, -0.044], "max": [0.012, 0.112, -0.036], "mat": "plastic_white" }
   ],
   "colliders": [
@@ -33,7 +28,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 428,
+  "tris": 692,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

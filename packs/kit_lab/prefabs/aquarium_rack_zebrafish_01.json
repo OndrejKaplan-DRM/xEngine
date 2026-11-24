@@ -43,7 +43,7 @@
     { "node": "body", "shape": "box", "min": [-0.18, 1.39, -0.15], "max": [0.14, 1.58, 0.15], "mat": "liquid_water" },
     { "node": "body", "shape": "box", "min": [-0.19, 1.63, -0.16], "max": [0.15, 1.65, 0.16], "mat": "cap_blue" },
     { "node": "body", "shape": "box", "min": [-0.62, 1.82, -0.22], "max": [0.62, 1.86, 0.22], "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0.55, 1, 0.18], "radius": 0.012, "height": 1.7, "axis": "y", "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_1700_y_550_1000_180", "mat": "plastic_white" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.62, 0, -0.22], "max": [0.62, 1.9, 0.22], "group": "world" }

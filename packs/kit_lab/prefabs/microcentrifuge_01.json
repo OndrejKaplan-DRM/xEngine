@@ -4,7 +4,7 @@
   "id": "microcentrifuge_01",
   "title": "Mikrocentrifuga",
   "category": "lab.bench",
-  "bounds": { "min": [-0.121, -0.001, -0.286], "max": [0.121, 0.51, 0.201] },
+  "bounds": { "min": [-0.121, -0.001, -0.286], "max": [0.121, 0.51, 0.206] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,20 +15,14 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0.016, -0.187], "max": [0.12, 0.1408, 0.187], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.112, 0.008, -0.187], "max": [0.112, 0.1488, 0.187], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.112, 0.016, -0.195], "max": [0.112, 0.1408, 0.195], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.102, 0, -0.177], "max": [-0.078, 0.008, -0.153], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.102, 0, 0.153], "max": [-0.078, 0.008, 0.177], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.078, 0, -0.177], "max": [0.102, 0.008, -0.153], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.078, 0, 0.153], "max": [0.102, 0.008, 0.177], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.084, 0.0288, 0.194], "max": [0.084, 0.1152, 0.197], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_240_390_149_17_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_240_390_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_195_-84_84_29_115", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.078, 0.0677, 0.197], "max": [0.0168, 0.1092, 0.1985], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.076, 0.0348, 0.197], "max": [-0.064, 0.0428, 0.2], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [-0.0253, 0.0348, 0.197], "max": [-0.0133, 0.0428, 0.2], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.0253, 0.0348, 0.197], "max": [0.0373, 0.0428, 0.2], "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1488, -0.02], "radius": 0.0864, "height": 0.01, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1536, -0.02], "radius": 0.02, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_195_-84_84_29_115_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_195_-84_84_29_115_3", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_86_10_y_0_149_-20", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_20_y_0_154_-20", "mat": "steel_brushed" },
     { "node": "lid", "shape": "box", "min": [-0.12, 0.006, 0.006], "max": [0.12, 0.0852, 0.3294], "mat": "plastic_white" },
     { "node": "lid", "shape": "box", "min": [-0.114, 0, 0.006], "max": [0.114, 0.0912, 0.3294], "mat": "plastic_white" },
     { "node": "lid", "shape": "box", "min": [-0.114, 0.006, 0], "max": [0.114, 0.0852, 0.3354], "mat": "plastic_white" },
@@ -36,7 +30,7 @@
     { "node": "lid", "shape": "box", "min": [-0.03, 0.048, 0.3354], "max": [0.03, 0.072, 0.3474], "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.195], "max": [0.12, 0.164, 0.2], "group": "prop" },
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.195], "max": [0.12, 0.164, 0.205], "group": "prop" },
     { "node": "lid", "shape": "box", "min": [-0.12, 0, 0], "max": [0.12, 0.094, 0.348], "group": "prop" }
   ],
   "components": {
@@ -46,7 +40,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 332,
+  "tris": 668,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#microcentrifuges",

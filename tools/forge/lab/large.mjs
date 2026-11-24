@@ -2,7 +2,7 @@
 // robot na pipetování, průtokový cytometr, NMR). Rozměry z katalogů výrobců (tools/forge/lab/ROZMERY.md), jinde
 // úvaha. Tvar obecný, bez značek. Počátek ve středu půdorysu na podlaze nebo na desce stolu, čelo do +Z.
 
-import { box, boxc, cyl } from '../lib.mjs';
+import { box, boxc, cyl, shiftPart, shiftParts } from '../lib.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, moving, casing, panel, vessel, staticFloor } from './common.mjs';
 
@@ -38,7 +38,7 @@ export function gasChrom() {
   return [
     one('gc_01', 'Plynový chromatograf s automatickým dávkovačem', gc(0.515, 0.54, 0.44), 'gasChrom'),
     one('gc_compact_01', 'Kompaktní plynový chromatograf', gc(0.35, 0.62, 0.44), 'gasChrom'),
-    one('gcms_01', 'Plynový chromatograf s hmotnostním detektorem', [...gc(0.515, 0.54, 0.44).map((p) => (p.shape === 'box' ? { ...p, min: [p.min[0] - 0.1, p.min[1], p.min[2]], max: [p.max[0] - 0.1, p.max[1], p.max[2]] } : { ...p, center: [p.center[0] - 0.1, p.center[1], p.center[2]] })), ...ms], 'gasChrom'),
+    one('gcms_01', 'Plynový chromatograf s hmotnostním detektorem', [...gc(0.515, 0.54, 0.44).map((p) => shiftPart(p, -0.1, 0, 0)), ...ms], 'gasChrom'),
   ];
 }
 

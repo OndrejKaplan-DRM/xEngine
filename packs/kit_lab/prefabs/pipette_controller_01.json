@@ -12,7 +12,7 @@
   },
   "parts": [
     { "node": "body", "shape": "box", "min": [-0.02, 0, -0.03], "max": [0.02, 0.1, 0.03], "mat": "plastic_navy" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.14, 0.02], "radius": 0.012, "height": 0.08, "axis": "y", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_80_y_0_140_20", "mat": "plastic_navy" },
     { "node": "body", "shape": "box", "min": [-0.006, 0.09, 0.025], "max": [0.006, 0.1, 0.04], "mat": "cap_red" },
     { "node": "body", "shape": "cyl", "center": [0, 0.2, 0.02], "radius": 0.006, "height": 0.04, "axis": "y", "mat": "plastic_pp" }
   ],

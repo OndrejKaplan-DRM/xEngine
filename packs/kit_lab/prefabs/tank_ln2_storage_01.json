@@ -4,33 +4,33 @@
   "id": "tank_ln2_storage_01",
   "title": "Zásobník kapalného dusíku na pojízdném podstavci",
   "category": "lab.cold",
-  "bounds": { "min": [-0.409, -0.002, -0.409], "max": [0.409, 1.132, 0.409] },
+  "bounds": { "min": [-0.401, 0.029, -0.401], "max": [0.401, 1.132, 0.401] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.09, 0], "radius": 0.4, "height": 0.06, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0.33, 0.03, 0], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.0001, 0.03, 0.33], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.33, 0.03, -0.0001], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.0002, 0.03, -0.33], "radius": 0.03, "height": 0.04, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.485, 0], "radius": 0.34, "height": 0.73, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.925, 0], "radius": 0.27, "height": 0.15, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.025, 0], "radius": 0.175, "height": 0.05, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.09, 0], "radius": 0.16, "height": 0.08, "axis": "y", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_400_60_y_0_90_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_330_30_0", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_0_30_330", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_-330_30_0", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_0_30_-330", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_340_730_y_0_485_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_270_150_y_0_925_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_175_50_y_0_1025_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_160_80_y_0_1090_0", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.08, 0.55, 0.335], "max": [0.08, 0.7, 0.345], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.06, 0.6, 0.345], "max": [0.06, 0.66, 0.347], "mat": "emit_display" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.408, -0.001, -0.408], "max": [0.408, 1.131, 0.408], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0.03, -0.4], "max": [0.4, 1.131, 0.4], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 600,
+  "tris": 1144,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#chestAndLn2",

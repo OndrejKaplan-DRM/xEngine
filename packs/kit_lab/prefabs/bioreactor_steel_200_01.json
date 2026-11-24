@@ -4,7 +4,7 @@
   "id": "bioreactor_steel_200_01",
   "title": "Nerezový bioreaktor 200 l s řídicí skříní",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.338, -0.001, -0.338], "max": [1.081, 1.851, 0.352] },
+  "bounds": { "min": [-0.331, -0.001, -0.331], "max": [1.081, 1.851, 0.352] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -14,29 +14,27 @@
     { "node": "body", "shape": "box", "min": [0.239, 0, -0.025], "max": [0.289, 0.65, 0.025], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.1569, 0, 0.2037], "max": [-0.1069, 0.65, 0.2537], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.1572, 0, -0.2535], "max": [-0.1072, 0.65, -0.2035], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.59, 0], "radius": 0.2475, "height": 0.08, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.09, 0], "radius": 0.33, "height": 0.92, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.6, 0], "radius": 0.264, "height": 0.1, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.75, 0], "radius": 0.07, "height": 0.2, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.198, 1.69, 0], "radius": 0.03, "height": 0.1, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.05, 0.34], "radius": 0.06, "height": 0.02, "axis": "z", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_248_80_y_0_590_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_330_920_y_0_1090_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_264_100_y_0_1600_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_200_y_0_1750_0", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_100_y_198_1690_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_60_20_z_0_1050_340", "mat": "glass_tinted" },
     { "node": "body", "shape": "box", "min": [0.48, 0, -0.3], "max": [1.08, 1.8, 0.3], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [0.53, 1.3, 0.3], "max": [1.03, 1.7, 0.302], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [0.53, 1, 0.299], "max": [1.03, 1.25, 0.302], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_300_530_1030_1000_1250", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.536, 1.1125, 0.302], "max": [0.83, 1.244, 0.3035], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [0.538, 1.006, 0.302], "max": [0.55, 1.014, 0.305], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [0.659, 1.006, 0.302], "max": [0.671, 1.014, 0.305], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.78, 1.006, 0.302], "max": [0.792, 1.014, 0.305], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.901, 1.006, 0.302], "max": [0.913, 1.014, 0.305], "mat": "plastic_light" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_300_530_1030_1000_1250_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_300_530_1030_1000_1250_4", "mat": "plastic_light" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.337, 0, -0.337], "max": [1.08, 1.85, 0.351], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.33, 0, -0.33], "max": [1.08, 1.85, 0.351], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 516,
+  "tris": 1064,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#reactors",

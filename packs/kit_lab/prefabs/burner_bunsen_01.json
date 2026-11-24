@@ -4,26 +4,26 @@
   "id": "burner_bunsen_01",
   "title": "Plynový kahan",
   "category": "lab.bench",
-  "bounds": { "min": [-0.047, -0.001, -0.047], "max": [0.071, 0.152, 0.047] },
+  "bounds": { "min": [-0.046, -0.001, -0.046], "max": [0.071, 0.152, 0.046] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.006, 0], "radius": 0.045, "height": 0.012, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.08, 0], "radius": 0.008, "height": 0.14, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.03, 0], "radius": 0.012, "height": 0.025, "axis": "y", "mat": "brass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_45_12_y_0_6_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_140_y_0_80_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_25_y_0_30_0", "mat": "brass" },
     { "node": "body", "shape": "cyl", "center": [0.04, 0.02, 0], "radius": 0.005, "height": 0.06, "axis": "x", "mat": "brass" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.046], "max": [0.07, 0.151, 0.046], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.045], "max": [0.07, 0.151, 0.045], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 256,
+  "tris": 288,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#benchUtility",

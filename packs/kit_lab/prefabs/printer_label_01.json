@@ -11,13 +11,8 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.06, 0.016, -0.092], "max": [0.06, 0.142, 0.092], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.052, 0.008, -0.092], "max": [0.052, 0.15, 0.092], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.052, 0.016, -0.1], "max": [0.052, 0.142, 0.1], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.042, 0, -0.082], "max": [-0.018, 0.008, -0.058], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.042, 0, 0.058], "max": [-0.018, 0.008, 0.082], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.018, 0, -0.082], "max": [0.042, 0.008, -0.058], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.018, 0, 0.058], "max": [0.042, 0.008, 0.082], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_120_200_150_14_8", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_120_200_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.04, 0.08, 0.1], "max": [0.04, 0.081, 0.13], "mat": "label_paper" }
   ],
   "colliders": [
@@ -27,7 +22,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 96,
+  "tris": 248,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#smallDevices",

@@ -22,7 +22,7 @@
     { "node": "body", "shape": "box", "min": [0.18, 0.75, -0.095], "max": [0.22, 0.89, -0.055], "mat": "paint_green" },
     { "node": "body", "shape": "box", "min": [-0.305, 1.05, -0.155], "max": [0.305, 1.08, 0.155], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.25, 1.048, -0.075], "max": [0.25, 1.05, 0.075], "mat": "emit_cool" },
-    { "node": "body", "shape": "cyl", "center": [0.24, 0.91, -0.11], "radius": 0.015, "height": 0.21, "axis": "y", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_15_210_y_240_910_-110", "mat": "plastic_anthracite" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.305, 0, -0.155], "max": [0.305, 1.08, 0.155], "group": "world" }

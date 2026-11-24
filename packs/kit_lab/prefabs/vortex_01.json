@@ -11,16 +11,11 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.065, 0.016, -0.072], "max": [0.065, 0.112, 0.072], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.057, 0.008, -0.072], "max": [0.057, 0.12, 0.072], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.057, 0.016, -0.08], "max": [0.057, 0.112, 0.08], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.047, 0, -0.062], "max": [-0.023, 0.008, -0.038], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.047, 0, 0.038], "max": [-0.023, 0.008, 0.062], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.023, 0, -0.062], "max": [0.047, 0.008, -0.038], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.023, 0, 0.038], "max": [0.047, 0.008, 0.062], "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.13, -0.01], "radius": 0.03, "height": 0.02, "axis": "y", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_130_160_120_13_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_130_160_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_20_y_0_130_-10", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.04, 0.03, 0.08], "max": [0.04, 0.06, 0.083], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.035, 0.045, 0.085], "radius": 0.009, "height": 0.008, "axis": "z", "mat": "plastic_light" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_9_8_z_35_45_85", "mat": "plastic_light" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.065, 0, -0.08], "max": [0.065, 0.14, 0.09], "group": "prop" }
@@ -29,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 224,
+  "tris": 392,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

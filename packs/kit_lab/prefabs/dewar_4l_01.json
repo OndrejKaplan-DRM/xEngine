@@ -4,29 +4,29 @@
   "id": "dewar_4l_01",
   "title": "Dewarova nádoba na kapalný dusík 4 l",
   "category": "lab.bench",
-  "bounds": { "min": [-0.096, -0.001, -0.096], "max": [0.096, 0.428, 0.096] },
+  "bounds": { "min": [-0.094, -0.001, -0.093], "max": [0.094, 0.428, 0.093] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.0902, "height": 0.02, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1701, 0], "radius": 0.0925, "height": 0.3002, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.3523, 0], "radius": 0.0717, "height": 0.0641, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.3907, 0], "radius": 0.0392, "height": 0.0127, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.412, 0], "radius": 0.0255, "height": 0.03, "axis": "y", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_0_10_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_93_300_y_0_170_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_72_64_y_0_352_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_39_13_y_0_391_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_26_30_y_0_412_0", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.0647, 0.363, -0.012], "max": [-0.0509, 0.3928, 0.012], "mat": "steel_dark" },
     { "node": "body", "shape": "box", "min": [0.0509, 0.363, -0.012], "max": [0.0648, 0.3928, 0.012], "mat": "steel_dark" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.095, 0, -0.095], "max": [0.095, 0.427, 0.095], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.093, 0, -0.092], "max": [0.093, 0.427, 0.092], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 344,
+  "tris": 584,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#gasAndCryo",

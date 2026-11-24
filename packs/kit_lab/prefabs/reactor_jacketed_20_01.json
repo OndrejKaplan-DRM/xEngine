@@ -16,14 +16,14 @@
     { "node": "body", "shape": "box", "min": [0.38, 0, -0.34], "max": [0.42, 2.1, -0.3], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [0.38, 0, 0.3], "max": [0.42, 2.1, 0.34], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.42, 1.12, -0.34], "max": [0.42, 1.16, 0.34], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.49, 0], "radius": 0.105, "height": 0.12, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.775, 0], "radius": 0.17, "height": 0.45, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.491, 0], "radius": 0.103, "height": 0.118, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.6468, 0], "radius": 0.168, "height": 0.1935, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.775, 0], "radius": 0.2, "height": 0.36, "axis": "y", "mat": "glass_tinted" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.25, 0], "radius": 0.08, "height": 0.2, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 1.6, 0], "radius": 0.04, "height": 0.6, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.35, 0], "radius": 0.02, "height": 0.15, "axis": "y", "mat": "glass_lab" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_105_120_y_0_490_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_170_450_y_0_775_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_103_118_y_0_491_0", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_168_194_y_0_647_0", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_360_y_0_775_0", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_200_y_0_1250_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_600_y_200_1600_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_150_y_0_350_0", "mat": "glass_lab" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.42, 0, -0.34], "max": [0.42, 2.1, 0.34], "group": "world" }
@@ -32,7 +32,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 572,
+  "tris": 1132,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#reactors",

@@ -33,6 +33,14 @@
       "license": "own",
       "source": "tools/forge/lab/chem.mjs",
       "author": "xForge (sešna B)"
+    },
+    {
+      "path": "meshes/parts.glb",
+      "bytes": 1555908,
+      "sha256": "16bb1f68a7cb0b933a28656ce89f4df8cb34ba9211a1b559f9290136bf7b3f17",
+      "license": "own",
+      "source": "tools/forge/lab/bench.mjs",
+      "author": "xForge (sešna B)"
     }
   ]
 }

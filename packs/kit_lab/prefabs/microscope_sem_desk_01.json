@@ -11,14 +11,9 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.165, 0.016, -0.292], "max": [0.165, 0.372, 0.292], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0.008, -0.292], "max": [0.157, 0.38, 0.292], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0.016, -0.3], "max": [0.157, 0.372, 0.3], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.147, 0, -0.282], "max": [-0.123, 0.008, -0.258], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.147, 0, 0.258], "max": [-0.123, 0.008, 0.282], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.123, 0, -0.282], "max": [0.147, 0.008, -0.258], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.123, 0, 0.258], "max": [0.147, 0.008, 0.282], "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.47, -0.08], "radius": 0.08, "height": 0.18, "axis": "y", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_330_600_380_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_330_600_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_180_y_0_470_-80", "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.12, 0.08, 0.3], "max": [0.12, 0.25, 0.32], "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.03, 0.15, 0.32], "max": [0.03, 0.18, 0.34], "mat": "plastic_anthracite" }
   ],
@@ -29,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 172,
+  "tris": 388,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#microscopes",

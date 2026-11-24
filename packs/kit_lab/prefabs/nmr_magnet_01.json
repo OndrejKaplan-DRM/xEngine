@@ -11,14 +11,14 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.35, 0], "radius": 0.05, "height": 0.7, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_700_y_0_350_0", "mat": "steel_dark" },
     { "node": "body", "shape": "box", "min": [0.22, 0, -0.03], "max": [0.28, 0.6, 0.03], "mat": "steel_painted" },
     { "node": "body", "shape": "box", "min": [-0.1562, 0, 0.1858], "max": [-0.0962, 0.6, 0.2458], "mat": "steel_painted" },
     { "node": "body", "shape": "box", "min": [-0.1526, 0, -0.2479], "max": [-0.0926, 0.6, -0.1879], "mat": "steel_painted" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.1, 0], "radius": 0.35, "height": 0.9, "axis": "y", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0, 1.6, 0], "radius": 0.18, "height": 0.1, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 1.75, 0], "radius": 0.03, "height": 0.2, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [-0.12, 1.75, 0], "radius": 0.03, "height": 0.2, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_350_900_y_0_1100_0", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_180_100_y_0_1600_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_200_y_120_1750_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_200_y_-120_1750_0", "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.36, 0, -0.36], "max": [0.36, 0.01, 0.36], "mat": "paint_yellow" }
   ],
   "colliders": [
@@ -28,7 +28,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 368,
+  "tris": 624,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

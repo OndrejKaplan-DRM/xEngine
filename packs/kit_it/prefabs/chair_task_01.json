@@ -4,7 +4,7 @@
   "id": "chair_task_01",
   "title": "Kancelářská židle se síťovým opěradlem (černá)",
   "category": "it.office",
-  "bounds": { "min": [-0.301, -0.002, -0.321], "max": [0.321, 1.131, 0.312] },
+  "bounds": { "min": [-0.301, 0.024, -0.322], "max": [0.321, 1.131, 0.322] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,12 +16,12 @@
     { "node": "body", "shape": "box", "min": [-0.2628, 0.04, 0.1562], "max": [-0.2228, 0.07, 0.1962], "mat": "bezel_black" },
     { "node": "body", "shape": "box", "min": [-0.2625, 0.04, -0.1966], "max": [-0.2225, 0.07, -0.1566], "mat": "bezel_black" },
     { "node": "body", "shape": "box", "min": [0.0731, 0.04, -0.3052], "max": [0.1131, 0.07, -0.2652], "mat": "bezel_black" },
-    { "node": "body", "shape": "cyl", "center": [0.3, 0.025, 0], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.0926, 0.025, 0.2854], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.2428, 0.025, 0.1762], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [-0.2425, 0.025, -0.1766], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.0931, 0.025, -0.2852], "radius": 0.025, "height": 0.02, "axis": "x", "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.26, 0], "radius": 0.025, "height": 0.4, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_300_25_0", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_93_25_285", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-243_25_176", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-242_25_-177", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_93_25_-285", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_400_y_0_260_0", "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.25, 0.48, -0.22], "max": [0.25, 0.5, 0.22], "mat": "fabric_charcoal" },
     { "node": "body", "shape": "box", "min": [-0.23, 0.46, -0.22], "max": [0.23, 0.52, 0.22], "mat": "fabric_charcoal" },
     { "node": "body", "shape": "box", "min": [-0.23, 0.48, -0.24], "max": [0.23, 0.5, 0.24], "mat": "fabric_charcoal" },
@@ -35,13 +35,13 @@
     { "node": "body", "shape": "box", "min": [0.24, 0.68, -0.15], "max": [0.3, 0.7, 0.1], "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, -0.001, -0.32], "max": [0.32, 1.13, 0.311], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0.025, -0.321], "max": [0.32, 1.13, 0.321], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 576,
+  "tris": 672,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#chairs",

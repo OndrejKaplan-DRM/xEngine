@@ -15,13 +15,8 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.343, 0.016, -0.2745], "max": [0.343, 0.372, 0.2745], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.335, 0.008, -0.2745], "max": [0.335, 0.38, 0.2745], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.335, 0.016, -0.2825], "max": [0.335, 0.372, 0.2825], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.2645], "max": [-0.301, 0.008, -0.2405], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.325, 0, 0.2405], "max": [-0.301, 0.008, 0.2645], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.301, 0, -0.2645], "max": [0.325, 0.008, -0.2405], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.301, 0, 0.2405], "max": [0.325, 0.008, 0.2645], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_686_565_380_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_686_565_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [0.09, 0.2, 0.282], "max": [0.31, 0.34, 0.302], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.1, 0.21, 0.302], "max": [0.3, 0.33, 0.303], "mat": "emit_display" },
     { "node": "body", "shape": "box", "min": [-0.3, 0.06, 0.282], "max": [0.05, 0.3, 0.284], "mat": "plastic_light" },
@@ -40,7 +35,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 156,
+  "tris": 308,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#sequencers",

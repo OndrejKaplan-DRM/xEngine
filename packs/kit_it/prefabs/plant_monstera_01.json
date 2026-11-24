@@ -11,8 +11,8 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.15, 0], "radius": 0.18, "height": 0.3, "axis": "y", "mat": "bezel_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.29, 0], "radius": 0.1656, "height": 0.02, "axis": "y", "mat": "soil_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_180_300_y_0_150_0", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_166_20_y_0_290_0", "mat": "soil_dark" },
     { "node": "body", "shape": "box", "min": [0.02, 0.55, -0.11], "max": [0.28, 0.57, 0.11], "mat": "leaf_green" },
     { "node": "body", "shape": "box", "min": [-0.28, 0.6, -0.06], "max": [-0.02, 0.62, 0.16], "mat": "leaf_green" },
     { "node": "body", "shape": "box", "min": [-0.13, 0.75, -0.23], "max": [0.13, 0.77, -0.01], "mat": "leaf_green" },
@@ -28,7 +28,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 212,
+  "tris": 404,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#lounge",

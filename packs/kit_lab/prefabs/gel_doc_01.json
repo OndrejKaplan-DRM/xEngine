@@ -11,16 +11,11 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.2, 0.016, -0.217], "max": [0.2, 0.492, 0.217], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.192, 0.008, -0.217], "max": [0.192, 0.5, 0.217], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.192, 0.016, -0.225], "max": [0.192, 0.492, 0.225], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.182, 0, -0.207], "max": [-0.158, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.182, 0, 0.183], "max": [-0.158, 0.008, 0.207], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.158, 0, -0.207], "max": [0.182, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.158, 0, 0.183], "max": [0.182, 0.008, 0.207], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_400_450_500_18_8", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_400_450_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.17, 0.08, 0.225], "max": [0.17, 0.4, 0.228], "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.03, 0.2, 0.228], "max": [0.03, 0.26, 0.24], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.53, 0], "radius": 0.04, "height": 0.06, "axis": "y", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_60_y_0_530_0", "mat": "plastic_anthracite" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.2, 0, -0.225], "max": [0.2, 0.56, 0.24], "group": "prop" }
@@ -29,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 172,
+  "tris": 356,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#electrophoresis",

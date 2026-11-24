@@ -15,7 +15,7 @@
     { "node": "body", "shape": "box", "min": [-0.125, 0.002, -0.22], "max": [0.125, 0.03, 0.22], "mat": "paper_kraft" },
     { "node": "body", "shape": "box", "min": [-0.135, 0.2, -0.23], "max": [0.135, 0.23, 0.23], "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.1, 0.16, -0.195], "max": [0.1, 0.165, 0], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.065, 0.18, 0.1125], "radius": 0.02, "height": 0.1, "axis": "x", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_100_x_65_180_113", "mat": "glass_lab" },
     { "node": "body", "shape": "box", "min": [-0.04, 0.1, 0.225], "max": [0.04, 0.14, 0.227], "mat": "label_paper" }
   ],
   "colliders": [

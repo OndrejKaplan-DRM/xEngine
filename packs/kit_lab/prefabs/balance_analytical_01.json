@@ -4,7 +4,7 @@
   "id": "balance_analytical_01",
   "title": "Analytické váhy s krytem (0,1 mg)",
   "category": "lab.bench",
-  "bounds": { "min": [-0.1, -0.001, -0.244], "max": [0.099, 0.293, 0.249] },
+  "bounds": { "min": [-0.1, -0.001, -0.244], "max": [0.099, 0.293, 0.253] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,29 +15,22 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.0975, 0.016, -0.2345], "max": [0.0975, 0.082, 0.2345], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0895, 0.008, -0.2345], "max": [0.0895, 0.09, 0.2345], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0895, 0.016, -0.2425], "max": [0.0895, 0.082, 0.2425], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0795, 0, -0.2245], "max": [-0.0555, 0.008, -0.2005], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.0795, 0, 0.2005], "max": [-0.0555, 0.008, 0.2245], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.0555, 0, -0.2245], "max": [0.0795, 0.008, -0.2005], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.0555, 0, 0.2005], "max": [0.0795, 0.008, 0.2245], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.02, 0.2415], "max": [0.08, 0.07, 0.2445], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_195_485_90_10_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_195_485_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_243_-80_80_20_70", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.074, 0.0425, 0.2445], "max": [0.016, 0.064, 0.246], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.072, 0.026, 0.2445], "max": [-0.06, 0.034, 0.2475], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [-0.036, 0.026, 0.2445], "max": [-0.024, 0.034, 0.2475], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0, 0.026, 0.2445], "max": [0.012, 0.034, 0.2475], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.036, 0.026, 0.2445], "max": [0.048, 0.034, 0.2475], "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_243_-80_80_20_70_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_243_-80_80_20_70_4", "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.0875, 0.09, -0.2325], "max": [0.0875, 0.292, -0.2125], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.0875, 0.28, -0.2125], "max": [0.0875, 0.292, 0.05], "mat": "glass_tinted" },
     { "node": "body", "shape": "box", "min": [-0.0875, 0.09, 0.048], "max": [0.0875, 0.292, 0.052], "mat": "glass_tinted" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1, -0.08], "radius": 0.04, "height": 0.004, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_4_y_0_100_-80", "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [0.0915, 0.09, -0.2125], "max": [0.0955, 0.28, 0.048], "mat": "glass_tinted" },
     { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.004, 0.19, 0.018], "mat": "glass_tinted" },
     { "node": "door", "shape": "box", "min": [-0.004, 0.08, 0.004], "max": [0, 0.12, 0.014], "mat": "plastic_light" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.243], "max": [0.098, 0.292, 0.248], "group": "prop" },
+    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.243], "max": [0.098, 0.292, 0.252], "group": "prop" },
     { "node": "door", "shape": "box", "min": [-0.004, 0, 0], "max": [0.004, 0.19, 0.018], "group": "prop" }
   ],
   "components": {
@@ -47,7 +40,7 @@
   },
   "inputs": ["open", "close", "lock", "unlock"],
   "outputs": ["opened", "closed"],
-  "tris": 292,
+  "tris": 624,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

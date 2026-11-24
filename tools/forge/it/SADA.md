@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_it`. Neupravovat ručně; zdroj je `tools/forge/it/*.mjs`.
 
-Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 15128
+Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 16696
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -39,27 +39,27 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 15128
 | `rack_network_01` | Síťový rack 42U s propojovacími panely | it.server | 0,6 × 2 × 1,07 | 576 | — | — |
 | `rack_storage_01` | Rack 42U s diskovým polem | it.server | 0,6 × 2 × 1,07 | 804 | — | — |
 | `rack_open_frame_01` | Otevřený dvousloupkový rám 42U | it.server | 0,6 × 2 × 0,4 | 120 | — | — |
-| `supercomputer_cabinet_01` | Skříň superpočítače s kapalinovým chlazením (modrý proužek) | it.server | 0,8 × 2,5 × 1,21 | 356 | — | — |
-| `supercomputer_cabinet_02` | Skříň superpočítače s kapalinovým chlazením (oranžový proužek) | it.server | 0,8 × 2,5 × 1,21 | 356 | — | — |
+| `supercomputer_cabinet_01` | Skříň superpočítače s kapalinovým chlazením (modrý proužek) | it.server | 0,8 × 2,5 × 1,21 | 420 | — | — |
+| `supercomputer_cabinet_02` | Skříň superpočítače s kapalinovým chlazením (oranžový proužek) | it.server | 0,8 × 2,5 × 1,21 | 420 | — | — |
 | `ups_cabinet_01` | UPS (zdroj nepřerušitelného napájení) | it.server | 0,6 × 1,9 × 0,91 | 72 | — | — |
 | `battery_cabinet_01` | Bateriová skříň k UPS | it.server | 0,6 × 1,9 × 0,9 | 84 | — | — |
 | `cooler_inrow_01` | Chladicí jednotka do řady racků | it.server | 0,3 × 2 × 1,08 | 60 | — | — |
 | `cooler_crah_01` | Skříňová chladicí jednotka (CRAH) | it.server | 1,7 × 1,95 × 0,9 | 84 | — | — |
-| `cylinder_fire_gas_01` | Láhev hasicího plynu se ventilem | it.server | 0,31 × 1,73 × 0,31 | 216 | — | — |
+| `cylinder_fire_gas_01` | Láhev hasicího plynu se ventilem | it.server | 0,3 × 1,73 × 0,3 | 376 | — | — |
 | `tray_cable_01` | Kabelový žlab 2 m na závěsech, prázdný | it.server | 2 × 0,6 × 0,3 | 60 | — | — |
 | `tray_cable_02` | Kabelový žlab 2 m na závěsech, s kabely | it.server | 2 × 0,6 × 0,3 | 84 | — | — |
 | `floor_tile_perforated_01` | Děrovaná dlaždice zdvojené podlahy 60 × 60 cm | it.server | 0,6 × 0,01 × 0,6 | 24 | — | — |
 | `reader_card_01` | Čtečka přístupových karet | it.server | 0,08 × 0,12 × 0,03 | 24 | — | — |
-| `camera_dome_01` | Kupolová bezpečnostní kamera | it.server | 0,15 × 0,07 × 0,15 | 128 | — | — |
+| `camera_dome_01` | Kupolová bezpečnostní kamera | it.server | 0,14 × 0,07 × 0,14 | 208 | — | — |
 | `access_point_01` | Přístupový bod Wi-Fi | it.server | 0,2 × 0,04 × 0,2 | 48 | — | — |
 | `switch_desk_01` | Síťový přepínač na stůl s kabely | it.server | 0,28 × 0,04 × 0,23 | 108 | — | — |
 | `desk_bench4_01` | Blok stolů pro čtyři s přepážkami | it.office | 3,2 × 1,14 × 1,6 | 168 | — | — |
 | `desk_bench4_02` | Blok stolů pro čtyři s přepážkami a počítači | it.office | 3,2 × 1,19 × 1,6 | 708 | — | — |
 | `desk_sitstand_01` | Stůl s nastavitelnou výškou, bílý | it.office | 1,6 × 0,75 × 0,8 | 132 | — | — |
 | `desk_sitstand_02` | Stůl s nastavitelnou výškou, dubový | it.office | 1,6 × 0,75 × 0,8 | 132 | — | — |
-| `chair_task_01` | Kancelářská židle se síťovým opěradlem (černá) | it.office | 0,62 × 1,13 × 0,63 | 576 | — | — |
-| `chair_task_02` | Kancelářská židle se síťovým opěradlem (šedá) | it.office | 0,62 × 1,13 × 0,63 | 576 | — | — |
-| `chair_task_03` | Kancelářská židle se síťovým opěradlem (modrá) | it.office | 0,62 × 1,13 × 0,63 | 576 | — | — |
+| `chair_task_01` | Kancelářská židle se síťovým opěradlem (černá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
+| `chair_task_02` | Kancelářská židle se síťovým opěradlem (šedá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
+| `chair_task_03` | Kancelářská židle se síťovým opěradlem (modrá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
 | `table_meeting_240_01` | Jednací stůl 2,4 m, dub | it.office | 2,4 × 0,75 × 1,2 | 120 | — | — |
 | `table_meeting_400_01` | Jednací stůl 4 m, bílý | it.office | 4 × 0,75 × 1,2 | 120 | — | — |
 | `booth_phone_01` | Telefonní budka (akustická kabina pro jednoho) | it.office | 1,07 × 2,2 × 1,87 | 108 | swing: 0° až 95° | door |
@@ -68,22 +68,22 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 15128
 | `panel_acoustic_02` | Akustické panely z filcu, zelené | it.office | 1,78 × 1,18 × 0,06 | 72 | — | — |
 | `tv_wall_65_01` | Televize 65" na zeď | it.office | 1,46 × 0,84 × 0,05 | 48 | — | — |
 | `screen_projection_01` | Projekční plátno svinuté v pouzdře | it.office | 2,4 × 0,1 × 0,1 | 24 | — | — |
-| `whiteboard_mobile_01` | Mobilní oboustranná tabule | it.office | 1,76 × 1,9 × 0,61 | 328 | — | — |
-| `projector_ceiling_01` | Projektor na stropním držáku | it.office | 0,34 × 0,45 × 0,33 | 112 | — | — |
-| `plant_ficus_01` | Fíkus ve velkém květináči | it.office | 0,62 × 1,63 × 0,51 | 228 | — | — |
-| `plant_snake_01` | Tchýnin jazyk v květináči | it.office | 0,27 × 0,84 × 0,27 | 188 | — | — |
-| `plant_monstera_01` | Monstera v černém květináči | it.office | 0,56 × 0,85 × 0,49 | 212 | — | — |
+| `whiteboard_mobile_01` | Mobilní oboustranná tabule | it.office | 1,76 × 1,88 × 0,63 | 392 | — | — |
+| `projector_ceiling_01` | Projektor na stropním držáku | it.office | 0,34 × 0,45 × 0,33 | 128 | — | — |
+| `plant_ficus_01` | Fíkus ve velkém květináči | it.office | 0,62 × 1,63 × 0,51 | 420 | — | — |
+| `plant_snake_01` | Tchýnin jazyk v květináči | it.office | 0,26 × 0,84 × 0,26 | 380 | — | — |
+| `plant_monstera_01` | Monstera v černém květináči | it.office | 0,56 × 0,85 × 0,49 | 404 | — | — |
 | `sofa_two_01` | Pohovka pro dva, žlutá | it.office | 1,6 × 0,85 × 0,8 | 192 | — | — |
 | `sofa_two_02` | Pohovka pro dva, petrolejová | it.office | 1,6 × 0,85 × 0,8 | 192 | — | — |
 | `beanbag_01` | Sedací vak, šedý | it.office | 0,76 × 0,75 × 0,76 | 72 | — | — |
 | `beanbag_02` | Sedací vak, žlutý | it.office | 0,76 × 0,75 × 0,76 | 72 | — | — |
-| `kitchenette_01` | Kuchyňka s dřezem a kávovarem | it.office | 2 × 1,32 × 0,62 | 432 | — | — |
-| `water_cooler_01` | Výdejník vody s barelem | it.office | 0,32 × 1,45 × 0,38 | 136 | — | — |
+| `kitchenette_01` | Kuchyňka s dřezem a kávovarem | it.office | 2 × 1,32 × 0,62 | 496 | — | — |
+| `water_cooler_01` | Výdejník vody s barelem | it.office | 0,32 × 1,45 × 0,38 | 232 | — | — |
 | `lockers_staff_01` | Šatní skříňky pro osm lidí | it.office | 1,2 × 1,8 × 0,52 | 324 | — | — |
 | `table_pingpong_01` | Stůl na stolní tenis | it.office | 2,74 × 0,92 × 1,6 | 108 | — | — |
 | `table_foosball_01` | Stolní fotbal | it.office | 1,2 × 0,95 × 1 | 536 | — | — |
 | `bins_recycling_01` | Třídicí koše na odpad (papír, plast, sklo) | it.office | 0,79 × 0,63 × 0,31 | 72 | — | — |
-| `coat_rack_01` | Stojanový věšák s bundou | it.office | 0,45 × 1,8 × 0,45 | 188 | — | — |
+| `coat_rack_01` | Stojanový věšák s bundou | it.office | 0,44 × 1,8 × 0,44 | 284 | — | — |
 | `partition_glass_01` | Skleněná příčka 1,2 m s pruhem | it.office | 1,2 × 2,6 × 0,08 | 48 | — | — |
 | `desk_reception_01` | Recepční pult | it.office | 2,5 × 1,16 × 1,1 | 180 | — | — |
 

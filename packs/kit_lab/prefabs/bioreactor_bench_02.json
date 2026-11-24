@@ -4,7 +4,7 @@
   "id": "bioreactor_bench_02",
   "title": "Stolní bioreaktor se dvěma nádobami",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.401, -0.001, -0.181], "max": [0.293, 0.651, 0.221] },
+  "bounds": { "min": [-0.401, -0.001, -0.181], "max": [0.292, 0.651, 0.221] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -15,28 +15,28 @@
     { "node": "body", "shape": "box", "min": [-0.39, 0, -0.17], "max": [-0.13, 0.65, 0.17], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.39, 0.01, -0.18], "max": [-0.13, 0.64, 0.18], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.38, 0.45, 0.18], "max": [-0.14, 0.6, 0.182], "mat": "emit_display" },
-    { "node": "body", "shape": "cyl", "center": [-0.34, 0.3, 0.2], "radius": 0.03, "height": 0.04, "axis": "z", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [-0.26, 0.3, 0.2], "radius": 0.03, "height": 0.04, "axis": "z", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [-0.18, 0.3, 0.2], "radius": 0.03, "height": 0.04, "axis": "z", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.17, 0], "radius": 0.07, "height": 0.3, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1185, 0], "radius": 0.068, "height": 0.193, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.34, 0], "radius": 0.08, "height": 0.03, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.42, 0], "radius": 0.035, "height": 0.12, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.09, "height": 0.02, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 0.17, 0], "radius": 0.07, "height": 0.3, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 0.1185, 0], "radius": 0.068, "height": 0.193, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 0.34, 0], "radius": 0.08, "height": 0.03, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 0.42, 0], "radius": 0.035, "height": 0.12, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 0.01, 0], "radius": 0.09, "height": 0.02, "axis": "y", "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-340_300_200", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-260_300_200", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-180_300_200", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_300_y_0_170_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_68_193_y_0_119_0", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_30_y_0_340_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_120_y_0_420_0", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_0_10_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_300_y_200_170_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_68_193_y_200_119_0", "mat": "liquid_pink" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_30_y_200_340_0", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_120_y_200_420_0", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_200_10_0", "mat": "steel_dark" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.18], "max": [0.292, 0.65, 0.22], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.18], "max": [0.291, 0.65, 0.22], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 880,
+  "tris": 1440,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#reactors",

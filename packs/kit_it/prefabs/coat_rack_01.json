@@ -4,15 +4,15 @@
   "id": "coat_rack_01",
   "title": "Stojanový věšák s bundou",
   "category": "it.office",
-  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 1.801, 0.226] },
+  "bounds": { "min": [-0.221, -0.001, -0.221], "max": [0.221, 1.801, 0.221] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.22, "height": 0.02, "axis": "y", "mat": "bezel_black" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.9, 0], "radius": 0.018, "height": 1.8, "axis": "y", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_220_20_y_0_10_0", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_18_1800_y_0_900_0", "mat": "bezel_black" },
     { "node": "body", "shape": "box", "min": [0.112, 1.6, -0.008], "max": [0.128, 1.75, 0.008], "mat": "bezel_black" },
     { "node": "body", "shape": "box", "min": [-0.008, 1.6, 0.112], "max": [0.008, 1.75, 0.128], "mat": "bezel_black" },
     { "node": "body", "shape": "box", "min": [-0.128, 1.6, -0.008], "max": [-0.112, 1.75, 0.008], "mat": "bezel_black" },
@@ -20,13 +20,13 @@
     { "node": "body", "shape": "box", "min": [0.06, 1.2, -0.1], "max": [0.12, 1.65, 0.1], "mat": "fabric_teal" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 1.8, 0.225], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.22], "max": [0.22, 1.8, 0.22], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 188,
+  "tris": 284,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

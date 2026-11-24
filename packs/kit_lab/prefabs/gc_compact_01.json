@@ -4,38 +4,31 @@
   "id": "gc_compact_01",
   "title": "Kompaktní plynový chromatograf",
   "category": "lab.large",
-  "bounds": { "min": [-0.176, -0.001, -0.311], "max": [0.176, 0.661, 0.316] },
+  "bounds": { "min": [-0.176, -0.001, -0.311], "max": [0.176, 0.661, 0.321] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.175, 0.016, -0.302], "max": [0.175, 0.432, 0.302], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.167, 0.008, -0.302], "max": [0.167, 0.44, 0.302], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.167, 0.016, -0.31], "max": [0.167, 0.432, 0.31], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0, -0.292], "max": [-0.133, 0.008, -0.268], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0, 0.268], "max": [-0.133, 0.008, 0.292], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.133, 0, -0.292], "max": [0.157, 0.008, -0.268], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.133, 0, 0.268], "max": [0.157, 0.008, 0.292], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_350_620_440_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_350_620_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.155, 0.05, 0.31], "max": [0.035, 0.36, 0.312], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.0525, 0.24, 0.309], "max": [0.155, 0.39, 0.312], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_310_53_155_240_390", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.0585, 0.3075, 0.312], "max": [0.114, 0.384, 0.3135], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [0.0605, 0.246, 0.312], "max": [0.0725, 0.254, 0.315], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [0.0821, 0.246, 0.312], "max": [0.0941, 0.254, 0.315], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.1038, 0.246, 0.312], "max": [0.1158, 0.254, 0.315], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.1254, 0.246, 0.312], "max": [0.1374, 0.254, 0.315], "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0.0525, 0.54, -0.05], "radius": 0.07, "height": 0.2, "axis": "y", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0.0525, 0.65, -0.05], "radius": 0.075, "height": 0.02, "axis": "y", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_310_53_155_240_390_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_310_53_155_240_390_4", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_200_y_53_540_-50", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_75_20_y_53_650_-50", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.31], "max": [0.175, 0.66, 0.315], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.31], "max": [0.175, 0.66, 0.32], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 296,
+  "tris": 708,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#gasChrom",

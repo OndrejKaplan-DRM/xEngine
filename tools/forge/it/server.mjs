@@ -4,7 +4,7 @@
 // kabelový žlab ze stropu, děrovaná dlaždice zdvojené podlahy, láhev hasicího plynu, přístupová čtečka, kamera,
 // přístupový bod Wi-Fi, přepínač na stůl. Rozměry obvyklé pro 19" techniku; tvar obecný.
 
-import { box, boxc, cyl } from '../lib.mjs';
+import { box, boxc, cyl, shiftPart, shiftParts } from '../lib.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, moving, staticFloor } from '../lab/common.mjs';
 
@@ -90,7 +90,7 @@ export function infrastructure() {
   };
   const ceiling = { physics: { body: 'static' }, place: { mount: 'ceiling' } };
   // u stropních prefabů je počátek na stropě a díly visí pod ním (jako svítidla v kit_base)
-  const hang = (parts, top) => parts.map((p) => (p.shape === 'box' ? { ...p, min: [p.min[0], p.min[1] - top, p.min[2]], max: [p.max[0], p.max[1] - top, p.max[2]] } : { ...p, center: [p.center[0], p.center[1] - top, p.center[2]] }));
+  const hang = (parts, top) => shiftParts(parts, 0, -top, 0);
   const wall = (h) => ({ physics: { body: 'static' }, place: { mount: 'wall', height: h } });
   return [
     one('tray_cable_01', 'Kabelový žlab 2 m na závěsech, prázdný', hang(tray(false), 0.6), 'infrastructure', { components: ceiling, group: 'world' }),

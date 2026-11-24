@@ -11,13 +11,8 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.165, 0.016, -0.222], "max": [0.165, 0.352, 0.222], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0.008, -0.222], "max": [0.157, 0.36, 0.222], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.157, 0.016, -0.23], "max": [0.157, 0.352, 0.23], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.147, 0, -0.212], "max": [-0.123, 0.008, -0.188], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.147, 0, 0.188], "max": [-0.123, 0.008, 0.212], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.123, 0, -0.212], "max": [0.147, 0.008, -0.188], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.123, 0, 0.188], "max": [0.147, 0.008, 0.212], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_330_460_360_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_330_460_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.15, 0.2, 0.23], "max": [0.15, 0.34, 0.232], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.12, 0.24, 0.232], "max": [0.04, 0.32, 0.234], "mat": "emit_display" },
     { "node": "body", "shape": "box", "min": [-0.16, 0.08, 0.23], "max": [0.16, 0.16, 0.232], "mat": "plastic_light" }
@@ -29,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 120,
+  "tris": 272,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#thermocyclers",

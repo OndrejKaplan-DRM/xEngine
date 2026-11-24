@@ -15,9 +15,9 @@
     { "node": "body", "shape": "box", "min": [-0.55, 0.08, -0.55], "max": [-0.5, 2.2, 0.55], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [0.5, 0.08, -0.55], "max": [0.55, 2.2, 0.55], "mat": "steel_brushed" },
     { "node": "body", "shape": "box", "min": [-0.55, 2.2, -0.55], "max": [0.55, 2.35, 0.55], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [-0.25, 2.17, 0], "radius": 0.06, "height": 0.03, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0, 2.17, 0], "radius": 0.06, "height": 0.03, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0.25, 2.17, 0], "radius": 0.06, "height": 0.03, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_60_30_y_-250_2170_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_60_30_y_0_2170_0", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_60_30_y_250_2170_0", "mat": "steel_dark" },
     { "node": "body", "shape": "box", "min": [-0.5, 0.08, -0.55], "max": [0.5, 2.2, -0.53], "mat": "plastic_ps" },
     { "node": "body", "shape": "box", "min": [-0.5, 0.08, 0.53], "max": [0.5, 2.2, 0.55], "mat": "plastic_ps" },
     { "node": "body", "shape": "box", "min": [0.45, 1.3, -0.2], "max": [0.5, 1.5, 0.2], "mat": "paint_yellow" }
@@ -31,7 +31,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 276,
+  "tris": 420,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#quarantine",

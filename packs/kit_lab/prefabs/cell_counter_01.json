@@ -11,13 +11,8 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.09, 0.016, -0.102], "max": [0.09, 0.162, 0.102], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.082, 0.008, -0.102], "max": [0.082, 0.17, 0.102], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.082, 0.016, -0.11], "max": [0.082, 0.162, 0.11], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.072, 0, -0.092], "max": [-0.048, 0.008, -0.068], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.072, 0, 0.068], "max": [-0.048, 0.008, 0.092], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.048, 0, -0.092], "max": [0.072, 0.008, -0.068], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.048, 0, 0.068], "max": [0.072, 0.008, 0.092], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_180_220_170_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_180_220_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.07, 0.07, 0.11], "max": [0.07, 0.15, 0.112], "mat": "emit_display" },
     { "node": "body", "shape": "box", "min": [-0.03, 0.03, 0.11], "max": [0.03, 0.04, 0.115], "mat": "plastic_anthracite" }
   ],
@@ -28,7 +23,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 108,
+  "tris": 260,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#smallDevices",

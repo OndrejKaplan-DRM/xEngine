@@ -4,35 +4,29 @@
   "id": "shaker_orbital_01",
   "title": "Orbitální třepačka",
   "category": "lab.bench",
-  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 0.131, 0.231] },
+  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 0.131, 0.236] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0.016, -0.217], "max": [0.225, 0.112, 0.217], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.217, 0.008, -0.217], "max": [0.217, 0.12, 0.217], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.217, 0.016, -0.225], "max": [0.217, 0.112, 0.225], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.207, 0, -0.207], "max": [-0.183, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.207, 0, 0.183], "max": [-0.183, 0.008, 0.207], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.183, 0, -0.207], "max": [0.207, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.183, 0, 0.183], "max": [0.207, 0.008, 0.207], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.02, 0.224], "max": [0.12, 0.09, 0.227], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_450_450_120_13_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_450_450_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_225_-120_120_20_90", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.114, 0.0515, 0.227], "max": [0.024, 0.084, 0.2285], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.112, 0.026, 0.227], "max": [-0.1, 0.034, 0.23], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [-0.0373, 0.026, 0.227], "max": [-0.0253, 0.034, 0.23], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.0373, 0.026, 0.227], "max": [0.0493, 0.034, 0.23], "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_225_-120_120_20_90_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_225_-120_120_20_90_3", "mat": "plastic_light" },
     { "node": "body", "shape": "box", "min": [-0.21, 0.12, -0.21], "max": [0.21, 0.13, 0.21], "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 0.13, 0.23], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 0.13, 0.235], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 156,
+  "tris": 428,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#shakers",

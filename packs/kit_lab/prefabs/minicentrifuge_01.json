@@ -4,24 +4,24 @@
   "id": "minicentrifuge_01",
   "title": "Minicentrifuga",
   "category": "lab.bench",
-  "bounds": { "min": [-0.073, -0.001, -0.073], "max": [0.073, 0.101, 0.073] },
+  "bounds": { "min": [-0.071, -0.002, -0.07], "max": [0.071, 0.101, 0.07] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.04, 0], "radius": 0.07, "height": 0.08, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.09, 0], "radius": 0.065, "height": 0.02, "axis": "y", "mat": "plastic_ps" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_80_y_0_40_0", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_65_20_y_0_90_0", "mat": "plastic_ps" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.072, 0, -0.072], "max": [0.072, 0.1, 0.072], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.07, -0.001, -0.069], "max": [0.07, 0.1, 0.069], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 128,
+  "tris": 224,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#smallDevices",

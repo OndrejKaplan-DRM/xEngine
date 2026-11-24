@@ -27,42 +27,18 @@
     { "node": "body", "shape": "box", "min": [-0.1515, 0.506, 0.356], "max": [0.1515, 0.605, 0.358], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.1115, 0.528, 0.358], "max": [0.1415, 0.55, 0.359], "mat": "emit_green" },
     { "node": "body", "shape": "box", "min": [-0.1715, 0.66, -0.356], "max": [0.1715, 0.69, 0.356], "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [-0.12150000000000001, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.12150000000000001, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    {
-      "node": "body",
-      "shape": "cyl",
-      "center": [-0.12150000000000001, 0.754, -0.15],
-      "radius": 0.038,
-      "height": 0.124,
-      "axis": "y",
-      "mat": "liquid_amber"
-    },
-    { "node": "body", "shape": "cyl", "center": [-0.031500000000000014, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.031500000000000014, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    {
-      "node": "body",
-      "shape": "cyl",
-      "center": [-0.031500000000000014, 0.754, -0.15],
-      "radius": 0.038,
-      "height": 0.124,
-      "axis": "y",
-      "mat": "liquid_water"
-    },
-    { "node": "body", "shape": "cyl", "center": [0.05849999999999998, 0.765, -0.15], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.05849999999999998, 0.855, -0.15], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    {
-      "node": "body",
-      "shape": "cyl",
-      "center": [0.05849999999999998, 0.754, -0.15],
-      "radius": 0.038,
-      "height": 0.124,
-      "axis": "y",
-      "mat": "liquid_amber"
-    },
-    { "node": "body", "shape": "cyl", "center": [-0.12150000000000001, 0.765, 0], "radius": 0.04, "height": 0.15, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.12150000000000001, 0.855, 0], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.12150000000000001, 0.754, 0], "radius": 0.038, "height": 0.124, "axis": "y", "mat": "liquid_water" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_-122_765_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_-122_855_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_-122_754_-150", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_-32_765_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_-32_855_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_-32_754_-150", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_58_765_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_58_855_-150", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_58_754_-150", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_-122_765_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_-122_855_0", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_-122_754_0", "mat": "liquid_water" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.172, 0, -0.356], "max": [0.172, 0.87, 0.359], "group": "prop" }
@@ -71,7 +47,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 960,
+  "tris": 1216,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#liquidChrom",

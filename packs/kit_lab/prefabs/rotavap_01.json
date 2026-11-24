@@ -11,28 +11,23 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.275, 0.016, -0.217], "max": [0.275, 0.112, 0.217], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.267, 0.008, -0.217], "max": [0.267, 0.12, 0.217], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.267, 0.016, -0.225], "max": [0.267, 0.112, 0.225], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.257, 0, -0.207], "max": [-0.233, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.257, 0, 0.183], "max": [-0.233, 0.008, 0.207], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.233, 0, -0.207], "max": [0.257, 0.008, -0.183], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.233, 0, 0.183], "max": [0.257, 0.008, 0.207], "mat": "rubber_black" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.17, 0.05], "radius": 0.12, "height": 0.1, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.215, 0.05], "radius": 0.11, "height": 0.004, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_550_450_120_13_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_550_450_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_120_100_y_120_170_50", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_110_4_y_120_215_50", "mat": "liquid_water" },
     { "node": "body", "shape": "box", "min": [-0.24, 0.12, -0.2], "max": [-0.16, 0.6, -0.12], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.2, 0.42, -0.16], "max": [0.02, 0.5, -0.06], "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.62, -0.11], "radius": 0.04, "height": 0.3, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.205, 0.05], "radius": 0.0385, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.26, 0.05], "radius": 0.0625, "height": 0.08, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.33, 0.05], "radius": 0.0375, "height": 0.06, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.206, 0.05], "radius": 0.0365, "height": 0.028, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0.12, 0.239, 0.05], "radius": 0.0618, "height": 0.038, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.145, -0.11], "radius": 0.0325, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.19, -0.11], "radius": 0.05, "height": 0.06, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.24, -0.11], "radius": 0.0325, "height": 0.04, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.146, -0.11], "radius": 0.0305, "height": 0.028, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [-0.08, 0.1645, -0.11], "radius": 0.048, "height": 0.009, "axis": "y", "mat": "liquid_water" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_300_y_-80_620_-110", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_39_30_y_120_205_50", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_63_80_y_120_260_50", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_60_y_120_330_50", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_37_28_y_120_206_50", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_62_38_y_120_239_50", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_33_30_y_-80_145_-110", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_60_y_-80_190_-110", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_33_40_y_-80_240_-110", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_31_28_y_-80_146_-110", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_48_9_y_-80_165_-110", "mat": "liquid_water" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.275, 0, -0.225], "max": [0.275, 0.77, 0.225], "group": "prop" }
@@ -41,7 +36,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 940,
+  "tris": 1572,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#rotavap",

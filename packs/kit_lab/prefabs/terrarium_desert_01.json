@@ -24,7 +24,7 @@
     { "node": "body", "shape": "box", "min": [-0.48, 0.76, -0.23], "max": [0.48, 0.8, 0.23], "mat": "dirt_packed" },
     { "node": "body", "shape": "box", "min": [-0.29, 0.8, -0.12], "max": [-0.11, 0.88, 0.02], "mat": "stone_block" },
     { "node": "body", "shape": "box", "min": [0.19, 0.795, 0], "max": [0.31, 0.845, 0.1], "mat": "stone_block" },
-    { "node": "body", "shape": "cyl", "center": [0.2, 1.18, -0.05], "radius": 0.05, "height": 0.06, "axis": "y", "mat": "emit_fire" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_60_y_200_1180_-50", "mat": "emit_fire" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.5, 0, -0.25], "max": [0.5, 1.24, 0.25], "group": "world" }
@@ -33,7 +33,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 220,
+  "tris": 252,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#terraria",

@@ -57,3 +57,22 @@ export function meshFiles(prefabs, sourceOf = () => 'tools/forge') {
   }
   return { files, assets };
 }
+
+/** Díl mesh posunutý o (dx, dy, dz): nový uzel s posunutou kopií sítě (jméno nese posun v mm). */
+export function shiftMeshPart(part, dx, dy, dz, mapPos = null) {
+  const g = REG.get(part.mesh);
+  const [file, name] = part.mesh.split('#');
+  const tag = `${name}_s${Math.round(dx * 1000)}_${Math.round(dy * 1000)}_${Math.round(dz * 1000)}${mapPos ? '_m' : ''}`;
+  const ref = `${file}#${tag}`;
+  if (!REG.has(ref)) {
+    const out = { positions: g.positions.slice(), normals: g.normals.slice(), uvs: g.uvs.slice(), indices: g.indices.slice() };
+    for (let i = 0; i < out.positions.length; i += 3) {
+      const q = mapPos ? mapPos([out.positions[i], out.positions[i + 1], out.positions[i + 2]]) : [out.positions[i] + dx, out.positions[i + 1] + dy, out.positions[i + 2] + dz];
+      out.positions[i] = q[0];
+      out.positions[i + 1] = q[1];
+      out.positions[i + 2] = q[2];
+    }
+    REG.set(ref, out);
+  }
+  return { ...part, mesh: ref };
+}

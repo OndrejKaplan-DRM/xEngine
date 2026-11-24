@@ -4,7 +4,28 @@
 
 import { box, cyl, cbox, node, hinge, slider, definePrefab, partPoints, IO } from '../lib.mjs';
 import { lathe, bevelBox } from '../shapes.mjs';
-import { meshCorners } from '../mesh/registry.mjs';
+import { meshCorners, meshPart } from '../mesh/registry.mjs';
+import { roundedBox, slab, cylinder } from '../mesh/solids.mjs';
+import { lathe as latheMesh, arc } from '../mesh/lathe.mjs';
+import { merge, moved, mTranslate } from '../mesh/geo.mjs';
+
+/** Milimetry do jména uzlu sítě (stejný tvar = stejný uzel v souboru, sdílí se mezi prefaby). */
+const mm = (v) => Math.round(v * 1000);
+const shared = (n, name, geom, mat) => meshPart(n, 'parts', name, geom, mat);
+
+/**
+ * Válec dílu cyl jako hladká síť se zaoblenou hranou (B04): poloměr hrany e = 12 % menšího rozměru, nejvýš 4 mm;
+ * stěn 10 až 24 podle poloměru. Ze sady se tím ztratí „schody“ z ostrých válců. Malé válce (r < 6 mm) zůstávají.
+ */
+export function roundCyl(p) {
+  if (p.shape !== 'cyl' || p.radius < 0.008) return p;
+  const e = Math.min(0.004, Math.min(p.radius, p.height) * 0.12);
+  const seg = 2 * Math.round(Math.min(20, Math.max(8, 6 + p.radius * 1000 / 8)) / 2);
+  const g = cylinder(p.radius, -p.height / 2, p.height / 2, { edge: e, n: 1, seg });
+  const R = p.axis === 'x' ? [0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] : p.axis === 'z' ? [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1] : null;
+  const M = R ? [...R.slice(0, 12), ...p.center, 1] : mTranslate(...p.center);
+  return shared(p.node, `cyl_${mm(p.radius)}_${mm(p.height)}_${p.axis}_${mm(p.center[0])}_${mm(p.center[1])}_${mm(p.center[2])}`, moved(g, M), p.mat);
+}
 
 export const STATIC_TOP = { physics: { body: 'static' }, place: { mount: 'top' } };
 export const staticFloor = (top) => ({ physics: { body: 'static' }, place: top ? { mount: 'floor', top } : { mount: 'floor' } });
@@ -29,7 +50,8 @@ export function bbox(parts) {
  * Prefab bez kloubu: všechny díly na uzlu body, kolize = obal dílů (skupina prop, malé věci na stole).
  * o: { components, group, params, colliders, gen }
  */
-export function simple(id, title, category, parts, o = {}) {
+export function simple(id, title, category, parts0, o = {}) {
+  const parts = parts0.map(roundCyl);
   const b = bbox(parts);
   return definePrefab({
     id,
@@ -88,6 +110,8 @@ export const rim = (n, y, r, mat = 'glass_lab') => cyl(n, [0, y - 0.0015, 0], r 
  */
 export function moving(id, title, category, parts, m, o = {}) {
   const j = m.type === 'slider' ? slider(m.joint, m.node, m.axis, 0, m.max, { damping: 8, drive: 'manual' }) : hinge(m.joint, m.node, m.axis, 0, m.max, { damping: 4, drive: 'manual' });
+  parts = parts.map(roundCyl);
+  m = { ...m, parts: m.parts.map(roundCyl) };
   const a = bbox(parts);
   const b = bbox(m.parts);
   return definePrefab(
@@ -108,19 +132,25 @@ export function moving(id, title, category, parts, m, o = {}) {
   );
 }
 
-/** Plášť přístroje: kvádr se sraženými hranami, čtyři gumové nožky; vrací díly. */
+/** Plášť přístroje: kvádr se zaoblenými hranami (hladká síť, poloměr podle velikosti) a čtyři gumové nožky. */
 export function casing(n, w, d, h, mat = 'plastic_white', b = 0.008, y0 = 0.008) {
-  const out = [...bevelBox(n, [-w / 2, y0, -d / 2], [w / 2, y0 + h - y0, d / 2], mat, b)];
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) out.push(box(n, [sx * (w / 2 - 0.03) - 0.012, 0, sz * (d / 2 - 0.03) - 0.012], [sx * (w / 2 - 0.03) + 0.012, y0, sz * (d / 2 - 0.03) + 0.012], 'rubber_black'));
-  return out;
+  const r = Math.max(b, Math.min(0.018, Math.min(w, d, h - y0) * 0.12));
+  const feet = [];
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) feet.push(moved(cylinder(0.012, 0, y0, { seg: 8 }), mTranslate(sx * (w / 2 - 0.03), 0, sz * (d / 2 - 0.03))));
+  return [shared(n, `casing_${mm(w)}_${mm(d)}_${mm(h)}_${mm(r)}_${mm(y0)}`, roundedBox([-w / 2, y0, -d / 2], [w / 2, h, d / 2], r, 1), mat), shared(n, `feet_${mm(w)}_${mm(d)}_${mm(y0)}`, merge(feet), 'rubber_black')];
 }
 
-/** Ovládací panel na čele (z = d/2): displej a řada tlačítek. */
+/** Ovládací panel na čele (z = d/2): zapuštěná deska se zaoblenými rohy, displej a řada oblých tlačítek. */
 export function panel(n, z, x0, x1, y0, y1, buttons = 3, display = 'emit_display') {
-  const out = [box(n, [x0, y0, z - 0.001], [x1, y1, z + 0.002], 'plastic_anthracite'), box(n, [x0 + 0.006, y0 + (y1 - y0) * 0.45, z + 0.002], [x0 + (x1 - x0) * 0.6, y1 - 0.006, z + 0.0035], display)];
+  const k = `${mm(z)}_${mm(x0)}_${mm(x1)}_${mm(y0)}_${mm(y1)}`;
+  const plate = moved(slab((x0 + x1) / 2, -(y0 + y1) / 2, x1 - x0, y1 - y0, 0, 0.003, 0.004, 2), [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, z - 0.001, 1]);
+  const btn = (bx, by, r) => moved(latheMesh([[r, 0], [r, 0.0015, 'c'], ...arc(0, 0.0015, r, 0, 90, 2).slice(1)], { seg: 8 }), [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, bx, by, z + 0.002, 1]);
+  const out = [shared(n, `panel_${k}`, plate, 'plastic_anthracite'), box(n, [x0 + 0.006, y0 + (y1 - y0) * 0.45, z + 0.002], [x0 + (x1 - x0) * 0.6, y1 - 0.006, z + 0.0035], display)];
+  const others = [];
   for (let i = 0; i < buttons; i++) {
-    const bx = x0 + 0.008 + (i * (x1 - x0 - 0.016)) / Math.max(1, buttons);
-    out.push(box(n, [bx, y0 + 0.006, z + 0.002], [bx + 0.012, y0 + 0.014, z + 0.005], i === 0 ? 'cap_green' : 'plastic_light'));
+    const bx = x0 + 0.014 + (i * (x1 - x0 - 0.016)) / Math.max(1, buttons);
+    (i === 0 ? out : others).push(i === 0 ? shared(n, `btn_${k}_${i}`, btn(bx, y0 + 0.01, 0.006), 'cap_green') : btn(bx, y0 + 0.01, 0.006));
   }
+  if (others.length) out.push(shared(n, `btns_${k}_${buttons}`, merge(others), 'plastic_light'));
   return out;
 }

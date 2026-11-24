@@ -4,37 +4,30 @@
   "id": "balance_micro_01",
   "title": "Mikrováhy s kruhovým krytem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.099, -0.001, -0.24], "max": [0.099, 0.211, 0.245] },
+  "bounds": { "min": [-0.099, -0.001, -0.24], "max": [0.099, 0.211, 0.25] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.0975, 0.016, -0.231], "max": [0.0975, 0.072, 0.231], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0895, 0.008, -0.231], "max": [0.0895, 0.08, 0.231], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0895, 0.016, -0.239], "max": [0.0895, 0.072, 0.239], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0795, 0, -0.221], "max": [-0.0555, 0.008, -0.197], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.0795, 0, 0.197], "max": [-0.0555, 0.008, 0.221], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.0555, 0, -0.221], "max": [0.0795, 0.008, -0.197], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.0555, 0, 0.197], "max": [0.0795, 0.008, 0.221], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.015, 0.238], "max": [0.08, 0.065, 0.241], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_195_478_80_9_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_195_478_8", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_239_-80_80_15_65", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.074, 0.0375, 0.241], "max": [0.016, 0.059, 0.2425], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.072, 0.021, 0.241], "max": [-0.06, 0.029, 0.244], "mat": "cap_green" },
-    { "node": "body", "shape": "box", "min": [-0.036, 0.021, 0.241], "max": [-0.024, 0.029, 0.244], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0, 0.021, 0.241], "max": [0.012, 0.029, 0.244], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.036, 0.021, 0.241], "max": [0.048, 0.029, 0.244], "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.14, -0.1], "radius": 0.07, "height": 0.12, "axis": "y", "mat": "glass_tinted" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.205, -0.1], "radius": 0.072, "height": 0.01, "axis": "y", "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_239_-80_80_15_65_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_239_-80_80_15_65_4", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_120_y_0_140_-100", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_72_10_y_0_205_-100", "mat": "plastic_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.239], "max": [0.098, 0.21, 0.244], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.239], "max": [0.098, 0.21, 0.249], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 284,
+  "tris": 696,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

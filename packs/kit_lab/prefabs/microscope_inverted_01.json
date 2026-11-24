@@ -11,21 +11,16 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0.016, -0.267], "max": [0.15, 0.192, 0.267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.142, 0.008, -0.267], "max": [0.142, 0.2, 0.267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.142, 0.016, -0.275], "max": [0.142, 0.192, 0.275], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.132, 0, -0.257], "max": [-0.108, 0.008, -0.233], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.132, 0, 0.233], "max": [-0.108, 0.008, 0.257], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.108, 0, -0.257], "max": [0.132, 0.008, -0.233], "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.108, 0, 0.233], "max": [0.132, 0.008, 0.257], "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_300_550_200_18_8", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_300_550_8", "mat": "rubber_black" },
     { "node": "body", "shape": "box", "min": [-0.13, 0.2, -0.1], "max": [0.13, 0.215, 0.15], "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.04, 0.2, -0.27], "max": [0.04, 0.55, -0.2], "mat": "plastic_white" },
     { "node": "body", "shape": "box", "min": [-0.05, 0.48, -0.25], "max": [0.05, 0.53, 0.02], "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.45, 0], "radius": 0.03, "height": 0.06, "axis": "y", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_60_y_0_450_0", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.07, 0.2, 0.18], "max": [0.07, 0.26, 0.3], "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [-0.02, 0.29, 0.26], "radius": 0.011, "height": 0.07, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.29, 0.26], "radius": 0.011, "height": 0.07, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.23, 0.02], "radius": 0.035, "height": 0.012, "axis": "y", "mat": "liquid_pink" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_11_70_y_-20_290_260", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_11_70_y_20_290_260", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_12_y_0_230_20", "mat": "liquid_pink" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.15, 0, -0.275], "max": [0.15, 0.55, 0.3], "group": "prop" }
@@ -34,7 +29,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 388,
+  "tris": 572,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#opticsAndOven",
