@@ -1,9 +1,42 @@
 # Stav
 
-**Verze:** základ 2, znění 3 · 24. 11. 2026 · větev `zaklad-2` (shodná s `main`)
-**Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ nahoře v `docs/sesny/START_A.md` a `START_B.md`.
+**Verze:** základ 2, znění 4 · 24. 11. 2026 · větev `zaklad-2` (shodná s `main`)
+**Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
+**Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 4 základu 2 (24. 11. 2026, svodná sešna main 03)
+
+| Co | Kde | Rozhodnutí |
+|---|---|---|
+| `TODO.md` v kořeni: co se dělá, co čeká na Ondřeje, co je hotové, oddíl pro každou sešnu; `CLAUDE.md` s mapou „kde co je“ a pravidlem „Git často“; moduly v `01_ARCHITEKTURA.md`, oddíl 9 | kořen, `docs/` | D-038 |
+| rozměry postavy: `BODY`, `CHARACTER_SKIN`, `bodyWidth()` = 0,74 m; varování validátoru `portal.narrow` | `src/xspace/body.js`, `validate.js` | D-040 (N-008) |
+| vzorky světla levelu i s pevnými díly prefabů: `levelSamples`, `entityStaticMesh`, `staticPartIndices`, `movingNodes` | `src/xspace/samples.js`, `02_KONTRAKTY` | D-041 |
+| čtení zapečeného světla a skládání barev: `decodeBake`, `composeColors`, `gateLevel` (převzato ze sešny B), `doorOpenness` | `src/xspace/bake.js`, `02_KONTRAKTY` | D-044 |
+| dveře na obě strany: věta v kontraktech, vzorec otevření | `02_KONTRAKTY`, `bake.js` | D-042 (N-109); zlatý vzorek až po úpravě testů sešny A |
+| strop řádků fyzickou výškou plátna; textura světla jako směr se zkouškou; `env.lightCell` zamítnuto | provede sešna A | D-039, D-043 (N-110, N-108) |
+| Ondřejův přehled F3 z 24. 11. (10 snímků) | `docs/mereni/T460_2026-11-24_D-037_F3.md` | — |
+
+Vzorky světla podle `levelSamples` (mřížka 0,5 m, sandbox, počty platí všude):
+
+| Level | Kvádry (`levelLightMeshes`) | Pevné díly prefabů | Celkem |
+|---|---|---|---|
+| xLab | 20 509 | 1 602 (11 z 20 entit) | 22 111 |
+| `complex_7` | 65 618 | 65 546 (380 z 423) | 131 164 |
+| `complex_21` | 61 075 | 61 916 (355 z 392) | 122 991 |
+| `catacombs_3` | 33 606 | 14 550 (67 ze 112) | 48 156 |
+
+`gen_demo` ze `sesna-b` (`8be5b71`). V komplexech nesou pevné díly polovinu vzorků; dosud je zapečený soubor nenesl (D-041).
+
+**Testy (sandbox, Node 22, Chromium bez grafické karty, 24. 11. 16:24 až 16:33):**
+
+| Co | Základ `npm test` | Skupina A | Skupina B | A × B | Celkem |
+|---|---|---|---|---|---|
+| `main` (`e01026c`) | 266 (T0 41, T1 152, T4 46, T2 15, T3 12) | 267 v 16 sadách | 92 ve 4 sadách | 37 | **662, 0 selhalo** |
+| sloučení nanečisto `main` + `sesna-a` `c7a2a64` + `sesna-b` `4aeeeb4` | 266 | 364 ve 24 sadách | 188 v 7 sadách | 37 | **855, 0 selhalo** |
+
+Sloučení nanečisto: sešna A bez konfliktu; sešna B se srazí v `TODO.md` a `CLAUDE.md` (oba vznikly tentýž den v její větvi i v základu), vyřešeno verzí základu; dodatek ve `START_B.md`. **Zlatý vzorek s dveřmi ±105° (N-109) zkouškou neprošel**: 8 kontrol sešny A ve třech sadách (`a_14_block`, `a_14_entities`, `a_14_swing`) počítá s jednostrannými dveřmi. Data jsou proto zpět na 0° až 105° (`e01026c`); přepnou se po úpravě testů sešny A.
 
 ## Integrace vlny 1 (svodná sešna main 02, 22. 11. 2026)
 
@@ -67,45 +100,45 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
-## Stav větví sešen (24. 11. 2026 v 01:10)
+## Stav větví sešen (24. 11. 2026 v 16:33)
 
-Obě sešny skončily 23. 11. 2026 mezi 03:00 a 05:00. Do `zaklad-2` jejich práce z vlny 2 **nepatří**; je to stav pro příští sloučení.
+Obě sešny běží. Do `zaklad-2` jejich práce z vlny 2 **nepatří**; je to stav pro příští sloučení. Co právě dělají: jejich oddíly v `TODO.md` na jejich větvích.
 
 | Větev | Hlava | Základ, na kterém stojí | Stav vlny 2 podle jejich `*_STAV.md` |
 |---|---|---|---|
-| `sesna-a` | `3b005a7` | znění 1 (`b12f8ed`); znění 2 ani 3 nesloučila | A2.1 světlo po vrcholech, A2.2 obraz a měření, A2.4 dluhy vlny 1 (D-024, D-025) hotovo; A2.3 krok simulace změřen jen v sandboxu; okraj stínu po podílech a volitelná mřížka 0,25 m; A2.5 až A2.7 nezačato |
-| `sesna-b` | `64e622b` | znění 2 (`d2fb217`) | B2.1 zčásti (generátor dál hlídá průchod 0,6 m místo 0,74 m), xBake hotov podle vlny 1, brány podle D-035 a díly z `geom.js` neuděláno; B2.2 až B2.5 a B2.7 nezačato |
+| `sesna-a` | `c7a2a64` | znění 3 a D-038 (`0af8c25`); dodatek znění 4 ještě ne | A2.1 až A2.5 hotovo (světlo po vrcholech, obraz a `?bench`, krok fyziky, dluhy vlny 1, nová pole základu); zorné pole jako vodorovný úhel; dveře od hráče jako nastavení; A2.6 a A2.7 nezačato |
+| `sesna-b` | `4aeeeb4` | znění 3 (`a995347`); D-038 ještě ne | B2.1, B2.3 (xSearcher: 10 textur CC0 v `packs/_inbox`) a B2.6 (xBake podle D-035) hotovo; B2.2, B2.4, B2.5, B2.7 nezačato |
 
-Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 3“ výše. Zkouška z 23. 11. (`cc5078f` + `a1d3081` + `129318d`): 722 kontrol, 0 selhalo.
+Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 4“ výše (855 kontrol, 0 selhalo).
 
 ## Co je hotové (základ 1)
 
 | Část | Kde | Stav |
 |---|---|---|
 | jádro: systémy, fáze, závislosti, deklarované události, pevný krok 120 Hz, režimy, uložení stavu | `src/kernel` | 41 kontrol v T0 |
-| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 140 kontrol v T1, z toho 58 mutací |
+| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 152 kontrol v T1 (24. 11.) |
 | světlo: síť vzorků `brushLightMesh` (mřížka 0,5 m, pořadí vrcholů je kontrakt) a vzorec `lightIrradiance` | `src/xspace/geom.js`, `light.js` | 17 kontrol v T1 |
 | zlatý vzorek: level xLab (5 buněk, 4 portály, 54 kvádrů, 20 entit, 10 světel, 11 spojení) a 12 prefabů s kostrou | `packs/golden`, `tools/golden/make.mjs` | bez nálezů, bajtově opakovatelný |
 | xView: prohlížeč balíku (pět pohledů, vrstvy, validátor v prohlížeči) | `tools/xview` → `dist/xview.html` | 15 kontrol v T2 |
-| xBench 0.2: měření stroje (28 případů, z toho 16 shodných s verzí 0.1) | `tools/xbench` → `dist/xbench.html` | 12 kontrol v T3; verze 0.1 změřena na T460, verze 0.2 zatím ne |
+| xBench 0.2: měření stroje (28 případů, z toho 16 shodných s verzí 0.1) | `tools/xbench` → `dist/xbench.html` | 12 kontrol v T3; na T460 změřena verze 0.1 jednou a 0.2 třikrát (22. 11.) |
 | xShell: menu, pauza, nastavení z deklarací, katalog nabídek | `src/shell` | 46 kontrol v T4 (jen nastavení) |
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 254 kontrol; `npm run test:all` (základ, A, B, A × B): 650 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
+`npm test`: 266 kontrol; celá regrese na `main` (základ, A, B, A × B): 662 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
 
 ## Co hotové není
 
-- **Engine podle znění 2.** xLab i levely sešny B se dají projít (`dist/xlab.html`, `dist/xlab_gen.html`), ale engine z vlny 1 svítí po pixelech; podle měření T460 tím překračuje rozpočet vykreslení.
+- **Engine vlny 2 v základu.** Na `main` je engine sešny A z vlny 1 (světlo po pixelech); světlo po vrcholech, `?bench`, náprava kroku fyziky a nová pole jsou jen na `sesna-a`. Sloučení vlny 2 čeká na Ondřejovo slovo (`TODO.md`).
 - Shell je přestěhovaný, ne zapojený. Jeho zkoušky v prohlížeči a zkouška katalogu zůstaly ve `vibe-game-frameworks`.
-- Formát zapečeného světla (návrh N-001 od sešny B; vzorky, pořadí a vrstvy jsou už dané kontraktem).
-- Ořez pohledem po buňkách (vlna 2), načítání `.glb`, textury, zvuk, tvorové, editor.
+- Běh zapečený soubor nečte. Čtení je v základu (`bake.js`), xBake je na `sesna-b`; pevné díly prefabů do souboru xBake ještě nezapéká (D-041).
+- Načítání `.glb`, textury ve hře, zvuk, tvorové, editor. Pravidlo validátoru `portal.door.cover` (D-036) a svázané klouby (N-002).
 
 ## Neověřeno
 
-- Světlo po vrcholech ve hře na T460. Měřeno je jen to, že scéna bez výpočtu světel stojí 2,4 ms a se 4 bodovými světly 14,0 ms; že síť s mřížkou 0,5 m vypadá dobře, ukáže až sešna A.
-- Cena jednoho světla po pixelech, scéna bez světel v 1080 řádcích, textury (čeká na xBench 0.2).
-- Čas kroku simulace na T460.
+- **Čas grafiky ve hře na T460.** F3 měří jen procesor; `?bench` měl na skutečné grafice chybu (vracel obnovu displeje), sešna A ji opravila 24. 11. a nové měření chybí. Na něm závisí výchozí rozlišení a zkouška textury světla.
+- Hra ve vlně 2 na T460 drží 60 snímků/s ve všech zkoušených pohledech kromě 1 080 řádků s vyhlazováním (44 až 46); krok simulace 0,55 až 0,68 ms v mediánu (`docs/mereni/T460_2026-11-24_D-037_F3.md`, `A_STAV.md`). Hala se dvěma patry a katakomby za pohybu změřené nejsou.
+- Stavba vrstev světla při startu `complex_7` na T460 29,7 s; se zapečeným souborem a pevnými díly v něm by odpadla, ověřené to není.
 - Verze Rapieru 0.21.0 a three-mesh-bvh 0.9.18 jsou připnuté, ale nic je zatím nepoužívá.
 - Hodnoty pohybu pro profil `real` (Counter-Strike, Half-Life) mají jistotu 3/5.
 - Ochranná známka Blender (důvod jména xForge) je uvedena z obecné znalosti, bez právního ověření.
@@ -113,11 +146,8 @@ Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 3“ v
 
 ## Otevřené pro Ondřeje
 
-1. Zkouška terminálu (D-032) v novém sestavení sešny A: sednout si k terminálu, stisknout Esc (pauza), vrátit se do hry a říct, jestli se s vlastním kurzorem dá pracovat a jestli se po návratu hned vrátí ovládání.
-2. Pět otázek sešny B ke vzhledu (`docs/sesny/B_STAV.md`, konec dokumentu).
-3. Potvrdit nebo přepsat body 6/ až 8/ zadání (`00_ZADANI.md`; sestavila je svodná sešna z jeho vět).
-4. Až sešna A dodá `?bench`: pustit ho na T460.
+Jediný seznam je v `TODO.md`, oddíl „Čeká na Ondřeje“.
 
 ## Návrhy
 
-Žádný otevřený. Přehled rozhodnutí v `docs/navrhy/README.md`. Oddíl „Rozhodnutí“ v souborech N-001, N-007 a N-108 doplním při příštím sloučení (soubory jsou zatím jen na větvích sešen).
+Žádný otevřený (24. 11. rozhodnuty N-008, N-109, N-110 a doplněk N-108). Přehled v `docs/navrhy/README.md`. Oddíl „Rozhodnutí“ v souborech N-001, N-007, N-008, N-108, N-109 a N-110 doplním při příštím sloučení (soubory jsou zatím jen na větvích sešen).

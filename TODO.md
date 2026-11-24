@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1` (hlava v `git log`; znění 3 základu 2 + dnešní změny svodné sešny, viz její oddíl). Hlavy sešen k 24. 11. 2026 16:20: `sesna-a` = `63a7554`, `sesna-b` = `b43d0bd`.
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 4 (24. 11. 2026). Hlavy sešen v 16:33: `sesna-a` = `c7a2a64`, `sesna-b` = `4aeeeb4`. Regrese: `main` 662 kontrol, sloučení nanečisto s oběma sešnami 855, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -26,14 +26,16 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 
 Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodnutí `docs/DECISIONS.md`.
 
-**Teď (main 03, 24. 11.):**
+**Hotovo dnes (main 03, 24. 11.):**
 - [x] paměť projektu v repu: tento soubor, mapa v `CLAUDE.md`, moduly v `docs/01_ARCHITEKTURA.md` (D-038)
 - [x] měření z tvých snímků F3 z 24. 11.: `docs/mereni/T460_2026-11-24_D-037_F3.md`
 - [x] rozhodnuto: D-039 řádky podle okna; D-040 N-008 přijat; D-041 vzorky i z pevných dílů prefabů; D-042 N-109 přijat; D-043 N-110 jako směr se zkouškou 5 a 10 cm, `env.lightCell` zamítnuto; D-044 brána jako seznam a `doors` v hlavičce přijaty, čtení souboru do základu
 - [x] základ: `src/xspace/body.js` (N-008) a varování `portal.narrow`; `src/xspace/samples.js` (`levelSamples`); `src/xspace/bake.js` (`decodeBake`, `composeColors`, `gateLevel`, `doorOpenness`)
 - [x] věty do `02_KONTRAKTY.md`: vzorky (D-041), soubor světla (D-044), dveře na obě strany (D-042)
 - [ ] zlatý vzorek: `door_hinged_01` na obě strany (N-109) **čeká na sešnu A**: 8 jejích kontrol počítá s jednostrannými dveřmi
-- [ ] celá regrese, sloučení nanečisto s hlavami sešen, `STATE.md`, dodatky pro sešny A a B
+- [x] celá regrese po skupinách a sloučení nanečisto s hlavami sešen (855 kontrol, 0 selhalo); `STATE.md` znění 4; dodatky nahoře ve `START_A.md` a `START_B.md`
+
+**Čeká na sešny:** A upraví testy jednostranných dveří (potom přepnu zlatý vzorek na ±105°), převezme `BODY` a `levelSamples`, strop řádků (D-039). B vyřeší srážku `TODO.md` a `CLAUDE.md` verzí základu, převezme `BODY` a `bake.js`, zapeče pevné díly prefabů (D-041).
 
 **Návrhy, které základ dluží:** N-002 `follow`, N-102 `rigCompile` a `rigSolve`, N-103 `rig.noSpeed`, N-105 svítivosti xLabu. Otevřený žádný; přehled `docs/navrhy/README.md`.
 
