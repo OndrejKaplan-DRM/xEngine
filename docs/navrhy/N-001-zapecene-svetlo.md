@@ -2,7 +2,7 @@
 
 Sešna: B · Datum: 2026-11-22, znění 2 z 2026-11-24 · Stav: přijatý se změnou (D-035); znění 2 změnu zapracovává
 
-> **Znění 2 (24. 11. 2026).** Svodná sešna návrh přijala s jednou změnou (D-035): křídla dveří v portálech při zapékání nestíní a světlo jejich otvorem patří do úseku vrstvy s bránou. Oddíly 2, 3, 5 a 6 jsou podle toho přepsané a xBake to od `3d1aa2a` dělá. Dvě věci nad rámec rozhodnutí jsou označené **k potvrzení**: brána je seznam dveří (ne jedno id) a hlavička nese pole `doors`.
+> **Znění 2 (24. 11. 2026).** Svodná sešna návrh přijala s jednou změnou (D-035): křídla dveří v portálech při zapékání nestíní a světlo jejich otvorem patří do úseku vrstvy s bránou. Oddíly 2, 3, 5 a 6 jsou podle toho přepsané a xBake to od `3d1aa2a` dělá; od `9d34aa6` bere vzorky z `levelLightMeshes` (mřížka znění 2, D-037). Dvě věci nad rámec rozhodnutí jsou označené **k potvrzení**: brána je seznam dveří (ne jedno id) a hlavička nese pole `doors`.
 
 ## Co potřebuju
 
@@ -27,11 +27,11 @@ Kontrakt (02_KONTRAKTY, Světlo) určuje vzorky (vrcholy `brushLightMesh(b, LIGH
 | hlavička | JSON v UTF-8, doplněný mezerami |
 | data | pole `Float32` a `Uint32` za sebou; polohu každého říká hlavička (`offset` v bajtech od začátku dat) |
 
-Hlavička: `format: "xspace-light"`, `version: 1`, `level`, `method: "vertex"`, `cell` (buňka mřížky), `samples` (počet vzorků), `brushes: [[id, počet vzorků], …]` v pořadí levelu, `geometry`, `scene` (otisky), `doors: [id entity, …]` (dveře portálů, se kterými se zapékalo; **k potvrzení**), `layers: [{ id, kind, ref, channels, encoding, count, offset, nonzero, light?, gates? }]`.
+Hlavička: `format: "xspace-light"`, `version: 1`, `level`, `method: "vertex"`, `cell` (buňka mřížky), `samples` (počet vzorků), `brushes: [[id, počet vzorků], …]` v pořadí levelu, `grid` (znění mřížky světla, dnes 2), `geometry`, `scene` (otisky), `doors: [id entity, …]` (dveře portálů, se kterými se zapékalo; **k potvrzení**), `layers: [{ id, kind, ref, channels, encoding, count, offset, nonzero, light?, gates? }]`.
 
 Úseky s bránou (D-035): `gates: [{ gate: [id entity dveří, …], count, offset }]` u vrstev `light` a `entity`. Úsek je vždy řídký se stejnou stavbou jako řídká vrstva (`Uint32[count]` indexy vzestupně, potom `Float32[count]`). `encoding`, `count` a `offset` vrstvy popisují její část bez brány. Tentýž vzorek smí být v části bez brány i v několika úsecích: na okraji stínu svítí každou cestou svým podílem.
 
-`gate` je seznam, protože úsečka ze vzorku ke světlu může projít dvojími dveřmi (světlo svítí přes dvě místnosti). Změřeno: v `complex_7` je 63 různých bran ze 47 dveří a 986 z 11 481 položek úseků (8,6 %) vede přes dvoje dveře; v `complex_21` 1 055 z 10 134 (10,4 %); v xLabu 2 z 565. Rozhodnutí D-035 mluví o „poli `gate` (id entity dveří)“; seznam s jedním id je jeho obecnější tvar a stejně to má sešna A za běhu (`occlusion.js`, kombinace dveří). **K potvrzení.**
+`gate` je seznam, protože úsečka ze vzorku ke světlu může projít dvojími dveřmi (světlo svítí přes dvě místnosti). Změřeno (na mřížce před D-037): v `complex_7` je 63 různých bran ze 47 dveří a 986 z 11 481 položek úseků (8,6 %) vede přes dvoje dveře; v `complex_21` 1 055 z 10 134 (10,4 %); v xLabu 2 z 565. Rozhodnutí D-035 mluví o „poli `gate` (id entity dveří)“; seznam s jedním id je jeho obecnější tvar a stejně to má sešna A za běhu (`occlusion.js`, kombinace dveří). **K potvrzení.**
 
 Vzorek číslo `s` = vrchol `v` kvádru `i`, kde `s = Σ počtů předchozích kvádrů + v`. Pořadí vrcholů uvnitř kvádru je pořadí `brushLightMesh`.
 
@@ -56,7 +56,7 @@ Světlo s `dynamic: true` a světlo prefabu na pohyblivém uzlu vrstvu nemají; 
 
 | Otisk | Z čeho | Když nesedí |
 |---|---|---|
-| `geometry` | tvar, `min`, `max` a `rise` všech kvádrů v pořadí levelu + buňka mřížky | vzorky neodpovídají: soubor zahodit celý a počítat při načtení |
+| `geometry` | znění mřížky, buňka, tvar, `min`, `max` a `rise` všech kvádrů v pořadí levelu a počet vzorků každého kvádru (závisí i na `vis` a průhlednosti materiálů) | vzorky neodpovídají: soubor zahodit celý a počítat při načtení |
 | `layers[].light` | druh, poloha, směr, svítivost, dosah a úhel světla (barva ne) | přepočítat jen tuhle vrstvu |
 | `scene` | entity (id, prefab, poloha, natočení) | vzorky platí, stíny mohou ležet jinde: použít a ve vývojářském přehledu upozornit |
 
@@ -64,7 +64,7 @@ Běh otisky počítat nemusí. Levnější zkouška při načtení: součet `bru
 
 ### 5. Co stíní a co s dveřmi (znění 2, podle D-035)
 
-- **Stíní** kvádry a klíny levelu a **kolizní tvary prefabů** v klidové poloze (`colliders`; tvar z `partCollider` ze základu, N-101). Viditelné díly bez kolize nestíní. Dřív stínily díly (`parts`); zadání vlny 2 chce kolize.
+- **Stíní** viditelné neprůhledné kvádry a klíny levelu (`vis` není `false`, materiál bez `opacity` pod 1 a bez `alphaTest`) a **kolizní tvary prefabů** v klidové poloze (`colliders`; tvar z `partCollider` ze základu, N-101). Viditelné díly bez kolize nestíní. Dřív stínily díly (`parts`); zadání vlny 2 chce kolize.
 - **Křídla dveří v portálech přímé světlo nestíní.** Křídlo = kolize na uzlu, který má nad sebou kloub, u entity z `portal.door` a u každých dalších dveří se stejným počátkem (druhé křídlo dvoukřídlých dveří). Zárubeň (kolize na nepohyblivém uzlu) stíní dál.
 - **Brána.** Vede-li volná úsečka z počátku paprsku vzorku ke světlu otvorem portálu, který má dveře (průsečík s rovinou `quad` uvnitř jeho obrysu), patří světlo do úseku s bránou těch dveří. Pravidlo je stejné jako za běhu u sešny A (`src/world/occlusion.js`); společná funkce má přejít do základu. Po otevření dveří tak světlo z vedlejší místnosti přibude.
 - **Odraz a přístupnost okolního světla** se počítají se zavřenými dveřmi: zdrojem odrazu je jen část vrstev bez brány a křídla v nich stíní. Zavřenými dveřmi tedy neprosvítá ani odraz. Otevřené dveře přidají jen přímé světlo (zjednodušení verze 1).
@@ -76,26 +76,26 @@ Běh otisky počítat nemusí. Levnější zkouška při načtení: součet `bru
 
 Vzorek, jehož soused na téže ploše vidí světlo jinak (svítí × stín × jiná brána), se neptá jedním paprskem, ale 4 × 4 paprsky z bodů rozložených po své plošce (půl kroku mřížky na každou stranu, oříznuto okrajem plochy). Svítí podílem plošky, který světlo vidí; podíly se sčítají zvlášť pro každou bránu. Dílčí bod, ke kterému od vzorku nevede volná úsečka, se nepočítá. Mřížka vzorků ani formát se nemění. Stejný postup má za běhu sešna A (`lightfield.soften`).
 
-Změřeno na xLabu (sandbox): 1 914 zjemněných dvojic vzorek × světlo, stínových paprsků 134 067 místo 54 659. Proti jemnému výpočtu (12 × 12 paprsků) je součet odchylek na okraji stínu 36,4 místo 321,5 při jednom paprsku (1 974 dvojic). Stín užší než buňka mřížky, který nezasáhne žádný vrchol, se nezjemní a zůstane neviditelný; je to mez světla po vrcholech.
+Změřeno na xLabu (sandbox, mřížka znění 2): 1 964 zjemněných dvojic vzorek × světlo, stínových paprsků 134 283 místo 56 559. Proti jemnému výpočtu (12 × 12 paprsků) je součet odchylek na okraji stínu 47,4 místo 356,6 při jednom paprsku (2 033 dvojic). Stín užší než buňka mřížky, který nezasáhne žádný vrchol, se nezjemní a zůstane neviditelný; je to mez světla po vrcholech.
 
 ### 6. Změřeno (sandbox, Node 22, 2 jádra; časy orientační)
 
-Znění 2 (brány, stínění kolizemi, okraj stínu 4 × 4), 24. 11. 2026, `node tools/bake/cli.mjs`:
+Znění 2 (brány, stínění kolizemi, okraj stínu 4 × 4) nad mřížkou světla znění 2 (D-037, `levelLightMeshes`), 24. 11. 2026, `node tools/bake/cli.mjs`:
 
 | Level | Vzorků | Z toho v tělese | Vrstev | Dveří | Úseků s bránou (položek) | Zjemněno | Čas | Soubor | Po gzip |
 |---|---|---|---|---|---|---|---|---|---|
-| xLab (zlatý vzorek) | 20 658 | 1 387 (7 %) | 16 | 2 | 13 (565) | 1 914 | 0,9 s | 464 kB | 327 kB |
-| `catacombs_3` | 38 098 | 14 176 (37 %) | 64 | 6 | 31 (1 215) | 3 268 | 2,4 s | 757 kB | 511 kB |
-| `complex_21` | 64 393 | 22 813 (35 %) | 114 | 41 | 298 (10 134) | 7 024 | 5,1 s | 1 559 kB | 931 kB |
-| `complex_7` | 73 092 | 32 291 (44 %) | 118 | 47 | 312 (11 481) | 8 960 | 6,8 s | 1 673 kB | 1 015 kB |
+| xLab (zlatý vzorek) | 20 509 | 490 (2 %) | 16 | 2 | 13 (584) | 1 964 | 1,0 s | 476 kB | 315 kB |
+| `catacombs_3` | 33 606 | 7 038 (21 %) | 64 | 6 | 31 (1 393) | 3 613 | 2,6 s | 789 kB | 555 kB |
+| `complex_21` | 61 075 | 12 383 (20 %) | 114 | 41 | 307 (11 784) | 8 162 | 6,1 s | 1 671 kB | 1 061 kB |
+| `complex_7` | 65 618 | 19 051 (29 %) | 118 | 47 | 320 (13 244) | 10 059 | 7,3 s | 1 779 kB | 1 151 kB |
 
-Úseky s bránou přidaly 3 až 10 % velikosti souboru (`complex_7`: 1 673 kB proti 1 547 kB bez bran a s jedním paprskem na vzorek). Počty vzorků a velikosti přestanou platit, až základ změní mřížku světla (D-037); kód xBake počet, pořadí ani rozteč vzorků nikde nepředpokládá.
+Totéž nad starou mřížkou (před D-037): xLab 20 658 vzorků, 464 kB; `catacombs_3` 38 098, 757 kB; `complex_21` 64 393, 1 559 kB; `complex_7` 73 092, 1 673 kB. Úseky s bránou přidaly 3 až 10 % velikosti souboru (`complex_7` na staré mřížce: 1 673 kB proti 1 547 kB bez bran a s jedním paprskem na vzorek). Kód xBake počet, pořadí ani rozteč vzorků nikde nepředpokládá; převod na novou mřížku byla výměna jedné funkce.
 
 Znění 1 (22. 11. 2026, dveře stínily, stínily díly, jeden paprsek na vzorek): xLab 20 658 vzorků, 1,1 s, 452 kB; `catacombs_3` 2,8 s, 731 kB; `complex_21` 5,7 s, 1 420 kB; `complex_7` 8,7 s, 1 535 kB.
 
 64 paprsků polokoulí na vzorek pro odraz a přístupnost. V prohlížeči (náhled `dist/xbake.html`) trvá zapečení xLabu stejným kódem zhruba stejně. Bez zastínění se vrstva shoduje s `lightIrradiance` přesně (uložení jako `Float32`, poměrná odchylka nejvýš 5,9e-8).
 
-Třetina až polovina vzorků generovaných levelů leží na plochách schovaných v tělese (spodek podlahy, čela a temena zdí). Formát je ukládá jako nuly v řídkých vrstvách; běh pro ně ale dál drží vrcholy. Základ to má změnit (D-037).
+Na staré mřížce ležela třetina až polovina vzorků generovaných levelů na plochách schovaných v tělese. Základ od D-037 plochy schované celé nevyrábí; v tělese zůstává pětina až třetina vzorků (plochy schované jen zčásti) a doplnění od sousedů je dál potřeba. Otisk `geometry` nese od téže chvíle znění mřížky (`grid: 2` i v hlavičce) a počty vzorků po kvádrech.
 
 ### 7. Zrnění odrazu
 
