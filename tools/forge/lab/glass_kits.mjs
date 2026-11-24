@@ -179,4 +179,86 @@ export function smallware() {
   return [mortar, watchglass];
 }
 
-export const GLASS_KITS = [testTubeRacks, standSetups, desiccators, smallware];
+
+/** Nálevka 60° s hrdlem (sklo jednou plochou) a skládaný filtr; vrchol nálevky ve výšce y, průměr d (m). */
+function funnelGeom(d, y, stem = 0.06) {
+  const R = d / 2;
+  const h = R * 1.6;
+  const glass = lathe([[0.0035, y - stem], [0.0042, y - stem + 0.003, 'c'], [0.0042, y], [R, y + h, R * 0.06], [R + 0.002, y + h + 0.002]], { seg: segFor(R, 0.8) });
+  const paper = deform(lathe([[0.001, y + 0.004], [R * 0.86, y + h * 0.92], [R * 0.88, y + h * 0.98]], { seg: 16 }), ([x, yy, z]) => {
+    const a = Math.atan2(z, x);
+    const k = 1 + 0.06 * Math.abs(Math.sin(a * 4)); // skládaný filtr: osm záhybů
+    return [x * k, yy, z * k];
+  });
+  return { glass, paper, top: y + h };
+}
+
+/** Odsávací baňka (silnostěnná Erlenmeyerova s olivkou na boku) 500 ml. */
+function filterFlask() {
+  const e = erlenmeyerGeom(105, 200, 40, { seg: 18 });
+  const arm = tube([[0, e.H - 0.05, 0], [-0.045, e.H - 0.058, 0]], 0.0045, 8, { caps: false });
+  return { ...e, arm };
+}
+
+export function newGlass() {
+  // 1) Erlenmeyerova baňka 250 ml s nálevkou a skládaným filtrem
+  const e = erlenmeyerGeom(85, 145, 34, { seg: 16 });
+  const f = funnelGeom(0.075, e.H - 0.02, 0.05);
+  const funnelErlen = simple('funnel_erlen_01', 'Erlenmeyerova baňka s nálevkou a skládaným filtrem', CAT, [
+    part('funnel_erlen', 'flask', e.geom, GLASS),
+    part('funnel_erlen', 'filtrate', liquidGeom(e.inner, 0.03, { seg: 14 }), 'liquid_yellow'),
+    part('funnel_erlen', 'funnel', f.glass, THIN),
+    part('funnel_erlen', 'paper', f.paper, 'label_paper'),
+    part('funnel_erlen', 'slurry', lathe([[0.004, e.H + 0.004], [0.022, e.H + 0.02], [0, e.H + 0.021]], { seg: 12 }), 'powder_blue'),
+  ], { gen: gen('newGlass') });
+
+  // 2) Büchnerova nálevka (porcelán) na odsávací baňce s gumovým kroužkem a hadicí k vývěvě
+  const ff = filterFlask();
+  const by = ff.H + 0.012;
+  const buchner = lathe([[0.003, by - 0.05], [0.0045, by - 0.05, 'c'], [0.0055, by - 0.01], [0.012, by, 0.004], [0.045, by + 0.005, 0.003], [0.047, by + 0.055, 0.002], [0.05, by + 0.058], [0.045, by + 0.058], [0.043, by + 0.012], [0, by + 0.012]], { seg: 20 });
+  const adapter = lathe([[0.012, by - 0.03], [0.022, by - 0.03, 'c'], [0.026, by + 0.002, 'c'], [0.014, by + 0.002]], { seg: 14 });
+  const hose = tube([[-0.045, ff.H - 0.058, 0], [-0.09, ff.H - 0.065, 0], [-0.12, 0.004, 0.04], [-0.2, 0.004, 0.08]], 0.006, 8, { bend: 0.04, bendSeg: 4 });
+  const buchnerPrefab = simple('buchner_flask_01', 'Büchnerova nálevka na odsávací baňce s hadicí k vývěvě', CAT, [
+    part('buchner', 'flask', merge(ff.geom, ff.arm), GLASS),
+    part('buchner', 'filtrate', liquidGeom(ff.inner, 0.04, { seg: 16 }), 'liquid_green'),
+    part('buchner', 'funnel', buchner, 'porcelain'),
+    part('buchner', 'cake', lathe([[0, by + 0.013], [0.042, by + 0.013, 'c'], [0.042, by + 0.019], [0, by + 0.02]], { seg: 16 }), 'powder_white'),
+    part('buchner', 'rubber', merge(adapter, hose), 'rubber_black'),
+  ], { gen: gen('newGlass'), params: { assembly: true } });
+
+  // 3) krystalizační miska 90 × 50 mm s krystaly
+  const dish = vesselGeom([[0, 0], [0.045, 0, 0.004], [0.045, 0.048, 0.002], [0.0462, 0.05]], { wall: 0.0018, seg: 20 });
+  const xt = [];
+  for (let i = 0; i < 11; i++) {
+    const a = i * 2.1;
+    const r = 0.006 + (i % 4) * 0.008;
+    const s = 0.004 + (i % 3) * 0.002;
+    xt.push(moved(pyramid(s, s * 0.4, 0, s * 1.4, 4, i * 23), at(mTranslate(Math.cos(a) * r, 0.0028, Math.sin(a) * r), mRotate('x', (i % 3) * 12))));
+  }
+  const crystDish = simple('dish_cryst_01', 'Krystalizační miska s krystaly', CAT, [part('dish_cryst', 'glass', dish.geom, GLASS), part('dish_cryst', 'liquor', liquidGeom(dish.inner, 0.012, { seg: 18, flat: true }), 'liquid_blue'), part('dish_cryst', 'crystals', merge(xt), 'powder_blue')], { gen: gen('newGlass') });
+
+  // 4) kapací lahvička 50 ml s pipetou a gumovým balonkem (hnědá a čirá)
+  const drop = vesselGeom([[0, 0], [0.019, 0, 0.003], [0.019, 0.055, 0.012], [0.0085, 0.07, 0.003], [0.0085, 0.078], [0.009, 0.08]], { wall: 0.0014, seg: 16 });
+  const teat = lathe([[0.009, 0.074], [0.0105, 0.074, 'c'], [0.0105, 0.088, 0.002], [0.007, 0.092, 0.002], ...arc(0, 0.098, 0.0075, -60, 90, 3).slice(1)], { seg: 14 });
+  const pip = lathe([[0.0008, 0.012], [0.0025, 0.02], [0.003, 0.074]], { seg: 8 });
+  const droppers = [['01', 'glass_amber', 'hnědá'], ['02', GLASS, 'čirá']].map(([n, g, name]) => simple(`bottle_dropper_${n}`, `Kapací lahvička 50 ml s pipetou, ${name}`, CAT, [part('bottle_dropper', g === GLASS ? 'glass' : 'amber', drop.geom, g), part('bottle_dropper', 'pipette', pip, THIN), part('bottle_dropper', 'teat', teat, 'rubber_black'), part(`bottle_dropper_${n}`, 'liquid', liquidGeom(drop.inner, 0.035, { seg: 14 }), n === '01' ? 'liquid_amber' : 'liquid_purple')], { gen: gen('newGlass') }));
+
+  // 5) kádinka 250 ml s Pasteurovými pipetami
+  const bk = vesselGeom([[0, 0], [0.035, 0, 0.004], [0.035, 0.09, 0.004], [0.0365, 0.095]], { wall: 0.0012, seg: 18 });
+  const pipettes = [];
+  const bulbs = [];
+  for (let i = 0; i < 5; i++) {
+    const a = (i / 5) * Math.PI * 2 + 0.4;
+    const foot = [Math.cos(a) * 0.012, 0.004, Math.sin(a) * 0.012];
+    const lean = [Math.cos(a) * 0.05, 0.225, Math.sin(a) * 0.05];
+    pipettes.push(tube([foot, foot.map((v, k) => v + (lean[k] - v) * 0.35), lean], 0.0025, 6, { caps: true }));
+    if (i % 2 === 0) bulbs.push(moved(lathe([[0.0028, 0], [0.004, 0.002], ...arc(0, 0.016, 0.0045, -40, 90, 3)], { seg: 10 }), at(mTranslate(...lean), mRotate('z', -Math.atan2(lean[0] - foot[0], lean[1] - foot[1]) * 57.3))));
+  }
+  const pipBeaker = simple('beaker_pipettes_01', 'Kádinka s Pasteurovými pipetami', CAT, [part('beaker_pipettes', 'beaker', bk.geom, GLASS), part('beaker_pipettes', 'pipettes', merge(pipettes), THIN), part('beaker_pipettes', 'bulbs', merge(bulbs), 'cap_red')], { gen: gen('newGlass') });
+
+  // 6) odsávací baňka 500 ml samotná
+  const flaskOnly = simple('flask_filter_500_01', 'Odsávací baňka 500 ml s olivkou', CAT, [part('flask_filter', 'glass', merge(ff.geom, ff.arm), GLASS)], { gen: gen('newGlass') });
+  return [funnelErlen, buchnerPrefab, crystDish, ...droppers, pipBeaker, flaskOnly];
+}
+
+export const GLASS_KITS = [testTubeRacks, standSetups, desiccators, smallware, newGlass];

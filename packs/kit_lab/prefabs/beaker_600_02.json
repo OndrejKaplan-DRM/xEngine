@@ -4,7 +4,7 @@
   "id": "beaker_600_02",
   "title": "Kádinka 600 ml s roztokem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.052, -0.001, -0.047], "max": [0.048, 0.128, 0.047] },
+  "bounds": { "min": [-0.052, -0.001, -0.048], "max": [0.048, 0.128, 0.048] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_600_liquid", "mat": "liquid_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.046], "max": [0.047, 0.127, 0.046], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.047], "max": [0.047, 0.127, 0.047], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 608,
+  "tris": 544,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

@@ -21,6 +21,8 @@ export const LAB_MATERIALS = {
   // laboratorní plasty
   plastic_pp: lit([0.82, 0.82, 0.79], 'plastic', { rough: 0.45, opacity: 0.6 }), // polypropylen, mléčný
   plastic_ps: lit([0.86, 0.9, 0.92], 'plastic', { rough: 0.1, opacity: 0.35 }), // polystyren, čirý (misky, destičky)
+  plastic_ps_thin: lit([0.86, 0.9, 0.92], 'plastic', { rough: 0.1, opacity: 0.3, twoSided: true }), // tenký čirý polystyren jednou plochou (Petriho misky, víka)
+  plastic_pp_thin: lit([0.84, 0.84, 0.8], 'plastic', { rough: 0.45, opacity: 0.55, twoSided: true }), // tenký mléčný polypropylen (zkumavky)
   plastic_hdpe: lit([0.74, 0.74, 0.71], 'plastic', { rough: 0.6 }), // bílý polyetylen (kanystry, lahve)
   plastic_white: lit([0.77, 0.78, 0.77], 'plastic', { rough: 0.5 }), // plášť přístrojů
   plastic_light: lit([0.55, 0.57, 0.58], 'plastic', { rough: 0.5 }), // světle šedé díly přístrojů

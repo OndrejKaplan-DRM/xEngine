@@ -4,7 +4,7 @@
   "id": "flask_round_1000_02",
   "title": "Varná baňka 1000 ml na korkovém kroužku, s náplní",
   "category": "lab.glass",
-  "bounds": { "min": [-0.066, -0.001, -0.065], "max": [0.066, 0.23, 0.065] },
+  "bounds": { "min": [-0.066, -0.001, -0.066], "max": [0.066, 0.23, 0.066] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,13 +17,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_1000_liquid", "mat": "liquid_amber" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.065, 0, -0.064], "max": [0.065, 0.229, 0.064], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.065, 0, -0.065], "max": [0.065, 0.229, 0.065], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1056,
+  "tris": 956,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#roundFlasks",

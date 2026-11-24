@@ -4,7 +4,7 @@
   "id": "flask_vol_1000_02",
   "title": "Odměrná baňka 1000 ml doplněná po rysku",
   "category": "lab.glass",
-  "bounds": { "min": [-0.055, -0.001, -0.055], "max": [0.055, 0.312, 0.055] },
+  "bounds": { "min": [-0.055, -0.001, -0.054], "max": [0.055, 0.312, 0.055] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,13 +18,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_1000_liquid", "mat": "liquid_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.054, 0, -0.054], "max": [0.054, 0.311, 0.054], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.054, 0, -0.053], "max": [0.054, 0.311, 0.054], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1282,
+  "tris": 1138,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",

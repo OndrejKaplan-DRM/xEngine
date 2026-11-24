@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "funnel_erlen_01",
+  "title": "Erlenmeyerova baňka s nálevkou a skládaným filtrem",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.042, -0.001, -0.042], "max": [0.042, 0.188, 0.042] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_filtrate", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_funnel", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_paper", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_slurry", "mat": "powder_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.041, 0, -0.041], "max": [0.041, 0.187, 0.041], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 816,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass_kits.mjs#newGlass",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

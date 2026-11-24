@@ -4,25 +4,26 @@
   "id": "box_gloves_01",
   "title": "Krabice nitrilových rukavic (modré)",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.121, -0.001, -0.062], "max": [0.121, 0.086, 0.062] },
+  "bounds": { "min": [-0.122, -0.001, -0.062], "max": [0.122, 0.095, 0.062] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.06], "max": [0.12, 0.07, 0.06], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.05, -0.0605], "max": [0.12, 0.07, 0.0605], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.07, -0.02], "max": [0.04, 0.085, 0.02], "mat": "plastic_navy" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_gloves_box", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_gloves_band", "mat": "label_band_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_gloves_slot", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_gloves_1_glove", "mat": "plastic_navy" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.061], "max": [0.12, 0.085, 0.061], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.121, 0, -0.061], "max": [0.121, 0.094, 0.061], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 36,
+  "tris": 180,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#benchware",

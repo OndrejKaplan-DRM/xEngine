@@ -4,23 +4,23 @@
   "id": "petri_01",
   "title": "Petriho miska",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.047, -0.001, -0.047], "max": [0.047, 0.015, 0.047] },
+  "bounds": { "min": [-0.047, -0.001, -0.046], "max": [0.047, 0.016, 0.046] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.007, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#petri_01_dish", "mat": "plastic_ps_thin" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.046], "max": [0.046, 0.014, 0.046], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.045], "max": [0.046, 0.015, 0.045], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 64,
+  "tris": 112,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#petriDishes",

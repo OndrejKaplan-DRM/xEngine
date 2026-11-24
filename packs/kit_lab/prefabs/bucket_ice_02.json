@@ -4,27 +4,26 @@
   "id": "bucket_ice_02",
   "title": "Nádoba s ledem plastová",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.131, -0.001, -0.101], "max": [0.131, 0.116, 0.101] },
+  "bounds": { "min": [-0.131, -0.001, -0.101], "max": [0.131, 0.114, 0.101] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.1], "max": [0.13, 0.11, 0.1], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.08, -0.09], "max": [0.12, 0.1, 0.09], "mat": "liquid_water" },
-    { "node": "body", "shape": "box", "min": [-0.066, 0.095, -0.006], "max": [-0.054, 0.115, 0.006], "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.095, -0.006], "max": [0.006, 0.115, 0.006], "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [0.054, 0.095, -0.006], "max": [0.066, 0.115, 0.006], "mat": "plastic_pp" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bucket_ice_2_body", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bucket_ice_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bucket_ice_cubes", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bucket_ice_tubes", "mat": "plastic_pp_thin" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.1], "max": [0.13, 0.115, 0.1], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.1], "max": [0.13, 0.113, 0.1], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 60,
+  "tris": 288,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#benchware",

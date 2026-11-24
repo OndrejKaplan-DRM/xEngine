@@ -4,7 +4,7 @@
   "id": "bottle_gl45_500_01",
   "title": "Reagenční lahev 500 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.044, -0.001, -0.043], "max": [0.044, 0.184, 0.045] },
+  "bounds": { "min": [-0.044, -0.001, -0.044], "max": [0.044, 0.184, 0.045] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,13 +17,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_500_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.043, 0, -0.042], "max": [0.043, 0.183, 0.044], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.043, 0, -0.043], "max": [0.043, 0.183, 0.044], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 904,
+  "tris": 824,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

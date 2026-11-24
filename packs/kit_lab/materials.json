@@ -13,6 +13,8 @@
     "ptfe": { "model": "lit", "color": [0.78, 0.78, 0.76], "rough": 0.6, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "plastic_pp": { "model": "lit", "color": [0.82, 0.82, 0.79], "rough": 0.45, "metal": 0, "uvScale": 1, "surface": "plastic", "opacity": 0.6 },
     "plastic_ps": { "model": "lit", "color": [0.86, 0.9, 0.92], "rough": 0.1, "metal": 0, "uvScale": 1, "surface": "plastic", "opacity": 0.35 },
+    "plastic_ps_thin": { "model": "lit", "color": [0.86, 0.9, 0.92], "rough": 0.1, "metal": 0, "uvScale": 1, "surface": "plastic", "opacity": 0.3, "twoSided": true },
+    "plastic_pp_thin": { "model": "lit", "color": [0.84, 0.84, 0.8], "rough": 0.45, "metal": 0, "uvScale": 1, "surface": "plastic", "opacity": 0.55, "twoSided": true },
     "plastic_hdpe": { "model": "lit", "color": [0.74, 0.74, 0.71], "rough": 0.6, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "plastic_white": { "model": "lit", "color": [0.77, 0.78, 0.77], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "plastic_light": { "model": "lit", "color": [0.55, 0.57, 0.58], "rough": 0.5, "metal": 0, "uvScale": 1, "surface": "plastic" },

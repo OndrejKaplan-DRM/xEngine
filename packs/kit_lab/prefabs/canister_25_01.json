@@ -4,30 +4,26 @@
   "id": "canister_25_01",
   "title": "Kanystr 25 l, bílý",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.146, -0.001, -0.121], "max": [0.146, 0.476, 0.123] },
+  "bounds": { "min": [-0.146, -0.001, -0.121], "max": [0.146, 0.491, 0.125] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.145, 0.012, -0.108], "max": [0.145, 0.428, 0.108], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.133, 0, -0.108], "max": [0.133, 0.44, 0.108], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.133, 0.012, -0.12], "max": [0.133, 0.428, 0.12], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.44, -0.015], "max": [0.085, 0.475, 0.015], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.44, -0.012], "max": [-0.11, 0.475, 0.012], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "cyl", "center": [0.11, 0.452, 0], "radius": 0.022, "height": 0.025, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.087, 0.154, 0.119], "max": [0.087, 0.308, 0.1208], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.087, 0.2741, 0.1206], "max": [0.087, 0.308, 0.1218], "mat": "label_band_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_01_body", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_01_cap", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_01_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_01_band", "mat": "label_band_orange" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.12], "max": [0.145, 0.475, 0.122], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.12], "max": [0.145, 0.49, 0.124], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 148,
+  "tris": 726,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#canisters",

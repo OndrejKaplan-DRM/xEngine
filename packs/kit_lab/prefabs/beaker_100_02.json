@@ -4,7 +4,7 @@
   "id": "beaker_100_02",
   "title": "Kádinka 100 ml s roztokem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.03, -0.001, -0.027], "max": [0.027, 0.073, 0.027] },
+  "bounds": { "min": [-0.03, -0.001, -0.026], "max": [0.027, 0.073, 0.027] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_100_liquid", "mat": "liquid_amber" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.029, 0, -0.026], "max": [0.026, 0.072, 0.026], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.029, 0, -0.025], "max": [0.026, 0.072, 0.026], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 544,
+  "tris": 480,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

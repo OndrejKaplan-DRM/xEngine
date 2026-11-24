@@ -4,7 +4,7 @@
   "id": "flask_erlen_1000_02",
   "title": "Erlenmeyerova baňka 1000 ml s roztokem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.063, -0.001, -0.062], "max": [0.063, 0.223, 0.062] },
+  "bounds": { "min": [-0.063, -0.001, -0.063], "max": [0.063, 0.223, 0.063] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_1000_liquid", "mat": "liquid_purple" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.061], "max": [0.062, 0.222, 0.061], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.062], "max": [0.062, 0.222, 0.062], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 748,
+  "tris": 668,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#erlenmeyers",

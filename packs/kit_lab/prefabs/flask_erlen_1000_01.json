@@ -4,7 +4,7 @@
   "id": "flask_erlen_1000_01",
   "title": "Erlenmeyerova baňka 1000 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.063, -0.001, -0.062], "max": [0.063, 0.223, 0.062] },
+  "bounds": { "min": [-0.063, -0.001, -0.063], "max": [0.063, 0.223, 0.063] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -15,13 +15,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_1000_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.061], "max": [0.062, 0.222, 0.061], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.062], "max": [0.062, 0.222, 0.062], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 568,
+  "tris": 508,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#erlenmeyers",

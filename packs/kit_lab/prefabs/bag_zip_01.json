@@ -11,9 +11,9 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.04], "max": [0.06, 0.012, 0.04], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.001, -0.03], "max": [0.05, 0.01, 0.025], "mat": "powder_white" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.008, 0.032], "max": [0.06, 0.013, 0.036], "mat": "cap_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bag_zip_bag", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bag_zip_1_powder", "mat": "powder_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bag_zip_zip", "mat": "cap_red" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.06, 0, -0.04], "max": [0.06, 0.013, 0.04], "group": "prop" }
@@ -22,7 +22,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 36,
+  "tris": 228,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#benchware",

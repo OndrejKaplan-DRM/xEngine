@@ -4,39 +4,26 @@
   "id": "rack_conical_50_02",
   "title": "Stojan se zkumavkami 50 ml s médiem",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.116, -0.001, -0.036], "max": [0.116, 0.136, 0.036] },
+  "bounds": { "min": [-0.095, -0.001, -0.036], "max": [0.095, 0.126, 0.036] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.115, 0, -0.035], "max": [0.115, 0.006, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.115, 0.06, -0.035], "max": [0.115, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.115, 0, -0.035], "max": [-0.109, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.109, 0, -0.035], "max": [0.115, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [-0.084, 0.0635, 0], "radius": 0.015, "height": 0.115, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [-0.084, 0.128, 0], "radius": 0.017, "height": 0.014, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [-0.084, 0.0405, 0], "radius": 0.0135, "height": 0.0575, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [-0.042, 0.0635, 0], "radius": 0.015, "height": 0.115, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [-0.042, 0.128, 0], "radius": 0.017, "height": 0.014, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0635, 0], "radius": 0.015, "height": 0.115, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.128, 0], "radius": 0.017, "height": 0.014, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0405, 0], "radius": 0.0135, "height": 0.0575, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [0.042, 0.0635, 0], "radius": 0.015, "height": 0.115, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0.042, 0.128, 0], "radius": 0.017, "height": 0.014, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.084, 0.0635, 0], "radius": 0.015, "height": 0.115, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0.084, 0.128, 0], "radius": 0.017, "height": 0.014, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.084, 0.0405, 0], "radius": 0.0135, "height": 0.0575, "axis": "y", "mat": "liquid_pink" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_50_frame", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_50_tubes", "mat": "plastic_pp_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_50_caps", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_50_medium", "mat": "liquid_pink" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.115, 0, -0.035], "max": [0.115, 0.135, 0.035], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.094, 0, -0.035], "max": [0.094, 0.125, 0.035], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 880,
+  "tris": 800,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#conicalRacks",

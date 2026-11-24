@@ -102,15 +102,16 @@ export function arc(cr, cy, rad, u0, u1, n) {
 }
 
 /**
- * Lomená čára se zaoblenými rohy: body [r, y, poloměr zaoblení?, úseků?] (poloměr 0 nebo chybí = ostrý roh, 'c').
+ * Lomená čára se zaoblenými rohy: body [r, y, poloměr zaoblení?, úseků?] (poloměr 0, chybí nebo 'c' = ostrý roh;
+ * 's' = hladký bod bez zaoblení).
  * n = výchozí počet úseků oblouku (čtvrtý prvek bodu ho přepíše). Krajní body se nezaoblují.
  */
 export function rounded(points, n = 3) {
   const out = [];
   for (let i = 0; i < points.length; i++) {
     const [r, y, rad, nk] = points[i];
-    if (i === 0 || i === points.length - 1 || !rad) {
-      out.push(i === 0 || i === points.length - 1 ? [r, y] : [r, y, 'c']);
+    if (i === 0 || i === points.length - 1 || typeof rad !== 'number' || !rad) {
+      out.push(i === 0 || i === points.length - 1 ? [r, y] : rad === 's' ? [r, y] : [r, y, 'c']);
       continue;
     }
     const p = points[i - 1];

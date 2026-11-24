@@ -4,7 +4,7 @@
   "id": "bottle_gl45_1000_02",
   "title": "Reagenční lahev 1000 ml, se štítkem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.052, -0.001, -0.052], "max": [0.052, 0.233, 0.053] },
+  "bounds": { "min": [-0.052, -0.001, -0.051], "max": [0.052, 0.233, 0.053] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -19,13 +19,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_1000_02_liquid", "mat": "liquid_water" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.051], "max": [0.051, 0.232, 0.052], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.05], "max": [0.051, 0.232, 0.052], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1264,
+  "tris": 1152,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

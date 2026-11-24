@@ -25,7 +25,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 952,
+  "tris": 940,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

@@ -4,7 +4,7 @@
   "id": "beaker_1000_01",
   "title": "Kádinka 1000 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.06, -0.001, -0.055], "max": [0.055, 0.149, 0.055] },
+  "bounds": { "min": [-0.06, -0.001, -0.054], "max": [0.055, 0.149, 0.054] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -15,13 +15,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_1000_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.059, 0, -0.054], "max": [0.054, 0.148, 0.054], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.059, 0, -0.053], "max": [0.054, 0.148, 0.053], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 512,
+  "tris": 464,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

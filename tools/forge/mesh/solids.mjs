@@ -67,6 +67,21 @@ export function flatBox(min, max) {
   return g;
 }
 
+/** Otevřená krabice (vanička, kbelík): dno a čtyři stěny tloušťky t z ostrých kvádrů, 60 △. */
+export function openBox(min, max, t) {
+  const [x0, y0, z0] = min;
+  const [x1, y1, z1] = max;
+  const g = newGeom();
+  for (const b of [
+    [[x0, y0, z0], [x1, y0 + t, z1]],
+    [[x0, y0, z0], [x0 + t, y1, z1]],
+    [[x1 - t, y0, z0], [x1, y1, z1]],
+    [[x0 + t, y0, z0], [x1 - t, y1, z0 + t]],
+    [[x0 + t, y0, z1 - t], [x1 - t, y1, z1]],
+  ]) append(g, flatBox(b[0], b[1]));
+  return g;
+}
+
 /**
  * Deska: obdélník w × d (osa X a Z) se zaoblenými rohy v půdorysu (poloměr rc, n úseků na roh), vytažený od y0 do
  * y1; hrany nahoře a dole sražené o bevel (0 = ostré). Střed obdélníku v [cx, cz].

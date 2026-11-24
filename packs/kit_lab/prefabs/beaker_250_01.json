@@ -21,7 +21,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 464,
+  "tris": 416,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

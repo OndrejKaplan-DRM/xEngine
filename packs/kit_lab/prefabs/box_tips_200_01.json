@@ -4,33 +4,26 @@
   "id": "box_tips_200_01",
   "title": "Krabička špiček 200 µl",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.064, -0.001, -0.044], "max": [0.064, 0.106, 0.044] },
+  "bounds": { "min": [-0.064, -0.001, -0.044], "max": [0.064, 0.104, 0.044] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.062, 0, -0.042], "max": [0.062, 0.063, 0.042], "mat": "plastic_navy" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.063, -0.04], "max": [0.06, 0.067, 0.04], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, -0.036], "max": [0.055, 0.073, -0.031], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, -0.0265], "max": [0.055, 0.073, -0.0215], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, -0.017], "max": [0.055, 0.073, -0.012], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, -0.0075], "max": [0.055, 0.073, -0.0025], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, 0.002], "max": [0.055, 0.073, 0.007], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, 0.0115], "max": [0.055, 0.073, 0.0165], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, 0.021], "max": [0.055, 0.073, 0.026], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.055, 0.067, 0.0305], "max": [0.055, 0.073, 0.0355], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.063, 0.075, -0.043], "max": [0.063, 0.105, 0.043], "mat": "plastic_ps" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_tips_200_body", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_tips_200_rack", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_tips_200_tips", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_tips_200_lid", "mat": "plastic_ps" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.063, 0, -0.043], "max": [0.063, 0.105, 0.043], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.063, 0, -0.043], "max": [0.063, 0.103, 0.043], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 132,
+  "tris": 888,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#tipBoxes",

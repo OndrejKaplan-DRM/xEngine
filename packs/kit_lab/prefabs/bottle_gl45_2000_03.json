@@ -4,7 +4,7 @@
   "id": "bottle_gl45_2000_03",
   "title": "Reagenční lahev 2000 ml, hnědé sklo, se štítkem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.069, -0.001, -0.068], "max": [0.069, 0.268, 0.07] },
+  "bounds": { "min": [-0.069, -0.001, -0.069], "max": [0.069, 0.268, 0.07] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -19,13 +19,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_2000_03_liquid", "mat": "liquid_amber" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.067], "max": [0.068, 0.267, 0.069], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.068], "max": [0.068, 0.267, 0.069], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1392,
+  "tris": 1280,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

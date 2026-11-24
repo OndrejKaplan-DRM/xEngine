@@ -4,25 +4,24 @@
   "id": "box_cryo_02",
   "title": "Kryobox modrý",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.069, -0.001, -0.069], "max": [0.069, 0.055, 0.069] },
+  "bounds": { "min": [-0.069, -0.001, -0.069], "max": [0.069, 0.054, 0.069] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.0665, 0, -0.0665], "max": [0.0665, 0.045, 0.0665], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.068, 0.04, -0.068], "max": [0.068, 0.052, 0.068], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.052, 0.04], "max": [0.03, 0.0535, 0.06], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_cryo_02_body", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#box_cryo_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.068], "max": [0.068, 0.054, 0.068], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.068], "max": [0.068, 0.053, 0.068], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 36,
+  "tris": 228,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#cryoBoxes",

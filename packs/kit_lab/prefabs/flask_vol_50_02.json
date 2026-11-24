@@ -4,7 +4,7 @@
   "id": "flask_vol_50_02",
   "title": "Odměrná baňka 50 ml doplněná po rysku",
   "category": "lab.glass",
-  "bounds": { "min": [-0.024, -0.002, -0.024], "max": [0.024, 0.142, 0.024] },
+  "bounds": { "min": [-0.024, -0.002, -0.023], "max": [0.024, 0.142, 0.024] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,13 +18,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_liquid", "mat": "liquid_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.023, -0.001, -0.023], "max": [0.023, 0.141, 0.023], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.023, -0.001, -0.022], "max": [0.023, 0.141, 0.023], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 946,
+  "tris": 818,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",

@@ -4,7 +4,7 @@
   "id": "flask_round_100_01",
   "title": "Varná baňka 100 ml na korkovém kroužku",
   "category": "lab.glass",
-  "bounds": { "min": [-0.033, -0.001, -0.032], "max": [0.033, 0.131, 0.032] },
+  "bounds": { "min": [-0.033, -0.001, -0.033], "max": [0.033, 0.131, 0.033] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_joint", "mat": "glass_frosted" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.032, 0, -0.031], "max": [0.032, 0.13, 0.031], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.032, 0, -0.032], "max": [0.032, 0.13, 0.032], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 728,
+  "tris": 644,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#roundFlasks",

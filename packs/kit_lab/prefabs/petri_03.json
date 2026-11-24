@@ -4,32 +4,24 @@
   "id": "petri_03",
   "title": "Štos 5 Petriho misek s agarem",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.047, -0.001, -0.047], "max": [0.047, 0.074, 0.047] },
+  "bounds": { "min": [-0.047, -0.001, -0.046], "max": [0.047, 0.074, 0.046] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.007, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0035, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0215, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.018, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.036, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0325, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0505, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.047, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.065, 0], "radius": 0.045, "height": 0.014, "axis": "y", "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0615, 0], "radius": 0.043, "height": 0.005, "axis": "y", "mat": "liquid_yellow" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#petri_03_dish", "mat": "plastic_ps_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#petri_03_agar", "mat": "liquid_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.046], "max": [0.046, 0.073, 0.046], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.046, 0, -0.045], "max": [0.046, 0.073, 0.045], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 640,
+  "tris": 840,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#petriDishes",

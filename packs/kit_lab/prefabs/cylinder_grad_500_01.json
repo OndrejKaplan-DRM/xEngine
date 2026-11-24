@@ -22,7 +22,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 448,
+  "tris": 404,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#measuringCylinders",

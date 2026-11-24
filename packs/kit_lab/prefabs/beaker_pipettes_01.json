@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "beaker_pipettes_01",
+  "title": "Kádinka s Pasteurovými pipetami",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.057, -0.001, -0.047], "max": [0.055, 0.247, 0.054] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_beaker", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_pipettes", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_bulbs", "mat": "cap_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.056, 0, -0.046], "max": [0.054, 0.246, 0.053], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 918,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass_kits.mjs#newGlass",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

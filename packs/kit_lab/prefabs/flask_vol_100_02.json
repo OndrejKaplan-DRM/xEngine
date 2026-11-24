@@ -24,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1138,
+  "tris": 994,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",

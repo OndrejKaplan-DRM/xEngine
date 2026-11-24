@@ -4,46 +4,26 @@
   "id": "rack_conical_15_02",
   "title": "Stojan se zkumavkami 15 ml s médiem",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.069, -0.001, -0.036], "max": [0.069, 0.139, 0.036] },
+  "bounds": { "min": [-0.098, -0.001, -0.036], "max": [0.098, 0.131, 0.036] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.035], "max": [0.068, 0.006, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.068, 0.06, -0.035], "max": [0.068, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.035], "max": [-0.062, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.062, 0, -0.035], "max": [0.068, 0.066, 0.035], "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [-0.0435, 0.066, -0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.0529, 0.126, -0.0253], "max": [-0.0341, 0.138, -0.0066], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [-0.0435, 0.042, -0.016], "radius": 0.007, "height": 0.06, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [-0.0145, 0.066, -0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.0239, 0.126, -0.0253], "max": [-0.0052, 0.138, -0.0066], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.0145, 0.066, -0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [0.0051, 0.126, -0.0253], "max": [0.0239, 0.138, -0.0066], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.0145, 0.042, -0.016], "radius": 0.007, "height": 0.06, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [0.0435, 0.066, -0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [0.0342, 0.126, -0.0253], "max": [0.0529, 0.138, -0.0066], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [-0.0435, 0.066, 0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.0529, 0.126, 0.0067], "max": [-0.0341, 0.138, 0.0254], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [-0.0435, 0.042, 0.016], "radius": 0.007, "height": 0.06, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [-0.0145, 0.066, 0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.0239, 0.126, 0.0067], "max": [-0.0052, 0.138, 0.0254], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.0145, 0.066, 0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [0.0051, 0.126, 0.0067], "max": [0.0239, 0.138, 0.0254], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.0145, 0.042, 0.016], "radius": 0.007, "height": 0.06, "axis": "y", "mat": "liquid_pink" },
-    { "node": "body", "shape": "cyl", "center": [0.0435, 0.066, 0.016], "radius": 0.0085, "height": 0.12, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [0.0342, 0.126, 0.0067], "max": [0.0529, 0.138, 0.0254], "mat": "cap_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_15_frame", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_15_tubes", "mat": "plastic_pp_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_15_caps", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#rack_conical_15_medium", "mat": "liquid_pink" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.035], "max": [0.068, 0.138, 0.035], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.097, 0, -0.035], "max": [0.097, 0.13, 0.035], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 912,
+  "tris": 936,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#conicalRacks",

@@ -4,25 +4,25 @@
   "id": "bin_sharps_02",
   "title": "Nádoba na ostré předměty 5 l",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.079, -0.001, -0.079], "max": [0.079, 0.275, 0.079] },
+  "bounds": { "min": [-0.081, -0.001, -0.081], "max": [0.081, 0.273, 0.081] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.075, 0, -0.075], "max": [0.075, 0.25, 0.075], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.078, 0.25, -0.078], "max": [0.078, 0.27, 0.078], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.27, -0.01], "max": [0.03, 0.274, 0.02], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bin_sharps_2_body", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bin_sharps_2_lid", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bin_sharps_2_slot", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.078, 0, -0.078], "max": [0.078, 0.274, 0.078], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.08, 0, -0.08], "max": [0.08, 0.272, 0.08], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 36,
+  "tris": 156,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#benchware",

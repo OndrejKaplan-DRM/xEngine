@@ -11,7 +11,7 @@ export const GLASS = 'glass_lab';
 export const ENAMEL = 'enamel_white';
 
 /** Počet stěn po obvodu podle poloměru (m): malé věci 12, velké nejvýš 24; vždy sudý. Hladké normály schovají hrany. */
-export const segFor = (r, k = 1) => 2 * Math.round(Math.min(24, Math.max(12, (12 + (r * 1000) / 7) * k)) / 2);
+export const segFor = (r, k = 1) => 2 * Math.round(Math.min(22, Math.max(10, (10 + (r * 1000) / 7) * k)) / 2);
 /** Tloušťka stěny skla podle průměru (m): 0,8 mm u malých, 2 mm u velkých. */
 export const wallFor = (r) => Math.min(0.002, Math.max(0.0008, r * 0.03));
 

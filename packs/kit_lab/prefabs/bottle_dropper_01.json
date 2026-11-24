@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bottle_dropper_01",
+  "title": "Kapací lahvička 50 ml s pipetou, hnědá",
+  "category": "lab.glass",
+  "bounds": { "min": [-0.021, -0.001, -0.021], "max": [0.021, 0.107, 0.021] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_amber", "mat": "glass_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_pipette", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_teat", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_01_liquid", "mat": "liquid_amber" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.02], "max": [0.02, 0.106, 0.02], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 814,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/glass_kits.mjs#newGlass",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

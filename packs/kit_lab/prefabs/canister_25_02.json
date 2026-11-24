@@ -4,29 +4,25 @@
   "id": "canister_25_02",
   "title": "Kanystr 25 l, modrý",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.146, -0.001, -0.121], "max": [0.146, 0.476, 0.122] },
+  "bounds": { "min": [-0.146, -0.001, -0.121], "max": [0.146, 0.491, 0.124] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.145, 0.012, -0.108], "max": [0.145, 0.428, 0.108], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.133, 0, -0.108], "max": [0.133, 0.44, 0.108], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.133, 0.012, -0.12], "max": [0.133, 0.428, 0.12], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.44, -0.015], "max": [0.085, 0.475, 0.015], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.44, -0.012], "max": [-0.11, 0.475, 0.012], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.11, 0.452, 0], "radius": 0.022, "height": 0.025, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.087, 0.154, 0.119], "max": [0.087, 0.308, 0.1208], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_02_body", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_02_cap", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#canister_25_02_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.12], "max": [0.145, 0.475, 0.121], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.12], "max": [0.145, 0.49, 0.123], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 136,
+  "tris": 714,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#canisters",

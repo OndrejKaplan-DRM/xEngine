@@ -4,27 +4,25 @@
   "id": "bottle_hdpe_500_02",
   "title": "Lahev z HDPE 500 ml",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.039, -0.001, -0.039], "max": [0.039, 0.176, 0.039] },
+  "bounds": { "min": [-0.038, -0.001, -0.038], "max": [0.038, 0.167, 0.039] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0625, 0], "radius": 0.037, "height": 0.125, "axis": "y", "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.135, 0], "radius": 0.0245, "height": 0.02, "axis": "y", "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.15, 0], "radius": 0.012, "height": 0.01, "axis": "y", "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.164, 0], "radius": 0.016, "height": 0.02, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.0203, 0.04, 0.036], "max": [0.0204, 0.088, 0.0378], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_hdpe_500_body", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_hdpe_500_1_cap", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_hdpe_500_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.038, 0, -0.038], "max": [0.038, 0.175, 0.038], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.037, 0, -0.037], "max": [0.037, 0.166, 0.038], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 268,
+  "tris": 448,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#hdpeBottles",

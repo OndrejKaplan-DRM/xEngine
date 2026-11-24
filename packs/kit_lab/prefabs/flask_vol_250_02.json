@@ -4,7 +4,7 @@
   "id": "flask_vol_250_02",
   "title": "Odměrná baňka 250 ml doplněná po rysku",
   "category": "lab.glass",
-  "bounds": { "min": [-0.037, -0.001, -0.036], "max": [0.037, 0.222, 0.037] },
+  "bounds": { "min": [-0.037, -0.001, -0.037], "max": [0.037, 0.222, 0.037] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,13 +18,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_250_liquid", "mat": "liquid_purple" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.036, 0, -0.035], "max": [0.036, 0.221, 0.036], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.036, 0, -0.036], "max": [0.036, 0.221, 0.036], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1138,
+  "tris": 994,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",

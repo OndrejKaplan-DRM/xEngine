@@ -4,30 +4,28 @@
   "id": "bottle_wash_500_02",
   "title": "Střička 500 ml (etanol)",
   "category": "lab.plastic",
-  "bounds": { "min": [-0.042, -0.001, -0.042], "max": [0.051, 0.219, 0.043] },
+  "bounds": { "min": [-0.041, -0.001, -0.041], "max": [0.058, 0.222, 0.042] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0675, 0], "radius": 0.04, "height": 0.135, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.145, 0], "radius": 0.031, "height": 0.02, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0475, 0], "radius": 0.038, "height": 0.091, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.165, 0], "radius": 0.017, "height": 0.022, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.195, 0], "radius": 0.003, "height": 0.04, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0.025, 0.215, 0], "radius": 0.0025, "height": 0.05, "axis": "x", "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.024, 0.0495, 0.039], "max": [0.024, 0.099, 0.0408], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.024, 0.0881, 0.0406], "max": [0.024, 0.099, 0.0418], "mat": "label_band_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_body", "mat": "plastic_pp" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_1_liquid", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_cap", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_spout", "mat": "plastic_pp" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/plastic.glb#bottle_wash_500_1_band", "mat": "label_band_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.041, 0, -0.041], "max": [0.05, 0.218, 0.042], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.04, 0, -0.04], "max": [0.057, 0.221, 0.041], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 408,
+  "tris": 504,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/plastic.mjs#washBottles",
