@@ -120,6 +120,7 @@ snapshot()  restore(data)
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
 - Jedna interakce na prefab (verze 1).
+- Síť, počet trojúhelníků a kolizní tvar dílu prefabu počítá výhradně `src/xspace/geom.js` (`partMesh`, `partTris`, `partCollider`; válec má `CYL_SEGMENTS` dílků) (N-101).
 - `speed` je rychlost pohonu **i ruky** hráče. Když chybí, platí doba přejezdu celého rozsahu podle druhu interakce z `JOINT_TRAVEL_SECONDS` ve `formats.js` (N-103).
 - `components.place` říká nástrojům, kam se prefab přichytává a jak velký otvor potřebuje (N-004). Engine ho nečte.
 - `components.screen`: plocha leží v rovině XY uzlu, střed v jeho počátku, líc do +Z; `offset` ji posouvá po ose Z (N-106).
@@ -162,11 +163,13 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 - **Zapečené světlo ukládá osvětlení E (lineárně, před expozicí), ne hotovou barvu.** Engine ho násobí barvou materiálu stejně jako světlo za běhu.
 - Kuželové světlo (`spot`): `angle` je plný úhel kužele; posledních 20 % úhlu je měkký okraj. Slunce (`sun`): `intensity` je osvětlení plochy kolmé ke směru, bez zeslabení vzdáleností.
 - **Jediná implementace vzorce je `lightIrradiance` v `src/xspace/light.js`.** Počítá osvětlení bez zastínění; zda je mezi bodem a světlem překážka, řeší volající.
-- **Statický svět se osvětluje po vrcholech, ne po pixelech** (D-022, změřeno na T460). Vzorky světla jsou vrcholy sítě `brushLightMesh(b, LIGHT_CELL)` z `src/xspace/geom.js`; buňka mřížky je 0,5 m. **Pořadí vrcholů této sítě je součást kontraktu**: zapékání ukládá hodnoty v tomto pořadí a běh je v něm čte.
+- **Statický svět se osvětluje po vrcholech, ne po pixelech** (D-022, změřeno na T460). Vzorky světla levelu jsou vrcholy sítí `levelLightMeshes(level.brushes, materials, LIGHT_CELL)` z `src/xspace/geom.js`, kvádr po kvádru v pořadí `brushes`; buňka mřížky je 0,5 m. **Pořadí vrcholů je součást kontraktu**: zapékání ukládá hodnoty v tomto pořadí a běh je v něm čte.
 - **Každé světlo tvoří vlastní vrstvu** (obdoba světelných stylů Half-Life). Vrstva = osvětlení E vzorků při plné úrovni světla. Barva vzorku = okolní člen + Σ úroveň světla × barva světla × E. Přepnutí lampy mění jen úroveň, vrstva se nepřepočítává.
 - Světla v `lights` zapéká xBake, pokud nemají `dynamic: true`. Světlo nesené prefabem (součást `light`) má také svou vrstvu; počítá se při načtení levelu a znovu jen tehdy, když se pohne uzel, na kterém sedí.
 - Pohyblivé díly (křídlo dveří, bedna) se osvětlují stejným vzorcem po stěnách dílu; přepočet jen při pohybu dílu nebo změně světla.
-- Formát souboru se zapečeným světlem základ nedefinuje. Navrhne ho sešna B (návrh N-001) a potvrdí svodná sešna. Dané je jen to, co je výše: vzorky, jejich pořadí, vrstvy a jednotka.
+- Formát souboru se zapečeným světlem je podle návrhu N-001 (přijat, D-035): `levels/<id>.light.bin`, vrstvy `light`, `entity`, `indirect`, `ao`.
+- **Dveře v portálu při zapékání nestíní.** Vzorek, ke kterému vede volná cesta od světla otvorem portálu s dveřmi, svítí úrovní světla × otevření dveří (úsek vrstvy s polem `gate`). Zavřenými dveřmi tak světlo neprochází a při otevírání přibývá (D-035).
+- **Mřížka vzorků, znění 2** (D-037, v základu od 24. 11. 2026). Hrana plochy rovnoběžná s osou má vrcholy na násobcích buňky ve světových souřadnicích a na obou svých koncích; šikmá hrana klínu a jeho trojúhelníkové boky se dělí rovnoměrně. Plochy, které sdílejí přímku, na ní proto mají stejné vrcholy. Plocha, která leží celá v jiném neprůhledném viditelném kvádru (včetně jeho povrchu), vzorky nemá (`brushHiddenFaces`); kvádr s `vis: false` také ne. Nikdo nesmí mít počet ani pořadí vzorků natvrdo; obojí se bere z `geom.js`. Na plochách rovnoběžných s osami jsou vrcholy mřížky 0,5 m podmnožinou mřížky 0,25 m.
 
 ### Profily
 

@@ -23,20 +23,20 @@ Vlna 1 je sloučená, zkouška A × B prošla, návrhy a rozpory jsou rozhodnut�
 
 ## Dluhy základu ve vlně 2 (provádí svodná sešna, v tomto pořadí)
 
-0. **Nové návrhy:** N-001 (formát zapečeného světla), N-007 (zakrytí otvoru dveřmi, překrývá se s N-107) a N-108 (švy a hrubost mřížky světla) přišly během integrace a nejsou rozhodnuté.
+Hotovo: N-101 (`partMesh`, `partCollider`, `partTris` v `geom.js`, 23. 11. 2026); D-037 mřížka světla znění 2 (24. 11. 2026, bod 1 níže). Rozhodnuto: N-001 (D-035), N-007 (D-036), N-108 (D-037).
 
-1. **N-101:** `partMesh`, `partCollider`, `partTris` do `src/xspace/geom.js` podle `src/world/parts.js` sešny A; xView je začne používat; kontroly v T1.
-2. **N-107:** pravidlo validátoru `portal.door.cover` pro dveře bez `seeThrough`, mutace v T1.
-3. **N-002:** `rig.joints[].follow`, pravidla validátoru, `jointFollow` v `rig.js`.
-4. **N-102:** `rigCompile` a `rigSolve`, dřív než přijde první tvor.
-5. **N-105:** svítivosti a expozice zlatého vzorku, až sešna A převede vykreslení na světlo po vrcholech.
-6. **N-103:** varování `rig.noSpeed`, až sešna B doplní `speed`.
-7. **D-030:** po zkoušce textury a sítě na jednom kusu zmrazit jména polí N-006 do formátu.
-8. **D-032:** podle zkoušky v Chrome přepsat D-024, nebo zadat přestavbu terminálu.
-9. **Shell:** přenést z `vibe-game-frameworks` zkoušky v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu; rozhodnout, kde žije specifikace `02_SHELL`. Zápis o novém domově tam je (větev `dev`, `3aa13f4`).
-10. **xBench:** čtyři nejtěžší případy vycházejí ve všech bězích 22,5 až 25,2 ms při různé zátěži (postřeh sešny A): prověřit, jestli to není strop metody. Doplnit průhledné plochy, víc textur a interiér s texturou v 1080 řádcích.
-11. `REQUIREMENTS.md` a `05_PARITA_2003.md`: stavy řádků po vlně 1 nejsou přepsané.
-12. Skill `xengine` srovnat s repem (světlo po vrcholech, `src/shell`, stupně kvality, T5, změřené rozpočty).
+1. **D-037, mřížka světla znění 2: hotovo 24. 11. 2026.** Čísla jsou ve `STATE.md`. Zbývá jen při příštím sloučení ověřit, že sešny A a B přešly na `levelLightMeshes`, a rozhodnout doplněk N-108 (pole `env.lightCell`) po měření `?bench` s `grid=0.25` na T460.
+2. **D-036:** pravidlo validátoru `portal.door.cover` ze všech neprůhledných dílů dveří v klidu (vzor: `test/b_lib/door-cover.mjs` sešny B, kolmá část), mutace v T1; neplatí pro `seeThrough`.
+3. **N-002:** `rig.joints[].follow`, pravidla validátoru, `jointFollow` v `rig.js`. Povýšeno, protože na něm stojí dvoukřídlé dveře jako jeden prefab.
+4. **D-035:** při příštím sloučení převzít do `src/xspace` čtení souboru se zapečeným světlem (`decodeBake` sešny B) a pravidlo brány dveří (`occlusion.js` sešny A); validátor ohlídá, že `baked.file` je v `assets`.
+5. **N-102:** `rigCompile` a `rigSolve`, dřív než přijde první tvor.
+6. **N-105:** svítivosti a expozice zlatého vzorku; sešna A už na světlo po vrcholech přešla, čeká se na její čísla jasu po sloučení.
+7. **N-103:** varování `rig.noSpeed`, až sešna B doplní `speed`.
+8. **D-030:** po zkoušce textury a sítě na jednom kusu zmrazit jména polí N-006 do formátu.
+9. **D-032:** výsledek zkoušky terminálu v Chrome.
+10. **Shell:** přenést z `vibe-game-frameworks` zkoušky v prohlížeči (`t2_shell`, `t4_nastaveni_ui`) a zkoušku katalogu; rozhodnout, kde žije specifikace `02_SHELL`. Zápis o novém domově tam je (větev `dev`, `3aa13f4`).
+11. **xBench:** čtyři nejtěžší případy vycházejí ve všech bězích 22,5 až 25,2 ms při různé zátěži (postřeh sešny A): prověřit, jestli to není strop metody. Doplnit průhledné plochy, víc textur a interiér s texturou v 1080 řádcích.
+12. `REQUIREMENTS.md` a `05_PARITA_2003.md`: stavy řádků po vlně 1 nejsou přepsané.
 
 ## Na co si dát pozor
 

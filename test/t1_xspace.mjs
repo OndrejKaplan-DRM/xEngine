@@ -39,6 +39,52 @@ ok(res.stats.xspace === XSPACE_VERSION && res.stats.levels.length === 1, 'statis
   ok(same, 'generátor zlatého vzorku dává bajtově totéž, co je v repu', `${a.length} souborů`);
 }
 
+// ---- díly prefabu (N-101): síť, počet trojúhelníků a kolizní tvar z jednoho místa
+{
+  const box = { shape: 'box', min: [-0.2, 0, -0.1], max: [0.4, 1, 0.3] };
+  const bm = X.partMesh(box);
+  ok(bm.indices.length / 3 === 12 && X.partTris(box) === 12, 'díl box má 12 trojúhelníků', `${bm.indices.length / 3}`);
+  let cylOk = true;
+  const seen = [];
+  for (const axis of ['x', 'y', 'z']) {
+    const part = { shape: 'cyl', radius: 0.3, height: 1.2, axis, center: [1, 2, 3] };
+    const m = X.partMesh(part);
+    const k = 'xyz'.indexOf(axis);
+    const ext = [0, 1, 2].map((i) => {
+      const v = m.positions.filter((_, j) => j % 3 === i);
+      return Math.max(...v) - Math.min(...v);
+    });
+    const mid = [0, 1, 2].map((i) => {
+      const v = m.positions.filter((_, j) => j % 3 === i);
+      return (Math.max(...v) + Math.min(...v)) / 2;
+    });
+    let unit = true;
+    for (let j = 0; j < m.normals.length; j += 3) if (Math.abs(Math.hypot(m.normals[j], m.normals[j + 1], m.normals[j + 2]) - 1) > 1e-9) unit = false;
+    const good =
+      m.indices.length / 3 === 4 * X.CYL_SEGMENTS &&
+      X.partTris(part) === 4 * X.CYL_SEGMENTS &&
+      Math.abs(ext[k] - 1.2) < 1e-9 &&
+      [0, 1, 2].every((i) => i === k || Math.abs(ext[i] - 0.6) < 1e-9) &&
+      mid.every((v, i) => Math.abs(v - part.center[i]) < 1e-9) &&
+      unit &&
+      Math.max(...m.indices) < m.positions.length / 3 &&
+      m.uvs.length / 2 === m.positions.length / 3;
+    if (!good) cylOk = false;
+    seen.push(`${axis}: ${m.indices.length / 3} △, rozměr ${ext.map((v) => v.toFixed(2)).join(' × ')}`);
+  }
+  ok(cylOk, 'díl cyl: 4 × CYL_SEGMENTS trojúhelníků, délka po ose z dat, střed v center, jednotkové normály', seen.join('; '));
+  ok(X.partMesh({ shape: 'mesh', file: 'x.glb' }) === null && X.partTris({ shape: 'mesh' }) === null, 'díl ze souboru (mesh) nemá síť ani počet z dat');
+  const bad = pack.prefabs.filter((pf) => pf.data.parts.every((x) => X.partTris(x) !== null) && pf.data.parts.reduce((n, x) => n + X.partTris(x), 0) !== pf.data.tris);
+  ok(bad.length === 0, 'pole tris každého prefabu zlatého vzorku = součet partTris jeho dílů', bad.length ? bad.map((pf) => pf.data.id).join(' ') : `${pack.prefabs.length} prefabů`);
+  const cb = X.partCollider({ shape: 'box', min: [0, 0, 0], max: [2, 4, 6] });
+  const cc = X.partCollider({ shape: 'cyl', radius: 0.5, height: 2, center: [1, 1, 1] });
+  const cs = X.partCollider({ shape: 'ball', radius: 0.25 });
+  ok(
+    cb.shape.type === 'box' && cb.shape.half.join() === '1,2,3' && cb.center.join() === '1,2,3' && cc.shape.type === 'cyl' && cc.shape.axis === 'y' && cc.center.join() === '1,1,1' && cs.shape.type === 'ball' && cs.center.join() === '0,0,0' && X.partCollider({ shape: 'hull', points: [] }) === null,
+    'partCollider: kvádr (půlrozměry a střed), válec (výchozí osa y), koule; hull vrací null',
+  );
+}
+
 // ---- mutace: každá musí vyvolat právě svůj kód nálezu
 const L = (p) => p.levels[0].data;
 const P = (p, id) => p.prefabs.find((x) => x.data.id === id).data;
@@ -288,6 +334,60 @@ for (const rise of ['+x', '-x', '+z', '-z']) {
   }
   ok(maxEdge <= 0.5 * Math.SQRT2 + 1e-9, 'síť světla: žádná hrana delší než úhlopříčka buňky', maxEdge.toFixed(3));
   ok(X.brushLightMesh({ ...box, max: [400, 3, 2] }, 0.5).positions.length / 3 < 20000, 'síť světla: dlouhá plocha má strop počtu dílků');
+
+  // mřížka světla, znění 2 (D-037): násobky buňky ve světě, schované plochy se nevyrábějí
+  {
+    const coords = (m, k, pick = () => true) => {
+      const set = new Set();
+      for (let i = 0; i < m.positions.length; i += 3) if (pick(m.positions[i], m.positions[i + 1], m.positions[i + 2])) set.add(m.positions[i + k]);
+      return [...set].sort((a, b) => a - b).join(' ');
+    };
+    const off = { id: 'b_o', shape: 'box', min: [0.3, 0, 0.2], max: [2.1, 1.3, 0.4], mat: 'm' };
+    const mo = X.brushLightMesh(off, 0.5);
+    ok(coords(mo, 0) === '0.3 0.5 1 1.5 2 2.1' && coords(mo, 1) === '0 0.5 1 1.3' && coords(mo, 2) === '0.2 0.4', 'síť světla: vnitřní vrcholy leží na násobcích buňky ve světě, krajní na hranách kvádru', `x: ${coords(mo, 0)}`);
+    ok(Math.abs(area(mo) - area(X.brushMesh(off))) < 1e-9, 'síť světla: plocha kvádru mimo mřížku se dělením nemění');
+    // dvě desky vedle sebe, různě dlouhé: na společné přímce x = 1,3 mají horní plochy stejné vrcholy (kromě rohů kratší desky)
+    const sa = X.brushLightMesh({ shape: 'box', min: [0, 0, 0], max: [1.3, 0.2, 2] }, 0.5, ['-x', '+x', '-y', '-z', '+z']);
+    const sb = X.brushLightMesh({ shape: 'box', min: [1.3, 0, 0.4], max: [3.1, 0.2, 1.7] }, 0.5, ['-x', '+x', '-y', '-z', '+z']);
+    const onA = coords(sa, 2, (x, y, z) => x === 1.3 && z > 0.4 && z < 1.7);
+    const onB = coords(sb, 2, (x, y, z) => x === 1.3 && z > 0.4 && z < 1.7);
+    ok(onA === '0.5 1 1.5' && onA === onB, 'síť světla: sousední plochy v jedné rovině mají na společné přímce stejné vrcholy', `${onA} = ${onB}`);
+    ok(sa.groups.length === 1 && sa.groups[0].face === '+y' && X.brushLightMesh(off, 0.5, new Set(['+y'])).groups.every((g) => g.face !== '+y'), 'síť světla: vyjmenované plochy se nevyrábějí (pole i množina)');
+    const wm = X.brushLightMesh({ shape: 'wedge', rise: '+x', min: [0.2, 0, 0.3], max: [3.2, 1.5, 2.3] }, 0.5);
+    ok(coords(wm, 2) === '0.3 0.5 1 1.5 2 2.3', 'síť světla: klín dělí hrany rovnoběžné s osou také po násobcích buňky', coords(wm, 2));
+
+    const A = { id: 'b_a', shape: 'box', min: [0, 0, 0], max: [1, 1, 1], mat: 'm' };
+    const top = { id: 'b_b', shape: 'box', min: [0, 1, 0], max: [1, 2, 1], mat: 'm' };
+    const lid = { id: 'b_c', shape: 'box', min: [-1, 1, -1], max: [2, 2, 2], mat: 'g' };
+    const str = (h) => JSON.stringify(h);
+    ok(str(X.brushHiddenFaces([A, top])) === '[["+y"],["-y"]]', 'schované plochy: styčná plocha dvou kvádrů na sobě je schovaná u obou', str(X.brushHiddenFaces([A, top])));
+    ok(str(X.brushHiddenFaces([A, lid])) === '[["+y"],null]', 'schované plochy: větší kvádr schová plochu menšího, opačně ne');
+    ok(str(X.brushHiddenFaces([A, lid], { g: { opacity: 0.4 } })) === '[null,null]' && str(X.brushHiddenFaces([A, lid], new Map([['g', { alphaTest: 0.5 }]]))) === '[null,null]', 'schované plochy: průhledný kvádr nic neschová');
+    ok(str(X.brushHiddenFaces([A, { ...lid, vis: false }])) === '[null,null]' && str(X.brushHiddenFaces([A, { ...top, min: [0, 1.5, 0] }])) === '[null,null]', 'schované plochy: neviditelný ani vzdálený kvádr nic neschová');
+    const floor = { id: 'b_f', shape: 'box', min: [-2, -0.2, -2], max: [6, 0, 6], mat: 'm' };
+    const ramp = { id: 'b_r', shape: 'wedge', rise: '+x', min: [0, 0, 0], max: [3, 1.5, 2], mat: 'm' };
+    ok(str(X.brushHiddenFaces([floor, ramp])) === '[null,["-y"]]', 'schované plochy: spodek klínu na podlaze je schovaný, klín sám nic neschová');
+
+    const gp = await readPackDir(GOLDEN);
+    const lvl = gp.levels[0].data;
+    const mats = gp.materials.materials;
+    const hide = X.brushHiddenFaces(lvl.brushes, mats);
+    const meshes = X.levelLightMeshes(lvl.brushes, mats);
+    let all = 0;
+    let kept = 0;
+    let match = meshes.length === lvl.brushes.length;
+    lvl.brushes.forEach((b, i) => {
+      all += X.brushLightMesh(b).positions.length / 3;
+      if (b.vis === false) match = match && meshes[i] === null;
+      else {
+        kept += meshes[i].positions.length / 3;
+        match = match && JSON.stringify(meshes[i]) === JSON.stringify(X.brushLightMesh(b, X.LIGHT_CELL, hide[i]));
+      }
+    });
+    const nHidden = hide.reduce((n, h) => n + (h ? h.length : 0), 0);
+    ok(match, 'síť světla levelu: levelLightMeshes = brushLightMesh se schovanými plochami, kvádr po kvádru');
+    ok(nHidden > 0 && kept < all, 'zlatý vzorek: část ploch je schovaná a vzorků je bez nich méně', `${nHidden} ploch, ${kept} vzorků místo ${all}`);
+  }
 
   const L = { type: 'point', pos: [0, 2, 0], intensity: 100, range: 10 };
   const e2 = X.lightIrradiance(L, 0, 0, 0, 0, 1, 0);

@@ -1,6 +1,6 @@
 # Stav
 
-**Verze:** základ 2 · 22. 11. 2026 · větev `zaklad-2` (shodná s `main`)
+**Verze:** základ 2, znění 3 · 24. 11. 2026 · větev `zaklad-2` (shodná s `main`)
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
@@ -19,9 +19,45 @@ Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna
 
 Co zkouška A × B neříká: robot běží v Node bez obrazu (stejný kód hry, jiné vykreslení). Chodí po nejkratší cestě, takže většinu místností jen míjí. Dveře `door_plank_01` nechávají průchod 0,80 m pro postavu širokou 0,70 m (s odstupem kontroléru 0,74 m): projít jdou, ale jen středem. Krok simulace je měřen v sandboxu, o T460 nevypovídá.
 
+## Znění 3 základu 2 (24. 11. 2026): mřížka světla podle D-037
+
+Proti znění 2 přibylo v `src/xspace/geom.js`:
+
+- `brushLightMesh(b, cell, skip)`: hrana plochy rovnoběžná s osou má vrcholy na násobcích buňky ve světových souřadnicích a na obou koncích (dřív se dělila rovnoměrně podle své délky). Šikmá hrana klínu a jeho trojúhelníkové boky se dělí jako dřív. Třetí parametr vyjmenuje plochy, které se nevyrábějí.
+- `brushHiddenFaces(brushes, materials)`: plochy, které leží celé v jiném neprůhledném viditelném kvádru (včetně jeho povrchu).
+- `levelLightMeshes(brushes, materials, cell)`: sítě celého levelu bez schovaných ploch; kvádr s `vis: false` síť nemá. **Tohle je od teď definice vzorků levelu** (`02_KONTRAKTY`, Světlo).
+- Strop dílků jedné hrany je 256 místo 64. Se stropem 64 by se při buňce 0,25 m plochy delší než 16 m dělily po 0,5 m a ztratily společné vrcholy se sousedy.
+- Nástroj `node tools/light-stat.mjs packs/<balík> [--cell 0.25]` vypíše počty a T-spoje.
+
+Změřeno v sandboxu na balících ve stavu základu (jsou to počty, ne časy, platí všude):
+
+| Level | Vzorků dřív | Vzorků teď | Trojúhelníků dřív | Trojúhelníků teď | Schovaných ploch | T-spojů dřív | T-spojů teď |
+|---|---|---|---|---|---|---|---|
+| `xlab` (zlatý vzorek) | 20 658 | 20 509 | 32 386 | 32 826 | 64 z 322 | 1 321 | 139 |
+| `catacombs_3` | 39 136 | 35 352 | 44 860 | 44 908 | 666 z 2 046 | 5 422 | 1 278 |
+| `complex_21` | 64 393 | 61 075 | 81 738 | 84 731 | 798 z 2 471 | 7 727 | 1 534 |
+| `complex_7` | 73 092 | 65 618 | 91 344 | 91 126 | 1 179 z 2 988 | 9 500 | 2 000 |
+
+- T-spoj je vrchol jedné plochy uvnitř okrajové hrany jiné viditelné plochy, která tam vrchol nemá; na takovém místě může vykreslení vynechat bod. „Dřív“ je stará funkce z `d2fb217` na týchž viditelných plochách.
+- **Zarovnání samo vzorky přidává** (xLab +3,7 %, generované levely +14 až +15 %), protože plochy mimo mřížku dostanou krajní pásek. Vynechání schovaných ploch ubere 4 až 22 %. Výsledek: vzorků o 1 až 10 % méně, trojúhelníků stejně (−0,2 až +3,7 %).
+- **Očekávání z D-037 se nepotvrdilo:** úspora měla být třetina až polovina vzorků, celé schované plochy jich ale nesou jen 4 až 22 %. Vzorky, které leží v tělese na plochách schovaných jen zčásti, zůstávají.
+- Při buňce 0,25 m má xLab 68 735 vzorků a 122 162 trojúhelníků (dřív 59 394 a 102 798, protože starý strop 64 dílků dlouhé plochy potichu zhruboval).
+
+**Švy ve hře.** Po sloučení nanečisto se `sesna-a` (`3b005a7`) hlásí její test `a_17_view` (48 pohledů zlatého vzorku, pozadí v signální barvě, vyhlazování vypnuté) **0 bodů pozadí na švech**; před změnou 128 bodů, nejhorší pohled 21. Varianta (b) z N-108 proto není potřeba. Platí pro zlatý vzorek; na generovaných levelech pohledový test švů neexistuje a T-spoje tam zbývají.
+
+**Sloučení nanečisto s oběma větvemi** (`3380bf2` + `sesna-a` `3b005a7` + `sesna-b` `64e622b`, 24. 11. 2026, sandbox): bez konfliktu; základ 254 kontrol, skupina A 21 sad z 21 (336 kontrol), zkouška A × B 28 + 9, skupina B 5 sad ze 6. **Selže jedna kontrola v `b_t6_bake_nahled`**, která má počet vzorků xLabu natvrdo (20 658; po změně 21 432, po přechodu na `levelLightMeshes` 20 509). Oprava patří sešně B (dodatek ve `START_B.md`).
+
+Po sloučení dostanou obě sešny novou mřížku samy. Schované plochy přestanou počítat, až nahradí smyčku přes `brushLightMesh` voláním `levelLightMeshes` (sešna A ve `src/world/world.js`, sešna B v xBake).
+
+Nerozhodnuto: pole `env.lightCell` z doplňku N-108 (sešna A). Čeká na číslo `?bench` s `grid=0.25` z T460.
+
+## Znění 2 základu 2 (23. 11. 2026)
+
+Proti znění 1 (`b12f8ed`) přibylo: díly prefabu v základu (N-101: `partMesh`, `partCollider`, `partTris`; xView je používá) a rozhodnutí tří návrhů, které přišly během integrace: N-001 soubor se zapečeným světlem (D-035), N-007 zakrytí otvoru dveřmi (D-036), N-108 mřížka světla (D-037). Sešny si znění 2 vezmou týmž `git merge origin/zaklad-2`.
+
 ## Rozhodnuto po vlně 1
 
-- **Návrhy:** všech 12 rozhodnuto, přehled v `docs/navrhy/README.md`. Sedm je už v základu (volitelná pole a věty kontraktu), šest základ dluží (seznam v `docs/sesny/START_SVOD.md`).
+- **Návrhy:** všech 15 rozhodnuto, přehled v `docs/navrhy/README.md`. Osm je už v základu, zbytek základ dluží (seznam v `docs/sesny/START_SVOD.md`).
 - **Rozpory kódu sešny A se zněním 2:** D-031 (světlo po vrcholech a pevné řádky jsou první úkol vlny 2), D-032 (klidný režim rozhodne zkouška v Chrome), D-027 zrušeno.
 - **Stupně kvality** (D-029): rámec přijat; změřený je jen stupeň `low` pro T460.
 
@@ -31,25 +67,23 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
-## Sešny mezitím pokročily (stav větví 22. 11. 2026 ve 23:30)
+## Stav větví sešen (24. 11. 2026 v 01:10)
 
-Obě sešny během integrace pracovaly dál na svých větvích. Do `zaklad-2` to **nepatří**; je to stav pro příští sloučení.
+Obě sešny skončily 23. 11. 2026 mezi 03:00 a 05:00. Do `zaklad-2` jejich práce z vlny 2 **nepatří**; je to stav pro příští sloučení.
 
-| Větev | Hlava | Co přibylo podle commitů | Zkouška svodné sešny (sloučení se `zaklad-2` nanečisto) |
+| Větev | Hlava | Základ, na kterém stojí | Stav vlny 2 podle jejich `*_STAV.md` |
 |---|---|---|---|
-| `sesna-a` | `5626629` | převod na světlo po vrcholech, pevný počet řádků, skok na nový stisk, zastínění světla, `?bench`, oddíl „Rozhraní entit“, terminál podle D-024, návrh N-108 | bez konfliktu, mimo své složky nesáhla; skupina A 18 sad z 18 |
-| `sesna-b` | `9944620` | katakomby podle volby 2 b, dveře bez škvír a návrh N-007, xBake a návrh N-001 | bez konfliktu, mimo své složky nesáhla; skupina B 6 sad ze 6 |
+| `sesna-a` | `3b005a7` | znění 1 (`b12f8ed`); znění 2 ani 3 nesloučila | A2.1 světlo po vrcholech, A2.2 obraz a měření, A2.4 dluhy vlny 1 (D-024, D-025) hotovo; A2.3 krok simulace změřen jen v sandboxu; okraj stínu po podílech a volitelná mřížka 0,25 m; A2.5 až A2.7 nezačato |
+| `sesna-b` | `64e622b` | znění 2 (`d2fb217`) | B2.1 zčásti (generátor dál hlídá průchod 0,6 m místo 0,74 m), xBake hotov podle vlny 1, brány podle D-035 a díly z `geom.js` neuděláno; B2.2 až B2.5 a B2.7 nezačato |
 
-Po sloučení obou větví: základ 237 kontrol zeleně, ale **zkouška A × B selže ve dvou kontrolách** (688 prošlo, 2 selhaly). Pro kapsli hráče jsou nedosažitelné tři buňky v `complex_7` (`c_store_08`, `c_lab_05`, `c_store_12`) a jedna v `complex_21` (`c_store_02`); ve `zaklad-2` byly dosažitelné všechny. Příčinu jsem nehledala. Světlost dveří je v nových prefabech 0,90 m, dveře samy to tedy nejsou. Je to úkol B2.1.
-
-Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
+Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 3“ výše. Zkouška z 23. 11. (`cc5078f` + `a1d3081` + `129318d`): 722 kontrol, 0 selhalo.
 
 ## Co je hotové (základ 1)
 
 | Část | Kde | Stav |
 |---|---|---|
 | jádro: systémy, fáze, závislosti, deklarované události, pevný krok 120 Hz, režimy, uložení stavu | `src/kernel` | 41 kontrol v T0 |
-| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 123 kontrol v T1, z toho 58 mutací |
+| xSpace 1: popis formátů, validátor se stálými kódy nálezů, načtení a spojení balíků, geometrie kvádrů a klínů, matice koster | `src/xspace` | 140 kontrol v T1, z toho 58 mutací |
 | světlo: síť vzorků `brushLightMesh` (mřížka 0,5 m, pořadí vrcholů je kontrakt) a vzorec `lightIrradiance` | `src/xspace/geom.js`, `light.js` | 17 kontrol v T1 |
 | zlatý vzorek: level xLab (5 buněk, 4 portály, 54 kvádrů, 20 entit, 10 světel, 11 spojení) a 12 prefabů s kostrou | `packs/golden`, `tools/golden/make.mjs` | bez nálezů, bajtově opakovatelný |
 | xView: prohlížeč balíku (pět pohledů, vrstvy, validátor v prohlížeči) | `tools/xview` → `dist/xview.html` | 15 kontrol v T2 |
@@ -58,7 +92,7 @@ Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 237 kontrol; `npm run test:all` (základ, A, B, A × B): 633 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
+`npm test`: 254 kontrol; `npm run test:all` (základ, A, B, A × B): 650 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty).
 
 ## Co hotové není
 
@@ -86,4 +120,4 @@ Nové návrhy N-001, N-007 a N-108 nejsou rozhodnuté.
 
 ## Návrhy
 
-Žádný otevřený. Přehled rozhodnutí v `docs/navrhy/README.md`.
+Žádný otevřený. Přehled rozhodnutí v `docs/navrhy/README.md`. Oddíl „Rozhodnutí“ v souborech N-001, N-007 a N-108 doplním při příštím sloučení (soubory jsou zatím jen na větvích sešen).

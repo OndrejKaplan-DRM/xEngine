@@ -134,7 +134,7 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | vnitřní rozlišení | výchozí 768 řádků; volby 576, 768, 1080 | měření 0.2: interiér bez světel 2,4 ms v 768 a 4,4 ms v 1080 řádcích. O výchozích 1080 rozhodne až měření hry (`?bench`). | A | nastavení, `?bench` |
 | volání kreslení na pohled | ≤ 400 | měření 0.2 (400 volání 3,1 ms, 800 volání 5,4 ms) | A | `renderer.info`, test, T5 |
 | viditelné trojúhelníky | ≤ 300 tisíc | měření 0.2 (296 tis. = 3,8 ms, 95 % 7,2 ms; 594 tis. = 7,2 ms, 95 % 14,3 ms) | A, B | `renderer.info`, validátor |
-| buňka mřížky světla | 0,5 m (xLab: 20 658 vzorků, 32 386 trojúhelníků; při 0,25 m 59 394 a 102 798) | spočteno ze zlatého vzorku | základ | `brushLightMesh` |
+| buňka mřížky světla | 0,5 m (xLab po D-037: 20 509 vzorků, 32 826 trojúhelníků; při 0,25 m 68 735 a 122 162; před D-037 to bylo 20 658 a 32 386, při 0,25 m 59 394 a 102 798) | spočteno ze zlatého vzorku | základ | `brushLightMesh` |
 | komprese textur (od vlny 2) | cíle S3TC a BPTC | měření | B | manifest |
 | krok simulace (120 Hz) | ≤ 2 ms | **měření ve hře 22. 11. 2026 mez překračuje:** 0,64 až 3,50 ms ve čtyřech pohledech levelů sešny B, z toho fyzika 0,60 až 3,10 ms (`docs/mereni/T460_2026-11-22_xlab_gen_F3.md`) | A | F3 a `?bench` na T460 |
 | alokace v kroku | žádné | zásada | A | test haldy |

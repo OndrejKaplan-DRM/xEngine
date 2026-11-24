@@ -4,7 +4,7 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { validatePack, brushMesh, entityMatrix, rigMatrices, mat4Mul } from '../../src/xspace/index.js';
+import { validatePack, brushMesh, partMesh, entityMatrix, rigMatrices, mat4Mul } from '../../src/xspace/index.js';
 
 const VERSION = 'xView 0.1 · 2026-11-22';
 const pack = globalThis.__PACK__;
@@ -70,17 +70,12 @@ for (const br of level.brushes) {
 const tmpM = new THREE.Matrix4();
 const tmpN = new THREE.Matrix3();
 function addPart(part, world) {
-  let geo;
-  if (part.shape === 'box') {
-    const size = [0, 1, 2].map((i) => part.max[i] - part.min[i]);
-    geo = new THREE.BoxGeometry(...size);
-    geo.translate(...[0, 1, 2].map((i) => (part.min[i] + part.max[i]) / 2));
-  } else if (part.shape === 'cyl') {
-    geo = new THREE.CylinderGeometry(part.radius, part.radius, part.height, 16);
-    if (part.axis === 'x') geo.rotateZ(Math.PI / 2);
-    if (part.axis === 'z') geo.rotateX(Math.PI / 2);
-    geo.translate(...part.center);
-  } else return; // sítě .glb kreslí až engine
+  const m = partMesh(part); // jediná implementace sítě dílu je v src/xspace/geom.js (N-101)
+  if (!m) return; // sítě .glb kreslí až engine
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+  geo.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+  geo.setIndex(m.indices);
   tmpM.fromArray(world);
   geo.applyMatrix4(tmpM);
   tmpN.getNormalMatrix(tmpM);
