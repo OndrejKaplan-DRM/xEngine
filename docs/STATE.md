@@ -1,10 +1,29 @@
 # Stav
 
-**Verze:** základ 2, znění 4 · 24. 11. 2026 · větev `zaklad-2` (shodná s `main`)
+**Verze:** základ 2, znění 5 · 24. 11. 2026 večer · větev `zaklad-2` (shodná s `main`) · **vlna 2 sloučená v polovině** (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 5 základu 2 (24. 11. 2026 večer): sloučená vlna 2
+
+Ondřej v 19:57: sloučit vlnu 2 teď (D-048). Větev zůstává `zaklad-2`, vlna 2 nekončí.
+
+| Krok | Výsledek | Čím ověřeno |
+|---|---|---|
+| vlastnictví složek | sešny nesáhly mimo své složky; výjimky podle pravidel: `TODO.md` (svůj oddíl), `package.json` (sešna B přidala `sharp` 0.35.5 do `devDependencies`) | `git diff --name-only` proti základu |
+| sloučení `sesna-a` (`85d6a6d`) a `sesna-b` (`ba16d8d`) | bez konfliktu (obě si předtím vzaly znění 4) | `d6f2982`; zámek balíků obnoven |
+| regrese po sloučení | **909 kontrol, 0 selhalo**: základ 266, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, sandbox, 20:00 až 20:04 |
+| dveře zlatého vzorku na obě strany (N-109, D-042) | `door_hinged_01` ±105° | `3b558bc`; skupiny A, B, A × B zelené |
+| N-009 (D-045) | `albedoMean` ve formátu, validátor `mat.albedoMean` | T1 |
+| N-111 (D-046) | soubory balíku v sestavení (`pack.files`), `materialFrom`, validátor textur materiálů (`ref.asset`) | T1; `dist/xlab_gen.html` 7 061 kB, z toho 30 textur `kit_base` (1 287 kB, v base64 1 717 kB) |
+| regrese na `main` (`9a1f7cd`) | **913 kontrol, 0 selhalo**: základ 270, A 405, B 201, A × B 37 | testy po skupinách, 20:12 až 20:17 |
+| rozhodnutí | D-045 až D-049 (N-009, N-111, světlo za dveřmi se `seeThrough`, sloučení, okolní světlo jako E) | `DECISIONS.md`; oddíly „Rozhodnutí“ v souborech N-001, N-007, N-008, N-009, N-108 až N-111 |
+
+Co sloučení přineslo (podrobně `TODO.md` a `*_STAV.md`): sešna A světlo po vrcholech se zastíněním a branami dveří, pevné řádky se stropem výšky plátna, `?bench`, nápravu kroku fyziky, nová pole (A2.5), díly `.glb` a textury (A2.6 na zkušebních datech), zorné pole jako vodorovný úhel, dveře od hráče; sešna B průchodnost 0,74 m, xBake podle D-035, xSearcher (příjem textur CC0), 30 textur sady `kit_base`.
+
+**Hra na T460 po vlně 2** (Ondřejův `?bench`, 24. 11. 19:39 až 19:47, sestavení sešny A „krok 5“; podrobně `A_STAV.md`, oddíl 5.1): čas grafiky `draw.ms` medián xLab 576 řádků 2,29 ms, `complex_7` 576 řádků 2,26 ms, xLab 1 080 řádků 5,57 ms (95 % 7,38 ms). Krok simulace 0,22 až 0,45 ms medián. Stavba světla `complex_7` při startu 13,1 s výpočtu. Všechny tři běhy měly 30 snímků/s při práci snímku 7 až 12 ms; nejspíš Úspora energie v Chrome (neověřeno).
 
 ## Znění 4 základu 2 (24. 11. 2026, svodná sešna main 03)
 
@@ -100,16 +119,16 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
-## Stav větví sešen (24. 11. 2026 v 16:33)
+## Stav větví sešen (24. 11. 2026 ve 20:20)
 
-Obě sešny běží. Do `zaklad-2` jejich práce z vlny 2 **nepatří**; je to stav pro příští sloučení. Co právě dělají: jejich oddíly v `TODO.md` na jejich větvích.
+Obě sešny běží. Práce vlny 2 do `85d6a6d` (A) a `ba16d8d` (B) je v základu; co přibylo potom, je stav pro příští sloučení. Co právě dělají: jejich oddíly v `TODO.md` na jejich větvích.
 
 | Větev | Hlava | Základ, na kterém stojí | Stav vlny 2 podle jejich `*_STAV.md` |
 |---|---|---|---|
-| `sesna-a` | `c7a2a64` | znění 3 a D-038 (`0af8c25`); dodatek znění 4 ještě ne | A2.1 až A2.5 hotovo (světlo po vrcholech, obraz a `?bench`, krok fyziky, dluhy vlny 1, nová pole základu); zorné pole jako vodorovný úhel; dveře od hráče jako nastavení; A2.6 a A2.7 nezačato |
-| `sesna-b` | `4aeeeb4` | znění 3 (`a995347`); D-038 ještě ne | B2.1, B2.3 (xSearcher: 10 textur CC0 v `packs/_inbox`) a B2.6 (xBake podle D-035) hotovo; B2.2, B2.4, B2.5, B2.7 nezačato |
+| `sesna-a` | `3250dd6` | znění 4 (`36faf65`); znění 5 ještě ne | nad rámec sloučeného: běh čte zapečené světlo ze souboru v pořadí `levelSamples` (`652f7ea`; barvy shodné s výpočtem, poměrně do 1e-7), F3 a `?bench` to hlásí; regrese 417 kontrol A |
+| `sesna-b` | `5e03d87` | znění 4 (`36faf65`); znění 5 ještě ne | nad rámec sloučeného: barvy materiálů podle albeda skutečných povrchů a expozice předvoleb (Ondřejova volba 1 a), bohatší tvary prefabů (Ondřejova volba 3 a, první dávka) |
 
-Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 4“ výše (855 kontrol, 0 selhalo).
+Obě hlavy jdou se základem sloučit bez konfliktu (`git merge-tree`, 20:20); testy nad nimi jsem nepouštěla.
 
 ## Co je hotové (základ 1)
 
@@ -125,13 +144,12 @@ Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 4“ v
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 266 kontrol; celá regrese na `main` (základ, A, B, A × B): 662 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
+`npm test`: 270 kontrol; celá regrese na `main` (základ, A, B, A × B): 913 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026 ve 20:17). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
 
 ## Co hotové není
 
-- **Engine vlny 2 v základu.** Na `main` je engine sešny A z vlny 1 (světlo po pixelech); světlo po vrcholech, `?bench`, náprava kroku fyziky a nová pole jsou jen na `sesna-a`. Sloučení vlny 2 čeká na Ondřejovo slovo (`TODO.md`).
+- **Zapečené světlo ve hře.** Běh ho čte jen na `sesna-a` (od `652f7ea`); xBake zatím nezapéká pevné díly prefabů (D-041) a balíky soubor `.light.bin` nenesou. Okolní světlo: sešna A ho má dělit π (D-049).
 - Shell je přestěhovaný, ne zapojený. Jeho zkoušky v prohlížeči a zkouška katalogu zůstaly ve `vibe-game-frameworks`.
-- Běh zapečený soubor nečte. Čtení je v základu (`bake.js`), xBake je na `sesna-b`; pevné díly prefabů do souboru xBake ještě nezapéká (D-041).
 - Načítání `.glb`, textury ve hře, zvuk, tvorové, editor. Pravidlo validátoru `portal.door.cover` (D-036) a svázané klouby (N-002).
 
 ## Neověřeno

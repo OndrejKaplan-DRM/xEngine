@@ -161,7 +161,7 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 
 - Svítivost bodového a kuželového světla je v **kandelách**. Osvětlení plochy ve vzdálenosti `d`, na kterou světlo dopadá pod úhlem `θ` od kolmice:
   `E = I · cos θ · okno(d) / max(d², 0,01)`, `okno(d) = clamp(1 − (d / range)⁴, 0, 1)²`. Je to výchozí chování `PointLight` v three.js s `decay = 2` a `distance = range`.
-- Jas povrchu = barva materiálu / π · E. Převod do rozsahu displeje dělá engine expozicí `env.exposure`.
+- Jas povrchu = barva materiálu / π · E. Převod do rozsahu displeje dělá engine expozicí `env.exposure`. **Okolní světlo (`env.ambient`, `cells[].ambient`) je také osvětlení E** a dělí se π stejně (D-049): jas vzorku = barva / π × (okolní × ao + Σ úroveň × barva světla × E + odraz × váha); závorku vrací `composeColors`.
 - **Zapečené světlo ukládá osvětlení E (lineárně, před expozicí), ne hotovou barvu.** Engine ho násobí barvou materiálu stejně jako světlo za běhu.
 - Kuželové světlo (`spot`): `angle` je plný úhel kužele; posledních 20 % úhlu je měkký okraj. Slunce (`sun`): `intensity` je osvětlení plochy kolmé ke směru, bez zeslabení vzdáleností.
 - **Jediná implementace vzorce je `lightIrradiance` v `src/xspace/light.js`.** Počítá osvětlení bez zastínění; zda je mezi bodem a světlem překážka, řeší volající.

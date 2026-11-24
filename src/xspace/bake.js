@@ -53,7 +53,8 @@ export function decodeBake(input) {
 export const gateLevel = (gate, doors = {}) => gate.reduce((k, id) => k * (doors[id] ?? 0), 1);
 
 /**
- * Barva vzorků pro daný stav světel a dveří:
+ * Osvětlení E vzorků (RGB) pro daný stav světel a dveří; jas = barva materiálu / π × výsledek (D-049, kontrakt Světlo).
+ * Složení:
  * okolní člen × přístupnost + Σ úroveň × barva × (E bez brány + Σ otevření brány × E úseku) + nepřímé světlo × váha.
  * @param decoded výsledek decodeBake (nebo vrstvy z bakeLevel se stejnými poli)
  * @param lightsById Map id vrstvy → { color, base }
