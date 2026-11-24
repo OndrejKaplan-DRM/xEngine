@@ -34,6 +34,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
   let blinkT = 0;
   let lastBlink = false;
   const terms = new Map(); // id entity → { term, screen, node, front, size }
+  const warnedOffset = new Set();
   const eye = [0, 0, 0];
   const dir = [0, 0, -1];
   const hitP = [0, 0, 0];
@@ -266,9 +267,17 @@ export function createInteract({ phys, player, input, behave, entities, render }
       for (const ent of entities.list) {
         const sc = ent.comp.screen;
         if (!sc) continue;
-        // Plocha obrazovky: střed uzlu, rovina XY, líc +Z, posazená těsně před nejpřednější díl uzlu.
-        // Formát posun plochy neuvádí (návrh N-106).
-        const front = Math.max(0, ...ent.prefab.parts.filter((p) => p.node === sc.node && p.max).map((p) => p.max[2])) + 0.001;
+        // Plocha obrazovky: střed uzlu, rovina XY, líc +Z, posunutá o screen.offset po ose Z (kontrakt, N-106).
+        // Prefab bez offset (data z doby před N-106) dostane plochu těsně před nejpřednějším dílem uzlu, jinak by
+        // ji rámeček monitoru zakryl; jednou se to ohlásí.
+        let front = sc.offset;
+        if (front === undefined) {
+          front = Math.max(0, ...ent.prefab.parts.filter((p) => p.node === sc.node && p.max).map((p) => p.max[2])) + 0.001;
+          if (!warnedOffset.has(ent.prefab.id)) {
+            warnedOffset.add(ent.prefab.id);
+            console.info(`xPlay: prefab ${ent.prefab.id} nemá components.screen.offset; plocha obrazovky ${front.toFixed(3)} m před uzlem (odvozeno z dílů)`);
+          }
+        }
         const term = createTerminal(ent.prefab.title, sc.app);
         const screen = render.addScreen({ cell: ent.cell, matrix: ent.nodeWorld[sc.node], offset: front, size: sc.size, res: sc.res });
         terms.set(ent.id, { term, screen, node: sc.node, front, size: sc.size });

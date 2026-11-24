@@ -56,6 +56,7 @@ export function createBench({ game, lock, root }) {
     const at = new Map(cells.map((c, i) => [c.id, i]));
     const links = cells.map(() => []);
     for (const p of level.portals || []) {
+      if (p.passable === false) continue; // okno: otvor jen pro pohled (N-003)
       const c = [0, 1, 2].map((k) => (p.quad[0][k] + p.quad[1][k] + p.quad[2][k] + p.quad[3][k]) / 4);
       const y = Math.min(...p.quad.map((q) => q[1]));
       links[at.get(p.a)].push({ to: at.get(p.b), x: c[0], y, z: c[2] });

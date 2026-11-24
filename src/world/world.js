@@ -3,6 +3,7 @@
 // src/xspace/geom.js; o konkrétním levelu neví nic, co není v datech.
 
 import { levelLightMeshes, brushCollider, inBounds, boundsGap, LIGHT_CELL } from '../xspace/index.js';
+import { isTransparent } from '../render/opacity.js';
 import { faceCells } from './cells.js';
 
 export function createWorld({ phys, render, light, pack }) {
@@ -18,6 +19,8 @@ export function createWorld({ phys, render, light, pack }) {
   const actor = { min: [0, 0, 0], max: [0, 0, 0], active: false };
 
   const uvScale = (matId) => matDefs[matId]?.uvScale || 1;
+  /** Všechny plochy kvádru mají průhledný materiál (vis: false se počítá jako neprůhledný: stíní dál). */
+  const brushSeeThrough = (b) => b.vis !== false && [b.mat, ...Object.values(b.faces || {})].every((m) => isTransparent(matDefs[m]));
 
   const sys = {
     name: 'world',
@@ -70,9 +73,11 @@ export function createWorld({ phys, render, light, pack }) {
         }
         if (b.col !== false) {
           const c = brushCollider(b);
+          // kvádr, který je celý průhledný (sklo), koliduje, ale světlo nestíní (skupina world místo brush)
+          const group = brushSeeThrough(b) ? 'world' : 'brush';
           const ref = { kind: 'brush', id: b.id, mat: b.mat };
-          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group: 'brush' }, ref);
-          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group: 'brush' }, ref);
+          if (c.type === 'cuboid') phys.addCollider(null, { type: 'box', half: c.half }, c.center, null, { group }, ref);
+          else phys.addCollider(null, { type: 'hull', points: c.points }, [0, 0, 0], null, { group }, ref);
           stat.brushColliders++;
         }
       }

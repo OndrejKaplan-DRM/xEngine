@@ -5,9 +5,7 @@
 
 const EPS = 1e-4;
 
-/** Výchozí rychlost, když ji data neuvádějí: celý rozsah za tuto dobu (díra v kontraktu, viz návrh N-103). */
-export const DEFAULT_TRAVEL_SECONDS = { button: 0.06, switch: 0.1, lever: 0.25, drawer: 0.5, door: 1.0, valve: 3.0 };
-const FALLBACK_TRAVEL = 0.5;
+import { JOINT_TRAVEL_SECONDS } from '../xspace/index.js';
 
 export function makeJoint(def, kind) {
   const range = def.max - def.min;
@@ -24,7 +22,8 @@ export function makeJoint(def, kind) {
     held: false, // drží ho ruka hráče (manipulace): hodnotu nastavuje interakce
     active: false,
     /** Rychlost pohonu a „ruky“ v jednotkách kloubu za sekundu. */
-    speed: def.speed ?? range / (DEFAULT_TRAVEL_SECONDS[kind] ?? FALLBACK_TRAVEL),
+    // bez speed v datech: celý rozsah za dobu podle druhu interakce (kontrakt, N-103)
+    speed: def.speed ?? range / (JOINT_TRAVEL_SECONDS[kind] ?? JOINT_TRAVEL_SECONDS.other),
     rest: def.rest ?? def.min,
     /** Normovaná poloha 0–1 (kontrakt: (poloha − min) / (max − min)). */
     get norm() {

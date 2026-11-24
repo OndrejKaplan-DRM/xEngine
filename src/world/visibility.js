@@ -34,8 +34,9 @@ export function createVisibility({ world, entities, render }) {
   const polyB = new Float64Array(24);
   const rect = [0, 0, 0, 0];
 
+  /** Portál je pro pohled otevřený: bez dveří, dveře se seeThrough (mříž, sklo; N-003), nebo dveře mimo klid. */
   const isOpen = (p) => {
-    if (!p.door) return true;
+    if (!p.door || p.door.interact?.seeThrough) return true;
     const j = p.door.joints[0];
     return !j || Math.abs(j.value - j.rest) > REST_EPS;
   };
@@ -173,7 +174,7 @@ export function createVisibility({ world, entities, render }) {
           }
         });
         const door = def.door ? entities.byId(def.door) : null;
-        return { id: def.id, a, b, quad, min, max, door, open: true, rect: [0, 0, 0, 0], seen: false, shutter: door ? render.addShutter([def.a, def.b], quad) : null };
+        return { id: def.id, a, b, quad, min, max, door, open: true, rect: [0, 0, 0, 0], seen: false, shutter: door && !door.interact?.seeThrough ? render.addShutter([def.a, def.b], quad) : null };
       });
       visible = new Uint8Array(cells.length);
       onPath = new Uint8Array(portals.length);

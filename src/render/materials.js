@@ -2,6 +2,7 @@
 // je materiál bez výpočtu světel, který barvu násobí barvou vrcholů; 'unlit' a 'emissive' na světlo nereagují. Varianta „:off“ je zhasnutý svítící povrch (lampa).
 
 import * as THREE from 'three';
+import { isTransparent } from './opacity.js';
 
 const OFF_FACTOR = 0.08;
 
@@ -14,12 +15,14 @@ export function createMaterials() {
     const d = defs[off ? id.slice(0, -4) : id];
     if (!d) throw new Error(`Materiál „${id}“ v balíku není.`);
     const side = d.twoSided ? THREE.DoubleSide : THREE.FrontSide;
-    if (d.model === 'lit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true });
-    if (d.model === 'unlit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side });
+    // průhlednost (N-005): kreslí se po neprůhledných (three řadí průhledné zvlášť) a nezapisuje do hloubky
+    const glass = isTransparent(d) ? { transparent: true, opacity: d.opacity, depthWrite: false } : {};
+    if (d.model === 'lit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true, ...glass });
+    if (d.model === 'unlit') return new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, ...glass });
     // emissive: barva svitu krát síla; převod do rozsahu displeje udělá expozice a tónová křivka
     const k = off ? OFF_FACTOR : (d.emissiveStrength ?? 1);
     const e = d.emissive || d.color;
-    return new THREE.MeshBasicMaterial({ color: new THREE.Color(e[0] * k, e[1] * k, e[2] * k), side });
+    return new THREE.MeshBasicMaterial({ color: new THREE.Color(e[0] * k, e[1] * k, e[2] * k), side, ...glass });
   }
 
   return {
@@ -34,6 +37,8 @@ export function createMaterials() {
     isEmissive: (id) => defs[id]?.model === 'emissive',
     /** Materiál reaguje na světlo: jeho síť nese barvu vrcholů. */
     isLit: (id) => defs[id]?.model === 'lit',
+    /** Materiál je průhledný (opacity pod 1). */
+    isTransparent: (id) => isTransparent(defs[id]),
     get(id) {
       let m = cache.get(id);
       if (!m) {
