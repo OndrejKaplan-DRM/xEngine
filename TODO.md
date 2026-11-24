@@ -77,13 +77,12 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 
 Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“), zadání `docs/sesny/START_B.md`. Vede sešna B.
 
-**Teď** (Ondřej 24. 11. 19:55: 1 a, 2 a, 3 a a k tomu „více těles, více prefabů, bohatší tvary…, spodní šuplíky nezávisle, realističtější dřevo“):
-1. [x] dodatek znění 4: `BODY` a `decodeBake` ze základu (`ba16d8d`); [ ] xBake zapeče i pevné díly prefabů (D-041)
-2. [x] barvy materiálů k albedu skutečných povrchů, expozice v generovaných levelech (`6f3141b`)
-3. [x] bohatší tvary, první dávka (z kvádrů a válců, ať je zapeče xBake a nakreslí engine A): bedny, sudy, truhla, skříň, stoly, židle, regály, lavice (`5e03d87`); [ ] další dávka a nové prefaby
-4. [x] zásuvky nezávisle: samostatné entity připojené ke korpusu, duté s přihrádkami, návrh **N-010**; v enginu A ověřeno (`8d52fb5`, `1696306`)
-5. [x] dřevo: realističtější barva, suky, trhliny, letokruhy (`60ddb4c`)
-6. [ ] **600 těles** (Ondřej 20:38; odpovědi: laboratoře a IT první, ~150 tvarů × varianty, tematické balíky, do 1 000 △): [x] `kit_lab` 286 prefabů, [x] `kit_it` 80 prefabů, [x] zařazení do předvolby `complex` (obory laboratoří, serverovna, výpočetní sál, open space, zasedačka; `gen_demo` vyžaduje všechny tři sady) → [ ] `kit_home` s předvolbou bytu
+**Teď** (Ondřej 24. 11. 23:57: hustota laboratoří stačí (1 a); další krok zapečené světlo na pevných dílech prefabů D-041 (2 b), `kit_home` až potom; hra smí mít až 25 MB (3 a); `?bench` nad `complex_7` pustí (4 a). Nové zadání: **„víc prefabů, ve vyšší kvalitě, víc trojúhelníků… lépe řeš kužely, válce, jehlany, zaoblení… materiál je sklo, ať to tak vypadá“; trojúhelníků o 50 % víc, práce 5× lepší, celému inventáři víc realismu.**):
+1. [ ] realistický inventář: hladké rotační tvary, kužely, zaoblení a tenké stěny přes díly `mesh` (.glb z xForge, dočasně) a návrh na rotační díl ve formátu; sklo průhledné s okrajem, dnem a kapalinou; mez prefabu 1 500 △ (o 50 % víc); pořadí: sklo → plasty a balení chemikálií → stolní přístroje → velké přístroje a nábytek → `kit_it` → `kit_base`; nové prefaby
+2. [ ] xBake zapeče pevné díly prefabů (D-041)
+3. [ ] dodatek znění 6: `door_double_01` jako jeden prefab s `follow` (bez `seeThrough`), v generátoru zrušit párování křídel přes `io`, `door_dleft_01` a `door_dright_01` pryč; mikroskop `focus` → `stage`
+4. [ ] `kit_home` s předvolbou bytu
+5. [x] `kit_lab` 286 a `kit_it` 80 prefabů v levelech `complex` (`3f45c21`, `235b38a`); dřevo, zásuvky, barvy, první dávka tvarů (B_STAV, oddíl B04)
 
 **Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 

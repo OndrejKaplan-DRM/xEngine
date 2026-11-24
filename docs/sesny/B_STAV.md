@@ -103,6 +103,16 @@ Snímky z enginu A: `test/out/b_mistnosti.png` (12 místností z `complex_7` a `
 
 **Regrese po kroku 20** (sandbox): `npm test` T0 41, T1 156, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47, B-T8 7, B-T9 14); `npm run test:axb` 31 + 9; 0 selhalo.
 
+### Ondřej 24. 11. 2026, 23:57
+
+Odpovědi: (1 a) hustota laboratoří stačí; (2 b) další krok je zapečené světlo na pevných dílech prefabů (D-041), `kit_home` až po něm; (3 a) velikost hry nevadí, **hra smí mít až 25 MB**; (4 a) `xlab_gen.html?level=complex_7&bench` pustí na T460.
+
+Nové zadání (jeho slovy): „Chci víc prefabů, ve vyšší kvalitě, víc trojúhelníků (například Erlenmeyerova baňka vůbec nevypadá jako Erlenmeyerova baňka – lépe řeš kužely, válce, jehlany, i zaoblení. Se stejným počtem trojúhelníků bych zvládnul téměř hyperrealistický tvar. Ty děláš takové bizarní schodovité tvary. Navíc materiál je sklo, tak ať to tam i vypadá.“ „Pojďme celému inventáři vdechnout více realismu. Počet trojúhelníků teď zvyš o 50 %, ale snaž se odvést 5krát lepší práci než při první iteraci. Kádinka s nálevkou včetně zaobleného dna, to je pár trojúhelníků. Odměrný válec to samé.“
+
+Jak to čtu: realistický inventář je hlavní úkol teď, D-041 hned po něm (před `kit_home`). Mez prefabu 1 000 → 1 500 △.
+
+**Proč byly tvary schodovité:** formát má pro díly jen kvádr a válec se 16 stěnami (64 △); kužel, zaoblení ani tenkou stěnu válec neumí, takže profil baňky jsem skládala ze stohu válců s různým poloměrem. Formát ale má díl `mesh` (soubor .glb, volitelně `#uzel`) a engine A ho kreslí. Dočasné řešení: xForge vyrobí hladké sítě (rotační plochy z profilu, kužely, zaoblené kvádry, trubky) a zapíše je do .glb v balíku sady. Trvalé řešení navrhnu svodné sešně: rotační díl ve formátu (profil + počet stěn), aby ho zapékal xBake (D-041 dnes bere jen kvádry a válce) a balík nenesl megabajty sítí.
+
 ## Sešna B03 (24. 11. 2026)
 
 Ondřej v 01:11: zápis do repa a push `sesna-b` povolen; pokračovat zbytkem B2.1, potom xBake podle D-035 a dál podle stavu; do projektu v claude.ai nic nezapisovat. Odpovědi na otevřené otázky: **1 (a)** opotřebený provoz, **2 (a)** z webu jen materiály a textury, tvary vlastní, **3 (a)** herní vzhled nejdřív v galerii sady. K otázce 5 (silnější stroj): „podívej se na alza.cz nebo na jiný web, co je dneska zlatý standard pro hry a udělej to podle takovéhle konfigurace (řekněme celý počítač bez monitoru do 35.000,- s DPH, nebo notebook)“.
