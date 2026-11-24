@@ -143,7 +143,9 @@ export function brushMesh(b) {
 
 /** Výchozí buňka mřížky světla v metrech (Half-Life měl jeden vzorek světla na 16 jednotek, tedy zhruba 0,4 m). */
 export const LIGHT_CELL = 0.5;
-const LIGHT_SEG_MAX = 64;
+// Strop počtu dílků jedné hrany. Do něj se mřížka nezhrubuje (při buňce 0,25 m stačí na hranu 64 m), takže
+// plochy běžného levelu sdílejí tytéž násobky; nad ním se krok zdvojuje a zůstává na násobcích ve světě.
+const LIGHT_SEG_MAX = 256;
 const GRID_EPS = 1e-6;
 
 /**
