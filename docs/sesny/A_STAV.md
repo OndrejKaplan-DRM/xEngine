@@ -26,7 +26,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:**
-1. běh `xlab_tex.html?bench&rows=1080` s jedinou kartou hry (cena textur proti `&tex=0` na stejném rozlišení); Ondřej 21:13: pouští ho
+- (nic otevřeného; poslední běh `?bench` přišel 21:26, oddíl 5.1 bod 9)
 
 **Ondřej 24. 11. 21:13:** výchozí rozlišení **(a) zůstává 768 řádků** (rezerva pro textury a světlo; `complex_7` na 1 080 řádcích má 95 % 10,2 ms). Volba 4 b z 23. 11. („1 080, když se vejde do 10 ms“) je tím uzavřená: nevešlo se.
 
@@ -176,6 +176,17 @@ Bez vyhlazování, mřížka 0,5 m, Chrome 158, okno 1 536 × 864 při `devicePi
 7. **Cena textur pořád oddělená není**: běh `&tex=0` je na 1 080 řádcích, běh s texturami (5.1 výše) na 576. Navíc pevná práce skriptu 60,1 ms (jinak 4): procesor byl v tu chvíli vytížený (podle snímku obrazovky v jiné kartě běžel výpočet světla `complex_7`). Potřebný běh: `xlab_tex.html?bench&rows=1080`, jen jedna karta s hrou.
 8. Oba běhy znovu 30 snímků/s (Úspora energie nebo napájení z baterie trvá).
 
+**Cena textur (Ondřej, 24. 11. 21:20, `xlab_tex.html?bench&rows=1080`, jediná karta, dva běhy):**
+
+| xLab, 2 360 × 1 080 | `draw.ms` medián | 95 % | nejvíc | skript (pevná práce) |
+|---|---|---|---|---|
+| 14 textur 512 px (18,7 MB), běh 1 | 6,25 | 9,65 | 14,65 | 4,4 ms |
+| 14 textur 512 px, běh 2 | 5,97 | 9,45 | 10,75 | 4,7 ms |
+| bez textur, `xlab_tex.html?bench&tex=0` (procesor vytížený) | 4,57 | 6,5 | 18,1 | 60,1 ms |
+| bez textur, `xlab.html?bench&rows=1080` (krok 5, 19:47) | 5,57 | 7,38 | 9,9 | 4,3 ms |
+
+9. **Textury na všech plochách xLabu stojí na 1 080 řádcích asi +0,4 až +1,7 ms v mediánu a +2,1 až +3,1 ms v 95 %** (rozpětí podle toho, se kterým během bez textur se srovnává; dva běhy bez textur se samy liší o 1 ms). Dva běhy s texturami se shodují na 0,3 ms. Na výchozích 768 řádcích by to při ceně úměrné počtu bodů bylo asi polovina (odhad, neměřeno). Sedí to s xBench 0.2 sešny B (+0,6 až +1,1 ms). **Textury barvy jsou na T460 únosné**; xLab s nimi na 1 080 řádcích má 95 % 9,5 ms, výchozí 768 řádků (Ondřej 21:13) nechává rezervu.
+
 Surový JSON běhu `complex_7` je v příloze na konci souboru; z ostatních dvou jsou tu jen čísla z tabulky (celé jsou v chatu 24. 11. 19:49).
 
 ### 5.1a `?bench` (Ondřej, 24. 11., sestavení „vlna 2, krok 2“)
@@ -274,7 +285,6 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 
 ## 7. Neověřeno
 
-- **Cena samotných textur na T460**: běh bez textur ve stejném sestavení chybí (`xlab_tex.html?bench&tex=0`).
 - **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozšiřují se jen dveře v otvoru portálu (37 v `complex_7`), nábytek ne.
 - **Průhlednost na T460**: průhledné materiály se kreslí bez zápisu do hloubky a po neprůhledných; cena na T460 neměřená, sklo zatím v datech není.
 - **Odražené světlo chybí**: plochy, na které žádná lampa přímo nesvítí, mají jen okolní člen levelu (`complex_7`: 0,05, tedy skoro černé). Řešení je vrstva `indirect` ze zapečeného souboru; běh ho zatím nečte (dluh základu).
