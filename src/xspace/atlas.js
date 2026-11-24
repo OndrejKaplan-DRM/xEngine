@@ -6,7 +6,10 @@
 // nemají stejnou normálu (plášť válce), mapu nemá a jeho vrcholy zůstávají po vrcholech (UV = NaN).
 // Mapy se skládají po řádcích (podle výšky, při shodě v pořadí vzniku); okraj LIGHTMAP_PAD bodů kolem každé.
 // Bod textury (i, j) = střed texelu; řádek j = 0 je první v datech (textura bez flipY), index k = j · šířka + i.
-// Vrchol leží přesně ve středu bodu: UV = ((sloupec + 0,5) / šířka, (řádek + 0,5) / výška).
+// Mřížka bodů mapy začíná v jejím nejmenším rohu (s, t) = (smin, tmin): bod i leží v s = smin + (i − x − pad) · texel.
+// UV vrcholu = ((x + pad + (s − smin) / texel + 0,5) / šířka, (y + pad + (t − tmin) / texel + 0,5) / výška);
+// bilineární filtr v místě vrcholu bere čtyři body kolem, a ty jsou vždy na ploše nebo v okraji mapy: bod je na ploše,
+// když jeho střed leží v trojúhelníku mapy, nebo když je nejbližší k vrcholu (pak nese polohu vrcholu).
 
 /** Výchozí velikost bodu textury světla, m (Ondřej 25. 11. 2026: „(a)“, D-050). */
 export const LIGHTMAP_TEXEL = 0.05;
@@ -185,6 +188,7 @@ export function lightmapLayout(samples, texel = LIGHTMAP_TEXEL) {
 export function lightmapTexels(layout) {
   const { width: W, height: H, texel, charts, meshes } = layout;
   const own = new Int32Array(W * H).fill(-1);
+  const at = new Map(); // bod přidaný kvůli vrcholu → poloha vrcholu (malé mapy, ostré rohy)
   let n = 0;
   charts.forEach((c, ci) => {
     const M = meshes[c.mesh].mesh;
@@ -214,6 +218,20 @@ export function lightmapTexels(layout) {
         }
       }
     }
+    // každý vrchol má na ploše bod, který je mu nejblíž (jinak by malá mapa nebo ostrý roh zůstaly bez hodnoty);
+    // takový bod nese polohu vrcholu, aby ležel na ploše
+    for (const t of c.tris) {
+      for (let r = 0; r < 3; r++) {
+        const v = I[t * 3 + r] * 3;
+        const i = Math.min(W - 1, Math.max(0, Math.round(tx(v) - 0.5)));
+        const j = Math.min(H - 1, Math.max(0, Math.round(ty(v) - 0.5)));
+        const k = j * W + i;
+        if (own[k] >= 0) continue;
+        own[k] = ci;
+        at.set(k, [P[v], P[v + 1], P[v + 2]]);
+        n++;
+      }
+    }
   });
   const index = new Uint32Array(n);
   const chart = new Uint32Array(n);
@@ -230,8 +248,9 @@ export function lightmapTexels(layout) {
     const w = c.tmin + (j - c.y - LIGHTMAP_PAD) * texel;
     index[o] = k;
     chart[o] = ci;
+    const fix = at.get(k);
     for (let r = 0; r < 3; r++) {
-      positions[o * 3 + r] = s * c.u[r] + w * c.v[r] + c.d * c.n[r];
+      positions[o * 3 + r] = fix ? fix[r] : s * c.u[r] + w * c.v[r] + c.d * c.n[r];
       normals[o * 3 + r] = c.n[r];
     }
     o++;

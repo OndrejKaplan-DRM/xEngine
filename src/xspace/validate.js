@@ -325,6 +325,10 @@ export function validatePack(pack) {
   const levelStats = [];
   for (const { file, data } of pack.levels || []) {
     const s = checkLevel(file, data, matIds, prefabById, external, c, pack.materials?.materials || null);
+    // zapečené soubory musí být v assets manifestu (velikost, otisk, licence; N-111 je pak vloží do hry)
+    for (const [f, where] of [[data?.baked?.file, 'baked.file'], [data?.baked?.lightmap?.file, 'baked.lightmap.file']]) {
+      if (typeof f === 'string' && !assetPaths.has(f)) c.err('ref.asset', `${file}.${where}`, `soubor „${f}“ není v seznamu assets manifestu`);
+    }
     if (s) levelStats.push(s);
   }
 

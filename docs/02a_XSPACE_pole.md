@@ -225,6 +225,10 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `baked.file` | ano | text | soubor se zapečeným světlem |
 | `baked.method` | ano | `vertex` · `lightmap` | způsob |
 | `baked.hash` | ano | text | otisk geometrie a světel, pro které zapečení platí |
+| `baked.lightmap` |  | objekt | textura přímého světla (zkušební, N-112); odraz a body mimo atlas zůstávají v souboru file |
+| `baked.lightmap.file` | ano | text | soubor textury světla levels/<id>.lightmap.bin, zabalený gzipem |
+| `baked.lightmap.texel` | ano | číslo 0.01 až 0.5 | velikost bodu, m (výchozí 0,05) |
+| `baked.lightmap.atlas` | ano | text | otisk atlasu lightmapLayout(…).hash, pro který zapečení platí |
 | `source` | ano | objekt | původ a licence |
 | `source.tool` | ano | text | nástroj, který soubor vyrobil (xforge, xsearcher, gen, designer, golden, rucne) |
 | `source.generator` |  | text | jméno generátoru nebo skriptu |
