@@ -58,7 +58,7 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 
 | Návrh | Výsledek | Kde je to v základu |
 |---|---|---|
-| N-001 zapečené světlo | přijat se změnou: dveře v portálech nestíní, světlo zadržuje brána za běhu (23. 11. 2026) | D-035; čtení souboru přejde do základu při příštím sloučení |
+| N-001 zapečené světlo | přijat se změnou: dveře v portálech nestíní, světlo zadržuje brána za běhu (23. 11. 2026). Znění 2: brána jako seznam dveří a pole `doors` v hlavičce přijaty; soubor ponese i pevné díly prefabů (24. 11. 2026) | D-035, D-041, D-044; čtení a skládání v `src/xspace/bake.js`, pořadí vzorků `levelSamples` |
 | N-007 zakrytí otvoru dveřmi | bod 1 přijat (zakrytí ze všech dílů), bod 2 zamítnut (seznam entit u portálu) (23. 11. 2026) | D-036 |
 | N-002 svázané klouby | přijat, základ dluží | D-034 |
 | N-003 portál jen pro pohled, průhledné dveře | přijat | `formats.js`, validátor, T1 |
@@ -72,5 +72,13 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | N-105 přesvícený xLab | přijat, provede se po převodu světla | D-034 |
 | N-106 plocha obrazovky | přijat | `screen.offset`, zlatý vzorek |
 | N-107 dveře musí zakrýt portál | přijat s úpravou | kontrakty; pravidlo validátoru dluží základ (způsob výpočtu podle N-007, D-036) |
-| N-108 švy a hrubost mřížky světla | přijata varianta (a) a vynechání schovaných ploch; provedeno 24. 11. 2026 | D-037; `brushLightMesh` znění 2, `brushHiddenFaces`, `levelLightMeshes`; test švů sešny A hlásí 0 bodů, varianta (b) není potřeba. Doplněk sešny A z 23. 11. (pole `env.lightCell`) rozhodnutý není |
+| N-108 švy a hrubost mřížky světla | přijata varianta (a) a vynechání schovaných ploch; provedeno 24. 11. 2026. Doplněk sešny A (pole `env.lightCell`) zamítnut 24. 11. 2026 | D-037, D-043; `brushLightMesh` znění 2, `brushHiddenFaces`, `levelLightMeshes`; test švů sešny A hlásí 0 bodů, varianta (b) není potřeba |
 
+
+## Rozhodnuto ve vlně 2 (svodná sešna main 03, 24. 11. 2026)
+
+| Návrh | Výsledek | Kde je to v základu |
+|---|---|---|
+| N-008 rozměry postavy v základu (B) | přijat a proveden | D-040; `src/xspace/body.js`, varování `portal.narrow` |
+| N-109 dveře se otvírají od hráče (A) | přijat (Ondřej 24. 11. 02:26: „ať to jde do dat“) | D-042; zlatý vzorek `door_hinged_01` ±105°, věta v kontraktech, `doorOpenness` |
+| N-110 světlo v textuře (A) | směr přijat, formát až po zkoušce na hale xLabu (5 cm a 10 cm, `?bench` na T460); zkouška až po A2.5 a A2.6 (Ondřej 24. 11. 02:26) | D-043 |
