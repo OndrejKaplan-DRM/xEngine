@@ -1,9 +1,9 @@
 // Galerie: stavba sítí prefabu pro three.js. Díly visí na skupinách uzlů; polohu skupin určují výhradně
 // matice z src/xspace/rig.js (rigMatrices), takže se kloub v galerii hýbe stejně jako v enginu.
-// Válec je šestnáctiboký hranol jako v prohlížeči xView.
+// Síť dílu dává partMesh ze základu (N-101): galerie, xView, xBake i engine kreslí tentýž tvar.
 
 import * as THREE from 'three';
-import { rigMatrices } from '../../../src/xspace/index.js';
+import { rigMatrices, partMesh } from '../../../src/xspace/index.js';
 
 const cache = new Map();
 export function material(id, defs) {
@@ -15,19 +15,14 @@ export function material(id, defs) {
 }
 
 function partGeometry(part) {
-  if (part.shape === 'box') {
-    const g = new THREE.BoxGeometry(...[0, 1, 2].map((i) => part.max[i] - part.min[i]));
-    g.translate(...[0, 1, 2].map((i) => (part.min[i] + part.max[i]) / 2));
-    return g;
-  }
-  if (part.shape === 'cyl') {
-    const g = new THREE.CylinderGeometry(part.radius, part.radius, part.height, 16);
-    if (part.axis === 'x') g.rotateZ(Math.PI / 2);
-    if (part.axis === 'z') g.rotateX(Math.PI / 2);
-    g.translate(...part.center);
-    return g;
-  }
-  return null; // sítě .glb sada nemá
+  const m = partMesh(part);
+  if (!m) return null; // díl ze souboru (.glb) sada zatím nemá
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+  g.setIndex(m.indices);
+  return g;
 }
 
 /** Postaví prefab: { root, setPose(values), dispose() }. values = { idKloubu: hodnota }. */

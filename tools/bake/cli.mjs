@@ -1,7 +1,10 @@
 #!/usr/bin/env node
-// xBake z příkazové řádky: zapeče světlo levelů balíku do souborů <level>.light.bin (formát: návrh N-001).
-//   node tools/bake/cli.mjs packs/<balík> [--level <id>] [--out <složka>] [--rays 64] [--no-indirect]
-// Výchozí výstup je dist/bake/<balík>/ (necommituje se). Do balíků nic nezapisuje, dokud N-001 nepřijme svodná sešna.
+// xBake z příkazové řádky: zapeče světlo levelů balíku do souborů <level>.light.bin (formát N-001, přijatý D-035).
+//   node tools/bake/cli.mjs packs/<balík> [--level <id>] [--out <složka>] [--rays 64] [--soft 4] [--no-indirect] [--no-gates]
+// --soft N      okraj stínu: N × N paprsků z plošky vzorku na hraně stínu (0 = jeden paprsek na vzorek)
+// --no-gates    dveře portálů stíní v klidové poloze a úseky s bránou nevzniknou (jen pro srovnání; neodpovídá D-035)
+// Výchozí výstup je dist/bake/<balík>/ (necommituje se). Do balíků nic nezapisuje: pole baked a čtení souboru
+// za běhu přijdou se sloučením do základu.
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -19,7 +22,7 @@ const flag = (name) => {
 };
 const dir = args[0] && !args[0].startsWith('--') ? args[0] : null;
 if (!dir) {
-  console.error('Použití: node tools/bake/cli.mjs packs/<balík> [--level <id>] [--out <složka>] [--rays 64] [--no-indirect]');
+  console.error('Použití: node tools/bake/cli.mjs packs/<balík> [--level <id>] [--out <složka>] [--rays 64] [--soft 4] [--no-indirect] [--no-gates]');
   process.exit(2);
 }
 
@@ -35,10 +38,12 @@ mkdirSync(out, { recursive: true });
 const only = flag('--level');
 for (const { data: level } of pack.levels) {
   if (only && level.id !== only) continue;
-  const bake = bakeLevel(level, prefabs, materials, { rays: Number(flag('--rays') || DEFAULTS.rays), indirect: !args.includes('--no-indirect') });
+  const bake = bakeLevel(level, prefabs, materials, { rays: Number(flag('--rays') || DEFAULTS.rays), soft: Number(flag('--soft') ?? DEFAULTS.soft), indirect: !args.includes('--no-indirect'), gates: !args.includes('--no-gates') });
   const buf = encodeBake(bake, level, prefabs);
   const file = path.join(out, `${level.id}.light.bin`);
   writeFileSync(file, buf);
   const s = bake.stats;
-  console.log(`${level.id}: vzorků ${s.samples} (z toho ${s.invalid} schovaných v tělese), vrstev ${bake.layers.length}, stínítek ${s.blockers}, paprsků ${s.shadowRays + s.bounceRays}, ${(s.ms / 1000).toFixed(2)} s → ${path.relative(root, file)} ${(buf.length / 1024).toFixed(0)} kB (gzip ${(gzipSync(buf).length / 1024).toFixed(0)} kB)`);
+  const sections = bake.layers.reduce((n, L) => n + L.gates.length, 0);
+  console.log(`${level.id}: vzorků ${s.samples} (z toho ${s.invalid} schovaných v tělese), vrstev ${bake.layers.length}, stínítek ${s.blockers}, dveří v portálech ${s.doors}, úseků s bránou ${sections} (${s.gated} položek), zjemněných vzorků ${s.softened}, paprsků ${s.shadowRays + s.bounceRays}, ${(s.ms / 1000).toFixed(2)} s → ${path.relative(root, file)} ${(buf.length / 1024).toFixed(0)} kB (gzip ${(gzipSync(buf).length / 1024).toFixed(0)} kB)`);
+  if (s.skippedColliders) console.log(`  pozor: ${s.skippedColliders} kolizí tvaru hull nebo mesh nestíní (partCollider je neumí)`);
 }

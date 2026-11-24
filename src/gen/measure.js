@@ -2,10 +2,10 @@
 // Matice uzlů počítá výhradně src/xspace/rig.js. Používá xForge (obal do dat) i generátor levelů
 // (kolik místa prefab zabere v klidu a kolik při pohybu).
 
-import { rigMatrices, mat4Point } from '../xspace/index.js';
+import { rigMatrices, mat4Point, CYL_SEGMENTS } from '../xspace/index.js';
 
-/** Válec kreslí prohlížeč i galerie jako šestnáctiboký hranol: 16 × (2 plášť + 2 podstavy). */
-export const CYL_SIDES = 16;
+/** Počet dílků válce po obvodu: jedna pravda je v základu (geom.js, N-101); tady jen jméno pro měření obalu. */
+export const CYL_SIDES = CYL_SEGMENTS;
 
 /** Body, které díl obepínají (kvádr: 8 rohů, válec: opsaný šestnáctiúhelník obou podstav). */
 export function partPoints(p) {
