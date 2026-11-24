@@ -1,6 +1,6 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 20:00 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
 Poslední regrese (sandbox, 24. 11. večer, kód A2.6): `npm run test:a` **402 kontrol ve 26 sadách, 0 selhalo**, `npm test` **254, 0 selhalo**. Skupina B a zkouška A × B naposledy na A2.5 (`npm run test:all` 747, 0 selhalo; A2.6 jejich data nemění). Sestavení „vlna 2, krok 5“.
 
@@ -20,10 +20,9 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:**
-1. zorné pole po opravě: a) použitelné, b) nižší strop než 120°, c) promítání Panini
-2. `?bench` na T460, **bez vyhlazování, mřížka 0,5 m**, sestavení krok 5: `xlab_tex.html?bench` a `xlab_tex.html?bench&tex=0` (cena textur: 14 textur 512 px, odhad 18,7 MB grafické paměti), `xlab_gen.html?bench`, `xlab.html?bench&rows=1080` (poslal zatím dva běhy, jeden s vyhlazováním a mřížkou 0,25 m)
-3. terminál: po Esc a Pokračovat dál sedí a kurzor hned poslouchá?
-4. černé boky bez přímého světla (`complex_7`): a) počkat, až běh přečte odražené světlo ze xBake (dluh základu), b) mezitím požádat sešnu B o vyšší `env.ambient` (obraz plošší, ale nic černého)
+1. dva běhy `?bench` (sestavení krok 5, na síti, Chrome bez Úspory energie): `xlab_tex.html?bench&tex=0` (srovnání s texturami, cena textur) a `xlab_gen.html?bench&rows=1080` (rozhodne výchozí 1 080 řádků pro velký level)
+
+**Ondřej 24. 11. 19:49** (k otázkám z kroku 5): zorné pole po opravě **(a) použitelné**; terminál po Esc a Pokračovat **(a) sedí dál a kurzor poslouchá**; černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru** (D-044 je v základu, čtení souboru je úkol sešny A). Poslal tři běhy `?bench` (oddíl 5.1).
 
 **Čeká na jiné sešny:**
 - svodná: rozhodnout N-109 (dveře na obě strany v datech), N-110 (světlo v textuře) a **N-111 (binární soubory balíku v buildu)**; sloučit vlnu 2 sešny A do základu
@@ -123,7 +122,32 @@ Mapa modulů celého projektu je v `docs/01_ARCHITEKTURA.md`, oddíl 9. Tady jen
 
 Stroj: Lenovo T460, Intel HD Graphics 520 (ANGLE, Direct3D 11), Chrome 157, 4 vlákna, 8 GB, displej 1536 × 864 při zvětšení 1,25, okno hry asi 1 918 × 878 bodů (poměr stran 2,18 : 1).
 
-### 5.1 `?bench` (Ondřej, 24. 11., sestavení „vlna 2, krok 2“)
+### 5.1 `?bench`, sestavení „vlna 2, krok 5“ (Ondřej, 24. 11. 19:39 až 19:47)
+
+Bez vyhlazování, mřížka 0,5 m, Chrome 158, okno 1 536 × 864 při `devicePixelRatio` 1,25.
+
+| | `xlab_tex.html?bench` | `xlab_gen.html?bench` (`complex_7`) | `xlab.html?bench&rows=1080` |
+|---|---|---|---|
+| obraz | 1 259 × 576 | 1 259 × 576 | 2 360 × 1 080 |
+| textury | 14, 3,67 Mpx, 18,7 MB (odhad paměti) | 0 | 0 |
+| **`draw.ms` medián / 95 % / nejvíc** | **2,29 / 2,9 / 11,45** | **2,26 / 3,6 / 36,7** | **5,57 / 7,38 / 9,9** |
+| volání nejvýš, △ nejvýš | 55, 35 468 | 396, 47 606 | 55, 35 456 |
+| rozestup snímků medián / 95 % | 33,2 / 33,5 ms | 33,2 / 33,5 ms | 33,3 / 50 ms |
+| práce snímku (`workMs`) medián / 95 % | 7,2 / 9,4 ms | 7,5 / 9,8 ms | 11,7 / 15,5 ms |
+| krok simulace medián / 95 % | 0,22 / 0,54 ms | 0,25 / 0,40 ms | 0,45 / 0,75 ms |
+| pevná práce: skript / 5 000 paprsků | **13,1** / 23,5 ms | 3,9 / 20,8 ms | 4,3 / 15,8 ms |
+| stavba světla (`lightBuildMs`) | 921 ms | **13 065 ms** | 589 ms |
+| vzorky světla, okraj stínu | 22 922, 1 697 | 135 305, 15 681 | 22 898, 1 697 |
+
+1. **1 080 řádků v xLabu se vejde do 10 ms** (95 % 7,38 ms, nejvíc 9,9 ms). Ondřejovo pravidlo (volba 4 b) je tím splněné pro xLab; pro velký level ne ověřené: `complex_7` na 1 080 řádcích změřený není. Odhad z poměru 1 080 / 576 v xLabu (asi 2,4×, ale jeden běh s texturami a jeden bez): 95 % kolem 9 ms, tedy na hraně. Proto ještě běh `xlab_gen.html?bench&rows=1080`. Pozor na D-039: strop řádků = fyzická výška plátna; v Ondřejově okně (asi 878 bodů) se 1 080 dostane jen na celé obrazovce.
+2. **Textury jsou levné**: 14 textur 512 px na všech plochách xLabu a vykreslení 2,29 / 2,9 ms. Srovnání bez textur ve stejném sestavení chybí (`?tex=0` nepřišel); běh s texturami měl navíc 3× pomalejší pevnou práci skriptu (13,1 proti 3,9 a 4,3 ms), procesor byl tedy v jiném stavu nebo zaneprázdněný (dekódování textur na pozadí?) a čísla procesoru z něj nesrovnávám.
+3. **Všechny tři běhy mají 30 snímků/s** (rozestup 33,2 ms), ráno v kroku 2 to bylo 60 (16,7 ms). Práce snímku je 7 až 12 ms, hra tedy 60 snímků/s stíhá; omezení dělá prohlížeč nebo systém. Nejpravděpodobněji Úspora energie v Chrome (na baterii snižuje obnovovací frekvenci a `requestAnimationFrame` se jí přizpůsobí). Ověřit během na síti.
+4. **Stavba světla v `complex_7` trvá 13,1 s výpočtu** (s okrajem stínu). Hra ji staví po 8 ms za snímek, při 30 snímcích/s je to asi 54 s, než je světlo hotové (odhad 13 065 / 8 / 30). Řešení je zapečený soubor (D-044): běh ho zatím nečte, je to další krok sešny A.
+5. Krok simulace 0,22 až 0,45 ms medián (ráno 0,55 až 0,68 ms; jiný stav napájení, srovnávat jen v rámci jednoho večera).
+
+Surový JSON běhu `complex_7` je v příloze na konci souboru; z ostatních dvou jsou tu jen čísla z tabulky (celé jsou v chatu 24. 11. 19:49).
+
+### 5.1a `?bench` (Ondřej, 24. 11., sestavení „vlna 2, krok 2“)
 
 | | Běh 1 | Běh 2 |
 |---|---|---|
@@ -219,9 +243,8 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 
 ## 7. Neověřeno
 
-- **Čas grafiky ve hře na T460** (`draw.ms`); proto zatím ani výchozí 1 080 řádků.
-- **Zorné pole po opravě**: na T460 se uplatnilo (F3 117° × 74°), jestli je příjemné, řekne Ondřej.
-- **Terminál po Esc a Pokračovat**: hráč má dál sedět a kurzor poslouchat; ověřeno jen s podvrženým zámkem v headless prohlížeči.
+- **Výchozí 1 080 řádků pro velký level**: `complex_7` na 1 080 řádcích neměřený (xLab 95 % 7,38 ms, oddíl 5.1).
+- **Cena samotných textur na T460**: běh bez textur ve stejném sestavení chybí (`xlab_tex.html?bench&tex=0`).
 - **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozšiřují se jen dveře v otvoru portálu (37 v `complex_7`), nábytek ne.
 - **Průhlednost na T460**: průhledné materiály se kreslí bez zápisu do hloubky a po neprůhledných; cena na T460 neměřená, sklo zatím v datech není.
 - **Odražené světlo chybí**: plochy, na které žádná lampa přímo nesvítí, mají jen okolní člen levelu (`complex_7`: 0,05, tedy skoro černé). Řešení je vrstva `indirect` ze zapečeného souboru; běh ho zatím nečte (dluh základu).
@@ -307,7 +330,7 @@ Vlna 2:
 
 ## 11. Otázky pro Ondřeje
 
-Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“) a v kořenovém `TODO.md`.
+Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Zodpovězeno 24. 11. 19:49: zorné pole (a) použitelné, terminál (a) funguje, černé boky (a) počkat na odražené světlo ze zapečeného souboru. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“).
 
 ## 12. Historie (zkráceně; podrobně `git log` a starší znění tohoto souboru)
 
@@ -318,3 +341,11 @@ Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře
 - **24. 11. ráno**: zorné pole, `draw.ms`, dveře od hráče v nastavení (`db6fad0`). Ondřej: nejdřív A2.5 a A2.6, dveře od hráče do dat, dva běhy `?bench`.
 - **24. 11. odpoledne**: přechod na model Opus 5.5 po limitu; sloučeno D-038 (paměť projektu v repu, `TODO.md`); tento soubor přestavěn (nahoře přehled, deník rozhodnutí, historie dole); dveře od hráče jen v otvoru portálu (`afb5b0a`); A2.5.
 - **24. 11. večer**: A2.6 na zkušebních datech (`6e1ab0c`, `3c6bab0`), návrh N-111.
+
+## Příloha: surový `?bench` z T460
+
+`xlab_gen.html?bench`, `complex_7`, sestavení krok 5, 24. 11. 2026 19:45 (Ondřej):
+
+```json
+{"env":{"tool":"xLab ?bench · xEngine 0.1 · vlna 2, krok 5 (A02) · 2026-11-24","date":"2026-11-24T18:45:09.861Z","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/158.0.0.0 Safari/537.36","cores":4,"memoryGB":8,"screen":[1536,864],"dpr":1.25,"gpu":"ANGLE (Intel, Intel(R) HD Graphics 520 (0x00001916) Direct3D11 vs_5_0 ps_5_0, D3D11)","image":[1259,576],"antialias":false},"level":{"id":"complex_7","profile":"real","cells":45,"entities":423,"lights":124,"lightGrid":0.5,"lightSamples":135305,"lightSoftened":15681,"staticTris":137672,"textures":0,"textureMpx":0,"textureMB":0,"meshParts":0,"meshTris":0,"lightPrepMs":295.8,"lightBuildMs":13065},"run":{"seconds":251.5,"frames":8762,"steps":28332,"waypoints":175,"teleports":9},"frame":{"workMs":{"median":7.5,"p95":9.8,"max":116.5},"intervalMs":{"median":33.2,"p95":33.5,"max":14823.9},"fps":30.1},"step":{"ms":{"median":0.25,"p95":0.4,"max":1.29},"perFrame":3.23,"note":"klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech","sys":{"input":{"mean":0.003,"median":0.003,"p95":0.009,"max":0.049},"bench":{"mean":0.005,"median":0.004,"p95":0.012,"max":0.03},"player":{"mean":0.116,"median":0.096,"p95":0.2,"max":0.985},"interact":{"mean":0.007,"median":0.007,"p95":0.016,"max":0.029},"entities":{"mean":0.001,"median":0,"p95":0.005,"max":0.015},"phys":{"mean":0.123,"median":0.117,"p95":0.173,"max":0.427},"world":{"mean":0.003,"median":0.002,"p95":0.008,"max":0.019},"io":{"mean":0.001,"median":0,"p95":0.005,"max":0.014}}},"phys":{"colliders":1079,"collidersNoBody":916,"bodies":160,"dynamic":43,"awake":{"mean":0,"median":0,"p95":1,"max":2},"kinematic":1,"fixed":116,"rapierMs":{"step":{"mean":0.087,"median":0.1,"p95":0.2,"max":0.9},"collision":{"mean":0.021,"median":0,"p95":0.1,"max":0.5},"broad":{"mean":0.004,"median":0,"p95":0,"max":0.2},"narrow":{"mean":0.009,"median":0,"p95":0.1,"max":0.3},"solver":{"mean":0.032,"median":0,"p95":0.1,"max":0.6},"islands":{"mean":0.001,"median":0,"p95":0,"max":0.1},"changes":{"mean":0.002,"median":0,"p95":0,"max":0.2}},"note":"rapierMs je profil jednoho kroku uvnitř Rapieru (step = celek; collision = broad + narrow; solver; islands; changes); hodiny prohlížeče mají krok 0,1 ms, pod ním platí jen průměr (mean). Systém phys v step.sys je celé world.step() včetně obnovy dotazů; rozdíl proti rapierMs.step je režie kolem."},"calib":{"jsMs":3.9,"jsLoop":2000000,"raysMs":20.8,"rays":5000,"sink":true},"draw":{"ms":{"median":2.26,"p95":3.6,"max":36.7},"calls":{"median":52,"p95":194,"max":396},"tris":{"median":9752,"p95":30726,"max":47606},"note":"ms = jedno vykreslení pohledu včetně grafiky, měřeno dávkou bez čekání na obnovu displeje; workMs ve frame je na skutečné grafice svázané s obnovou displeje a o rezervě nevypovídá"},"cells":[{"cell":"c_hall_01","frames":582,"workMsMedian":8,"workMsP95":10.2,"callsMax":205},{"cell":"c_lab_01","frames":142,"workMsMedian":7.4,"workMsP95":9,"callsMax":207},{"cell":"c_lab_02","frames":139,"workMsMedian":7.5,"workMsP95":10.9,"callsMax":212},{"cell":"c_store_01","frames":128,"workMsMedian":7.1,"workMsP95":9.3,"callsMax":195},{"cell":"c_office_01","frames":112,"workMsMedian":7.4,"workMsP95":10.3,"callsMax":206},{"cell":"c_tech_01","frames":143,"workMsMedian":7.7,"workMsP95":9.4,"callsMax":204},{"cell":"c_office_02","frames":139,"workMsMedian":7,"workMsP95":8.6,"callsMax":187},{"cell":"c_corr_01","frames":727,"workMsMedian":7.8,"workMsP95":11.2,"callsMax":337},{"cell":"c_lab_03","frames":163,"workMsMedian":7.5,"workMsP95":9.2,"callsMax":211},{"cell":"c_lab_04","frames":130,"workMsMedian":7.8,"workMsP95":10.5,"callsMax":208},{"cell":"c_corr_02","frames":157,"workMsMedian":7.1,"workMsP95":9.1,"callsMax":207},{"cell":"c_store_02","frames":105,"workMsMedian":7.3,"workMsP95":8.7,"callsMax":202},{"cell":"c_office_03","frames":142,"workMsMedian":7.8,"workMsP95":10,"callsMax":212},{"cell":"c_store_03","frames":134,"workMsMedian":7.3,"workMsP95":9,"callsMax":194},{"cell":"c_office_04","frames":122,"workMsMedian":6.9,"workMsP95":8.6,"callsMax":112},{"cell":"c_tech_02","frames":101,"workMsMedian":6.7,"workMsP95":8.3,"callsMax":114},{"cell":"c_store_04","frames":129,"workMsMedian":7,"workMsP95":8.4,"callsMax":114},{"cell":"c_tech_03","frames":130,"workMsMedian":6.9,"workMsP95":8.3,"callsMax":79},{"cell":"c_corr_03","frames":523,"workMsMedian":8,"workMsP95":10.5,"callsMax":186},{"cell":"c_store_05","frames":165,"workMsMedian":7.4,"workMsP95":8.9,"callsMax":131},{"cell":"c_store_06","frames":110,"workMsMedian":7.9,"workMsP95":10,"callsMax":162},{"cell":"c_office_05","frames":194,"workMsMedian":7.6,"workMsP95":10.3,"callsMax":159},{"cell":"c_tech_04","frames":105,"workMsMedian":6.7,"workMsP95":8.2,"callsMax":58},{"cell":"c_tech_05","frames":166,"workMsMedian":7.5,"workMsP95":9,"callsMax":180},{"cell":"c_store_07","frames":151,"workMsMedian":7.4,"workMsP95":8.6,"callsMax":209},{"cell":"c_tech_06","frames":165,"workMsMedian":6.9,"workMsP95":8,"callsMax":63},{"cell":"c_office_06","frames":108,"workMsMedian":6.9,"workMsP95":8.6,"callsMax":109},{"cell":"c_corr_04","frames":181,"workMsMedian":7.5,"workMsP95":8.6,"callsMax":200},{"cell":"c_store_08","frames":182,"workMsMedian":6.9,"workMsP95":8.7,"callsMax":180},{"cell":"c_lab_05","frames":116,"workMsMedian":7.1,"workMsP95":8.5,"callsMax":53},{"cell":"c_office_07","frames":158,"workMsMedian":7.3,"workMsP95":8.9,"callsMax":203},{"cell":"c_corr_05","frames":763,"workMsMedian":8,"workMsP95":10.8,"callsMax":396},{"cell":"c_store_09","frames":148,"workMsMedian":7,"workMsP95":8.6,"callsMax":151},{"cell":"c_tech_07","frames":95,"workMsMedian":7.2,"workMsP95":9.8,"callsMax":94},{"cell":"c_store_10","frames":160,"workMsMedian":6.9,"workMsP95":8.5,"callsMax":216},{"cell":"c_store_11","frames":92,"workMsMedian":6.8,"workMsP95":10.1,"callsMax":141},{"cell":"c_lab_06","frames":140,"workMsMedian":7.3,"workMsP95":10,"callsMax":173},{"cell":"c_lab_07","frames":203,"workMsMedian":7.7,"workMsP95":10.3,"callsMax":203},{"cell":"c_store_12","frames":114,"workMsMedian":6.9,"workMsP95":7.9,"callsMax":89},{"cell":"c_tech_08","frames":109,"workMsMedian":6.8,"workMsP95":7.9,"callsMax":88},{"cell":"c_store_13","frames":148,"workMsMedian":7,"workMsP95":8.8,"callsMax":82},{"cell":"c_corr_06","frames":543,"workMsMedian":7.5,"workMsP95":8.7,"callsMax":164},{"cell":"c_store_14","frames":265,"workMsMedian":7.7,"workMsP95":8.9,"callsMax":174},{"cell":"c_store_15","frames":120,"workMsMedian":7.7,"workMsP95":8.6,"callsMax":157},{"cell":"c_office_08","frames":113,"workMsMedian":7,"workMsP95":8,"callsMax":80}],"verdict":"Vykreslení jednoho snímku (procesor i grafika, bez čekání na displej): medián 2.26 ms, 95 % 3.6 ms. Rozestup snímků: medián 33.2 ms = 30.1 snímků/s, 95 % 33.5 ms. Krok simulace 0.25 ms (fyzika 0.117 ms, z toho uvnitř Rapieru průměrně 0.087 ms; nespí 0 z 43 volných těles; pevná práce: skript 3.9 ms, paprsky 20.8 ms). Obraz 1259 × 576, volání nejvýš 396, △ nejvýš 47606."}
+```
