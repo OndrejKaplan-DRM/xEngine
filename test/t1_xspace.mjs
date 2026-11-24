@@ -293,7 +293,7 @@ ok(new Set(MUTATIONS.map((m) => m[0])).size >= 40, 'mutace pokrývají aspoň 40
   const merged = mergePacks(child, [golden]);
   const full = validatePack(merged);
   ok(full.ok && full.warnings.length === 0, 'balík spojený se závislostí je bez nálezů', [...full.errors, ...full.warnings].map((x) => x.code).join(' '));
-  ok(full.stats.prefabs === 12 && full.stats.requires.join() === 'golden', 'spojený balík vidí prefaby závislosti');
+  ok(full.stats.prefabs === golden.prefabs.length && full.stats.weapons === golden.weapons.length && full.stats.ammo === Object.keys(golden.ammo.ammo).length && full.stats.requires.join() === 'golden', 'spojený balík vidí prefaby, zbraně a munici závislosti', `${full.stats.prefabs} prefabů, ${full.stats.weapons} zbraní, ${full.stats.ammo} druhů munice`);
   ok(merged.materialFrom.steel === 'golden' && Object.keys(merged.materialFrom).length === Object.keys(golden.materials.materials).length, 'spojený balík ví u každého materiálu, z kterého balíku je (N-111)');
   const missing = validatePack(mergePacks(child, []));
   ok(missing.errors.some((e) => e.code === 'pack.missingDep') && missing.errors.some((e) => e.code === 'ref.prefab'), 'chybějící závislost je chyba a odkazy do ní také');

@@ -1,10 +1,36 @@
 # Stav
 
-**Verze:** základ 2, znění 7 · 24. 11. 2026 pozdě v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
+**Verze:** základ 2, znění 9 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 9 základu 2 (25. 11. 2026 v noci): zkušební formát zbraní (N-201)
+
+Podle Ondřejova pořadí D-051 (nejdřív zbraně). Rozhodnutí D-053.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| zkušební druhy souborů `ammo` a `weapon`, pole manifestu `ammo` a `weapons`, typ hodnoty podle nabití `{ min, max, curve? }`; načtení a spojení balíků | `formats.js` (580 řádků), `load.js`, `check.js` | T1 (spojený balík vidí zbraně a munici závislosti), T1d |
+| validátor zbraní: `ref.ammo`, `ref.prefab` (model v ruce), `weapon.projectile`, `weapon.range`, `weapon.charge`, `weapon.ammo`, `weapon.slot`, `pack.dupeWeapon`, `pickup.item` | `src/xspace/check-weapon.js` | T1d: 19 mutací |
+| vzorce `rampValue`, `splashFalloff`, `pushDelta` (`PUSH_MASS` 800 kg podle Arény) | `src/xspace/weapon.js` | T1d: nabitá koule = vzorce Arény pro nabití 0 až 1 (rozdíl < 1e-9) |
+| plazmová puška ve zlatém vzorku: munice `cells` (200), zbraň `plasma_rifle_01`, model v ruce `wpn_plasma_rifle_01`, zbraň na zemi `pickup_plasma_rifle_01` (40 článků) jako entita `e_plasma` ve startovní místnosti, materiál `plasma_glow` | `tools/golden/make.mjs`, `packs/golden` | `xspace-check --strict` 0 nálezů; vzorků světla xLabu beze změny 22 111 (sebratelná věc vzorky nemá, D-041) |
+| regrese na `main` (`9aaedd9` + oprava pravidla `pack.missingFile` u munice) | **984 kontrol, 0 selhalo**: základ 341, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 0:16 až 0:21; skupina B po opravě znovu 0:25 |
+
+**Sloučení nanečisto** `main` `0e77921` + `sesna-a` `17b8176` + `sesna-b` `5ed1070` (25. 11. 0:24 až 0:30): bez konfliktu, **1 059 kontrol, 0 selhalo** (základ 341, A 430, B 248, A × B 40). Obě sešny tedy mohou znění 9 sloučit.
+
+Past při zavádění: test sešny B `b_t7_searcher` skládá balík z manifestu zlatého vzorku a odebere jen `materials`, `prefabs` a `levels`; nové pole `ammo` v manifestu pak hlásilo `pack.missingFile`. Pravidlo teď hlásí chybějící soubor munice jen u balíku z `loadPack` (`ammo: null`); sešna B má test upravit (dodatek znění 9).
+
+## Znění 8 základu 2 (25. 11. 2026 v noci): víc interakcí v prefabu (N-010)
+
+Ondřej 25. 11. 0:00: textura světla (a) bod 5 cm (D-050), převzetí z Arény (a) nejdřív zbraně (D-051). N-010 přijat ve variantě a (D-052).
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| `components.interact` jako seznam s `id`; `interactions`, `interactionById`, `interactionOf` (podle zasaženého uzlu, předek bez kloubu, svázaný kloub), `doorInteraction`; `from` / `to` ve spojeních | `src/xspace/interact.js`, `formats.js`, `check-prefab.js`, `validate.js` | T1c: 27 kontrol (kartotéka se čtyřmi zásuvkami jako jeden prefab, 14 mutací, cesty nálezů); zlatý vzorek a balíky sešny B (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo` ze `sesna-b` `9b00112`) bez nálezu |
+| `validate.js` (587 řádků) rozdělen podle odpovědnosti | `check.js` (108: tvar), `check-prefab.js` (174: prefab), `validate.js` (346: materiály, level, balík) | T1 beze změny 155 kontrol |
+| regrese na `main` (`3f0ae44`) | **953 kontrol, 0 selhalo**: základ 310, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, 0:06 až 0:11 |
 
 ## Znění 7 základu 2 (24. 11. 2026 pozdě v noci): kostry bez alokací (N-102)
 

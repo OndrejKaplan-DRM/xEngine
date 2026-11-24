@@ -20,13 +20,17 @@ function typeOf(d) {
     case 'map':
       return `mapa id → ${typeOf(d.of)}`;
     case 'obj':
-      return 'objekt';
+      return d.orList ? 'objekt nebo pole objektů' : 'objekt';
     case 'ref':
       return `odkaz (${d.to})`;
     case 'num':
     case 'int': {
       const r = d.min !== undefined || d.max !== undefined ? ` ${d.min ?? '−∞'} až ${d.max ?? '∞'}` : '';
       return (d.t === 'int' ? 'celé číslo' : 'číslo') + r;
+    }
+    case 'ramp': {
+      const r = d.min !== undefined || d.max !== undefined ? ` ${d.min ?? '−∞'} až ${d.max ?? '∞'}` : '';
+      return `číslo${r}, nebo { min, max, curve? } podle nabití`;
     }
     case 'vec3':
       return '[x, y, z]';

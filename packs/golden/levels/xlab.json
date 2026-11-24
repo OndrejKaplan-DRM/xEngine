@@ -215,6 +215,7 @@
     { "id": "e_crate_s2", "prefab": "crate_wood_01", "cell": "c_store", "pos": [-2, 0.8, -4], "rot": [0, 20, 0] },
     { "id": "e_crate_s3", "prefab": "crate_wood_01", "cell": "c_store", "pos": [-0.9, 0, -5.2], "rot": [0, 35, 0] },
     { "id": "e_medkit", "prefab": "pickup_medkit_01", "cell": "c_store", "pos": [-3, 0, -3], "rot": [0, 0, 0] },
+    { "id": "e_plasma", "prefab": "pickup_plasma_rifle_01", "cell": "c_start", "pos": [4.2, 0, 3.6], "rot": [0, -90, 0] },
     { "id": "e_crate_h1", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9, 0, -20], "rot": [0, 0, 0] },
     { "id": "e_crate_h2", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9.9, 0, -20.2], "rot": [0, 12, 0] },
     { "id": "e_crate_h3", "prefab": "crate_wood_01", "cell": "c_hall", "pos": [9.4, 0.8, -20.1], "rot": [0, 40, 0] },

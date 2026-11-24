@@ -93,7 +93,7 @@ Každý prefab má `rig`: uzly a klouby. Platí pro dveře stejně jako pro tvor
 - Engine o „dveřích“ neví nic; ví, že kloub `hinge` jde od 0 do 105 stupňů a že interakce `door` ho smí pohánět.
 - U tvorů se ke kostře přidají klipy. Pořadí práce ve xForge: kostra → rozsahy kloubů → pohyby → teprve potom tvar a povrch.
 
-Omezení verze 1 (vědomé): jeden kloub na uzel a jedna interakce na prefab. Skříň se třemi zásuvkami jsou tři entity.
+Omezení verze 1 (vědomé): jeden kloub na uzel. Interakcí smí mít prefab víc (N-010, D-052, 25. 11. 2026): skříň se třemi zásuvkami je jeden prefab se třemi interakcemi a hráč ovládá tu, jejíž kloub hýbe zasaženým dílem (`interactionOf`).
 
 ## 7. Aréna v2 → xEngine
 
@@ -125,7 +125,7 @@ Stav 24. 11. 2026 večer, po sloučení vlny 2 do základu (D-048): všechny mod
 | Modul | Složka, hlavní soubory | Co dělá | Testy |
 |---|---|---|---|
 | xKernel | `src/kernel`: `engine.js`, `store.js`, `rng.js` | registr systémů, fáze a závislosti `after`, deklarované události, pevný krok 120 Hz, režimy, uložení stavu, náhoda přes `rngNext` | T0 |
-| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů), `load.js` (balíky, `mergePacks`, `materialFrom`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `samples.js` (vzorky světla levelu `levelSamples`, D-041), `light.js` (vzorec osvětlení), `bake.js` (čtení zapečeného světla, `doorOpenness`, D-044), `body.js` (rozměry postavy, D-040), `rig.js` (matice koster: `rigCompile` / `rigSolve` bez alokací, obálka `rigMatrices`, svázané klouby `jointFollow` / `rigFollow`) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), kontrola dokumentu polí |
+| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů; tvar v `check.js`, prefab v `check-prefab.js`), `interact.js` (interakce prefabu: `interactions`, `interactionOf`, `doorInteraction`, N-010), `weapon.js` a `check-weapon.js` (zkušební zbraně: `rampValue`, `splashFalloff`, `pushDelta`, validátor, N-201), `load.js` (balíky, `mergePacks`, `materialFrom`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `samples.js` (vzorky světla levelu `levelSamples`, D-041), `light.js` (vzorec osvětlení), `bake.js` (čtení zapečeného světla, `doorOpenness`, D-044), `body.js` (rozměry postavy, D-040), `rig.js` (matice koster: `rigCompile` / `rigSolve` bez alokací, obálka `rigMatrices`, svázané klouby `jointFollow` / `rigFollow`) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), kontrola dokumentu polí |
 | xShell | `src/shell` | menu, pauza, nastavení z deklarací, katalog nabídek; engine nezná, mluví přes adaptér (D-006) | T4 (jen nastavení) |
 | zlatý vzorek | `packs/golden` (level xLab, 12 prefabů), generátor `tools/golden/make.mjs` | referenční data; výstup generátoru je bajtově shodný s repem | T1 |
 | xView | `tools/xview` → `dist/xview.html` | prohlížeč balíku: pět pohledů, vrstvy, validátor v prohlížeči | T2 |

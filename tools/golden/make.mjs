@@ -58,6 +58,7 @@ const materials = {
     hazard_yellow: lit([0.9, 0.72, 0.05], 'metal', { rough: 0.6 }),
     light_panel: { model: 'emissive', color: [1, 0.95, 0.85], emissive: [1, 0.92, 0.8], emissiveStrength: 4, surface: 'glass' },
     screen_glow: { model: 'emissive', color: [0.1, 0.5, 0.35], emissive: [0.15, 0.9, 0.6], emissiveStrength: 2, surface: 'glass' },
+    plasma_glow: { model: 'emissive', color: [0.3, 0.85, 1], emissive: [0.4, 0.95, 1], emissiveStrength: 3, surface: 'glass' },
   },
 };
 
@@ -71,6 +72,15 @@ const boxTris = (parts) => parts.reduce((s, p) => s + (p.shape === 'box' ? 12 : 
 function prefab(id, title, category, bmin, bmax, rig, parts, rest) {
   return { xspace: 1, kind: 'prefab', id, title, category, bounds: { min: V(...bmin), max: V(...bmax) }, rig, parts, ...rest, tris: boxTris(parts), source: { ...SRC } };
 }
+
+// plazmová puška (N-201): ústí na +Z jako přední strana každého prefabu; v ruce ji otočí view.rot
+const rifleParts = (dy) => [
+  box('body', [-0.035, -0.04 + dy, -0.18], [0.035, 0.04 + dy, 0.12], 'metal_dark'),
+  cyl('body', [0, 0.01 + dy, 0.25], 0.018, 0.26, 'z', 'steel'),
+  box('body', [-0.025, 0.04 + dy, -0.08], [0.025, 0.07 + dy, 0.06], 'plasma_glow'),
+  box('body', [-0.02, -0.14 + dy, -0.12], [0.02, -0.04 + dy, -0.06], 'plastic_black'),
+  box('body', [-0.03, -0.03 + dy, -0.34], [0.03, 0.03 + dy, -0.18], 'metal_plate'),
+];
 
 const prefabs = [
   prefab('door_hinged_01', 'Dveře otočné 1,0 × 2,1 m', 'arch.door', [-0.5, 0, -1], [0.5, 2.1, 1],
@@ -237,6 +247,44 @@ const prefabs = [
       inputs: ['enable', 'disable'],
       outputs: ['picked'],
     }),
+
+  prefab('wpn_plasma_rifle_01', 'Plazmová puška v ruce', 'weapon.view', [-0.035, -0.14, -0.34], [0.035, 0.07, 0.38], { nodes: [{ id: 'body' }] }, rifleParts(0), {}),
+
+  prefab('pickup_plasma_rifle_01', 'Plazmová puška na zemi', 'item.weapon', [-0.035, 0, -0.34], [0.035, 0.21, 0.38], { nodes: [{ id: 'body' }] }, rifleParts(0.14), {
+    colliders: [cbox('body', [-0.06, 0, -0.36], [0.06, 0.22, 0.4], 'trigger')],
+    components: { physics: { body: 'static' }, interact: { kind: 'pickup', prompt: 'Sebrat plazmovou pušku', range: 1.6 }, pickup: { item: 'plasma_rifle_01', amount: 40 } },
+    inputs: ['enable', 'disable'],
+    outputs: ['picked'],
+  }),
+];
+
+// ---- munice a zbraně (N-201, zkušební formát; hodnoty z Arény v2.9, větev hra a04e8c0) -----------------
+
+const ammo = { xspace: 1, kind: 'ammo', ammo: { cells: { title: 'Články', max: 200 } } };
+const weapons = [
+  {
+    xspace: 1,
+    kind: 'weapon',
+    id: 'plasma_rifle_01',
+    title: 'Plazmová puška',
+    slot: 1,
+    ammo: 'cells',
+    view: { prefab: 'wpn_plasma_rifle_01', pos: V(0.22, -0.215, -0.48), rot: V(0, 180, 0), muzzle: V(0, 0.01, 0.38) },
+    zoom: { fov: 45 },
+    primary: { kind: 'projectile', cooldown: 0.1, cost: 1, spread: 0.46, damage: 12, projectile: { speed: 45, life: 4 }, splash: { radius: 1, damage: 6 }, recoil: 0.12, noise: 30 },
+    alt: {
+      kind: 'projectile',
+      cooldown: 0.5,
+      cost: { min: 5, max: 20 },
+      damage: 0, // nabitá koule škodí jen výbuchem (Aréna: orb)
+      projectile: { speed: { min: 14, max: 40 }, life: 6 },
+      splash: { radius: { min: 2.5, max: 5.5 }, damage: { min: 30, max: 200, curve: 'square' }, push: { min: 12, max: 33, curve: 'square' } },
+      charge: { time: 2, release: 2.6 },
+      recoil: 1,
+      noise: 40,
+    },
+    source: { ...SRC, date: '2026-11-25', url: 'https://github.com/OndrejKaplan-DRM/Arena (větev hra, arena2/src/game/weapons.js a projectiles.js)' },
+  },
 ];
 
 // ---- level xLab ------------------------------------------------------------------------
@@ -351,6 +399,7 @@ const entities = [
   ent('e_crate_s2', 'crate_wood_01', 'c_store', [-2, 0.8, -4], 20),
   ent('e_crate_s3', 'crate_wood_01', 'c_store', [-0.9, 0, -5.2], 35),
   ent('e_medkit', 'pickup_medkit_01', 'c_store', [-3, 0, -3]),
+  ent('e_plasma', 'pickup_plasma_rifle_01', 'c_start', [4.2, 0, 3.6], -90),
   ent('e_crate_h1', 'crate_wood_01', 'c_hall', [9, 0, -20]),
   ent('e_crate_h2', 'crate_wood_01', 'c_hall', [9.9, 0, -20.2], 12),
   ent('e_crate_h3', 'crate_wood_01', 'c_hall', [9.4, 0.8, -20.1], 40),
@@ -410,14 +459,19 @@ const manifest = {
   materials: 'materials.json',
   prefabs: prefabs.map((p) => `prefabs/${p.id}.json`),
   levels: ['levels/xlab.json'],
+  ammo: 'ammo.json',
+  weapons: weapons.map((w) => `weapons/${w.id}.json`),
   assets: [],
 };
 
 await mkdir(path.join(outDir, 'prefabs'), { recursive: true });
 await mkdir(path.join(outDir, 'levels'), { recursive: true });
+await mkdir(path.join(outDir, 'weapons'), { recursive: true });
 const write = (file, data) => writeFile(path.join(outDir, file), fmt(data) + '\n');
 await write('pack.json', manifest);
 await write('materials.json', materials);
 for (const p of prefabs) await write(`prefabs/${p.id}.json`, p);
 await write('levels/xlab.json', level);
-console.log(`${path.relative(root, outDir) || outDir}: ${prefabs.length} prefabů, ${brushes.length} kvádrů, ${entities.length} entit, ${lights.length} světel`);
+await write('ammo.json', ammo);
+for (const w of weapons) await write(`weapons/${w.id}.json`, w);
+console.log(`${path.relative(root, outDir) || outDir}: ${prefabs.length} prefabů, ${brushes.length} kvádrů, ${entities.length} entit, ${lights.length} světel, ${weapons.length} zbraň`);

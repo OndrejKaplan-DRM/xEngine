@@ -6,7 +6,9 @@
   "version": "0.1.0",
   "free": true,
   "materials": "materials.json",
-  "prefabs": ["prefabs/door_hinged_01.json", "prefabs/door_slide_01.json", "prefabs/button_wall_01.json", "prefabs/switch_wall_01.json", "prefabs/lever_wall_01.json", "prefabs/valve_wheel_01.json", "prefabs/cabinet_drawer_01.json", "prefabs/desk_terminal_01.json", "prefabs/lamp_ceiling_01.json", "prefabs/crate_wood_01.json", "prefabs/target_01.json", "prefabs/pickup_medkit_01.json"],
+  "prefabs": ["prefabs/door_hinged_01.json", "prefabs/door_slide_01.json", "prefabs/button_wall_01.json", "prefabs/switch_wall_01.json", "prefabs/lever_wall_01.json", "prefabs/valve_wheel_01.json", "prefabs/cabinet_drawer_01.json", "prefabs/desk_terminal_01.json", "prefabs/lamp_ceiling_01.json", "prefabs/crate_wood_01.json", "prefabs/target_01.json", "prefabs/pickup_medkit_01.json", "prefabs/wpn_plasma_rifle_01.json", "prefabs/pickup_plasma_rifle_01.json"],
   "levels": ["levels/xlab.json"],
+  "ammo": "ammo.json",
+  "weapons": ["weapons/plasma_rifle_01.json"],
   "assets": []
 }

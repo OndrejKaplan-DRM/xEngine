@@ -1,0 +1,22 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "wpn_plasma_rifle_01",
+  "title": "Plazmová puška v ruce",
+  "category": "weapon.view",
+  "bounds": { "min": [-0.035, -0.14, -0.34], "max": [0.035, 0.07, 0.38] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.035, -0.04, -0.18], "max": [0.035, 0.04, 0.12], "mat": "metal_dark" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0.25], "radius": 0.018, "height": 0.26, "axis": "z", "mat": "steel" },
+    { "node": "body", "shape": "box", "min": [-0.025, 0.04, -0.08], "max": [0.025, 0.07, 0.06], "mat": "plasma_glow" },
+    { "node": "body", "shape": "box", "min": [-0.02, -0.14, -0.12], "max": [0.02, -0.04, -0.06], "mat": "plastic_black" },
+    { "node": "body", "shape": "box", "min": [-0.03, -0.03, -0.34], "max": [0.03, 0.03, -0.18], "mat": "metal_plate" }
+  ],
+  "tris": 112,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}
