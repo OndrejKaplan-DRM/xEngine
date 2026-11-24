@@ -32,8 +32,9 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `kind` | ano | vždy `"materials"` | druh souboru |
 | `materials` | ano | mapa id → objekt | id materiálu → materiál |
 | `materials[].model` | ano | `lit` · `unlit` · `emissive` | osvětlovací model |
-| `materials[].color` | ano | [r, g, b] 0–1 | základní barva (násobí texturu) |
+| `materials[].color` | ano | [r, g, b] 0–1 | základní barva; u materiálu s albedo průměrná barva povrchu (N-009): kdo texturu nekreslí, kreslí color, kdo ji kreslí, násobí ji color / albedoMean |
 | `materials[].albedo` |  | text | cesta k textuře barvy, relativně k balíku |
+| `materials[].albedoMean` |  | [r, g, b] 0–1 | průměrná barva souboru albedo, lineárně (N-009); jen spolu s albedo, zapisuje nástroj, který texturu vyrobil |
 | `materials[].normal` |  | text | cesta k normálové mapě |
 | `materials[].emissive` |  | [r, g, b] 0–1 | barva vlastního svitu |
 | `materials[].emissiveStrength` |  | číslo 0 až 100 | síla vlastního svitu |

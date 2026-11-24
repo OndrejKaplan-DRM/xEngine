@@ -229,6 +229,7 @@ const MUTATIONS = [
   ['brush.faces', 'neznámá stěna v materiálech po stěnách', (p) => (L(p).brushes[0].faces = { nahore: 'steel' })],
   ['entity.outside', 'entita daleko od své buňky (varování)', (p) => (L(p).entities[2].pos = [30, 1, 30])],
   ['level.unreachable', 'buňka spojená jen portálem pro pohled (passable: false)', (p) => (L(p).portals[L(p).portals.length - 1].passable = false)],
+  ['mat.albedoMean', 'průměr textury u materiálu bez textury (N-009)', (p) => (Object.values(p.materials.materials)[0].albedoMean = [0.3, 0.3, 0.3])],
   ['mat.alphaBoth', 'průhlednost dvěma způsoby naráz (varování)', (p) => Object.assign(Object.values(p.materials.materials)[0], { opacity: 0.5, alphaTest: 0.5 })],
   ['place.opening', 'umístění do otvoru bez rozměru otvoru', (p) => (P(p, 'door_hinged_01').components.place = { mount: 'opening' })],
   ['place.height', 'nástěnný prefab bez výšky', (p) => (P(p, 'switch_wall_01').components.place = { mount: 'wall' })],

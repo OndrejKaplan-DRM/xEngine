@@ -120,6 +120,7 @@ function checkMaterials(file, mats, c) {
       if (!ID.test(k)) c.err('shape.id', `${file}.materials.${k}`, 'id materiálu má být malými písmeny, číslicemi a podtržítkem');
       ids.add(k);
       if (m && m.model === 'emissive' && !m.emissive) c.err('mat.emissive', `${file}.materials.${k}`, 'model emissive vyžaduje pole emissive');
+      if (m && m.albedoMean !== undefined && (!m.albedo || !Array.isArray(m.albedoMean) || m.albedoMean.some((x) => !(x > 0)))) c.err('mat.albedoMean', `${file}.materials.${k}.albedoMean`, 'albedoMean patří jen k materiálu s albedo a všechny složky mají být větší než 0 (N-009)');
       if (m && isNum(m.opacity) && m.opacity < 1 && m.alphaTest !== undefined) c.warn('mat.alphaBoth', `${file}.materials.${k}`, 'materiál má opacity pod 1 i alphaTest: dva různé způsoby průhlednosti');
     }
   }
