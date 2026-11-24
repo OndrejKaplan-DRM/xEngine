@@ -1,6 +1,52 @@
 # Stav sešny A
 
-**Vlna:** 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-2` = `a995347`, znění 3) · **Datum:** 24. 11. 2026, stav ve 03:30
+**Vlna:** 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-2` = `a995347`, znění 3) · **Datum:** 24. 11. 2026, stav v 05:30
+
+## Stav 24. 11. 2026, druhá část: zorné pole, měření `?bench` z T460, dveře
+
+Poslední běh celé regrese na kódu commitu s tímto stavem: **728 kontrol, 0 selhalo** (základ 254, skupina A 345 ve 22 sadách, skupina B 92, zkouška A × B 37). Sandbox.
+
+**Ondřejovy odpovědi (24. 11., 02:26):** 1 b (nejdřív A2.5 a A2.6, textura světla potom); 2 a (dveře od hráče chce, ať to jde do dat: N-109); k měření poslal dva výsledky `?bench`; otázka na Esc u terminálu zůstala bez odpovědi.
+
+### Zorné pole (Ondřej: při 110° se rozměry při otáčení komolí, až člověk ztrácí orientaci)
+
+**Příčina byla v mém kódu:** číslo z nastavení jsem dávala kameře jako svislý úhel. Ondřejovo okno má poměr stran 2,18 : 1, takže „110“ znamenalo 144° na šířku a výchozích „90“ znamenalo 131°.
+
+**Oprava** (`src/render/fov.js`): číslo z nastavení je vodorovný úhel při poměru stran 4 : 3 (zvyk Quake a Source), svislý úhel z něj plyne a širší okno vidí víc do stran. Vodorovný úhel má strop 120°. F3 ukazuje skutečné úhly. `station.fov` z dat zůstává svislý úhel podle formátu.
+
+| Nastavení | Dřív na Ondřejově okně (2,18 : 1) | Teď na témže okně | Teď na 16 : 9 | Šišatost koule na kraji obrazu (dřív → teď) |
+|---|---|---|---|---|
+| 90 | 131° × 90° | 117° × 74° | 106° × 74° | 2,4× → 1,9× |
+| 110 | 144° × 110° | 120° × 77° (strop) | 120° × 89° (strop) | 3,3× → 2,0× |
+
+Šišatost je 1 / cos(polovina vodorovného úhlu); plyne z promítání na rovinu, ne z chyby. Úplně ji odstraní jen jiné promítání (Panini), které se dělá jako průchod nad hotovým obrazem; to jsem nedělala.
+
+### Měření `?bench` na T460 (Ondřej, 24. 11., sestavení krok 2)
+
+| | Běh 1 | Běh 2 |
+|---|---|---|
+| obraz, vyhlazování, mřížka | 1 259 × 576, ne, 0,5 m | 2 360 × 1 080, **ano**, 0,25 m |
+| snímků za běh | 1 065 za 19,0 s | 750 za 20,2 s |
+| rozestup snímků: medián / 95 % | 16,7 / 16,8 ms | 16,8 / **33,5 ms** |
+| krok simulace: medián / 95 % / nejvíc | 0,55 / 1,06 / 2,45 ms | 0,68 / 1,10 / 2,64 ms |
+| `player` medián | 0,30 ms | 0,34 ms |
+| `phys` medián, z toho uvnitř Rapieru průměrně | 0,18 ms, 0,18 ms | 0,21 ms, 0,18 ms |
+| pevná práce: skript / 5 000 paprsků | 5,5 / 19,3 ms | 5,1 / 16,5 ms |
+| volání nejvýš, △ nejvýš | 55, 35 456 | 55, 127 452 |
+
+**Co z toho plyne (měřeno):**
+
+1. **Krok simulace v xLabu je na T460 v mediánu 0,55 až 0,68 ms**, 95 % do 1,1 ms; mez 2 ms překročí jen ojediněle (nejvíc 2,45 a 2,64 ms). Fyzika je teď celá práce Rapieru: obal kolem kroku zmizel (`phys` 0,18 ms = uvnitř Rapieru 0,18 ms). To potvrzuje nápravu z A2.3.
+2. **T460 je na pevné práci 1,6× až 2,1× pomalejší než sandbox** (skript 5,1 až 5,5 ms proti 3,1 až 3,3 ms; paprsky 16,5 až 19,3 ms proti 9,2 až 11 ms). Krok simulace je ale pomalejší asi 5× až 9× (`player` 0,30 proti 0,05 ms, Rapier 0,18 proti 0,02 ms). Rozdíl neumím vysvětlit měřením; domněnka: krátké dávky práce 120× za sekundu běží na procesoru, který kvůli malé zátěži drží nízký takt.
+3. **1 080 řádků s vyhlazováním a mřížkou 0,25 m neudrží 60 snímků/s** (750 snímků za 20,2 s je průměrně 37 snímků/s).
+4. **Moje měření času snímku bylo na skutečné grafice špatně.** `frame.workMs` vyšlo v běhu 1 ve všech buňkách 15,2 až 16,1 ms, tedy přesně obnova displeje: čtení bodu po jednom snímku čeká na předání předchozího obrazu. V sandboxu se to neprojevilo. Opraveno: `?bench` teď vykreslí pohled několikrát za sebou a čte bod jednou (metoda xBench), výsledek je `draw.ms`. **Čas grafiky ve hře tedy z T460 pořád nemám.**
+
+Chybí: běh `?bench&rows=1080` **bez** vyhlazování (rozhodnutí o výchozím rozlišení, Ondřejova volba 4 b) a běh na `xlab_gen`.
+
+### Dveře od hráče
+
+Ondřej potvrdil (2 a). Návrh N-109 čeká na svodnou sešnu a sešnu B (data). Do té doby je v aplikaci nastavení Hra → „Dveře se otvírají od hráče“, **výchozí zapnuto**; vypnuto = přesně podle dat. Zkouška A × B s tím v prohlížeči prošla.
+
 
 ## Stav 24. 11. 2026: Ondřejova zkouška na T460, základ 2 znění 3
 
@@ -423,9 +469,8 @@ Z A02 (světlo po vrcholech, zastínění, měření):
 
 ## Otázky pro Ondřeje
 
-Zodpovězeno 24. 11.: terminál funguje (pravé tlačítko i šipka dolů); stíny chce po 5 cm; dveře od hráče (b), téma se možná otevře znovu; dál A2.5 i A2.6. Bez odpovědi zůstalo měření `?bench`. Nové:
+Zodpovězeno: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano. Nové:
 
-1. **Stíny po 5 cm jdou jen texturou světla (N-110).** a) udělej zkoušku na hale xLabu hned, před A2.5 a A2.6; b) nejdřív A2.5 a A2.6, textura světla potom.
-2. **Dveře od hráče:** zkus `xLab_A02_2026-11-24.html?doors=away`. a) takhle to chci, ať to jde do dat (N-109); b) ještě jinak (napiš jak).
-3. **Měření `?bench`** (F3 neměří grafiku): `xLab_A02_2026-11-24.html?bench`, totéž s `&rows=1080`, a `xLab_gen_A02_2026-11-24.html?bench`. Na konci tlačítko Zkopírovat výsledek; pošli tři texty.
-4. **Terminál:** po Esc a Pokračovat dál sedíš u terminálu a kurzor hned poslouchá? a) ano; b) ne (napiš, co se stane).
+1. **Zorné pole po opravě:** nastav znovu 110 a rozhlédni se. a) takhle je to použitelné; b) pořád moc šišaté, chci nižší strop než 120° (napiš kolik); c) chci zkusit promítání Panini (stojí jeden průchod obrazem navíc).
+2. **Měření znovu, s opravenou metodou:** v nastavení vypni vyhlazování hran a dej mřížku 0,5 m, potom `?bench`, `?bench&rows=1080` a `xLab_gen…html?bench`. Tři výsledky.
+3. **Terminál:** po Esc a Pokračovat dál sedíš a kurzor hned poslouchá? a) ano; b) ne.

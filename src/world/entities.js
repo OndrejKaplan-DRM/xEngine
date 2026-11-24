@@ -307,6 +307,8 @@ export function createEntities({ phys, render, world, light, pack }) {
     byId: (id) => byId.get(id),
     /** Zkouška k N-109: otočné dveře na obě strany, otvírají se od hráče. Platí pro level načtený potom. */
     doorsAway: false,
+    /** S jakou hodnotou doorsAway je načtený level postavený. */
+    builtAway: false,
     set behave(b) {
       behave = b;
     },
@@ -314,6 +316,7 @@ export function createEntities({ phys, render, world, light, pack }) {
     load(ctx) {
       doorCells.clear();
       for (const p of ctx.level.portals || []) if (p.door) doorCells.set(p.door, [p.a, p.b]);
+      sys.builtAway = sys.doorsAway;
       list = (ctx.level.entities || []).map(instantiate);
       byId = new Map(list.map((e) => [e.id, e]));
       for (const ent of list) {

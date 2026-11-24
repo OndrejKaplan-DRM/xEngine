@@ -27,7 +27,7 @@ Formát se nemění; mění se data a jedno pravidlo výkladu.
 
 ## Dočasné řešení
 
-Přepínač `?doors=away` (`entities.doorsAway`, `src/world/swing.js`): otočným dveřím s rozsahem na jednu stranu rozšíří rozsah souměrně; entita dostane kopii prefabu, balík se nemění. Výchozí stav je vypnuto. U dveří s dorazem v zárubni projde křídlo při otevření na druhou stranu dorazem (jen vzhled). Po přijetí návrhu soubor `swing.js` zmizí.
+Ondřej 24. 11. 2026 po zkoušce: „takhle to chci, ať to jde do dat.“ Do té doby nastavení Hra → „Dveře se otvírají od hráče“ (`entities.doorsAway`, `src/world/swing.js`), **v aplikaci výchozí zapnuto**: otočným dveřím s rozsahem na jednu stranu rozšíří rozsah souměrně; entita dostane kopii prefabu, balík se nemění. Vypnuto = přesně podle dat. V testech v Node je výchozí stav vypnuto (hra tam běží bez nastavení). U dveří s dorazem v zárubni projde křídlo při otevření na druhou stranu dorazem (jen vzhled). Po přijetí návrhu soubor `swing.js` i nastavení zmizí.
 
 ## Rozhodnutí
 

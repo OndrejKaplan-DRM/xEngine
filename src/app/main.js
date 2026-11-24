@@ -30,7 +30,6 @@ async function boot() {
   const { E, input } = game;
   const hud = createHud({ root: document.getElementById('hud') });
   const devTools = createDev({ game, hud });
-  if (params.get('doors') === 'away') game.entities.doorsAway = true; // zkouška k návrhu N-109: dveře se otvírají od hráče
   if (params.has('novis')) game.vis.enabled = false; // kreslit vše (srovnání s xView, hledání chyb viditelnosti)
   E.add({
     name: 'hud',

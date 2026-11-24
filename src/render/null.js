@@ -2,6 +2,7 @@
 // po vrcholech se dají ověřit bez prohlížeče za zlomek sekundy) a budoucímu serveru nebo zapékání.
 
 import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { cameraVfov } from './fov.js';
 import { DEFAULT_ROWS } from './rows.js';
 
 export function createNullRender({ isLit = () => true } = {}) {
@@ -16,7 +17,7 @@ export function createNullRender({ isLit = () => true } = {}) {
     name: 'render',
     phase: 'view',
     headless: true,
-    fov: 90,
+    fov: cameraVfov(90, 16 / 9),
     baseFov: 90,
     rows: DEFAULT_ROWS,
     antialias: false,
@@ -102,11 +103,16 @@ export function createNullRender({ isLit = () => true } = {}) {
     setView(x, y, z, yaw, pitch) {
       Object.assign(sys.view, { x, y, z, yaw, pitch });
     },
+    redraw() {},
     setFov(v) {
-      sys.fov = sys.baseFov = v;
+      sys.baseFov = v;
+      sys.fov = sys.baseVfov;
+    },
+    get baseVfov() {
+      return cameraVfov(sys.baseFov, sys.aspect);
     },
     setViewFov(v) {
-      sys.fov = v ?? sys.baseFov;
+      sys.fov = v ?? sys.baseVfov;
     },
     setRows(n) {
       sys.rows = n;

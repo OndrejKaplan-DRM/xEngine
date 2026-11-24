@@ -196,7 +196,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     const dx = l[0] - e[0];
     const dy = l[1] - e[1];
     const dz = l[2] - e[2];
-    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseFov, term: terms.get(ent.id) || null };
+    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseVfov, term: terms.get(ent.id) || null };
     player.frozen = true;
     player.viewOverride = true;
     input.lookEnabled = false;
@@ -346,7 +346,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
         player.eye(eye, dir);
         const dyaw = ((seat.yaw - player.yaw + 540) % 360) - 180;
         render.setView(eye[0] + (seat.eye[0] - eye[0]) * a, eye[1] + (seat.eye[1] - eye[1]) * a, eye[2] + (seat.eye[2] - eye[2]) * a, (player.yaw + dyaw * a) * RAD, (player.pitch + (seat.pitch - player.pitch) * a) * RAD);
-        render.setViewFov(render.baseFov + (seat.fov - render.baseFov) * a);
+        render.setViewFov(render.baseVfov + (seat.fov - render.baseVfov) * a);
       }
       // obrazovky: překreslit jen po změně, u aktivní navíc blikání kurzoru
       blinkT += real;

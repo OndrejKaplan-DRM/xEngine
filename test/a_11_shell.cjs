@@ -74,8 +74,8 @@ const wait = (page, ms) => page.waitForTimeout(ms);
 
     // ---- bez ?dev se vývojářská volba nenabízí
     const plain = await openGame(browser);
-    const pages = await plain.page.evaluate(() => __xe.shell.settings.pages);
-    ok(!pages.includes('hra'), 'bez ?dev se profil pohybu nenabízí', pages.join(', '));
+    const offered = await plain.page.evaluate(() => { const s = __xe.shell.settings; return s.defs.filter((d) => s.visible(d)).map((d) => d.id); });
+    ok(!offered.includes('profile') && offered.includes('fov'), 'bez ?dev se profil pohybu nenabízí', offered.join(', '));
     ok(clean(plain.errs).length === 0, 'žádná chyba v konzoli ani bez ?dev', clean(plain.errs).slice(0, 3).join(' | '));
     await plain.page.context().close();
 

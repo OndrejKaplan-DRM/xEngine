@@ -7,6 +7,7 @@
 import * as THREE from 'three';
 import { createMaterials } from './materials.js';
 import { newBatch, appendMesh, finishBatch } from './batch.js';
+import { cameraVfov, hfovOf } from './fov.js';
 import { DEFAULT_ROWS } from './rows.js';
 
 const BACKGROUND = 0x0b0d12;
@@ -47,6 +48,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
   let cells = new Map(); // id buňky → { group, pending: Map(materiál → dávka) }
   const statics = []; // hotové statické dávky: { cell, mat, positions, normals, colors, count, min, max, touch() }
   const counts = { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
+  let viewFov = null; // dočasný svislý úhel (terminál, snímky); null = podle nastavení
   const screens = []; // obrazovky ve světě: { mesh, tex }
   const shared = []; // díly viditelné z více buněk (křídlo dveří v portálu, clona portálu): { group, cells, on }
   const view = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
@@ -77,6 +79,10 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
     view,
     /** Háček volaný před každým vykreslením; xWorld sem dává výpočet viditelných buněk a světel. */
     beforeDraw: null,
+    /** Vykreslí současný pohled znovu, beze změny stavu (měření ?bench). */
+    redraw() {
+      renderer.render(scene, camera);
+    },
     baseFov: 90,
     rows,
     get antialias() {
@@ -333,13 +339,23 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       view.pitch = pitch;
       dirty = true;
     },
+    /** Zorné pole z nastavení: vodorovný úhel při poměru stran 4 : 3 (fov.js). */
     setFov(v) {
       sys.baseFov = v;
       sys.setViewFov(null);
     },
-    /** Dočasné zorné pole (klidný režim u terminálu); null vrací nastavenou hodnotu. */
+    /** Svislý úhel kamery, který z nastavení plyne pro tohle okno (se stropem vodorovného úhlu). */
+    get baseVfov() {
+      return cameraVfov(sys.baseFov, camera.aspect);
+    },
+    /** Vodorovný úhel, který je právě vidět. */
+    get hfov() {
+      return hfovOf(camera.fov, camera.aspect);
+    },
+    /** Dočasné zorné pole jako svislý úhel (klidný režim u terminálu, snímky testů); null vrací nastavenou hodnotu. */
     setViewFov(v) {
-      const next = v ?? sys.baseFov;
+      viewFov = v ?? null;
+      const next = viewFov ?? sys.baseVfov;
       if (camera.fov === next) return;
       camera.fov = next;
       camera.updateProjectionMatrix();
@@ -372,6 +388,7 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       const h = canvas.clientHeight || globalThis.innerHeight || 1;
       renderer.setSize(Math.max(1, Math.round((sys.rows * w) / h)), sys.rows, false);
       camera.aspect = w / h;
+      if (viewFov === null) camera.fov = sys.baseVfov; // svislý úhel se s oknem mění jen kvůli stropu vodorovného
       camera.updateProjectionMatrix();
       dirty = true;
     },

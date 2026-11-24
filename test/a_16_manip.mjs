@@ -261,7 +261,7 @@ ok(get('entity.e_lamp_lab.light').on && get('entity.e_lamp_lab.light').level ===
   E.tick(0);
   const after = { ...render.view };
   const same = ['x', 'y', 'z', 'yaw', 'pitch'].every((k) => after[k] === before[k]);
-  ok(!interact.seated && same && render.fov === render.baseFov && input.lookEnabled, 'odchod od terminálu vrátí kameru přesně na původní místo', `před ${fmt([before.x, before.y, before.z])} yaw ${fmt(before.yaw, 4)}, po ${fmt([after.x, after.y, after.z])} yaw ${fmt(after.yaw, 4)}, zorné pole ${render.fov}°`);
+  ok(!interact.seated && same && render.fov === render.baseVfov && input.lookEnabled, 'odchod od terminálu vrátí kameru přesně na původní místo', `před ${fmt([before.x, before.y, before.z])} yaw ${fmt(before.yaw, 4)}, po ${fmt([after.x, after.y, after.z])} yaw ${fmt(after.yaw, 4)}, zorné pole ${render.fov}°`);
   game.sim(0.5, { hold: ['back'] });
   ok(Math.hypot(player.pos[0] - pos[0], player.pos[2] - pos[2]) > 0.3, 'po odchodu se hráč zase hýbe', `posun ${fmt(Math.hypot(player.pos[0] - pos[0], player.pos[2] - pos[2]))} m`);
 }

@@ -10,7 +10,7 @@ export function settingsDefs({ game, dev }) {
     {
       id: 'fov',
       page: 'obraz',
-      label: 'Zorné pole',
+      label: 'Zorné pole (vodorovně při 4 : 3; nejvýš 120° na šířku)',
       type: 'range',
       min: 60,
       max: 110,
@@ -66,6 +66,19 @@ export function settingsDefs({ game, dev }) {
       format: (v) => v.toFixed(2),
       apply: (v) => (input.sensitivity = v),
       probe: () => input.sensitivity,
+    },
+    {
+      id: 'doorsAway',
+      page: 'hra',
+      label: 'Dveře se otvírají od hráče (platí od nové hry)',
+      type: 'toggle',
+      // Ondřejova volba z 24. 11. 2026. Dokud dveře nemají rozsah na obě strany v datech (návrh N-109), rozšiřuje ho
+      // hra sama (src/world/swing.js); vypnuto = přesně podle dat balíku.
+      def: true,
+      apply: (v) => {
+        game.entities.doorsAway = !!v;
+      },
+      probe: () => game.entities.doorsAway,
     },
     {
       id: 'profile',

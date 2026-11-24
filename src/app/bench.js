@@ -29,6 +29,8 @@ export function createBench({ game, lock, root }) {
   const probe = createPhysProbe({ game, max: MAX_SAMPLES });
   let calib = null;
   let prevProfile = false;
+  const drawMs = new Float32Array(MAX_SAMPLES);
+  let repeat = 1; // kolikrát se pohled vykreslí navíc v jedné dávce (roste, dokud je dávka krátká; jako xBench)
   const calls = new Float32Array(MAX_SAMPLES);
   const tris = new Float32Array(MAX_SAMPLES);
   const cellOf = new Int16Array(MAX_SAMPLES);
@@ -146,7 +148,7 @@ export function createBench({ game, lock, root }) {
       step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech', sys: pr.sys },
       phys: pr.phys,
       calib,
-      draw: { calls: summary(calls, n), tris: summary(tris, n) },
+      draw: { ms: summary(drawMs, n), calls: summary(calls, n), tris: summary(tris, n), note: 'ms = jedno vykreslení pohledu včetně grafiky, měřeno dávkou bez čekání na obnovu displeje; workMs ve frame je na skutečné grafice svázané s obnovou displeje a o rezervě nevypovídá' },
       cells: perCell,
     };
   }
@@ -157,7 +159,7 @@ export function createBench({ game, lock, root }) {
     const r = result();
     probe.stop();
     E.profile = prevProfile;
-    r.verdict = `Snímek (kroky + vykreslení, s čekáním na grafiku): medián ${r.frame.workMs.median} ms, 95 % ${r.frame.workMs.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms (fyzika ${r.step.sys.phys?.median ?? '?'} ms, z toho uvnitř Rapieru průměrně ${r.phys.rapierMs.step.mean} ms; nespí ${r.phys.awake.median} z ${r.phys.dynamic} volných těles; pevná práce: skript ${r.calib.jsMs} ms, paprsky ${r.calib.raysMs} ms). Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
+    r.verdict = `Vykreslení jednoho snímku (procesor i grafika, bez čekání na displej): medián ${r.draw.ms.median} ms, 95 % ${r.draw.ms.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms (fyzika ${r.step.sys.phys?.median ?? '?'} ms, z toho uvnitř Rapieru průměrně ${r.phys.rapierMs.step.mean} ms; nespí ${r.phys.awake.median} z ${r.phys.dynamic} volných těles; pevná práce: skript ${r.calib.jsMs} ms, paprsky ${r.calib.raysMs} ms). Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
     if (E.mode === 'playing') E.setMode('paused');
     status(`Měření hotovo. ${r.verdict}\n`);
     const area = document.createElement('textarea');
@@ -226,14 +228,29 @@ export function createBench({ game, lock, root }) {
     if (!active) return tick(real);
     const t0 = performance.now();
     const k = tick(real);
-    render.renderer.getContext().readPixels(0, 0, 1, 1, 6408, 5121, px); // RGBA, UNSIGNED_BYTE: počká na grafiku
+    const gl = render.renderer.getContext();
+    gl.readPixels(0, 0, 1, 1, 6408, 5121, px); // RGBA, UNSIGNED_BYTE: počká na grafiku
     const t1 = performance.now();
     if (!active) return k; // měření skončilo během tohoto snímku
+    // Čas vykreslení bez obnovovací frekvence: stejný pohled několikrát za sebou a jedno čtení bodu (metoda xBench).
+    // Jedno čtení po jednom snímku na skutečné grafice čeká na předchozí předání obrazu a ukáže vždy asi 16 ms.
+    const calls0 = render.counts.calls;
+    const tris0 = render.counts.tris;
+    const t2 = performance.now();
+    for (let i = 0; i < repeat; i++) render.redraw();
+    gl.readPixels(0, 0, 1, 1, 6408, 5121, px);
+    const batch = performance.now() - t2;
+    const perDraw = batch / repeat;
+    if (batch < 12 && repeat < 16) repeat *= 2;
+    else if (batch > 40 && repeat > 1) repeat /= 2;
+    render.counts.calls = calls0;
+    render.counts.tris = tris0;
     elapsed += real;
     if (elapsed > WARMUP_SECONDS && n < MAX_SAMPLES) {
       work[n] = t1 - t0;
       gap[n] = real * 1000;
       stepMs[n] = E.stats.stepMs;
+      drawMs[n] = perDraw;
       calls[n] = render.counts.calls;
       tris[n] = render.counts.tris;
       probe.sample();
@@ -266,6 +283,7 @@ export function createBench({ game, lock, root }) {
       idx = 0;
       n = 0;
       steps = 0;
+      repeat = 1;
       elapsed = 0;
       teleports = 0;
       lookLeft = LOOK_SECONDS; // první bod je výchozí místo: začíná rozhlédnutím
