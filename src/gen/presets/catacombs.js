@@ -3,6 +3,8 @@
 // Ondřejova volba 2 (b) z 22. 11. 2026: strop nikde pod 2,6 m, chodba nikde užší než 1,6 m (pravidla obsahu).
 // Délky v centimetrech. Jména prefabů a materiálů jsou ze sady kit_base.
 
+import { BODY } from '../body.js';
+
 const FIRE = [1, 0.62, 0.32];
 const NAMES = { corridor: 'Chodba', niche: 'Výklenek', crypt: 'Krypta', cellar: 'Sklep', chamber: 'Komora' };
 const KEYS = { corridor: 'corr', niche: 'niche', crypt: 'crypt', cellar: 'cellar', chamber: 'chamber' };
@@ -33,6 +35,7 @@ export const catacombs = {
     return {
       T: 20,
       grid: 10,
+      body: BODY,
       floors: 1,
       storeyH: 300,
       plot: { w: [2000, 2600], d: [1800, 2400] },

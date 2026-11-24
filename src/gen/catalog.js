@@ -1,8 +1,8 @@
 // Katalog sady pro generátor: co o prefabech potřebuje vědět rozmisťování. Vše se čte z dat balíku
 // (obal, díly, parametry původu), generátor si rozměry prefabů nikde nepamatuje.
 
-import { entityMatrix, mat4Point } from '../xspace/index.js';
-import { boundsAt } from './measure.js';
+import { entityMatrix, mat4Point, rigMatrices } from '../xspace/index.js';
+import { boundsAt, partPoints } from './measure.js';
 
 /**
  * @param pack načtený balík sady ({ prefabs: [{ data }], materials })
@@ -50,6 +50,44 @@ export function makeCatalog(pack) {
       const pr = get(id).source.params || {};
       if (!pr.width || !pr.height) throw new Error(`katalog: prefab „${id}“ nemá v source.params šířku a výšku otvoru`);
       return { w: Math.round(pr.width * 100), h: Math.round(pr.height * 100) };
+    },
+    /**
+     * Světlost otevřených dveří v centimetrech: nejširší úsek otvoru, do kterého ve výšce těla nezasahuje žádná
+     * kolize prefabu, když je kloub dveří na dorazu nejdál od klidu. list = jeden prefab, nebo křídla dvoukřídlých
+     * dveří se společným počátkem. Je to hrubá míra z obalů podél zdi; přesně měří test (kruh v půdorysu).
+     */
+    clearWidth(list) {
+      const ids = [].concat(list);
+      const half = this.opening(ids[0]).w / 200;
+      const spans = [];
+      for (const id of ids) {
+        const pf = get(id);
+        const it = (pf.components || {}).interact;
+        const j = it && (pf.rig.joints || []).find((x) => x.id === it.joint);
+        const rest = j ? (j.rest ?? j.min) : 0;
+        const mats = rigMatrices(pf, j ? { [j.id]: Math.abs(j.max - rest) >= Math.abs(j.min - rest) ? j.max : j.min } : {});
+        for (const c of pf.colliders || []) {
+          if (c.shape !== 'box' && c.shape !== 'cyl') continue;
+          let [x0, x1, y0, y1] = [Infinity, -Infinity, Infinity, -Infinity];
+          for (const q of partPoints(c)) {
+            const w = mat4Point(mats[c.node], q);
+            x0 = Math.min(x0, w[0]);
+            x1 = Math.max(x1, w[0]);
+            y0 = Math.min(y0, w[1]);
+            y1 = Math.max(y1, w[1]);
+          }
+          if (y1 > 0.3 && y0 < 1.8) spans.push([x0, x1]);
+        }
+      }
+      spans.sort((p, q) => p[0] - q[0]);
+      let best = 0;
+      let cur = -half;
+      for (const [a, b] of spans) {
+        if (a > cur) best = Math.max(best, Math.min(a, half) - cur);
+        cur = Math.max(cur, b);
+      }
+      best = Math.max(best, half - cur);
+      return Math.floor(best * 100 + 1e-6);
     },
     hasMaterial: (id) => Boolean(pack.materials && pack.materials.materials[id]),
     ids: [...byId.keys()],

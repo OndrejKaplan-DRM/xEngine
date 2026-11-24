@@ -14,6 +14,8 @@ import { kitDoc } from '../tools/forge/doc.mjs';
 import { makeCatalog } from '../src/gen/index.js';
 import { makeChecker } from './b_lib/check.mjs';
 import { doorLeaks } from './b_lib/door-cover.mjs';
+import { doorPass } from './b_lib/door-pass.mjs';
+import { playerOf, PROFILE_IDS } from './b_lib/player.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(root, 'packs/kit_base');
@@ -184,6 +186,23 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
   const sillOk = doors.every((p) => p.parts.some((q) => q.node === 'frame' && q.shape === 'box' && q.min[1] === 0 && q.max[1] <= 0.015 && q.max[1] > 0.01));
   const noCol = doors.every((p) => (p.colliders || []).every((c) => !(c.node === 'frame' && c.max[1] <= 0.015)));
   ok(sillOk && noCol, 'prahová lišta je nejvýš 15 mm vysoká a nemá kolizi (postava ji přejde)');
+}
+
+// ---- otevřenými dveřmi projde hráč (kapsle s odstupem kontroléru; kruh v půdorysu, mřížka 1 cm)
+{
+  const players = PROFILE_IDS.map(playerOf);
+  const need = Math.max(...players.map((p) => p.width));
+  const body = { step: Math.min(...players.map((p) => p.step)), height: Math.max(...players.map((p) => p.height)) };
+  const doors = prefabs.filter((p) => p.category === 'arch.door');
+  const single = doors.filter((p) => !p.source.params.side);
+  const wings = doors.filter((p) => p.source.params.side);
+  const got = single.map((p) => [p.id, doorPass([p], p.source.params.width, 0.2, body).clear]);
+  got.push(['door_dleft_01 + door_dright_01', doorPass(wings, wings[0].source.params.width, 0.2, body).clear]);
+  const tight = got.filter(([, c]) => c < need + 0.05);
+  ok(tight.length === 0, `otevřenými dveřmi projde hráč široký ${need.toFixed(2)} m s rezervou aspoň 5 cm`, got.map(([id, c]) => `${id} ${c.toFixed(2)} m`).join(', '));
+  const rough = single.map((p) => [p.id, catalog.clearWidth(p.id) / 100, got.find(([id]) => id === p.id)[1]]);
+  const off = rough.filter(([, a, b]) => Math.abs(a - b) > 0.03);
+  ok(off.length === 0, 'světlost dveří, kterou si počítá generátor z obalů, sedí na měření kruhem do 3 cm', off.map(([id, a, b]) => `${id}: ${a.toFixed(2)} × ${b.toFixed(2)} m`).join(' | '));
 }
 
 // ---- původ, licence, materiály, jména

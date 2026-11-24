@@ -9,6 +9,7 @@ import { V, m, r4 } from './util.js';
 import { RUN_X } from './kit.js';
 import { boxM, boxesHit } from './build.js';
 import { openingsConnected } from './passage.js';
+import { passRadius } from './body.js';
 
 const grow = (b, d) => ({ min: b.min.map((x) => x - d), max: b.max.map((x) => x + d) });
 const inside = (b, outer, eps = 0.002) => [0, 1, 2].every((k) => b.min[k] >= outer.min[k] - eps && b.max[k] <= outer.max[k] + eps);
@@ -225,8 +226,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
 
   // ---- 5) nábytek ke zdem a věci do plochy
   //      Když by nábytek zatarasil cestu mezi otvory místnosti, ubírá se od naposledy postaveného kusu.
+  const walkR = passRadius(P.body); // kapsle hráče s odstupem kontroléru a rezervou; ne číslo v kódu
   const blocksWay = (z) => z.kind === 'solid' && !z.steps && (!z.e || (catalog.get(z.e.prefab).colliders || []).length > 0);
-  const passable = (ci) => S.hall && S.hall.cell === ci ? true : openingsConnected(cells[ci], S.sides[ci], S.zones[ci].filter(blocksWay));
+  const passable = (ci) => S.hall && S.hall.cell === ci ? true : openingsConnected(cells[ci], S.sides[ci], S.zones[ci].filter(blocksWay), walkR);
   cells.forEach((c, ci) => {
     const plan2 = preset.furniture(c, rng, catalog);
     if (!plan2) return;

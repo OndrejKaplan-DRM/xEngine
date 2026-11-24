@@ -5,6 +5,7 @@
 
 import { createBuilder, floorSlab, ceilingSlab, wallRun, portalQuad, stairs, ramp, block, pillar, RUN_X } from './kit.js';
 import { m, Vcm, V, pad } from './util.js';
+import { bodyWidth } from './body.js';
 
 const rectOf = (c) => ({ x0: c.min[0], x1: c.max[0], z0: c.min[1], z1: c.max[1] });
 /** Kvádr v metrech ze souřadnic v centimetrech. kind: 'solid' = stojí tam něco pevného, 'zone' = má zůstat volno. */
@@ -171,9 +172,12 @@ export function buildStructure(preset, P, plan, catalog, rng) {
     if (!isDoor(o) && o.e.head >= fb.h + 10 && o.len >= fb.w + 2 * P.margin) o.style = fb;
   }
   if (ops.filter(isDoor).length < P.minDoors) return null;
+  // každým otvorem musí projít postava: volný průchod aspoň na šířku kapsle s odstupem a rezervou z obou stran
+  const need = bodyWidth(P.body) + 2 * P.body.reserve;
   for (const o of ops) {
     const w = Math.min(o.style.w, o.len - 2 * P.margin);
     const h = Math.min(o.style.h, o.e.head - 10);
+    if ((isDoor(o) ? catalog.clearWidth(o.style.pair || o.style.prefab) : w) < need) return null;
     let lo = o.s.u + P.margin;
     let hi = o.s.v - P.margin - w;
     if (o.style.slide) {
