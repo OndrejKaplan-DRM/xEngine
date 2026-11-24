@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `0af8c25` (znění 3 + D-038) · **Stav:** 24. 11. 2026, 17:00 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední celá regrese (`npm run test:all`, sandbox): **728 kontrol, 0 selhalo** (základ 254, skupina A 345 ve 22 sadách, skupina B 92, zkouška A × B 37) na `db6fad0`.
+Poslední celá regrese (`npm run test:all`, sandbox): **747 kontrol, 0 selhalo** (základ 254, skupina A 364 ve 24 sadách, skupina B 92, zkouška A × B 37) na kódu A2.5 (sestavení „vlna 2, krok 4“).
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
@@ -10,10 +10,11 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Teď:**
 - [x] Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): (1) nastavení „Dveře od hráče“ rozšiřovalo rozsah i 16 kusům nábytku v `complex_7` (skříně, lednice, víka centrifug; v katakombách víka truhel), které by se otevřely dovnitř; teď jen dveře v otvoru portálu, včetně druhého křídla (`a_14_swing`). (2) Černá stěna kartotéky není chyba výpočtu: lampa visí přesně nad šířkou kartotéky (x 10,85 m, kartotéka 10,40 až 10,86 m), na boky přímé světlo nedopadne a zbývá okolní člen 0,05. Chybí odražené světlo (vrstva `indirect` ze xBake, D-035); otázka pro Ondřeje
-- [ ] A2.5 nová pole základu: `screen.offset`, `JOINT_TRAVEL_SECONDS` z `formats.js`, `interact.seeThrough` a `portals[].passable` v ořezu, `materials[].opacity`
+- [x] A2.5 nová pole základu (podrobně v tabulce „Hotovo“ a v deníku)
+- [ ] A2.6: engine na texturu barvy a díl `.glb` připravit na zkušebních datech (data sešny B zatím nejsou)
 
 **Další:**
-- [ ] A2.6 textura barvy a díl `.glb` na jednom kusu (D-030). Čeká na B2.5 (sešna B ji ještě nezačala); engine připravím a vyzkouším na vlastních zkušebních datech v `test/a_lib/`
+- [ ] A2.6 zkouška na kusu ze sešny B, až bude B2.5
 - [ ] zkouška textury světla na hale xLabu (N-110); Ondřej 24. 11. 02:26: až po A2.5 a A2.6
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
@@ -24,7 +25,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Čeká na jiné sešny:**
 - svodná: rozhodnout N-109 (dveře na obě strany v datech) a N-110 (světlo v textuře); sloučit vlnu 2 sešny A do základu
-- B: dveře s kloubem na obě strany (N-109), B2.5 (prefab `.glb` a materiál s texturou)
+- B: dveře s kloubem na obě strany (N-109), B2.5 (prefab `.glb` a materiál s texturou); v sadě `kit_base` chybí přijatá pole: `screen.offset` u `terminal_desk_01` a `terminal_wall_01` (běh zatím odvozuje plochu z dílů a hlásí to), `opacity` u `glass_pane` (sklo je dnes neprůhledné)
 
 **Hotovo ve vlně 2** (podrobnosti v oddílech 3 a 5):
 
@@ -37,7 +38,8 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 | sloučení D-037 (mřížka na násobcích buňky, bez schovaných ploch) a N-101 | `25e17a4` | švy 128 → 0 bodů (`a_17_view`) |
 | zorné pole: vodorovný úhel při 4 : 3, strop 120° | `db6fad0` | na T460 F3 ukazuje 117° × 74° při nastavení 90 (snímek 24. 11. 09:57) |
 | dveře od hráče jako nastavení, výchozí zapnuto | `25e17a4`, `db6fad0` | `a_14_swing`; návrh N-109 |
-| A2.5, A2.6, A2.7 | – | nezačato |
+| A2.5 nová pole: `JOINT_TRAVEL_SECONDS`, `screen.offset`, `seeThrough`, `passable`, `opacity` | `b522e7e` a další | `a_25_fields` (11), `a_25_view` (6): skleněnými zavřenými dveřmi je vidět chodba (střed dveří 200,6 → 30,5 od otevřených), mříž se `seeThrough` nezavírá pohled |
+| A2.6, A2.7 | – | nezačato |
 
 ## 2. Deník rozhodnutí sešny A
 
@@ -62,6 +64,10 @@ Rozhodnutí, která sešna A udělala sama ve své oblasti. Projektová rozhodnu
 | 24. 11. | dveře od hráče: strana podle polohy hráče; rozsah na obě strany dočasně kopií prefabu, jen dveřím v otvoru portálu | Ondřej (4 b, potom 2 a); data jsou sešny B; dvířka nábytku mají tutéž interakci `door` a otevřela by se dovnitř | měnit balík; všem prefabům `door` | `behaviors.js`, `swing.js`, N-109, `a_14_swing` |
 | 24. 11. | zorné pole = vodorovný úhel při 4 : 3, svislý z něj, strop 120° na šířku | číslo šlo do kamery jako svislý úhel; na okně 2,18 : 1 bylo „110“ 144° | svislý úhel jako dosud | `src/render/fov.js` |
 | 24. 11. | `?bench` měří vykreslení dávkou opakovaných snímků a jedním čtením bodu | čtení po každém snímku vrátilo na T460 obnovu displeje (15,2 až 16,1 ms ve všech buňkách) | čas kolem `E.tick` | `draw.ms` v JSON |
+| 24. 11. | `screen.offset` z dat platí vždy; prefab bez něj dostane plochu 1 mm před nejpřednějším dílem uzlu a jedno ohlášení | terminály sady `kit_base` pole nemají a díly jim sahají 3 až 4 mm před uzel; výchozí 0 by obrazovku schovala za rámeček | smazat odvozování úplně (zadání A2.5) | `interact.js`, `a_25_fields` |
+| 24. 11. | `seeThrough` otvírá portál jen pro pohled; světlo dál řídí otevření dveří | tak počítá i xBake (D-035); dvoukřídlé dveře mají `seeThrough` jen kvůli druhému křídlu, ne proto, že by byly průhledné | pustit světlo skrz | `visibility.js`; otázka pro svodnou |
+| 24. 11. | kvádr, jehož všechny plochy jsou průhledné, koliduje, ale světlo nestíní (skupina `world` místo `brush`) | sklo by jinak vrhalo plný stín | stínit vším | `world.js`, `a_25_fields` |
+| 24. 11. | portál s `passable: false` je pro pohled otevřený, trasa měření jím nevede | okno (N-003) | – | `bench.js`, `a_25_fields` |
 
 ## 3. Jak je to postavené (moduly sešny A)
 
@@ -206,6 +212,7 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 - **Zorné pole po opravě**: na T460 se uplatnilo (F3 117° × 74°), jestli je příjemné, řekne Ondřej.
 - **Terminál po Esc a Pokračovat**: hráč má dál sedět a kurzor poslouchat; ověřeno jen s podvrženým zámkem v headless prohlížeči.
 - **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozšiřují se jen dveře v otvoru portálu (37 v `complex_7`), nábytek ne.
+- **Průhlednost na T460**: průhledné materiály se kreslí bez zápisu do hloubky a po neprůhledných; cena na T460 neměřená, sklo zatím v datech není.
 - **Odražené světlo chybí**: plochy, na které žádná lampa přímo nesvítí, mají jen okolní člen levelu (`complex_7`: 0,05, tedy skoro černé). Řešení je vrstva `indirect` ze zapečeného souboru; běh ho zatím nečte (dluh základu).
 - **D-025 a obsah zásuvky** (věc se má vézt se zásuvkou); zlatý vzorek zásuvku s obsahem nemá.
 - **D-025 v levelech sešny B**: jestli se tam dveře někde zastaví o hráče tak, že překáží, jsem nehledala.
@@ -233,16 +240,16 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 |---|---|---|---|
 | N-101 | díly prefabu v `geom.js` | přijat a proveden (23. 11.) | zrušeno, beru ze základu |
 | N-102 | `rigMatrices` bez alokací | přijat, základ dluží | volám jen při změně kloubu |
-| N-103 | výchozí rychlost kloubu | přijat (`JOINT_TRAVEL_SECONDS`) | vlastní tabulka v `joints.js`, zruší A2.5 |
+| N-103 | výchozí rychlost kloubu | přijat (`JOINT_TRAVEL_SECONDS`) | čtu ze základu (A2.5) |
 | N-104 | dosah interakce od osy těla | přijat | – |
 | N-105 | přesvícený xLab | přijat, po převodu světla | – |
-| N-106 | plocha obrazovky (`screen.offset`) | přijat | odvozování v `interact.js`, zruší A2.5 |
+| N-106 | plocha obrazovky (`screen.offset`) | přijat | čtu z dat; bez pole odvozuji z dílů (data sady `kit_base`) |
 | N-107 | dveře musí zakrýt portál | přijat s úpravou (D-036) | černá clona |
 | N-108 | švy a hrubost mřížky světla | proveden (D-037) | – |
 | N-109 | dveře na obě strany v datech | otevřený | nastavení „Dveře od hráče“, `swing.js` |
 | N-110 | světlo v textuře (bod 5 cm) | otevřený | okraj stínu po podílech, mřížka 0,25 m |
 
-**Pro svodnou sešnu:** v `docs/01_ARCHITEKTURA.md`, oddíl 9, chybí `src/app/probe.js` (sonda fyziky pro `?bench`); `terminal.js` je obsah obrazovky (text na plátně), klidný režim sám je v `interact.js`.
+**Pro svodnou sešnu:** (1) v `docs/01_ARCHITEKTURA.md`, oddíl 9, chybí `src/app/probe.js` (sonda fyziky pro `?bench`) a `src/render/opacity.js`, `src/world/swing.js`; `terminal.js` je obsah obrazovky (text na plátně), klidný režim sám je v `interact.js`. (2) Kontrakt neříká, jestli světlo prochází zavřenými dveřmi se `seeThrough` (mříž ano, dvoukřídlé dveře ne); běh i xBake ho dnes zadržují.
 
 ## 10. Poznatky pro skill
 
@@ -289,4 +296,4 @@ Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře
 - **23. 11.**: D-024 (`5626629`), D-025 (`f2766ea`), sloučení `zaklad-2` (`a1d3081`), jemnější stíny (`e2be3cc`), A2.3 (`b77837f`). Ondřej: Esc u terminálu koliduje (udělat jinak), stíny jemnější (b), nejdřív dokončit znění 2 (a), 1 080 řádků, když se vejde do 10 ms (b).
 - **24. 11. v noci**: sloučeno znění 3 základu (D-037, N-101; `25e17a4`), dveře od hráče, nápověda terminálu, N-109 a N-110, měření F3 z T460 (`c131ac4`). Ondřej: terminál funguje, stíny chce po 5 cm, dveře od hráče, dál A2.5 i A2.6.
 - **24. 11. ráno**: zorné pole, `draw.ms`, dveře od hráče v nastavení (`db6fad0`). Ondřej: nejdřív A2.5 a A2.6, dveře od hráče do dat, dva běhy `?bench`.
-- **24. 11. odpoledne**: přechod na model Opus 5.5 po limitu; sloučeno D-038 (paměť projektu v repu, `TODO.md`); tento soubor přestavěn (nahoře přehled, deník rozhodnutí, historie dole).
+- **24. 11. odpoledne**: přechod na model Opus 5.5 po limitu; sloučeno D-038 (paměť projektu v repu, `TODO.md`); tento soubor přestavěn (nahoře přehled, deník rozhodnutí, historie dole); dveře od hráče jen v otvoru portálu (`afb5b0a`); A2.5.
