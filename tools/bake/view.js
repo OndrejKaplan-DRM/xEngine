@@ -5,11 +5,11 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh, doorInteraction } from '../../src/xspace/index.js';
+import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh, doorInteraction, staticPartIndices } from '../../src/xspace/index.js';
 import { bakeLevel } from './bake.mjs';
 import { composeColors } from '../../src/xspace/bake.js';
 
-const VERSION = 'xBake náhled 0.4 · 2026-11-24 · mřížka světla znění 2';
+const VERSION = 'xBake náhled 0.5 · 2026-11-25 · mřížka světla znění 2 · pevné díly prefabů zapečené (D-041)';
 const pack = globalThis.__PACK__;
 const q = new URLSearchParams(location.search);
 const level = (pack.levels.find((l) => l.data.id === q.get('level')) || pack.levels[0]).data;
@@ -68,9 +68,10 @@ for (const [name, g] of Object.entries(groups)) {
 }
 
 // ---- díly prefabů: síť dílu dává partMesh ze základu (N-101), polohu uzlů rigMatrices. Dveře portálů se kreslí
-// zavřené nebo otevřené na doraz podle přepínače. Světlo dílu: kvádr má jednu hodnotu na stěnu (počítá se
-// ve středu stěny), válec hodnotu ve vrcholu; díly téže entity si navzájem nestíní.
-const props = { pos: [], nrm: [], idx: [], mat: [], at: [], ent: [] };
+// zavřené nebo otevřené na doraz podle přepínače. Pevné díly (D-041) mají zapečené vzorky a barví se z nich jako
+// kvádry. Pohyblivé díly osvětluje náhled sám: kvádr jednou hodnotou na stěnu (počítá se ve středu stěny), válec
+// hodnotou ve vrcholu; díly téže entity si navzájem nestíní.
+const props = { pos: [], nrm: [], idx: [], mat: [], at: [], ent: [], sample: [] };
 const propGeo = new THREE.BufferGeometry();
 meshes.props = new THREE.Mesh(propGeo, material);
 scene.add(meshes.props);
@@ -85,14 +86,16 @@ function openPose(pf) {
 
 function buildProps(doorsOpen) {
   for (const k of Object.keys(props)) props[k].length = 0;
-  for (const e of level.entities || []) {
+  (level.entities || []).forEach((e, ei) => {
     const pf = prefabs.get(e.prefab);
-    if (!pf) continue;
+    if (!pf) return;
     const E = entityMatrix(e);
     const rig = rigMatrices(pf, doorsOpen && wings.has(e.id) ? openPose(pf) : {});
-    for (const p of pf.parts) {
+    const fixed = new Set(staticPartIndices(pf));
+    let next = S.entityOffsets ? S.entityOffsets[ei] : -1; // první vzorek entity (pořadí levelSamples)
+    pf.parts.forEach((p, pi) => {
       const mesh = partMesh(p);
-      if (!mesh) continue; // díl ze souboru .glb náhled nekreslí
+      if (!mesh) return; // díl ze souboru .glb náhled nekreslí
       const M = mat4Mul(E, rig[p.node]);
       const zero = mat4Point(M, [0, 0, 0]);
       const base = props.pos.length / 3;
@@ -107,22 +110,24 @@ function buildProps(doorsOpen) {
         props.nrm.push(n[0] / len, n[1] / len, n[2] / len);
         props.mat.push(p.mat);
         props.ent.push(e.id);
+        props.sample.push(fixed.has(pi) && next >= 0 ? next + v : -1);
       }
+      if (fixed.has(pi) && next >= 0) next += count;
       for (const i of mesh.indices) props.idx.push(base + i);
       for (let v = 0; v < count; v++) {
         const f = p.shape === 'box' ? v - (v % 4) : -1; // kvádr: čtyři vrcholy na stěnu za sebou (brushMesh)
         if (f < 0) props.at.push(...world[v]);
         else for (let c = 0; c < 3; c++) props.at.push((world[f][c] + world[f + 1][c] + world[f + 2][c] + world[f + 3][c]) / 4);
       }
-    }
-  }
+    });
+  });
   propGeo.setAttribute('position', new THREE.Float32BufferAttribute(props.pos, 3));
   propGeo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(props.pos.length), 3));
   propGeo.setIndex(props.idx);
   propGeo.computeBoundingSphere();
 }
 
-function propColors() {
+function propColors(E) {
   const col = propGeo.attributes.color.array;
   const amb = level.env.ambient;
   const lights = full.lights.filter((L) => L.base || (state.lamps && L.kind === 'entity'));
@@ -132,6 +137,12 @@ function propColors() {
     const m = mats[props.mat[v]] || {};
     if (m.emissive) {
       for (let c = 0; c < 3; c++) col[v * 3 + c] = m.emissive[c] * (m.emissiveStrength ?? 1);
+      continue;
+    }
+    const a = m.color || [0.5, 0.5, 0.5];
+    const s = props.sample[v];
+    if (s >= 0) {
+      for (let c = 0; c < 3; c++) col[v * 3 + c] = (a[c] / Math.PI) * E[s * 3 + c];
       continue;
     }
     const p = [props.at[v * 3], props.at[v * 3 + 1], props.at[v * 3 + 2]];
@@ -152,7 +163,6 @@ function propColors() {
       }
       for (let c = 0; c < 3; c++) sum[c] += e * L.color[c];
     }
-    const a = m.color || [0.5, 0.5, 0.5];
     for (let c = 0; c < 3; c++) col[v * 3 + c] = (a[c] / Math.PI) * sum[c];
   }
   propGeo.attributes.color.needsUpdate = true;
@@ -169,7 +179,7 @@ function recolor() {
     }
     meshes[name].geometry.attributes.color.needsUpdate = true;
   }
-  propColors();
+  propColors(E);
   render();
 }
 
@@ -232,7 +242,7 @@ const sections = full.layers.reduce((n, L) => n + L.gates.length, 0);
 document.getElementById('ver').textContent = VERSION;
 document.getElementById('info').innerHTML = [
   `<b>${level.title}</b> · balík ${pack.manifest.id}`,
-  `vzorků ${N} (schovaných v tělese ${full.stats.invalid}) · vrstev ${full.layers.length} · zapečeno za ${(full.stats.ms / 1000).toFixed(2)} s v tomto prohlížeči`,
+  `vzorků ${N} (na pevných dílech prefabů ${(full.entities || []).reduce((n, x) => n + x.count, 0)}, schovaných v tělese ${full.stats.invalid}) · vrstev ${full.layers.length} · zapečeno za ${(full.stats.ms / 1000).toFixed(2)} s v tomto prohlížeči`,
   `dveří v portálech ${full.doors.length} · úseků s bránou ${sections} · zjemněných vzorků na okraji stínu ${full.stats.softened}`,
   `Bez světel za běhu: barva vrcholů × barva materiálu. Odraz s vahou ${full.indirectWeight}. V přehledu je scéna přisvícená, aby byly vidět vnější stěny.`,
 ].join('<br>');

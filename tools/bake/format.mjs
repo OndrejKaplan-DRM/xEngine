@@ -2,7 +2,7 @@
 // src/xspace/bake.js (D-044, převzato z tools/bake/read.mjs); tady je jen to, co potřebuje Node (otisky, Buffer).
 
 import { createHash } from 'node:crypto';
-import { levelLightMeshes } from '../../src/xspace/index.js';
+import { levelLightMeshes, levelSamples } from '../../src/xspace/index.js';
 import { MAGIC } from '../../src/xspace/bake.js';
 
 export { MAGIC, decodeBake, composeColors, gateLevel } from '../../src/xspace/bake.js';
@@ -13,11 +13,16 @@ const sha = (v) => createHash('sha256').update(JSON.stringify(v)).digest('hex');
 export const GRID = 2;
 /**
  * Otisk geometrie: znění mřížky, buňka, tvary kvádrů v pořadí levelu a počet vzorků každého kvádru (ten závisí
- * i na viditelnosti kvádrů a průhlednosti materiálů, protože schované plochy vzorky nemají).
+ * i na viditelnosti kvádrů a průhlednosti materiálů, protože schované plochy vzorky nemají); s prefaby (D-041)
+ * i entity v pořadí levelu s polohou, prefabem a počtem vzorků pevných dílů.
  * Když nesedí, vzorky neodpovídají a soubor neplatí.
  */
-export const geometryHash = (level, cell, materials = null) =>
-  sha([GRID, cell, level.brushes.map((b) => [b.shape || 'box', b.min, b.max, b.rise || '']), levelLightMeshes(level.brushes, materials, cell).map((m) => (m ? m.positions.length / 3 : 0))]);
+export const geometryHash = (level, cell, materials = null, prefabs = null) => {
+  const brushes = [GRID, cell, level.brushes.map((b) => [b.shape || 'box', b.min, b.max, b.rise || '']), levelLightMeshes(level.brushes, materials, cell).map((m) => (m ? m.positions.length / 3 : 0))];
+  if (!prefabs) return sha(brushes);
+  const L = levelSamples(level, prefabs, materials, cell);
+  return sha([...brushes, (level.entities || []).map((e, i) => [e.id, e.prefab, e.pos, e.rot || null, e.scale ?? 1, L.entityCounts[i][1]])]);
+};
 /** Otisk světla: vše, z čeho se počítá E při plné úrovni (barva ne, tou násobí běh). */
 export const lightHash = (l) => sha([l.type, l.pos || null, l.dir || null, l.intensity, l.range ?? null, l.angle ?? null]);
 /** Otisk stínítek a bran: entity, jejich prefaby a dveře portálů. Když nesedí, vzorky platí, ale stíny a brány mohou být jinde. */
@@ -70,8 +75,9 @@ export function encodeBake(bake, level, prefabs, materials = null) {
     cell: bake.cell,
     samples: bake.samples,
     brushes: bake.brushes.map((b) => [b.id, b.count]),
+    ...(bake.entities && bake.entities.some((e) => e.count) ? { entities: bake.entities.map((e) => [e.id, e.count]) } : {}),
     grid: GRID,
-    geometry: geometryHash(level, bake.cell, materials),
+    geometry: geometryHash(level, bake.cell, materials, bake.entities && bake.entities.some((e) => e.count) ? prefabs : null),
     scene: sceneHash(level, prefabs),
     doors: (bake.doors || []).map((d) => d.id),
     layers,

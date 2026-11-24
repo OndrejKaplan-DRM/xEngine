@@ -1,11 +1,11 @@
-// B-T5: xBake v Node. Vzorky sedí na kontrakt (pořadí a počet vrcholů brushLightMesh), součet vrstev bez zastínění
+// B-T5: xBake v Node. Vzorky sedí na kontrakt (pořadí levelSamples: kvádry, potom pevné díly prefabů, D-041), součet vrstev bez zastínění
 // je přesně lightIrradiance ze základu, stín sloupu je měřitelný, dveře v portálech jsou brány světla (D-035),
 // okraj stínu má mezistupně, soubor jde zapsat a přečíst a je opakovatelný.
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
-import { levelLightMeshes, lightIrradiance, LIGHT_CELL } from '../src/xspace/index.js';
+import { levelLightMeshes, levelSamples, lightIrradiance, LIGHT_CELL } from '../src/xspace/index.js';
 import { bakeLevel } from '../tools/bake/bake.mjs';
 import { encodeBake, decodeBake, composeColors, geometryHash, lightHash, sceneHash } from '../tools/bake/format.mjs';
 import { makeChecker } from './b_lib/check.mjs';
@@ -26,14 +26,26 @@ const totals = (L, n) => {
   return out;
 };
 
-// ---- vzorky podle kontraktu: levelLightMeshes ze základu (mřížka znění 2, D-037); kvádr bez sítě má 0 vzorků
+// ---- vzorky podle kontraktu: levelSamples ze základu (mřížka znění 2, D-037; pevné díly prefabů, D-041);
+// kvádr bez sítě a entita bez pevných dílů mají 0 vzorků
 const EMPTY = { positions: [], normals: [] };
-const meshes = levelLightMeshes(level.brushes, G.materials, LIGHT_CELL).map((m) => m || EMPTY);
-const total = meshes.reduce((n, m) => n + m.positions.length / 3, 0);
+const LS = levelSamples(level, G.prefabs, G.materials, LIGHT_CELL);
+const brushMeshes = levelLightMeshes(level.brushes, G.materials, LIGHT_CELL).map((m) => m || EMPTY);
+const meshes = [...LS.brushes.map((m) => m || EMPTY), ...LS.entities.map((m) => m || EMPTY)];
+const total = LS.count;
+const onParts = LS.entityCounts.reduce((n, [, c]) => n + c, 0);
 const t0 = performance.now();
 const bake = bakeLevel(level, G.prefabs, G.materials);
 const ms = performance.now() - t0;
-ok(bake.samples === total && bake.brushes.every((b, i) => b.id === level.brushes[i].id && b.count === meshes[i].positions.length / 3), 'vzorky = vrcholy levelLightMeshes, po kvádrech v pořadí levelu', `${total} vzorků, ${level.brushes.length} kvádrů`);
+ok(bake.samples === total && bake.brushes.every((b, i) => b.id === level.brushes[i].id && b.count === brushMeshes[i].positions.length / 3), 'vzorky kvádrů = vrcholy levelLightMeshes, po kvádrech v pořadí levelu', `${total - onParts} vzorků na ${level.brushes.length} kvádrech`);
+ok(onParts > 0 && bake.entities.length === (level.entities || []).length && bake.entities.every((e, i) => e.id === LS.entityCounts[i][0] && e.count === LS.entityCounts[i][1]), 'za nimi vzorky pevných dílů prefabů po entitách v pořadí levelSamples (D-041)', `${onParts} vzorků na ${bake.entities.filter((e) => e.count).length} entitách`);
+{
+  // poloha a normála každého vzorku je vrchol levelSamples (pořadí je kontrakt, běh ho čte stejně)
+  let bad = 0;
+  let s = 0;
+  for (const m of meshes) for (let v = 0; v < m.positions.length / 3; v++, s++) for (let k = 0; k < 3; k++) if (bake.scene.pos[s * 3 + k] !== m.positions[v * 3 + k] || bake.scene.nrm[s * 3 + k] !== m.normals[v * 3 + k]) bad++;
+  ok(bad === 0 && s === bake.samples, 'každý vzorek leží ve vrcholu levelSamples se stejnou normálou', `${s} vzorků`);
+}
 ok(ms < 60000, 'zapečení xLabu do 60 s', `${(ms / 1000).toFixed(2)} s v sandboxu (orientační); ${bake.stats.shadowRays} stínových a ${bake.stats.bounceRays} odrazových paprsků, ${bake.stats.blockers} stínítek`);
 ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollider ze základu; žádná se nepřeskočila', `${bake.stats.blockers - level.brushes.length} kolizí prefabů, ${level.brushes.length} kvádrů`);
 
@@ -63,6 +75,40 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
     for (let s = 0; s < bake.samples; s++) if (bake.valid[s] && sum[s] > flat.layers[k].data[s] * (1 + 1e-6)) grew++;
   });
   ok(grew === 0, 'zastínění světlo jen ubírá, i se všemi dveřmi otevřenými', `${grew} vzorků s víc světlem než bez zastínění`);
+
+  // ---- pevné díly prefabů (D-041): svítí na ně, vlastní kolize entity je nestíní, cizí tělesa ano
+  {
+    const first = bake.scene.entityOffsets[0];
+    const lightLayers = bake.layers.filter((L) => L.kind === 'light');
+    const sumFull = new Float32Array(bake.samples);
+    for (const L of lightLayers) totals(L, bake.samples).forEach((v, s) => (sumFull[s] += v));
+    const sumFlat = new Float32Array(bake.samples);
+    for (const L of flat.layers) L.data.forEach((v, s) => (sumFlat[s] += v));
+    const top = new Map();
+    for (let s = first; s < bake.samples; s++) top.set(bake.scene.entOf[s], Math.max(top.get(bake.scene.entOf[s]) ?? -Infinity, bake.scene.pos[s * 3 + 1]));
+    let cand = 0;
+    let lit = 0;
+    let tops = 0;
+    let topsLit = 0;
+    for (let s = first; s < bake.samples; s++) {
+      if (!bake.valid[s] || sumFlat[s] <= 0) continue;
+      cand++;
+      if (sumFull[s] > 0) lit++;
+      if (bake.scene.nrm[s * 3 + 1] > 0.9 && bake.scene.pos[s * 3 + 1] >= top.get(bake.scene.entOf[s]) - 1e-3) {
+        tops++;
+        if (sumFull[s] > 0) topsLit++;
+      }
+    }
+    ok(tops >= 10 && topsLit === tops, 'horní plocha entity, na kterou světlo míří, světlo dostane (vlastní kolize ji nestíní)', `${topsLit} z ${tops} vzorků horních ploch`);
+    ok(cand > 0 && lit / cand > 0.5 && lit < cand, 'pevné díly: většina vzorků, na které světlo míří, ho dostane, část je ve stínu jiných těles', `${lit} z ${cand} vzorků (${((lit / cand) * 100).toFixed(0)} %)`);
+    // vzorky dílů nemění nic na kvádrech: stejné hodnoty ve všech vrstvách včetně odrazu a koutů
+    const only = bakeLevel(level, G.prefabs, G.materials, { entitySamples: false });
+    let diff = 0;
+    bake.layers.forEach((L, k) => {
+      for (let i = 0; i < only.samples * L.channels; i++) if (L.data[i] !== only.layers[k].data[i]) diff++;
+    });
+    ok(only.samples === first && diff === 0, 'vzorky kvádrů mají s díly prefabů i bez nich stejné hodnoty ve všech vrstvách', `${only.samples} vzorků kvádrů, ${bake.layers.length} vrstev`);
+  }
 
   // ---- stín sloupu: vzorky podlahy, kam světlo haly bez sloupu svítí a přes sloup ne
   const segHitsBox = (a, b, box) => {
@@ -230,7 +276,10 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
   const moved = { ...level, brushes: level.brushes.map((b, i) => (i ? b : { ...b, max: [b.max[0] + 0.5, b.max[1], b.max[2]] })) };
   const l0 = level.lights[0];
   const hidden = { ...level, brushes: level.brushes.map((b, i) => (i ? b : { ...b, vis: false })) };
-  ok(dec.header.geometry === geometryHash(level, LIGHT_CELL, G.materials) && geometryHash(moved, LIGHT_CELL, G.materials) !== dec.header.geometry && geometryHash(hidden, LIGHT_CELL, G.materials) !== dec.header.geometry, 'otisk geometrie se změní s kvádrem i s jeho viditelností; hlavička nese znění mřížky', `mřížka znění ${dec.header.grid}`);
+  const geo = (lv) => geometryHash(lv, LIGHT_CELL, G.materials, G.prefabs);
+  const shifted = { ...level, entities: level.entities.map((e, i) => (i ? e : { ...e, pos: [e.pos[0] + 0.1, e.pos[1], e.pos[2]] })) };
+  ok(dec.header.geometry === geo(level) && geo(moved) !== dec.header.geometry && geo(hidden) !== dec.header.geometry && geo(shifted) !== dec.header.geometry, 'otisk geometrie se změní s kvádrem, jeho viditelností i s polohou entity; hlavička nese znění mřížky', `mřížka znění ${dec.header.grid}`);
+  ok(Array.isArray(dec.header.entities) && dec.header.entities.length === bake.entities.length && dec.header.entities.every(([id, n], i) => id === bake.entities[i].id && n === bake.entities[i].count) && dec.header.samples === dec.header.brushes.reduce((n, [, c]) => n + c, 0) + dec.header.entities.reduce((n, [, c]) => n + c, 0), 'hlavička nese entities [id, počet vzorků] a součet kvádrů a entit je počet vzorků (D-041)', `${dec.header.entities.length} entit`);
   ok(lightHash({ ...l0, intensity: l0.intensity + 1 }) !== lightHash(l0) && lightHash({ ...l0, color: [0, 0, 1] }) === lightHash(l0), 'otisk světla se změní se svítivostí, ne s barvou');
 }
 

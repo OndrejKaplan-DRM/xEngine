@@ -23,6 +23,7 @@ export const DEFAULTS = {
   aoRadius: 1.5, // do jaké vzdálenosti překážka ubírá okolní světlo (m)
   clear: 0.3, // posledních 0,3 m před světlem se nestíní (světlo sedí ve svítidle nebo těsně u stropu)
   entityLights: true, // zapéct i bodová světla prefabů na nepohyblivých uzlech
+  entitySamples: true, // vzorky i na pevných dílech prefabů (D-041); false = jen kvádry (stav před D-041, ke srovnání)
 };
 
 const OUT = -3; // světlo na vzorek nedosáhne, nebo vzorek leží v tělese
@@ -58,7 +59,8 @@ function hemisphere(k) {
 
 /**
  * Zapečení levelu. prefabs: Map id → prefab, materials: { id: { color } }.
- * Vrací { cell, samples, brushes: [{ id, count }], layers, lights, stats, valid, indirectWeight, scene, doors }.
+ * Vrací { cell, samples, brushes: [{ id, count }], entities: [{ id, count }], layers, lights, stats, valid, indirectWeight, scene, doors }.
+ * Vzorky v pořadí levelSamples (D-041): kvádry, potom pevné díly prefabů po entitách.
  * Vrstva: { id, kind, ref, channels, data: Float32Array[samples × channels], gates: [{ gate: [id dveří…], idx, e }] }.
  * data je část bez brány; gates jsou úseky za dveřmi (řídké: indexy vzorků vzestupně a E při plné úrovni).
  */
@@ -66,8 +68,11 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
   const o = { ...DEFAULTS, ...opts };
   const t0 = performance.now();
   const G = buildGates(level, prefabs, o.gates && o.occlusion);
-  const S = buildScene(level, prefabs, o.cell, G.wings, materials);
+  const S = buildScene(level, prefabs, o.cell, G.wings, materials, o.entitySamples);
   const N = S.n;
+  // vzorek na dílu prefabu: vlastní kolize entity ho nestíní (díly téže entity si nestíní, kolize je jen obal)
+  const entIds = (level.entities || []).map((e) => e.id);
+  const own = (s) => (S.entOf[s] >= 0 ? entIds[S.entOf[s]] : null);
   const stats = { samples: N, blockers: S.blockers.length, skippedColliders: S.skippedColliders, doors: G.doors.length, shadowRays: 0, softened: 0, gated: 0, bounceRays: 0, invalid: 0 };
   const org = [0, 0, 0];
   const dir = [0, 0, 0];
@@ -85,7 +90,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
       dir[0] = S.nrm[s * 3];
       dir[1] = S.nrm[s * 3 + 1];
       dir[2] = S.nrm[s * 3 + 2];
-      const h = S.nearest(org, dir, 1e-4, null, wings);
+      const h = S.nearest(org, dir, 1e-4, null, wings, own(s));
       if (h && h.t === 0) v[s] = 0;
     }
     return v;
@@ -128,7 +133,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
   const patch = {};
 
   /** Cesta z bodu ke světlu: BLOCKED, nebo brána (0 = volno bez dveří v cestě). */
-  const trace = (L, x, y, z) => {
+  const trace = (L, x, y, z, self = null) => {
     const lt = L.light;
     p[0] = x;
     p[1] = y;
@@ -159,7 +164,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
       far = len - o.clear;
     }
     stats.shadowRays++;
-    if (far > 0 && S.any(p, dir, far, L.skip || null, false)) return BLOCKED;
+    if (far > 0 && S.any(p, dir, far, L.skip || null, false, self)) return BLOCKED;
     return G.crossing(x, y, z, tx, ty, tz);
   };
 
@@ -192,6 +197,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
       from[0] = S.org[s * 3];
       from[1] = S.org[s * 3 + 1];
       from[2] = S.org[s * 3 + 2];
+      const self = own(s);
       tally.clear();
       let counted = 0;
       for (let i = 0; i < n; i++) {
@@ -206,9 +212,9 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
           len = Math.sqrt(len);
           if (len > 1e-6) {
             for (let c = 0; c < 3; c++) dir[c] = (to[c] - from[c]) / len;
-            if (S.any(from, dir, len, null, false)) continue;
+            if (S.any(from, dir, len, null, false, self)) continue;
           }
-          const g = trace(L, to[0], to[1], to[2]);
+          const g = trace(L, to[0], to[1], to[2], self);
           counted++;
           tally.set(g, (tally.get(g) || 0) + 1);
         }
@@ -236,7 +242,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
       const e = lightIrradiance(lt, S.pos[s * 3], S.pos[s * 3 + 1], S.pos[s * 3 + 2], S.nrm[s * 3], S.nrm[s * 3 + 1], S.nrm[s * 3 + 2]);
       if (e <= 0) continue;
       E[s] = e;
-      state[s] = o.occlusion ? trace(L, S.org[s * 3], S.org[s * 3 + 1], S.org[s * 3 + 2]) : 0;
+      state[s] = o.occlusion ? trace(L, S.org[s * 3], S.org[s * 3 + 1], S.org[s * 3 + 2], own(s)) : 0;
     }
     if (o.occlusion && o.soft > 1) soften(L, mix);
     for (let s = 0; s < N; s++) if (state[s] >= 0) plane(state[s])[s] = E[s];
@@ -263,9 +269,11 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
     const albedo = level.brushes.map((b) => (materials[b.mat] && materials[b.mat].color) || [0.5, 0.5, 0.5]);
     // Plocha půl metru od světla má osvětlení o dva řády vyšší než zbytek místnosti a paprsky ji trefí jen občas:
     // bez omezení z toho vznikají světlé skvrny. Zdroj odrazu se proto omezí na násobek průměrného osvětlení.
+    // průměr jen přes vzorky kvádrů: zdrojem odrazu jsou jen kvádry (vzorky dílů prefabů ho nemění, D-041)
+    const NB = S.entityOffsets.length ? S.entityOffsets[0] : N;
     let lit = 0;
     let litSum = 0;
-    for (let s = 0; s < N; s++) {
+    for (let s = 0; s < NB; s++) {
       const l = (baseRGB[s * 3] + baseRGB[s * 3 + 1] + baseRGB[s * 3 + 2]) / 3;
       if (l > 0) {
         lit++;
@@ -296,6 +304,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
       org[0] = S.org[s * 3];
       org[1] = S.org[s * 3 + 1];
       org[2] = S.org[s * 3 + 2];
+      const self = own(s);
       let occ = 0;
       const sum = [0, 0, 0];
       for (const d of dirs) {
@@ -305,7 +314,7 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
         dir[1] = t[1] * x + b[1] * y + n[1] * d[2];
         dir[2] = t[2] * x + b[2] * y + n[2] * d[2];
         stats.bounceRays++;
-        const h = S.nearest(org, dir, 60, null, true);
+        const h = S.nearest(org, dir, 60, null, true, self);
         if (!h) continue;
         if (h.t < o.aoRadius) occ += 1 - h.t / o.aoRadius;
         if (h.B.brush === undefined) continue; // kolize prefabů nemají vzorky: počítají se jen do přístupnosti
@@ -346,5 +355,5 @@ export function bakeLevel(level, prefabs, materials, opts = {}) {
 
   stats.gates = G.count() - 1;
   stats.ms = performance.now() - t0;
-  return { cell: o.cell, samples: N, brushes: level.brushes.map((b, i) => ({ id: b.id, count: S.counts[i] })), layers, lights, stats, valid: validD, indirectWeight: o.indirectWeight, scene: S, doors: G.doors.map((d) => ({ id: d.id, portal: d.portal })), wings: [...G.wings], clear: o.clear };
+  return { cell: o.cell, samples: N, brushes: level.brushes.map((b, i) => ({ id: b.id, count: S.counts[i] })), entities: S.entityCounts.map(([id, count]) => ({ id, count })), layers, lights, stats, valid: validD, indirectWeight: o.indirectWeight, scene: S, doors: G.doors.map((d) => ({ id: d.id, portal: d.portal })), wings: [...G.wings], clear: o.clear };
 }

@@ -183,16 +183,16 @@ function buildTree(items) {
 }
 
 /**
- * Dotazy nad stínítky. skip = id entity, která se nepočítá (svítidlo si nestíní); wings = stíní i křídla dveří
- * v portálech (false pro přímé světlo, true pro odraz a přístupnost).
- *   any(o, d, tMax, skip, wings)      je na úseku překážka?
- *   nearest(o, d, tMax, skip, wings)  první zásah { t, B } nebo null
+ * Dotazy nad stínítky. skip, skip2 = id entit, které se nepočítají (svítidlo si nestíní, díly entity se vzorky
+ * si nestíní, D-041); wings = stíní i křídla dveří v portálech (false pro přímé světlo, true pro odraz a přístupnost).
+ *   any(o, d, tMax, skip, wings, skip2)      je na úseku překážka?
+ *   nearest(o, d, tMax, skip, wings, skip2)  první zásah { t, B } nebo null
  */
 export function buildRays(blockers) {
   const root = buildTree(blockers);
   const stack = [];
   const inside = (o, nd) => o[0] >= nd.min[0] && o[0] <= nd.max[0] && o[1] >= nd.min[1] && o[1] <= nd.max[1] && o[2] >= nd.min[2] && o[2] <= nd.max[2];
-  const walk = (o, d, tMax, skip, wings, first) => {
+  const walk = (o, d, tMax, skip, wings, first, skip2) => {
     let best = null;
     let bestT = tMax;
     stack.length = 0;
@@ -202,7 +202,7 @@ export function buildRays(blockers) {
       if (!slab(o, d, nd.min, nd.max, -EPS, bestT + EPS) && !inside(o, nd)) continue;
       if (nd.items) {
         for (const B of nd.items) {
-          if ((B.wing && !wings) || (skip && B.entity === skip)) continue;
+          if ((B.wing && !wings) || (B.entity !== undefined && (B.entity === skip || B.entity === skip2))) continue;
           const t = hit(B, o, d, bestT);
           if (t < 0) continue;
           if (first) return { t, B };
@@ -218,7 +218,7 @@ export function buildRays(blockers) {
     return best;
   };
   return {
-    any: (o, d, tMax, skip = null, wings = false) => walk(o, d, tMax, skip, wings, true) !== null,
-    nearest: (o, d, tMax, skip = null, wings = false) => walk(o, d, tMax, skip, wings, false),
+    any: (o, d, tMax, skip = null, wings = false, skip2 = null) => walk(o, d, tMax, skip, wings, true, skip2) !== null,
+    nearest: (o, d, tMax, skip = null, wings = false, skip2 = null) => walk(o, d, tMax, skip, wings, false, skip2),
   };
 }

@@ -1,10 +1,12 @@
 // xBake, scéna: vzorky světla a jejich plochy.
-// Vzorky levelu definuje levelLightMeshes ze základu (kontrakt: 02_KONTRAKTY, Světlo; mřížka znění 2, D-037):
-// jedna síť na kvádr v pořadí kvádrů, bez ploch schovaných celé v jiném kvádru, null pro kvádr s vis: false.
+// Vzorky levelu definuje levelSamples ze základu (kontrakt: 02_KONTRAKTY, Světlo; mřížka znění 2, D-037; D-041):
+// nejdřív jedna síť na kvádr v pořadí kvádrů (bez ploch schovaných celé v jiném kvádru, null pro kvádr s vis: false),
+// potom vrcholy pevných dílů prefabů po entitách. Plocha dílu prefabu = souvislá část jeho sítě (stěna kvádru,
+// plášť a podstavy válce); mřížku řad a sloupců nemá, takže okraj stínu na ní není po podílech.
 // Počet, pořadí ani rozteč vrcholů se tu nikde nepředpokládá: plocha si nese skutečné souřadnice svých řad
 // a sloupců (vrcholy leží na násobcích buňky ve světě, krajní dílky jsou kratší). Stínítka a paprsky jsou v rays.mjs.
 
-import { levelLightMeshes, LIGHT_CELL } from '../../src/xspace/index.js';
+import { levelSamples, LIGHT_CELL } from '../../src/xspace/index.js';
 import { buildBlockers, buildRays } from './rays.mjs';
 
 export const NORMAL_OFFSET = 0.02; // počátek paprsku leží 2 cm nad plochou (stejně jako běh)…
@@ -24,9 +26,36 @@ function nearestIndex(arr, x) {
   return Math.abs(arr[hi] - x) < Math.abs(arr[lo] - x) ? hi : lo;
 }
 
-/** Vzorky: polohy, normály, počátky paprsků, plochy (kvůli nejbližšímu vzorku, plošce vzorku a doplnění zakrytých). */
-export function buildSamples(level, cell = LIGHT_CELL, materials = null) {
-  const meshes = levelLightMeshes(level.brushes, materials, cell);
+/** Souvislé části sítě (po hranách trojúhelníků): pro každý vrchol číslo části, části číslované od 0. */
+function components(count, indices) {
+  const up = Int32Array.from({ length: count }, (_, i) => i);
+  const find = (i) => {
+    while (up[i] !== i) i = up[i] = up[up[i]];
+    return i;
+  };
+  for (let k = 0; k < indices.length; k += 3) {
+    const a = find(indices[k]);
+    for (let q = 1; q < 3; q++) {
+      const b = find(indices[k + q]);
+      if (b !== a) up[b] = a;
+    }
+  }
+  const id = new Map();
+  return Int32Array.from({ length: count }, (_, i) => {
+    const r = find(i);
+    if (!id.has(r)) id.set(r, id.size);
+    return id.get(r);
+  });
+}
+
+/**
+ * Vzorky: polohy, normály, počátky paprsků, plochy (kvůli nejbližšímu vzorku, plošce vzorku a doplnění zakrytých).
+ * prefabs (Map id → prefab) přidá vzorky pevných dílů prefabů (D-041); bez nich jen kvádry.
+ * entOf[s] = index entity v level.entities (−1 u kvádru): díly entity si nestíní.
+ */
+export function buildSamples(level, cell = LIGHT_CELL, materials = null, prefabs = null) {
+  const L = levelSamples(prefabs ? level : { ...level, entities: [] }, prefabs || new Map(), materials, cell);
+  const meshes = L.brushes;
   const counts = meshes.map((m) => (m ? m.positions.length / 3 : 0));
   const offsets = [];
   let n = 0;
@@ -34,6 +63,13 @@ export function buildSamples(level, cell = LIGHT_CELL, materials = null) {
     offsets.push(n);
     n += c;
   }
+  const entityCounts = L.entityCounts;
+  const entityOffsets = [];
+  for (const [, c] of entityCounts) {
+    entityOffsets.push(n);
+    n += c;
+  }
+  const entOf = new Int32Array(n).fill(-1);
   const pos = new Float64Array(n * 3);
   const nrm = new Float64Array(n * 3);
   const org = new Float64Array(n * 3);
@@ -110,13 +146,56 @@ export function buildSamples(level, cell = LIGHT_CELL, materials = null) {
       faces.push(f);
     }
   });
+  // pevné díly prefabů: plocha = souvislá část sítě dílu; počátek paprsku 2 cm nad plochou a 1 cm k jejímu středu
+  L.entities.forEach((m, ei) => {
+    if (!m) return;
+    const off = entityOffsets[ei];
+    pos.set(m.positions, off * 3);
+    nrm.set(m.normals, off * 3);
+    entOf.fill(ei, off, off + m.positions.length / 3);
+    for (const [, v0, cnt] of m.parts) {
+      const idx = [];
+      for (const k of m.indices) if (k >= v0 && k < v0 + cnt) idx.push(k - v0);
+      const comp = components(cnt, idx);
+      const nComp = comp.reduce((a, c) => Math.max(a, c + 1), 0);
+      const cen = Array.from({ length: nComp }, () => [0, 0, 0, 0]);
+      for (let v = 0; v < cnt; v++) {
+        const c = cen[comp[v]];
+        for (let q = 0; q < 3; q++) c[q] += m.positions[(v0 + v) * 3 + q];
+        c[3]++;
+      }
+      const faceBase = faces.length;
+      for (const c of cen) {
+        const f = { brush: -1, entity: ei, base: -1, count: c[3], n: null, p0: [c[0] / c[3], c[1] / c[3], c[2] / c[3]], cols: 0, rows: 0, eu: null, ev: null, us: null, vs: null };
+        faces.push(f);
+      }
+      for (let k = 0; k < idx.length; k += 3) {
+        const t = [off + v0 + idx[k], off + v0 + idx[k + 1], off + v0 + idx[k + 2]];
+        for (let q = 0; q < 3; q++) pairs.push(t[q], t[(q + 1) % 3], t[(q + 1) % 3], t[q]);
+      }
+      for (let v = 0; v < cnt; v++) {
+        const sIdx = off + v0 + v;
+        const f = faces[faceBase + comp[v]];
+        if (f.base < 0) {
+          f.base = sIdx;
+          f.n = [nrm[sIdx * 3], nrm[sIdx * 3 + 1], nrm[sIdx * 3 + 2]];
+        }
+        const sp = sIdx * 3;
+        const to = [f.p0[0] - pos[sp], f.p0[1] - pos[sp + 1], f.p0[2] - pos[sp + 2]];
+        const len = Math.hypot(...to);
+        const k = len > INWARD ? INWARD / len : 0;
+        for (let q = 0; q < 3; q++) org[sp + q] = pos[sp + q] + nrm[sp + q] * NORMAL_OFFSET + to[q] * k;
+        faceOf[sIdx] = faceBase + comp[v];
+      }
+    }
+  });
   // sousedé vrcholů (po hranách trojúhelníků téže plochy) v řídkém zápisu
   for (let k = 0; k < pairs.length; k += 2) nbrStart[pairs[k] + 1]++;
   for (let i = 0; i < n; i++) nbrStart[i + 1] += nbrStart[i];
   const nbr = new Uint32Array(pairs.length / 2);
   const fill = nbrStart.slice(0, n);
   for (let k = 0; k < pairs.length; k += 2) nbr[fill[pairs[k]]++] = pairs[k + 1];
-  return { n, counts, offsets, pos, nrm, org, faces, facesOf, faceOf, nbr, nbrStart };
+  return { n, counts, offsets, entityCounts, entityOffsets, entOf, pos, nrm, org, faces, facesOf, faceOf, nbr, nbrStart };
 }
 
 const ON_FACE = 0.05; // m; bod zásahu musí ležet v rovině plochy, jinak plocha se vzorky pro něj neexistuje
@@ -172,8 +251,8 @@ export function samplePatch(S, s, out = {}) {
 }
 
 /** Scéna pro zapékání: vzorky, stínítka a dotazy any() a nearest() (viz rays.mjs). */
-export function buildScene(level, prefabs, cell = LIGHT_CELL, wingEntities = new Set(), materials = null) {
-  const S = buildSamples(level, cell, materials);
+export function buildScene(level, prefabs, cell = LIGHT_CELL, wingEntities = new Set(), materials = null, entitySamples = true) {
+  const S = buildSamples(level, cell, materials, entitySamples ? prefabs : null);
   const { list, skipped } = buildBlockers(level, prefabs, wingEntities, materials);
   return { ...S, blockers: list, skippedColliders: skipped, ...buildRays(list) };
 }
