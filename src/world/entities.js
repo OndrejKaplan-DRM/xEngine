@@ -9,7 +9,7 @@ import { decompose, compose, mul4 } from '../phys/xform.js';
 import { addFacets } from './facets.js';
 import { makeJoint, stepJoint, MOVED } from './joints.js';
 import { GUARDED, guardOf, obstructed, revertStep } from './blocking.js';
-import { swingBoth } from './swing.js';
+import { swingBoth, portalDoorIds } from './swing.js';
 
 const CELL_CHECK_FRAMES = 16;
 
@@ -39,11 +39,13 @@ export function createEntities({ phys, render, world, light, pack }) {
   let behave = null;
   /** id entity dveří → buňky po obou stranách jejího portálu. */
   const doorCells = new Map();
+  /** Dveře v průchodech mezi buňkami (jen jim nastavení „Dveře od hráče“ rozšíří rozsah). */
+  let roomDoors = new Set();
 
   function instantiate(def, index) {
     let prefab = prefabs.get(def.prefab);
     if (!prefab) throw new Error(`Entita „${def.id}“ odkazuje na prefab „${def.prefab}“, který v balíku není.`);
-    if (sys.doorsAway) prefab = swingBoth(prefab);
+    if (sys.doorsAway && roomDoors.has(def.id)) prefab = swingBoth(prefab);
     const comp = prefab.components || {};
     const bodyKind = comp.physics?.body || 'static';
     const kind = comp.interact?.kind || null;
@@ -317,6 +319,7 @@ export function createEntities({ phys, render, world, light, pack }) {
       doorCells.clear();
       for (const p of ctx.level.portals || []) if (p.door) doorCells.set(p.door, [p.a, p.b]);
       sys.builtAway = sys.doorsAway;
+      roomDoors = portalDoorIds(ctx.level);
       list = (ctx.level.entities || []).map(instantiate);
       byId = new Map(list.map((e) => [e.id, e]));
       for (const ent of list) {

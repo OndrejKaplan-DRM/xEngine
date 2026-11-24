@@ -97,4 +97,23 @@ function setup(game) {
   ok(game.entities.doorsAway === false && a === j.def.min && j.value === j.def.max && fired('opened') === 2 && fired('closed') === 1, 'prefab s rozsahem na obě strany v datech se chová stejně i bez přepínače', `z kladné strany ${a}°, ze záporné ${j.value}°`);
 }
 
+// ---- 4. jen dveře v průchodech: dvířka nábytku (stejná interakce door) se nerozšiřují; druhé křídlo dvoukřídlých ano
+{
+  const { readPackFull } = await import('../tools/lib/read-pack.mjs');
+  const { portalDoorIds } = await import('../src/world/swing.js');
+  const pack = await readPackFull(new URL('../packs/gen_demo', import.meta.url).pathname);
+  const game = await makeGame({ shadows: false, doorsAway: true, pack });
+  game.start();
+  const L = game.session.level;
+  const room = portalDoorIds(L);
+  const widened = (e) => e.kind === 'door' && e.joints[0]?.def.type === 'hinge' && e.joints[0].def.min < e.joints[0].rest;
+  const hingeDoors = game.entities.list.filter((e) => e.kind === 'door' && e.joints[0]?.def.type === 'hinge');
+  const furniture = hingeDoors.filter((e) => !room.has(e.id));
+  const rooms = hingeDoors.filter((e) => room.has(e.id));
+  const wings = rooms.filter((e) => !(L.portals || []).some((p) => p.door === e.id));
+  const byPrefab = (list) => [...new Set(list.map((e) => e.prefab.id))].join(', ');
+  ok(furniture.length > 0 && furniture.every((e) => !widened(e)), 'dvířka nábytku se nerozšiřují (otvírala by se do nábytku)', `${L.id}: ${furniture.length} kusů (${byPrefab(furniture)})`);
+  ok(rooms.length > 0 && rooms.every(widened) && wings.length > 0, 'dveře v průchodech včetně druhých křídel dvoukřídlých dveří se rozšiřují', `${rooms.length} dveří, z toho ${wings.length} druhých křídel (${byPrefab(wings)})`);
+}
+
 process.exit(h.finish('A1.4 dveře od hráče, návrh N-109 (Node)'));

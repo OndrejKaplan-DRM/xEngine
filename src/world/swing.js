@@ -4,6 +4,35 @@
 // tenhle soubor zmizí.
 
 const widened = new Map();
+/** Jak daleko od roviny a okraje otvoru portálu smí ležet počátek dveří (m). */
+const PORTAL_TOL = 0.15;
+
+/**
+ * Id entit, které jsou dveřmi v průchodu mezi buňkami: `portals[].door` a navíc každá entita, jejíž počátek leží
+ * v otvoru portálu (druhé křídlo dvoukřídlých dveří v portálu zapsané není). Dvířka nábytku (skříň, lednice,
+ * víko truhly) mají stejnou interakci `door`, ale v otvoru portálu nestojí; jejich „od hráče“ by znamenalo
+ * dovnitř nábytku.
+ */
+export function portalDoorIds(level) {
+  const ids = new Set();
+  const boxes = [];
+  for (const p of level.portals || []) {
+    if (p.door) ids.add(p.door);
+    if (!p.quad) continue;
+    const min = [Infinity, Infinity, Infinity];
+    const max = [-Infinity, -Infinity, -Infinity];
+    for (const q of p.quad) for (let k = 0; k < 3; k++) {
+      min[k] = Math.min(min[k], q[k] - PORTAL_TOL);
+      max[k] = Math.max(max[k], q[k] + PORTAL_TOL);
+    }
+    boxes.push({ min, max });
+  }
+  for (const e of level.entities || []) {
+    const p = e.pos || [0, 0, 0];
+    if (boxes.some((b) => p.every((v, k) => v >= b.min[k] && v <= b.max[k]))) ids.add(e.id);
+  }
+  return ids;
+}
 
 export function swingBoth(prefab) {
   const j = prefab.rig?.joints?.[0];

@@ -9,7 +9,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 ## 1. Kde jsme (čti první)
 
 **Teď:**
-- [ ] prověřit Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): podezření, že nastavení „Dveře od hráče“ rozšiřuje rozsah i dvířkům nábytku (skříň, lednice, okno mají interakci `door`)
+- [x] Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): (1) nastavení „Dveře od hráče“ rozšiřovalo rozsah i 16 kusům nábytku v `complex_7` (skříně, lednice, víka centrifug; v katakombách víka truhel), které by se otevřely dovnitř; teď jen dveře v otvoru portálu, včetně druhého křídla (`a_14_swing`). (2) Černá stěna kartotéky není chyba výpočtu: lampa visí přesně nad šířkou kartotéky (x 10,85 m, kartotéka 10,40 až 10,86 m), na boky přímé světlo nedopadne a zbývá okolní člen 0,05. Chybí odražené světlo (vrstva `indirect` ze xBake, D-035); otázka pro Ondřeje
 - [ ] A2.5 nová pole základu: `screen.offset`, `JOINT_TRAVEL_SECONDS` z `formats.js`, `interact.seeThrough` a `portals[].passable` v ořezu, `materials[].opacity`
 
 **Další:**
@@ -59,7 +59,7 @@ Rozhodnutí, která sešna A udělala sama ve své oblasti. Projektová rozhodnu
 | 23. 11. | mřížka 0,25 m jen jako volba, výchozí 0,5 m | na 0,5 m stojí zapečené světlo z xBake | 0,25 m výchozí | nastavení Mřížka světla |
 | 23. 11. | obal Rapieru prochází tělesa jen v kroku po změně (`phys.lazyMap`) | 91 z 95 µs kroku byl tenhle obal; tělesa vznikají jen přes `phys.js` | jiný počet koliderů, jiný engine | `b77837f`, `a_12_step` (výsledek shodný na bit) |
 | 24. 11. | stíny po 5 cm ne vrcholy, ale textura světla (návrh N-110) | xLab by měl 1,45 mil. bodů, `complex_7` 3,18 mil.; rozpočet T460 je 300 tisíc △ | mřížka 0,05 m | `docs/navrhy/N-110-svetlo-v-texture.md` |
-| 24. 11. | dveře od hráče: strana podle polohy hráče; rozsah na obě strany dočasně kopií prefabu | Ondřej (4 b, potom 2 a); data jsou sešny B | měnit balík | `behaviors.js`, `swing.js`, N-109 |
+| 24. 11. | dveře od hráče: strana podle polohy hráče; rozsah na obě strany dočasně kopií prefabu, jen dveřím v otvoru portálu | Ondřej (4 b, potom 2 a); data jsou sešny B; dvířka nábytku mají tutéž interakci `door` a otevřela by se dovnitř | měnit balík; všem prefabům `door` | `behaviors.js`, `swing.js`, N-109, `a_14_swing` |
 | 24. 11. | zorné pole = vodorovný úhel při 4 : 3, svislý z něj, strop 120° na šířku | číslo šlo do kamery jako svislý úhel; na okně 2,18 : 1 bylo „110“ 144° | svislý úhel jako dosud | `src/render/fov.js` |
 | 24. 11. | `?bench` měří vykreslení dávkou opakovaných snímků a jedním čtením bodu | čtení po každém snímku vrátilo na T460 obnovu displeje (15,2 až 16,1 ms ve všech buňkách) | čas kolem `E.tick` | `draw.ms` v JSON |
 
@@ -205,7 +205,8 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 - **Čas grafiky ve hře na T460** (`draw.ms`); proto zatím ani výchozí 1 080 řádků.
 - **Zorné pole po opravě**: na T460 se uplatnilo (F3 117° × 74°), jestli je příjemné, řekne Ondřej.
 - **Terminál po Esc a Pokračovat**: hráč má dál sedět a kurzor poslouchat; ověřeno jen s podvrženým zámkem v headless prohlížeči.
-- **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozsah se dnes rozšiřuje všem prefabům s interakcí `door` a kloubem `hinge`, tedy možná i dvířkům nábytku (prověřuji, oddíl 1).
+- **Dveře od hráče v levelech sešny B**: prefaby dveří mají v zárubni doraz, křídlo jím při otevření na druhou stranu projde (jen vzhled). Rozšiřují se jen dveře v otvoru portálu (37 v `complex_7`), nábytek ne.
+- **Odražené světlo chybí**: plochy, na které žádná lampa přímo nesvítí, mají jen okolní člen levelu (`complex_7`: 0,05, tedy skoro černé). Řešení je vrstva `indirect` ze zapečeného souboru; běh ho zatím nečte (dluh základu).
 - **D-025 a obsah zásuvky** (věc se má vézt se zásuvkou); zlatý vzorek zásuvku s obsahem nemá.
 - **D-025 v levelech sešny B**: jestli se tam dveře někde zastaví o hráče tak, že překáží, jsem nehledala.
 - **Odchylka barev po tisících přepnutí** světel nebo dveří (rozdíl v jednoduché přesnosti; po jednom cyklu pod 1e-5).
