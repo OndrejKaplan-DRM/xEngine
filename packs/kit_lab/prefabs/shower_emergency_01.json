@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shower_emergency_01",
+  "title": "Nouzová sprcha s oční sprchou",
+  "category": "lab.furniture",
+  "bounds": { "min": [-0.154, -0.001, -0.154], "max": [0.154, 2.217, 0.434] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.01, 0], "radius": 0.15, "height": 0.02, "axis": "y", "mat": "paint_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.1, 0], "radius": 0.02, "height": 2.2, "axis": "y", "mat": "paint_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 2.2, 0.15], "radius": 0.015, "height": 0.3, "axis": "z", "mat": "paint_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 2.15, 0.3], "radius": 0.13, "height": 0.04, "axis": "y", "mat": "paint_green" },
+    { "node": "body", "shape": "cyl", "center": [0, 1, 0.15], "radius": 0.012, "height": 0.3, "axis": "z", "mat": "paint_yellow" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.02, 0.3], "radius": 0.13, "height": 0.04, "axis": "y", "mat": "paint_green" },
+    { "node": "body", "shape": "box", "min": [0.03, 1.5, -0.01], "max": [0.06, 1.8, 0.01], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.15, 1.3, 0.02], "max": [0.15, 1.45, 0.025], "mat": "label_band_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.153, 0, -0.153], "max": [0.153, 2.216, 0.433], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 408,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/furniture.mjs#fumehoodAndMore",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

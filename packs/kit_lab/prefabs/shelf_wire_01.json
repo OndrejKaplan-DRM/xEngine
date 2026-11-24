@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shelf_wire_01",
+  "title": "Drátěný regál 0,9 m",
+  "category": "lab.furniture",
+  "bounds": { "min": [-0.451, -0.001, -0.226], "max": [0.451, 1.801, 0.226] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.225], "max": [-0.426, 1.8, -0.201], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0, 0.201], "max": [-0.426, 1.8, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.426, 0, -0.225], "max": [0.45, 1.8, -0.201], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.426, 0, 0.201], "max": [0.45, 1.8, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.12, -0.225], "max": [0.45, 0.145, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.52, -0.225], "max": [0.45, 0.545, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.92, -0.225], "max": [0.45, 0.945, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 1.32, -0.225], "max": [0.45, 1.345, 0.225], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 1.72, -0.225], "max": [0.45, 1.745, 0.225], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.225], "max": [0.45, 1.8, 0.225], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/furniture.mjs#shelving",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

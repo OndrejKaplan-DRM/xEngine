@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "reactor_jacketed_50_01",
+  "title": "Skleněný duplikovaný reaktor 50 l v rámu",
+  "category": "lab.furniture",
+  "bounds": { "min": [-0.421, -0.001, -0.341], "max": [0.421, 2.101, 0.341] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.42, 0, -0.34], "max": [-0.38, 2.1, -0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.42, 0, 0.3], "max": [-0.38, 2.1, 0.34], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.38, 0, -0.34], "max": [0.42, 2.1, -0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.38, 0, 0.3], "max": [0.42, 2.1, 0.34], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.42, 1.32, -0.34], "max": [0.42, 1.36, 0.34], "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.49, 0], "radius": 0.14, "height": 0.12, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.875, 0], "radius": 0.24, "height": 0.65, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.491, 0], "radius": 0.138, "height": 0.118, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.7018, 0], "radius": 0.238, "height": 0.3035, "axis": "y", "mat": "liquid_amber" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.875, 0], "radius": 0.27, "height": 0.52, "axis": "y", "mat": "glass_tinted" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.45, 0], "radius": 0.08, "height": 0.2, "axis": "y", "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0.2, 1.8, 0], "radius": 0.04, "height": 0.6, "axis": "y", "mat": "glass_lab" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.35, 0], "radius": 0.02, "height": 0.15, "axis": "y", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.42, 0, -0.34], "max": [0.42, 2.1, 0.34], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 572,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/furniture.mjs#reactors",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

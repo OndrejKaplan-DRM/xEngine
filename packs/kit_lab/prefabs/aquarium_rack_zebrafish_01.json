@@ -1,0 +1,63 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "aquarium_rack_zebrafish_01",
+  "title": "Regál nádrží pro chov dánií",
+  "category": "lab.animal",
+  "bounds": { "min": [-0.621, -0.001, -0.221], "max": [0.621, 1.901, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.62, 0, -0.22], "max": [-0.58, 1.9, -0.18], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.62, 0, 0.18], "max": [-0.58, 1.9, 0.22], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.58, 0, -0.22], "max": [0.62, 1.9, -0.18], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.58, 0, 0.18], "max": [0.62, 1.9, 0.22], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.62, 0.2, -0.22], "max": [0.62, 0.22, 0.22], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.58, 0.22, -0.16], "max": [-0.24, 0.47, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.57, 0.23, -0.15], "max": [-0.25, 0.42, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.58, 0.47, -0.16], "max": [-0.24, 0.49, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.19, 0.22, -0.16], "max": [0.15, 0.47, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.18, 0.23, -0.15], "max": [0.14, 0.42, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.19, 0.47, -0.16], "max": [0.15, 0.49, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.2, 0.22, -0.16], "max": [0.54, 0.47, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [0.21, 0.23, -0.15], "max": [0.53, 0.42, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [0.2, 0.47, -0.16], "max": [0.54, 0.49, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.62, 0.78, -0.22], "max": [0.62, 0.8, 0.22], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.58, 0.8, -0.16], "max": [-0.24, 1.05, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.57, 0.81, -0.15], "max": [-0.25, 1, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.58, 1.05, -0.16], "max": [-0.24, 1.07, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.19, 0.8, -0.16], "max": [0.15, 1.05, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.18, 0.81, -0.15], "max": [0.14, 1, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.19, 1.05, -0.16], "max": [0.15, 1.07, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.2, 0.8, -0.16], "max": [0.54, 1.05, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [0.21, 0.81, -0.15], "max": [0.53, 1, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [0.2, 1.05, -0.16], "max": [0.54, 1.07, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.62, 1.36, -0.22], "max": [0.62, 1.38, 0.22], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.58, 1.38, -0.16], "max": [-0.24, 1.63, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.57, 1.39, -0.15], "max": [-0.25, 1.58, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.58, 1.63, -0.16], "max": [-0.24, 1.65, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.19, 1.38, -0.16], "max": [0.15, 1.63, 0.16], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.18, 1.39, -0.15], "max": [0.14, 1.58, 0.15], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.19, 1.63, -0.16], "max": [0.15, 1.65, 0.16], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.62, 1.82, -0.22], "max": [0.62, 1.86, 0.22], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [0.55, 1, 0.18], "radius": 0.012, "height": 1.7, "axis": "y", "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.62, 0, -0.22], "max": [0.62, 1.9, 0.22], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 448,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/animal.mjs#aquaria",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

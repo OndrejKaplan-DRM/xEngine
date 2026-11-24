@@ -1,0 +1,46 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cage_rabbit_01",
+  "title": "Klec pro králíka na stojanu",
+  "category": "lab.animal",
+  "bounds": { "min": [-0.451, -0.001, -0.301], "max": [0.451, 0.961, 0.301] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0.4, -0.3], "max": [0.45, 0.42, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [-0.43, 0.95, -0.28], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0, 0.28], "max": [-0.43, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.43, 0, -0.3], "max": [0.45, 0.95, -0.28], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.43, 0, 0.28], "max": [0.45, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.95, -0.3], "max": [0.45, 0.96, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.42, 0.42, -0.28], "max": [0.42, 0.46, 0.28], "mat": "paper_kraft" },
+    { "node": "body", "shape": "box", "min": [-0.44, 0.42, 0.29], "max": [-0.435, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.33, 0.42, 0.29], "max": [-0.325, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.22, 0.42, 0.29], "max": [-0.215, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.11, 0.42, 0.29], "max": [-0.105, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0, 0.42, 0.29], "max": [0.005, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.11, 0.42, 0.29], "max": [0.115, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.22, 0.42, 0.29], "max": [0.225, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.33, 0.42, 0.29], "max": [0.335, 0.95, 0.3], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.44, 0.42, 0.29], "max": [0.445, 0.95, 0.3], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [0.45, 0.96, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 192,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/animal.mjs#cages",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bench_lab_sink_01",
+  "title": "Laboratorní stůl s výlevkou, baterií a oční sprchou",
+  "category": "lab.furniture",
+  "bounds": { "min": [-0.751, -0.001, -0.376], "max": [0.751, 1.212, 0.401] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.74, 0, -0.325], "max": [0.74, 0.1, 0.315], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.1, -0.355], "max": [0.75, 0.87, 0.355], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.746, 0.11, 0.355], "max": [-0.254, 0.86, 0.375], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.56, 0.78, 0.375], "max": [-0.44, 0.795, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.246, 0.11, 0.355], "max": [0.246, 0.86, 0.375], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.06, 0.78, 0.375], "max": [0.06, 0.795, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.254, 0.11, 0.355], "max": [0.746, 0.86, 0.375], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [0.44, 0.78, 0.375], "max": [0.56, 0.795, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.874, -0.371], "max": [0.75, 0.896, 0.371], "mat": "bench_phenolic" },
+    { "node": "body", "shape": "box", "min": [-0.746, 0.87, -0.371], "max": [0.746, 0.9, 0.371], "mat": "bench_phenolic" },
+    { "node": "body", "shape": "box", "min": [-0.746, 0.874, -0.375], "max": [0.746, 0.896, 0.375], "mat": "bench_phenolic" },
+    { "node": "body", "shape": "box", "min": [-0.25, 0.7, -0.25], "max": [0.25, 0.9, 0.25], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.23, 0.71, -0.23], "max": [0.23, 0.73, 0.23], "mat": "steel_dark" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.05, -0.32], "radius": 0.012, "height": 0.3, "axis": "y", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.2, -0.22], "radius": 0.01, "height": 0.2, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.5, 0.98, -0.3], "radius": 0.025, "height": 0.12, "axis": "y", "mat": "paint_green" },
+    { "node": "body", "shape": "cyl", "center": [0.5, 1.05, -0.3], "radius": 0.05, "height": 0.02, "axis": "y", "mat": "paint_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.9, -0.375], "max": [0.75, 1.2, -0.345], "mat": "tile_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.75, 0, -0.375], "max": [0.75, 1.211, 0.4], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor", "top": 0.9 }
+  },
+  "tris": 424,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/furniture.mjs#benches",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cage_ivc_rat_01",
+  "title": "Individuálně větraná klec pro potkany",
+  "category": "lab.animal",
+  "bounds": { "min": [-0.136, -0.001, -0.231], "max": [0.136, 0.231, 0.231] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.225], "max": [0.13, 0.2, 0.225], "mat": "plastic_ps" },
+    { "node": "body", "shape": "box", "min": [-0.125, 0.002, -0.22], "max": [0.125, 0.03, 0.22], "mat": "paper_kraft" },
+    { "node": "body", "shape": "box", "min": [-0.135, 0.2, -0.23], "max": [0.135, 0.23, 0.23], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.1, 0.16, -0.195], "max": [0.1, 0.165, 0], "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.065, 0.18, 0.1125], "radius": 0.02, "height": 0.1, "axis": "x", "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.04, 0.1, 0.225], "max": [0.04, 0.14, 0.227], "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.135, 0, -0.23], "max": [0.135, 0.23, 0.23], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 124,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/animal.mjs#cages",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

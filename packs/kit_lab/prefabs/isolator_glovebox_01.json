@@ -1,0 +1,51 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "isolator_glovebox_01",
+  "title": "Izolátor s rukavicemi (třída III)",
+  "category": "lab.animal",
+  "bounds": { "min": [-0.751, -0.001, -0.401], "max": [1.001, 1.901, 0.461] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.675, 0, -0.325], "max": [-0.625, 0.85, -0.275], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.675, 0, 0.275], "max": [-0.625, 0.85, 0.325], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.625, 0, -0.325], "max": [0.675, 0.85, -0.275], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.625, 0, 0.275], "max": [0.675, 0.85, 0.325], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.85, -0.4], "max": [0.75, 0.9, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.9, -0.4], "max": [0.75, 1.6, -0.38], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.75, 0.9, -0.38], "max": [-0.73, 1.6, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [0.73, 0.9, -0.38], "max": [0.75, 1.6, 0.4], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.73, 0.9, 0.38], "max": [0.73, 1.6, 0.4], "mat": "glass_tinted" },
+    { "node": "body", "shape": "box", "min": [-0.75, 1.6, -0.4], "max": [0.75, 1.9, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "cyl", "center": [-0.4, 1.15, 0.43], "radius": 0.08, "height": 0.06, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.15, 0.43], "radius": 0.08, "height": 0.06, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.4, 1.15, 0.43], "radius": 0.08, "height": 0.06, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [-0.4, 1.15, 0.3], "radius": 0.06, "height": 0.2, "axis": "z", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0.4, 1.15, 0.3], "radius": 0.06, "height": 0.2, "axis": "z", "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.75, 1, -0.2], "max": [1, 1.35, 0.2], "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.7, 1.65, 0.399], "max": [-0.3, 1.85, 0.402], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.694, 1.74, 0.402], "max": [-0.46, 1.844, 0.4035], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.692, 1.656, 0.402], "max": [-0.68, 1.664, 0.405], "mat": "cap_green" },
+    { "node": "body", "shape": "box", "min": [-0.564, 1.656, 0.402], "max": [-0.552, 1.664, 0.405], "mat": "plastic_light" },
+    { "node": "body", "shape": "box", "min": [-0.436, 1.656, 0.402], "max": [-0.424, 1.664, 0.405], "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.75, 0, -0.4], "max": [1, 1.9, 0.46], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 512,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/animal.mjs#quarantine",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

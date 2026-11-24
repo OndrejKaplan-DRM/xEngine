@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "aquarium_112l_01",
+  "title": "Akvárium 112 l na stolku",
+  "category": "lab.animal",
+  "bounds": { "min": [-0.406, -0.001, -0.181], "max": [0.406, 1.131, 0.181] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0.006, -0.169], "max": [0.4, 0.694, 0.169], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.394, 0, -0.169], "max": [0.394, 0.7, 0.169], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.394, 0.006, -0.175], "max": [0.394, 0.694, 0.175], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.38, 0.05, 0.175], "max": [0.38, 0.66, 0.18], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.4, 0.7, -0.175], "max": [0.4, 1.1, 0.175], "mat": "glass_lab" },
+    { "node": "body", "shape": "box", "min": [-0.39, 0.705, -0.165], "max": [0.39, 0.75, 0.165], "mat": "dirt_packed" },
+    { "node": "body", "shape": "box", "min": [-0.392, 0.75, -0.167], "max": [0.392, 1.052, 0.167], "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.32, 0.75, -0.1075], "max": [-0.28, 0.91, -0.0675], "mat": "paint_green" },
+    { "node": "body", "shape": "box", "min": [-0.02, 0.75, -0.1075], "max": [0.02, 0.91, -0.0675], "mat": "paint_green" },
+    { "node": "body", "shape": "box", "min": [0.28, 0.75, -0.1075], "max": [0.32, 0.91, -0.0675], "mat": "paint_green" },
+    { "node": "body", "shape": "box", "min": [-0.405, 1.1, -0.18], "max": [0.405, 1.13, 0.18], "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.35, 1.098, -0.0875], "max": [0.35, 1.1, 0.0875], "mat": "emit_cool" },
+    { "node": "body", "shape": "cyl", "center": [0.34, 0.94, -0.135], "radius": 0.015, "height": 0.24, "axis": "y", "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.405, 0, -0.18], "max": [0.405, 1.13, 0.18], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 208,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/animal.mjs#aquaria",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

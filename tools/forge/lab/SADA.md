@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 249 · materiálů: 38 · trojúhelníků celkem: 80272
+Prefabů: 286 · materiálů: 38 · trojúhelníků celkem: 93580
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -255,6 +255,43 @@ Prefabů: 249 · materiálů: 38 · trojúhelníků celkem: 80272
 | `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,82 × 1,13 × 0,82 | 600 | — | — |
 | `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 444 | swing: 0° až 100° | door |
 | `freezer_walkin_01` | Mrazicí komora −20 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 444 | swing: 0° až 100° | door |
+| `bench_lab_wall_01` | Laboratorní stůl ke zdi 1,2 m s nástavbou | lab.furniture | 1,2 × 1,65 × 0,78 | 204 | — | — |
+| `bench_lab_wall_02` | Laboratorní stůl ke zdi 1,5 m s nástavbou | lab.furniture | 1,5 × 1,65 × 0,78 | 240 | — | — |
+| `bench_lab_wall_03` | Laboratorní stůl ke zdi 1,8 m s nástavbou | lab.furniture | 1,8 × 1,65 × 0,78 | 276 | — | — |
+| `bench_lab_island_01` | Laboratorní ostrůvek 2,4 m s policí na obě strany | lab.furniture | 2,4 × 1,7 × 1,53 | 240 | — | — |
+| `bench_lab_sink_01` | Laboratorní stůl s výlevkou, baterií a oční sprchou | lab.furniture | 1,5 × 1,21 × 0,78 | 424 | — | — |
+| `shelf_wire_01` | Drátěný regál 0,9 m | lab.furniture | 0,9 × 1,8 × 0,45 | 108 | — | — |
+| `shelf_wire_02` | Drátěný regál 0,9 m se zásobami | lab.furniture | 0,9 × 2 × 0,45 | 652 | — | — |
+| `shelf_wire_03` | Drátěný regál 1,2 m | lab.furniture | 1,2 × 1,8 × 0,45 | 108 | — | — |
+| `shelf_wire_04` | Drátěný regál 1,2 m se zásobami | lab.furniture | 1,2 × 2 × 0,45 | 788 | — | — |
+| `cabinet_wall_glass_01` | Nástěnná skříňka s prosklenými dvířky | lab.furniture | 1 × 0,7 × 0,37 | 304 | — | — |
+| `cabinet_flammable_01` | Bezpečnostní skříň na hořlaviny | lab.furniture | 1,36 × 1,95 × 1,15 | 108 | swing: 0° až 100° | door |
+| `cabinet_corrosive_01` | Bezpečnostní skříň na kyseliny a louhy | lab.furniture | 1,36 × 1,95 × 1,15 | 108 | swing: 0° až 100° | door |
+| `fumehood_180_01` | Digestoř 1,8 m s posuvným oknem | lab.furniture | 1,8 × 2,5 × 0,93 | 264 | sash: 0 až 0,6 m | drawer |
+| `stool_lab_01` | Laboratorní židle s opěradlem | lab.furniture | 0,5 × 1,02 × 0,53 | 532 | — | — |
+| `stool_lab_high_01` | Vysoká laboratorní židle s kruhem pro nohy | lab.furniture | 0,5 × 0,83 × 0,53 | 572 | — | — |
+| `cart_lab_01` | Laboratorní vozík se dvěma policemi | lab.furniture | 0,76 × 1,07 × 0,49 | 624 | — | — |
+| `shower_emergency_01` | Nouzová sprcha s oční sprchou | lab.furniture | 0,31 × 2,22 × 0,59 | 408 | — | — |
+| `bioreactor_bench_01` | Stolní bioreaktor se skleněnou nádobou | lab.furniture | 0,54 × 0,65 × 0,4 | 560 | — | — |
+| `bioreactor_bench_02` | Stolní bioreaktor se dvěma nádobami | lab.furniture | 0,69 × 0,65 × 0,4 | 880 | — | — |
+| `bioreactor_steel_50_01` | Nerezový bioreaktor 50 l s řídicí skříní | lab.furniture | 1,2 × 1,8 × 0,61 | 516 | — | — |
+| `bioreactor_steel_200_01` | Nerezový bioreaktor 200 l s řídicí skříní | lab.furniture | 1,42 × 1,85 × 0,69 | 516 | — | — |
+| `reactor_jacketed_20_01` | Skleněný duplikovaný reaktor 20 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 572 | — | — |
+| `reactor_jacketed_50_01` | Skleněný duplikovaný reaktor 50 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 572 | — | — |
+| `aquarium_63l_01` | Akvárium 63 l na stolku | lab.animal | 0,61 × 1,08 × 0,31 | 196 | — | — |
+| `aquarium_112l_01` | Akvárium 112 l na stolku | lab.animal | 0,81 × 1,13 × 0,36 | 208 | — | — |
+| `aquarium_270l_01` | Akvárium 270 l na stolku | lab.animal | 1,21 × 1,18 × 0,51 | 220 | — | — |
+| `aquarium_rack_zebrafish_01` | Regál nádrží pro chov dánií | lab.animal | 1,24 × 1,9 × 0,44 | 448 | — | — |
+| `terrarium_desert_01` | Terárium pouštní | lab.animal | 1 × 1,24 × 0,5 | 220 | — | — |
+| `terrarium_tropical_01` | Terárium tropické s rostlinami | lab.animal | 0,6 × 1,76 × 0,6 | 196 | — | — |
+| `cage_ivc_mouse_01` | Individuálně větraná klec pro myši | lab.animal | 0,21 × 0,17 × 0,37 | 124 | — | — |
+| `cage_ivc_rat_01` | Individuálně větraná klec pro potkany | lab.animal | 0,27 × 0,23 × 0,46 | 124 | — | — |
+| `rack_ivc_01` | Regál individuálně větraných klecí s ventilační jednotkou | lab.animal | 1,76 × 2,2 × 0,65 | 884 | — | — |
+| `cage_rabbit_01` | Klec pro králíka na stojanu | lab.animal | 0,9 × 0,96 × 0,6 | 192 | — | — |
+| `passbox_wall_01` | Průchozí box do zdi s blokováním dvířek | lab.animal | 0,93 × 0,66 × 0,87 | 84 | swing: 0° až 110° | door |
+| `isolator_glovebox_01` | Izolátor s rukavicemi (třída III) | lab.animal | 1,75 × 1,9 × 0,86 | 512 | — | — |
+| `shower_decon_01` | Dekontaminační sprcha (průchozí kabina) | lab.animal | 1,1 × 2,35 × 1,1 | 276 | — | — |
+| `bin_biohazard_01` | Nádoba na infekční odpad s víkem | lab.animal | 0,47 × 1,06 × 0,49 | 48 | lid: 0° až 80° | door |
 
 ## Meze kloubů: zdroj nebo úvaha
 
@@ -290,3 +327,8 @@ Prefabů: 249 · materiálů: 38 · trojúhelníků celkem: 80272
 | `freezer_chest_ult_01` | lid | 0° až 80° | Víko truhlicového mrazáku na zadních pantech s vyvážením zůstane stát v otevřené poloze asi 80°; 80°. Úvaha, neměřeno. |
 | `coldroom_walkin_01` | swing | 0° až 100° | Izolované dveře chladicí komory se otvírají ven o 90 až 110°, za nimi visí pásová clona z PVC; 100°. Úvaha, neměřeno. |
 | `freezer_walkin_01` | swing | 0° až 100° | Izolované dveře chladicí komory se otvírají ven o 90 až 110°, za nimi visí pásová clona z PVC; 100°. Úvaha, neměřeno. |
+| `cabinet_flammable_01` | swing | 0° až 100° | Křídlo bezpečnostní skříně se samozavíráním se otvírá o 90 až 110° a zavře se samo (požárně odolná skříň); 100°. Úvaha, neměřeno. |
+| `cabinet_corrosive_01` | swing | 0° až 100° | Křídlo bezpečnostní skříně se samozavíráním se otvírá o 90 až 110° a zavře se samo (požárně odolná skříň); 100°. Úvaha, neměřeno. |
+| `fumehood_180_01` | sash | 0 až 0,6 m | Okno digestoře jede svisle; pracovní otvor 40 až 50 cm, nahoru až 70 až 75 cm pro nakládání. Úvaha podle katalogů laboratorního nábytku, neměřeno. |
+| `passbox_wall_01` | swing | 0° až 110° | Dvířka průchozího boxu na pantu se otvírají asi o 90 až 120°; druhá strana je zablokovaná, dokud jsou tato otevřená. 110°. Úvaha, neměřeno. |
+| `bin_biohazard_01` | lid | 0° až 80° | Víko nádoby na infekční odpad ovládané pedálem se otvírá asi o 70 až 85°; 80°. Úvaha, neměřeno. |
