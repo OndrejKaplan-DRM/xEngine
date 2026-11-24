@@ -15,12 +15,11 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 
 | # | Co | Ptá se | Od | Podrobně |
 |---|---|---|---|---|
-| 1 | Zorné pole po opravě (vodorovný úhel při 4 : 3, strop 120°): a) použitelné, b) nižší strop, c) promítání Panini | sešna A | 24. 11. | `A_STAV.md`, konec |
-| 2 | `?bench` znovu s opravenou metodou, bez vyhlazování, mřížka 0,5 m: `xlab.html?bench`, `…?bench&rows=1080`, `xlab_gen.html?bench`. Rozhodne výchozí rozlišení a o textuře světla (N-110). | sešna A, svodná | 24. 11. | `A_STAV.md`, konec |
-| 3 | Terminál: po Esc a Pokračovat dál sedíš u terminálu a kurzor hned poslouchá? | sešna A | 23. 11. | D-032 |
-| 4 | Černá obrazovka (snímek 3 z 24. 11. 01:42): jen okamžik, nebo trvala? | svodná | 24. 11. | `docs/mereni/T460_2026-11-24_D-037_F3.md` |
-| 5 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
-| 6 | Sloučit práci vlny 2 obou sešen do základu (světlo po vrcholech, xBake, zorné pole…): a) teď, b) až po A2.6 a B2.5 | svodná | 24. 11. | `docs/STATE.md` |
+| 1 | Dva běhy `?bench` ve sestavení sešny A „krok 5“, na síti a s vypnutou Úsporou energie v Chrome (večerní běhy měly 30 snímků/s): `xlab_tex.html?bench&tex=0` (cena textur) a `xlab_gen.html?bench&rows=1080` (výchozí 1 080 řádků pro velký level) | sešna A | 24. 11. 19:51 | `A_STAV.md`, oddíl 1 |
+| 2 | Černá obrazovka na snímku 3 z 24. 11. 01:42 (celé okno hry černé, bez přehledu F3): jen chvilka, nebo zůstala? | svodná | 24. 11. | `docs/mereni/T460_2026-11-24_D-037_F3.md` |
+| 3 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
+
+**Zodpovězeno 24. 11. 2026:** 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 
 ## Svodná sešna (základ)
 
@@ -51,21 +50,27 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 ## Sešna A (běh)
 
-Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a`, zadání `docs/sesny/START_A.md`.
+Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, oddíl 2 deník rozhodnutí sešny A), zadání `docs/sesny/START_A.md`.
 
-**Teď:** A2.5 nová pole základu (`screen.offset`, `JOINT_TRAVEL_SECONDS`, `seeThrough`, `passable`, `opacity`) → A2.6 textura a síť `.glb` na jednom kusu se sešnou B (D-030).
+**Teď (24. 11. večer):**
+- [x] A2.5 nová pole základu
+- [x] A2.6 na zkušebních datech: díl `.glb`, kolize `hull` / `mesh`, textura barvy (na T460 nejvýš 512 px), světlo texturu násobí; T460: 14 textur v xLabu, vykreslení 2,29 / 2,9 ms (medián / 95 %, `?bench` 24. 11. 19:39)
+- [ ] sloučit znění 4 základu 2 a dodatek: D-039 strop řádků, testy nezávislé na rozsahu dveří zlatého vzorku (D-042), rozměry postavy z `body.js` (D-040), pořadí vzorků `levelSamples` (D-041), **čtení zapečeného světla `bake.js` (D-044)**: odstraní 54 s stavby světla v `complex_7` a přinese odražené světlo (Ondřej 19:49: černé boky řešit tímhle)
+- [ ] A2.6 na kusu ze sešny B: potřebuje B2.5 a návrh **N-111**
 
-**Potom:** zkouška textury světla na hale xLabu (N-110; Ondřej 24. 11. 02:26: až po A2.5 a A2.6).
+**Potom:** zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043) → výchozí 1 080 řádků, pokud `complex_7` na T460 vyjde do 10 ms (xLab: 95 % 7,38 ms).
 
-**Nedávno hotovo** (stav `A_STAV.md` z 24. 11., 05:30):
-- 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120° (`db6fad0`)
-- 24. 11. `?bench` měří čas grafiky dávkou (stará metoda na T460 vracela obnovu displeje)
-- 24. 11. dveře od hráče jako nastavení, výchozí zapnuto; návrh N-109 do dat
-- 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0
+**Čeká na jiné:** svodná rozhoduje N-109, N-110, **N-111** a jestli světlo prochází dveřmi se `seeThrough`; sešna B dveře na obě strany v datech (N-109), B2.5 (u dílů `mesh` vyplňovat `mat`, velké plochy modelu dělit asi po 0,5 m kvůli světlu po vrcholech), chybějící pole v `kit_base` (`screen.offset` u terminálů, `opacity` u `glass_pane`).
+
+**Nedávno hotovo:**
+- 24. 11. A2.6 na zkušebních datech: `glb.js`, `assets.js`, textura v `materials.js` (`6e1ab0c`, `3c6bab0`); testy `a_26_mesh` (30), `a_26_view` (8)
+- 24. 11. A2.5 nová pole: rychlost kloubu ze základu, `screen.offset`, `seeThrough`, `passable`, `opacity` (sklo průhledné, nestíní světlo)
+- 24. 11. snímek z T460 (`complex_7`): „Dveře od hráče“ jen v otvoru portálu, ne dvířka nábytku (`afb5b0a`); černý bok kartotéky = chybí odražené světlo
+- 24. 11. zorné pole: číslo z nastavení je vodorovný úhel při 4 : 3, strop 120°; na T460 F3 ukazuje 117° × 74° při 90 (`db6fad0`)
+- 24. 11. `?bench` měří čas grafiky dávkou (`draw.ms`); stará metoda na T460 vracela obnovu displeje
+- 24. 11. sloučeno znění 3 základu (D-037), vlastní kopie dílů prefabů zrušena; švy 128 → 0 (`25e17a4`)
 - 24. 11. zkouška terminálu na T460 prošla (D-032)
-- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (Ondřejův `?bench` 24. 11.)
-- 23. 11. A2.1 světlo po vrcholech se zastíněním, branami dveří a okrajem stínu po podílech; A2.2 pevné řádky a `?bench`
-- 23. 11. A2.4 dluhy vlny 1 (skok, D-024, D-025)
+- 23. 11. A2.3 krok fyziky: na T460 medián 0,55 až 0,68 ms, dřív až 3,10 ms (`b77837f`)
 
 ## Sešna B (obsah a nástroje)
 

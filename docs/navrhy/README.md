@@ -80,5 +80,7 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | Návrh | Výsledek | Kde je to v základu |
 |---|---|---|
 | N-008 rozměry postavy v základu (B) | přijat a proveden | D-040; `src/xspace/body.js`, varování `portal.narrow` |
-| N-109 dveře se otvírají od hráče (A) | přijat (Ondřej 24. 11. 02:26: „ať to jde do dat“) | D-042; věta v kontraktech, `doorOpenness`; zlatý vzorek ±105° až po úpravě testů sešny A |
+| N-109 dveře se otvírají od hráče (A) | přijat (Ondřej 24. 11. 02:26: „ať to jde do dat“) | D-042; věta v kontraktech, `doorOpenness`; zlatý vzorek `door_hinged_01` ±105° (24. 11. večer) |
 | N-110 světlo v textuře (A) | směr přijat, formát až po zkoušce na hale xLabu (5 cm a 10 cm, `?bench` na T460); zkouška až po A2.5 a A2.6 (Ondřej 24. 11. 02:26) | D-043 |
+| N-009 barva materiálu s texturou (B) | přijata varianta a1 (`color` = průměr povrchu, pole `albedoMean`) | D-045; `formats.js`, validátor `mat.albedoMean`, T1 |
+| N-111 soubory balíku ve hře (A) | přijat, body 1 až 4 provedeny; kontrola uzlu v `.glb` a strop velikosti odloženy | D-046; `read-pack.mjs`, `build.mjs`, `load.js` (`materialFrom`), validátor `ref.asset` pro textury, T1 |

@@ -29,8 +29,8 @@ export function createHud({ root }) {
     /** Oznámení na daný počet sekund skutečného času. */
     notify(text, seconds = 3) {
       notice.textContent = text;
-      notice.hidden = false;
-      noticeLeft = seconds;
+      notice.hidden = !text;
+      noticeLeft = text ? seconds : 0;
     },
     setCross(on) {
       cross.hidden = !on;

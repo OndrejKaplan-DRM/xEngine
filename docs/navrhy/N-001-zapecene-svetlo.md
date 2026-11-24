@@ -130,4 +130,4 @@ xBake zapisuje do `dist/bake/<balík>/` (necommituje se) a do balíků pole `bak
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+Přijato se změnou (D-035, 23. 11. 2026): křídla dveří v portálech při zapékání nestíní, světlo za nimi je v úseku vrstvy s branou. Znění 2 (D-044, 24. 11. 2026): brána jako seznam id dveří a pole `doors` v hlavičce přijaty; čtení a skládání je v základu (`src/xspace/bake.js`), pravidlo paprsku jen v xBake. D-041: soubor ponese i vzorky pevných dílů prefabů v pořadí `levelSamples`, hlavička `entities` vedle `brushes`. Rozhodla svodná sešna main 02 a main 03.

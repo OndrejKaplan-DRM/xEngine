@@ -27,6 +27,7 @@ export function createPlayer({ phys, world, render, input, session }) {
   let yaw = 0;
   let pitch = 0;
   let grounded = false;
+  let jumpArmed = true; // skok s jumpBuffer: nový výskok až po puštění klávesy
   let eyeDrop = 0; // o kolik je kamera pod očima po výstupu na schod (dobíhá k nule)
   let frozen = false; // klidný režim: tělo stojí, pohled řídí někdo jiný
   let blocked = 0; // kolik kroků po sobě postava přišla o pohyb do překážky
@@ -60,6 +61,7 @@ export function createPlayer({ phys, world, render, input, session }) {
     pitch = 0;
     vel[0] = vel[1] = vel[2] = 0;
     grounded = false;
+    jumpArmed = true;
     frozen = false;
     Object.assign(stat, { airSteps: 0, jumps: 0, topSpeed: 0 });
   }
@@ -193,7 +195,9 @@ export function createPlayer({ phys, world, render, input, session }) {
 
       // skok: v kroku výskoku se tření nepočítá (proto série výskoků drží rychlost)
       let jumped = false;
-      if (grounded && (P.jumpHold ? I.jump : I.jumpPressed)) {
+      if (!I.jump) jumpArmed = true;
+      if (grounded && (P.jumpHold ? I.jump : P.jumpBuffer ? I.jump && jumpArmed : I.jumpPressed)) {
+        jumpArmed = false;
         vel[1] = P.jumpSpeed;
         grounded = false;
         jumped = true;

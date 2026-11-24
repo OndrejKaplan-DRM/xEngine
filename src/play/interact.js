@@ -1,6 +1,7 @@
 // xPlay: interakce hráče se světem. Tři úrovně, všechny řízené daty prefabu (docs/01_ARCHITEKTURA.md, oddíl 5):
 // 1. použít (paprsek z oka + klávesa), 2. manipulovat (držené tlačítko myši hýbe kloubem v jeho mezích),
-// 3. klidný režim (kamera se ukotví podle station, kurzor se uvolní a míří na obrazovku ve světě).
+// 3. klidný režim (kamera se ukotví podle station; zámek kurzoru zůstává a myš vede vlastní kurzor po obrazovce
+//    ve světě, D-024).
 // Paprsek jde proti kolizím v Rapieru, nikdy proti vykreslovaným sítím.
 
 import { mat4Point } from '../xspace/index.js';
@@ -21,6 +22,8 @@ const MIN_ARM = 0.06; // m; kratší rameno úchopu otočného kloubu se nahrad�
 
 const smooth = (k) => k * k * (3 - 2 * k);
 
+const CURSOR_SPAN = 700; // bodů myši přes celou šířku obrazovky terminálu při citlivosti 1
+
 export function createInteract({ phys, player, input, behave, entities, render }) {
   let E = null;
   let target = null; // entita pod zaměřovačem v dosahu
@@ -31,6 +34,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
   let blinkT = 0;
   let lastBlink = false;
   const terms = new Map(); // id entity → { term, screen, node, front, size }
+  const warnedOffset = new Set();
   const eye = [0, 0, 0];
   const dir = [0, 0, -1];
   const hitP = [0, 0, 0];
@@ -193,12 +197,13 @@ export function createInteract({ phys, player, input, behave, entities, render }
     const dx = l[0] - e[0];
     const dy = l[1] - e[1];
     const dz = l[2] - e[2];
-    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseFov, term: terms.get(ent.id) || null };
+    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseVfov, term: terms.get(ent.id) || null };
     player.frozen = true;
     player.viewOverride = true;
     input.lookEnabled = false;
     if (seat.term) {
       seat.term.term.active = true;
+      seat.term.term.pointer = [0.5, 0.5]; // vlastní kurzor začíná uprostřed obrazovky
       seat.term.term.dirty = true;
     }
     setTarget(null);
@@ -262,9 +267,17 @@ export function createInteract({ phys, player, input, behave, entities, render }
       for (const ent of entities.list) {
         const sc = ent.comp.screen;
         if (!sc) continue;
-        // Plocha obrazovky: střed uzlu, rovina XY, líc +Z, posazená těsně před nejpřednější díl uzlu.
-        // Formát posun plochy neuvádí (návrh N-106).
-        const front = Math.max(0, ...ent.prefab.parts.filter((p) => p.node === sc.node && p.max).map((p) => p.max[2])) + 0.001;
+        // Plocha obrazovky: střed uzlu, rovina XY, líc +Z, posunutá o screen.offset po ose Z (kontrakt, N-106).
+        // Prefab bez offset (data z doby před N-106) dostane plochu těsně před nejpřednějším dílem uzlu, jinak by
+        // ji rámeček monitoru zakryl; jednou se to ohlásí.
+        let front = sc.offset;
+        if (front === undefined) {
+          front = Math.max(0, ...ent.prefab.parts.filter((p) => p.node === sc.node && p.max).map((p) => p.max[2])) + 0.001;
+          if (!warnedOffset.has(ent.prefab.id)) {
+            warnedOffset.add(ent.prefab.id);
+            console.info(`xPlay: prefab ${ent.prefab.id} nemá components.screen.offset; plocha obrazovky ${front.toFixed(3)} m před uzlem (odvozeno z dílů)`);
+          }
+        }
         const term = createTerminal(ent.prefab.title, sc.app);
         const screen = render.addScreen({ cell: ent.cell, matrix: ent.nodeWorld[sc.node], offset: front, size: sc.size, res: sc.res });
         terms.set(ent.id, { term, screen, node: sc.node, front, size: sc.size });
@@ -342,7 +355,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
         player.eye(eye, dir);
         const dyaw = ((seat.yaw - player.yaw + 540) % 360) - 180;
         render.setView(eye[0] + (seat.eye[0] - eye[0]) * a, eye[1] + (seat.eye[1] - eye[1]) * a, eye[2] + (seat.eye[2] - eye[2]) * a, (player.yaw + dyaw * a) * RAD, (player.pitch + (seat.pitch - player.pitch) * a) * RAD);
-        render.setViewFov(render.baseFov + (seat.fov - render.baseFov) * a);
+        render.setViewFov(render.baseVfov + (seat.fov - render.baseVfov) * a);
       }
       // obrazovky: překreslit jen po změně, u aktivní navíc blikání kurzoru
       blinkT += real;
@@ -354,7 +367,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     },
 
     // ---- klidný režim: vstup z aplikace (klávesnice a kurzor jdou mimo herní akce)
-    /** Odejít od terminálu (Esc). */
+    /** Odejít od terminálu (šipka dolů nebo pravé tlačítko myši; Esc je všude pauza, D-024). */
     leave() {
       if (!seat || seat.phase === 'out') return;
       seat.phase = 'out';
@@ -378,8 +391,28 @@ export function createInteract({ phys, player, input, behave, entities, render }
       if (cmd !== null) behave.emit(seat.ent, 'command', cmd);
     },
     /**
-     * Kurzor myši v souřadnicích obrazu −1…1 (x vpravo, y nahoru). Promítne se na plochu obrazovky terminálu;
-     * click = stisk tlačítka (vyšle command s textem 'click', když kurzor leží na obrazovce).
+     * Posun myši se zamčeným kurzorem (body myši, x vpravo, y dolů): vede vlastní kurzor po ploše obrazovky,
+     * omezený jejím obdélníkem. Celá šířka obrazovky = CURSOR_SPAN bodů myši při citlivosti 1.
+     */
+    cursor(dx, dy) {
+      if (!seat?.term || seat.phase !== 'on') return null;
+      const t = seat.term;
+      const p = t.term.pointer || (t.term.pointer = [0.5, 0.5]);
+      const k = input.sensitivity / CURSOR_SPAN;
+      p[0] = Math.min(1, Math.max(0, p[0] + dx * k));
+      p[1] = Math.min(1, Math.max(0, p[1] + dy * k * (t.size[0] / t.size[1]))); // stejná rychlost ve světě oběma směry
+      t.term.dirty = true;
+      return p;
+    },
+    /** Kliknutí v místě vlastního kurzoru: vyšle command s textem 'click'. */
+    click() {
+      if (!seat?.term || seat.phase !== 'on' || !seat.term.term.pointer) return false;
+      behave.emit(seat.ent, 'command', 'click');
+      return true;
+    },
+    /**
+     * Bez zámku kurzoru (prostředí, kde ho prohlížeč nedá): kurzor systému v souřadnicích obrazu −1…1 (x vpravo,
+     * y nahoru) se promítne na plochu obrazovky terminálu; click = stisk tlačítka.
      */
     pointer(nx, ny, click = false) {
       if (!seat?.term || seat.phase !== 'on') return null;
@@ -414,7 +447,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
           return manip ? { id: manip.ent.id, joint: manip.j.def.id, value: manip.j.value, screenDir: [...screenDir] } : null;
         case 'term': {
           const t = terms.get(path[1]);
-          return t ? { lines: [...t.term.lines], input: t.term.input, active: t.term.active, pointer: t.term.pointer } : undefined;
+          return t ? { lines: [...t.term.lines], input: t.term.input, active: t.term.active, pointer: t.term.pointer, front: t.front } : undefined;
         }
         default:
           return undefined;

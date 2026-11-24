@@ -200,8 +200,9 @@ export const COMPONENTS = {
 const material = obj(
   {
     model: R(en(MATERIAL_MODELS, 'osvětlovací model')),
-    color: R(color('základní barva (násobí texturu)')),
+    color: R(color('základní barva; u materiálu s albedo průměrná barva povrchu (N-009): kdo texturu nekreslí, kreslí color, kdo ji kreslí, násobí ji color / albedoMean')),
     albedo: str('cesta k textuře barvy, relativně k balíku'),
+    albedoMean: color('průměrná barva souboru albedo, lineárně (N-009); jen spolu s albedo, zapisuje nástroj, který texturu vyrobil'),
     normal: str('cesta k normálové mapě'),
     emissive: color('barva vlastního svitu'),
     emissiveStrength: num('síla vlastního svitu', { min: 0, max: 100 }),

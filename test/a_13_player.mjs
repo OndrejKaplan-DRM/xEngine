@@ -212,7 +212,8 @@ function strafeSeries(profile, jumps) {
     }
     input.hold('right', side > 0);
     input.hold('left', side < 0);
-    if (!P.jumpHold) input.hold('jump', i % 2 === 0); // profil bez opakování: robot mačká skok ob krok
+    // profil bez opakování: s pamětí stisku robot pouští při stoupání a mačká při pádu (výskok hned při dopadu), jinak mačká ob krok
+    if (!P.jumpHold) input.hold('jump', P.jumpBuffer ? player.vel[1] <= 0 : i % 2 === 0);
     E.stepOnce();
     if (!player.grounded) wasAir = true;
     else if (wasAir) {
@@ -231,6 +232,31 @@ function strafeSeries(profile, jumps) {
   ok(r.top > 1.2 * r.P.maxSpeed && r.inside, 'arena T2: série výskoků s úkrokem > 1,2 × max', `nejvyšší rychlost ${fmt(r.top, 2)} m/s = ${pct(r.top / r.P.maxSpeed)} max, ${r.jumps} výskoky, ${fmt(r.dist, 1)} m`);
   const q = strafeSeries('real', 2);
   ok(q.top / q.P.maxSpeed < r.top / r.P.maxSpeed, 'real: stejný robot získá méně než v profilu arena (strop přání ve vzduchu)', `${pct(q.top / q.P.maxSpeed)} max proti ${pct(r.top / r.P.maxSpeed)}`);
+}
+
+// ---- skok na nový stisk (Ondřejova volba 3b): držená klávesa neskáče znovu; arena si stisk ve vzduchu pamatuje do dopadu
+/** Jeden výskok z držené klávesy, potom ji řídí `plan(krok, ve vzduchu, svislá rychlost)`; vrací počet výskoků za 400 kroků. */
+function jumpPattern(profile, plan) {
+  fresh(profile);
+  const before = player.stat.jumps;
+  input.hold('jump', true);
+  for (let i = 0; i < 400; i++) {
+    E.stepOnce();
+    input.hold('jump', plan(i, !player.grounded, player.vel[1]));
+  }
+  input.hold('jump', false);
+  return { jumps: player.stat.jumps - before };
+}
+{
+  const held = jumpPattern('arena', () => true);
+  ok(held.jumps === 1, 'arena: držený skok vyskočí jen jednou', `${held.jumps} výskok za 3,3 s držení`);
+  // puštění při stoupání, nový stisk při pádu a držení až do konce: jeden výskok navíc, a to hned při dopadu
+  let pressed = false;
+  const buf = jumpPattern('arena', (i, air, vy) => (pressed = pressed || (air && vy < 0)));
+  ok(buf.jumps === 2, 'arena: stisk ve vzduchu platí při dopadu (právě jeden další výskok)', `${buf.jumps} výskoky`);
+  pressed = false;
+  const real = jumpPattern('real', (i, air, vy) => (pressed = pressed || (air && vy < 0)));
+  ok(real.jumps === 1, 'real: stisk ve vzduchu při dopadu neplatí (skáče se jen stiskem na zemi)', `${real.jumps} výskok`);
 }
 
 // ---- přepnutí profilu za běhu a pohled

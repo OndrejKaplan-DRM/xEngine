@@ -61,6 +61,10 @@ export function createLock({ target, doc = document, onLost }) {
       enabled = false;
       wanted = false;
     },
+    /** Zpět do režimu se zámkem (testy, které zámek podvrhnou). */
+    enable() {
+      enabled = true;
+    },
     /**
      * Volat jen z obsluhy kliknutí nebo klávesy.
      * @returns {Promise<'ok' | 'off' | 'retry' | 'denied'>} retry = prohlížeč dočasně odmítá (po Esc), klikni znovu;

@@ -11,10 +11,15 @@ const c = entities.center('e_btn_lab');
 const ent = entities.byId('e_btn_lab');
 player.teleport(c[0] + ent.em[8] * 0.9, 0, c[2] + ent.em[10] * 0.9);
 player.lookAt(c[0], c[1], c[2]);
+// Mezi kroky běží i „snímky“ (bez obrazu): viditelnost, brány dveří a světlo po vrcholech se přepočítávají
+// stejně jako ve hře, takže se měří i jejich paměť.
 const press = (n) => {
   for (let i = 0; i < n; i++) {
     input.use();
-    game.sim(0.25);
+    for (let f = 0; f < 5; f++) {
+      game.sim(0.05);
+      game.render.frame();
+    }
   }
 };
 press(500); // zahřátí: překladač a líně zakládané struktury (změřeno: růst se po prvních stovkách stisků zastaví)

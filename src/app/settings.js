@@ -2,6 +2,7 @@
 // (co engine skutečně má); položku bez ověřitelného účinku Shell nezaregistruje.
 
 import { PROFILES } from '../play/profiles.js';
+import { ROWS } from '../render/rows.js';
 
 export function settingsDefs({ game, dev }) {
   const { render, input, session } = game;
@@ -9,7 +10,7 @@ export function settingsDefs({ game, dev }) {
     {
       id: 'fov',
       page: 'obraz',
-      label: 'Zorné pole',
+      label: 'Zorné pole (vodorovně při 4 : 3; nejvýš 120° na šířku)',
       type: 'range',
       min: 60,
       max: 110,
@@ -20,27 +21,38 @@ export function settingsDefs({ game, dev }) {
       probe: () => render.baseFov,
     },
     {
-      id: 'scale',
+      id: 'rows',
       page: 'obraz',
-      label: 'Měřítko vykreslení',
-      type: 'range',
-      min: 50,
-      max: 150,
-      step: 5,
-      def: 100,
-      format: (v) => `${v} %`,
-      apply: (v) => render.setScale(v / 100),
-      probe: () => Math.round(render.scale * 100),
+      label: 'Vnitřní rozlišení',
+      type: 'select',
+      def: 768,
+      options: ROWS.map((n) => ({ value: n, label: `${n} řádků` })),
+      apply: (v) => render.setRows(v),
+      probe: () => render.size[1],
     },
     {
-      id: 'lights',
+      id: 'aa',
       page: 'obraz',
-      label: 'Světla za běhu',
+      label: 'Vyhlazování hran',
+      type: 'toggle',
+      def: false, // na T460 stojí 4,4 až 6,2 ms na snímek (xBench 0.2, 22. 11. 2026)
+      apply: (v) => render.setAntialias(v),
+      probe: () => render.antialias,
+    },
+    {
+      id: 'lightGrid',
+      page: 'obraz',
+      label: 'Mřížka světla (platí od nové hry)',
       type: 'select',
-      def: 8,
-      options: [4, 6, 8, 12].map((n) => ({ value: n, label: String(n) })),
-      apply: (v) => render.setLightBudget(v),
-      probe: () => render.lightBudget,
+      def: 0.5, // kontrakt; 0,25 m dává jemnější stíny za čtyřnásobek vzorků a trojúhelníků a delší načtení
+      options: [
+        { value: 0.5, label: '0,5 m' },
+        { value: 0.25, label: '0,25 m (jemnější stíny)' },
+      ],
+      apply: (v) => {
+        game.world.lightCell = v;
+      },
+      probe: () => game.world.lightCell,
     },
     {
       id: 'sens',
@@ -54,6 +66,19 @@ export function settingsDefs({ game, dev }) {
       format: (v) => v.toFixed(2),
       apply: (v) => (input.sensitivity = v),
       probe: () => input.sensitivity,
+    },
+    {
+      id: 'doorsAway',
+      page: 'hra',
+      label: 'Dveře se otvírají od hráče (platí od nové hry)',
+      type: 'toggle',
+      // Ondřejova volba z 24. 11. 2026. Dokud dveře nemají rozsah na obě strany v datech (návrh N-109), rozšiřuje ho
+      // hra sama (src/world/swing.js); vypnuto = přesně podle dat balíku.
+      def: true,
+      apply: (v) => {
+        game.entities.doorsAway = !!v;
+      },
+      probe: () => game.entities.doorsAway,
     },
     {
       id: 'profile',

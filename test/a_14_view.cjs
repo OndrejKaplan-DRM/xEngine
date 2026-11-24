@@ -25,9 +25,9 @@ const VIEWS = {
     const sp = await page.evaluate(() => __PACK__.levels[0].data.spawns.find((s) => s.kind === 'player'));
     await page.evaluate(() => {
       __xe.start();
-      __xe.vis(false); // xView kreslí celý level a svítí všemi světly
+      __xe.shadows(false); // xView kreslí celý level, svítí všemi světly a stíny nemá
+      __xe.vis(false);
       __xe.sim(0.5);
-      __xe.shell.settings.set('lights', 12);
     });
     const files = [];
     for (const [name, make] of Object.entries(VIEWS)) {

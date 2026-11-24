@@ -85,6 +85,16 @@ const FACE = `(id, d, aim) => {
     // ---- terminál skutečnou klávesnicí
     await page.evaluate(() => face('e_desk', 1.0));
     const before = await page.evaluate(() => { const c = __xe.game.render.camera; return { p: c.position.toArray(), r: [c.rotation.x, c.rotation.y], fov: c.fov, cross: !document.querySelector('.hud-cross').hidden }; });
+    // Zámek kurzoru se v headless prohlížeči nedá bezpečně získat (teče paměť). Podvrhne se: dokument hlásí, že
+    // zámek drží obal plátna, a počítají se všechna volání a události zámku za pobyt u terminálu (D-024: žádné).
+    await page.evaluate(() => {
+      window.__lock = { on: true, request: 0, exit: 0, change: 0 };
+      Object.defineProperty(document, 'pointerLockElement', { configurable: true, get: () => (window.__lock.on ? document.getElementById('view') : null) });
+      Element.prototype.requestPointerLock = function () { window.__lock.request++; return Promise.resolve(); };
+      document.exitPointerLock = () => { window.__lock.exit++; };
+      document.addEventListener('pointerlockchange', () => window.__lock.change++);
+      __xe.lockMode(true);
+    });
     await page.keyboard.press('KeyE');
     const seated = await page.evaluate(() => { __xe.sim(0.5); __xe.render(); const c = __xe.game.render.camera; return { seat: __xe.get('interact.seat'), fov: c.fov, cross: !document.querySelector('.hud-cross').hidden, notice: document.querySelector('.hud-notice').textContent, mode: __xe.get('kernel.mode') }; });
     ok(seated.seat && seated.seat.phase === 'on' && seated.fov === 50 && !seated.cross, 'klávesa E u terminálu posadí hráče: kamera podle station, zaměřovač zmizí', `zorné pole ${seated.fov}°, oznámení „${seated.notice}“`);
@@ -97,24 +107,61 @@ const FACE = `(id, d, aim) => {
     await page.keyboard.press('Enter');
     const sent = await page.evaluate(() => { __xe.sim(0.2); return { term: __xe.get('interact.term.e_desk'), lamp: __xe.get('entity.e_lamp_hall_a.light').on, pos: [...__xe.game.player.pos] }; });
     ok(sent.term.lines.at(-1) === '> svetla haly' && sent.lamp === !lamp0 && sent.pos.every((x, i) => x === pos0[i]), 'Enter odešle příkaz (spojení z dat přepne lampu haly) a hráč se psaním nehýbe', `řádky ${JSON.stringify(sent.term.lines)}, lampa ${lamp0} → ${sent.lamp}`);
-    // kurzor myši na obrazovce ve světě
-    await page.mouse.move(cx, cy);
-    const uv = await page.evaluate(() => __xe.get('interact.term.e_desk').pointer);
-    ok(uv && Math.abs(uv[0] - 0.5) < 0.03 && Math.abs(uv[1] - 0.5) < 0.06, 'volný kurzor míří na obrazovku ve světě (střed okna = střed obrazovky)', uv ? `uv [${uv.map((x) => x.toFixed(3)).join(', ')}]` : 'mimo');
+    // vlastní kurzor na obrazovce ve světě: myš se zamčeným kurzorem ho vede, kliknutí je „použít“ v jeho místě
+    const cur = await page.evaluate(() => {
+      const p0 = [...__xe.get('interact.term.e_desk').pointer];
+      document.dispatchEvent(new MouseEvent('mousemove', { movementX: 70, movementY: -35, bubbles: true }));
+      const p1 = [...__xe.get('interact.term.e_desk').pointer];
+      const fired0 = __xe.get('io.stat').fired;
+      const lamp0 = __xe.get('entity.e_lamp_hall_a.light').on;
+      document.getElementById('view').dispatchEvent(new MouseEvent('mousedown', { button: 0, bubbles: true }));
+      __xe.sim(0.2);
+      return { p0, p1, fired: __xe.get('io.stat').fired - fired0, lamp: [lamp0, __xe.get('entity.e_lamp_hall_a.light').on], cross: !document.querySelector('.hud-cross').hidden };
+    });
+    ok(cur.p0[0] === 0.5 && cur.p0[1] === 0.5 && Math.abs(cur.p1[0] - 0.6) < 1e-9 && cur.p1[1] < 0.5 && cur.p1[1] > 0.3, 'zamčená myš vede vlastní kurzor po obrazovce terminálu', `[${cur.p0.join(', ')}] → [${cur.p1.map((x) => x.toFixed(3)).join(', ')}] po posunu 70 bodů vpravo a 35 nahoru`);
+    ok(cur.fired >= 1 && cur.lamp[0] !== cur.lamp[1], 'levé tlačítko je „použít“ v místě kurzoru (command click přepne lampu haly)', `spojení ${cur.fired}, lampa ${cur.lamp.join(' → ')}`);
     shots.terminal = await page.evaluate(() => __xe.shot());
     const diff = await compare(page, empty, shots.terminal, 24);
     const changed = Math.round(diff.over * diff.w * diff.h);
     ok(changed > 400, 'napsaný text je na obrazovce vidět', `změněných bodů ${changed} (řádek textu a kurzor)`);
-    // Esc vrací do hry, nepauzuje
+    // za celý pobyt u terminálu se zámku kurzoru nikdo nedotkl
+    const lockUse = await page.evaluate(() => ({ ...window.__lock }));
+    ok(lockUse.request === 0 && lockUse.exit === 0 && lockUse.change === 0, 'za pobyt u terminálu žádná žádost o zámek kurzoru, žádné uvolnění, žádná událost pointerlockchange', JSON.stringify(lockUse));
+    // Esc je i u terminálu pauza; po návratu z pauzy hráč dál sedí
     await page.keyboard.press('Escape');
+    const esc = await page.evaluate(async () => {
+      const mode0 = __xe.get('kernel.mode');
+      const seat0 = !!__xe.get('interact.seat');
+      await new Promise((res) => setTimeout(res, 450)); // ochrana proti odskoku: Esc nesmí hru hned zase spustit
+      await __xe.resume();
+      __xe.sim(0.2);
+      return { mode0, seat0, mode: __xe.get('kernel.mode'), seat: __xe.get('interact.seat')?.phase, input: __xe.get('interact.term.e_desk').input };
+    });
+    ok(esc.mode0 === 'paused' && esc.seat0 && esc.mode === 'playing' && esc.seat === 'on', 'Esc u terminálu je pauza; po Pokračovat hráč dál sedí u terminálu', `režim ${esc.mode0} → ${esc.mode}, sedí ${esc.seat}`);
+    // odchod: šipka dolů (krok vzad)
+    await page.keyboard.press('ArrowDown');
     const left = await page.evaluate(() => { const mode0 = __xe.get('kernel.mode'); __xe.sim(0.5); __xe.render(); const c = __xe.game.render.camera; return { mode0, mode: __xe.get('kernel.mode'), seat: __xe.get('interact.seat'), p: c.position.toArray(), r: [c.rotation.x, c.rotation.y], fov: c.fov, cross: !document.querySelector('.hud-cross').hidden, screen: document.querySelector('.xs-screen:not([hidden])')?.dataset?.screen || null }; });
-    ok(left.mode0 === 'playing' && left.mode === 'playing' && left.seat === null, 'Esc u terminálu vrací do hry a hru nepauzuje', `režim ${left.mode}`);
+    ok(left.mode0 === 'playing' && left.mode === 'playing' && left.seat === null, 'šipka dolů od terminálu odchází a hru nepauzuje', `režim ${left.mode}`);
     const same = left.p.every((x, i) => x === before.p[i]) && left.r.every((x, i) => x === before.r[i]) && left.fov === before.fov;
     ok(same && left.cross, 'odchod od terminálu vrátí kameru přesně na původní místo', `před [${before.p.map((x) => x.toFixed(4)).join(', ')}], po [${left.p.map((x) => x.toFixed(4)).join(', ')}], zorné pole ${left.fov}°`);
-    // další Esc už je pauza
+    // odchod pravým tlačítkem myši; pravé tlačítko je jinak skok, ten se tím nesmí spustit
+    const rmb = await page.evaluate(() => {
+      __xe.use();
+      __xe.sim(0.6);
+      const sat = __xe.get('interact.seat')?.phase;
+      const jumps = __xe.game.player.stat.jumps;
+      const view = document.getElementById('view');
+      view.dispatchEvent(new MouseEvent('mousedown', { button: 2, bubbles: true }));
+      window.dispatchEvent(new MouseEvent('mouseup', { button: 2, bubbles: true }));
+      __xe.sim(0.6);
+      return { sat, seat: __xe.get('interact.seat'), jumped: __xe.game.player.stat.jumps - jumps, mode: __xe.get('kernel.mode') };
+    });
+    ok(rmb.sat === 'on' && rmb.seat === null && rmb.jumped === 0 && rmb.mode === 'playing', 'pravé tlačítko myši od terminálu odchází a nevyskočí', `sedí ${rmb.sat} → ${rmb.seat}, výskoků ${rmb.jumped}`);
+    // Esc mimo terminál pauzuje jako dřív
+    await page.evaluate(() => { window.__lock.on = false; __xe.lockMode(false); });
     await page.keyboard.press('Escape');
     const paused = await page.evaluate(() => __xe.get('kernel.mode'));
-    ok(paused === 'paused', 'další Esc (už mimo terminál) pauzuje jako dřív', `režim ${paused}`);
+    ok(paused === 'paused', 'Esc mimo terminál pauzuje jako dřív', `režim ${paused}`);
 
     for (const [name, png] of Object.entries(shots)) {
       const s = await imageStats(page, png);

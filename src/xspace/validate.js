@@ -112,7 +112,7 @@ function boxOk(min, max, path, c, minSize = LIMITS.brushMinSize) {
 
 // ---- materiály -------------------------------------------------------------------------
 
-function checkMaterials(file, mats, c) {
+function checkMaterials(file, mats, c, assetPaths = null, foreign = null) {
   checkShape(FORMATS.materials, mats, file, c);
   const ids = new Set();
   if (mats && mats.materials && typeof mats.materials === 'object') {
@@ -120,6 +120,12 @@ function checkMaterials(file, mats, c) {
       if (!ID.test(k)) c.err('shape.id', `${file}.materials.${k}`, 'id materiálu má být malými písmeny, číslicemi a podtržítkem');
       ids.add(k);
       if (m && m.model === 'emissive' && !m.emissive) c.err('mat.emissive', `${file}.materials.${k}`, 'model emissive vyžaduje pole emissive');
+      if (m && assetPaths && !foreign?.has(k)) {
+        for (const f of ['albedo', 'normal']) {
+          if (typeof m[f] === 'string' && !assetPaths.has(m[f])) c.err('ref.asset', `${file}.materials.${k}.${f}`, `soubor „${m[f]}“ není v seznamu assets manifestu (N-111)`);
+        }
+      }
+      if (m && m.albedoMean !== undefined && (!m.albedo || !Array.isArray(m.albedoMean) || m.albedoMean.some((x) => !(x > 0)))) c.err('mat.albedoMean', `${file}.materials.${k}.albedoMean`, 'albedoMean patří jen k materiálu s albedo a všechny složky mají být větší než 0 (N-009)');
       if (m && isNum(m.opacity) && m.opacity < 1 && m.alphaTest !== undefined) c.warn('mat.alphaBoth', `${file}.materials.${k}`, 'materiál má opacity pod 1 i alphaTest: dva různé způsoby průhlednosti');
     }
   }
@@ -499,7 +505,7 @@ export function validatePack(pack) {
   });
 
   for (const e of pack.mergeErrors || []) c.err(e.code, 'pack.json.requires', e.msg);
-  const matIds = pack.materials ? checkMaterials(m?.materials || 'materials.json', pack.materials, c) : new Set();
+  const matIds = pack.materials ? checkMaterials(m?.materials || 'materials.json', pack.materials, c, assetPaths, new Set(pack.foreignMaterials || [])) : new Set();
   if (m?.materials && !pack.materials) c.err('pack.missingFile', 'pack.json.materials', `soubor „${m.materials}“ se nenačetl`);
 
   const prefabById = new Map();

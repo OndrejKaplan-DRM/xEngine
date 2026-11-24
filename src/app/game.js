@@ -8,13 +8,16 @@ import { createPlayer } from '../play/player.js';
 import { createPhys } from '../phys/phys.js';
 import { createWorld } from '../world/world.js';
 import { createEntities } from '../world/entities.js';
+import { createAssets } from '../world/assets.js';
 import { createIo } from '../world/io.js';
 import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
+import { createLighting } from '../world/lighting.js';
+import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
-export const VERSION = 'xEngine 0.1 · vlna 1 · 2026-11-22';
+export const VERSION = 'xEngine 0.1 · vlna 2, krok 5 (A02) · 2026-11-24';
 
 /**
  * @param {object} o
@@ -48,11 +51,20 @@ export function createGame({ pack, render, now }) {
 
   const input = createInput();
   const phys = createPhys();
-  const world = createWorld({ phys, render, pack });
-  const entities = createEntities({ phys, render, world, pack });
+  const light = createLighting({ render, now });
+  const occlusion = createOcclusion({ phys, light });
+  light.setOcclusion(occlusion);
+  const assets = createAssets(pack); // textury a .glb z pack.files (A2.6)
+  const world = createWorld({ phys, render, light, pack, assets });
+  const entities = createEntities({ phys, render, world, light, pack, assets });
   const vis = createVisibility({ world, entities, render });
+  // před každým vykreslením: které buňky jsou vidět, potom poznamenané změny světla do barev vrcholů
+  render.beforeDraw = () => {
+    vis.update();
+    light.flush();
+  };
   const io = createIo({ entities, world });
-  const behave = createBehaviors({ entities, io });
+  const behave = createBehaviors({ entities, io, world });
   entities.behave = behave;
   io.behave = behave;
   const player = createPlayer({ phys, world, render, input, session });
@@ -60,10 +72,11 @@ export function createGame({ pack, render, now }) {
   behave.onPrint = (ent, text) => interact.print(ent, text); // obrazovky patří vrstvě xPlay, svět o nich neví
 
   /**
-   * Načtení levelu: jediné místo, které zná pořadí. Fyzika → statický svět → (entity, spojení, hráč) → sítě → jeden krok.
+   * Načtení levelu: jediné místo, které zná pořadí. Fyzika → světlo (prázdné) → statický svět → (entity, spojení,
+   * hráč) → sítě → jeden krok fyziky → vrstvy světla nad hotovými sítěmi.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [world, entities, vis, io, player, interact];
+  const loadOrder = [light, world, entities, vis, io, player, interact];
   let loaded = null;
   function loadLevel(id) {
     if (!levels.has(id)) throw new Error(`Level „${id}“ v balíku není. Známé: ${[...levels.keys()].join(', ')}.`);
@@ -76,8 +89,10 @@ export function createGame({ pack, render, now }) {
     phys.open(session.profile.gravity);
     const ctx = { level, pack, session, io };
     for (const sys of loadOrder) sys.load?.(ctx);
+    occlusion.load(ctx, entities);
     render.closeStatic();
     phys.settle();
+    light.prepare();
     loaded = id;
   }
 
@@ -90,6 +105,7 @@ export function createGame({ pack, render, now }) {
   E.add(phys);
   E.add(world);
   E.add(vis);
+  E.add(light);
   E.add(io);
   E.add(render);
 
@@ -109,12 +125,15 @@ export function createGame({ pack, render, now }) {
     VERSION,
     E,
     pack,
+    assets,
     session,
     input,
     phys,
     world,
     entities,
     vis,
+    light,
+    occlusion,
     io,
     behave,
     player,
@@ -143,6 +162,7 @@ export function createGame({ pack, render, now }) {
     /** Nová hra v daném levelu (výchozí = aktuální). Zámek kurzoru řeší aplikace, ne hra. */
     start(levelId) {
       if (levelId && levelId !== loaded) loadLevel(levelId);
+      else if (world.lightCell !== world.stat.lightCell || entities.doorsAway !== entities.builtAway) loadLevel(loaded); // jiná mřížka světla nebo jiné dveře: postavit znovu
       E.reset();
       if (E.mode !== 'playing') E.setMode('playing');
     },

@@ -2,16 +2,13 @@
 // Zdroj hodnot: sada Level 1, 10_CASE_FPS, invariant F3. Jedna herní jednotka původních her = 0,0254 m.
 // Jistota: arena 5/5 (Quake III Arena), real 3/5 (Counter-Strike, Half-Life): výchozí odhad, neladit naslepo.
 
+import { BODY as BODY_DIMS } from '../xspace/index.js';
+
 const U = 0.0254;
 
-/** Rozměry postavy a pravidla terénu společná oběma profilům (18 jednotek schod, normála 0,7 jako mez chůze). */
+/** Rozměry postavy a pravidla terénu jsou v základu (`src/xspace/body.js`, D-040); profil k nim přidává jen chování. */
 const BODY = {
-  height: 1.8, // m, výška kapsle
-  radius: 0.35, // m
-  eye: 1.6, // m nad nohama
-  stepHeight: 18 * U, // m, nejvyšší schod, který postava vyjde bez skoku
-  stepMinWidth: 0.15, // m, nejmenší hloubka schodu
-  walkNormal: 0.7, // nejmenší svislá složka normály, po které se dá chodit (asi 45,6°)
+  ...BODY_DIMS,
   snap: 0.3, // m, přichycení k zemi při chůzi dolů
   mass: 80, // kg, čím postava tlačí do beden
 };
@@ -31,7 +28,8 @@ export const PROFILES = {
     airCap: null, // bez stropu přání ve vzduchu
     gravity: 800 * U, // 20,3 m/s²
     jumpSpeed: 270 * U, // 6,86 m/s, výška výskoku 1,16 m
-    jumpHold: true, // držený skok se po dopadu opakuje (série výskoků bez přesného načasování)
+    jumpHold: false, // každý výskok na nový stisk (Ondřej 22. 11. 2026)
+    jumpBuffer: true, // stisk ve vzduchu platí při dopadu, dokud se klávesa drží (jako Quake III)
   },
   real: {
     id: 'real',
@@ -48,6 +46,7 @@ export const PROFILES = {
     gravity: 800 * U,
     jumpSpeed: 268 * U,
     jumpHold: false,
+    jumpBuffer: false, // skok jen stiskem na zemi (jako Half-Life: držená klávesa po dopadu neskáče)
   },
 };
 

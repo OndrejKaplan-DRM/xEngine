@@ -77,4 +77,4 @@ U variant a i b platí: kde se odstín textury od barvy materiálu liší víc n
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+Přijata varianta a1 (D-045, 24. 11. 2026): u materiálu s `albedo` je `color` průměrná barva povrchu; textura se kreslí × `color / albedoMean`; pole `albedoMean` ve `formats.js`, validátor `mat.albedoMean`. Otázka, jestli ploché barvy sady stáhnout k vyfocenému albedu, je otázka vzhledu pro Ondřeje.
