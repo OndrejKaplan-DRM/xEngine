@@ -15,6 +15,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [x] D-042 zkoušky dveří nezávislé na rozsahu dveří zlatého vzorku (`oneSidedDoors`): se zlatým vzorkem ±105° (kopie mimo repo, `PACK=…`) projdou všechny zkoušky A v Node. **Svodná může dveře zlatého vzorku přepnout.**
 - [x] D-041 a D-044: běh čte zapečené světlo `levels/<id>.light.bin` (`src/world/baked.js`). Soubor vyrobený z vrstev běhu dá tytéž barvy (poměrně do 1e-7), i po rozsvícení lampy a otevření dveří; v sandboxu stavba vrstev xLabu 30 ms místo 446 ms. Skutečný soubor ze xBake sešny B (xLab, jen kvádry, před D-041) se přečetl: 14 ze 14 světel, poměr jasu proti výpočtu medián 1,00 (10 % 0,73, 90 % 1,57; odraz a stíny prefabů). Do hry ho zatím nic nedopraví: N-111 a soubor v balíku od sešny B
 - [x] N-009 (návrh sešny B): barva materiálu s texturou = průměr povrchu, textura × (color / průměr); průměr z `albedoMean`, jinak spočítaný při načtení
+- [x] **N-110 zkouška (D-043) změřená na T460** (23:16): vykreslení medián 2,51 → 3,24 ms, výpočet haly při načtení 1,8 s (10 cm) a 6,1 s (5 cm), 4 a 16 MB. Podrobně v N-110, oddíl Zkouška
 - [x] **N-110 zkouška (D-043)**: textura světla s bodem 5 nebo 10 cm na hale xLabu za přepínačem `?lightmap=5|10` (`src/world/lightmap.js`). Ostrý stín sloupů a krytu; v místě vrcholu stejná hodnota jako po vrcholech. Sandbox: 10 cm 4 MB a 1,2 až 1,7 s výpočtu, 5 cm 16 MB a 3,9 až 5,4 s. Čísla z T460 chybí (N-110, oddíl Zkouška)
 - [x] Ondřejův snímek z T460 (24. 11. 09:57, `complex_7`, `c_lab_06`): (1) nastavení „Dveře od hráče“ rozšiřovalo rozsah i 16 kusům nábytku v `complex_7` (skříně, lednice, víka centrifug; v katakombách víka truhel), které by se otevřely dovnitř; teď jen dveře v otvoru portálu, včetně druhého křídla (`a_14_swing`). (2) Černá stěna kartotéky není chyba výpočtu: lampa visí přesně nad šířkou kartotéky (x 10,85 m, kartotéka 10,40 až 10,86 m), na boky přímé světlo nedopadne a zbývá okolní člen 0,05. Chybí odražené světlo (vrstva `indirect` ze xBake, D-035); otázka pro Ondřeje
 - [x] A2.5 nová pole základu (podrobně v tabulce „Hotovo“ a v deníku)
@@ -27,7 +28,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:**
-1. sestavení krok 6, jen jedna karta s hrou: `xlab.html?bench`, `xlab.html?lightmap=10&bench`, `xlab.html?lightmap=5&bench` (výpočet textury při načtení, paměť, `draw.ms` v hale) a pohled na halu s `?lightmap=5` (lampy: hala B se rozsvítí při vstupu, A pákou v laboratoři)
+1. N-110 podle měření z T460 (23:16, tabulka v návrhu N-110): vykreslení s texturou světla +0,7 až +0,9 ms, výpočet jedné haly při načtení 1,8 s (10 cm) a 6,1 s (5 cm). Otázka: a) textura světla do formátu a do xBake s bodem 5 cm (návrh pro svodnou), b) totéž s bodem 10 cm, c) zůstat u světla po vrcholech
 
 **Ondřej 24. 11. 21:13:** výchozí rozlišení **(a) zůstává 768 řádků** (rezerva pro textury a světlo; `complex_7` na 1 080 řádcích má 95 % 10,2 ms). Volba 4 b z 23. 11. („1 080, když se vejde do 10 ms“) je tím uzavřená: nevešlo se.
 
@@ -298,7 +299,7 @@ Starší čísla z vlny 1 (světla po pixelech, rozpočet světel, jas pohledů)
 - **Zapečené světlo na T460**: čas načtení a vzhled; ve hře soubor zatím není (N-111). Soubor se vzorky dílů prefabů (D-041) sešna B ještě nevyrobila; čtení ověřené jen souborem vyrobeným testem.
 - **Textury a `.glb` na T460**: cena textury ve hře (`draw.ms`), čas dekódování WebP a paměť neměřené; `?bench` je teď vypisuje (`textures`, `textureMB`, `meshParts`, `meshTris`), ale level s texturou zatím není (N-111, B2.5).
 - **Světlo na síti z `.glb` je po jejích vrcholech**: velká plocha ze dvou trojúhelníků má světlo jen v rozích (stojan v `a_26_view` má přední stěnu jedním odstínem). Doporučení pro B v N-111.
-- **Textura světla (N-110) na T460**: čas výpočtu při načtení (stránka během něj stojí), 16 MB textury, cena vykreslení; ve hře se počítá jen hala a jen za přepínačem. Okraj stínu je schodovitý po bodech (10 cm viditelně, 5 cm méně); zjemnění okraje po podílech by stálo 16× paprsků.
+- **Textura světla (N-110)**: na T460 změřeno (N-110, oddíl Zkouška); neověřené je, jak působí okem a jak velká by byla pro celý level a přepínaná světla (odhad). Okraj stínu je schodovitý po bodech (10 cm viditelně, 5 cm méně); zjemnění okraje po podílech by stálo 16× paprsků.
 - **`.glb` jen ze zkušebních modelů vyrobených kódem**: model z Blenderu (jiné rozložení bloků, `byteStride`, normalizované UV, víc primitiv) ještě engine neviděl.
 - **Slunce** (`type: sun`) se zastíněním: žádný level ho nemá.
 - **Jak se manipulace drží v ruce** (citlivost): změřené jen robotem, oddíl 6.

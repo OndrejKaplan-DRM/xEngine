@@ -59,7 +59,17 @@ Za přepínačem `?lightmap=5` nebo `?lightmap=10` (cm) a `&lmcell=` (výchozí 
 | paprsků zastínění | 682 201 | 2 688 304 |
 | výpočet při načtení | 1,2 až 1,7 s | 3,9 až 5,4 s |
 
-Na T460 je pevná práce 5 000 paprsků 11,5 až 23,8 ms (`?bench`), 2,7 mil. paprsků tedy asi 6 až 13 s jen paprsky (odhad). Čeká se na `?bench` z T460 s texturou a bez ní.
+**T460 (Ondřej, 24. 11. 23:13 až 23:16, sestavení krok 6, 1 678 × 768, bez vyhlazování, jedna karta):**
+
+| xLab | bez textury světla | hala 10 cm | hala 5 cm |
+|---|---|---|---|
+| `draw.ms` medián / 95 % / nejvíc | 2,51 / 3,24 / 4,01 | 3,24 / 3,91 / 10,85 | 3,24 / 4,18 / 9,00 |
+| výpočet textury při načtení | – | **1 772 ms** | **6 104 ms** |
+| nejdelší snímek (zástava při načtení) | 50 ms | 2 598 ms | 6 962 ms |
+| paměť textury | – | 4 MB | 16 MB |
+| pevná práce: 5 000 paprsků | 12,8 ms | 11,0 ms | 11,8 ms |
+
+Závěr pro rozhodnutí (D-043): **vykreslení s texturou světla je na T460 levné** (medián +0,7 ms v celé trase, 95 % +0,7 až +0,9 ms; textura je jen v hale, takže rozdíl je spíš horní mez). **Výpočet při načtení ne**: jedna hala po 5 cm 6,1 s a stránka stojí; odpovídá to rychlosti paprsků (2,7 mil. paprsků při 11,8 ms na 5 000 = 6,3 s). Celý level (`complex_7`, odhad 3,2 mil. bodů a 124 světel) jde jen zapéct v xBake předem. Paměť 16 MB na halu, pro `complex_7` po 5 cm odhadem 32 MB jedné vrstvy (half float), pro přepínaná světla víc.
 
 ## Rozhodnutí
 
