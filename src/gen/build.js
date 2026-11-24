@@ -149,6 +149,8 @@ export function buildStructure(preset, P, plan, catalog, rng) {
     hall: null,
     eid: (prefix) => `e_${prefix}_${pad((seq[prefix] = (seq[prefix] || 0) + 1), 2)}`,
   };
+  // upřesnění účelu místností podle toho, co sada umí (předvolba complex: obor laboratoře, serverovna, open space)
+  if (preset.refine) preset.refine(cells, catalog, rng.fork('refine'));
   const floorName = (c) => (P.floors < 2 ? '' : c.tall ? ' · obě patra' : c.f === 0 ? ' · přízemí' : ` · ${c.f}. patro`);
   S.meta = cells.map((c) => {
     const key = preset.cellKey(c);

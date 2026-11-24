@@ -79,19 +79,51 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     return tryPlace(ci, prefab, p.map(r4), host.rot[1] + ryAdd, { host, margin: 0, ...o });
   }
 
+  /**
+   * Věci na desku hostitele zleva doprava podle šířek, se stejnými mezerami; co se nevejde, vynechá.
+   * Výška desky: components.place.top, jinak source.params.top, jinak vršek obalu. Hloubka: source.params.deck = [z0, z1]
+   * je volný pruh desky v prostoru prefabu (před nástavbou a policí); věc stojí zády u z0 a nesmí přečnívat z1.
+   * Bez deck stojí věci na −2 cm (stoly z kit_base).
+   */
+  function dressTop(ci, host, list) {
+    if (!list || !list.length) return;
+    const pf = catalog.get(host.prefab);
+    const rb = catalog.restBox(host.prefab);
+    const pr = (pf.source && pf.source.params) || {};
+    const topY = ((pf.components || {}).place || {}).top ?? pr.top ?? rb.max[1];
+    const deck = pr.deck;
+    const edge = 0.03;
+    const span = rb.max[0] - rb.min[0] - 2 * edge;
+    const items = [];
+    let used = 0;
+    for (const t of list) {
+      const tb = catalog.restBox(t);
+      const w = tb.max[0] - tb.min[0];
+      if (used + w > span || (deck && tb.max[2] - tb.min[2] > deck[1] - deck[0] - 0.01)) continue;
+      items.push([t, tb, w]);
+      used += w;
+    }
+    const gap = (span - used) / (items.length + 1);
+    let x = rb.min[0] + edge + gap;
+    for (const [t, tb, w] of items) {
+      relative(ci, host, t, [x - tb.min[0], topY, deck ? deck[0] + 0.01 - tb.min[2] : -0.02]);
+      x += w + gap;
+    }
+  }
+  /** Židle kolem hostitele: seats = [[x, z, natočení], …] v prostoru hostitele (m, stupně). */
+  function seatsAround(ci, host, item) {
+    for (const [x, z, ry] of item.seats || []) relative(ci, host, item.seat, [x, 0, z], ry, { margin: 0.02 });
+  }
+
   /** Jedna položka fronty: prefab ke zdi a případně věci na něm, před ním a nad ním. */
   function placeItem(ci, wall, item, low) {
     const e = againstWall(ci, wall, item.p, low, item.h || 0);
     if (!e) return null;
-    const pf = catalog.get(item.p);
     const rb = catalog.restBox(item.p);
-    const topY = pf.source.params && pf.source.params.top ? pf.source.params.top : rb.max[1];
-    (item.top || []).forEach((t, k, list) => {
-      const x = rb.min[0] + ((rb.max[0] - rb.min[0]) * (k + 0.5)) / list.length;
-      relative(ci, e, t, [x, topY, -0.02]);
-    });
+    dressTop(ci, e, item.top);
     // židle patří ke stolu: jeho obal (včetně vysunuté zásuvky) jí nevadí, stojí mimo zásuvku (chairX)
     if (item.chair) relative(ci, e, item.chair, [item.chairX || 0, 0, rb.max[2] + 0.4], 180, { margin: 0.02 });
+    seatsAround(ci, e, item);
     if (item.stack) relative(ci, e, item.stack, [0, rb.max[1], 0], rng.int(-25, 25));
     if (item.over) againstWall(ci, wall, item.over.p, low + Math.round((widthCm(item.p) - widthCm(item.over.p)) / 2), item.over.h, { host: e });
     return e;
@@ -131,10 +163,80 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
       for (let t = 0; t < 12; t++) {
         const x = rng.int(c.min[0] + 110, Math.max(c.min[0] + 110, c.max[0] - 110));
         const z = rng.int(c.min[1] + 110, Math.max(c.min[1] + 110, c.max[1] - 110));
-        const e = tryPlace(ci, item.p, [m(x), m(c.y0), m(z)], item.yaw === false ? 0 : rng.int(0, 7) * 45, { margin: item.aisle ?? 0.45 });
+        const e = tryPlace(ci, item.p, [m(x), m(c.y0), m(z)], item.yaw === false ? (c.w >= c.d ? 0 : 90) : rng.int(0, 7) * 45, { margin: item.aisle ?? 0.45 });
         if (!e) continue;
         if (item.stack) relative(ci, e, item.stack, [0, catalog.restBox(item.p).max[1], 0], rng.int(-25, 25));
+        dressTop(ci, e, item.top);
+        seatsAround(ci, e, item);
         break;
+      }
+    }
+  }
+
+  /**
+   * Řady skříní nebo stolů v ploše místnosti podél delší osy (serverovna, open space). R.items se opakují dokola.
+   * R.pairs: dvojice řad zády k sobě (horká ulička uvnitř skříní, stoly čelem k sobě), jinak jednotlivé řady. Mezi řadami
+   * ulička R.aisle, u zdí volno R.wall a na koncích R.end (cm). R.over: prefab ze stropu nad osou řady (kabelový žlab).
+   * R.seat a R.seats: židle ke každému kusu řady (místo pro ně 70 cm na každé straně). R.tops: seznam desek, které se
+   * střídají dokola. Seznam R je řada možností; platí první, která se do místnosti vejde. @returns počet postavených kusů
+   */
+  function rowsIn(ci, list) {
+    const c = cells[ci];
+    const run = c.w >= c.d ? RUN_X : 1 - RUN_X;
+    const along = run === RUN_X ? [c.min[0], c.max[0]] : [c.min[1], c.max[1]];
+    const across = run === RUN_X ? [c.min[1], c.max[1]] : [c.min[0], c.max[0]];
+    for (const R of [].concat(list)) {
+      const dep = Math.max(...R.items.map(depthCm)) + 2;
+      const seat = R.seats ? 70 : 0;
+      const band = (R.pairs ? 2 : 1) * dep + 2 * seat;
+      const aisle = R.aisle ?? 120;
+      const end = R.end ?? 110;
+      const count = Math.max(0, Math.floor((across[1] - across[0] - 2 * (R.wall ?? 130) + aisle) / (band + aisle)));
+      if (!count || Math.min(...R.items.map(widthCm)) > along[1] - along[0] - 2 * end) continue;
+      let s = Math.round((across[0] + across[1] - (count * band + (count - 1) * aisle)) / 2);
+      let k = 0;
+      let placed = 0;
+      for (let r = 0; r < count; r++) {
+        const line = s + seat + (R.pairs ? dep : 0);
+        for (const n of R.pairs ? [-1, 1] : [1]) {
+          const wall = { run, face: line, n, a0: along[0], a1: along[1] };
+          for (let cur = along[0] + end; ; ) {
+            const id = R.items[k % R.items.length];
+            const w = widthCm(id);
+            if (cur + w > along[1] - end) break;
+            const e = againstWall(ci, wall, id, cur, 0);
+            if (e) {
+              if (R.tops) dressTop(ci, e, R.tops[k % R.tops.length]);
+              if (R.seat) seatsAround(ci, e, R);
+              k++;
+              placed++;
+            }
+            cur += w;
+          }
+        }
+        if (R.over) {
+          const w = widthCm(R.over);
+          const mid = R.pairs ? line : line + Math.round(dep / 2);
+          for (let cur = along[0] + end; cur + w <= along[1] - end; cur += w) {
+            const a = cur + w / 2;
+            tryPlace(ci, R.over, run === RUN_X ? [m(a), m(c.y1), m(mid)] : [m(mid), m(c.y1), m(a)], run === RUN_X ? 0 : 90, { margin: 0 });
+          }
+        }
+        s += band + aisle;
+      }
+      if (placed) return placed;
+    }
+    return 0;
+  }
+
+  /** Věci na strop (kamera, přístupový bod Wi-Fi): náhodné místo aspoň půl metru od zdí, mimo svítidla. */
+  function ceilingItems(ci, list) {
+    const c = cells[ci];
+    for (const id of list) {
+      for (let t = 0; t < 10; t++) {
+        const x = rng.int(c.min[0] + 50, Math.max(c.min[0] + 50, c.max[0] - 50));
+        const z = rng.int(c.min[1] + 50, Math.max(c.min[1] + 50, c.max[1] - 50));
+        if (tryPlace(ci, id, [m(x), m(c.y1), m(z)], 0, { margin: 0.05 })) break;
       }
     }
   }
@@ -238,8 +340,11 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const plan2 = preset.furniture(c, rng, catalog);
     if (!plan2) return;
     const before = S.entities.length;
+    if (plan2.rows && plan2.rowsFirst) rowsIn(ci, plan2.rows);
     packWalls(ci, plan2.walls || [], plan2.maxDepth ?? 90);
+    if (plan2.rows && !plan2.rowsFirst) rowsIn(ci, plan2.rows);
     scatter(ci, plan2.center || []);
+    ceilingItems(ci, plan2.ceiling || []);
     while (S.entities.length > before && !passable(ci)) {
       const gone = S.entities.pop();
       S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);

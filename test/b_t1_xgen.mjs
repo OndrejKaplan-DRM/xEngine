@@ -7,10 +7,12 @@ import { readFileSync, readdirSync, mkdtempSync, cpSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { generateLevel, makeCatalog, levelPackManifest, fmtJson, PRESETS, kit as K } from '../src/gen/index.js';
+import { generateLevel, makeCatalog, mergeKits, levelPackManifest, fmtJson, PRESETS, kit as K } from '../src/gen/index.js';
 import { validatePack, mergePacks } from '../src/xspace/index.js';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
 import { kitAsPack } from '../tools/forge/kit/index.mjs';
+import { THEMES } from '../tools/forge/themes.mjs';
+import { asPack as themePack } from '../tools/forge/theme.mjs';
 import { makeChecker, span } from './b_lib/check.mjs';
 import { inspectLevel, portalDoors } from './b_lib/level-checks.mjs';
 import { doorLeaks } from './b_lib/door-cover.mjs';
@@ -20,14 +22,18 @@ import { BODY, bodyWidth, passRadius } from '../src/gen/body.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEEDS = Number(process.env.B_SEEDS || 200);
 const { ok, finish } = makeChecker('B-T1 xGen');
-const kitPack = kitAsPack();
-const catalog = makeCatalog(kitPack);
+// sady jako v packs/ (kit_base, kit_lab, kit_it), sestavené v paměti stejným kódem jako make-pack
+const kitsNow = () => [kitAsPack(), ...['kit_lab', 'kit_it'].map((id) => themePack(THEMES[id].build()))];
+const KITS = kitsNow();
+const kitPack = KITS[0];
+const catalog = makeCatalog(mergeKits(KITS));
+const baseCatalog = makeCatalog(kitPack);
 const SRC = { tool: 'rucne', license: 'own' };
 
-/** Level jako balík spojený se sadou, tak jak ho uvidí validátor i engine. */
-function asPack(level) {
-  const main = { manifest: levelPackManifest('zkouska', 'Zkouška', [level], kitPack.manifest.id), materials: null, prefabs: [], levels: [{ file: `levels/${level.id}.json`, data: level }], loadErrors: [] };
-  return mergePacks(main, [kitPack]);
+/** Level jako balík spojený se sadami, tak jak ho uvidí validátor i engine. */
+function asPack(level, cat = catalog) {
+  const main = { manifest: levelPackManifest('zkouska', 'Zkouška', [level], cat.kits), materials: null, prefabs: [], levels: [{ file: `levels/${level.id}.json`, data: level }], loadErrors: [] };
+  return mergePacks(main, KITS.filter((k) => cat.kits.includes(k.manifest.id)));
 }
 
 // ---- stavebnice: dvě místnosti, chodba, schody, rampa a sloup složené ručně --------------------
@@ -87,11 +93,16 @@ const RUNS = [
   { preset: 'catacombs', opts: {}, n: SEEDS, name: 'catacombs' },
   { preset: 'complex', opts: { floors: 1 }, n: Math.ceil(SEEDS / 4), name: 'complex (jedno patro)' },
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
+  { preset: 'complex', opts: {}, n: Math.ceil(SEEDS / 4), name: 'complex jen se sadou kit_base', cat: baseCatalog },
 ];
+// místnosti ze sad kit_lab a kit_it (obor laboratoře, serverovna, open space) podle jména buňky
+const KINDS = { lab: /^c_(chem|bio|mol|anal|viv)_/, server: /^c_(server|hpc)_/, office: /^c_(open|meet)_/ };
 let slowest = 0;
+const catalogAll = catalog;
 const portalDoorPrefabs = new Set();
 const usedAll = new Set();
 for (const run of RUNS) {
+  const catalog = run.cat || catalogAll;
   const attachIds = new Set(catalog.ids.flatMap((id) => catalog.attachments(id).map((a) => a.prefab)));
   const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [] };
   let walker = null;
@@ -102,6 +113,7 @@ for (const run of RUNS) {
   let withStairs = 0;
   let puzzles = 0;
   let prefabsUsed = new Set();
+  const kinds = { lab: [], server: [], office: [] };
   for (let seed = 1; seed <= run.n; seed++) {
     let made;
     const t0 = performance.now();
@@ -122,7 +134,8 @@ for (const run of RUNS) {
     agg.drawers.push(level.entities.filter((e) => attachIds.has(e.prefab)).length);
     agg.brushes.push(level.brushes.length);
     agg.tris.push(level.brushes.length * 12 + level.entities.reduce((t, e) => t + (catalog.has(e.prefab) ? catalog.get(e.prefab).tris : 0), 0));
-    const res = validatePack(asPack(level));
+    for (const k of Object.keys(kinds)) kinds[k].push(level.cells.filter((c) => KINDS[k].test(c.id)).length);
+    const res = validatePack(asPack(level, catalog));
     for (const x of [...res.errors, ...res.warnings]) findings[x.code] = (findings[x.code] || 0) + 1;
     const insp = inspectLevel(level, catalog);
     walker = insp.player;
@@ -150,12 +163,19 @@ for (const run of RUNS) {
   if (run.preset === 'complex') ok(Math.min(...agg.drawers) > 0, `${run.name}: zásuvky kartoték a stolů stojí jako samostatné entity (každá se otevírá zvlášť)`, `zásuvek na level ${span(agg.drawers)}`);
   if (run.opts.puzzle) ok(puzzles >= n * 0.9, `${run.name}: zamčená místnost s pákou`, `${puzzles} z ${n}`);
   if (!run.opts.puzzle && !run.opts.floors) ok(prefabsUsed.size >= (run.preset === 'complex' ? 25 : 8), `${run.name}: generátor rozmisťuje prefaby sady`, `${prefabsUsed.size} různých prefabů z ${catalog.ids.length}`);
+  if (run.preset === 'complex' && !run.cat) {
+    ok(kinds.lab.every((x) => x >= 1) && kinds.server.filter((x) => x >= 1).length >= n * 0.9, `${run.name}: se sadami kit_lab a kit_it má každý level laboratoř oboru a skoro každý serverovnu`, `laboratoří ${span(kinds.lab)}, serveroven ${span(kinds.server)}, open space a zasedaček ${span(kinds.office)} na level`);
+  }
+  if (run.cat) ok(Object.values(kinds).every((list) => list.every((x) => x === 0)), `${run.name}: bez sad kit_lab a kit_it zůstávají místnosti a vybavení z kit_base`);
 }
 
 {
   // okno a mřížová brána čekají na návrh N-003 (portál jen pro pohled); všechno ostatní ze sady generátor umí postavit
-  const unused = catalog.ids.filter((id) => !usedAll.has(id));
-  ok(unused.every((id) => ['window_sash_01', 'gate_iron_01'].includes(id)), 'generátory dohromady použijí každý prefab sady kromě těch, které čekají na N-003', `nepoužité: ${unused.join(', ') || 'žádné'}`);
+  const unused = baseCatalog.ids.filter((id) => !usedAll.has(id));
+  ok(unused.every((id) => ['window_sash_01', 'gate_iron_01'].includes(id)), 'generátory dohromady použijí každý prefab sady kit_base kromě těch, které čekají na N-003', `nepoužité: ${unused.join(', ') || 'žádné'}`);
+  const more = catalog.ids.filter((id) => !baseCatalog.has(id));
+  const usedMore = more.filter((id) => usedAll.has(id));
+  ok(usedMore.length >= more.length * 0.3, 'z sad kit_lab a kit_it generátor rozmisťuje aspoň třetinu prefabů', `${usedMore.length} z ${more.length}`);
 }
 
 {
@@ -183,7 +203,7 @@ for (const run of RUNS) {
 // ---- opakovatelnost --------------------------------------------------------------------------
 for (const id of Object.keys(PRESETS)) {
   const a = fmtJson(generateLevel(id, 12345, catalog, {}).level);
-  const b = fmtJson(generateLevel(id, 12345, makeCatalog(kitAsPack()), {}).level);
+  const b = fmtJson(generateLevel(id, 12345, makeCatalog(mergeKits(kitsNow())), {}).level);
   const c = fmtJson(generateLevel(id, 12346, catalog, {}).level);
   ok(a === b, `${id}: stejný seed dvakrát = stejné bajty`, `${a.length} znaků`);
   ok(a !== c, `${id}: jiný seed = jiný level`);
@@ -199,9 +219,9 @@ for (const id of Object.keys(PRESETS)) {
 // ---- ukázkový balík a nástroj z příkazové řádky ------------------------------------------------
 {
   const tmp = mkdtempSync(path.join(os.tmpdir(), 'xgen-'));
-  cpSync(path.join(root, 'packs/kit_base'), path.join(tmp, 'kit_base'), { recursive: true });
+  for (const id of catalog.kits) cpSync(path.join(root, 'packs', id), path.join(tmp, id), { recursive: true });
   const out = path.join(tmp, 'gen_demo');
-  execFileSync(process.execPath, [path.join(root, 'src/gen/cli.mjs'), 'demo', '--out', out, '--kit', path.join(tmp, 'kit_base')], { stdio: 'pipe' });
+  execFileSync(process.execPath, [path.join(root, 'src/gen/cli.mjs'), 'demo', '--out', out, ...catalog.kits.flatMap((id) => ['--kit', path.join(tmp, id)])], { stdio: 'pipe' });
   const list = (dir, rel = '') => readdirSync(path.join(dir, rel), { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? list(dir, path.join(rel, d.name)) : [path.join(rel, d.name)]));
   const repo = path.join(root, 'packs/gen_demo');
   const a = list(repo).sort();

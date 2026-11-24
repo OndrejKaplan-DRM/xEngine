@@ -1,8 +1,10 @@
 // Předvolba „komplex“: technický komplex s halou, laboratořemi, kancelářemi, sklady a chodbami.
 // Dvě patra spojuje galerie haly se schodištěm; jednopatrová varianta má v hale plošinu s rampou.
-// Délky v centimetrech. Jména prefabů a materiálů jsou ze sady kit_base.
+// Délky v centimetrech. Jména prefabů a materiálů jsou ze sady kit_base; se sadami kit_lab a kit_it přibudou obory
+// laboratoří, serverovna, výpočetní sál, open space a zasedačka (complex_kits.js).
 
 import { BODY } from '../body.js';
+import { refineComplex, labPlan, itPlan, EXTRA, VARIANT_NAMES, VARIANT_KEYS } from './complex_kits.js';
 
 const WARM = [1, 0.9, 0.75];
 const COOL = [0.85, 0.93, 1];
@@ -98,8 +100,9 @@ export const complex = {
     };
   },
 
-  cellKey: (c) => KEYS[c.role],
-  cellName: (c) => NAMES[c.role],
+  refine: refineComplex,
+  cellKey: (c) => VARIANT_KEYS[c.variant] || KEYS[c.role],
+  cellName: (c) => VARIANT_NAMES[c.variant] || NAMES[c.role],
   zone: (c) => ({ hall: 'hall', corridor: 'corridor', lab: 'room_tiled' })[c.role] || 'room_small',
   materials: (c) => MATS[c.role],
   lighting: (c) => LIGHT[c.role],
@@ -124,11 +127,13 @@ export const complex = {
   swingInto: (A, B, rng) => (A.kind === 'room' && B.kind !== 'room' ? 'a' : B.kind === 'room' && A.kind !== 'room' ? 'b' : rng.chance(0.5) ? 'a' : 'b'),
 
   /** Fronta vybavení podle účelu místnosti: první položky jsou jisté, zbytek se losuje podle obvodu. */
-  furniture(c, rng) {
+  furniture(c, rng, catalog) {
     const n = Math.max(3, Math.min(9, Math.round((c.w + c.d) / 190)));
     const take = (fixed, pool) => [...fixed, ...rng.shuffle(pool)].slice(0, n);
     const tops = () => rng.shuffle(['microscope_01', 'centrifuge_bench_01', 'terminal_desk_01', 'microscope_01']).slice(0, 2);
     const crates = () => rng.weighted([[{ p: 'crate_large_01', stack: 'crate_plank_01' }, 3], [{ p: 'crate_large_01' }, 2], [{ p: 'crate_plank_01', stack: 'crate_plank_01' }, 2], [{ p: 'crate_steel_01' }, 2], [{ p: 'barrel_steel_01' }, 3]]);
+    const kits = c.variant && (c.role === 'lab' ? labPlan(c, rng, take) : itPlan(c, rng, take));
+    if (kits) return kits;
     switch (c.role) {
       case 'lab':
         return {
@@ -140,13 +145,13 @@ export const complex = {
       case 'office':
         return {
           walls: take(
-            [{ p: 'desk_office_01', top: ['terminal_desk_01', 'lamp_desk_01'], chair: 'chair_office_01', chairX: -0.15 }, { p: 'cabinet_file_01' }],
+            [{ p: 'desk_office_01', top: ['terminal_desk_01', 'lamp_desk_01'], chair: 'chair_office_01', chairX: -0.15, ...EXTRA.office(rng, catalog) }, { p: 'cabinet_file_01' }],
             [{ p: 'cabinet_door_01' }, { p: 'shelf_rack_01' }, { p: 'cabinet_file_01' }, { p: 'chair_plain_01' }, { p: 'bench_metal_01' }, { p: 'table_work_01', chair: 'chair_plain_01' }, { p: 'lamp_wall_01', h: 190 }],
           ),
         };
       case 'store':
         return {
-          walls: take([{ p: 'shelf_rack_02' }, { p: 'shelf_rack_01' }], [{ p: 'shelf_rack_02' }, { p: 'shelf_rack_01' }, crates(), crates(), crates(), { p: 'crate_steel_01' }, { p: 'barrel_steel_01' }]),
+          walls: take([{ p: 'shelf_rack_02' }, { p: 'shelf_rack_01' }], [{ p: 'shelf_rack_02' }, { p: 'shelf_rack_01' }, crates(), crates(), crates(), { p: 'crate_steel_01' }, { p: 'barrel_steel_01' }, ...EXTRA.store(rng, catalog, c)]),
           center: c.area >= 26 ? [crates(), crates()] : [],
         };
       case 'tech':
@@ -157,11 +162,11 @@ export const complex = {
           ),
         };
       case 'corridor':
-        return { walls: [...(rng.chance(0.6) ? [{ p: 'pipe_straight_01', h: 235, chain: 4 }] : []), ...(Math.min(c.w, c.d) >= 200 && rng.chance(0.4) ? [{ p: 'bench_metal_01' }] : [])], maxDepth: 45 };
+        return { walls: [...(rng.chance(0.6) ? [{ p: 'pipe_straight_01', h: 235, chain: 4 }] : []), ...(Math.min(c.w, c.d) >= 200 && rng.chance(0.4) ? [{ p: 'bench_metal_01' }] : []), ...EXTRA.corridor(rng, catalog)], maxDepth: 45 };
       case 'hall':
         return {
-          walls: take([{ p: 'table_work_01' }, { p: 'terminal_wall_01', h: 135 }, { p: 'shelf_rack_02' }], [crates(), crates(), { p: 'barrel_steel_01' }, { p: 'lever_floor_01' }, { p: 'bench_metal_01' }, { p: 'shelf_rack_01' }, { p: 'valve_gate_01', h: 110 }]),
-          center: [crates(), crates(), { p: 'barrel_steel_01' }, crates()],
+          walls: take([{ p: 'table_work_01' }, { p: 'terminal_wall_01', h: 135 }, { p: 'shelf_rack_02' }], [crates(), crates(), { p: 'barrel_steel_01' }, { p: 'lever_floor_01' }, { p: 'bench_metal_01' }, { p: 'shelf_rack_01' }, { p: 'valve_gate_01', h: 110 }, ...EXTRA.hall(rng, catalog)]),
+          center: [crates(), crates(), { p: 'barrel_steel_01' }, crates(), ...EXTRA.hallCenter(rng, catalog)],
         };
       default:
         return null;

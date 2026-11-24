@@ -12,6 +12,8 @@ const gen = (f) => `lab/furniture.mjs#${f}`;
 const pad = (i) => String(i).padStart(2, '0');
 const TOP = 0.9;
 const floor = (top) => ({ components: staticFloor(top), group: 'world' });
+/** Volný pruh desky v hloubce (z od–do, prostor prefabu) před policemi nástavby; generátor na něj staví věci zády k nástavbě. */
+const DECK_WALL = [-0.065, 0.37];
 
 /** Skříňky pod deskou: sokl, korpus, čela dvířek s madly (bez kloubu, jen tvar). */
 function under(x0, x1, d, mat = 'plastic_light') {
@@ -31,11 +33,11 @@ export function benches() {
     const d = 0.75;
     const parts = [...under(-L / 2, L / 2, d), ...bevelBox('body', [-L / 2, TOP - 0.03, -d / 2], [L / 2, TOP, d / 2], 'bench_phenolic', 0.004), box('body', [-L / 2, TOP, -d / 2], [L / 2, TOP + 0.75, -d / 2 + 0.03], 'plastic_light'), box('body', [-L / 2, TOP + 0.4, -d / 2 + 0.03], [L / 2, TOP + 0.42, -d / 2 + 0.3], 'steel_brushed'), box('body', [-L / 2, TOP + 0.7, -d / 2 + 0.03], [L / 2, TOP + 0.72, -d / 2 + 0.3], 'steel_brushed'), box('body', [-L / 2 + 0.05, TOP + 0.05, -d / 2 + 0.03], [L / 2 - 0.05, TOP + 0.12, -d / 2 + 0.06], 'plastic_anthracite')];
     for (let i = 0; i < Math.round(L / 0.3); i++) parts.push(box('body', [-L / 2 + 0.08 + i * 0.3, TOP + 0.07, -d / 2 + 0.06], [-L / 2 + 0.16 + i * 0.3, TOP + 0.1, -d / 2 + 0.065], i % 2 ? 'plastic_white' : 'cap_red'));
-    return simple(`bench_lab_wall_${pad(v + 1)}`, `Laboratorní stůl ke zdi ${String(L).replace('.', ',')} m s nástavbou`, CAT, parts, { gen: gen('benches'), components: staticFloor(TOP), group: 'world' });
+    return simple(`bench_lab_wall_${pad(v + 1)}`, `Laboratorní stůl ke zdi ${String(L).replace('.', ',')} m s nástavbou`, CAT, parts, { gen: gen('benches'), components: staticFloor(TOP), group: 'world', params: { deck: DECK_WALL } });
   });
   const L = 2.4;
   const d = 1.5;
-  const island = simple('bench_lab_island_01', 'Laboratorní ostrůvek 2,4 m s policí na obě strany', CAT, [...under(-L / 2, L / 2, d), ...bevelBox('body', [-L / 2, TOP - 0.03, -d / 2], [L / 2, TOP, d / 2], 'bench_phenolic', 0.004), ...[-1, 1].map((s) => box('body', [s * (L / 2 - 0.05) - 0.03, TOP, -0.03], [s * (L / 2 - 0.05) + 0.03, TOP + 0.8, 0.03], 'steel_painted')), box('body', [-L / 2, TOP + 0.45, -0.18], [L / 2, TOP + 0.47, 0.18], 'steel_brushed'), box('body', [-L / 2, TOP + 0.78, -0.18], [L / 2, TOP + 0.8, 0.18], 'steel_brushed'), box('body', [-L / 2 + 0.1, TOP, -0.06], [L / 2 - 0.1, TOP + 0.1, 0.06], 'plastic_anthracite')], { gen: gen('benches'), components: staticFloor(TOP), group: 'world' });
+  const island = simple('bench_lab_island_01', 'Laboratorní ostrůvek 2,4 m s policí na obě strany', CAT, [...under(-L / 2, L / 2, d), ...bevelBox('body', [-L / 2, TOP - 0.03, -d / 2], [L / 2, TOP, d / 2], 'bench_phenolic', 0.004), ...[-1, 1].map((s) => box('body', [s * (L / 2 - 0.05) - 0.03, TOP, -0.03], [s * (L / 2 - 0.05) + 0.03, TOP + 0.8, 0.03], 'steel_painted')), box('body', [-L / 2, TOP + 0.45, -0.18], [L / 2, TOP + 0.47, 0.18], 'steel_brushed'), box('body', [-L / 2, TOP + 0.78, -0.18], [L / 2, TOP + 0.8, 0.18], 'steel_brushed'), box('body', [-L / 2 + 0.1, TOP, -0.06], [L / 2 - 0.1, TOP + 0.1, 0.06], 'plastic_anthracite')], { gen: gen('benches'), components: staticFloor(TOP), group: 'world', params: { deck: [0.19, 0.74] } });
   const sinkL = 1.5;
   const sink = simple('bench_lab_sink_01', 'Laboratorní stůl s výlevkou, baterií a oční sprchou', CAT, [...under(-sinkL / 2, sinkL / 2, 0.75), ...bevelBox('body', [-sinkL / 2, TOP - 0.03, -0.375], [sinkL / 2, TOP, 0.375], 'bench_phenolic', 0.004), box('body', [-0.25, TOP - 0.2, -0.25], [0.25, TOP - 0.0, 0.25], 'steel_brushed'), box('body', [-0.23, TOP - 0.19, -0.23], [0.23, TOP - 0.17, 0.23], 'steel_dark'), cyl('body', [0, TOP + 0.15, -0.32], 0.012, 0.3, 'y', 'steel_brushed'), cyl('body', [0, TOP + 0.3, -0.22], 0.01, 0.2, 'z', 'steel_brushed'), cyl('body', [0.5, TOP + 0.08, -0.3], 0.025, 0.12, 'y', 'paint_green'), cyl('body', [0.5, TOP + 0.15, -0.3], 0.05, 0.02, 'y', 'paint_yellow'), box('body', [-sinkL / 2, TOP, -0.375], [sinkL / 2, TOP + 0.3, -0.345], 'tile_white')], { gen: gen('benches'), components: staticFloor(TOP), group: 'world' });
   return [...wall, island, sink];

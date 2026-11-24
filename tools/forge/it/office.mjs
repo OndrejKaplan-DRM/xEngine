@@ -31,8 +31,8 @@ export function desks() {
   return [
     one('desk_bench4_01', 'Blok stolů pro čtyři s přepážkami', block(false), 'desks', floor(H)),
     one('desk_bench4_02', 'Blok stolů pro čtyři s přepážkami a počítači', block(true), 'desks', floor(H)),
-    one('desk_sitstand_01', 'Stůl s nastavitelnou výškou, bílý', sitStand('laminate_white', 0), 'desks', floor(0.745)),
-    one('desk_sitstand_02', 'Stůl s nastavitelnou výškou, dubový', sitStand('laminate_oak', 1), 'desks', floor(0.745)),
+    one('desk_sitstand_01', 'Stůl s nastavitelnou výškou, bílý', sitStand('laminate_white', 0), 'desks', { ...floor(0.745), params: { deck: [-0.38, 0.38] } }),
+    one('desk_sitstand_02', 'Stůl s nastavitelnou výškou, dubový', sitStand('laminate_oak', 1), 'desks', { ...floor(0.745), params: { deck: [-0.38, 0.38] } }),
   ];
 }
 

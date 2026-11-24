@@ -34,6 +34,7 @@
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#desks",
+    "params": { "deck": [-0.38, 0.38] },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

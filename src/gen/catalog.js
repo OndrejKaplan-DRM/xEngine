@@ -5,6 +5,32 @@ import { entityMatrix, mat4Point, rigMatrices } from '../xspace/index.js';
 import { boundsAt, partPoints } from './measure.js';
 
 /**
+ * Několik sad jako jeden balík pro katalog (kit_base, kit_lab, kit_it…): prefaby a materiály všech, id spojené „+“.
+ * Každá sada musí mít své requires mezi ostatními, jinak by level odkazoval na balík, který nikdo nepřibalí.
+ * Kolize id prefabu nebo materiálu mezi sadami je chyba.
+ */
+export function mergeKits(packs) {
+  if (packs.length === 1) return packs[0];
+  const kits = packs.map((p) => p.manifest.id);
+  const out = { manifest: { xspace: 1, kind: 'pack', id: kits.join('+'), requires: kits }, kits, materials: { xspace: 1, kind: 'materials', materials: {} }, prefabs: [], levels: [], loadErrors: [] };
+  const seen = new Map();
+  for (const p of packs) {
+    for (const r of p.manifest.requires || []) if (!kits.includes(r)) throw new Error(`sada ${p.manifest.id} stojí na ${r}, který mezi sadami není`);
+    for (const [id, m] of Object.entries(p.materials?.materials || {})) {
+      if (id in out.materials.materials) throw new Error(`materiál „${id}“ je v sadách ${seen.get('m:' + id)} a ${p.manifest.id}`);
+      seen.set('m:' + id, p.manifest.id);
+      out.materials.materials[id] = m;
+    }
+    for (const pf of p.prefabs) {
+      if (seen.has(pf.data.id)) throw new Error(`prefab „${pf.data.id}“ je v sadách ${seen.get(pf.data.id)} a ${p.manifest.id}`);
+      seen.set(pf.data.id, p.manifest.id);
+      out.prefabs.push(pf);
+    }
+  }
+  return out;
+}
+
+/**
  * @param pack načtený balík sady ({ prefabs: [{ data }], materials })
  */
 export function makeCatalog(pack) {
@@ -51,6 +77,8 @@ export function makeCatalog(pack) {
   const worldBox = (id, pos, ry = 0, which = 'rest') => moved(which === 'swept' ? sweptBox(id) : restBox(id), pos, ry);
   return {
     id: pack.manifest.id,
+    /** Id balíků sad, ze kterých katalog je (requires balíku levelů). */
+    kits: pack.kits || [pack.manifest.id],
     get,
     has: (id) => byId.has(id),
     attachments,

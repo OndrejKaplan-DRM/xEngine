@@ -10,7 +10,7 @@ import { source } from './util.js';
 import { complex } from './presets/complex.js';
 import { catacombs } from './presets/catacombs.js';
 
-export { makeCatalog } from './catalog.js';
+export { makeCatalog, mergeKits } from './catalog.js';
 export { fmtJson } from './util.js';
 export * as kit from './kit.js';
 
@@ -85,6 +85,6 @@ export function generateLevel(presetId, seed, catalog, opts = {}) {
 }
 
 /** Manifest balíku s levely, který si prefaby a materiály bere ze sady. */
-export function levelPackManifest(id, title, levels, kitId) {
-  return { xspace: 1, kind: 'pack', id, title, version: '0.1.0', free: true, requires: [kitId], levels: levels.map((l) => `levels/${l.id}.json`), assets: [] };
+export function levelPackManifest(id, title, levels, kits) {
+  return { xspace: 1, kind: 'pack', id, title, version: '0.1.0', free: true, requires: [].concat(kits), levels: levels.map((l) => `levels/${l.id}.json`), assets: [] };
 }
