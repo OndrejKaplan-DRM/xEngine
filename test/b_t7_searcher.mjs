@@ -154,7 +154,7 @@ const golden = JSON.parse(fs.readFileSync(path.join(root, 'packs', 'golden', 'pa
 const data = Buffer.from('odvozená textura 512 px');
 const entry = packAsset(phRec, 'textures/concrete_512.jpg', data, phRec.files[0]);
 ok(entry.sha256 === sha(data) && entry.bytes === data.length && entry.source === phRec.files[0].url && entry.license === 'CC0-1.0', 'položka assets nese otisk odvozeného souboru a adresu originálu');
-const { materials: _m, prefabs: _p, levels: _l, ...head } = golden; // balík jen s assety, bez souborů
+const { materials: _m, prefabs: _p, levels: _l, ammo: _a, weapons: _w, ...head } = golden; // balík jen s assety, bez souborů
 const asPack = (assets) => ({ manifest: { ...head, free: true, assets }, prefabs: [], levels: [] });
 const errs = (v) => v.errors.filter((e) => e.code.startsWith('license') || e.code.startsWith('pack.'));
 ok(errs(validatePack(asPack([entry]))).length === 0, 'balík s free = true a texturou CC0 validátor přijme', errs(validatePack(asPack([entry]))).map((e) => e.code).join(','));

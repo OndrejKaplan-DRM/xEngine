@@ -6,12 +6,14 @@
 // Brána = množina dveří, kterými úsečka prošla (obvykle jedny; dvoje, když světlo svítí přes dvě místnosti).
 // V souboru je to seznam id entit z pole portal.door; úroveň úseku = součin jejich otevření.
 
+import { doorInteraction } from '../../src/xspace/interact.js';
+
 const PLANE_EPS = 1e-4; // bod ležící v rovině otvoru jím neprochází
 const QUAD_PAD = 1e-3; // m; rozšíření obalu otvoru kvůli zaokrouhlení
 const SAME_SPOT = 0.011; // m; druhé křídlo dvoukřídlých dveří má stejný počátek jako dveře portálu
 const SUN_REACH = 400; // m; kam až se míří ke slunci
 
-const isDoor = (pf) => Boolean(pf && pf.components && pf.components.interact && pf.components.interact.kind === 'door');
+const isDoor = (pf) => Boolean(pf && doorInteraction(pf));
 
 /**
  * @param level level xSpace

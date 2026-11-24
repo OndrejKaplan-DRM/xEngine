@@ -7,7 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPackDir, readPackDir } from '../tools/lib/read-pack.mjs';
-import { FREE_LICENSES, SURFACES, rigMatrices } from '../src/xspace/index.js';
+import { FREE_LICENSES, SURFACES, rigMatrices, interactions, doorInteraction } from '../src/xspace/index.js';
 import { buildKit, TEXTURES } from '../tools/forge/kit/index.mjs';
 import { MATERIALS } from '../tools/forge/materials.mjs';
 import { TEXTURE_PLAN, TEXTURE_SIZE, HUE_LIMIT } from '../tools/forge/kit/textures.mjs';
@@ -100,7 +100,7 @@ ok(MOVING.every(movesOrAttached), 'každý předmět, který se má hýbat, má 
         bad.push(`${p.id}: připojený prefab ${a.prefab} v sadě není`);
         continue;
       }
-      if (!(c.components || {}).interact) bad.push(`${p.id}: ${a.prefab} nemá interakci`);
+      if (!interactions(c).length) bad.push(`${p.id}: ${a.prefab} nemá interakci`);
       if (catalog.attachments(a.prefab).length) bad.push(`${a.prefab}: připojený prefab má další připojené (jen jedna úroveň)`);
       const b = boundsAt(c);
       const w = { min: b.min.map((v, k) => v + a.pos[k]), max: b.max.map((v, k) => v + a.pos[k]) };
@@ -146,9 +146,7 @@ ok(MOVING.every(movesOrAttached), 'každý předmět, který se má hýbat, má 
 // ---- interakce podle tabulky v kontraktech
 {
   const bad = [];
-  for (const p of prefabs) {
-    const it = p.components?.interact;
-    if (!it) continue;
+  for (const p of prefabs) for (const it of interactions(p)) {
     const j = joints(p).find((x) => x.id === it.joint);
     const need = (cond, why) => {
       if (!cond) bad.push(`${p.id}: ${it.kind} ${why}`);
@@ -229,7 +227,7 @@ ok(MOVING.every(movesOrAttached), 'každý předmět, který se má hýbat, má 
   const pair = doorLeaks(wings, wings[0].source.params.width, wings[0].source.params.height);
   ok(wings.length === 2 && pair.leaks.length === 0, 'dvoukřídlé dveře: obě křídla spolu zakryjí celý otvor', pair.text || `${pair.rays} paprsků`);
   const alone = wings.map((p) => doorLeaks([p], p.source.params.width, p.source.params.height).leaks.length);
-  const flag = (p) => p.components.interact.seeThrough === true;
+  const flag = (p) => doorInteraction(p)?.seeThrough === true;
   ok(alone.every((n) => n > 0) && wings.every(flag) && !single.some(flag), 'dvoukřídlé dveře: jedno křídlo samo otvor nezakryje, proto má seeThrough; plné dveře ho nemají', alone.join(' a ') + ' paprsků projde jedním křídlem');
   const sillOk = doors.every((p) => p.parts.some((q) => q.node === 'frame' && q.shape === 'box' && q.min[1] === 0 && q.max[1] <= 0.015 && q.max[1] > 0.01));
   const noCol = doors.every((p) => (p.colliders || []).every((c) => !(c.node === 'frame' && c.max[1] <= 0.015)));

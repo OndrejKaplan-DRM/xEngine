@@ -8,7 +8,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateLevel, makeCatalog, mergeKits, levelPackManifest, fmtJson, PRESETS, kit as K } from '../src/gen/index.js';
-import { validatePack, mergePacks } from '../src/xspace/index.js';
+import { validatePack, mergePacks, doorInteraction } from '../src/xspace/index.js';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
 import { kitAsPack } from '../tools/forge/kit/index.mjs';
 import { THEMES } from '../tools/forge/themes.mjs';
@@ -180,7 +180,7 @@ for (const run of RUNS) {
 
 {
   // engine zavřenými dveřmi portálu zavírá pohled (N-107): entita v portal.door musí otvor zakrýt sama, nebo mít seeThrough
-  const through = (id) => catalog.get(id).components.interact.seeThrough === true;
+  const through = (id) => doorInteraction(catalog.get(id))?.seeThrough === true;
   const bad = [...portalDoorPrefabs].filter((id) => {
     const op = catalog.opening(id);
     return !through(id) && doorLeaks([catalog.get(id)], op.w / 100, op.h / 100).leaks.length > 0;

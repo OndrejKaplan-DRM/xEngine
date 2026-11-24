@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { validatePack, partMesh } from '../../../src/xspace/index.js';
+import { validatePack, partMesh, interactions } from '../../../src/xspace/index.js';
 import { buildKit, TEXTURES } from '../kit/index.mjs';
 import { THEMES } from '../themes.mjs';
 import { buildPrefab, figure, useTextures, material } from './scene.js';
@@ -237,7 +237,7 @@ function ui() {
   }
   const p = byId.get(current);
   const size = [0, 1, 2].map((i) => num(p.bounds.max[i] - p.bounds.min[i])).join(' × ');
-  const it = p.components && p.components.interact;
+  const its = interactions(p);
   const body = p.components && p.components.physics ? p.components.physics.body + (p.components.physics.mass ? `, ${num(p.components.physics.mass)} kg` : '') : 'bez tělesa';
   const joints = (p.rig.joints || []).map((j) => `<div class="joint"><b>${esc(j.id)}</b> · ${j.type === 'hinge' ? 'otočný' : 'posuvný'} · ${range(j)}${j.detents ? ` · zarážky ${j.detents.map(num).join(', ')}` : ''}${j.spring ? ' · pružina' : ''} · ${{ manual: 'ruka', motor: 'pohon', both: 'ruka i pohon' }[j.drive] || ''}<p>${esc((notes[p.id] || {})[j.id] || '')}</p></div>`);
   info.innerHTML = `<h2>${esc(p.title)}</h2><code>${esc(p.id)}</code>
@@ -246,7 +246,7 @@ function ui() {
       <tr><td>obal š × v × h</td><td>${size} m (přes celý rozsah pohybu)</td></tr>
       <tr><td>trojúhelníků</td><td>${p.tris}</td></tr>
       <tr><td>těleso</td><td>${esc(body)}</td></tr>
-      <tr><td>interakce</td><td>${it ? esc(`${it.kind}${it.prompt ? ` („${it.prompt}“)` : ''}${it.manipulate ? ', jde táhnout myší' : ''}`) : 'žádná'}</td></tr>
+      <tr><td>interakce</td><td>${its.length ? its.map((it) => esc(`${it.kind}${it.prompt ? ` („${it.prompt}“)` : ''}${it.manipulate ? ', jde táhnout myší' : ''}`)).join('<br>') : 'žádná'}</td></tr>
       <tr><td>vstupy</td><td>${esc((p.inputs || []).join(', ') || 'žádné')}</td></tr>
       <tr><td>výstupy</td><td>${esc((p.outputs || []).join(', ') || 'žádné')}</td></tr>
       <tr><td>uzly kostry</td><td>${esc(p.rig.nodes.map((n) => n.id).join(' → '))}</td></tr>

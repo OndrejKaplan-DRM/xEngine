@@ -1,7 +1,7 @@
 // Katalog sady pro generátor: co o prefabech potřebuje vědět rozmisťování. Vše se čte z dat balíku
 // (obal, díly, parametry původu), generátor si rozměry prefabů nikde nepamatuje.
 
-import { entityMatrix, mat4Point, rigMatrices } from '../xspace/index.js';
+import { entityMatrix, mat4Point, rigMatrices, doorInteraction } from '../xspace/index.js';
 import { boundsAt, partPoints } from './measure.js';
 
 /**
@@ -102,7 +102,7 @@ export function makeCatalog(pack) {
       const spans = [];
       for (const id of ids) {
         const pf = get(id);
-        const it = (pf.components || {}).interact;
+        const it = doorInteraction(pf);
         const j = it && (pf.rig.joints || []).find((x) => x.id === it.joint);
         const rest = j ? (j.rest ?? j.min) : 0;
         const mats = rigMatrices(pf, j ? { [j.id]: Math.abs(j.max - rest) >= Math.abs(j.min - rest) ? j.max : j.min } : {});

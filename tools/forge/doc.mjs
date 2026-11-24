@@ -1,4 +1,5 @@
 // xForge: přehled sady jako dokument (tools/forge/KIT.md). Čistá funkce; zapisuje ji make-kit.mjs, hlídá test b_t2.
+import { interactions } from '../../src/xspace/interact.js';
 
 /** Dokument: tabulka prefabů a zdůvodnění mezí. Generuje se, neupravuje se ručně. */
 export function kitDoc(k, o = {}) {
@@ -12,7 +13,7 @@ export function kitDoc(k, o = {}) {
   lines.push('| Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |', '|---|---|---|---|---|---|---|');
   for (const p of k.prefabs) {
     const joints = (p.rig.joints || []).map((j) => `${j.id}: ${j.type === 'hinge' ? `${num(j.min)}° až ${num(j.max)}°` : `${num(j.min)} až ${num(j.max)} m`}`).join('; ');
-    lines.push(`| \`${p.id}\` | ${p.title} | ${p.category} | ${dims(p)} | ${p.tris} | ${joints || '—'} | ${p.components?.interact?.kind || '—'} |`);
+    lines.push(`| \`${p.id}\` | ${p.title} | ${p.category} | ${dims(p)} | ${p.tris} | ${joints || '—'} | ${interactions(p).map((x) => x.kind).join(', ') || '—'} |`);
   }
   lines.push('', '## Meze kloubů: zdroj nebo úvaha', '', 'Žádná z mezí nebyla změřena na skutečném předmětu. Kde je uvedeno „úvaha“, jde o odhad z obecné znalosti předmětu.', '');
   lines.push('| Prefab | Kloub | Meze | Zdůvodnění |', '|---|---|---|---|');

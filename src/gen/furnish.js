@@ -4,7 +4,7 @@
 // Rozměry prefabů se berou z katalogu (data sady), ne z čísel v kódu. Nic se nepostaví do zóny před otvorem,
 // do rozsahu pohybu jiného kloubu ani mimo buňku.
 
-import { entityMatrix, mat4Point } from '../xspace/index.js';
+import { entityMatrix, mat4Point, interactions } from '../xspace/index.js';
 import { V, m, r4 } from './util.js';
 import { RUN_X } from './kit.js';
 import { boxM, boxesHit } from './build.js';
@@ -47,7 +47,7 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const e = { id: S.eid(stem(prefab)), prefab, cell: S.meta[ci].id, pos: V(...pos), rot: V(0, ry, 0) };
     // svítidlo s vlastním vypínačem (stolní lampa) se zapojí samo na sebe; turnOn a turnOff jsou bezpečné i dvakrát
     const comp = catalog.get(prefab).components || {};
-    if (comp.light && comp.interact && comp.interact.kind === 'switch') e.io = [{ on: 'on', target: e.id, input: 'turnOn' }, { on: 'off', target: e.id, input: 'turnOff' }];
+    if (comp.light && interactions(catalog.get(prefab)).some((x) => x.kind === 'switch')) e.io = [{ on: 'on', target: e.id, input: 'turnOn' }, { on: 'off', target: e.id, input: 'turnOff' }];
     occ.push({ ...rest, kind: 'solid', e });
     if (moves) occ.push({ ...swept, kind: 'zone', e });
     S.entities.push(e);
@@ -351,8 +351,7 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     }
     // tlačítko bez úkolu ovládá svítidla své místnosti
     for (const e of S.entities.slice(before)) {
-      const it = (catalog.get(e.prefab).components || {}).interact;
-      if (it && it.kind === 'button' && !e.io && lampsOf[ci].length) e.io = lampsOf[ci].map((l) => ({ on: 'pressed', target: l.id, input: 'toggle' }));
+      if (interactions(catalog.get(e.prefab)).some((x) => x.kind === 'button') && !e.io && lampsOf[ci].length) e.io = lampsOf[ci].map((l) => ({ on: 'pressed', target: l.id, input: 'toggle' }));
     }
   });
 

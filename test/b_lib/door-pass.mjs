@@ -5,7 +5,7 @@
 //
 // Soustava prefabu dveří: počátek = střed prahu, X podél zdi, prochází se podél Z.
 
-import { rigMatrices, mat4Point } from '../../src/xspace/index.js';
+import { rigMatrices, mat4Point, doorInteraction } from '../../src/xspace/index.js';
 import { partPoints } from '../../src/gen/measure.js';
 
 const G = 0.01;
@@ -48,7 +48,7 @@ function distToPoly(x, z, poly) {
 
 /** Hodnota kloubu dveří na dorazu nejdál od klidu. */
 export function openPose(prefab) {
-  const it = (prefab.components || {}).interact;
+  const it = doorInteraction(prefab);
   const j = it && (prefab.rig.joints || []).find((x) => x.id === it.joint);
   if (!j) return {};
   const rest = j.rest ?? j.min;

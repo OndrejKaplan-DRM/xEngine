@@ -5,7 +5,7 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh } from '../../src/xspace/index.js';
+import { levelLightMeshes, LIGHT_CELL, lightIrradiance, entityMatrix, rigMatrices, mat4Mul, mat4Point, partMesh, doorInteraction } from '../../src/xspace/index.js';
 import { bakeLevel } from './bake.mjs';
 import { composeColors } from '../../src/xspace/bake.js';
 
@@ -76,7 +76,7 @@ meshes.props = new THREE.Mesh(propGeo, material);
 scene.add(meshes.props);
 
 function openPose(pf) {
-  const it = (pf.components || {}).interact;
+  const it = doorInteraction(pf);
   const j = it && (pf.rig.joints || []).find((x) => x.id === it.joint);
   if (!j) return {};
   const rest = j.rest ?? j.min;
