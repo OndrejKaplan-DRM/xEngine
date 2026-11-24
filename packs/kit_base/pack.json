@@ -8,5 +8,246 @@
   "materials": "materials.json",
   "prefabs": ["prefabs/door_wood_01.json", "prefabs/door_steel_01.json", "prefabs/door_plank_01.json", "prefabs/door_sliding_01.json", "prefabs/door_dleft_01.json", "prefabs/door_dright_01.json", "prefabs/gate_iron_01.json", "prefabs/window_sash_01.json", "prefabs/button_round_01.json", "prefabs/button_call_01.json", "prefabs/switch_rocker_01.json", "prefabs/lever_knife_01.json", "prefabs/lever_floor_01.json", "prefabs/valve_gate_01.json", "prefabs/valve_ball_01.json", "prefabs/tap_wall_01.json", "prefabs/cabinet_file_01.json", "prefabs/cabinet_door_01.json", "prefabs/table_work_01.json", "prefabs/table_lab_01.json", "prefabs/desk_office_01.json", "prefabs/chair_office_01.json", "prefabs/chair_plain_01.json", "prefabs/shelf_rack_01.json", "prefabs/shelf_rack_02.json", "prefabs/bench_metal_01.json", "prefabs/bench_stone_01.json", "prefabs/lamp_pendant_01.json", "prefabs/lamp_panel_01.json", "prefabs/lamp_wall_01.json", "prefabs/lamp_desk_01.json", "prefabs/torch_wall_01.json", "prefabs/centrifuge_bench_01.json", "prefabs/fumehood_01.json", "prefabs/microscope_01.json", "prefabs/fridge_lab_01.json", "prefabs/terminal_wall_01.json", "prefabs/terminal_desk_01.json", "prefabs/crate_plank_01.json", "prefabs/crate_large_01.json", "prefabs/crate_steel_01.json", "prefabs/barrel_steel_01.json", "prefabs/barrel_wood_01.json", "prefabs/pipe_straight_01.json", "prefabs/pipe_double_01.json", "prefabs/railing_steel_01.json", "prefabs/railing_steel_02.json", "prefabs/sarcophagus_01.json", "prefabs/chest_wood_01.json"],
   "levels": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "textures/castle_wall_varriation_albedo_gray.512.webp",
+      "bytes": 72834,
+      "sha256": "a1739b914bac04b1de2b096a8546e8cf8dd50d1f1a86a27c41828e8dfbd6cda0",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/castle_wall_varriation/castle_wall_varriation_diff_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/castle_wall_varriation_normal.512.webp",
+      "bytes": 115966,
+      "sha256": "8e068b868d5ae292d426ccc92c15ec45d6bfd2371f089a0c2f05887cb9936914",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/castle_wall_varriation/castle_wall_varriation_nor_gl_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "bytes": 12328,
+      "sha256": "d14ecc52fc981226f3fdf4172432fc65b5abe6accd625ceb358580c8be9b5741",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_worn_001/concrete_floor_worn_001_diff_2k.jpg",
+      "author": "Dimitrios Savva, Rico Cilliers"
+    },
+    {
+      "path": "textures/concrete_floor_worn_001_normal.512.webp",
+      "bytes": 6478,
+      "sha256": "a30ffa6ff0a008b2b3b0c669d75e432750932ea0afdbe61480698495c9cd8dd0",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_worn_001/concrete_floor_worn_001_nor_gl_2k.jpg",
+      "author": "Dimitrios Savva, Rico Cilliers"
+    },
+    {
+      "path": "textures/diamondplate008c_albedo.512.webp",
+      "bytes": 24716,
+      "sha256": "6812efb4d3d67fafd6dd717ab5955a378a8deabb0708c849870ab35e7e350acc",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=DiamondPlate008C_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/diamondplate008c_normal.512.webp",
+      "bytes": 62126,
+      "sha256": "4ccb379b59333aaece16a79eeb64cd7f6a52601a44bd85269f4b63039a92bfa2",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=DiamondPlate008C_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/ground110_albedo.512.webp",
+      "bytes": 101694,
+      "sha256": "c0f05ee21a640fe924eb5ab67f5341156e9a59d9a61a8338391fbd9872027fe1",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Ground110_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/ground110_normal.512.webp",
+      "bytes": 130068,
+      "sha256": "656482f7eedfc29ad728e02feb49f0bc740db50d44cb838341996a5ded14b448",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Ground110_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/kitchen_wood_albedo.512.webp",
+      "bytes": 60348,
+      "sha256": "a81a8bb8f537edc419597804f9c876eeb4037df3d7b15e59e41abde3b12d6af0",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_diff_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/kitchen_wood_normal.512.webp",
+      "bytes": 18534,
+      "sha256": "bb982dbef5a5e32b47a8aa067532003894e77b8adc0075381ba07ac73812d40c",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_nor_gl_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/metal009_albedo.512.webp",
+      "bytes": 12616,
+      "sha256": "33a0ee778fbe26d01767d4db4e3a3aab65c41d896b372d0ee0b4832750f01674",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/metal009_normal.512.webp",
+      "bytes": 2348,
+      "sha256": "1d4f493fb1b7d796dd0698ac2ac76a01c66047b2c27a80553aa7d024e52c7b00",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/oak_veneer_05_albedo.512.webp",
+      "bytes": 15710,
+      "sha256": "11f449c14eec2d9d818a3c2fe26655e0041ed4d9360c886ae35941a9f66ddb0a",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_diff_2k.jpg",
+      "author": "Jenelle van Heerden"
+    },
+    {
+      "path": "textures/oak_veneer_05_normal.512.webp",
+      "bytes": 3522,
+      "sha256": "9b71bce0cc0b91ff251aa3a788d12f3b6fc23058256ecc80210e3186f27af8b4",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_05/oak_veneer_05_nor_gl_2k.jpg",
+      "author": "Jenelle van Heerden"
+    },
+    {
+      "path": "textures/old_linoleum_flooring_01_albedo_gray.512.webp",
+      "bytes": 26894,
+      "sha256": "42d98d080f7d1f00bdb11b891b1175fd35bd783a904b34670ea43d4c95a6dc84",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_linoleum_flooring_01/old_linoleum_flooring_01_diff_2k.jpg",
+      "author": "Charlotte Baglioni"
+    },
+    {
+      "path": "textures/old_linoleum_flooring_01_normal.512.webp",
+      "bytes": 3242,
+      "sha256": "ade6ff813f9a01f31924eb59b9278e849a22c36f5f5198380fcd1cffee7aa17a",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_linoleum_flooring_01/old_linoleum_flooring_01_nor_gl_2k.jpg",
+      "author": "Charlotte Baglioni"
+    },
+    {
+      "path": "textures/old_planks_02_albedo.512.webp",
+      "bytes": 21636,
+      "sha256": "b898803f651fa1a97e9adddf67bcbbb1f119a94a5cea9272129e2d3e506043a3",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_diff_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/old_planks_02_normal.512.webp",
+      "bytes": 38092,
+      "sha256": "a6813711c6b1010fbb3bfbc5fed06f12f1d811857ff0fb6b5fff635395e82fc8",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_nor_gl_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/painted_plaster_wall_albedo.512.webp",
+      "bytes": 15014,
+      "sha256": "e38f4860a63d0f31cb670bd3a98ef2a2b1c096d648a4bc1627465ce1c7271d25",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+      "author": "Amal Kumar"
+    },
+    {
+      "path": "textures/painted_plaster_wall_normal.512.webp",
+      "bytes": 38474,
+      "sha256": "742534f9fbc67d6e43728716c7b8eaea592bf587d60c64064569f2c12178ea87",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+      "author": "Amal Kumar"
+    },
+    {
+      "path": "textures/red_brick_albedo.512.webp",
+      "bytes": 36044,
+      "sha256": "78910c54e0fde6ad1a2becd828785f67bdb2cca3f3a5b655c7cba630fa97fc6c",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_brick/red_brick_diff_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/red_brick_normal.512.webp",
+      "bytes": 89150,
+      "sha256": "8698ecea76d211cebd216ddb7a6bceeed02fca44d2a134cb18622481daa88e0c",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_brick/red_brick_nor_gl_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/rusty_painted_metal_albedo_gray.512.webp",
+      "bytes": 11162,
+      "sha256": "a1d8bb5c5c95b5fccef473857a06b1418b6396fa240dc69ebfc3ca3206826afd",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rusty_painted_metal/rusty_painted_metal_diff_2k.jpg",
+      "author": "Amal Kumar"
+    },
+    {
+      "path": "textures/rusty_painted_metal_normal.512.webp",
+      "bytes": 7392,
+      "sha256": "3ab8cb93d9f48a4de7214fe44b626d0e8d30952aca83c4c5ed583267bd883978",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rusty_painted_metal/rusty_painted_metal_nor_gl_2k.jpg",
+      "author": "Amal Kumar"
+    },
+    {
+      "path": "textures/sandstone_blocks_05_albedo_gray.512.webp",
+      "bytes": 75138,
+      "sha256": "3bd4cb01b9dbd08db7888f47c1e0558d8ddbccfbbbcbc3b303095d0b0dc128c6",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sandstone_blocks_05/sandstone_blocks_05_diff_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/sandstone_blocks_05_normal.512.webp",
+      "bytes": 127386,
+      "sha256": "89022e28eccb02d4e115d879e60d9cc55b45e4b087fee1917776cb89357caefa",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sandstone_blocks_05/sandstone_blocks_05_nor_gl_2k.jpg",
+      "author": "Rob Tuytel"
+    },
+    {
+      "path": "textures/stone_brick_wall_001_albedo_gray.512.webp",
+      "bytes": 49712,
+      "sha256": "900afa2a3658377b3ba8d1c61e715d7f8c1731ae0719fd84393063bf0bbb2f47",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_brick_wall_001/stone_brick_wall_001_diff_2k.jpg",
+      "author": "Dimitrios Savva, Rico Cilliers"
+    },
+    {
+      "path": "textures/stone_brick_wall_001_normal.512.webp",
+      "bytes": 108436,
+      "sha256": "529d4c340eb0fbb443bcf0149696961f3a0c8e6db76fb5257a267506fad3babb",
+      "license": "CC0-1.0",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_brick_wall_001/stone_brick_wall_001_nor_gl_2k.jpg",
+      "author": "Dimitrios Savva, Rico Cilliers"
+    },
+    {
+      "path": "textures/tiles107_albedo.512.webp",
+      "bytes": 5732,
+      "sha256": "b32c5d3e895857109886ade94a8fae8907aca1379661ded406873d308822074b",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Tiles107_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/tiles107_normal.512.webp",
+      "bytes": 13656,
+      "sha256": "85e4613b7eaa9751873ef17bea801826d29e78158a34871ab340d7290b395d90",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Tiles107_2K-JPG.zip",
+      "author": "ambientCG"
+    }
+  ]
 }
