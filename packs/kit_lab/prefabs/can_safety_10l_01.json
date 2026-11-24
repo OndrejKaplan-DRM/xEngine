@@ -4,26 +4,25 @@
   "id": "can_safety_10l_01",
   "title": "Bezpečnostní kanystr na rozpouštědla 10 l",
   "category": "lab.chem",
-  "bounds": { "min": [-0.134, -0.001, -0.134], "max": [0.134, 0.381, 0.134] },
+  "bounds": { "min": [-0.131, -0.001, -0.131], "max": [0.131, 0.381, 0.132] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.17, 0], "radius": 0.13, "height": 0.34, "axis": "y", "mat": "paint_red" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.35, 0], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.1, 0.36, -0.015], "max": [0.1, 0.38, 0.015], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.1, 0.129], "max": [0.08, 0.22, 0.131], "mat": "cap_yellow" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_safety_body", "mat": "paint_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_safety_top", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_safety_label", "mat": "cap_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.133, 0, -0.133], "max": [0.133, 0.38, 0.133], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.13], "max": [0.13, 0.38, 0.131], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 152,
+  "tris": 528,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#solventCans",

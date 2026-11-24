@@ -26,8 +26,8 @@ export function screwCap(r, y0, h, ridges = 12, inner = r * 0.8, segs = null) {
   if (!ridges) return g;
   return deform(g, ([x, y, z]) => {
     const rr = Math.hypot(x, z);
-    if (rr < r - e * 0.6 || y > y0 + h - e * 0.8) return [x, y, z];
-    const s = 1 + 0.03 * Math.cos(Math.atan2(-z, x) * ridges);
+    if (rr < r - e * 0.6 || y > y0 + h - e * 0.8 || y < y0 + 1e-6) return [x, y, z];
+    const s = 1 + 0.016 * Math.cos(Math.atan2(-z, x) * ridges);
     return [x * s, y, z * s];
   });
 }

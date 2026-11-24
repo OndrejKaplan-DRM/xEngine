@@ -4,25 +4,25 @@
   "id": "box_dryice_01",
   "title": "Polystyrenový box na suchý led malý",
   "category": "lab.chem",
-  "bounds": { "min": [-0.151, -0.001, -0.111], "max": [0.151, 0.251, 0.113] },
+  "bounds": { "min": [-0.155, -0.001, -0.117], "max": [0.155, 0.253, 0.117] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.11], "max": [0.15, 0.2, 0.11], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.15, 0.2, -0.11], "max": [0.15, 0.25, 0.11], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.09, 0.075, 0.11], "max": [0.09, 0.15, 0.1115], "mat": "label_band_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_dryice_0_box", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_dryice_0_tape", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_dryice_0_label", "mat": "label_band_orange" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.11], "max": [0.15, 0.25, 0.112], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.154, 0, -0.116], "max": [0.154, 0.252, 0.116], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 36,
+  "tris": 252,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#shippers",

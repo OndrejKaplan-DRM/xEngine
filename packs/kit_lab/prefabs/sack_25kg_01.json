@@ -4,26 +4,24 @@
   "id": "sack_25kg_01",
   "title": "Papírový pytel 25 kg (bílý)",
   "category": "lab.chem",
-  "bounds": { "min": [-0.251, -0.001, -0.181], "max": [0.251, 0.132, 0.181] },
+  "bounds": { "min": [-0.263, -0.001, -0.181], "max": [0.263, 0.158, 0.181] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.25, 0.03, -0.15], "max": [0.25, 0.1, 0.15], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.15], "max": [0.22, 0.13, 0.15], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0.03, -0.18], "max": [0.22, 0.1, 0.18], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.1, 0.1], "max": [0.12, 0.131, 0.16], "mat": "label_band_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#sack_0_bag", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#sack_print", "mat": "label_band_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.18], "max": [0.25, 0.131, 0.18], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.262, 0, -0.18], "max": [0.262, 0.157, 0.18], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 48,
+  "tris": 336,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#sacksAndBoxes",

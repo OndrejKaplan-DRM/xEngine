@@ -4,29 +4,30 @@
   "id": "bottle_chem_2500_02",
   "title": "Lahev s chemikálií 2.5 l (žíravé)",
   "category": "lab.chem",
-  "bounds": { "min": [-0.071, -0.001, -0.071], "max": [0.071, 0.304, 0.071] },
+  "bounds": { "min": [-0.069, -0.001, -0.069], "max": [0.069, 0.307, 0.071] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.108, 0], "radius": 0.068, "height": 0.216, "axis": "y", "mat": "glass_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.237, 0], "radius": 0.041, "height": 0.042, "axis": "y", "mat": "glass_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.27, 0], "radius": 0.014, "height": 0.024, "axis": "y", "mat": "glass_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0997, 0], "radius": 0.066, "height": 0.1954, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.292, 0], "radius": 0.017, "height": 0.022, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.0442, 0.06, 0.067], "max": [0.0442, 0.186, 0.0688], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.0442, 0.1583, 0.0686], "max": [0.0442, 0.186, 0.0698], "mat": "label_band_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_glass", "mat": "glass_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_liquid", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_1_cap", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_1_band", "mat": "label_band_orange" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_ghs", "mat": "label_band_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_ghsw", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_chem_2500_ghss", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.07], "max": [0.07, 0.303, 0.07], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.068], "max": [0.068, 0.306, 0.07], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 344,
+  "tris": 716,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#chemBottles",

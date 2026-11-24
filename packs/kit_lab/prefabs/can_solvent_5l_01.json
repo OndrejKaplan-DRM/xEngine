@@ -4,27 +4,26 @@
   "id": "can_solvent_5l_01",
   "title": "Plechovka s rozpouštědlem 5 l",
   "category": "lab.chem",
-  "bounds": { "min": [-0.086, -0.001, -0.061], "max": [0.086, 0.261, 0.063] },
+  "bounds": { "min": [-0.087, -0.001, -0.062], "max": [0.087, 0.277, 0.063] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.06], "max": [0.085, 0.24, 0.06], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.24, -0.012], "max": [0.03, 0.255, 0.012], "mat": "steel_dark" },
-    { "node": "body", "shape": "cyl", "center": [0.055, 0.25, 0], "radius": 0.016, "height": 0.02, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.06, 0.059], "max": [0.06, 0.18, 0.0608], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.1536, 0.0606], "max": [0.06, 0.18, 0.0618], "mat": "label_band_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_solvent_body", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_solvent_cap", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_solvent_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#can_solvent_band", "mat": "label_band_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.06], "max": [0.085, 0.26, 0.062], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.086, 0, -0.061], "max": [0.086, 0.276, 0.062], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 112,
+  "tris": 574,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#solventCans",

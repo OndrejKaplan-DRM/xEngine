@@ -4,29 +4,28 @@
   "id": "bottle_buffer_03",
   "title": "Lahev s roztokem: tris-HCl",
   "category": "lab.chem",
-  "bounds": { "min": [-0.052, -0.001, -0.052], "max": [0.052, 0.241, 0.053] },
+  "bounds": { "min": [-0.051, -0.001, -0.051], "max": [0.051, 0.233, 0.052] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0925, 0], "radius": 0.05, "height": 0.185, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.195, 0], "radius": 0.0363, "height": 0.02, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.2115, 0], "radius": 0.0225, "height": 0.013, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0828, 0], "radius": 0.048, "height": 0.1615, "axis": "y", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.228, 0], "radius": 0.026, "height": 0.022, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.069, 0.049], "max": [0.03, 0.1265, 0.0508], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.1139, 0.0506], "max": [0.03, 0.1265, 0.0518], "mat": "label_band_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_2_liquid", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_cap", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_pour", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#bottle_buffer_2_band", "mat": "label_band_orange" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.051], "max": [0.051, 0.24, 0.052], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.05, 0, -0.05], "max": [0.05, 0.232, 0.051], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 344,
+  "tris": 1160,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#buffers",

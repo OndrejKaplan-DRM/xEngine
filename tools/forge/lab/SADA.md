@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 136788
+Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 152090
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -135,44 +135,44 @@ Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 136788
 | `tray_vials_hplc_01` | Vialky do HPLC v podložce (víčka modrá) | lab.plastic | 0,12 × 0,05 × 0,07 | 1380 | — | — |
 | `tray_vials_hplc_02` | Vialky do HPLC v podložce (víčka červená) | lab.plastic | 0,12 × 0,05 × 0,07 | 1380 | — | — |
 | `rack_cryotube_01` | Stojánek s kryozkumavkami | lab.plastic | 0,14 × 0,09 × 0,07 | 1068 | — | — |
-| `bottle_chem_100_01` | Lahev s chemikálií 100 ml (hořlavé) | lab.chem | 0,06 × 0,12 × 0,06 | 344 | — | — |
-| `bottle_chem_100_02` | Lahev s chemikálií 100 ml (zdraví škodlivé) | lab.chem | 0,06 × 0,12 × 0,06 | 344 | — | — |
-| `bottle_chem_500_01` | Lahev s chemikálií 500 ml (bez výstrahy) | lab.chem | 0,08 × 0,18 × 0,09 | 344 | — | — |
-| `bottle_chem_500_02` | Lahev s chemikálií 500 ml (žíravé) | lab.chem | 0,08 × 0,18 × 0,09 | 344 | — | — |
-| `bottle_chem_1000_01` | Lahev s chemikálií 1 l (hořlavé) | lab.chem | 0,1 × 0,23 × 0,11 | 344 | — | — |
-| `bottle_chem_1000_02` | Lahev s chemikálií 1 l (zdraví škodlivé) | lab.chem | 0,1 × 0,23 × 0,11 | 344 | — | — |
-| `bottle_chem_2500_01` | Lahev s chemikálií 2.5 l (bez výstrahy) | lab.chem | 0,14 × 0,31 × 0,14 | 344 | — | — |
-| `bottle_chem_2500_02` | Lahev s chemikálií 2.5 l (žíravé) | lab.chem | 0,14 × 0,31 × 0,14 | 344 | — | — |
-| `jar_powder_100_01` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,09 × 0,06 | 216 | — | — |
-| `jar_powder_100_02` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,09 × 0,06 | 216 | — | — |
-| `jar_powder_100_03` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,09 × 0,06 | 216 | — | — |
-| `jar_powder_500_01` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,13 × 0,1 | 216 | — | — |
-| `jar_powder_500_02` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,13 × 0,1 | 216 | — | — |
-| `jar_powder_500_03` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,13 × 0,1 | 216 | — | — |
-| `jar_powder_1000_01` | Dóza s práškem 1 kg | lab.chem | 0,12 × 0,16 × 0,12 | 216 | — | — |
-| `jar_powder_1000_02` | Dóza s práškem 1 kg | lab.chem | 0,12 × 0,16 × 0,12 | 216 | — | — |
-| `jar_powder_1000_03` | Dóza s práškem 1 kg | lab.chem | 0,12 × 0,16 × 0,12 | 216 | — | — |
-| `sack_25kg_01` | Papírový pytel 25 kg (bílý) | lab.chem | 0,5 × 0,13 × 0,36 | 48 | — | — |
-| `sack_25kg_02` | Papírový pytel 25 kg (hnědý) | lab.chem | 0,5 × 0,13 × 0,36 | 48 | — | — |
-| `box_kit_01` | Krabice s kitem 1 | lab.chem | 0,09 × 0,05 × 0,13 | 36 | — | — |
-| `box_kit_02` | Krabice s kitem 2 | lab.chem | 0,14 × 0,06 × 0,1 | 36 | — | — |
-| `box_kit_03` | Krabice s kitem 3 | lab.chem | 0,2 × 0,08 × 0,14 | 36 | — | — |
-| `box_kit_04` | Krabice s kitem 4 | lab.chem | 0,25 × 0,1 × 0,18 | 36 | — | — |
-| `box_kit_05` | Krabice s kitem 5 | lab.chem | 0,3 × 0,12 × 0,22 | 36 | — | — |
-| `can_solvent_5l_01` | Plechovka s rozpouštědlem 5 l | lab.chem | 0,17 × 0,26 × 0,12 | 112 | — | — |
-| `can_safety_10l_01` | Bezpečnostní kanystr na rozpouštědla 10 l | lab.chem | 0,27 × 0,38 × 0,27 | 152 | — | — |
-| `box_dryice_01` | Polystyrenový box na suchý led malý | lab.chem | 0,3 × 0,25 × 0,22 | 36 | — | — |
-| `box_dryice_02` | Polystyrenový box na suchý led velký | lab.chem | 0,45 × 0,35 × 0,35 | 36 | — | — |
-| `bottle_buffer_01` | Lahev s roztokem: PBS | lab.chem | 0,1 × 0,24 × 0,11 | 344 | — | — |
-| `bottle_buffer_02` | Lahev s roztokem: TAE 50× | lab.chem | 0,1 × 0,24 × 0,11 | 344 | — | — |
-| `bottle_buffer_03` | Lahev s roztokem: tris-HCl | lab.chem | 0,1 × 0,24 × 0,11 | 344 | — | — |
-| `bottle_buffer_04` | Lahev s roztokem: kultivační médium | lab.chem | 0,1 × 0,24 × 0,11 | 344 | — | — |
-| `rack_vials_crimp_01` | Vialky se zalisovaným víčkem v kartonu 1 | lab.chem | 0,09 × 0,07 × 0,09 | 612 | — | — |
-| `rack_vials_crimp_02` | Vialky se zalisovaným víčkem v kartonu 2 | lab.chem | 0,09 × 0,07 × 0,09 | 612 | — | — |
-| `jar_crystals_01` | Sklenice s modrou skalicí | lab.chem | 0,1 × 0,14 × 0,1 | 216 | — | — |
-| `jar_crystals_02` | Sklenice s chloridem sodným | lab.chem | 0,1 × 0,14 × 0,1 | 216 | — | — |
-| `container_waste_01` | Nádoba na chemický odpad 10 l (halogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 188 | — | — |
-| `container_waste_02` | Nádoba na chemický odpad 10 l (nehalogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 188 | — | — |
+| `bottle_chem_100_01` | Lahev s chemikálií 100 ml (hořlavé) | lab.chem | 0,05 × 0,11 × 0,06 | 616 | — | — |
+| `bottle_chem_100_02` | Lahev s chemikálií 100 ml (zdraví škodlivé) | lab.chem | 0,05 × 0,11 × 0,06 | 616 | — | — |
+| `bottle_chem_500_01` | Lahev s chemikálií 500 ml (bez výstrahy) | lab.chem | 0,08 × 0,18 × 0,08 | 656 | — | — |
+| `bottle_chem_500_02` | Lahev s chemikálií 500 ml (žíravé) | lab.chem | 0,08 × 0,18 × 0,08 | 656 | — | — |
+| `bottle_chem_1000_01` | Lahev s chemikálií 1 l (hořlavé) | lab.chem | 0,1 × 0,22 × 0,1 | 676 | — | — |
+| `bottle_chem_1000_02` | Lahev s chemikálií 1 l (zdraví škodlivé) | lab.chem | 0,1 × 0,22 × 0,1 | 676 | — | — |
+| `bottle_chem_2500_01` | Lahev s chemikálií 2.5 l (bez výstrahy) | lab.chem | 0,14 × 0,31 × 0,14 | 716 | — | — |
+| `bottle_chem_2500_02` | Lahev s chemikálií 2.5 l (žíravé) | lab.chem | 0,14 × 0,31 × 0,14 | 716 | — | — |
+| `jar_powder_100_01` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,08 × 0,06 | 516 | — | — |
+| `jar_powder_100_02` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,08 × 0,06 | 516 | — | — |
+| `jar_powder_100_03` | Dóza s práškem 100 g | lab.chem | 0,06 × 0,08 × 0,06 | 516 | — | — |
+| `jar_powder_500_01` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,12 × 0,09 | 516 | — | — |
+| `jar_powder_500_02` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,12 × 0,09 | 516 | — | — |
+| `jar_powder_500_03` | Dóza s práškem 500 g | lab.chem | 0,09 × 0,12 × 0,09 | 516 | — | — |
+| `jar_powder_1000_01` | Dóza s práškem 1 kg | lab.chem | 0,11 × 0,15 × 0,11 | 516 | — | — |
+| `jar_powder_1000_02` | Dóza s práškem 1 kg | lab.chem | 0,11 × 0,15 × 0,11 | 516 | — | — |
+| `jar_powder_1000_03` | Dóza s práškem 1 kg | lab.chem | 0,11 × 0,15 × 0,11 | 516 | — | — |
+| `sack_25kg_01` | Papírový pytel 25 kg (bílý) | lab.chem | 0,53 × 0,16 × 0,36 | 336 | — | — |
+| `sack_25kg_02` | Papírový pytel 25 kg (hnědý) | lab.chem | 0,53 × 0,16 × 0,36 | 336 | — | — |
+| `box_kit_01` | Krabice s kitem 1 | lab.chem | 0,1 × 0,06 × 0,14 | 240 | — | — |
+| `box_kit_02` | Krabice s kitem 2 | lab.chem | 0,15 × 0,06 × 0,11 | 240 | — | — |
+| `box_kit_03` | Krabice s kitem 3 | lab.chem | 0,21 × 0,08 × 0,15 | 240 | — | — |
+| `box_kit_04` | Krabice s kitem 4 | lab.chem | 0,26 × 0,1 × 0,19 | 240 | — | — |
+| `box_kit_05` | Krabice s kitem 5 | lab.chem | 0,31 × 0,12 × 0,23 | 240 | — | — |
+| `can_solvent_5l_01` | Plechovka s rozpouštědlem 5 l | lab.chem | 0,17 × 0,28 × 0,13 | 574 | — | — |
+| `can_safety_10l_01` | Bezpečnostní kanystr na rozpouštědla 10 l | lab.chem | 0,26 × 0,38 × 0,26 | 528 | — | — |
+| `box_dryice_01` | Polystyrenový box na suchý led malý | lab.chem | 0,31 × 0,25 × 0,23 | 252 | — | — |
+| `box_dryice_02` | Polystyrenový box na suchý led velký | lab.chem | 0,46 × 0,35 × 0,36 | 252 | — | — |
+| `bottle_buffer_01` | Lahev s roztokem: PBS | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
+| `bottle_buffer_02` | Lahev s roztokem: TAE 50× | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
+| `bottle_buffer_03` | Lahev s roztokem: tris-HCl | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
+| `bottle_buffer_04` | Lahev s roztokem: kultivační médium | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
+| `rack_vials_crimp_01` | Vialky se zalisovaným víčkem v kartonu 1 | lab.chem | 0,09 × 0,07 × 0,09 | 1344 | — | — |
+| `rack_vials_crimp_02` | Vialky se zalisovaným víčkem v kartonu 2 | lab.chem | 0,09 × 0,07 × 0,09 | 1344 | — | — |
+| `jar_crystals_01` | Sklenice s modrou skalicí | lab.chem | 0,09 × 0,13 × 0,09 | 888 | — | — |
+| `jar_crystals_02` | Sklenice s chloridem sodným | lab.chem | 0,09 × 0,13 × 0,09 | 888 | — | — |
+| `container_waste_01` | Nádoba na chemický odpad 10 l (halogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
+| `container_waste_02` | Nádoba na chemický odpad 10 l (nehalogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
 | `balance_analytical_01` | Analytické váhy s krytem (0,1 mg) | lab.bench | 0,2 × 0,29 × 0,49 | 292 | slide: 0 až 0,12 m | drawer |
 | `balance_precision_01` | Předvážky s talířem (0,01 g) | lab.bench | 0,2 × 0,09 × 0,33 | 220 | — | — |
 | `balance_micro_01` | Mikrováhy s kruhovým krytem | lab.bench | 0,2 × 0,21 × 0,49 | 284 | — | — |

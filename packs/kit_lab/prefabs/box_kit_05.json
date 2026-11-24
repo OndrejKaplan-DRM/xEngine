@@ -4,25 +4,25 @@
   "id": "box_kit_05",
   "title": "Krabice s kitem 5",
   "category": "lab.chem",
-  "bounds": { "min": [-0.151, -0.001, -0.112], "max": [0.151, 0.123, 0.112] },
+  "bounds": { "min": [-0.153, -0.001, -0.113], "max": [0.153, 0.123, 0.113] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.11], "max": [0.15, 0.12, 0.11], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.15, 0.078, -0.111], "max": [0.15, 0.102, 0.111], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [-0.09, 0.12, -0.066], "max": [0.09, 0.1215, 0.022], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_kit_4_box", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_kit_4_band", "mat": "label_band_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#box_kit_4_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.111], "max": [0.15, 0.122, 0.111], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.152, 0, -0.112], "max": [0.152, 0.122, 0.112], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 36,
+  "tris": 240,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#sacksAndBoxes",

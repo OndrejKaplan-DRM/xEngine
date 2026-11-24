@@ -4,27 +4,27 @@
   "id": "jar_crystals_01",
   "title": "Sklenice s modrou skalicí",
   "category": "lab.chem",
-  "bounds": { "min": [-0.049, -0.001, -0.049], "max": [0.049, 0.136, 0.049] },
+  "bounds": { "min": [-0.046, -0.001, -0.046], "max": [0.046, 0.129, 0.047] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.06, 0], "radius": 0.045, "height": 0.12, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.037, 0], "radius": 0.043, "height": 0.07, "axis": "y", "mat": "powder_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.127, 0], "radius": 0.047, "height": 0.016, "axis": "y", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.03, 0.044], "max": [0.03, 0.08, 0.0458], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.069, 0.0456], "max": [0.03, 0.08, 0.0468], "mat": "label_band_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_0_fill", "mat": "powder_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_cap", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_band", "mat": "label_band_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.048, 0, -0.048], "max": [0.048, 0.135, 0.048], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.045], "max": [0.045, 0.128, 0.046], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 216,
+  "tris": 888,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#vialsAndCrystals",

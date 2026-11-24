@@ -20,10 +20,18 @@
     },
     {
       "path": "meshes/plastic.glb",
-      "bytes": 1070484,
-      "sha256": "ce6f09a0979ef6c273ca41d9cae0de3a5c9cbb6a81069038e793648730ad40be",
+      "bytes": 1070492,
+      "sha256": "994c1cc59c5793aaf8c48fdf41dac3050b5859c932a93bdf6a50322d4057181a",
       "license": "own",
       "source": "tools/forge/lab/plastic.mjs",
+      "author": "xForge (sešna B)"
+    },
+    {
+      "path": "meshes/chem.glb",
+      "bytes": 559524,
+      "sha256": "6451a54351186e1e5928c6e7952d39d122b9c3eb0607abf27fe83543ce04706a",
+      "license": "own",
+      "source": "tools/forge/lab/chem.mjs",
       "author": "xForge (sešna B)"
     }
   ]

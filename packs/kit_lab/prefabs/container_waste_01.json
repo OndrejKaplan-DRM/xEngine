@@ -4,29 +4,26 @@
   "id": "container_waste_01",
   "title": "Nádoba na chemický odpad 10 l (halogenovaný)",
   "category": "lab.chem",
-  "bounds": { "min": [-0.121, -0.001, -0.101], "max": [0.123, 0.381, 0.103] },
+  "bounds": { "min": [-0.121, -0.001, -0.101], "max": [0.123, 0.379, 0.103] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0.015, -0.085], "max": [0.12, 0.305, 0.085], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.085], "max": [0.105, 0.32, 0.085], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.105, 0.015, -0.1], "max": [0.105, 0.305, 0.1], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "cyl", "center": [0.05, 0.34, 0], "radius": 0.04, "height": 0.04, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0.05, 0.37, 0], "radius": 0.07, "height": 0.02, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.1, 0.099], "max": [0.08, 0.25, 0.1008], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.217, 0.1006], "max": [0.08, 0.25, 0.1018], "mat": "label_band_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#container_waste_body", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#container_waste_funnel", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#container_waste_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#container_waste_0_band", "mat": "label_band_orange" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.122, 0.38, 0.102], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.122, 0.378, 0.102], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 188,
+  "tris": 732,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#wasteContainers",
