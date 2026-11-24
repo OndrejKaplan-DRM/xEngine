@@ -39,4 +39,5 @@ Volitelně pravidlo validátoru (varování): portál s `passable` jiným než `
 `src/gen/body.js` drží jedinou kopii v generátoru (poloměr, odstup, rezerva 3 cm) a předvolby ji předávají v `params().body`. Test `b_t1_xgen` čte skutečného hráče z `src/play/profiles.js` a `src/phys/phys.js` (jen čte) a selže, když je postava generátoru menší než hráč enginu. Nezávislé kontroly levelů (`test/b_lib/level-checks.mjs`) měří šířky rovnou hráčem z profilu levelu.
 
 ## Rozhodnutí
-(vyplní svodná sešna)
+
+Přijato a provedeno (D-040, 24. 11. 2026): `src/xspace/body.js` (`BODY`, `CHARACTER_SKIN`, `bodyWidth()`), varování validátoru `portal.narrow`, robot zkoušky A × B bere odstup odtud. Sešny A a B převzaly rozměry ze základu (`b4094a0`, `ba16d8d`).

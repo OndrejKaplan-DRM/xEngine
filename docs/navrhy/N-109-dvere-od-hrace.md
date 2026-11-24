@@ -31,3 +31,4 @@ Ondřej 24. 11. 2026 po zkoušce: „takhle to chci, ať to jde do dat.“ Do t�
 
 ## Rozhodnutí
 
+Přijato (D-042, 24. 11. 2026; Ondřej v 02:26: „ať to jde do dat“). Věta v kontraktech a `doorOpenness` v základu; zlatý vzorek `door_hinged_01` ±105° od 24. 11. večer. Sada `kit_base`: dveře s dorazem zůstávají jednostranné, dokud sešna B nenavrhne těsnění škvír bez dorazu podle D-036.

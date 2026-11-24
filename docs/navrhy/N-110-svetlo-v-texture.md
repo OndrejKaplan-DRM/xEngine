@@ -45,3 +45,4 @@ Navrhuju první krok jako zkoušku na jednom kusu: textura světla jen pro halu 
 
 ## Rozhodnutí
 
+Směr přijat, formát odložen (D-043, 24. 11. 2026): data smějí nést texturu světla (D-029); sešna A po A2.6 udělá zkoušku na hale xLabu s bodem 5 cm i 10 cm a `?bench` na T460 s ní i bez ní. Formát vrstvy, atlas ploch (funkce v základu) a změna D-022 se rozhodnou podle toho čísla.

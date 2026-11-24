@@ -38,4 +38,4 @@ Změřeno 22. 11. 2026 na `packs/gen_demo` (95 portálů s dveřmi, pět druhů 
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+Bod 1 přijat, bod 2 zamítnut (D-036, 23. 11. 2026): zakrytí otvoru se počítá ze všech neprůhledných dílů dveří v klidu; `portal.door` zůstává jedna entita; dvoukřídlé dveře budou jeden prefab přes svázané klouby (N-002), do té doby `seeThrough`. Pravidlo validátoru `portal.door.cover` dluží základ. Světlo zavřenými dveřmi se `seeThrough` neprochází (D-047).
