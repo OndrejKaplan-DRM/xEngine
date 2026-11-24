@@ -8,7 +8,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPackDir, readPackDir } from '../tools/lib/read-pack.mjs';
 import { FREE_LICENSES, SURFACES, rigMatrices } from '../src/xspace/index.js';
-import { buildKit } from '../tools/forge/kit/index.mjs';
+import { buildKit, TEXTURES } from '../tools/forge/kit/index.mjs';
+import { MATERIALS } from '../tools/forge/materials.mjs';
+import { TEXTURE_PLAN, TEXTURE_SIZE, HUE_LIMIT } from '../tools/forge/kit/textures.mjs';
+import { webpSize } from './b_lib/webp.mjs';
+import { createHash } from 'node:crypto';
 import { partTris, jointSamples, boundsAt } from '../tools/forge/lib.mjs';
 import { kitDoc } from '../tools/forge/doc.mjs';
 import { makeCatalog } from '../src/gen/index.js';
@@ -216,6 +220,46 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
   const clashP = prefabs.filter((p) => golden.prefabs.some((g) => g.data.id === p.id)).map((p) => p.id);
   const clashM = Object.keys(mats).filter((id) => golden.materials.materials[id]);
   ok(clashP.length === 0 && clashM.length === 0, 'žádné id se neshoduje se zlatým vzorkem (balíky jdou spojit)', [...clashP, ...clashM].join(' '));
+}
+
+// ---- textury (B2.4): odvozené z příjmu xSearcheru, 512 px pro stupeň low, otisky a původ v zámku
+{
+  const mats = pack.materials.materials;
+  const assets = new Map((pack.manifest.assets || []).map((a) => [a.path, a]));
+  const lockFiles = Object.entries(TEXTURES.files);
+  const textured = Object.keys(TEXTURES.materials);
+  ok(textured.length >= 15 && textured.join(',') === Object.keys(TEXTURE_PLAN).sort().join(','), 'materiály s texturou odpovídají plánu', `${textured.length} materiálů`);
+  const sizes = lockFiles.map(([rel]) => [rel, webpSize(readFileSync(path.join(KIT, rel)))]);
+  const big = sizes.filter(([, d]) => !d || d.w > TEXTURE_SIZE || d.h > TEXTURE_SIZE);
+  ok(big.length === 0 && TEXTURE_SIZE <= 512, `každá textura je WebP nejvýš ${TEXTURE_SIZE} × ${TEXTURE_SIZE} px (stupeň low)`, big.map(([r, d]) => `${r} ${d ? d.w + '×' + d.h : 'není WebP'}`).join(', ') || `${sizes.length} souborů`);
+  const bad = lockFiles.filter(([rel, f]) => {
+    const buf = readFileSync(path.join(KIT, rel));
+    const a = assets.get(rel);
+    return !a || a.bytes !== buf.length || a.sha256 !== f.sha256 || createHash('sha256').update(buf).digest('hex') !== f.sha256;
+  });
+  ok(bad.length === 0 && assets.size === lockFiles.length, 'pack.json.assets, zámek a soubory na disku mají stejné velikosti a otisky', bad.map(([r]) => r).join(', '));
+  const lic = [...assets.values()].filter((a) => a.license !== 'CC0-1.0' || !a.source.startsWith('https://') || !a.author);
+  ok(pack.manifest.free === true && lic.length === 0, 'každá textura má licenci CC0-1.0, autora a adresu originálu; balík je free', lic.map((a) => a.path).join(', '));
+  const used = new Set(textured.flatMap((m) => [TEXTURES.materials[m].albedo, TEXTURES.materials[m].normal]));
+  ok(lockFiles.every(([rel]) => used.has(rel)), 'v balíku není textura, kterou žádný materiál nepoužívá');
+  const wrong = textured.filter((m) => {
+    const t = TEXTURES.materials[m];
+    const x = mats[m];
+    return x.albedo !== t.albedo || x.normal !== t.normal || x.uvScale !== t.uvScale || String(x.color) !== String(MATERIALS[m].color) || x.rough !== MATERIALS[m].rough;
+  });
+  ok(wrong.length === 0, 'materiál s texturou má albedo, normal a uvScale ze zámku; barva a drsnost zůstaly', wrong.join(', '));
+  const plain = Object.keys(MATERIALS).filter((m) => !TEXTURES.materials[m]);
+  ok(plain.every((m) => JSON.stringify(mats[m]) === JSON.stringify(MATERIALS[m])), 'materiály bez textury jsou beze změny', `${plain.length} materiálů`);
+  const modes = textured.filter((m) => {
+    const t = TEXTURES.materials[m];
+    const f = TEXTURES.files[t.albedo];
+    const g = MATERIALS[m].color.map((c, i) => c / f.mean[i]);
+    return (t.mode === 'gray') !== (f.kind === 'albedo-gray') || Math.abs(Math.max(...g) / Math.min(...g) - (t.mode === 'gray' ? Math.max(...g) / Math.min(...g) : t.hue)) > 1e-3 || (t.mode === 'color' && t.hue > HUE_LIMIT) || (t.mode === 'gray' && t.hue <= HUE_LIMIT) || g.some((x, i) => Math.abs(x - t.gain[i]) > 1e-3 * x);
+  });
+  ok(modes.length === 0, `šedá kresba právě tam, kde odstín nesedí víc než ×${HUE_LIMIT}; zesílení = barva / průměr textury`, `${textured.filter((m) => TEXTURES.materials[m].mode === 'gray').join(', ')} v šedi`);
+  const gal = readFileSync(path.join(root, 'tools/forge/gallery/textures.js'), 'utf8');
+  ok(lockFiles.every(([rel]) => gal.includes(`'../../../packs/kit_base/${rel}' with { type: 'bytes' }`)) && (gal.match(/^import /gm) || []).length === lockFiles.length, 'modul textur galerie odpovídá zámku');
+  console.log(`      textury: ${lockFiles.length} souborů, ${(lockFiles.reduce((s, [, f]) => s + f.bytes, 0) / 1024).toFixed(1)} kB`);
 }
 
 process.exit(finish());
