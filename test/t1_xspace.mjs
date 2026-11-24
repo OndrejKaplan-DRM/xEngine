@@ -85,6 +85,12 @@ ok(res.stats.xspace === XSPACE_VERSION && res.stats.levels.length === 1, 'statis
   );
 }
 
+// ---- postava (N-008, D-040): jedno místo pro rozměry
+ok(
+  X.BODY.radius === 0.35 && X.BODY.height === 1.8 && Math.abs(X.BODY.stepHeight - 0.4572) < 1e-9 && X.CHARACTER_SKIN === 0.02 && Math.abs(X.bodyWidth() - 0.74) < 1e-9 && Object.isFrozen(X.BODY),
+  'postava v základu: poloměr 0,35 m, výška 1,8 m, schod 0,4572 m, odstup 0,02 m, průchod 0,74 m',
+);
+
 // ---- mutace: každá musí vyvolat právě svůj kód nálezu
 const L = (p) => p.levels[0].data;
 const P = (p, id) => p.prefabs.find((x) => x.data.id === id).data;
@@ -104,6 +110,7 @@ const MUTATIONS = [
   ['portal.between', 'portál mimo zeď mezi buňkami', (p) => L(p).portals[0].quad.forEach((q) => (q[2] = 3))],
   ['portal.plane', 'portál, jehož rohy neleží v rovině', (p) => (L(p).portals[0].quad[2][2] = -0.5)],
   ['portal.extent', 'portál širší než buňka', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 5.5)],
+  ['portal.narrow', 'průchozí portál užší než postava (N-008)', (p) => (L(p).portals[0].quad[1][0] = L(p).portals[0].quad[2][0] = 3.2)],
   ['level.cellOverlap', 'překryv buněk', (p) => (L(p).cells[1].bounds.max[2] = 1)],
   ['level.unreachable', 'buňka bez portálu', (p) => L(p).portals.splice(1, 1)],
   ['level.dupe', 'dvě entity se stejným id', (p) => (L(p).entities[5].id = L(p).entities[4].id)],
