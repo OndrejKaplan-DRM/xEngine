@@ -180,6 +180,8 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `entities[].io[].on` | ano | text | výstup této entity nebo spouštěče (např. opened, pressed, enter) |
 | `entities[].io[].target` | ano | text | id cílové entity levelu, nebo vestavěný cíl @level |
 | `entities[].io[].input` | ano | text | vstup cíle (např. open, turnOn) |
+| `entities[].io[].from` |  | id | jen výstupy této interakce prefabu (id z components.interact); bez něj výstup kterékoli interakce |
+| `entities[].io[].to` |  | id | vstup jen do této interakce cíle (id z components.interact cíle); bez něj do všech interakcí cíle |
 | `entities[].io[].delay` |  | číslo 0 až 600 | zpoždění v sekundách herního času |
 | `entities[].io[].once` |  | ano/ne | spojení se provede jen jednou |
 | `entities[].io[].param` |  | cokoli | pevná hodnota pro vstup; bez ní se předá hodnota výstupu |
@@ -206,6 +208,8 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `triggers[].io[].on` | ano | text | výstup této entity nebo spouštěče (např. opened, pressed, enter) |
 | `triggers[].io[].target` | ano | text | id cílové entity levelu, nebo vestavěný cíl @level |
 | `triggers[].io[].input` | ano | text | vstup cíle (např. open, turnOn) |
+| `triggers[].io[].from` |  | id | jen výstupy této interakce prefabu (id z components.interact); bez něj výstup kterékoli interakce |
+| `triggers[].io[].to` |  | id | vstup jen do této interakce cíle (id z components.interact cíle); bez něj do všech interakcí cíle |
 | `triggers[].io[].delay` |  | číslo 0 až 600 | zpoždění v sekundách herního času |
 | `triggers[].io[].once` |  | ano/ne | spojení se provede jen jednou |
 | `triggers[].io[].param` |  | cokoli | pevná hodnota pro vstup; bez ní se předá hodnota výstupu |
@@ -241,10 +245,11 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `restitution` |  | číslo 0 až 1 | odrazivost |
 | `ccd` |  | ano/ne | průběžná detekce kolizí pro rychlá tělesa |
 
-### interact: co s předmětem může hráč dělat
+### interact: co s předmětem může hráč dělat; jeden objekt, nebo seznam (každá zásuvka, dvířka zvlášť; hráč ovládá tu, jejíž kloub hýbe zasaženým uzlem)
 
 | Pole | Povinné | Typ | Význam |
 |---|---|---|---|
+| `id` |  | id | id interakce, jedinečné v prefabu; povinné, je-li interakcí víc (seznam, N-010); jediná interakce bez id je „main“ |
 | `kind` | ano | `button` · `switch` · `lever` · `valve` · `door` · `drawer` · `terminal` · `station` · `pickup` · `grab` | druh interakce; určuje chování a nabídnuté vstupy a výstupy |
 | `joint` |  | odkaz (joint) | kloub, kterým se interakce hýbe |
 | `prompt` |  | text | krátký popis akce pro hráče („Otevřít“) |

@@ -20,7 +20,7 @@ function typeOf(d) {
     case 'map':
       return `mapa id → ${typeOf(d.of)}`;
     case 'obj':
-      return 'objekt';
+      return d.orList ? 'objekt nebo pole objektů' : 'objekt';
     case 'ref':
       return `odkaz (${d.to})`;
     case 'num':

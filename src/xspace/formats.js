@@ -84,6 +84,8 @@ const ioLink = obj(
     on: R(str('výstup této entity nebo spouštěče (např. opened, pressed, enter)')),
     target: R(str('id cílové entity levelu, nebo vestavěný cíl @level')),
     input: R(str('vstup cíle (např. open, turnOn)')),
+    from: id('jen výstupy této interakce prefabu (id z components.interact); bez něj výstup kterékoli interakce'),
+    to: id('vstup jen do této interakce cíle (id z components.interact cíle); bez něj do všech interakcí cíle'),
     delay: num('zpoždění v sekundách herního času', { min: 0, max: 600 }),
     once: bool('spojení se provede jen jednou'),
     param: { t: 'any', doc: 'pevná hodnota pro vstup; bez ní se předá hodnota výstupu' },
@@ -121,6 +123,7 @@ export const COMPONENTS = {
   ),
   interact: obj(
     {
+      id: id('id interakce, jedinečné v prefabu; povinné, je-li interakcí víc (seznam, N-010); jediná interakce bez id je „main“'),
       kind: R(en(INTERACT_KINDS, 'druh interakce; určuje chování a nabídnuté vstupy a výstupy')),
       joint: ref('joint', 'kloub, kterým se interakce hýbe'),
       prompt: str('krátký popis akce pro hráče („Otevřít“)'),
@@ -136,7 +139,8 @@ export const COMPONENTS = {
         'ukotvení kamery pro klidný režim (stůl, panel, terminál)',
       ),
     },
-    'co s předmětem může hráč dělat',
+    'co s předmětem může hráč dělat; jeden objekt, nebo seznam (každá zásuvka, dvířka zvlášť; hráč ovládá tu, jejíž kloub hýbe zasaženým uzlem)',
+    { orList: true },
   ),
   health: obj(
     {
