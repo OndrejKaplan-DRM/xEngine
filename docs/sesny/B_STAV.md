@@ -85,7 +85,14 @@ Souvislosti: paměti a grafiky letos zdražily (kit 32 GB DDR5 stojí 12 až 13 
 
 **Ondřej ve 02:04** (odpovědi na tři otázky z konce této sešny): mez grafické paměti pro horní stupeň **(a) 8 GB**; co dřív **(a) xSearcher a první textury v galerii**, okna, mříže a zbytek přijatých polí až potom; náhled zapečeného světla pro vygenerované levely **(b) počkat, až soubor načte hra**. K tomu průběžná předávka: `xEngine_sesnaB03_predavka_2026-11-24.md` (poslaná Ondřejovi do chatu, v repu není).
 
-**Co mezitím udělala sešna A** (`origin/sesna-a` = `c131ac4`, její `A_STAV.md` z 24. 11.; v této větvi není):
+**Ondřej v 15:58** (po přepnutí modelu na Opus 5.5 kvůli limitu): pokračovat v práci a „přesuň paměť z chatu do repa“: `CLAUDE.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `TODO.md`; „Ztrácíme se občas v tom, co je už hotové a co ne.“ Provedeno (`TODO.md` + úprava `CLAUDE.md`, commit níže):
+
+- **`TODO.md` v kořeni repa je nový:** jedna stránka, co je hotové, co se dělá, co čeká na koho; oddíl pro každou sešnu, každá mění jen svůj. Oddíly svodné sešny a sešny A jsem napsala podle `START_SVOD.md` (`a995347`) a `A_STAV.md` (`db6fad0`); dál je vedou ony.
+- **`CLAUDE.md` patří základu; upravila jsem ho na Ondřejovo výslovné slovo:** přidán oddíl „Co to je a jak to spustit“, `TODO.md` v seznamu čtení a v kroku „Konec každého kroku“, řádek o sdílení `TODO.md`. Svodná sešna to při sloučení převezme nebo upraví.
+- **`ARCHITECTURE.md` a `DECISIONS.md` jsem nezakládala:** existují jako `docs/01_ARCHITEKTURA.md` a `docs/DECISIONS.md` (D-001 až D-037) a `CLAUDE.md` na ně teď odkazuje hned nahoře. Druhá kopie v kořeni by byla druhá pravda.
+- Ostatní sešny uvidí `TODO.md` až po sloučení do základu (push mám jen na `sesna-b`).
+
+**Co mezitím udělala sešna A** (`origin/sesna-a` = `c131ac4`, její `A_STAV.md` z 24. 11.; v této větvi není; od 05:30 je hlava `db6fad0`: zorné pole jako vodorovný úhel při 4 : 3 se stropem 120°, dveře od hráče jako nastavení, Ondřejovy odpovědi z 02:26 „1 b“ a „2 a“):
 
 | Co | Co to znamená pro sešnu B |
 |---|---|
