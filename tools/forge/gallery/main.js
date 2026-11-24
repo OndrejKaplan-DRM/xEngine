@@ -483,6 +483,31 @@ globalThis.__kit = {
     return out.toDataURL('image/png');
   },
   pose: setPose,
+  /** Arch dlaždic bez krajní polohy kloubů: ids v cols sloupcích po px bodech, v pohledu lk, na pozadí bg (#rrggbb). */
+  sheet(ids, px = 240, cols = 6, lk = look, bg = null) {
+    const keepLook = look;
+    const keepBg = scene.background;
+    setLook(lk);
+    if (bg) scene.background = new THREE.Color(bg);
+    const rows = Math.ceil(ids.length / cols);
+    const out = document.createElement('canvas');
+    out.width = cols * px;
+    out.height = rows * (px + 18);
+    const g = out.getContext('2d');
+    g.fillStyle = '#0b0d12';
+    g.fillRect(0, 0, out.width, out.height);
+    g.font = '12px system-ui, sans-serif';
+    ids.forEach((id, i) => {
+      const x = (i % cols) * px;
+      const y = Math.floor(i / cols) * (px + 18);
+      g.drawImage(tile(id, 0, px), x, y);
+      g.fillStyle = '#d8dbe2';
+      g.fillText(`${byId.get(id).title} · ${byId.get(id).tris} △`.slice(0, Math.floor(px / 6.2)), x + 3, y + px + 13);
+    });
+    scene.background = keepBg;
+    setLook(keepLook);
+    return out.toDataURL('image/png');
+  },
   shot() {
     render();
     return canvas.toDataURL('image/png');

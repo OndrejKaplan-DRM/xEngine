@@ -4,29 +4,28 @@
   "id": "mortar_porcelain_01",
   "title": "Třecí miska s tloučkem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.058, -0.001, -0.058], "max": [0.071, 0.084, 0.058] },
+  "bounds": { "min": [-0.061, -0.001, -0.061], "max": [0.089, 0.108, 0.061] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.006, 0], "radius": 0.0425, "height": 0.012, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0285, 0], "radius": 0.055, "height": 0.033, "axis": "y", "mat": "plastic_white" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.042, 0], "radius": 0.05, "height": 0.004, "axis": "y", "mat": "powder_white" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.07, 0], "radius": 0.012, "height": 0.1, "axis": "x", "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#mortar_bowl", "mat": "porcelain" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#mortar_pestle", "mat": "porcelain" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#mortar_powder", "mat": "powder_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.057, 0, -0.057], "max": [0.07, 0.083, 0.057], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.06], "max": [0.088, 0.107, 0.06], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 256,
+  "tris": 724,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/glass.mjs#smallware",
+    "generator": "tools/forge/lab/glass_kits.mjs#smallware",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

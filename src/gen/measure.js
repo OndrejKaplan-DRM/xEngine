@@ -29,14 +29,19 @@ export function partPoints(p) {
   return out;
 }
 
-/** Osově zarovnaný obal dílů a jednoduchých kolizí v prostoru prefabu pro dané polohy kloubů (chybějící = klid). */
-export function boundsAt(prefab, values = {}) {
+/**
+ * Osově zarovnaný obal dílů a jednoduchých kolizí v prostoru prefabu pro dané polohy kloubů (chybějící = klid).
+ * Díl ze souboru (mesh) se započte jen s meshPoints(part) → body; generátor soubory nečte a spoléhá na kolize,
+ * které síť obepínají (kontroluje B-T9).
+ */
+export function boundsAt(prefab, values = {}, meshPoints = null) {
   const mats = rigMatrices(prefab, values);
   const min = [Infinity, Infinity, Infinity];
   const max = [-Infinity, -Infinity, -Infinity];
   for (const p of [...prefab.parts, ...(prefab.colliders || [])]) {
-    if (p.shape !== 'box' && p.shape !== 'cyl') continue;
-    for (const q of partPoints(p)) {
+    const pts = p.shape === 'box' || p.shape === 'cyl' ? partPoints(p) : meshPoints && p.shape === 'mesh' ? meshPoints(p) : null;
+    if (!pts) continue;
+    for (const q of pts) {
       const w = mat4Point(mats[p.node], q);
       for (let k = 0; k < 3; k++) {
         if (w[k] < min[k]) min[k] = w[k];

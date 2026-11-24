@@ -6,6 +6,7 @@
 import { partTris } from '../../src/xspace/index.js';
 import { CYL_SIDES, partPoints, boundsAt } from '../../src/gen/measure.js';
 import { r4, V, source } from '../../src/gen/util.js';
+import { meshTris, meshCorners } from './mesh/registry.mjs';
 
 // ---- díly a kolize -----------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ export function sweptBounds(prefab) {
   const min = [Infinity, Infinity, Infinity];
   const max = [-Infinity, -Infinity, -Infinity];
   for (const v of jointSamples(prefab.rig.joints)) {
-    const b = boundsAt(prefab, v);
+    const b = boundsAt(prefab, v, meshCorners);
     for (let k = 0; k < 3; k++) {
       min[k] = Math.min(min[k], b.min[k]);
       max[k] = Math.max(max[k], b.max[k]);
@@ -86,7 +87,7 @@ export function definePrefab(d, notes = {}) {
     ...(d.components ? { components: d.components } : {}),
     ...(d.inputs ? { inputs: d.inputs } : {}),
     ...(d.outputs ? { outputs: d.outputs } : {}),
-    tris: d.parts.reduce((s, p) => s + partTris(p), 0),
+    tris: d.parts.reduce((s, p) => s + (partTris(p) ?? meshTris(p)), 0),
     // gen bez lomítka patří sadě kit_base (tools/forge/kit/), s lomítkem je cesta od tools/forge (lab/glass.mjs#beaker)
     source: source('xforge', d.gen.includes('/') ? `tools/forge/${d.gen}` : `tools/forge/kit/${d.gen}`, d.params ? { params: d.params } : {}),
   };

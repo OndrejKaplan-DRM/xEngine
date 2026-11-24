@@ -12,6 +12,12 @@ export const LAB_MATERIALS = {
   glass_lab: lit([0.8, 0.86, 0.88], 'glass', { rough: 0.05, opacity: 0.25 }), // borosilikát, čiré
   glass_amber: lit([0.42, 0.2, 0.04], 'glass', { rough: 0.08, opacity: 0.75 }), // hnědé sklo lahví
   glass_tinted: lit([0.55, 0.68, 0.72], 'glass', { rough: 0.05, opacity: 0.4 }), // tónované sklo dveří a krytů
+  glass_thin: lit([0.82, 0.88, 0.9], 'glass', { rough: 0.05, opacity: 0.3, twoSided: true }), // tenké sklo jednou plochou (zkumavky, pipety, hodinové sklo)
+  glass_frosted: lit([0.78, 0.8, 0.8], 'glass', { rough: 0.6, opacity: 0.7 }), // zabroušené sklo (zábrus, popisná plocha)
+  enamel_white: lit([0.8, 0.8, 0.78], 'glass', { rough: 0.5 }), // bílý smalt rysek a popisů na skle
+  cork: lit([0.4, 0.25, 0.13], 'wood', { rough: 0.95 }), // korkový kroužek a zátka
+  porcelain: lit([0.8, 0.79, 0.76], 'stone', { rough: 0.25 }), // glazovaný porcelán (třecí miska, Büchnerova nálevka)
+  ptfe: lit([0.78, 0.78, 0.76], 'plastic', { rough: 0.6 }), // teflonový kohout a zátka
   // laboratorní plasty
   plastic_pp: lit([0.82, 0.82, 0.79], 'plastic', { rough: 0.45, opacity: 0.6 }), // polypropylen, mléčný
   plastic_ps: lit([0.86, 0.9, 0.92], 'plastic', { rough: 0.1, opacity: 0.35 }), // polystyren, čirý (misky, destičky)

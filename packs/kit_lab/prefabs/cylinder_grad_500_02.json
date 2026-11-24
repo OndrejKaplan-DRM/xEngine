@@ -4,32 +4,26 @@
   "id": "cylinder_grad_500_02",
   "title": "Odměrný válec 500 ml s kapalinou",
   "category": "lab.glass",
-  "bounds": { "min": [-0.052, -0.001, -0.052], "max": [0.052, 0.401, 0.052] },
+  "bounds": { "min": [-0.056, -0.001, -0.049], "max": [0.056, 0.402, 0.049] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.005, 0], "radius": 0.0494, "height": 0.01, "axis": "y", "mat": "plastic_pp" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.205, 0], "radius": 0.026, "height": 0.39, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.129, 0], "radius": 0.0245, "height": 0.23, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.3985, 0], "radius": 0.0275, "height": 0.003, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.004, 0.396, 0.025], "max": [0.004, 0.4, 0.032], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.088, 0.0255], "max": [0, 0.0892, 0.0267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.1465, 0.0255], "max": [0, 0.1477, 0.0267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.205, 0.0255], "max": [0, 0.2062, 0.0267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.2635, 0.0255], "max": [0, 0.2647, 0.0267], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.322, 0.0255], "max": [0, 0.3232, 0.0267], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#cylinder_grad_500_foot", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#cylinder_grad_500_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#cylinder_grad_500_marks", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#cylinder_grad_500_liquid", "mat": "liquid_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.051], "max": [0.051, 0.4, 0.051], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.055, 0, -0.048], "max": [0.055, 0.401, 0.048], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 328,
+  "tris": 544,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#measuringCylinders",

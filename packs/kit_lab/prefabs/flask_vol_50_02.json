@@ -4,37 +4,27 @@
   "id": "flask_vol_50_02",
   "title": "Odměrná baňka 50 ml doplněná po rysku",
   "category": "lab.glass",
-  "bounds": { "min": [-0.027, -0.001, -0.027], "max": [0.027, 0.141, 0.027] },
+  "bounds": { "min": [-0.024, -0.002, -0.024], "max": [0.024, 0.142, 0.024] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0038, 0], "radius": 0.0219, "height": 0.0075, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0175, 0], "radius": 0.025, "height": 0.02, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.035, 0], "radius": 0.02, "height": 0.015, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0463, 0], "radius": 0.0114, "height": 0.0075, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.055, 0], "radius": 0.0069, "height": 0.01, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.091, 0], "radius": 0.006, "height": 0.062, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0048, 0], "radius": 0.0199, "height": 0.0055, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0175, 0], "radius": 0.023, "height": 0.02, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.035, 0], "radius": 0.018, "height": 0.015, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0463, 0], "radius": 0.0094, "height": 0.0075, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.055, 0], "radius": 0.0049, "height": 0.01, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0636, 0], "radius": 0.004, "height": 0.0071, "axis": "y", "mat": "liquid_green" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.128, 0], "radius": 0.0063, "height": 0.016, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.138, 0], "radius": 0.0096, "height": 0.004, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.012, 0.0905, 0.0055], "max": [0, 0.0917, 0.0067], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_mark", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_joint", "mat": "glass_frosted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_stopper", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_vol_50_liquid", "mat": "liquid_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.026, 0, -0.026], "max": [0.026, 0.14, 0.026], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.023, -0.001, -0.023], "max": [0.023, 0.141, 0.023], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 908,
+  "tris": 946,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#volumetricFlasks",

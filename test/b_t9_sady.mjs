@@ -13,6 +13,7 @@ import { THEMES } from '../tools/forge/themes.mjs';
 import { buildKit } from '../tools/forge/kit/index.mjs';
 import { kitDoc } from '../tools/forge/doc.mjs';
 import { boundsAt } from '../tools/forge/lib.mjs';
+import { meshCorners } from '../tools/forge/mesh/registry.mjs';
 import { makeChecker } from './b_lib/check.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -50,13 +51,23 @@ for (const [id, t] of Object.entries(THEMES)) {
     if (!/^[a-z]+(_[a-z0-9]+)*_\d\d$/.test(p.id) || !/^[a-z]+(\.[a-z]+)+$/.test(p.category)) bad.push(`${p.id}: jméno nebo kategorie`);
     if (baseIds.has(p.id) || goldenPrefabs.has(p.id) || seenIds.has(p.id)) bad.push(`${p.id}: id už je v kit_base, ve zlatém vzorku nebo v jiné sadě`);
     seenIds.add(p.id);
-    if (p.tris > 1000) bad.push(`${p.id}: ${p.tris} △ (Ondřej: do 1 000)`);
+    const bb = boundsAt(p);
+    // Ondřej 24. 11. 23:57: o 50 % víc trojúhelníků → prefab do 1 500 △; sestava několika předmětů (stojan s byretou
+    // a baňkou, destilace) do 2 500 △, označená source.params.assembly
+    const cap = p.source.params?.assembly ? 2500 : 1500;
+    if (p.tris > cap) bad.push(`${p.id}: ${p.tris} △ (mez ${cap})`);
+    // díl ze sítě: soubor je v assets a kolize ho obepínají (generátor .glb nečte, místo měří z kolizí)
+    for (const part of p.parts.filter((x) => x.shape === 'mesh')) {
+      if (!kit.manifest.assets.some((a) => a.path === part.mesh.split('#')[0])) bad.push(`${p.id}: soubor ${part.mesh} není v assets`);
+      const c = meshCorners(part);
+      if (!c) bad.push(`${p.id}: síť ${part.mesh} chybí v registru`);
+      else if (c.some((q) => q.some((v, k) => v < bb.min[k] - 0.003 || v > bb.max[k] + 0.003))) bad.push(`${p.id}: síť ${part.mesh.split('#')[1]} přečnívá kolize o víc než 3 mm`);
+    }
     if (!p.components?.place?.mount) bad.push(`${p.id}: chybí components.place (kam se staví)`);
     if (!(p.colliders || []).length) bad.push(`${p.id}: bez kolize`);
     if (p.source.tool !== 'xforge' || !FREE_LICENSES.includes(p.source.license)) bad.push(`${p.id}: původ`);
     for (const part of p.parts) if (!mats[part.mat]) bad.push(`${p.id}: materiál ${part.mat} neexistuje`);
     for (const j of p.rig.joints || []) if (!(kit.notes[p.id] || {})[j.id]) bad.push(`${p.id}.${j.id}: kloub bez zdůvodnění mezí`);
-    const bb = boundsAt(p);
     const size = [0, 1, 2].map((k) => bb.max[k] - bb.min[k]);
     if (Math.max(...size) > 4 || Math.min(...size) < 0.002) bad.push(`${p.id}: rozměr ${size.map((x) => x.toFixed(3)).join(' × ')} m mimo 2 mm až 4 m`);
     const mount = p.components?.place?.mount;
@@ -64,7 +75,11 @@ for (const [id, t] of Object.entries(THEMES)) {
     if (mount === 'ceiling' && bb.max[1] > 0.001) bad.push(`${p.id}: díly nad počátkem (visí ze stropu)`);
     if (mount === 'wall' && bb.min[2] < -0.001) bad.push(`${p.id}: díly za počátkem (ve zdi)`);
   }
-  ok(bad.length === 0, `${id}: jména, kategorie, do 1 000 △, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
+  ok(bad.length === 0, `${id}: jména, kategorie, do 1 500 △ (sestava 2 500), sítě v assets a v kolizích, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
+  // celkový rozpočet sady: o 50 % víc než před přestavbou na hladké sítě (B04, 24. 11. 2026: kit_lab 93 580 △, kit_it 15 128 △)
+  const BEFORE = { kit_lab: 93580, kit_it: 15128 };
+  const sum = prefabs.reduce((s, p) => s + p.tris, 0);
+  if (BEFORE[id]) ok(sum <= BEFORE[id] * 1.5, `${id}: trojúhelníků celkem nejvýš o 50 % víc než před přestavbou`, `${sum} △ z ${Math.round(BEFORE[id] * 1.5)} (${((sum / BEFORE[id] - 1) * 100).toFixed(0)} %), sítě ${(Object.values(kit.files).reduce((a, b) => a + b.length, 0) / 1024).toFixed(0)} kB`);
   const clash = Object.keys(kit.materials.materials).filter((m) => baseMats.has(m) || seenMats.has(m));
   for (const m of Object.keys(kit.materials.materials)) seenMats.add(m);
   ok(clash.length === 0 && Object.values(kit.materials.materials).every((m) => SURFACES.includes(m.surface)), `${id}: vlastní materiály se nepotkají s kit_base ani s jinou sadou a mají povrch pro zvuk`, clash.join(', ') || `${Object.keys(kit.materials.materials).length} materiálů`);

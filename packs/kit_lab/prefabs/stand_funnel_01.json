@@ -4,43 +4,36 @@
   "id": "stand_funnel_01",
   "title": "Stojan s dělicí nálevkou",
   "category": "lab.glass",
-  "bounds": { "min": [-0.101, -0.001, -0.092], "max": [0.101, 0.613, 0.081] },
+  "bounds": { "min": [-0.101, -0.001, -0.1], "max": [0.101, 0.633, 0.081] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.08], "max": [0.1, 0.012, 0.08], "mat": "steel_painted" },
-    { "node": "body", "shape": "cyl", "center": [-0.06, 0.312, -0.05], "radius": 0.006, "height": 0.6, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.41, -0.058], "max": [-0.05, 0.43, -0.042], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.417, -0.053], "max": [0.02, 0.423, -0.047], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.315, -0.05], "radius": 0.008, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.355, -0.05], "radius": 0.025, "height": 0.05, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.405, -0.05], "radius": 0.04, "height": 0.05, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.445, -0.05], "radius": 0.027, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.47, -0.05], "radius": 0.012, "height": 0.02, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.316, -0.05], "radius": 0.006, "height": 0.028, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.355, -0.05], "radius": 0.023, "height": 0.05, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.385, -0.05], "radius": 0.0364, "height": 0.01, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "box", "min": [0.012, 0.3, -0.056], "max": [0.028, 0.306, -0.044], "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.24, -0.05], "radius": 0.003, "height": 0.1, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.036, -0.05], "radius": 0.036, "height": 0.048, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.08, -0.05], "radius": 0.023, "height": 0.04, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.115, -0.05], "radius": 0.014, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.02, 0.0248, -0.05], "radius": 0.036, "height": 0.0216, "axis": "y", "mat": "liquid_yellow" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_plate", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_steel", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_dark", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_sep", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_lower", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_stem", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_cock", "mat": "ptfe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_plug", "mat": "ptfe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beaker", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beakerliq", "mat": "liquid_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.091], "max": [0.1, 0.612, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.099], "max": [0.1, 0.632, 0.08], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 944,
+  "tris": 2192,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/glass.mjs#standSetups",
+    "generator": "tools/forge/lab/glass_kits.mjs#standSetups",
+    "params": { "assembly": true },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

@@ -4,31 +4,26 @@
   "id": "bottle_gl45_2000_01",
   "title": "Reagenční lahev 2000 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.071, -0.001, -0.071], "max": [0.071, 0.269, 0.071] },
+  "bounds": { "min": [-0.069, -0.001, -0.068], "max": [0.069, 0.268, 0.069] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.003, 0], "radius": 0.0666, "height": 0.006, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1086, 0], "radius": 0.068, "height": 0.2052, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.2231, 0], "radius": 0.0551, "height": 0.0238, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.238, 0], "radius": 0.0323, "height": 0.006, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.247, 0], "radius": 0.0225, "height": 0.012, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.257, 0], "radius": 0.0265, "height": 0.022, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.246, 0], "radius": 0.0285, "height": 0.004, "axis": "y", "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.106, 0.0675], "max": [0, 0.1072, 0.0687], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.1458, 0.0675], "max": [0, 0.147, 0.0687], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_2000_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_2000_cap", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_2000_pour", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_2000_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.07], "max": [0.07, 0.268, 0.07], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.068, 0, -0.067], "max": [0.068, 0.267, 0.068], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 472,
+  "tris": 1208,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

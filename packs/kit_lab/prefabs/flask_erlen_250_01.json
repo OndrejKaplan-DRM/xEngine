@@ -4,31 +4,24 @@
   "id": "flask_erlen_250_01",
   "title": "Erlenmeyerova baňka 250 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.045, -0.001, -0.045], "max": [0.045, 0.147, 0.045] },
+  "bounds": { "min": [-0.042, -0.001, -0.042], "max": [0.042, 0.148, 0.042] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0087, 0], "radius": 0.0425, "height": 0.0174, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0341, 0], "radius": 0.0387, "height": 0.0334, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0653, 0], "radius": 0.0298, "height": 0.029, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0921, 0], "radius": 0.023, "height": 0.0246, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1087, 0], "radius": 0.0191, "height": 0.0087, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1291, 0], "radius": 0.017, "height": 0.0319, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1435, 0], "radius": 0.0185, "height": 0.003, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0217, 0.0378], "max": [0, 0.0229, 0.039], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0406, 0.0314], "max": [0, 0.0418, 0.0326], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_250_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_250_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.044, 0, -0.044], "max": [0.044, 0.146, 0.044], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.041, 0, -0.041], "max": [0.041, 0.147, 0.041], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 472,
+  "tris": 508,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#erlenmeyers",

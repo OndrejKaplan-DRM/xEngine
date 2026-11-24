@@ -4,6 +4,7 @@
 
 import { box, cyl, cbox, node, hinge, slider, definePrefab, partPoints, IO } from '../lib.mjs';
 import { lathe, bevelBox } from '../shapes.mjs';
+import { meshCorners } from '../mesh/registry.mjs';
 
 export const STATIC_TOP = { physics: { body: 'static' }, place: { mount: 'top' } };
 export const staticFloor = (top) => ({ physics: { body: 'static' }, place: top ? { mount: 'floor', top } : { mount: 'floor' } });
@@ -14,7 +15,7 @@ export function bbox(parts) {
   const min = [Infinity, Infinity, Infinity];
   const max = [-Infinity, -Infinity, -Infinity];
   for (const p of parts) {
-    for (const q of partPoints(p)) {
+    for (const q of p.shape === 'mesh' ? meshCorners(p) : partPoints(p)) {
       for (let k = 0; k < 3; k++) {
         min[k] = Math.min(min[k], q[k]);
         max[k] = Math.max(max[k], q[k]);

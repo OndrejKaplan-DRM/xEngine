@@ -4,6 +4,7 @@
 
 import * as THREE from 'three';
 import { rigMatrices, partMesh } from '../../../src/xspace/index.js';
+import { meshGeom } from '../mesh/registry.mjs';
 
 // Pohledy (look): „clean“ = jen barva materiálu (stupeň 0); „t460“ = textura barvy, světlo bez odlesků a bez normál
 // (co unese stupeň low); „gpu“ = textura, normálová mapa, drsnost, kovovost a odrazy okolí (stupně 2 a 3).
@@ -41,13 +42,15 @@ export function material(id, defs, look = 'clean') {
     }
   }
   if (d.opacity !== undefined && d.opacity < 1) Object.assign(m, { transparent: true, opacity: d.opacity, depthWrite: false }); // sklo (N-005)
+  if (d.twoSided) m.side = THREE.DoubleSide;
   cache.set(key, m);
   return m;
 }
 
 function partGeometry(part) {
-  const m = partMesh(part);
-  if (!m) return null; // díl ze souboru (.glb) sada zatím nemá
+  // díl ze souboru (.glb): galerie staví sady v prohlížeči, síť bere z registru xForge (táž, co jde do .glb)
+  const m = part.shape === 'mesh' ? meshGeom(part.mesh) : partMesh(part);
+  if (!m) return null;
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
   g.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));

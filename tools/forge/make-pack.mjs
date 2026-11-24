@@ -21,14 +21,20 @@ for (const id of which) {
   const kit = t.build();
   const outDir = path.resolve(outArg || path.join(root, 'packs', id));
   await rm(path.join(outDir, 'prefabs'), { recursive: true, force: true });
+  await rm(path.join(outDir, 'meshes'), { recursive: true, force: true });
   await mkdir(path.join(outDir, 'prefabs'), { recursive: true });
+  for (const [file, bytes] of Object.entries(kit.files || {})) {
+    await mkdir(path.dirname(path.join(outDir, file)), { recursive: true });
+    await writeFile(path.join(outDir, file), bytes);
+  }
   const write = (file, data) => writeFile(path.join(outDir, file), fmtJson(data) + '\n');
   await write('pack.json', kit.manifest);
   await write('materials.json', kit.materials);
   for (const p of kit.prefabs) await write(`prefabs/${p.id}.json`, p);
   if (!outArg) await writeFile(path.join(here, t.dir, 'SADA.md'), kitDoc(kit, { id, cmd: `node tools/forge/make-pack.mjs ${id}`, src: `tools/forge/${t.dir}/*.mjs` }));
   const tris = kit.prefabs.reduce((s, p) => s + p.tris, 0);
-  console.log(`${path.relative(root, outDir) || outDir}: ${kit.prefabs.length} prefabů (${tris} △, nejvíc ${Math.max(...kit.prefabs.map((p) => p.tris))}), ${Object.keys(kit.materials.materials).length} materiálů`);
+  const kb = Object.values(kit.files || {}).reduce((s, b) => s + b.length, 0) / 1024;
+  console.log(`${path.relative(root, outDir) || outDir}: ${kit.prefabs.length} prefabů (${tris} △, nejvíc ${Math.max(...kit.prefabs.map((p) => p.tris))}), ${Object.keys(kit.materials.materials).length} materiálů, sítě ${Object.keys(kit.files || {}).length} souborů ${kb.toFixed(1)} kB`);
 }
 
 if (!outArg) {

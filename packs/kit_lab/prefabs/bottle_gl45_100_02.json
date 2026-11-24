@@ -4,33 +4,28 @@
   "id": "bottle_gl45_100_02",
   "title": "Reagenční lahev 100 ml, se štítkem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.03, -0.001, -0.03], "max": [0.03, 0.104, 0.031] },
+  "bounds": { "min": [-0.029, -0.001, -0.029], "max": [0.029, 0.104, 0.03] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.003, 0], "radius": 0.0274, "height": 0.006, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0331, 0], "radius": 0.028, "height": 0.0542, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0651, 0], "radius": 0.0227, "height": 0.0098, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.073, 0], "radius": 0.0199, "height": 0.006, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.082, 0], "radius": 0.0224, "height": 0.012, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.004, 0], "radius": 0.0254, "height": 0.004, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0294, 0], "radius": 0.026, "height": 0.0468, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.092, 0], "radius": 0.0264, "height": 0.022, "axis": "y", "mat": "cap_blue" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.081, 0], "radius": 0.0284, "height": 0.004, "axis": "y", "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.0154, 0.03, 0.027], "max": [0.0154, 0.06, 0.0288], "mat": "label_paper" },
-    { "node": "body", "shape": "box", "min": [-0.0154, 0.0534, 0.0286], "max": [0.0154, 0.06, 0.0298], "mat": "label_band_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_cap", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_pour", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_labelband", "mat": "label_band_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_gl45_100_02_liquid", "mat": "liquid_water" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.029, 0, -0.029], "max": [0.029, 0.103, 0.03], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.028, 0, -0.028], "max": [0.028, 0.103, 0.029], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 600,
+  "tris": 952,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#reagentBottles",

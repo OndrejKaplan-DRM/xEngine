@@ -4,27 +4,24 @@
   "id": "beaker_600_01",
   "title": "Kádinka 600 ml",
   "category": "lab.glass",
-  "bounds": { "min": [-0.049, -0.001, -0.049], "max": [0.049, 0.126, 0.049] },
+  "bounds": { "min": [-0.052, -0.001, -0.047], "max": [0.048, 0.128, 0.047] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0625, 0], "radius": 0.045, "height": 0.125, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1235, 0], "radius": 0.0465, "height": 0.003, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0375, 0.0445], "max": [0, 0.0387, 0.0457], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0625, 0.0445], "max": [0, 0.0637, 0.0457], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0875, 0.0445], "max": [0, 0.0887, 0.0457], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_600_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_600_marks", "mat": "enamel_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.048, 0, -0.048], "max": [0.048, 0.125, 0.048], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.051, 0, -0.046], "max": [0.047, 0.127, 0.046], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 164,
+  "tris": 464,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

@@ -4,32 +4,26 @@
   "id": "flask_round_250_02",
   "title": "Varná baňka 250 ml na korkovém kroužku, s náplní",
   "category": "lab.glass",
-  "bounds": { "min": [-0.038, -0.001, -0.038], "max": [0.038, 0.169, 0.038] },
+  "bounds": { "min": [-0.043, -0.001, -0.043], "max": [0.043, 0.163, 0.043] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.008, 0], "radius": 0.0298, "height": 0.016, "axis": "y", "mat": "wood_oak" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0175, 0], "radius": 0.0159, "height": 0.0111, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0388, 0], "radius": 0.0297, "height": 0.0315, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0702, 0], "radius": 0.0297, "height": 0.0314, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0894, 0], "radius": 0.0159, "height": 0.0068, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1299, 0], "radius": 0.015, "height": 0.0743, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0185, 0], "radius": 0.0139, "height": 0.0091, "axis": "y", "mat": "liquid_purple" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0388, 0], "radius": 0.0277, "height": 0.0315, "axis": "y", "mat": "liquid_purple" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0604, 0], "radius": 0.0357, "height": 0.0117, "axis": "y", "mat": "liquid_purple" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1655, 0], "radius": 0.0165, "height": 0.003, "axis": "y", "mat": "glass_lab" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_250_cork", "mat": "cork" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_250_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_250_joint", "mat": "glass_frosted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_250_liquid", "mat": "liquid_purple" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.037, 0, -0.037], "max": [0.037, 0.168, 0.037], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.042, 0, -0.042], "max": [0.042, 0.162, 0.042], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 640,
+  "tris": 956,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#roundFlasks",

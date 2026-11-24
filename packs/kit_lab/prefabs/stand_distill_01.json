@@ -4,45 +4,37 @@
   "id": "stand_distill_01",
   "title": "Destilační aparatura s chladičem a topným hnízdem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.101, -0.001, -0.113], "max": [0.332, 0.613, 0.081] },
+  "bounds": { "min": [-0.101, -0.001, -0.12], "max": [0.362, 0.613, 0.081] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.08], "max": [0.1, 0.012, 0.08], "mat": "steel_painted" },
-    { "node": "body", "shape": "cyl", "center": [-0.06, 0.312, -0.05], "radius": 0.006, "height": 0.6, "axis": "y", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.24, -0.058], "max": [-0.05, 0.26, -0.042], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.247, -0.053], "max": [0, 0.253, -0.047], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.41, -0.058], "max": [-0.05, 0.43, -0.042], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.417, -0.053], "max": [0, 0.423, -0.047], "mat": "steel_brushed" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.15, -0.05], "radius": 0.0325, "height": 0.04, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.195, -0.05], "radius": 0.055, "height": 0.05, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.24, -0.05], "radius": 0.035, "height": 0.04, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.295, -0.05], "radius": 0.015, "height": 0.07, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.151, -0.05], "radius": 0.0305, "height": 0.038, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.175, -0.05], "radius": 0.053, "height": 0.01, "axis": "y", "mat": "liquid_amber" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.065, -0.05], "radius": 0.06, "height": 0.13, "axis": "y", "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.03, 0.01], "max": [0.04, 0.09, 0.012], "mat": "emit_amber" },
-    { "node": "body", "shape": "cyl", "center": [0.14, 0.36, -0.05], "radius": 0.014, "height": 0.28, "axis": "x", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.29, 0.22, -0.05], "radius": 0.006, "height": 0.26, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.29, 0.025, -0.05], "radius": 0.04, "height": 0.05, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.29, 0.065, -0.05], "radius": 0.03, "height": 0.03, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.29, 0.09, -0.05], "radius": 0.016, "height": 0.02, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0.29, 0.0135, -0.05], "radius": 0.038, "height": 0.023, "axis": "y", "mat": "liquid_water" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_plate", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_steel", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_dark", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_mantle", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_lamp", "mat": "emit_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flaskliq", "mat": "liquid_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_inner", "mat": "glass_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_hoses", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_distillate", "mat": "liquid_water" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.112], "max": [0.331, 0.612, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.119], "max": [0.361, 0.612, 0.08], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 968,
+  "tris": 2354,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/glass.mjs#standSetups",
+    "generator": "tools/forge/lab/glass_kits.mjs#standSetups",
+    "params": { "assembly": true },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

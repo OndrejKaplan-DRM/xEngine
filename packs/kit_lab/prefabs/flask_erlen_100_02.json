@@ -4,33 +4,25 @@
   "id": "flask_erlen_100_02",
   "title": "Erlenmeyerova baňka 100 ml s roztokem",
   "category": "lab.glass",
-  "bounds": { "min": [-0.034, -0.001, -0.034], "max": [0.034, 0.107, 0.034] },
+  "bounds": { "min": [-0.032, -0.001, -0.031], "max": [0.032, 0.107, 0.031] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "cyl", "center": [0, 0.0063, 0], "radius": 0.032, "height": 0.0126, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0247, 0], "radius": 0.0291, "height": 0.0241, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0473, 0], "radius": 0.0224, "height": 0.021, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0667, 0], "radius": 0.0162, "height": 0.0178, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0788, 0], "radius": 0.0124, "height": 0.0063, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0935, 0], "radius": 0.011, "height": 0.0231, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0073, 0], "radius": 0.03, "height": 0.0106, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.0221, 0], "radius": 0.0277, "height": 0.0189, "axis": "y", "mat": "liquid_water" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.1035, 0], "radius": 0.0125, "height": 0.003, "axis": "y", "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0158, 0.0283], "max": [0, 0.017, 0.0295], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.008, 0.0294, 0.0235], "max": [0, 0.0306, 0.0247], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_100_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_100_marks", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_erlen_100_liquid", "mat": "liquid_water" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.033, 0, -0.033], "max": [0.033, 0.106, 0.033], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.031, 0, -0.03], "max": [0.031, 0.106, 0.03], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 600,
+  "tris": 608,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#erlenmeyers",
