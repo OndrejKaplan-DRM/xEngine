@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "monitor_32_01",
+  "title": "Monitor 32\" 4K",
+  "category": "it.computer",
+  "bounds": { "min": [-0.364, -0.001, -0.101], "max": [0.364, 0.512, 0.081] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.12, 0.012, 0.08], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.012, -0.07], "max": [0.03, 0.2594, -0.05], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.3622, 0.104, -0.046], "max": [0.3622, 0.5065, -0.024], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.3582, 0.1, -0.046], "max": [0.3582, 0.5105, -0.024], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.3582, 0.104, -0.05], "max": [0.3582, 0.5065, -0.02], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.3542, 0.11, -0.02], "max": [0.3542, 0.5025, -0.018], "mat": "screen_code" },
+    { "node": "body", "shape": "box", "min": [0.3342, 0.102, -0.02], "max": [0.3422, 0.106, -0.017], "mat": "led_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.363, 0, -0.1], "max": [0.363, 0.511, 0.08], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 84,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#monitors",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

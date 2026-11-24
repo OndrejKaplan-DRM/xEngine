@@ -23,6 +23,8 @@ const baseMats = new Set(Object.keys(base.materials.materials));
 const golden = JSON.parse(readFileSync(path.join(root, 'packs/golden/pack.json'), 'utf8'));
 const goldenPrefabs = new Set((golden.prefabs || []).map((f) => path.basename(f, '.json')));
 let total = 0;
+const seenIds = new Set();
+const seenMats = new Set();
 
 for (const [id, t] of Object.entries(THEMES)) {
   const dir = path.join(root, 'packs', id);
@@ -41,11 +43,13 @@ for (const [id, t] of Object.entries(THEMES)) {
 
   const prefabs = kit.prefabs;
   total += prefabs.length;
-  const mats = { ...base.materials.materials, ...kit.materials.materials };
+  // materiály sady a všech balíků z jejího requires (kit_it stojí na kit_base i kit_lab)
+  const mats = Object.assign({}, base.materials.materials, ...kit.manifest.requires.filter((r) => THEMES[r]).map((r) => THEMES[r].build().materials.materials), kit.materials.materials);
   const bad = [];
   for (const p of prefabs) {
     if (!/^[a-z]+(_[a-z0-9]+)*_\d\d$/.test(p.id) || !/^[a-z]+(\.[a-z]+)+$/.test(p.category)) bad.push(`${p.id}: jméno nebo kategorie`);
-    if (baseIds.has(p.id) || goldenPrefabs.has(p.id)) bad.push(`${p.id}: id už je v kit_base nebo ve zlatém vzorku`);
+    if (baseIds.has(p.id) || goldenPrefabs.has(p.id) || seenIds.has(p.id)) bad.push(`${p.id}: id už je v kit_base, ve zlatém vzorku nebo v jiné sadě`);
+    seenIds.add(p.id);
     if (p.tris > 1000) bad.push(`${p.id}: ${p.tris} △ (Ondřej: do 1 000)`);
     if (!p.components?.place?.mount) bad.push(`${p.id}: chybí components.place (kam se staví)`);
     if (!(p.colliders || []).length) bad.push(`${p.id}: bez kolize`);
@@ -55,11 +59,15 @@ for (const [id, t] of Object.entries(THEMES)) {
     const bb = boundsAt(p);
     const size = [0, 1, 2].map((k) => bb.max[k] - bb.min[k]);
     if (Math.max(...size) > 4 || Math.min(...size) < 0.002) bad.push(`${p.id}: rozměr ${size.map((x) => x.toFixed(3)).join(' × ')} m mimo 2 mm až 4 m`);
-    if (bb.min[1] < -0.001) bad.push(`${p.id}: díly pod počátkem (stojí na podlaze nebo na desce)`);
+    const mount = p.components?.place?.mount;
+    if ((mount === 'floor' || mount === 'top') && bb.min[1] < -0.001) bad.push(`${p.id}: díly pod počátkem (stojí na podlaze nebo na desce)`);
+    if (mount === 'ceiling' && bb.max[1] > 0.001) bad.push(`${p.id}: díly nad počátkem (visí ze stropu)`);
+    if (mount === 'wall' && bb.min[2] < -0.001) bad.push(`${p.id}: díly za počátkem (ve zdi)`);
   }
   ok(bad.length === 0, `${id}: jména, kategorie, do 1 000 △, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
-  const clash = Object.keys(kit.materials.materials).filter((m) => baseMats.has(m));
-  ok(clash.length === 0 && Object.values(kit.materials.materials).every((m) => SURFACES.includes(m.surface)), `${id}: vlastní materiály se nepotkají s kit_base a mají povrch pro zvuk`, clash.join(', ') || `${Object.keys(kit.materials.materials).length} materiálů`);
+  const clash = Object.keys(kit.materials.materials).filter((m) => baseMats.has(m) || seenMats.has(m));
+  for (const m of Object.keys(kit.materials.materials)) seenMats.add(m);
+  ok(clash.length === 0 && Object.values(kit.materials.materials).every((m) => SURFACES.includes(m.surface)), `${id}: vlastní materiály se nepotkají s kit_base ani s jinou sadou a mají povrch pro zvuk`, clash.join(', ') || `${Object.keys(kit.materials.materials).length} materiálů`);
   const cats = [...new Set(prefabs.map((p) => p.category))];
   ok(cats.length >= 1, `${id}: kategorie`, cats.map((c) => `${c} ${prefabs.filter((p) => p.category === c).length}`).join(', '));
 }

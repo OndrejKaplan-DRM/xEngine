@@ -1,0 +1,53 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "table_foosball_01",
+  "title": "Stolní fotbal",
+  "category": "it.office",
+  "bounds": { "min": [-0.601, -0.001, -0.501], "max": [0.601, 0.951, 0.501] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0.71, -0.37], "max": [0.6, 0.94, 0.37], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.59, 0.7, -0.37], "max": [0.59, 0.95, 0.37], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.59, 0.71, -0.38], "max": [0.59, 0.94, 0.38], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.55, 0.75, -0.33], "max": [0.55, 0.752, 0.33], "mat": "table_green" },
+    { "node": "body", "shape": "box", "min": [-0.59, 0, -0.36], "max": [-0.51, 0.7, -0.28], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.59, 0, 0.28], "max": [-0.51, 0.7, 0.36], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [0.51, 0, -0.36], "max": [0.59, 0.7, -0.28], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [0.51, 0, 0.28], "max": [0.59, 0.7, 0.36], "mat": "laminate_oak" },
+    { "node": "body", "shape": "cyl", "center": [-0.45, 0.88, 0], "radius": 0.008, "height": 1, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [-0.25, 0.88, 0], "radius": 0.008, "height": 1, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [-0.05, 0.88, 0], "radius": 0.008, "height": 1, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.15, 0.88, 0], "radius": 0.008, "height": 1, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "cyl", "center": [0.35, 0.88, 0], "radius": 0.008, "height": 1, "axis": "z", "mat": "steel_brushed" },
+    { "node": "body", "shape": "box", "min": [-0.4625, 0.78, -0.165], "max": [-0.4375, 0.9, -0.135], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [-0.4625, 0.78, 0.135], "max": [-0.4375, 0.9, 0.165], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [-0.2625, 0.78, -0.165], "max": [-0.2375, 0.9, -0.135], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.2625, 0.78, 0.135], "max": [-0.2375, 0.9, 0.165], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [-0.0625, 0.78, -0.165], "max": [-0.0375, 0.9, -0.135], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [-0.0625, 0.78, 0.135], "max": [-0.0375, 0.9, 0.165], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [0.1375, 0.78, -0.165], "max": [0.1625, 0.9, -0.135], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.1375, 0.78, 0.135], "max": [0.1625, 0.9, 0.165], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.3375, 0.78, -0.165], "max": [0.3625, 0.9, -0.135], "mat": "cap_red" },
+    { "node": "body", "shape": "box", "min": [0.3375, 0.78, 0.135], "max": [0.3625, 0.9, 0.165], "mat": "cap_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.5], "max": [0.6, 0.95, 0.5], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 536,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#facilities",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

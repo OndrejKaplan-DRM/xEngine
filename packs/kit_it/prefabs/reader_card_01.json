@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "reader_card_01",
+  "title": "Čtečka přístupových karet",
+  "category": "it.server",
+  "bounds": { "min": [-0.041, -0.001, -0.001], "max": [0.041, 0.121, 0.028] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.04, 0, 0], "max": [0.04, 0.12, 0.025], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.025, 0.06, 0.025], "max": [0.025, 0.1, 0.027], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.04, 0, 0], "max": [0.04, 0.12, 0.027], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.2 }
+  },
+  "tris": 24,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#infrastructure",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

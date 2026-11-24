@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "ups_cabinet_01",
+  "title": "UPS (zdroj nepřerušitelného napájení)",
+  "category": "it.server",
+  "bounds": { "min": [-0.301, -0.001, -0.451], "max": [0.301, 1.901, 0.455] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.01, -0.44], "max": [0.3, 1.89, 0.44], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.29, 0, -0.44], "max": [0.29, 1.9, 0.44], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.29, 0.01, -0.45], "max": [0.29, 1.89, 0.45], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.4, 0.45], "max": [0.2, 1.6, 0.452], "mat": "emit_display" },
+    { "node": "body", "shape": "box", "min": [-0.25, 0.2, 0.45], "max": [0.25, 1.2, 0.452], "mat": "rack_mesh" },
+    { "node": "body", "shape": "box", "min": [0.22, 1.65, 0.45], "max": [0.25, 1.68, 0.454], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.45], "max": [0.3, 1.9, 0.454], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 72,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#powerCooling",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

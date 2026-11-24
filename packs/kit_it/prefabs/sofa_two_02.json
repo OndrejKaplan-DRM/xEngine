@@ -1,0 +1,46 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "sofa_two_02",
+  "title": "Pohovka pro dva, petrolejová",
+  "category": "it.office",
+  "bounds": { "min": [-0.801, -0.001, -0.401], "max": [0.801, 0.851, 0.401] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.8, 0.13, -0.37], "max": [0.8, 0.39, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.1, -0.37], "max": [0.77, 0.42, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.13, -0.4], "max": [0.77, 0.39, 0.4], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.8, 0.45, -0.37], "max": [0.8, 0.82, -0.25], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.42, -0.37], "max": [0.77, 0.85, -0.25], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.45, -0.4], "max": [0.77, 0.82, -0.22], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.8, 0.45, -0.37], "max": [-0.65, 0.59, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.42, -0.37], "max": [-0.68, 0.62, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.77, 0.45, -0.4], "max": [-0.68, 0.59, 0.4], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [0.65, 0.45, -0.37], "max": [0.8, 0.59, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [0.68, 0.42, -0.37], "max": [0.77, 0.62, 0.37], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [0.68, 0.45, -0.4], "max": [0.77, 0.59, 0.4], "mat": "fabric_teal" },
+    { "node": "body", "shape": "box", "min": [-0.74, 0, -0.34], "max": [-0.7, 0.1, -0.3], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [-0.74, 0, 0.3], "max": [-0.7, 0.1, 0.34], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [0.7, 0, -0.34], "max": [0.74, 0.1, -0.3], "mat": "wood_oak" },
+    { "node": "body", "shape": "box", "min": [0.7, 0, 0.3], "max": [0.74, 0.1, 0.34], "mat": "wood_oak" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.4], "max": [0.8, 0.85, 0.4], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 192,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#lounge",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

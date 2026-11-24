@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "water_cooler_01",
+  "title": "Výdejník vody s barelem",
+  "category": "it.office",
+  "bounds": { "min": [-0.161, -0.001, -0.161], "max": [0.161, 1.451, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.16, 0.02, -0.14], "max": [0.16, 1.03, 0.14], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [-0.14, 0, -0.14], "max": [0.14, 1.05, 0.14], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [-0.14, 0.02, -0.16], "max": [0.14, 1.03, 0.16], "mat": "key_white" },
+    { "node": "body", "shape": "cyl", "center": [0, 1.25, 0], "radius": 0.13, "height": 0.4, "axis": "y", "mat": "liquid_water" },
+    { "node": "body", "shape": "box", "min": [-0.08, 0.8, 0.16], "max": [0.08, 0.9, 0.2], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.052, 0.86, 0.2], "max": [-0.028, 0.88, 0.22], "mat": "cap_blue" },
+    { "node": "body", "shape": "box", "min": [0.028, 0.86, 0.2], "max": [0.052, 0.88, 0.22], "mat": "cap_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.16, 0, -0.16], "max": [0.16, 1.45, 0.22], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 136,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#facilities",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

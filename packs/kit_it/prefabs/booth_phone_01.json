@@ -1,0 +1,50 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "booth_phone_01",
+  "title": "Telefonní budka (akustická kabina pro jednoho)",
+  "category": "it.office",
+  "bounds": { "min": [-0.569, -0.001, -0.501], "max": [0.501, 2.201, 1.367] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.45, 0.05, 0.47] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 95, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 0.05, 0.5], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [-0.45, 2.2, 0.5], "mat": "felt_green" },
+    { "node": "body", "shape": "box", "min": [0.45, 0, -0.5], "max": [0.5, 2.2, 0.5], "mat": "felt_green" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 2.2, -0.45], "mat": "felt_green" },
+    { "node": "body", "shape": "box", "min": [-0.5, 2.12, -0.5], "max": [0.5, 2.2, 0.5], "mat": "felt_green" },
+    { "node": "body", "shape": "box", "min": [-0.45, 0.9, -0.45], "max": [0.45, 0.93, -0.15], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.2, 2.1, -0.2], "max": [0.2, 2.12, 0.2], "mat": "emit_warm" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.9, 2.07, 0.012], "mat": "glass_tinted" },
+    { "node": "door", "shape": "box", "min": [0.85, 0.9, 0.012], "max": [0.87, 1.2, 0.04], "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [-0.45, 2.2, 0.5], "group": "world" },
+    { "node": "body", "shape": "box", "min": [0.45, 0, -0.5], "max": [0.5, 2.2, 0.5], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 2.2, -0.45], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.5, 2.12, -0.5], "max": [0.5, 2.2, 0.5], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.9, 2.07, 0.04], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "floor" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít budku", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#meeting",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

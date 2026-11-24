@@ -5,7 +5,7 @@
   "title": "Všechny sady xForge (pro galerii)",
   "version": "0.1.0",
   "free": true,
-  "requires": ["kit_base", "kit_lab"],
+  "requires": ["kit_base", "kit_lab", "kit_it"],
   "prefabs": [],
   "levels": [],
   "assets": []

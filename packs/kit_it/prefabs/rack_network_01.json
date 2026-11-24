@@ -1,0 +1,78 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "rack_network_01",
+  "title": "Síťový rack 42U s propojovacími panely",
+  "category": "it.server",
+  "bounds": { "min": [-0.301, -0.001, -0.536], "max": [0.301, 2.001, 0.536] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.05, -0.535], "max": [-0.28, 2, 0.535], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [0.28, 0.05, -0.535], "max": [0.3, 2, 0.535], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.28, 0.05, -0.535], "max": [0.28, 2, -0.515], "mat": "rack_mesh" },
+    { "node": "body", "shape": "box", "min": [-0.3, 1.97, -0.535], "max": [0.3, 2, 0.535], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.27, 0, -0.485], "max": [0.27, 0.05, 0.485], "mat": "rack_black" },
+    { "node": "body", "shape": "box", "min": [-0.2425, 0.1, 0.435], "max": [-0.2225, 1.95, 0.455], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [0.2225, 0.1, 0.435], "max": [0.2425, 1.95, 0.455], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.1, 0.345], "max": [0.2225, 1.1425, 0.445], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.11, 0.445], "max": [-0.13, 1.13, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.11, 0.445], "max": [-0.03, 1.13, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0, 1.11, 0.445], "max": [0.07, 1.13, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.11, 0.445], "max": [0.17, 1.13, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.1667, 0.045], "max": [0.2225, 1.2091, 0.445], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.1767, 0.445], "max": [-0.13, 1.1967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.1767, 0.445], "max": [-0.03, 1.1967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [0, 1.1767, 0.445], "max": [0.07, 1.1967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.1767, 0.445], "max": [0.17, 1.1967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [0.17, 1.1847, 0.445], "max": [0.2, 1.1927, 0.449], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.2334, 0.345], "max": [0.2225, 1.2758, 0.445], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.2434, 0.445], "max": [-0.13, 1.2634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.2434, 0.445], "max": [-0.03, 1.2634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0, 1.2434, 0.445], "max": [0.07, 1.2634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.2434, 0.445], "max": [0.17, 1.2634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.3, 0.045], "max": [0.2225, 1.3425, 0.445], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.31, 0.445], "max": [-0.13, 1.33, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.31, 0.445], "max": [-0.03, 1.33, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0, 1.31, 0.445], "max": [0.07, 1.33, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.31, 0.445], "max": [0.17, 1.33, 0.475], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0.17, 1.318, 0.445], "max": [0.2, 1.326, 0.449], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.3667, 0.345], "max": [0.2225, 1.4092, 0.445], "mat": "steel_dark" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.3767, 0.445], "max": [-0.13, 1.3967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.3767, 0.445], "max": [-0.03, 1.3967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [0, 1.3767, 0.445], "max": [0.07, 1.3967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.3767, 0.445], "max": [0.17, 1.3967, 0.475], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 1.4334, 0.045], "max": [0.2225, 1.4758, 0.445], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [-0.2, 1.4434, 0.445], "max": [-0.13, 1.4634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [-0.1, 1.4434, 0.445], "max": [-0.03, 1.4634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0, 1.4434, 0.445], "max": [0.07, 1.4634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0.1, 1.4434, 0.445], "max": [0.17, 1.4634, 0.475], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0.17, 1.4514, 0.445], "max": [0.2, 1.4594, 0.449], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.28, 0.2, 0.395], "max": [-0.24, 1.9, 0.465], "mat": "cable_blue" },
+    { "node": "body", "shape": "box", "min": [0.24, 0.2, 0.395], "max": [0.28, 1.9, 0.465], "mat": "cable_yellow" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 0.12, -0.305], "max": [0.2225, 0.2069, 0.445], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [0.19, 0.1604, 0.445], "max": [0.2, 0.1664, 0.449], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [0.17, 0.1604, 0.445], "max": [0.18, 0.1664, 0.449], "mat": "emit_green" },
+    { "node": "body", "shape": "box", "min": [-0.2225, 0.2089, -0.305], "max": [0.2225, 0.2514, 0.445], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [0.19, 0.2271, 0.445], "max": [0.2, 0.2331, 0.449], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [0.17, 0.2271, 0.445], "max": [0.18, 0.2331, 0.449], "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.535], "max": [0.3, 2, 0.535], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 576,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#racks",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

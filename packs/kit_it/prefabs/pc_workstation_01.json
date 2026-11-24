@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pc_workstation_01",
+  "title": "Pracovní stanice (velká skříň)",
+  "category": "it.computer",
+  "bounds": { "min": [-0.121, -0.001, -0.276], "max": [0.121, 0.551, 0.279] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0.016, -0.269], "max": [0.12, 0.544, 0.269], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.114, 0.01, -0.269], "max": [0.114, 0.55, 0.269], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.114, 0.016, -0.275], "max": [0.114, 0.544, 0.275], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.1, 0.165, 0.275], "max": [0.1, 0.4675, 0.277], "mat": "server_face" },
+    { "node": "body", "shape": "box", "min": [-0.008, 0.51, 0.275], "max": [0.008, 0.52, 0.278], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [-0.11, 0, -0.245], "max": [-0.09, 0.01, 0.245], "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.09, 0, -0.245], "max": [0.11, 0.01, 0.245], "mat": "rubber_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.275], "max": [0.12, 0.55, 0.278], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 84,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#towers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

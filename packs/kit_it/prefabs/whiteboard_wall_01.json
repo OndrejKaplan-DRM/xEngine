@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "whiteboard_wall_01",
+  "title": "Bílá tabule na zeď 1,8 × 1,2 m",
+  "category": "it.office",
+  "bounds": { "min": [-0.901, -0.001, -0.001], "max": [0.901, 1.201, 0.081] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.9, 0, 0], "max": [0.9, 1.2, 0.02], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.88, 0.02, 0.02], "max": [0.88, 1.18, 0.022], "mat": "whiteboard" },
+    { "node": "body", "shape": "box", "min": [-0.9, 0, 0.02], "max": [0.9, 0.03, 0.08], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.3, 0.6, 0.022], "max": [0.2, 0.62, 0.023], "mat": "marker_red" },
+    { "node": "body", "shape": "box", "min": [-0.5, 0.8, 0.022], "max": [0.4, 0.812, 0.023], "mat": "cable_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.9, 0, 0], "max": [0.9, 1.2, 0.08], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 0.9 }
+  },
+  "tris": 60,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#wallStuff",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

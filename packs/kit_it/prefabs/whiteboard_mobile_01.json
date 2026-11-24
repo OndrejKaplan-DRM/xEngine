@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "whiteboard_mobile_01",
+  "title": "Mobilní oboustranná tabule",
+  "category": "it.office",
+  "bounds": { "min": [-0.881, -0.002, -0.307], "max": [0.881, 1.901, 0.307] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.87, 0.05, -0.02], "max": [-0.83, 1.9, 0.02], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.88, 0.03, -0.3], "max": [-0.82, 0.06, 0.3], "mat": "alu_silver" },
+    { "node": "body", "shape": "cyl", "center": [-0.85, 0.025, -0.28], "radius": 0.025, "height": 0.03, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [-0.85, 0.025, 0.28], "radius": 0.025, "height": 0.03, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [0.83, 0.05, -0.02], "max": [0.87, 1.9, 0.02], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [0.82, 0.03, -0.3], "max": [0.88, 0.06, 0.3], "mat": "alu_silver" },
+    { "node": "body", "shape": "cyl", "center": [0.85, 0.025, -0.28], "radius": 0.025, "height": 0.03, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "cyl", "center": [0.85, 0.025, 0.28], "radius": 0.025, "height": 0.03, "axis": "x", "mat": "rubber_black" },
+    { "node": "body", "shape": "box", "min": [-0.83, 0.75, -0.015], "max": [0.83, 1.85, 0.015], "mat": "whiteboard" },
+    { "node": "body", "shape": "box", "min": [-0.4, 1.2, 0.015], "max": [0.3, 1.215, 0.016], "mat": "marker_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.88, -0.001, -0.306], "max": [0.88, 1.9, 0.306], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 328,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#wallStuff",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

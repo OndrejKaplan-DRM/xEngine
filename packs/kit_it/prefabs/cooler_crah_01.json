@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cooler_crah_01",
+  "title": "Skříňová chladicí jednotka (CRAH)",
+  "category": "it.server",
+  "bounds": { "min": [-0.851, -0.001, -0.451], "max": [0.851, 1.951, 0.453] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.85, 0.01, -0.44], "max": [0.85, 1.94, 0.44], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [-0.84, 0, -0.44], "max": [0.84, 1.95, 0.44], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [-0.84, 0.01, -0.45], "max": [0.84, 1.94, 0.45], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [-0.8, 0.1, 0.45], "max": [-0.3, 1.7, 0.452], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [-0.25, 0.1, 0.45], "max": [0.25, 1.7, 0.452], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0.3, 0.1, 0.45], "max": [0.8, 1.7, 0.452], "mat": "cable_grey" },
+    { "node": "body", "shape": "box", "min": [0.5, 1.75, 0.45], "max": [0.8, 1.9, 0.452], "mat": "emit_display" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.85, 0, -0.45], "max": [0.85, 1.95, 0.452], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 84,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#powerCooling",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

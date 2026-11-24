@@ -1,0 +1,40 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "table_meeting_240_01",
+  "title": "Jednací stůl 2,4 m, dub",
+  "category": "it.office",
+  "bounds": { "min": [-1.201, -0.001, -0.601], "max": [1.201, 0.753, 0.601] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-1.2, 0.726, -0.594], "max": [1.2, 0.744, 0.594], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-1.194, 0.72, -0.594], "max": [1.194, 0.75, 0.594], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-1.194, 0.726, -0.6], "max": [1.194, 0.744, 0.6], "mat": "laminate_oak" },
+    { "node": "body", "shape": "box", "min": [-0.94, 0, -0.45], "max": [-0.86, 0.72, -0.37], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.94, 0, 0.37], "max": [-0.86, 0.72, 0.45], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.94, 0, -0.45], "max": [-0.86, 0.03, 0.45], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.86, 0, -0.45], "max": [0.94, 0.72, -0.37], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.86, 0, 0.37], "max": [0.94, 0.72, 0.45], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [0.86, 0, -0.45], "max": [0.94, 0.03, 0.45], "mat": "steel_painted" },
+    { "node": "body", "shape": "box", "min": [-0.15, 0.75, -0.06], "max": [0.15, 0.752, 0.06], "mat": "alu_space" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1.2, 0, -0.6], "max": [1.2, 0.752, 0.6], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor", "top": 0.75 }
+  },
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#meeting",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

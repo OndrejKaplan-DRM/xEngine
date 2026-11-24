@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "beanbag_02",
+  "title": "Sedací vak, žlutý",
+  "category": "it.office",
+  "bounds": { "min": [-0.381, -0.001, -0.381], "max": [0.381, 0.751, 0.381] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.38, 0.1, -0.28], "max": [0.38, 0.25, 0.28], "mat": "fabric_mustard" },
+    { "node": "body", "shape": "box", "min": [-0.28, 0, -0.28], "max": [0.28, 0.35, 0.28], "mat": "fabric_mustard" },
+    { "node": "body", "shape": "box", "min": [-0.28, 0.1, -0.38], "max": [0.28, 0.25, 0.38], "mat": "fabric_mustard" },
+    { "node": "body", "shape": "box", "min": [-0.38, 0.43, -0.3], "max": [0.38, 0.67, -0.23], "mat": "fabric_mustard" },
+    { "node": "body", "shape": "box", "min": [-0.3, 0.35, -0.3], "max": [0.3, 0.75, -0.23], "mat": "fabric_mustard" },
+    { "node": "body", "shape": "box", "min": [-0.3, 0.43, -0.38], "max": [0.3, 0.67, -0.15], "mat": "fabric_mustard" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.38, 0, -0.38], "max": [0.38, 0.75, 0.38], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 72,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#lounge",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

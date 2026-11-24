@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "camera_dome_01",
+  "title": "Kupolová bezpečnostní kamera",
+  "category": "it.server",
+  "bounds": { "min": [-0.073, -0.071, -0.073], "max": [0.073, 0.001, 0.073] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, -0.010000000000000009, 0], "radius": 0.07, "height": 0.02, "axis": "y", "mat": "key_white" },
+    { "node": "body", "shape": "cyl", "center": [0, -0.045000000000000005, 0], "radius": 0.05, "height": 0.05, "axis": "y", "mat": "screen_off" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.072, -0.07, -0.072], "max": [0.072, 0, 0.072], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "ceiling" }
+  },
+  "tris": 128,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#infrastructure",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

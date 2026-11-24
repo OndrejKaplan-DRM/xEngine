@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "plant_snake_01",
+  "title": "Tchýnin jazyk v květináči",
+  "category": "it.office",
+  "bounds": { "min": [-0.134, -0.001, -0.134], "max": [0.134, 0.841, 0.134] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "cyl", "center": [0, 0.125, 0], "radius": 0.13, "height": 0.25, "axis": "y", "mat": "pot_terracotta" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.24, 0], "radius": 0.1196, "height": 0.02, "axis": "y", "mat": "soil_dark" },
+    { "node": "body", "shape": "box", "min": [-0.07, 0.25, -0.036], "max": [-0.03, 0.6, -0.024], "mat": "leaf_green" },
+    { "node": "body", "shape": "box", "min": [-0.02, 0.25, 0.024], "max": [0.02, 0.72, 0.036], "mat": "leaf_green" },
+    { "node": "body", "shape": "box", "min": [0.03, 0.25, -0.036], "max": [0.07, 0.84, -0.024], "mat": "leaf_green" },
+    { "node": "body", "shape": "box", "min": [-0.04, 0.25, 0.024], "max": [0, 0.6, 0.036], "mat": "leaf_green" },
+    { "node": "body", "shape": "box", "min": [0.02, 0.25, -0.036], "max": [0.06, 0.72, -0.024], "mat": "leaf_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.133, 0, -0.133], "max": [0.133, 0.84, 0.133], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 188,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#lounge",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

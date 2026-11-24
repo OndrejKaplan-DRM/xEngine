@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "panel_acoustic_01",
+  "title": "Akustické panely z filcu, šedé",
+  "category": "it.office",
+  "bounds": { "min": [-0.891, 0.009, -0.001], "max": [0.891, 1.191, 0.061] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.89, 0.01, 0], "max": [-0.31, 0.59, 0.04], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [-0.89, 0.61, 0], "max": [-0.31, 1.19, 0.06], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [-0.29, 0.01, 0], "max": [0.29, 0.59, 0.06], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [-0.29, 0.61, 0], "max": [0.29, 1.19, 0.04], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [0.31, 0.01, 0], "max": [0.89, 0.59, 0.04], "mat": "felt_grey" },
+    { "node": "body", "shape": "box", "min": [0.31, 0.61, 0], "max": [0.89, 1.19, 0.06], "mat": "felt_grey" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.89, 0.01, 0], "max": [0.89, 1.19, 0.06], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1 }
+  },
+  "tris": 72,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#wallStuff",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

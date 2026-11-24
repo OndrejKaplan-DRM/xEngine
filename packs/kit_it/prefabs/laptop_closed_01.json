@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "laptop_closed_01",
+  "title": "Notebook zavřený",
+  "category": "it.computer",
+  "bounds": { "min": [-0.161, -0.001, -0.111], "max": [0.161, 0.019, 0.111] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.16, 0.003, -0.107], "max": [0.16, 0.015, 0.107], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0, -0.107], "max": [0.157, 0.018, 0.107], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.157, 0.003, -0.11], "max": [0.157, 0.015, 0.11], "mat": "alu_space" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.16, 0, -0.11], "max": [0.16, 0.018, 0.11], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#portables",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

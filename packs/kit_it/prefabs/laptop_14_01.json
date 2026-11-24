@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "laptop_14_01",
+  "title": "Notebook 14\" stříbrný",
+  "category": "it.computer",
+  "bounds": { "min": [-0.164, -0.001, -0.112], "max": [0.164, 0.226, 0.106] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.1628, 0.003, -0.1012], "max": [0.1628, 0.013, 0.1012], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.1598, 0, -0.1012], "max": [0.1598, 0.016, 0.1012], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.1598, 0.003, -0.1042], "max": [0.1598, 0.013, 0.1042], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.1408, 0.016, -0.0842], "max": [0.1408, 0.018, 0.02], "mat": "key_black" },
+    { "node": "body", "shape": "box", "min": [-0.05, 0.016, 0.04], "max": [0.05, 0.0175, 0.0842], "mat": "alu_space" },
+    { "node": "body", "shape": "box", "min": [-0.1628, 0.016, -0.1102], "max": [0.1628, 0.2245, -0.1042], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.1508, 0.026, -0.1042], "max": [0.1508, 0.2145, -0.1027], "mat": "screen_code" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.163, 0, -0.111], "max": [0.163, 0.225, 0.105], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 84,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#portables",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

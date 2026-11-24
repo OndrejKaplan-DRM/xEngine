@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "monitor_34_wide_01",
+  "title": "Monitor 34\" ultraširoký",
+  "category": "it.computer",
+  "bounds": { "min": [-0.406, -0.001, -0.101], "max": [0.406, 0.454, 0.081] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.12, 0.012, 0.08], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.012, -0.07], "max": [0.03, 0.2361, -0.05], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.4049, 0.104, -0.046], "max": [0.4049, 0.4482, -0.024], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.4009, 0.1, -0.046], "max": [0.4009, 0.4522, -0.024], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.4009, 0.104, -0.05], "max": [0.4009, 0.4482, -0.02], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.3969, 0.11, -0.02], "max": [0.3969, 0.4442, -0.018], "mat": "screen_code" },
+    { "node": "body", "shape": "box", "min": [0.3769, 0.102, -0.02], "max": [0.3849, 0.106, -0.017], "mat": "led_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.405, 0, -0.1], "max": [0.405, 0.453, 0.08], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 84,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#monitors",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

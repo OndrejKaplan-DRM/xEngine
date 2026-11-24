@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tv_wall_65_01",
+  "title": "Televize 65\" na zeď",
+  "category": "it.office",
+  "bounds": { "min": [-0.731, -0.001, -0.001], "max": [0.731, 0.841, 0.053] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.73, 0.005, 0.005], "max": [0.73, 0.835, 0.045], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.725, 0, 0.005], "max": [0.725, 0.84, 0.045], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.725, 0.005, 0], "max": [0.725, 0.835, 0.05], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.715, 0.015, 0.05], "max": [0.715, 0.825, 0.052], "mat": "screen_graph" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.73, 0, 0], "max": [0.73, 0.84, 0.052], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.3 }
+  },
+  "tris": 48,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office.mjs#wallStuff",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

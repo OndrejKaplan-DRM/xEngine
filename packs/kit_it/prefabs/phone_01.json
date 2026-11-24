@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "phone_01",
+  "title": "Mobilní telefon",
+  "category": "it.computer",
+  "bounds": { "min": [-0.037, -0.001, -0.076], "max": [0.037, 0.011, 0.076] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.036, 0.002, -0.073], "max": [0.036, 0.006, 0.073], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.034, 0, -0.073], "max": [0.034, 0.008, 0.073], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.034, 0.002, -0.075], "max": [0.034, 0.006, 0.075], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.033, 0.008, -0.071], "max": [0.033, 0.0095, 0.071], "mat": "screen_code" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.036, 0, -0.075], "max": [0.036, 0.01, 0.075], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 48,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#portables",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

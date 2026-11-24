@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "floor_tile_perforated_01",
+  "title": "Děrovaná dlaždice zdvojené podlahy 60 × 60 cm",
+  "category": "it.server",
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.013, 0.301] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.012, 0.3], "mat": "rack_mesh" },
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.006, 0.3], "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.012, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 24,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/server.mjs#infrastructure",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

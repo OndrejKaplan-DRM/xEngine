@@ -1,0 +1,56 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "setup_triple_01",
+  "title": "Sestava: tři monitory 24\" (dispečink)",
+  "category": "it.computer",
+  "bounds": { "min": [-0.835, -0.001, -0.251], "max": [0.835, 0.412, 0.291] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.68, 0, -0.22], "max": [-0.44, 0.012, -0.04], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.59, 0.012, -0.19], "max": [-0.53, 0.2195, -0.17], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.8337, 0.104, -0.166], "max": [-0.2863, 0.4069, -0.144], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.8297, 0.1, -0.166], "max": [-0.2903, 0.4109, -0.144], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.8297, 0.104, -0.17], "max": [-0.2903, 0.4069, -0.14], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.8257, 0.11, -0.14], "max": [-0.2943, 0.4029, -0.138], "mat": "screen_graph" },
+    { "node": "body", "shape": "box", "min": [-0.3143, 0.102, -0.14], "max": [-0.3063, 0.106, -0.137], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.25], "max": [0.12, 0.012, -0.07], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.012, -0.22], "max": [0.03, 0.2195, -0.2], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.2737, 0.104, -0.196], "max": [0.2737, 0.4069, -0.174], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.2697, 0.1, -0.196], "max": [0.2697, 0.4109, -0.174], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.2697, 0.104, -0.2], "max": [0.2697, 0.4069, -0.17], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.2657, 0.11, -0.17], "max": [0.2657, 0.4029, -0.168], "mat": "screen_code" },
+    { "node": "body", "shape": "box", "min": [0.2457, 0.102, -0.17], "max": [0.2537, 0.106, -0.167], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [0.44, 0, -0.22], "max": [0.68, 0.012, -0.04], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.53, 0.012, -0.19], "max": [0.59, 0.2195, -0.17], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.2863, 0.104, -0.166], "max": [0.8337, 0.4069, -0.144], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.2903, 0.1, -0.166], "max": [0.8297, 0.4109, -0.144], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.2903, 0.104, -0.17], "max": [0.8297, 0.4069, -0.14], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.2943, 0.11, -0.14], "max": [0.8257, 0.4029, -0.138], "mat": "screen_graph" },
+    { "node": "body", "shape": "box", "min": [0.8057, 0.102, -0.14], "max": [0.8137, 0.106, -0.137], "mat": "led_blue" },
+    { "node": "body", "shape": "box", "min": [-0.22, 0, 0.15], "max": [0.22, 0.012, 0.29], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [-0.21, 0.012, 0.16], "max": [0.21, 0.02, 0.28], "mat": "key_black" },
+    { "node": "body", "shape": "box", "min": [0.27, 0.01, 0.2], "max": [0.33, 0.025, 0.26], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.28, 0, 0.2], "max": [0.32, 0.035, 0.26], "mat": "bezel_black" },
+    { "node": "body", "shape": "box", "min": [0.28, 0.01, 0.19], "max": [0.32, 0.025, 0.27], "mat": "bezel_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.834, 0, -0.25], "max": [0.834, 0.411, 0.29], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 312,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#workstations",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

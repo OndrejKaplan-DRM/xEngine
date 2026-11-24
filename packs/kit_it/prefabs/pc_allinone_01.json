@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pc_allinone_01",
+  "title": "Počítač vše v jednom 24\"",
+  "category": "it.computer",
+  "bounds": { "min": [-0.277, -0.001, -0.121], "max": [0.331, 0.46, 0.271] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.12], "max": [0.1, 0.01, 0.06], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.04, 0.01, -0.1], "max": [0.04, 0.2, -0.07], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.2757, 0.104, -0.066], "max": [0.2757, 0.4549, -0.059], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.2717, 0.1, -0.066], "max": [0.2717, 0.4589, -0.059], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.2717, 0.104, -0.07], "max": [0.2717, 0.4549, -0.055], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.2657, 0.16, -0.055], "max": [0.2657, 0.4539, -0.053], "mat": "screen_doc" },
+    { "node": "body", "shape": "box", "min": [-0.22, 0, 0.13], "max": [0.22, 0.012, 0.27], "mat": "alu_silver" },
+    { "node": "body", "shape": "box", "min": [-0.21, 0.012, 0.14], "max": [0.21, 0.02, 0.26], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [0.27, 0.01, 0.18], "max": [0.33, 0.025, 0.24], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [0.28, 0, 0.18], "max": [0.32, 0.035, 0.24], "mat": "key_white" },
+    { "node": "body", "shape": "box", "min": [0.28, 0.01, 0.17], "max": [0.32, 0.025, 0.25], "mat": "key_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.276, 0, -0.12], "max": [0.33, 0.459, 0.27], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/computers.mjs#towers",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
