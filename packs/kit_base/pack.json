@@ -74,22 +74,6 @@
       "author": "ambientCG"
     },
     {
-      "path": "textures/kitchen_wood_albedo.512.webp",
-      "bytes": 60348,
-      "sha256": "a81a8bb8f537edc419597804f9c876eeb4037df3d7b15e59e41abde3b12d6af0",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_diff_2k.jpg",
-      "author": "Rob Tuytel"
-    },
-    {
-      "path": "textures/kitchen_wood_normal.512.webp",
-      "bytes": 18534,
-      "sha256": "bb982dbef5a5e32b47a8aa067532003894e77b8adc0075381ba07ac73812d40c",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_nor_gl_2k.jpg",
-      "author": "Rob Tuytel"
-    },
-    {
       "path": "textures/metal009_albedo.512.webp",
       "bytes": 12616,
       "sha256": "33a0ee778fbe26d01767d4db4e3a3aab65c41d896b372d0ee0b4832750f01674",
@@ -106,22 +90,6 @@
       "author": "ambientCG"
     },
     {
-      "path": "textures/oak_veneer_01_albedo_gray.512.webp",
-      "bytes": 25006,
-      "sha256": "8511e428139cc4d47f06aaa0ff20e304729c01dd09592e6fc844f67f166a43c1",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
-      "author": "Jenelle van Heerden"
-    },
-    {
-      "path": "textures/oak_veneer_01_normal.512.webp",
-      "bytes": 6036,
-      "sha256": "ef054f3badfdf0ca7d138475adb60ad28492f22cc7585bbf3392ebdd3e535dc1",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
-      "author": "Jenelle van Heerden"
-    },
-    {
       "path": "textures/old_linoleum_flooring_01_albedo_gray.512.webp",
       "bytes": 26894,
       "sha256": "42d98d080f7d1f00bdb11b891b1175fd35bd783a904b34670ea43d4c95a6dc84",
@@ -136,22 +104,6 @@
       "license": "CC0-1.0",
       "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_linoleum_flooring_01/old_linoleum_flooring_01_nor_gl_2k.jpg",
       "author": "Charlotte Baglioni"
-    },
-    {
-      "path": "textures/old_planks_02_albedo.512.webp",
-      "bytes": 21636,
-      "sha256": "b898803f651fa1a97e9adddf67bcbbb1f119a94a5cea9272129e2d3e506043a3",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_diff_2k.jpg",
-      "author": "Rob Tuytel"
-    },
-    {
-      "path": "textures/old_planks_02_normal.512.webp",
-      "bytes": 38092,
-      "sha256": "a6813711c6b1010fbb3bfbc5fed06f12f1d811857ff0fb6b5fff635395e82fc8",
-      "license": "CC0-1.0",
-      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_nor_gl_2k.jpg",
-      "author": "Rob Tuytel"
     },
     {
       "path": "textures/painted_plaster_wall_albedo.512.webp",
@@ -247,6 +199,54 @@
       "sha256": "85e4613b7eaa9751873ef17bea801826d29e78158a34871ab340d7290b395d90",
       "license": "CC0-1.0",
       "source": "https://ambientcg.com/get?file=Tiles107_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood049_albedo.512.webp",
+      "bytes": 30264,
+      "sha256": "41a5df7f86f69a2b5db554841281256fd0d0d44bc90929e5b17978e709e9562c",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood049_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood049_normal.512.webp",
+      "bytes": 44640,
+      "sha256": "d7fb27ef4c005c37dec8eb0888f5a60b872507072bbf3caf0a6455d855495c79",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood049_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood060_albedo.512.webp",
+      "bytes": 75938,
+      "sha256": "f8673e2c35fe344f77385ebce62696e0ee9436eaa2ff26f6c0159b5ceee1b31b",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood060_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood060_normal.512.webp",
+      "bytes": 124080,
+      "sha256": "783a74b620a407f92763c2bcf585ddc262631d3f474e89ae1799578829924477",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood060_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood096_albedo.512.webp",
+      "bytes": 14240,
+      "sha256": "384440155b10d116ee7b8a0db6989c0912a08eb81e55bbbfd9202856f05f1a38",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood096_2K-JPG.zip",
+      "author": "ambientCG"
+    },
+    {
+      "path": "textures/wood096_normal.512.webp",
+      "bytes": 2366,
+      "sha256": "1e6362fd07505cbbf5a8f4ed904bb6ed2411f8028afcf959b0bc6015bb9f88ba",
+      "license": "CC0-1.0",
+      "source": "https://ambientcg.com/get?file=Wood096_2K-JPG.zip",
       "author": "ambientCG"
     }
   ]

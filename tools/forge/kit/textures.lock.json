@@ -143,41 +143,6 @@
         "originalSha256": "36d9399921e465bb9e9d96612a92408643cf6e54dc364a5c01968c07f2b41f5a"
       }
     },
-    "textures/kitchen_wood_albedo.512.webp": {
-      "kind": "albedo",
-      "bytes": 60348,
-      "sha256": "a81a8bb8f537edc419597804f9c876eeb4037df3d7b15e59e41abde3b12d6af0",
-      "px": 512,
-      "mean": [0.1658, 0.1159, 0.071],
-      "from": {
-        "source": "polyhaven",
-        "id": "kitchen_wood",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_diff_2k.jpg",
-        "page": "https://polyhaven.com/a/kitchen_wood",
-        "author": "Rob Tuytel",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "kitchen_wood_diff_2k.jpg",
-        "originalSha256": "da11d51f48e4a85959b6c45ac6a6f50e78bc0aac73f094ddbe1040d71633c4e6"
-      }
-    },
-    "textures/kitchen_wood_normal.512.webp": {
-      "kind": "normal",
-      "bytes": 18534,
-      "sha256": "bb982dbef5a5e32b47a8aa067532003894e77b8adc0075381ba07ac73812d40c",
-      "px": 512,
-      "from": {
-        "source": "polyhaven",
-        "id": "kitchen_wood",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_nor_gl_2k.jpg",
-        "page": "https://polyhaven.com/a/kitchen_wood",
-        "author": "Rob Tuytel",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "kitchen_wood_nor_gl_2k.jpg",
-        "originalSha256": "4b861a9f40d9f3570cdf023ea873c8da74d710982406884e6f718769f1fac5f6"
-      }
-    },
     "textures/metal009_albedo.512.webp": {
       "kind": "albedo",
       "bytes": 12616,
@@ -213,41 +178,6 @@
         "originalSha256": "8773d9e97a4b057ced3e538d8ecc6069d27c8948191d61daf79b9ad93d93e3b3"
       }
     },
-    "textures/oak_veneer_01_albedo_gray.512.webp": {
-      "kind": "albedo-gray",
-      "bytes": 25006,
-      "sha256": "8511e428139cc4d47f06aaa0ff20e304729c01dd09592e6fc844f67f166a43c1",
-      "px": 512,
-      "mean": [0.2345, 0.2345, 0.2345],
-      "from": {
-        "source": "polyhaven",
-        "id": "oak_veneer_01",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
-        "page": "https://polyhaven.com/a/oak_veneer_01",
-        "author": "Jenelle van Heerden",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "oak_veneer_01_diff_2k.jpg",
-        "originalSha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4"
-      }
-    },
-    "textures/oak_veneer_01_normal.512.webp": {
-      "kind": "normal",
-      "bytes": 6036,
-      "sha256": "ef054f3badfdf0ca7d138475adb60ad28492f22cc7585bbf3392ebdd3e535dc1",
-      "px": 512,
-      "from": {
-        "source": "polyhaven",
-        "id": "oak_veneer_01",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
-        "page": "https://polyhaven.com/a/oak_veneer_01",
-        "author": "Jenelle van Heerden",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "oak_veneer_01_nor_gl_2k.jpg",
-        "originalSha256": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9"
-      }
-    },
     "textures/old_linoleum_flooring_01_albedo_gray.512.webp": {
       "kind": "albedo-gray",
       "bytes": 26894,
@@ -281,41 +211,6 @@
         "date": "2026-11-24",
         "original": "old_linoleum_flooring_01_nor_gl_2k.jpg",
         "originalSha256": "9d3d36b6d6961b3b98dc33590cacccf54be4ca0a9910e2801f84782457183097"
-      }
-    },
-    "textures/old_planks_02_albedo.512.webp": {
-      "kind": "albedo",
-      "bytes": 21636,
-      "sha256": "b898803f651fa1a97e9adddf67bcbbb1f119a94a5cea9272129e2d3e506043a3",
-      "px": 512,
-      "mean": [0.1223, 0.092, 0.0634],
-      "from": {
-        "source": "polyhaven",
-        "id": "old_planks_02",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_diff_2k.jpg",
-        "page": "https://polyhaven.com/a/old_planks_02",
-        "author": "Rob Tuytel",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "old_planks_02_diff_2k.jpg",
-        "originalSha256": "04191d71093db79b378b6b16d0f7c51560294cfd8b7c15d20456d154eb5811d7"
-      }
-    },
-    "textures/old_planks_02_normal.512.webp": {
-      "kind": "normal",
-      "bytes": 38092,
-      "sha256": "a6813711c6b1010fbb3bfbc5fed06f12f1d811857ff0fb6b5fff635395e82fc8",
-      "px": 512,
-      "from": {
-        "source": "polyhaven",
-        "id": "old_planks_02",
-        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_nor_gl_2k.jpg",
-        "page": "https://polyhaven.com/a/old_planks_02",
-        "author": "Rob Tuytel",
-        "license": "CC0-1.0",
-        "date": "2026-11-24",
-        "original": "old_planks_02_nor_gl_2k.jpg",
-        "originalSha256": "4a18fab38628fa7a800f3d3f6aa29bdaea4c01711738718ec6286fb392a1aa1f"
       }
     },
     "textures/painted_plaster_wall_albedo.512.webp": {
@@ -527,6 +422,111 @@
         "original": "Tiles107_2K-JPG_NormalGL.jpg",
         "originalSha256": "063e5e1ad15fadcf7453a2b6be8cb80d5d88da8aa79068f894a39f1414fef4db"
       }
+    },
+    "textures/wood049_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 30264,
+      "sha256": "41a5df7f86f69a2b5db554841281256fd0d0d44bc90929e5b17978e709e9562c",
+      "px": 512,
+      "mean": [0.2011, 0.1276, 0.0772],
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood049",
+        "url": "https://ambientcg.com/get?file=Wood049_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood049",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood049_2K-JPG_Color.jpg",
+        "originalSha256": "447ca1455fa88d37465319638f1c99107f02f50fcf491d3c15314658d21e4d5e"
+      }
+    },
+    "textures/wood049_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 44640,
+      "sha256": "d7fb27ef4c005c37dec8eb0888f5a60b872507072bbf3caf0a6455d855495c79",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood049",
+        "url": "https://ambientcg.com/get?file=Wood049_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood049",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood049_2K-JPG_NormalGL.jpg",
+        "originalSha256": "8f2d5697c79927c85a10e48e82701a7054df77166d4654a2931e650f7f4c77f6"
+      }
+    },
+    "textures/wood060_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 75938,
+      "sha256": "f8673e2c35fe344f77385ebce62696e0ee9436eaa2ff26f6c0159b5ceee1b31b",
+      "px": 512,
+      "mean": [0.1357, 0.0604, 0.0321],
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood060",
+        "url": "https://ambientcg.com/get?file=Wood060_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood060",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood060_2K-JPG_Color.jpg",
+        "originalSha256": "0473543a25a05f4f10a0fd85c373abe1ce5ce34eb72a12266cb21395b435b478"
+      }
+    },
+    "textures/wood060_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 124080,
+      "sha256": "783a74b620a407f92763c2bcf585ddc262631d3f474e89ae1799578829924477",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood060",
+        "url": "https://ambientcg.com/get?file=Wood060_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood060",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood060_2K-JPG_NormalGL.jpg",
+        "originalSha256": "e7bf6ad2192404b98a3d8878b5a0e43731b4ea3b6761dbe153531a79e168cb0f"
+      }
+    },
+    "textures/wood096_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 14240,
+      "sha256": "384440155b10d116ee7b8a0db6989c0912a08eb81e55bbbfd9202856f05f1a38",
+      "px": 512,
+      "mean": [0.4554, 0.3435, 0.2347],
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood096",
+        "url": "https://ambientcg.com/get?file=Wood096_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood096",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood096_2K-JPG_Color.jpg",
+        "originalSha256": "421925658a123eaaf1f6ad09086d7d9556948d9a1ae92d353523bf6721271893"
+      }
+    },
+    "textures/wood096_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 2366,
+      "sha256": "1e6362fd07505cbbf5a8f4ed904bb6ed2411f8028afcf959b0bc6015bb9f88ba",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Wood096",
+        "url": "https://ambientcg.com/get?file=Wood096_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Wood096",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Wood096_2K-JPG_NormalGL.jpg",
+        "originalSha256": "6f076b249a7f27d1ba5fee873c5ea2446066efa57129bf75a86824b6b258e142"
+      }
     }
   },
   "materials": {
@@ -693,31 +693,31 @@
       "gain": [0.726, 0.7462, 0.7466]
     },
     "wood_oak": {
-      "source": "polyhaven:oak_veneer_01",
-      "albedo": "textures/oak_veneer_01_albedo_gray.512.webp",
-      "normal": "textures/oak_veneer_01_normal.512.webp",
-      "uvScale": 1.83,
-      "mode": "gray",
-      "hue": 1.4788,
-      "gain": [1.1258, 0.8102, 0.452]
+      "source": "ambientcg:Wood049",
+      "albedo": "textures/wood049_albedo.512.webp",
+      "normal": "textures/wood049_normal.512.webp",
+      "uvScale": 0.8,
+      "mode": "color",
+      "hue": 1.0086,
+      "gain": [1.4371, 1.4263, 1.4249]
     },
     "wood_old": {
-      "source": "polyhaven:old_planks_02",
-      "albedo": "textures/old_planks_02_albedo.512.webp",
-      "normal": "textures/old_planks_02_normal.512.webp",
-      "uvScale": 2,
+      "source": "ambientcg:Wood060",
+      "albedo": "textures/wood060_albedo.512.webp",
+      "normal": "textures/wood060_normal.512.webp",
+      "uvScale": 1,
       "mode": "color",
-      "hue": 1.2926,
-      "gain": [1.5699, 1.4239, 1.2145]
+      "hue": 1.0384,
+      "gain": [1.9086, 1.8709, 1.838]
     },
     "wood_pine": {
-      "source": "polyhaven:kitchen_wood",
-      "albedo": "textures/kitchen_wood_albedo.512.webp",
-      "normal": "textures/kitchen_wood_normal.512.webp",
-      "uvScale": 0.6,
+      "source": "ambientcg:Wood096",
+      "albedo": "textures/wood096_albedo.512.webp",
+      "normal": "textures/wood096_normal.512.webp",
+      "uvScale": 0.5,
       "mode": "color",
-      "hue": 1.2336,
-      "gain": [2.7744, 3.1924, 3.4225]
+      "hue": 1.0108,
+      "gain": [1.0628, 1.0539, 1.0652]
     }
   }
 }

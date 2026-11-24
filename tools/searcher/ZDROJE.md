@@ -47,7 +47,7 @@ Odvozené textury 512 px v balíku vyrábí `tools/forge/textures.mjs` (B2.4); p
 | Poly Haven | `old_linoleum_flooring_01` | `lino_grey` | albedo, normal, arm | 6,6 | 1,99 × 1,99 | Charlotte Baglioni |
 | ambientCG | `DiamondPlate008C` | `metal_floor` | albedo, normal, roughness, ao, metalness | 15,8 (archiv 24,3) | neuvedeno | ambientCG |
 | Poly Haven | `rusty_painted_metal` | `steel_painted` | albedo, normal, arm | 5,8 | 2,2 × 2,2 | Amal Kumar |
-| Poly Haven | `old_planks_02` | `wood_old` | albedo, normal, arm | 4,3 | 2 × 2 | Rob Tuytel |
+| Poly Haven | `old_planks_02` | `wood_old` do 24. 11. večer, pak nepoužito (spáry prken v textuře se tloukly se škvírami prken ve tvaru) | albedo, normal, arm | 4,3 | 2 × 2 | Rob Tuytel |
 | Poly Haven | `red_brick` | `brick_red` | albedo, normal, arm | 10,3 | 1,4 × 1,4 | Rob Tuytel |
 | Poly Haven | `stone_brick_wall_001` | `stone_block` | albedo, normal, arm | 3,2 | 2,5 × 2,5 | Dimitrios Savva, Rico Cilliers |
 | ambientCG | `Ground110` | `dirt_packed` | albedo, normal, roughness, ao | 22,1 (archiv 35,2) | 2,1 × 2,1 | ambientCG |
@@ -58,15 +58,25 @@ Pro B2.4 (24. 11. odpoledne) přibylo devět assetů pro materiály prefabů; č
 |---|---|---|---|---|---|---|
 | ambientCG | `Metal009` | `steel_brushed`, `steel_dark` | albedo, normal, roughness, metalness | 8,5 (archiv 16,7) | neuvedeno | ambientCG |
 | Poly Haven | `castle_wall_varriation` | `stone_rough` | albedo, normal, arm | 6,8 | 2 × 2 | Rob Tuytel |
-| Poly Haven | `kitchen_wood` | `wood_pine` | albedo, normal, arm | 10,9 | 0,6 × 0,6 | Rob Tuytel |
-| Poly Haven | `oak_veneer_01` | `wood_oak` | albedo, normal, arm | 9,7 | 1,83 × 1,83 | Jenelle van Heerden |
+| Poly Haven | `kitchen_wood` | `wood_pine` do 24. 11. večer, pak nepoužito (bez suků) | albedo, normal, arm | 10,9 | 0,6 × 0,6 | Rob Tuytel |
+| Poly Haven | `oak_veneer_01` | `wood_oak` do 24. 11. večer, pak nepoužito (dýha bez letokruhů) | albedo, normal, arm | 9,7 | 1,83 × 1,83 | Jenelle van Heerden |
 | Poly Haven | `sandstone_blocks_05` | `stone_pale` | albedo, normal, arm | 7,1 | 3 × 3 | Rob Tuytel |
 | Poly Haven | `metal_plate` | nepoužito (zelenorezavý slzičkový plech) | albedo, normal, arm | 9,1 | 0,5 × 0,5 | Rob Tuytel |
 | Poly Haven | `monastery_stone_floor` | nepoužito (nepravidelné desky) | albedo, normal, arm | 9,6 | 1,8 × 1,8 | Amal Kumar |
 | Poly Haven | `oak_veneer_05` | nepoužito (bez znatelné kresby) | albedo, normal, arm | 6,7 | 1 × 1 | Jenelle van Heerden |
 | Poly Haven | `rough_block_wall` | nepoužito | albedo, normal, arm | 6,3 | 3,04 × 3 | Rob Tuytel |
 
-Celkem 19 assetů, 157,1 MB map (archivy ambientCG se neukládají, jen jejich otisk). Prvních 10 mělo 82,5 MB, archivy 66,2 MB. Příjem je mimo git; znovu ho vyrobí `--get` se stejnými id (otisky v záznamech pak ukážou, jestli zdroj soubor mezitím změnil). Rozměr u ambientCG čtu jako centimetry (rozhraní jednotku neuvádí; domněnka podle čísel). ARM z Poly Haven je okolní stín (R), drsnost (G), kovovost (B) jako v glTF; u ambientCG jsou mapy zvlášť.
+Dřevo (24. 11. večer, Ondřej v 19:55: „realističtější barvu dřeva, sukovitost, trhliny, letorosty“). Vybírala jsem z náhledů 17 dřev Poly Haven a 24 dřev ambientCG (`test/out` jen v kontejneru) a z 2K originálů pěti kandidátů. Barvu materiálu teď sada bere z průměru fotky (odstín) a z albeda skutečného dřeva (jas), takže textura jde v barvě, ne v šedi:
+
+| Zdroj | Asset | Pro materiál | Co má | MB na disku | Rozměr předlohy (m) | Autor |
+|---|---|---|---|---|---|---|
+| ambientCG | `Wood096` | `wood_pine` | smrk: suky, výsušné trhliny, letokruhy | 11,2 | 0,5 × 0,5 (domněnka z rozhraní) | ambientCG |
+| ambientCG | `Wood049` | `wood_oak` | hnědý dub s vystouplými letokruhy | 13,2 | 0,8 × 0,8 (domněnka) | ambientCG |
+| ambientCG | `Wood060` | `wood_old` | tmavé staré dřevo s jemnými trhlinami | 23,5 | neuvedeno | ambientCG |
+| ambientCG | `Wood066` | nepoužito (mořené do červena, odstín 5,6× od dubu) | | 13,9 | 0,4 × 0,4 (domněnka) | ambientCG |
+| ambientCG | `Wood098` | nepoužito (překližka se suky; záloha pro smrk) | | 9,8 | neuvedeno | ambientCG |
+
+Celkem 24 assetů, 228,7 MB map (do 24. 11. odpoledne 19 assetů a 157,1 MB; archivy ambientCG se neukládají, jen jejich otisk). Prvních 10 mělo 82,5 MB, archivy 66,2 MB. Příjem je mimo git; znovu ho vyrobí `--get` se stejnými id (otisky v záznamech pak ukážou, jestli zdroj soubor mezitím změnil). Rozměr u ambientCG čtu jako centimetry (rozhraní jednotku neuvádí; domněnka podle čísel). ARM z Poly Haven je okolní stín (R), drsnost (G), kovovost (B) jako v glTF; u ambientCG jsou mapy zvlášť.
 
 ## Měření 22. 11. 2026: dosažitelnost zdrojů ze sandboxu
 

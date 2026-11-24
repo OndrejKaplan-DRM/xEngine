@@ -34,10 +34,11 @@ export const MATERIALS = {
   iron_black: lit([0.07, 0.07, 0.08], 'metal', { rough: 0.7, metal: 0.9 }),
   brass: lit([0.72, 0.58, 0.25], 'metal', { rough: 0.35, metal: 1 }),
   copper: lit([0.72, 0.42, 0.27], 'metal', { rough: 0.4, metal: 1 }),
-  // dřevo
-  wood_oak: lit([0.264, 0.19, 0.106], 'wood', { rough: 0.7 }),
-  wood_pine: lit([0.46, 0.37, 0.243], 'wood', { rough: 0.8 }),
-  wood_old: lit([0.192, 0.131, 0.077], 'wood', { rough: 0.9 }),
+  // dřevo: odstín z průměru fotky (ambientCG Wood049, Wood096, Wood060), jas podle albeda (dub 0,2, čerstvý smrk
+  // 0,38, staré tmavé dřevo 0,14); Ondřej 24. 11.: realističtější barva dřeva
+  wood_oak: lit([0.289, 0.182, 0.11], 'wood', { rough: 0.7 }),
+  wood_pine: lit([0.484, 0.362, 0.25], 'wood', { rough: 0.8 }),
+  wood_old: lit([0.259, 0.113, 0.059], 'wood', { rough: 0.9 }),
   // plasty, guma, látka, sklo
   plastic_ivory: lit([0.709, 0.701, 0.66], 'plastic', { rough: 0.5 }),
   plastic_grey: lit([0.5, 0.51, 0.52], 'plastic', { rough: 0.5 }),

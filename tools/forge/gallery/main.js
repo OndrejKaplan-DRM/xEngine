@@ -37,9 +37,10 @@ scene.background = new THREE.Color(0x12151d);
 const camera = new THREE.PerspectiveCamera(40, 1, 0.02, 200);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = false;
-// tónové mapování ve všech pohledech stejné, ať se dají porovnat; bez něj se světlé části textur useknou do bílé
-renderer.toneMapping = THREE.AgXToneMapping;
-renderer.toneMappingExposure = 1.7; // barvy podle skutečného albeda (24. 11.) jsou asi o třetinu tmavší
+// tónové mapování ve všech pohledech stejné, ať se dají porovnat; bez něj se světlé části textur useknou do bílé.
+// Khronos PBR Neutral drží odstín základní barvy (je dělané pro prohlížení výrobků); AgX dřevo a omítky odbarvoval.
+renderer.toneMapping = THREE.NeutralToneMapping;
+renderer.toneMappingExposure = 1.0; // barvy podle skutečného albeda (24. 11.)
 const hemi = new THREE.HemisphereLight(0xffffff, 0x556070, 2.2);
 scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffffff, 2.0);
@@ -328,43 +329,54 @@ globalThis.__kit = {
   textures: () => ({ state: texState, files: Object.keys(TEXTURE_BYTES).length, bytes: texBytes, materials: Object.keys(TEXTURES.materials).length, look }),
   /** Jas středu stěny 2 × 2 m čelně v každém pohledu (průměr bodů 0–255): zesílení má držet průměr u barvy materiálu. */
   swatchStats(ids = Object.keys(TEXTURES.materials), px = 96) {
+    // Stěna čelně v pravoúhlém promítání; okno pohledu je přesně jedna perioda textury (uvScale × uvScale), takže
+    // průměr obrazu je průměr celé textury. Pravidlo N-009 je o lineárním průměru: měří se bez křivky tónového
+    // mapování (lineárně, ztlumeně, ať nic nepřeteče) a body se před průměrem převedou ze sRGB na lineární hodnoty.
     const keep = look;
-    const m = partMesh({ shape: 'box', min: [-1, 0, -0.05], max: [1, 2, 0.05] });
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
-    geo.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
-    geo.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
-    geo.setIndex(m.indices);
-    const keepSize = { w: canvas.width, h: canvas.height, aspect: camera.aspect, man: man.visible };
+    const keepSize = { w: canvas.width, h: canvas.height, man: man.visible };
     man.visible = false;
     grid.visible = false;
     renderer.setSize(px, px, false);
-    camera.aspect = 1;
     const copy = document.createElement('canvas');
     copy.width = copy.height = px;
     const g = copy.getContext('2d', { willReadFrequently: true });
     const out = {};
+    const tone = { mapping: renderer.toneMapping, exposure: renderer.toneMappingExposure };
+    renderer.toneMapping = THREE.LinearToneMapping;
+    renderer.toneMappingExposure = 0.35;
+    const lin = (v) => (v <= 10.31475 ? v / 3294.6 : ((v / 255 + 0.055) / 1.055) ** 2.4);
+    const geos = [];
     for (const l of Object.keys(LOOKS)) {
       setLook(l);
       clear();
       for (const id of ids) {
+        const P = matDefs[id].uvScale || 1;
+        const m = partMesh({ shape: 'box', min: [-P, 0, -0.05], max: [P, 2 * P, 0.05] });
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(m.positions, 3));
+        geo.setAttribute('normal', new THREE.Float32BufferAttribute(m.normals, 3));
+        geo.setAttribute('uv', new THREE.Float32BufferAttribute(m.uvs, 2));
+        geo.setIndex(m.indices);
+        geos.push(geo);
         const mesh = new THREE.Mesh(geo, material(id, matDefs, l));
         holder.add(mesh);
-        frame([-0.5, 0.5, -0.05], [0.5, 1.5, 0.05], [0, 0, 1]);
-        render();
+        const cam = new THREE.OrthographicCamera(-P / 2, P / 2, P * 1.5, P * 0.5, 0.01, 20);
+        cam.position.set(0, 0, 5);
+        renderer.render(scene, cam);
         g.drawImage(canvas, 0, 0);
-        const d = g.getImageData(px / 4, px / 4, px / 2, px / 2).data;
+        const d = g.getImageData(0, 0, px, px).data;
         let sum = 0;
-        for (let i = 0; i < d.length; i += 4) sum += (d[i] + d[i + 1] + d[i + 2]) / 3;
-        (out[id] ??= {})[l] = Math.round((sum / (d.length / 4)) * 10) / 10;
+        for (let i = 0; i < d.length; i += 4) sum += (lin(d[i]) + lin(d[i + 1]) + lin(d[i + 2])) / 3;
+        (out[id] ??= {})[l] = Math.round((sum / (d.length / 4)) * 1e5) / 1e5;
         holder.remove(mesh);
       }
     }
-    geo.dispose();
+    geos.forEach((x) => x.dispose());
+    renderer.toneMapping = tone.mapping;
+    renderer.toneMappingExposure = tone.exposure;
     grid.visible = true;
     man.visible = keepSize.man;
     renderer.setSize(keepSize.w, keepSize.h, false);
-    camera.aspect = keepSize.aspect;
     camera.updateProjectionMatrix();
     setLook(keep);
     return out;
