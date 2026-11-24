@@ -31,7 +31,7 @@ export const complex = {
   id: 'complex',
   title: 'Technický komplex',
   profile: 'real',
-  env: { ambient: [0.05, 0.055, 0.065], exposure: 0.6, fog: { color: [0.02, 0.02, 0.03], density: 0.004 } },
+  env: { ambient: [0.05, 0.055, 0.065], exposure: 0.95, fog: { color: [0.02, 0.02, 0.03], density: 0.004 } },
   palette: { core: 'concrete_raw', stair: 'metal_floor', gallery: 'metal_floor', platform: 'concrete_dark' },
   railings: ['railing_steel_01', 'railing_steel_02'],
   button: 'button_call_01',

@@ -33,7 +33,7 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = false;
 // tónové mapování ve všech pohledech stejné, ať se dají porovnat; bez něj se světlé části textur useknou do bílé
 renderer.toneMapping = THREE.AgXToneMapping;
-renderer.toneMappingExposure = 1.15;
+renderer.toneMappingExposure = 1.7; // barvy podle skutečného albeda (24. 11.) jsou asi o třetinu tmavší
 const hemi = new THREE.HemisphereLight(0xffffff, 0x556070, 2.2);
 scene.add(hemi);
 const sun = new THREE.DirectionalLight(0xffffff, 2.0);

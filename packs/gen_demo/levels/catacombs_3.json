@@ -6,7 +6,7 @@
   "profile": "real",
   "env": {
     "ambient": [0.03, 0.028, 0.025],
-    "exposure": 0.7,
+    "exposure": 1.03,
     "fog": { "color": [0.01, 0.01, 0.012], "density": 0.02 }
   },
   "cells": [

@@ -536,8 +536,8 @@
       "normal": "textures/red_brick_normal.512.webp",
       "uvScale": 1.4,
       "mode": "color",
-      "hue": 1.3037,
-      "gain": [1.6263, 1.7429, 2.1201]
+      "hue": 1.2996,
+      "gain": [1.1601, 1.2418, 1.5077]
     },
     "concrete_dark": {
       "source": "polyhaven:concrete_floor_worn_001",
@@ -545,8 +545,8 @@
       "normal": "textures/concrete_floor_worn_001_normal.512.webp",
       "uvScale": 3,
       "mode": "color",
-      "hue": 1.1214,
-      "gain": [2.9284, 2.8213, 3.1638]
+      "hue": 1.1174,
+      "gain": [1.9523, 1.8809, 2.1017]
     },
     "concrete_raw": {
       "source": "polyhaven:concrete_floor_worn_001",
@@ -554,8 +554,8 @@
       "normal": "textures/concrete_floor_worn_001_normal.512.webp",
       "uvScale": 3,
       "mode": "color",
-      "hue": 1.0381,
-      "gain": [5.423, 5.2247, 5.4237]
+      "hue": 1.0383,
+      "gain": [2.7223, 2.6228, 2.7232]
     },
     "concrete_smooth": {
       "source": "polyhaven:concrete_floor_worn_001",
@@ -563,8 +563,8 @@
       "normal": "textures/concrete_floor_worn_001_normal.512.webp",
       "uvScale": 3,
       "mode": "color",
-      "hue": 1.0543,
-      "gain": [4.3384, 4.1797, 4.4068]
+      "hue": 1.0526,
+      "gain": [3.2646, 3.1452, 3.3107]
     },
     "dirt_packed": {
       "source": "ambientcg:Ground110",
@@ -572,8 +572,8 @@
       "normal": "textures/ground110_normal.512.webp",
       "uvScale": 2.1,
       "mode": "color",
-      "hue": 1.1547,
-      "gain": [1.9054, 1.7827, 1.6502]
+      "hue": 1.1578,
+      "gain": [1.0445, 0.9762, 0.9021]
     },
     "lino_grey": {
       "source": "polyhaven:old_linoleum_flooring_01",
@@ -582,7 +582,7 @@
       "uvScale": 1.99,
       "mode": "gray",
       "hue": 5.1285,
-      "gain": [1.6424, 1.7171, 1.6424]
+      "gain": [0.7951, 0.8324, 0.7951]
     },
     "metal_floor": {
       "source": "ambientcg:DiamondPlate008C",
@@ -590,8 +590,8 @@
       "normal": "textures/diamondplate008c_normal.512.webp",
       "uvScale": 1,
       "mode": "color",
-      "hue": 1.0248,
-      "gain": [2.2252, 2.2222, 2.1713]
+      "hue": 1.0266,
+      "gain": [2.9535, 2.9477, 2.877]
     },
     "plaster_green": {
       "source": "polyhaven:painted_plaster_wall",
@@ -599,8 +599,8 @@
       "normal": "textures/painted_plaster_wall_normal.512.webp",
       "uvScale": 2,
       "mode": "color",
-      "hue": 1.3047,
-      "gain": [1.2761, 1.6648, 1.5473]
+      "hue": 1.3069,
+      "gain": [0.827, 1.0808, 1.0029]
     },
     "plaster_grey": {
       "source": "polyhaven:painted_plaster_wall",
@@ -608,8 +608,8 @@
       "normal": "textures/painted_plaster_wall_normal.512.webp",
       "uvScale": 2,
       "mode": "color",
-      "hue": 1.13,
-      "gain": [1.5215, 1.6921, 1.7192]
+      "hue": 1.1298,
+      "gain": [0.984, 1.0944, 1.1117]
     },
     "plaster_light": {
       "source": "polyhaven:painted_plaster_wall",
@@ -617,8 +617,8 @@
       "normal": "textures/painted_plaster_wall_normal.512.webp",
       "uvScale": 2,
       "mode": "color",
-      "hue": 1.0983,
-      "gain": [1.9632, 2.1561, 2.1203]
+      "hue": 1.0982,
+      "gain": [1.3693, 1.5038, 1.4785]
     },
     "steel_brushed": {
       "source": "ambientcg:Metal009",
@@ -644,8 +644,8 @@
       "normal": "textures/rusty_painted_metal_normal.512.webp",
       "uvScale": 2.2,
       "mode": "gray",
-      "hue": 8.3165,
-      "gain": [5.1799, 6.0606, 6.7626]
+      "hue": 8.3201,
+      "gain": [3.5252, 4.127, 4.6043]
     },
     "stone_block": {
       "source": "polyhaven:stone_brick_wall_001",
@@ -653,8 +653,8 @@
       "normal": "textures/stone_brick_wall_001_normal.512.webp",
       "uvScale": 2.5,
       "mode": "gray",
-      "hue": 2.1867,
-      "gain": [7.1795, 6.8376, 6.3248]
+      "hue": 2.1932,
+      "gain": [4.9915, 4.7692, 4.4103]
     },
     "stone_pale": {
       "source": "polyhaven:sandstone_blocks_05",
@@ -662,8 +662,8 @@
       "normal": "textures/sandstone_blocks_05_normal.512.webp",
       "uvScale": 3,
       "mode": "gray",
-      "hue": 1.605,
-      "gain": [1.6547, 1.6, 1.4617]
+      "hue": 1.6058,
+      "gain": [1.139, 1.1034, 1.0066]
     },
     "stone_rough": {
       "source": "polyhaven:castle_wall_varriation",
@@ -671,8 +671,8 @@
       "normal": "textures/castle_wall_varriation_normal.512.webp",
       "uvScale": 2,
       "mode": "gray",
-      "hue": 1.4435,
-      "gain": [1.4121, 1.3265, 1.2409]
+      "hue": 1.4443,
+      "gain": [0.9927, 0.9328, 0.8729]
     },
     "tile_grey": {
       "source": "ambientcg:Tiles107",
@@ -680,8 +680,8 @@
       "normal": "textures/tiles107_normal.512.webp",
       "uvScale": 1,
       "mode": "color",
-      "hue": 1.1038,
-      "gain": [0.5284, 0.5617, 0.5832]
+      "hue": 1.106,
+      "gain": [0.3519, 0.3741, 0.3892]
     },
     "tile_white": {
       "source": "ambientcg:Tiles107",
@@ -689,8 +689,8 @@
       "normal": "textures/tiles107_normal.512.webp",
       "uvScale": 1,
       "mode": "color",
-      "hue": 1.028,
-      "gain": [0.8665, 0.8903, 0.8908]
+      "hue": 1.0283,
+      "gain": [0.726, 0.7462, 0.7466]
     },
     "wood_oak": {
       "source": "polyhaven:oak_veneer_01",
@@ -698,8 +698,8 @@
       "normal": "textures/oak_veneer_01_normal.512.webp",
       "uvScale": 1.83,
       "mode": "gray",
-      "hue": 1.4732,
-      "gain": [2.1322, 1.5352, 0.8529]
+      "hue": 1.4788,
+      "gain": [1.1258, 0.8102, 0.452]
     },
     "wood_old": {
       "source": "polyhaven:old_planks_02",
@@ -707,8 +707,8 @@
       "normal": "textures/old_planks_02_normal.512.webp",
       "uvScale": 2,
       "mode": "color",
-      "hue": 1.296,
-      "gain": [2.0442, 1.8478, 1.5773]
+      "hue": 1.2926,
+      "gain": [1.5699, 1.4239, 1.2145]
     },
     "wood_pine": {
       "source": "polyhaven:kitchen_wood",
@@ -716,8 +716,8 @@
       "normal": "textures/kitchen_wood_normal.512.webp",
       "uvScale": 0.6,
       "mode": "color",
-      "hue": 1.2325,
-      "gain": [4.3426, 5.0043, 5.3521]
+      "hue": 1.2336,
+      "gain": [2.7744, 3.1924, 3.4225]
     }
   }
 }

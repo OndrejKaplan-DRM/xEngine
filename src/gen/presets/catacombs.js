@@ -24,7 +24,7 @@ export const catacombs = {
   id: 'catacombs',
   title: 'Katakomby',
   profile: 'real',
-  env: { ambient: [0.03, 0.028, 0.025], exposure: 0.7, fog: { color: [0.01, 0.01, 0.012], density: 0.02 } },
+  env: { ambient: [0.03, 0.028, 0.025], exposure: 1.03, fog: { color: [0.01, 0.01, 0.012], density: 0.02 } },
   palette: { core: 'stone_rough', stair: 'stone_slab', gallery: 'stone_slab', platform: 'stone_slab' },
   railings: [],
   button: 'button_round_01',
