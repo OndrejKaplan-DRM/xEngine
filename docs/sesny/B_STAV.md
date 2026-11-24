@@ -1,6 +1,6 @@
 # Stav sešny B
 
-**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 24. 11. 2026 v noci, sešna B04 (krok 20: sady `kit_lab` a `kit_it` v levelech)
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 25. 11. 2026 v noci, sešna B04 (krok 21: realistický inventář z hladkých sítí)
 
 > **Základ.** Od znění 5 je v základu i engine sešny A z vlny 2 (světlo po vrcholech, textury a `.glb`, `?bench`) a moje vlna 2 do `ba16d8d`. Nová pole a rozhodnutí, která se týkají dat sešny B: `albedoMean` (D-045, N-009 přijat), soubory balíku ve hře (D-046, N-111), zavřené dveře se `seeThrough` zadržují světlo (D-047).
 
@@ -33,6 +33,7 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | dřevo se suky, trhlinami a letokruhy | hotovo | `60ddb43` |
 | sady `kit_lab` (286 prefabů) a `kit_it` (80 prefabů) | hotovo | `611f325`, `334315f`, `1952f28`, `105c8ac`, `428b2e8`, `42b7dae` |
 | zařazení obou sad do předvolby `complex` (obory laboratoří, serverovna, výpočetní sál, open space, zasedačka) | hotovo | `3f45c21` a následující |
+| realistický inventář: hladké sítě, sklo, plasty, chemikálie, zaoblení přístrojů; návrh N-012 | hotovo první kolo (kus po kuse zbývá u přístrojů, nábytku a `kit_it`) | `2a9a4bb` až `3be532e` |
 | `kit_home` s předvolbou bytu; xBake zapeče pevné díly prefabů (D-041) | nezačato | |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
@@ -123,6 +124,44 @@ Co jsem zjistila (podrobně návrh **N-011** pro sešnu A, `src/app/bench.js`):
 - **Nastavení ve výstupu jsou** (`env.rowsChosen` 1 080, `env.antialias` true, `level.lightGrid` 0,25), chybí zorné pole.
 - **Světlo se počítá 33,3 s** (`lightBuildMs`, 368 136 vzorků při mřížce 0,25 m): běh ho počítá sám, soubor z xBake ještě nečte. Tohle odstraní D-041 (xBake zapeče i díly prefabů) a čtení souboru v enginu A.
 - Pro mě: **nejvýš 490 volání kreslení** v `c_corr_01` (mez 400, sandbox T5 ukázal 255) a 135 488 △ v pohledu. Laboratoře přidaly materiály; hlídat při přestavbě inventáře.
+
+### Realistický inventář (krok 21, 25. 11. 2026; `2a9a4bb`, `815d1ba`, `4f20bca`, `9489c70`, `3be532e`)
+
+**Nástroje (`tools/forge/mesh/`).** Hladké sítě, které xForge zapíše do `packs/<sada>/meshes/*.glb` a do `pack.json.assets` s otiskem; díl prefabu je `mesh` s cestou `meshes/<soubor>.glb#<uzel>` (formát ho má od základu 1, engine A ho kreslí).
+- `lathe.mjs`: rotační plocha z profilu `[r, y]` (líc vpravo od směru profilu, bod s r = 0 je pól, `'c'` ostrá hrana, `rounded()` zaoblí roh poloměrem a počtem úseků); `vesselProfile` dělá tenkou stěnu (vnější profil, oblý okraj, vnitřní odsazený po normále, dno o zadanou tloušťku nad vnějším pólem) a zjednoduší ji podle vzdálenosti od přímky (podle úhlu mizelo rameno kužele).
+- `solids.mjs`: zaoblený kvádr (`s` 0/1/2 → 12/108/300 △), deska se zaoblenými rohy, hranol, trubka s ohyby (paralelní přenos rámce), válec, kužel, koule, toroid, jehlan, otevřená krabice, zrcadlení, deformace a vyhlazení normál.
+- `glb.mjs` (deterministický zápis: zaokrouhlení, indexy uint16/32, min/max), `sha256.mjs` (otisk bez závislostí), `registry.mjs` (`meshPart`, `meshTris`, `meshCorners`, `meshFiles`, `shiftMeshPart`). `lib.mjs` počítá trojúhelníky a obaly i ze sítí; posun dílu `shiftPart` umí i síť.
+- `lab/common.mjs`: v `simple()` a `moving()` se válec od poloměru 8 mm sám změní na válec se zaoblenou hranou (pokud nepřečnívá zadané kolize), plášť přístroje (`casing`) na zaoblený kvádr s patkami, panel na zapuštěnou desku s oblými tlačítky. Tím se zaoblení dostalo do všech přístrojů obou sad bez přepisu každého kusu.
+
+**Sklo (Ondřejova výtka „Erlenmeyerova baňka vůbec nevypadá jako Erlenmeyerova baňka“).** Každá nádoba je tenká stěna: vnější i vnitřní povrch, oblý okraj, zaoblené dno a pata, kužel s ramenem do hrdla (Erlenmeyer), koule s hrdlem (varná), hruška se zábrusem (odměrná), pata se šestiúhelníkovou nohou (válec). Materiál `glass_thin` (`opacity` 0,25, oboustranný), smaltovaná stupnice a pole na popis (`enamel_white`), matné zábrusy (`glass_frosted`), kapaliny s meniskem pod hladinou stěny, víčka GL 45 s vroubky, zátky, korek, porcelán, PTFE. Počet stěn podle poloměru (10 až 22). Nové prefaby: nálevka v Erlenmeyerově baňce s filtrem, Büchnerova nálevka na odsávací baňce s hadicí (sestava), krystalizační miska, kapací lahvičky (dvě), kádinka s pipetami, filtrační baňka 500 ml.
+**Přestavěno dál:** plasty (53: zkumavky s kuželovým dnem, víčka s vroubky, Petriho misky, destičky, střičky, kanystry, lahve, vialky), chemikálie (38: hnědé lahve s výstražným kosočtvercem, dózy s vroubkovaným víčkem, vyboulený pytel, plechovka, bezpečnostní kanystr, pufry GL 45, vialky s hliníkovým víčkem, sklenice s krystaly, odpadní nádoba s nálevkou), rotační odparka (skloněná baňka v lázni, parovod, chladič se spirálou, jímací baňka). Ostatní přístroje, velké přístroje, nábytek, chlazení, chovy a celý `kit_it` mají zatím jen zaoblení ze společné vrstvy, ne přestavbu kus po kuse.
+
+| Sada | Prefabů | △ celkem (nejvíc) | Před přestavbou | Sítě .glb |
+|---|---|---|---|---|
+| `kit_lab` | 293 | 171 484 (2 458, sestava) | 286 prefabů, 93 580 △ (+83 %) | 4 221 kB: `glass` 1,23 MB, `plastic` 1,07 MB, `chem` 0,56 MB, `parts` 1,40 MB, `bench` 63 kB |
+| `kit_it` | 80 | 16 696 (888) | 15 128 △ (+10 %) | `parts` 109 kB |
+
+Po kategoriích `kit_lab`: sklo 76 kusů 60 960 △, plasty 53 / 29 180, chemikálie 38 / 24 018, stolní přístroje 52 / 23 946, velké přístroje 26 / 11 512, nábytek 23 / 13 872, chlazení 11 / 3 634, chovy 14 / 4 362.
+
+**Jak čtu „o 50 % víc trojúhelníků“:** mez **prefabu** 1 000 → 1 500 △, sestava (stojan, exsikátor, odparka, odsávací baňka) do 2 500 △. Součet sady jen hlásím; B-T9 hlídá, aby nepřesáhl dvojnásobek stavu před přestavbou (`kit_lab` 93 580, `kit_it` 15 128). **Sada jako celek narostla o 83 %, ne o 50 %**; otázka na Ondřeje, jestli myslel prefab, nebo celek. V levelu je nárůst menší, protože generátor bere asi 200 z 373 prefabů a sklo stojí jen na deskách:
+
+| Level (sandbox, b_t1, 200 seedů) | Před (krok 20) | Po (krok 21) |
+|---|---|---|
+| `complex` dvě patra, celý level (kvádry + prefaby) | 108 308 až 228 516 △, medián 159 064 | 124 928 až 295 204 △, medián 197 622 (+24 %) |
+| `complex_7`, vrcholy prefabů | 239 260 | kvádry a válce 222 430 + sítě 29 173 = 251 603 (+5 %) |
+| `dist/xlab_gen.html` | 8,0 MB | 13,6 MB (13 632 kB; mez Ondřeje 25 MB) |
+| T5 v prohlížeči, nejvíc volání kreslení po cestě robota | 255 (`complex_7`) | 251 (`complex_7`), 116, 110 |
+
+**Pozor:** nejhorší level `complex` (295 204 △) je těsně pod mezí 300 tisíc z b_t1. Další přestavba kus po kuse musí brát z rozpočtu levelu, ne jen prefabu (víc tvaru tam, kde je vidět zblízka; méně stěn u věcí v regálech). Výkon na T460 **není změřený**; měření `?bench` z 25. 11. 0:19 je ze sestavení bez sítí.
+
+**Kontroly (B-T9, 16):** validátor, bajtová shoda zápisu včetně `.glb`, mez 1 500 / 2 500 △, každá síť je v `pack.json.assets`, **kolize obepínají síť do 3 mm** (`boundsAt(p, {}, meshCorners)` proti `boundsAt(p)`; generátor sítě nečte, rozmisťuje podle kolizí), součet sady ≤ 2× stav před přestavbou. Snímky: `test/out/b_sklo_pred_po.png` (galerie, sklo před a po), `test/out/b_sklo_hra.png` (12 kusů skla v enginu A v `complex_7` a `complex_21`), `test/out/b_mistnosti.png`, montáže `plast.png`, `chem.png`, `pristroje.png` (galerie).
+
+**Neověřeno / známé meze:**
+- Díly `mesh` xBake nezapeče (vzorky D-041 berou jen `box` a `cyl`) a zkouška A × B v Node je nevidí (čte balík bez souborů). Obojí řeší návrh **N-012** (rotační a zaoblený díl ve formátu); do té doby sítě svítí běh sám.
+- Sklo je v enginu A kreslené jako průhledný materiál bez lomu a odlesku; jak vypadá při vyhlazování a na T460, neviděl nikdo.
+- Snímek místností z kamery ve dveřích chytí otevřené křídlo dveří přes půl obrazu (serverovny v `b_mistnosti.png`); je to pomůcka, ne chyba levelu.
+
+**Regrese po kroku 21** (sandbox): `npm test` T0 41, T1 155, T1b 14, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
 
 ## Sešna B03 (24. 11. 2026)
 
@@ -443,6 +482,8 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | N-009 | barva materiálu s texturou: `color` jako průměrná barva povrchu, běh kreslí `textura × (color / albedoMean)`. **Přijat (D-045)** | `kit_base` zapisuje `albedoMean` (24. 11. večer, `905d029`) |
 | N-007 | zakrytí otvoru dveřmi počítat ze všech dílů dveří; `portal.door` jako seznam (doplňuje N-107 sešny A). **Bod 1 přijat, bod 2 zamítnut (D-036)** | dorazy a prahová lišta v sadě; křídla dvoukřídlých dveří mají `seeThrough` a první je v `portal.door`; zkouška paprsky v `b_t1`, `b_t2` |
 | N-010 | víc interakcí v jednom prefabu (kartotéka se čtyřmi zásuvkami, stůl s kontejnerem); doporučuju `interact` jako seznam. **Otevřený** | korpus jmenuje zásuvky v `source.params.attach`, generátor je staví jako samostatné entity (`8d52fb5`) |
+| N-011 | pro sešnu A: `?bench` kývá pohledem (řízení robota o krok pozadu, 20 Hz) a dávkou měření srazí hru na 30 snímků/s; přidat do výstupu zorné pole. **Otevřený** | platí `workMs` a `draw.ms`, ne rozestup snímků |
+| N-012 | rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake (D-041), měřil generátor a viděla zkouška A × B v Node; balík bez megabajtů `.glb`. **Otevřený** | díly `mesh` z xForge (`tools/forge/mesh/`), 4,2 MB sítí v `kit_lab` |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
 
@@ -470,6 +511,10 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - (B04) Věci na desku: šířky z `restBox`, výška z `components.place.top`, hloubka z `source.params.deck`; bez pruhu desky stojí vysoký přístroj v polici nástavby.
 - (B04) `TODO.md` má oddíl „Nedávno hotovo“ v každé sešně: nahrazování textu podle prvního výskytu zapíše do oddílu svodné. Hledej od nadpisu svého oddílu.
 - (B04) Kamera pro snímek místnosti: ve dveřích, 0,6 m za středem portálu (to místo generátor drží volné), ne v rohu (tam stojí nábytek).
+- (B04, krok 21) Laboratorní sklo jako stoh válců vypadá schodovitě a Ondřej to pozná hned. Tenká stěna z jednoho profilu (ven, přes oblý okraj, dovnitř) dá skutečný tvar za 300 až 900 △. Zjednodušovat profil podle vzdálenosti od přímky, ne podle úhlu (úhel smaže rameno kužele) a dno vnitřku počítat od vnějšího pólu, ne od absolutní výšky.
+- (B04, krok 21) Generátor sítě nečte: kolize prefabu musí síť obepnout (B-T9 to měří po převedení sítě do prostoru prefabu). Válec, který přečnívá zadané kolize, nechávat válcem.
+- (B04, krok 21) Galerie čte `__PACK__` z `packs/`: po změně xForge nejdřív `make-pack.mjs`, potom `node build.mjs kit`, jinak galerie ukáže stará data.
+- (B04, krok 21) Změna zaoblení ve společné vrstvě (`simple`, `casing`, `panel`) prošla všemi sadami najednou; levnější než přepis kusů, ale rotace panelu měla opačné znaménko a panely ležely na zemi. Montáž galerie po každé změně společné vrstvy.
 
 - (B04) Bohatý tvar z kvádrů a válců (`tools/forge/shapes.mjs`), ne z `.glb`: pevné díly zapeče xBake (D-041) a engine je nakreslí bez načítání modelu. Sražená hrana = tři překryté kvádry (36 △).
 - (B04) Kontrola „je vidět textura“ podle počtu odstínů se rozbije, když prefab zbohatne tvarem (víc odstínů už v čistém pohledu); měř na prefabu s velkými plochami jednoho materiálu.

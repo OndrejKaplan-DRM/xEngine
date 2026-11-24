@@ -78,7 +78,7 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“), zadání `docs/sesny/START_B.md`. Vede sešna B.
 
 **Teď** (Ondřej 24. 11. 23:57: hustota laboratoří stačí (1 a); další krok zapečené světlo na pevných dílech prefabů D-041 (2 b), `kit_home` až potom; hra smí mít až 25 MB (3 a); `?bench` nad `complex_7` pustí (4 a). Nové zadání: **„víc prefabů, ve vyšší kvalitě, víc trojúhelníků… lépe řeš kužely, válce, jehlany, zaoblení… materiál je sklo, ať to tak vypadá“; trojúhelníků o 50 % víc, práce 5× lepší, celému inventáři víc realismu.**):
-1. [ ] realistický inventář: hladké rotační tvary, kužely, zaoblení a tenké stěny přes díly `mesh` (.glb z xForge, dočasně) a návrh na rotační díl ve formátu; sklo průhledné s okrajem, dnem a kapalinou; mez prefabu 1 500 △ (o 50 % víc); pořadí: sklo → plasty a balení chemikálií → stolní přístroje → velké přístroje a nábytek → `kit_it` → `kit_base`; nové prefaby
+1. [~] realistický inventář: **první kolo hotovo** (sítě `tools/forge/mesh/`, sklo 76, plasty 53, chemikálie 38, odparka, zaoblení všech přístrojů ze společné vrstvy; 7 nových kusů skla; návrh N-012; `kit_lab` 171 484 △, level `complex` medián 197 622 △, nejvíc 295 204 z meze 300 tisíc; hra 13,6 MB). Zbývá kus po kuse: stolní a velké přístroje → nábytek a chlazení → `kit_it` → `kit_base`; nové prefaby
 2. [ ] xBake zapeče pevné díly prefabů (D-041)
 3. [ ] dodatek znění 6: `door_double_01` jako jeden prefab s `follow` (bez `seeThrough`), v generátoru zrušit párování křídel přes `io`, `door_dleft_01` a `door_dright_01` pryč; mikroskop `focus` → `stage`
 4. [ ] `kit_home` s předvolbou bytu
@@ -86,9 +86,10 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 
 **Potom:** B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
-**Čeká na jiné:** **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
+**Čeká na jiné:** **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · N-010 víc interakcí v prefabu (svodná) · N-002 jeden prefab dvoukřídlých dveří · N-110 až po zkoušce sešny A · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 25. 11. realistický inventář, první kolo: hladké sítě z xForge (sklo s tenkou stěnou, kapalinou a stupnicí, plasty, chemikálie, odparka, zaoblené pláště a panely přístrojů), 7 nových kusů skla; regrese zelená (B_STAV, oddíl „Realistický inventář“; `2a9a4bb` až `3be532e`)
 - 24. 11. sady v levelech: `complex` staví laboratoře podle oboru, serverovny v řadách, open space a zasedačky; 200 seedů bez nálezu, level ≤ 228 516 △, A × B zelená, nejvýš 255 volání kreslení (B_STAV, oddíl „Sady v generovaných levelech“)
 - 24. 11. `kit_lab` 286 prefabů (sklo, plasty, chemikálie ve 20 baleních, 52 stolních a 26 velkých přístrojů, chlazení, nábytek, reaktory, chovy a karanténa) a `kit_it` 80 prefabů (počítače, serverovna, open space); B-T9 (`611f325` až `42b7dae`)
 - 24. 11. znění 5 základu sloučeno (`614e4d7`); `albedoMean` u 21 materiálů (D-045), `opacity` skla, `screen.offset` terminálů (`905d029`)
