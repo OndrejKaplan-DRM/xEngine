@@ -72,5 +72,5 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | N-105 přesvícený xLab | přijat, provede se po převodu světla | D-034 |
 | N-106 plocha obrazovky | přijat | `screen.offset`, zlatý vzorek |
 | N-107 dveře musí zakrýt portál | přijat s úpravou | kontrakty; pravidlo validátoru dluží základ (způsob výpočtu podle N-007, D-036) |
-| N-108 švy a hrubost mřížky světla | přijata varianta (a) a vynechání schovaných ploch (23. 11. 2026) | D-037; základ dluží, první v pořadí |
+| N-108 švy a hrubost mřížky světla | přijata varianta (a) a vynechání schovaných ploch; provedeno 24. 11. 2026 | D-037; `brushLightMesh` znění 2, `brushHiddenFaces`, `levelLightMeshes`; test švů sešny A hlásí 0 bodů, varianta (b) není potřeba. Doplněk sešny A z 23. 11. (pole `env.lightCell`) rozhodnutý není |
 
