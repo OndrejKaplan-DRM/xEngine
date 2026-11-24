@@ -1,6 +1,67 @@
 # Stav sešny A
 
-**Vlna:** 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-2` = `b12f8ed`) · **Datum:** 23. 11. 2026, stav v 05:00
+**Vlna:** 2 · **Větev:** `sesna-a` (sloučeno se `zaklad-2` = `a995347`, znění 3) · **Datum:** 24. 11. 2026, stav ve 03:30
+
+## Stav 24. 11. 2026: Ondřejova zkouška na T460, základ 2 znění 3
+
+Poslední běh `npm run test:all` na `25e17a4`: **727 kontrol, 0 selhalo** (základ 254, skupina A 344 ve 22 sadách, skupina B 92, zkouška A × B 37). Sandbox.
+
+### Co jsem udělala
+
+| Co | Stav | Čím doloženo |
+|---|---|---|
+| sloučení `zaklad-2` znění 3 (`a995347`: D-037, N-101) | hotovo | vzorky z `levelLightMeshes`; `src/world/parts.js` zrušen, díly z `src/xspace`; švy v `a_17_view` 128 → 0, mez testu je 0 |
+| zkouška D-032 (terminál v Chrome na T460) | **prošla** (Ondřej, 24. 11.) | ve starém sestavení fungoval jen Esc a Pokračovat; v novém odchází pravé tlačítko i šipka dolů. Výslovně nepotvrzeno: po Esc a Pokračovat hráč dál sedí |
+| nápověda terminálu po odchodu visela dál (snímky z `complex_7`) | opraveno | `interact:left` ji schová |
+| dveře od hráče (Ondřejova volba 4 b) | engine hotov, data ne | `a_14_swing` (8 kontrol); návrh **N-109**; zkouška v prohlížeči adresou `?doors=away` |
+| stíny po 5 cm (Ondřej: „chci 0,05 m“) | **vrcholy to neumí**; návrh **N-110** (světlo v textuře) | čísla v návrhu; obrázek `xLab_podlaha_haly_stiny_2026-11-24.png` |
+| F3: průběh stavby světla | hotovo | řádek světel ukazuje „STAVÍ SE n %“, dokud vrstvy nejsou hotové |
+
+### Měření T460 z přehledu F3 (Ondřejovy snímky, 24. 11., sestavení `cc7893f`)
+
+Chrome, okno asi 1 918 × 878 bodů. „Snímek“ je čas procesoru na snímek ve skriptu (dva kroky a odeslání kreslení); **čas grafiky F3 neměří**. Hodnoty jsou klouzavé průměry.
+
+| # | Level, buňka | Řádky, vyhlazování, mřížka | Snímků/s | Snímek | Krok | player | phys | Volání | △ |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | xLab, `c_lab` | 768, ne, 0,5 m | 60 | 2,18 | 0,47 | 0,23 | 0,14 | 25 | 8 948 |
+| 2 | xLab, `c_lab` | 768, ne, 0,25 m | 60 | 3,75 | 0,93 | 0,45 | 0,34 | 13 | 13 018 |
+| 3 | xLab, `c_hall` | 768, ne, 0,25 m | 60 | 4,00 | 0,84 | 0,48 | 0,29 | 50 | 107 108 |
+| 4 | xLab, u terminálu | 768, ne, 0,25 m | 53 | 2,84 | 0,62 | 0,01 | 0,49 | 9 | 12 714 |
+| 5 | xLab, `c_hall` | 1080, ne, 0,25 m | 60 | 4,39 | 1,04 | 0,50 | 0,37 | 30 | 93 820 |
+| 6 | xLab, `c_lab` | 1080, ne, 0,25 m | 60 | 2,75 | 0,70 | 0,34 | 0,25 | 10 | 12 878 |
+| 7 | xLab, `c_lab` | 1080, **ano**, 0,25 m | 60 | 7,41 | 1,57 | 0,80 | 0,61 | 17 | 22 216 |
+| 8 | xLab, `c_hall` | 1080, **ano**, 0,25 m | **44** | 10,74 | 1,58 | 0,81 | 0,62 | 34 | 89 240 |
+| 9 | `complex_7`, `c_tech_03` | 1080, ano, 0,25 m | 56 | 15,83 | 1,64 | 0,85 | 0,61 | 49 | 16 842 |
+| 10 | `complex_7`, `c_office_04` | 1080, ano, 0,25 m | 60 | 12,69 | 1,49 | 0,79 | 0,50 | 29 | 6 648 |
+| 11 | `complex_7`, `c_lab_03` | 1080, ano, 0,25 m | **45** | 16,51 | 2,01 | 0,93 | 0,71 | 55 | 23 646 |
+| 12 | `complex_7`, `c_lab_01` | 1080, ano, 0,25 m | **49** | 17,53 | 1,89 | 0,96 | 0,68 | 92 | 32 416 |
+| 13 | `complex_7`, `c_corr_01`, chůze | 576, ne, 0,5 m | 60 | 9,40 | 0,60 | 0,33 | 0,19 | 117 | 16 826 |
+| 14 | `complex_7`, `c_office_02` | 576, ne, 0,5 m | 60 | 5,92 | 0,47 | 0,19 | 0,22 | 92 | 11 482 |
+| 15 | `complex_7`, `c_lab_03` | 576, ne, 0,5 m | 60 | 7,44 | 1,47 | 1,09 | 0,23 | 100 | 14 902 |
+
+Stavba vrstev světla na T460: xLab 0,5 m 1 231 ms, 0,25 m 1 471 ms (staré sestavení s jedním paprskem 584 ms); `complex_7` 0,5 m **24,3 s**, 0,25 m **44,4 s**.
+
+**Co z toho plyne (měřeno):**
+
+1. **Náprava kroku fyziky (A2.3) na T460 zabrala.** `phys` v `complex_7` je 0,19 až 0,23 ms bez vyhlazování a 0,49 až 0,71 ms s ním; svodná sešna na sestavení z vlny 1 naměřila v témže levelu 2,10 ms. Krok je pod mezí 2 ms ve 14 pohledech z 15 (jednou 2,01 ms, s vyhlazováním v 1080 řádcích).
+2. **Největší díl kroku je teď `player`** (0,19 až 1,09 ms), ne fyzika.
+3. **Vyhlazování hran v 1080 řádcích neudrží 60 snímků/s** (hala xLabu 44). Zůstává vypnuté.
+4. **1080 řádků bez vyhlazování drží 60 snímků/s** v obou zkoušených pohledech xLabu, i s mřížkou 0,25 m a 93 820 △. Čas grafiky ale neznám; výchozí rozlišení změním až podle `?bench&rows=1080`.
+5. **Stavba světla při načtení je pro levely sešny B příliš dlouhá** (24 až 44 s). Hra při ní běží, ale ubírá jí až 8 ms na snímek. Tyhle levely potřebují zapečené světlo.
+
+**Co z toho neplyne (výklad, neověřeno):** tytéž systémy stojí se zapnutým vyhlazováním v 1080 řádcích dvakrát až třikrát víc (`phys` 0,25 → 0,61 ms v téže buňce). Práce je stejná; čtu to tak, že procesor a grafika sdílejí příkon a při plné zátěži grafiky procesor zpomalí. Snímky 9 až 12 mohly vzniknout během stavby světla (do 1,5 min po startu); nové F3 to už ukáže.
+
+### Pravidlo bran světla pro základ (dodatek k D-035)
+
+`src/world/occlusion.js` má na fyzice jedinou závislost: funkci „protíná úsečka stavbu?“ (`phys.raycast` s maskou `LIGHT_RAY`, tedy jen kvádry a klíny levelu, bez prefabů). V rozhraní Rapier není; základ ji může nahradit vlastním průnikem úsečky s kvádry. Co pravidlo potřebuje:
+
+- **vstup:** kvádry levelu (stínítka), portály s `door` (obdélník portálu a id entity dveří), světlo;
+- **výsledek pro vzorek:** −1 zastíněno, 0 volná cesta, jinak brána. Brána = množina dveří, jejichž portálem úsečka ke světlu prochází; jedny dveře mají bránu se svým id, víc dveří společnou (svítí součinem otevření);
+- **konstanty:** vzorek se zvedne o 0,02 m po normále; paprsek začíná 0,03 m směrem ke světlu a končí 0,02 m před ním; světlo ležící na ploše se pro zkoušku odsune 0,1 m od stavby;
+- **vzorek ve stavbě** (paprsek 0,1 mm vzhůru něco zasáhne) přebírá bránu od souseda přes hranu, který světlo vidí;
+- **otevření dveří** = |hodnota − rest| / největší vzdálenost dorazu od `rest` (platí i pro dveře na obě strany, N-109);
+- **okraj stínu po podílech** (`lightfield.soften`) je nadstavba: vzorek pak smí být ve více úsecích, v každém svým podílem. Zapečený soubor to musí dovolit (řídké kódování to umí, husté ne).
+
 
 ## Vlna 2 (zadání `START_A.md`, oddíl „vlna 2“): stav 23. 11. 2026
 
@@ -46,12 +107,12 @@ Dvě věci, obě v mé oblasti:
 
 | Varianta (xLab) | Vzorků | Položek ve vrstvách | Zjemněno | △ stavby | Paprsků | Stavba vrstev |
 |---|---|---|---|---|---|---|
-| 0,5 m, jeden paprsek (dosud) | 23 199 | 30 433 | 0 | 34 642 | 66 104 | 143 až 164 ms |
-| 0,5 m, okraj po podílech (**výchozí**) | 23 199 | 31 255 | 1 677 | 34 642 | 219 255 | 345 až 371 ms |
-| 0,25 m, jeden paprsek | 63 392 | 87 506 | 0 | 107 106 | 187 898 | 333 ms |
-| 0,25 m, okraj po podílech | 63 392 | 89 111 | 3 165 | 107 106 | 468 334 | 660 ms |
+| 0,5 m, jeden paprsek | 22 898 | 30 829 | 0 | 34 970 | 65 588 | 170 ms |
+| 0,5 m, okraj po podílech (**výchozí**) | 22 898 | 31 722 | 1 697 | 34 970 | 214 096 | 473 ms |
+| 0,25 m, jeden paprsek | 72 829 | 102 546 | 0 | 126 966 | 211 201 | 401 ms |
+| 0,25 m, okraj po podílech | 72 829 | 104 275 | 3 257 | 126 966 | 510 074 | 804 ms |
 
-Časy jsou ze sandboxu (Node), orientační; počty platí všude. Pohled do haly: 12 volání a 22 930 △ při 0,5 m, 67 302 △ při 0,25 m. Rozpočet T460 je 300 tisíc viditelných △; cena 0,25 m na T460 **změřená není**. Level sešny B `complex_7` má při 0,5 m 151 952 vzorků, z toho 12 867 zjemněných, a vrstvy se staví 6,9 až 7,2 s (sandbox, prohlížeč): takové levely potřebují zapečené světlo.
+Tabulka je po sloučení znění 3 základu 2 (D-037: jiná mřížka, bez schovaných ploch, strop dílků hrany 256); před ním bylo 23 199 a 63 392 vzorků. Časy jsou ze sandboxu (Node), orientační; počty platí všude. Pohled do haly: 12 volání a 22 930 △ při 0,5 m, 67 302 △ při 0,25 m. Rozpočet T460 je 300 tisíc viditelných △; cena 0,25 m na T460 **změřená není**. Level sešny B `complex_7` má při 0,5 m 151 952 vzorků, z toho 12 867 zjemněných, a vrstvy se staví 6,9 až 7,2 s (sandbox, prohlížeč): takové levely potřebují zapečené světlo.
 
 Co zjemnění neumí: stín užší než buňka mřížky (hned za sloupem) zůstává schodovitý i při 0,25 m; je to mez světla po vrcholech.
 
@@ -310,6 +371,8 @@ Vrstvy velkého levelu se za běhu počítají sekundy (124 světel, každé zko
 | N-105 | zlatý vzorek xLab je přesvícený (data) | žádné, data nejsou moje. Platí i po převodu: se zastíněním a rozsvícenými lampami má start jas 166, chodba 180, laboratoř 208, hala 160 z 255 |
 | N-106 | kde leží plocha obrazovky (`components.screen`) a co znamená `app` | plocha 1 mm před nejpřednějším dílem uzlu, každá `app` je textová konzole |
 | N-107 | dveře u portálu musí v klidu zakrýt celý otvor (pravidlo validátoru) | černá clona v otvoru zavřených dveří |
+| N-109 | otočné dveře se otvírají od hráče (data: kloub na obě strany) | přepínač `?doors=away` (`src/world/swing.js`) |
+| N-110 | světlo v textuře pro jemné stíny (bod 5 cm) | okraj stínu po podílech a volitelná mřížka 0,25 m |
 | N-108 | švy mezi sítěmi světla (vrcholy sousedních ploch na společné hraně nelícují) a hrubost stínu při mřížce 0,5 m | švy: žádné v geometrii; test rozlišuje díru a šev a počet bodů na švech hlídá. Hrubost: okraj stínu po podílech a volitelná mřížka 0,25 m (doplněk v návrhu z 23. 11.) |
 
 ## Co potřebuju od sešny B
@@ -360,10 +423,9 @@ Z A02 (světlo po vrcholech, zastínění, měření):
 
 ## Otázky pro Ondřeje
 
-Předchozí jsou zodpovězené (1: Esc koliduje, udělat jinak; 2 b; 3 a; 4 b). Nové:
+Zodpovězeno 24. 11.: terminál funguje (pravé tlačítko i šipka dolů); stíny chce po 5 cm; dveře od hráče (b), téma se možná otevře znovu; dál A2.5 i A2.6. Bez odpovědi zůstalo měření `?bench`. Nové:
 
-1. **Terminál v novém sestavení** (zkouška D-032): sedni si, piš, hýbej myší, klikni, dej Esc a Pokračovat, odejdi šipkou dolů a pravým tlačítkem. a) funguje a dá se s tím pracovat; b) něco drhne (napiš co).
-2. **Stíny:** v nastavení Obraz přepni Mřížku světla na 0,25 m a dej Novou hru. a) výchozí 0,5 m se zjemněným okrajem stačí; b) chci 0,25 m jako výchozí pro xLab (pak to jde do návrhu N-108 svodné sešně, protože je to odchylka od kontraktu).
-3. **Měření:** pusť `xlab.html?bench`, potom `xlab.html?bench&rows=1080`, potom `xlab_gen.html?bench` (to je level sešny B, kde byl krok simulace nad mezí) a pošli tři výsledky. Kdyby se ti chtělo, čtvrtý: `xlab.html?bench&grid=0.25`.
-4. **Dveře, které se zastaví o hráče** (D-025): a) takhle je to dobře; b) vadí mi, že se dveře otvírané ke mně zavřou, chci, aby se otvíraly vždy od hráče (to je změna dat a formátu, šlo by to návrhem).
-5. **Co dál:** a) A2.5 (nová pole základu: sklo, mříže, průhlednost); b) A2.6 (první textura a síť `.glb` se sešnou B).
+1. **Stíny po 5 cm jdou jen texturou světla (N-110).** a) udělej zkoušku na hale xLabu hned, před A2.5 a A2.6; b) nejdřív A2.5 a A2.6, textura světla potom.
+2. **Dveře od hráče:** zkus `xLab_A02_2026-11-24.html?doors=away`. a) takhle to chci, ať to jde do dat (N-109); b) ještě jinak (napiš jak).
+3. **Měření `?bench`** (F3 neměří grafiku): `xLab_A02_2026-11-24.html?bench`, totéž s `&rows=1080`, a `xLab_gen_A02_2026-11-24.html?bench`. Na konci tlačítko Zkopírovat výsledek; pošli tři texty.
+4. **Terminál:** po Esc a Pokračovat dál sedíš u terminálu a kurzor hned poslouchá? a) ano; b) ne (napiš, co se stane).
