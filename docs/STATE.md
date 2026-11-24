@@ -1,10 +1,20 @@
 # Stav
 
-**Verze:** základ 2, znění 7 · 24. 11. 2026 pozdě v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
+**Verze:** základ 2, znění 8 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 8 základu 2 (25. 11. 2026 v noci): víc interakcí v prefabu (N-010)
+
+Ondřej 25. 11. 0:00: textura světla (a) bod 5 cm (D-050), převzetí z Arény (a) nejdřív zbraně (D-051). N-010 přijat ve variantě a (D-052).
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| `components.interact` jako seznam s `id`; `interactions`, `interactionById`, `interactionOf` (podle zasaženého uzlu, předek bez kloubu, svázaný kloub), `doorInteraction`; `from` / `to` ve spojeních | `src/xspace/interact.js`, `formats.js`, `check-prefab.js`, `validate.js` | T1c: 27 kontrol (kartotéka se čtyřmi zásuvkami jako jeden prefab, 14 mutací, cesty nálezů); zlatý vzorek a balíky sešny B (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo` ze `sesna-b` `9b00112`) bez nálezu |
+| `validate.js` (587 řádků) rozdělen podle odpovědnosti | `check.js` (108: tvar), `check-prefab.js` (174: prefab), `validate.js` (346: materiály, level, balík) | T1 beze změny 155 kontrol |
+| regrese na `main` (`3f0ae44`) | **953 kontrol, 0 selhalo**: základ 310, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, 0:06 až 0:11 |
 
 ## Znění 7 základu 2 (24. 11. 2026 pozdě v noci): kostry bez alokací (N-102)
 

@@ -29,6 +29,7 @@ Hotovo: N-101 (`partMesh`, `partCollider`, `partTris` v `geom.js`, 23. 11. 2026)
 2. **D-036: hotovo 24. 11. 2026** (`src/xspace/cover.js`). Pravidlo validátoru `portal.door.cover` ze všech neprůhledných dílů dveří v klidu (vzor: `test/b_lib/door-cover.mjs` sešny B, kolmá část), mutace v T1; neplatí pro `seeThrough`.
 3. **N-002: hotovo 24. 11. 2026.** `rig.joints[].follow`, pravidla validátoru, `jointFollow` v `rig.js`. Povýšeno, protože na něm stojí dvoukřídlé dveře jako jeden prefab.
 4. **D-035: hotovo 24. 11. 2026** (D-044: `src/xspace/bake.js`; pravidlo paprsku zůstává v xBake). Zbývá: validátor ohlídá, že `baked.file` je v `assets`.
+4a. **N-010: hotovo 25. 11. 2026** (D-052, `src/xspace/interact.js`, T1c). Zbývá: při sloučení ověřit, že sešna A vybírá interakci přes `interactionOf` a sešna B má kartotéku jako jeden prefab.
 5. **N-102: hotovo 24. 11. 2026** (`rigCompile`, `rigValues`, `rigFollow`, `rigSolve` v `rig.js`; `rigMatrices` je obálka). Zbývá: při sloučení ověřit, že sešna A v `src/world/entities.js` (`pose`) přešla na zkompilovanou kostru (dodatek znění 7 ve `START_A.md`).
 6. **N-105:** svítivosti a expozice zlatého vzorku; sešna A už na světlo po vrcholech přešla, čeká se na její čísla jasu po sloučení.
 7. **N-103:** varování `rig.noSpeed`, až sešna B doplní `speed`.

@@ -119,13 +119,15 @@ snapshot()  restore(data)
 - Místní matice uzlu = posun · natočení · kloub. Počítá ji výhradně `src/xspace/rig.js` (`rigMatrices`, `entityMatrix`). V kroku simulace se kostra kompiluje jednou na prefab (`rigCompile`) a řeší bez alokací do připraveného pole (`rigValues` mimo krok, potom `rigFollow` a `rigSolve`, N-102); `rigMatrices` je obálka nad týmž výpočtem.
 - `rest` je klidová poloha (výchozí `min`), `detents` polohy, do kterých kloub zaskakuje, `spring` vrací do klidu, `drive` říká, kdo smí hýbat: `manual` hráč, `motor` pohon, `both` oba.
 - Prefab s klouby má těleso `kinematic`. `dynamic` těleso nesmí mít kolizi `mesh`.
-- Jedna interakce na prefab (verze 1).
+- Interakcí smí mít prefab víc (N-010, D-052): `components.interact` je jeden objekt, nebo seznam objektů s `id` jedinečným v prefabu (kartotéka se čtyřmi zásuvkami je jeden prefab se čtyřmi klouby a čtyřmi interakcemi). Jeden kloub ovládá nejvýš jedna interakce; `pickup` a `grab` jednají s celou entitou a v seznamu s dalšími být nesmějí. Jediná interakce bez `id` má id `main`.
 - Síť, počet trojúhelníků a kolizní tvar dílu prefabu počítá výhradně `src/xspace/geom.js` (`partMesh`, `partTris`, `partCollider`; válec má `CYL_SEGMENTS` dílků) (N-101).
 - `speed` je rychlost pohonu **i ruky** hráče. Když chybí, platí doba přejezdu celého rozsahu podle druhu interakce z `JOINT_TRAVEL_SECONDS` ve `formats.js` (N-103).
 - `components.place` říká nástrojům, kam se prefab přichytává a jak velký otvor potřebuje (N-004). Engine ho nečte.
 - `components.screen`: plocha leží v rovině XY uzlu, střed v jeho počátku, líc do +Z; `offset` ji posouvá po ose Z (N-106).
 
 ### Interakce (`components.interact.kind`)
+
+**Kterou interakci hráč ovládá:** jedinou interakci kdekoli na prefabu. U seznamu tu, jejíž kloub hýbe zasaženým uzlem (uzel kolideru nebo dílu); uzel bez vlastního kloubu patří kloubu nejbližšího předka a svázaný kloub (N-002) interakci kloubu, který sleduje. Nenajde-li se, platí interakce bez kloubu, je-li jediná, jinak žádná (pevný korpus nic neovládá). Počítá to výhradně `interactionOf` ze `src/xspace/interact.js`; seznam interakcí dává `interactions` (vždy pole), dveře portálu `doorInteraction` (právě jedna interakce `door`, jinak `portal.door`). Stav (otevřeno, zamčeno, výstupy) má každá interakce vlastní.
 
 **Dosah** (`interact.range`) se měří od osy těla hráče (svislá úsečka od nohou po oči) k bodu, kam dopadl paprsek pohledu. Předmět musí být pod zaměřovačem a paprsek nesmí cestou narazit na nic jiného (N-104).
 
@@ -137,19 +139,21 @@ snapshot()  restore(data)
 | `valve` | kloub `hinge` na víc otáček | `setLevel` | `changed`, `opened`, `closed` |
 | `door` | kloub | `open`, `close`, `toggle`, `lock`, `unlock` | `opened`, `closed`, `locked`, `unlocked` |
 
-Dveře, jejichž klidová poloha leží uvnitř rozsahu kloubu (`min < rest < max`, např. ±105°), jsou zavřené v `rest`; vstup `open` je otevře k tomu dorazu, ke kterému se křídlo vzdaluje od toho, kdo otvírá. Výstup `opened` platí pro oba dorazy. Otevření dveří (0 až 1) je \|hodnota − `rest`\| / největší vzdálenost dorazu od `rest` (`doorOpenness` v `src/xspace/bake.js`; N-109, D-042).
 | `drawer` | kloub `slider` | `open`, `close`, `lock`, `unlock` | `opened`, `closed` |
 | `terminal` | `station` + součást `screen` | `print`, `lock`, `unlock` | `used`, `left`, `command` |
 | `station` | `station` | | `used`, `left` |
 | `pickup` | součást `pickup` | `enable`, `disable` | `picked` |
 | `grab` | těleso `dynamic` | | `grabbed`, `dropped` |
 
+Dveře, jejichž klidová poloha leží uvnitř rozsahu kloubu (`min < rest < max`, např. ±105°), jsou zavřené v `rest`; vstup `open` je otevře k tomu dorazu, ke kterému se křídlo vzdaluje od toho, kdo otvírá. Výstup `opened` platí pro oba dorazy. Otevření dveří (0 až 1) je \|hodnota − `rest`\| / největší vzdálenost dorazu od `rest` (`doorOpenness` v `src/xspace/bake.js`; N-109, D-042).
+
 Skutečné vstupy a výstupy prefabu jsou vždy ty, které má zapsané v `inputs` a `outputs`; tabulka je doporučení, aby se jména nerozešla.
 Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 
 ### Spojení výstup → vstup (`io`)
 
-- Záznam `{ on, target, input, delay?, once?, param? }` u entity nebo spouštěče.
+- Záznam `{ on, target, input, delay?, once?, param?, from?, to? }` u entity nebo spouštěče.
+- `from` (jen u entity): výstup jen z této interakce prefabu; bez něj z kterékoli. `to`: vstup jen do této interakce cíle; bez něj do všech jeho interakcí (zamknout celou kartotéku jedním spojením). Neexistující id hlásí validátor `io.from` a `io.to` (N-010).
 - Cíl je entita levelu, nebo vestavěný `@level` (`checkpoint`, `complete`, `message`).
 - Když výstup nese hodnotu a `param` chybí, hodnota se předá vstupu.
 - Spojení se vyřizují ve fázi `late`, v pořadí (krok splatnosti, pořadí vzniku). `delay` se převádí na kroky zaokrouhlením nahoru.
@@ -196,4 +200,4 @@ Výstup `changed` nese hodnotu 0 až 1: `(poloha − min) / (max − min)`.
 
 ## 6. Kódy nálezů validátoru
 
-Kódy jsou stálé a testy i zprávy sešen se na ně odkazují. Skupiny: `shape.*` (tvar pole), `ref.*` (odkaz na neexistující věc), `geom.*`, `portal.*`, `level.*`, `spawn.*`, `brush.*`, `rig.*`, `interact.*`, `phys.*`, `io.*`, `license.*`, `pack.*`, `mat.*`, `file.*`, `budget.*`, `entity.*`, `place.*`. Úplný seznam s příkladem mutace je v `test/t1_xspace.mjs`.
+Kódy jsou stálé a testy i zprávy sešen se na ně odkazují. Skupiny: `shape.*` (tvar pole), `ref.*` (odkaz na neexistující věc), `geom.*`, `portal.*`, `level.*`, `spawn.*`, `brush.*`, `rig.*`, `interact.*`, `phys.*`, `io.*`, `license.*`, `pack.*`, `mat.*`, `file.*`, `budget.*`, `entity.*`, `place.*`. Úplný seznam s příkladem mutace je v `test/t1_xspace.mjs` (interakce prefabu v `test/t1c_interact.mjs`).
