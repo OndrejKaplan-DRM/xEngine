@@ -1,0 +1,7 @@
+{
+  "xspace": 1,
+  "kind": "ammo",
+  "ammo": {
+    "cells": { "title": "Články", "max": 200 }
+  }
+}

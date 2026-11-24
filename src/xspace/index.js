@@ -7,5 +7,6 @@ export { lightIrradiance, lightWindow, SPOT_EDGE } from './light.js';
 export { BODY, CHARACTER_SKIN, bodyWidth } from './body.js';
 export { levelSamples, entityStaticMesh, staticPartIndices, movingNodes, entityMovesWhole } from './samples.js';
 export { decodeBake, composeColors, gateLevel, doorOpenness, MAGIC as BAKE_MAGIC } from './bake.js';
+export { rampValue, splashFalloff, pushDelta } from './weapon.js';
 export { interactions, interactionById, interactionOf, doorInteraction, INTERACT_MAIN, INTERACT_SOLO } from './interact.js';
 export { entityMatrix, rigMatrices, rigCompile, rigSolve, rigValues, rigFollow, jointRest, jointClamp, jointFollow, mat4Mul, mat4Point, mat4Identity, mat4Translate, mat4Euler, mat4AxisAngle, mat4Scale } from './rig.js';

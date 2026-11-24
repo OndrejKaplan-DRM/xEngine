@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pickup_plasma_rifle_01",
+  "title": "Plazmová puška na zemi",
+  "category": "item.weapon",
+  "bounds": { "min": [-0.035, 0, -0.34], "max": [0.035, 0.21, 0.38] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "box", "min": [-0.035, 0.1, -0.18], "max": [0.035, 0.18, 0.12], "mat": "metal_dark" },
+    { "node": "body", "shape": "cyl", "center": [0, 0.15, 0.25], "radius": 0.018, "height": 0.26, "axis": "z", "mat": "steel" },
+    { "node": "body", "shape": "box", "min": [-0.025, 0.18, -0.08], "max": [0.025, 0.21, 0.06], "mat": "plasma_glow" },
+    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.12], "max": [0.02, 0.1, -0.06], "mat": "plastic_black" },
+    { "node": "body", "shape": "box", "min": [-0.03, 0.11, -0.34], "max": [0.03, 0.17, -0.18], "mat": "metal_plate" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.36], "max": [0.06, 0.22, 0.4], "group": "trigger" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "interact": { "kind": "pickup", "prompt": "Sebrat plazmovou pušku", "range": 1.6 },
+    "pickup": { "item": "plasma_rifle_01", "amount": 40 }
+  },
+  "inputs": ["enable", "disable"],
+  "outputs": ["picked"],
+  "tris": 112,
+  "source": { "tool": "golden", "generator": "tools/golden/make.mjs", "license": "own", "author": "Kristína (Claude) pro Ondřeje Kaplana", "date": "2026-11-22" }
+}
