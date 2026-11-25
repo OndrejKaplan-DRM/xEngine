@@ -4,7 +4,7 @@
   "id": "cylinder_gas_argon_01",
   "title": "Tlaková láhev 50 l: Argon, s redukčním ventilem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.117, -0.001, -0.116], "max": [0.136, 1.586, 0.117] },
+  "bounds": { "min": [-0.117, -0.001, -0.117], "max": [0.136, 1.586, 0.117] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -21,13 +21,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gascyl_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.116, 0, -0.115], "max": [0.135, 1.585, 0.116], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.116, 0, -0.116], "max": [0.135, 1.585, 0.116], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 1542,
+  "tris": 1498,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench_c.mjs#gasAndCryo",

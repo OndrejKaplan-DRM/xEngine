@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240548
+Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240328
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -209,11 +209,11 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240548
 | `ph_meter_01` | pH metr s elektrodou na rameni | lab.bench | 0,2 × 0,34 × 0,22 | 1080 | — | — |
 | `burner_bunsen_01` | Plynový kahan | lab.bench | 0,13 × 0,16 × 0,09 | 368 | — | — |
 | `rotavap_01` | Rotační vakuová odparka | lab.bench | 0,55 × 0,84 × 0,46 | 2814 | — | — |
-| `cylinder_gas_helium_01` | Tlaková láhev 50 l: Helium, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
-| `cylinder_gas_nitrogen_01` | Tlaková láhev 50 l: Dusík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
-| `cylinder_gas_co2_01` | Tlaková láhev 50 l: Oxid uhličitý, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
-| `cylinder_gas_argon_01` | Tlaková láhev 50 l: Argon, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
-| `cylinder_gas_oxygen_01` | Tlaková láhev 50 l: Kyslík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `cylinder_gas_helium_01` | Tlaková láhev 50 l: Helium, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1498 | — | — |
+| `cylinder_gas_nitrogen_01` | Tlaková láhev 50 l: Dusík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1498 | — | — |
+| `cylinder_gas_co2_01` | Tlaková láhev 50 l: Oxid uhličitý, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1498 | — | — |
+| `cylinder_gas_argon_01` | Tlaková láhev 50 l: Argon, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1498 | — | — |
+| `cylinder_gas_oxygen_01` | Tlaková láhev 50 l: Kyslík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1498 | — | — |
 | `dewar_4l_01` | Dewarova nádoba na kapalný dusík 4 l | lab.bench | 0,23 × 0,43 × 0,19 | 624 | — | — |
 | `dewar_10l_01` | Dewarova nádoba na kapalný dusík 10 l | lab.bench | 0,3 × 0,55 × 0,26 | 624 | — | — |
 | `dewar_35l_01` | Dewarova nádoba na kapalný dusík 35 l | lab.bench | 0,49 × 0,67 × 0,48 | 700 | — | — |

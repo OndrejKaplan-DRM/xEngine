@@ -16,9 +16,9 @@ export function gasAndCryo() {
   const gases = [['helium', 'Helium', 'paint_brown'], ['nitrogen', 'Dusík', 'iron_black'], ['co2', 'Oxid uhličitý', 'plastic_light'], ['argon', 'Argon', 'paint_green'], ['oxygen', 'Kyslík', 'plastic_white']];
   // tvar láhve je u všech plynů stejný: sítě se sdílí (stejné jméno = stejný uzel v souboru), liší se materiál hrdla
   const R = 0.115;
-  const body = lathe([[0, 0.0], [R * 0.85, 0.0, 'c'], [R, 0.03], [R, 1.25], [R * 0.95, 1.31], [R * 0.75, 1.37], [R * 0.4, 1.42, 'c'], [0, 1.43]], { seg: 18 });
+  const body = lathe([[0, 0.0], [R * 0.85, 0.0, 'c'], [R, 0.03], [R, 1.25], [R * 0.95, 1.31], [R * 0.75, 1.37], [R * 0.4, 1.42, 'c'], [0, 1.43]], { seg: 16 });
   const o = 0.0008; // hrdlo s barvou plynu leží těsně nad tělem láhve
-  const shoulder = lathe([[R + o, 1.24], [R + o, 1.25], [R * 0.95 + o, 1.31], [R * 0.75 + o, 1.37], [R * 0.4 + o, 1.42, 'c'], [0.03, 1.4308]], { seg: 18 });
+  const shoulder = lathe([[R + o, 1.24], [R + o, 1.25], [R * 0.95 + o, 1.31], [R * 0.75 + o, 1.37], [R * 0.4 + o, 1.42, 'c'], [0.03, 1.4308]], { seg: 16 });
   const valve = merge([
     lathe([[0.03, 1.43], [0.03, 1.47, 'c'], [0.022, 1.475], [0.022, 1.53], [0, 1.53]], { seg: 10 }),
     roundedBox([-0.022, 1.5, -0.018], [0.022, 1.545, 0.018], 0.004, 1),

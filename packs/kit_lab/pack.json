@@ -44,8 +44,8 @@
     },
     {
       "path": "meshes/appl.glb",
-      "bytes": 4108064,
-      "sha256": "77ec25756bac8675685a7f41cea0b5368fba5b2bf23e644859672aba7036d569",
+      "bytes": 4106840,
+      "sha256": "8d5ca4bb19fff40d9ae871754ba2591c7753e995e866d6b1f667f3d69b59c638",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"
