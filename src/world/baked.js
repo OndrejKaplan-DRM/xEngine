@@ -2,9 +2,9 @@
 // tady se jeho vzorky (pořadí `levelSamples`: kvádry, potom pevné díly prefabů) přiřadí vrcholům statických dávek
 // a vrstvy se převedou na úseky, se kterými pracuje lighting.js (přepínání světel a bran beze změny).
 //
-// Barva vrcholu podle kontraktu (jas = barva materiálu / π × E):
-//   okolní člen × přístupnost (vrstva ao) + Σ úroveň × barva × E / π + nepřímé E × váha / π.
-// Pozn.: `composeColors` v základu sčítá E bez dělení π; tady se dělí (otázka pro svodnou v A_STAV, oddíl 9).
+// Barva vrcholu podle kontraktu (jas = barva materiálu / π × E; okolní světlo je také E, D-049):
+//   (okolní E × přístupnost (vrstva ao) + Σ úroveň × barva × E + nepřímé E × váha) / π.
+// `composeColors` ze základu vrací totéž bez dělení π (D-049); běh skládá úseky sám kvůli přepínání bez přepočtu.
 
 import { staticPartIndices, partMesh } from '../xspace/index.js';
 import { INV_PI } from './lightfield.js';
@@ -88,7 +88,7 @@ export function mapSamples(targets, samples) {
   return { start: cnt, t, v };
 }
 
-/** Základ barvy zapečených vrcholů: okolní člen × přístupnost + nepřímé světlo × váha / π. */
+/** Základ barvy zapečených vrcholů: okolní člen (už / π, lighting) × přístupnost + nepřímé světlo × váha / π. */
 export function bakedBase(decoded, map, targets, ambient) {
   const n = decoded.header.samples;
   const ao = decoded.layers.find((L) => L.kind === 'ao');

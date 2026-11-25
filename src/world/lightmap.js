@@ -5,7 +5,7 @@
 // Postup: statické dávky buněk se rozloží na trojúhelníky; spojené trojúhelníky jedné roviny jsou mapa (chart),
 // trojúhelník mimo rovinu dostane mapu sám (válce prefabů). Mapy se poskládají do jednoho atlasu po řádcích.
 // Bod textury = střed texelu na ploše; světlo stejně jako po vrcholech: lightIrradiance ze základu, zastínění
-// a brány dveří z occlusion.gateOf. Hodnota bodu je osvětlení E × barva (a π × okolní člen); materiál three.js
+// a brány dveří z occlusion.gateOf. Hodnota bodu je osvětlení E × barva (a okolní člen, také E, D-049); materiál three.js
 // ho dělí π (lightMap v MeshBasicMaterial), takže jas = barva materiálu / π × E jako v kontraktu.
 // Vrstvy se drží po světlech a branách, takže přepnutí lampy nebo otevření dveří texturu jen složí znovu.
 
@@ -245,7 +245,7 @@ export function buildLightmap({ targets, cells, texel, lights, gateOf, gate, amb
       for (const s of segs) if (s.gate) note(-s.gate, gate(s.gate));
     }
     if (!changed) return false;
-    const a = [ambient[0] * Math.PI, ambient[1] * Math.PI, ambient[2] * Math.PI];
+    const a = ambient; // osvětlení E (D-049); lightMap v materiálu dělí π jako u ostatního světla
     for (const k of used) {
       rgb[k * 3] = a[0];
       rgb[k * 3 + 1] = a[1];

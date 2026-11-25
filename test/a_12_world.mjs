@@ -35,8 +35,8 @@ ok(game.get('light.stat').lights === levelLights.length, 'světla levelu jsou za
   const samples = lit.reduce((n, b) => n + b.count, 0);
   ok(light.stat.samples === samples && samples > 1000 && light.stat.entries > samples, 'každý vrchol osvětlené dávky je vzorek světla', `${samples} vzorků v ${lit.length} dávkách, ${light.stat.entries} záznamů ve vrstvách ${light.lights.length} světel, výpočet ${fmt(light.stat.buildMs, 1)} ms (sandbox, orientačně)`);
 
-  // barva vzorku = okolní člen + Σ úroveň × barva světla × E / π (vzorec lightIrradiance, bez zastínění)
-  const amb = level.env.ambient;
+  // barva vzorku = (okolní E + Σ úroveň × barva světla × E) / π (vzorec lightIrradiance, bez zastínění; D-049)
+  const amb = level.env.ambient.map((a) => a / Math.PI);
   let worst = 0;
   let checked = 0;
   for (const b of lit) {

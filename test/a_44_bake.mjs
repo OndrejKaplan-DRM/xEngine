@@ -6,7 +6,8 @@
 
 import { h, makeGame, loadPack, fmt } from './a_lib/node.mjs';
 import { runtimeLayers, encodeBake } from './a_lib/bake.mjs';
-import { decodeBake, levelSamples } from '../src/xspace/index.js';
+import { decodeBake, levelSamples, composeColors } from '../src/xspace/index.js';
+import { bakeId } from '../src/world/baked.js';
 import { INV_PI } from '../src/world/lightfield.js';
 
 const ok = (name, cond, detail = '') => h.ok(!!cond, name, detail);
@@ -95,7 +96,7 @@ const AO = 0.5;
 const IND = [0.2, 0.1, 0.05];
 const W = 0.5;
 const bytes = encodeBake(ref, layers, { ao: AO, indirect: IND, weight: W });
-const amb = ref.session.level.env?.ambient || [0, 0, 0];
+const amb = (ref.session.level.env?.ambient || [0, 0, 0]).map((a) => a * INV_PI); // D-049: okolní světlo je E, do barvy / π
 const shift = (T, t, v, c, r) => (T.baked && T.baked[v] ? r - amb[c] + amb[c] * AO + IND[c] * W * INV_PI : r);
 {
   const dec = decodeBake(bytes);
@@ -105,6 +106,24 @@ const shift = (T, t, v, c, r) => (T.baked && T.baked[v] ? r - amb[c] + amb[c] * 
   ok('běh soubor přečetl: všechna světla ze souboru', st.baked === g.light.lights.length && /light\.bin$/.test(st.bakeNote), `${st.baked} z ${g.light.lights.length}, ${st.bakeNote}`);
   const [d, at] = maxDiff(g, refColors, shift);
   ok('barvy ze souboru = výpočet při načtení (+ okolní člen × ao + odraz × váha / π)', d < 1e-5, `největší poměrný rozdíl ${d.toExponential(2)} (${at})`);
+  // D-049: barvy běhu = composeColors ze základu / π (okolní světlo je E jako ostatní)
+  {
+    const dec2 = decodeBake(bytes);
+    const lightsById = new Map(g.light.lights.map((L) => [bakeId(L), { color: L.color, base: true }]));
+    const levels = Object.fromEntries(g.light.lights.map((L) => [bakeId(L), L.on && L.level > 0 && L.intensity > 0 ? L.level : 0]));
+    const doors = Object.fromEntries(g.occlusion.inspect(['doors']).map((d) => [d.id, d.open]));
+    const want = composeColors(dec2, lightsById, g.session.level.env?.ambient || [0, 0, 0], levels, doors);
+    let worst = 0;
+    for (const T of g.render.statics) {
+      const m = T.sampleMap;
+      if (!m || !T.colors) continue;
+      for (let i = 0; i < m.length; i += 2) for (let c = 0; c < 3; c++) {
+        const w = want[m[i] * 3 + c] / Math.PI;
+        worst = Math.max(worst, Math.abs(T.colors[m[i + 1] * 3 + c] - w) / (1 + w));
+      }
+    }
+    ok('barvy ze souboru = composeColors ze základu / π (D-049)', worst < 1e-5, `největší poměrný rozdíl ${worst.toExponential(2)}`);
+  }
   ok('stavba vrstev se souborem je rychlejší (sandbox, ne T460)', st.buildMs < ref.light.stat.buildMs, `${fmt(st.buildMs, 1)} ms proti ${fmt(ref.light.stat.buildMs, 1)} ms při výpočtu`);
   act(ref);
   act(g);

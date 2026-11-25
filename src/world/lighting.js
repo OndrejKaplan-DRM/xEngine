@@ -214,7 +214,8 @@ export function createLighting({ render, now = () => performance.now() }) {
     /** Nový level: prostředí a prázdné seznamy. V pořadí načítání je první, svět a entity do něj hlásí světla a díly. */
     load(ctx) {
       sys.unload();
-      ambient = ctx.level.env?.ambient ? [...ctx.level.env.ambient] : [0, 0, 0];
+      // okolní světlo je v datech osvětlení E jako ostatní světlo (D-049): do barvy vrcholu jde E / π
+      ambient = (ctx.level.env?.ambient || [0, 0, 0]).map((a) => a * INV_PI);
     },
     unload() {
       lights.length = 0;
