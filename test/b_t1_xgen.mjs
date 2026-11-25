@@ -8,7 +8,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateLevel, makeCatalog, mergeKits, levelPackManifest, fmtJson, PRESETS, kit as K } from '../src/gen/index.js';
-import { validatePack, mergePacks, doorInteraction } from '../src/xspace/index.js';
+import { validatePack, mergePacks, doorInteraction, levelLightMeshes, LIGHT_CELL } from '../src/xspace/index.js';
+import { levelPVS, visibleTris } from './b_lib/pvs.mjs';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
 import { kitAsPack } from '../tools/forge/kit/index.mjs';
 import { THEMES } from '../tools/forge/themes.mjs';
@@ -28,6 +29,8 @@ const KITS = kitsNow();
 const kitPack = KITS[0];
 const catalog = makeCatalog(mergeKits(KITS));
 const baseCatalog = makeCatalog(kitPack);
+// materiály všech sad (schované plochy kvádrů nemají síť světla, D-037)
+const MATS = Object.assign({}, ...KITS.map((k) => k.materials.materials));
 const SRC = { tool: 'rucne', license: 'own' };
 
 /** Level jako balík spojený se sadami, tak jak ho uvidí validátor i engine. */
@@ -104,7 +107,7 @@ const usedAll = new Set();
 for (const run of RUNS) {
   const catalog = run.cat || catalogAll;
   const attachIds = new Set(catalog.ids.flatMap((id) => catalog.attachments(id).map((a) => a.prefab)));
-  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [] };
+  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [], vis: [], pvs: [], depth: [] };
   let walker = null;
   const ruleBreaks = [];
   const findings = {};
@@ -133,7 +136,15 @@ for (const run of RUNS) {
     agg.entities.push(level.entities.length);
     agg.drawers.push(level.entities.filter((e) => attachIds.has(e.prefab)).length);
     agg.brushes.push(level.brushes.length);
-    agg.tris.push(level.brushes.length * 12 + level.entities.reduce((t, e) => t + (catalog.has(e.prefab) ? catalog.get(e.prefab).tris : 0), 0));
+    // trojúhelníky jako je kreslí běh: kvádr = síť světla (mřížka dat LIGHT_CELL), prefab = pole tris
+    const brushTris = levelLightMeshes(level.brushes, MATS, LIGHT_CELL).map((m) => (m ? m.indices.length / 3 : 0));
+    const trisOf = (id) => (catalog.has(id) ? catalog.get(id).tris : 0);
+    agg.tris.push(brushTris.reduce((a, b) => a + b, 0) + level.entities.reduce((t, e) => t + trisOf(e.prefab), 0));
+    const pvsAll = levelPVS(level);
+    const vis = visibleTris(level, trisOf, pvsAll, brushTris);
+    agg.depth.push(pvsAll.depth);
+    agg.vis.push(vis.max);
+    agg.pvs.push(Math.max(...[...vis.pvs.values()].map((x) => x.size)));
     for (const k of Object.keys(kinds)) kinds[k].push(level.cells.filter((c) => KINDS[k].test(c.id)).length);
     const res = validatePack(asPack(level, catalog));
     for (const x of [...res.errors, ...res.warnings]) findings[x.code] = (findings[x.code] || 0) + 1;
@@ -153,8 +164,10 @@ for (const run of RUNS) {
   ok(fails.length === 0 && n === run.n, `${run.name}: ${run.n} seedů, každý dal level`, fails.slice(0, 2).join(' | ') || `pokusů na level ${span(agg.attempt.map((a) => a + 1))}`);
   ok(Object.keys(findings).length === 0, `${run.name}: validátor bez chyb a bez varování`, JSON.stringify(findings) === '{}' ? `${n} levelů` : JSON.stringify(findings));
   ok(Math.min(...agg.cells) >= 20 && Math.max(...agg.cells) <= 60, `${run.name}: 20 až 60 buněk`, span(agg.cells));
-  // rozpočet scény (06_ROZPOCTY, měřeno na T460): do 300 tisíc viditelných △; celý level je horní mez toho, co je vidět
-  ok(Math.max(...agg.tris) <= 300000, `${run.name}: celý level do 300 tisíc △ (kvádry + prefaby)`, span(agg.tris));
+  // rozpočet scény (06_ROZPOCTY, měřeno na T460): do 300 tisíc viditelných △. Ondřej 25. 11. 1:29 (2 a): měřit, co je
+  // z buňky prokazatelně vidět (PVS: přímka otvory portálů, všechny dveře otevřené), ne celý level
+  ok(Math.max(...agg.vis) <= 300000, `${run.name}: z žádné buňky není vidět víc než 300 tisíc △ (PVS, všechny dveře otevřené, kvádry po síti světla)`, `nejvíc ${span(agg.vis)}; buněk v PVS nejvýš ${span(agg.pvs)}; celý level ${span(agg.tris)}`);
+  ok(Math.max(...agg.depth) <= 12, `${run.name}: nejdelší řetěz portálů s výhledem do 12 (MAX_DEPTH viditelnosti sešny A)`, span(agg.depth));
   ok(Math.min(...agg.doors) >= 3, `${run.name}: aspoň troje dveře v portálech`, span(agg.doors));
   ok(withStairs === n, `${run.name}: každý level má schod nebo rampu`, `${withStairs} z ${n}`);
   ok(problems.length === 0, `${run.name}: prahy, průchody, schody, rozmístění a průchodnost místností`, problems.slice(0, 3).join(' | ') || `cesta široká ${walker.width.toFixed(2)} m (profil ${walker.profile}) ověřena v ${span(agg.passable)} buňkách na level`);

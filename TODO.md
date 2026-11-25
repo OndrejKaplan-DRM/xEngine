@@ -86,6 +86,7 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 1. [~] realistický inventář: **první kolo hotovo** (sítě `tools/forge/mesh/`, sklo 76, plasty 53, chemikálie 38, odparka, zaoblení všech přístrojů ze společné vrstvy; 7 nových kusů skla; návrh N-012; `kit_lab` 171 484 △, level `complex` medián 197 622 △, nejvíc 295 204 z meze 300 tisíc; hra 13,6 MB). Zbývá kus po kuse: stolní a velké přístroje → nábytek a chlazení → `kit_it` → `kit_base`; nové prefaby
 2. [x] xBake zapeče pevné díly prefabů (D-041): `complex_7` 182 468 vzorků (116 850 na dílech), 28 s v sandboxu, 4,8 MB; vlastní kolize entity díly nestíní (B_STAV, oddíl „Zapečené pevné díly“)
 2a. [x] sklo výraznější (volba 2 b): lem a pruhy odlesku v datech, návrh N-013 pro sešnu A; level `complex` nejvýš 299 608 △ z meze 300 tisíc (B_STAV, oddíl „Sklo s lemem a odleskem“)
+2c. [x] rozpočet trojúhelníků podle toho, co je z buňky prokazatelně vidět (PVS, volba 2 a): nejvíc 229 174 △ z buňky (mez 300 tisíc), B-T10, návrh N-014
 2b. [ ] zkouška N-110 na celém `complex_7` (dodatek D-050): atlas po 5 a 10 cm, čas, velikost v half float RGBA a ve 4 B na bod, vrstvy jen pro přepínaná světla a brány
 3. [ ] dodatek znění 6: `door_double_01` jako jeden prefab s `follow` (bez `seeThrough`), v generátoru zrušit párování křídel přes `io`, `door_dleft_01` a `door_dright_01` pryč; mikroskop `focus` → `stage`
 4. [ ] `kit_home` s předvolbou bytu
@@ -93,9 +94,10 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 
 **Potom:** B3.1 plazmová puška z Arény (`kit_arena`, dodatek znění 9) · kartotéka a stůl jako jeden prefab se seznamem interakcí (D-052), až to umí sešna A · B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
-**Čeká na jiné:** **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
+**Čeká na jiné:** **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 25. 11. rozpočet podle PVS (Ondřej 1:29, 2 a): B-T1 a nová B-T10, návrh N-014
 - 25. 11. sklo s lemem a odleskem (Ondřej 1:02, 2 b); +50 % platí na prefab (1 a), sestava do 3 000 △ (`31d1ed2`)
 - 25. 11. xBake zapéká pevné díly prefabů (D-041), hlavička `entities`; znění 8 a 9 základu sloučeno, interakce přes `interact.js` (D-052) (`8ba697c`, `73cb0bb`, `d91f6ba`)
 - 25. 11. realistický inventář, první kolo: hladké sítě z xForge (sklo s tenkou stěnou, kapalinou a stupnicí, plasty, chemikálie, odparka, zaoblené pláště a panely přístrojů), 7 nových kusů skla; regrese zelená (B_STAV, oddíl „Realistický inventář“; `2a9a4bb` až `3be532e`)

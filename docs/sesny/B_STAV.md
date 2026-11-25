@@ -37,6 +37,7 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | znění 8 a 9 základu sloučeno; interakce jen přes `src/xspace/interact.js` (D-052) | hotovo | `8ba697c`, `73cb0bb` |
 | xBake zapeče pevné díly prefabů (D-041) | hotovo | `d91f6ba` a následující |
 | sklo výraznější (Ondřej 1:02, volba 2 b): lem a odlesk; návrh N-013 | hotovo v datech | `31d1ed2` a následující |
+| rozpočet podle toho, co je z buňky prokazatelně vidět (PVS; Ondřej 1:29, volba 2 a); B-T10; návrh N-014 | hotovo | viz oddíl níže |
 | `kit_home` s předvolbou bytu | nezačato | |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
@@ -215,6 +216,18 @@ Pruhy jsou namalované, točí se s předmětem a nesledují světlo; skutečný
 
 **Trojúhelníky:** sklo a lem přidaly asi 10 tisíc △; nejhorší level `complex` vyšel na 303 886 (mez b_t1 300 tisíc). Vrátila jsem to zjednodušením víček a náplní vialek (karton a podložka 1 344 → 936 a 1 380 → 972 △) a lemem z pěti bodů: `kit_lab` 181 016 △, nejhorší level 299 608. **Jsme na mezi.** Celý level je přísná náhrada za „viditelnou scénu do 300 tisíc △“ (06_ROZPOCTY); `?bench` na T460 ukázal v `complex_7` nejvýš 135 488 △ v pohledu. Než přidám další tvar, potřebuju lepší měřítko (buňka + sousedé přes portály) nebo měření z T460. Sestava (stojan, odparka, exsikátor) smí mít do 3 000 △ (přístroj 2 000 × 1,5 podle volby 1 a), odparka má 2 814.
 
+### Rozpočet podle viditelnosti (krok 24, Ondřej 1:29, volba 2 a)
+
+`test/b_lib/pvs.mjs`: pro každou buňku množina buněk, do kterých z ní vede přímka otvory portálů (všechny dveře otevřené, v půdorysu, tedy nadmnožina skutečné viditelnosti z kteréhokoli místa buňky). B-T1 teď hlídá **„z žádné buňky víc než 300 tisíc △“** s kvádry po síti světla (`levelLightMeshes`, mřížka dat 0,5 m), jak je kreslí běh, a délku řetězu portálů s výhledem do 12 (`MAX_DEPTH` viditelnosti sešny A). Celý level se jen hlásí. Nová sada **B-T10** (10 kontrol): ručně složené případy, souměrnost, ukázkové levely a shoda s T460.
+
+| 200 seedů (sandbox) | Nejvíc △ vidět z buňky | Celý level (kvádry po síti světla) | Řetěz s výhledem |
+|---|---|---|---|
+| `complex` dvě patra | 88 168 až 205 314, medián 139 342 | 195 496 až 396 894 | 3 až 7 |
+| `complex` jedno patro | 92 576 až 229 174 | 224 389 až 346 231 | 3 až 7 |
+| `catacombs` | 46 926 až 106 804 | 68 430 až 134 348 | 3 až 8 |
+
+Shoda s měřením: PVS `complex_7` při mřížce 0,25 m (Ondřejovo nastavení) je nejvýš 251 278 △ v `c_corr_01`; T460 změřil nejvýš 149 094 △ a nejvíc volání (496) právě v `c_corr_01`. **Pozor:** při mřížce 0,25 m mají kvádry asi dvakrát víc △ (`complex_21` 293 394 vidět z buňky); se světlem v textuře (D-050) budou kvádry zase 12 △. Návrh **N-014**: PVS do základu a pro sešnu A zkouška „kreslím ⊆ PVS“ (rozpočet) a „vše, co paprsek z oka zasáhne, kreslím“ (nic nebliká), hlavně u portálů.
+
 **Regrese po krocích 22 a 23** (sandbox): `npm test` T0 41, T1 155, T1b 14, T1c 27, T1d 31, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 32, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
 
 **Regrese po kroku 21** (sandbox): `npm test` T0 41, T1 155, T1b 14, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
@@ -325,6 +338,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | N-010 | víc interakcí v jednom prefabu (kartotéka se čtyřmi zásuvkami, stůl s kontejnerem); doporučuju `interact` jako seznam. **Otevřený** | korpus jmenuje zásuvky v `source.params.attach`, generátor je staví jako samostatné entity (`8d52fb5`) |
 | N-011 | pro sešnu A: `?bench` kývá pohledem (řízení robota o krok pozadu, 20 Hz) a dávkou měření srazí hru na 30 snímků/s; přidat do výstupu zorné pole. **Otevřený** | platí `workMs` a `draw.ms`, ne rozestup snímků |
 | N-013 | pro sešnu A: sklo s okrajem podle úhlu pohledu a odleskem (shader průhledného materiálu na stupni `low`, bez nového pole). **Otevřený** | lem a pruhy odlesku jako doprovodné sítě nádob (`31d1ed2`) |
+| N-014 | prokazatelná viditelnost: PVS do základu jako měřítko rozpočtu; pro sešnu A zkouška, že kreslí ⊆ PVS a nic, co je vidět, nevynechá (Ondřej 1:29). **Otevřený** | `test/b_lib/pvs.mjs`, B-T1 a B-T10 |
 | N-012 | rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake (D-041), měřil generátor a viděla zkouška A × B v Node; balík bez megabajtů `.glb`. **Otevřený** | díly `mesh` z xForge (`tools/forge/mesh/`), 4,2 MB sítí v `kit_lab` |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
@@ -408,5 +422,7 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 ## Otázky pro Ondřeje
 
 Starší otázky (B02 až B04) jsou zodpovězené a jejich odpovědi stojí v oddílech sešen výše. **Ondřej 25. 11. v 1:02:** (1 a) +50 % trojúhelníků platí na jeden prefab (sada +83 %, level +24 % nechat); (2 b) sklo ve hře je málo vidět, chce **výraznější okraj a odlesk**; (3 a) D-041 (hotové v téže noci); (4 a) `?bench` s novým sestavením pustí.
+
+**Ondřej 25. 11. v 1:29:** (1 a) sklo takhle stačí; (2 a) mez trojúhelníků měřit z místnosti a místností za dveřmi, „udělejme to jako ve hrách – chytře škrtejme, co není vidět. Ale opravdu prokazatelně – už několikrát na mě blikla při jiném projektu místnost, ke které jsem se blížil…“; (3 b) přístroje a nábytek kus po kuse, „opět udělej aspoň 300 ks inventáře pro interiér, ať máme z čeho stavět“ (dotaz, zda byt a dům, nebo laboratoře a kanceláře, poslaný v 1:3x).
 
 Otevřené: „vnitřní kompartmentizace“ = (a) přihrádky a police (pracuju s tím), nebo (b) kresba dřeva.
