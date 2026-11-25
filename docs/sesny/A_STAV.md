@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1766f03` (znění 10 a D-056, D-057; sloučení `b852756`, 25. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 26. 11. po půlnoci, po N-102 v kroku): `npm test` **377**, `npm run test:a` **497 ve 33 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: „vlna 2, krok 7 (A3.1 zbraně)“. 
+Poslední regrese (sandbox, 26. 11. v noci, po N-013): `npm test` **377**, `npm run test:a` **501 ve 34 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: „vlna 2, krok 7 (A3.1 zbraně)“. 
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
@@ -16,7 +16,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [x] 5. **Kostra v kroku přes `rigCompile` / `rigFollow` / `rigSolve` (N-102) hotovo.** `src/world/rigrun.js`: přeložená kostra jednou na prefab, pole hodnot a matic jednou na entitu, pohyblivé díly mají pohled `rec.view` do pole matic; `rigMatrices` v kroku (pohon, D-025, ruka hráče) odpadl. Svázané klouby (N-002) se v běhu hýbou se sledovaným (dřív se v běhu vůbec nepočítaly; hodnotu zapisuje i do `j.value`). `test/a_14_rig.mjs` (4): 112 prefabů (`gen_demo`, `golden`, `kit_base`) × 5 poloh bit po bitu jako `rigMatrices(jointFollow)`; ve hře uprostřed pohybu matice dílů jako dřív; druhé křídlo se `follow` jde s prvním. Mimo krok zůstává obálka `rigMatrices` jen v `behaviors.js` (strana otvírání dveří, volá se jednou na vstup `open`) a při stavbě zbraně v ruce.
 - [ ] 6. textura světla ze souboru XLM1, až sešna B dodá zapečený `complex_7`; potom `?bench` na T460
 - [x] N-011 (návrh sešny B, `?bench`): **hotovo**. Robot píše záměr před vstupem (`input` má `after: ['?bench']`): v sandboxu 6 obratů otáčení za 1 160 kroků chůze na 13 bodech trasy (sešna B naměřila před opravou 10 obratů za 88 kroků). Čas vykreslení dávkou jen v každém 10. snímku a rozestup snímků bez snímků po dávce (`frame.intervalFrames`, `draw.samples`); `env.fov` a `env.hfov`; věta výsledku začíná nastavením; měří se až po dostavění světla. `a_18_bench` (13).
-- [ ] N-013 (návrh sešny B, sklo s okrajem a odleskem): **přijímám**, udělám po bodu 5
+- [x] N-013 (návrh sešny B, sklo s okrajem a odleskem): **hotovo** (`src/render/materials.js`, `glassPatch`). Průhledný osvětlený materiál: okraj podle úhlu pohledu `(1 − |n·v|)^2,5` (návrh 3), hustota k okraji do 0,85, odraz okolí = 0,35 × světlo v místě + 2,5 × průměrná záře levelu (průměr barev statických vrcholů × 0,6, přepočet po změně světla nejvýš jednou za 60 snímků); odlesk světla shora `pow(n·h, 40 / (rough + 0,02))` × 0,6 × jas v místě. **Odchylka od návrhu:** s koeficienty z N-013 byl obrys nádoby pod lampou tmavší než střed (stěna nádoby dostane světla málo; 66 proti 77), proto odraz přičítám k pozadí (`premultipliedAlpha`) a beru i záři levelu. `test/a_32_glass.cjs` (4): obrys 99,6 proti středu 75,2, bez N-013 70,7 / 69,8; snímek `test/out/a32_sklo.png`. Cena na T460 neměřená. **Sešna B může vyřadit namalované pruhy odlesku** (lem nechat).
 
 ### 1a. A3.1 zbraně: co je hotové, rozhodnutí a co ve formátu nesedí
 
