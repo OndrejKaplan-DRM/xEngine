@@ -4,7 +4,7 @@
   "id": "mirror_wall_01",
   "title": "Nástěnné zrcadlo v rámu",
   "category": "home.hall",
-  "bounds": { "min": [-0.351, -0.601, -0.001], "max": [0.351, 0.601, 0.034] },
+  "bounds": { "min": [-0.351, -0.601, -0.001], "max": [0.351, 0.601, 0.037] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -12,16 +12,18 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_frame", "mat": "lacquer_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_glass", "mat": "steel_chrome" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_mirror", "mat": "mirror_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_reflect", "mat": "mirror_bright" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_glint", "mat": "glass_glint" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.35, -0.6, 0], "max": [0.35, 0.6, 0.033], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.35, -0.6, 0], "max": [0.35, 0.6, 0.036], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 1.45 }
   },
-  "tris": 120,
+  "tris": 156,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bath.mjs#hall",

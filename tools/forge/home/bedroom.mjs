@@ -6,6 +6,8 @@
 import { simple, moving, staticFloor } from '../lab/common.mjs';
 import { A, merge, T, roundedBox, flatBox, tube, cylinder, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 import { legs, books } from './living.mjs';
+import { soft, mirrorFace } from './soft.mjs';
+import { jitter } from '../mesh/noise.mjs';
 
 const pad = (i) => String(i).padStart(2, '0');
 const floor = () => ({ components: staticFloor(), group: 'world' });
@@ -16,10 +18,14 @@ function bed(k, w, l, frame, cover, head, pillows = w > 1.2 ? 2 : 1) {
   return [
     A('body', `${k}_frame`, roundedBox([-w / 2 - 0.03, 0.12, -l / 2], [w / 2 + 0.03, 0.32, l / 2 + 0.03], 0.012, 1), frame),
     legs(k, w + 0.04, l, 0.12, frame, 0.025, 0.06),
-    A('body', `${k}_mattress`, roundedBox([-w / 2, 0.3, -l / 2 + 0.04], [w / 2, 0.48, l / 2], 0.03, 1), 'bedding_white'),
-    A('body', `${k}_cover`, roundedBox([-w / 2 - 0.01, 0.44, -l / 2 + 0.55], [w / 2 + 0.01, 0.53, l / 2 + 0.01], 0.04, 1), cover),
-    A('body', `${k}_pillows`, merge(Array.from({ length: pillows }, (_, i) => roundedBox([-w / 2 + 0.06 + (i * (w - 0.12)) / pillows, 0.47, -l / 2 + 0.1], [-w / 2 + 0.06 + ((i + 1) * (w - 0.12)) / pillows - 0.04, 0.6, -l / 2 + 0.48], 0.05, 1))), 'bedding_white'),
+    A('body', `${k}_mattress`, soft(`${k}_mattress`, [-w / 2, 0.3, -l / 2 + 0.04], [w / 2, 0.48, l / 2], { r: 0.03, nx: 4, ny: 1, nz: 6, sag: 0.006, puff: 0.006 }), 'bedding_white'),
+    // peřina: přes okraje matrace přehnutá, uprostřed lehce propadlá, pokrčená
+    A('body', `${k}_cover`, soft(`${k}_cover`, [-w / 2 - 0.03, 0.4, -l / 2 + 0.55], [w / 2 + 0.03, 0.55, l / 2 + 0.03], { r: 0.05, nx: 7, ny: 2, nz: 8, sag: 0.02, puff: 0.012, wrinkle: 0.012, freq: 6 }), cover),
+    // polštáře: zakulacené, uprostřed promáčklé od hlavy, jemně zmačkané
+    A('body', `${k}_pillows`, merge(Array.from({ length: pillows }, (_, i) => soft(`${k}_pillow${i}`, [-w / 2 + 0.06 + (i * (w - 0.12)) / pillows, 0.47, -l / 2 + 0.1], [-w / 2 + 0.06 + ((i + 1) * (w - 0.12)) / pillows - 0.04, 0.62, -l / 2 + 0.48], { r: 0.06, nx: 6, ny: 2, nz: 4, sag: 0.035, puff: 0.02, wrinkle: 0.006, freq: 11 }))), 'bedding_white'),
     A('body', `${k}_head`, roundedBox([-w / 2 - 0.04, 0.12, -l / 2 - 0.06], [w / 2 + 0.04, head, -l / 2], 0.02, 1), frame),
+    // přehoz složený v nohách postele, pokrčený
+    A('body', `${k}_throw`, soft(`${k}_throw`, [-w / 2 + 0.02, 0.53, l / 2 - 0.5], [w / 2 - 0.02, 0.575, l / 2 - 0.1], { r: 0.02, nx: 5, ny: 1, nz: 3, sag: 0.006, puff: 0.006, wrinkle: 0.008, freq: 10 }), cover === 'bedding_rose' ? 'fabric_sofa_beige' : 'fabric_sofa_rust'),
   ];
 }
 
@@ -59,9 +65,9 @@ export function bedroom() {
       note: 'Dvířka šatní skříně na pantu (miskový závěs) se otvírají o 95 až 110°; 110°. Úvaha, neměřeno.',
     }, { gen: 'home/bedroom.mjs#bedroom', place: { mount: 'floor' }, group: 'world' }),
     one('wardrobe_3_01', 'Šatní skříň třídveřová ořech', wardrobe('wardrobe_3_01', 1.5, 2.2, 3, 'wood_walnut'), floor()),
-    one('wardrobe_sliding_01', 'Šatní skříň s posuvnými dveřmi a zrcadlem', [...wardrobe('wardrobe_sliding_01', 2.0, 2.3, 2, 'lacquer_white'), A('body', 'wardrobe_sliding_01_mirror', flatBox([-0.85, 0.2, 0.3], [-0.15, 2.15, 0.302]), 'steel_chrome'), A('body', 'wardrobe_sliding_01_rail', flatBox([-1.0, 2.24, 0.28], [1.0, 2.29, 0.31]), 'steel_brushed')], floor()),
+    one('wardrobe_sliding_01', 'Šatní skříň s posuvnými dveřmi a zrcadlem', [...wardrobe('wardrobe_sliding_01', 2.0, 2.3, 2, 'lacquer_white'), ...mirrorFace('body', 'wardrobe_sliding_01', -0.85, -0.15, 0.2, 2.15, 0.3), A('body', 'wardrobe_sliding_01_rail', flatBox([-1.0, 2.24, 0.28], [1.0, 2.29, 0.31]), 'steel_brushed')], floor()),
     one('dresser_01', 'Komoda se šesti zásuvkami', [A('body', 'dresser_01_body', roundedBox([-0.6, 0.1, -0.24], [0.6, 0.9, 0.24], 0.01, 1), 'wood_walnut'), A('body', 'dresser_01_drawers', merge([-1, 1].flatMap((s) => [0.12, 0.38, 0.64].map((y) => roundedBox([s > 0 ? 0.004 : -0.596, y, 0.24], [s > 0 ? 0.596 : -0.004, y + 0.24, 0.252], 0.004, 1)))), 'wood_walnut'), A('body', 'dresser_01_grips', merge([-1, 1].flatMap((s) => [0.24, 0.5, 0.76].map((y) => flatBox([s * 0.3 - 0.06, y - 0.006, 0.252], [s * 0.3 + 0.06, y + 0.006, 0.264])))), 'brass'), legs('dresser_01', 1.18, 0.46, 0.1, 'wood_walnut', 0.015, 0.04)], floor()),
-    one('mirror_floor_01', 'Stojací zrcadlo', [A('body', 'mirror_floor_01_frame', moved(roundedBox([-0.3, 0, -0.02], [0.3, 1.7, 0.02], 0.015, 1), at(mTranslate(0, 0.004, 0), mRotate('x', -8))), 'wood_walnut'), A('body', 'mirror_floor_01_glass', moved(flatBox([-0.26, 0.04, 0.02], [0.26, 1.66, 0.023]), at(mTranslate(0, 0.004, 0), mRotate('x', -8))), 'steel_chrome'), A('body', 'mirror_floor_01_stand', tube([[0, 1.2, -0.17], [0, 0.013, -0.32]], 0.012, 6), 'wood_walnut')], floor()),
+    one('mirror_floor_01', 'Stojací zrcadlo', [A('body', 'mirror_floor_01_frame', moved(roundedBox([-0.3, 0, -0.02], [0.3, 1.7, 0.02], 0.015, 1), at(mTranslate(0, 0.004, 0), mRotate('x', -8))), 'wood_walnut'), ...mirrorFace('body', 'mirror_floor_01', -0.26, 0.26, 0.04, 1.66, 0.02, at(mTranslate(0, 0.004, 0), mRotate('x', -8))), A('body', 'mirror_floor_01_stand', tube([[0, 1.2, -0.17], [0, 0.013, -0.32]], 0.012, 6), 'wood_walnut')], floor()),
     one('laundry_basket_01', 'Koš na prádlo', [A('body', 'laundry_basket_01_body', lathe([[0, 0], [0.2, 0, 'c'], [0.22, 0.55], [0.2, 0.55], [0.18, 0.02], [0, 0.02]], { seg: 16 }), 'wood_birch'), A('body', 'laundry_basket_01_laundry', moved(lathe([[0, 0], [0.19, 0, 'c'], [0.12, 0.1, 'c'], [0, 0.12]], { seg: 12 }), mTranslate(0, 0.45, 0)), 'bedding_blue')], floor()),
   ];
 }
@@ -81,13 +87,13 @@ export function kids() {
       A('body', `${bk}_posts`, merge([...posts, ...ladder]), 'wood_birch'),
       A('body', `${bk}_frames`, merge([0.25, 1.2].map((y) => flatBox([-0.5, y, -1.0], [0.5, y + 0.1, 1.0]))), 'wood_birch'),
       A('body', `${bk}_rail`, merge([flatBox([-0.5, 1.35, 0.94], [0.47, 1.55, 0.97]), flatBox([-0.5, 1.35, -1.0], [0.5, 1.55, -0.97])]), 'wood_birch'),
-      A('body', `${bk}_mattresses`, merge([0.35, 1.3].map((y) => roundedBox([-0.46, y, -0.96], [0.46, y + 0.14, 0.96], 0.03, 1))), 'bedding_blue'),
-      A('body', `${bk}_pillows`, merge([0.47, 1.42].map((y) => roundedBox([-0.38, y, -0.92], [0.38, y + 0.1, -0.62], 0.04, 1))), 'bedding_white'),
+      A('body', `${bk}_mattresses`, merge([0.35, 1.3].map((y) => soft(`${bk}_m${y}`, [-0.46, y, -0.96], [0.46, y + 0.14, 0.96], { r: 0.03, nx: 4, ny: 1, nz: 6, sag: 0.008, puff: 0.006, wrinkle: 0.005 }))), 'bedding_blue'),
+      A('body', `${bk}_pillows`, merge([0.47, 1.42].map((y) => soft(`${bk}_p${y}`, [-0.38, y, -0.92], [0.38, y + 0.12, -0.62], { r: 0.05, nx: 5, ny: 2, nz: 3, sag: 0.03, puff: 0.015, wrinkle: 0.005, freq: 11 }))), 'bedding_white'),
     ], floor()),
     one(ck, 'Dětská postýlka s mřížkami', [
       A('body', `${ck}_frame`, merge([...[-1, 1].flatMap((sx) => [-1, 1].map((sz) => flatBox([sx * 0.62 - 0.025, 0, sz * 0.35 - 0.025], [sx * 0.62 + 0.025, 0.98, sz * 0.35 + 0.025]))), ...[0.33, 0.95].flatMap((y) => [-1, 1].map((sz) => flatBox([-0.62, y, sz * 0.33 - 0.02], [0.62, y + 0.03, sz * 0.33 + 0.02])))]), 'lacquer_white'),
       A('body', `${ck}_bars`, merge(bars), 'lacquer_white'),
-      A('body', `${ck}_mattress`, roundedBox([-0.6, 0.33, -0.33], [0.6, 0.43, 0.33], 0.02, 1), 'bedding_rose'),
+      A('body', `${ck}_mattress`, soft(`${ck}_mattress`, [-0.6, 0.33, -0.33], [0.6, 0.43, 0.33], { r: 0.02, nx: 5, ny: 1, nz: 3, sag: 0.008, puff: 0.005, wrinkle: 0.004 }), 'bedding_rose'),
       A('body', `${ck}_ends`, merge([-1, 1].map((sx) => flatBox([sx * 0.62 - 0.015, 0.35, -0.33], [sx * 0.62 + 0.015, 0.95, 0.33]))), 'lacquer_white'),
     ], floor()),
     one('desk_kids_01', 'Dětský psací stůl', [A('body', 'desk_kids_01_top', roundedBox([-0.5, 0.6, -0.3], [0.5, 0.63, 0.3], 0.01, 1), 'wood_birch'), A('body', 'desk_kids_01_box', flatBox([0.12, 0.08, -0.28], [0.48, 0.6, 0.28]), 'lacquer_sage'), A('body', 'desk_kids_01_drawers', merge([0.1, 0.27, 0.44].map((y) => roundedBox([0.125, y, 0.28], [0.475, y + 0.15, 0.295], 0.004, 1))), 'toy_yellow'), legs('desk_kids_01', 1.0, 0.6, 0.6, 'wood_birch', 0.018, 0.04)], floor()),
@@ -104,7 +110,7 @@ export function kids() {
       A('body', 'rocking_horse_01_body', merge([roundedBox([-0.1, 0.3, -0.3], [0.1, 0.45, 0.25], 0.06, 1), moved(roundedBox([-0.07, 0, -0.08], [0.07, 0.25, 0.08], 0.04, 1), at(mTranslate(0, 0.42, 0.25), mRotate('x', 30)))]), 'toy_yellow'),
       A('body', 'rocking_horse_01_legs', merge([-1, 1].flatMap((sx) => [-1, 1].map((sz) => tube([[sx * 0.08, 0.32, sz * 0.2], [sx * 0.15, 0.05, sz * 0.28]], 0.015, 6)))), 'wood_birch'),
     ], floor()),
-    one('bean_bag_01', 'Sedací vak', [A('body', 'bean_bag_01_bag', lathe([[0, 0], [0.4, 0.02, 'c'], [0.42, 0.18], [0.3, 0.38], [0.12, 0.45], [0, 0.42]], { seg: 16 }), 'fabric_sofa_rust')], floor()),
+    one('bean_bag_01', 'Sedací vak', [A('body', 'bean_bag_01_bag', jitter(lathe([[0, 0], [0.4, 0.02, 'c'], [0.42, 0.18], [0.3, 0.38], [0.12, 0.45], [0, 0.42]], { seg: 16 }), 0.025, 6, 11, (p) => Math.min(1, p[1] / 0.05)), 'fabric_sofa_rust')], floor()),
     one('toy_blocks_01', 'Stavebnice z kostek', [A('body', 'toy_blocks_01_r', merge([[0, 0, 0], [0.06, 0, 0.02], [0.03, 0.05, 0.01]].map(([x, y, z]) => roundedBox([x - 0.025, y, z - 0.025], [x + 0.025, y + 0.05, z + 0.025], 0.004, 1))), 'toy_red'), A('body', 'toy_blocks_01_b', merge([[-0.07, 0, 0.03], [0.12, 0, -0.04]].map(([x, y, z]) => roundedBox([x - 0.025, y, z - 0.025], [x + 0.025, y + 0.05, z + 0.025], 0.004, 1))), 'toy_blue'), A('body', 'toy_blocks_01_y', roundedBox([-0.03, 0.05, -0.04], [0.09, 0.08, 0.0], 0.004, 1), 'toy_yellow')]),
     one('teddy_01', 'Plyšový medvěd', [A('body', 'teddy_01_body', merge([lathe([[0, 0], [0.08, 0.02, 'c'], [0.09, 0.09], [0.06, 0.17, 'c'], [0, 0.19]], { seg: 10 }), moved(lathe([[0, -0.06], [0.06, -0.03, 'c'], [0.065, 0.01], [0.04, 0.05, 'c'], [0, 0.065]], { seg: 10 }), mTranslate(0, 0.24, 0)), ...[-1, 1].map((s) => moved(cylinder(0.022, 0, 0.015, { seg: 8, edge: 0.006, n: 1 }), at(mTranslate(s * 0.045, 0.3, 0), mRotate('x', 90)))), ...[-1, 1].map((s) => moved(cylinder(0.03, 0, 0.1, { seg: 8, edge: 0.012, n: 1 }), at(mTranslate(s * 0.06, 0.03, 0.03), mRotate('x', 80))))]), 'plush_brown')]),
   ];

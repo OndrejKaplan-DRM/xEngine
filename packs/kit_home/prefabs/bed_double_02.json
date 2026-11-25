@@ -4,7 +4,7 @@
   "id": "bed_double_02",
   "title": "Manželská postel 180 × 200 cm, bílá, modré povlečení",
   "category": "home.bedroom",
-  "bounds": { "min": [-0.942, -0.001, -1.061], "max": [0.942, 1.051, 1.032] },
+  "bounds": { "min": [-0.942, -0.001, -1.061], "max": [0.942, 1.051, 1.043] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,16 +16,17 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_mattress", "mat": "bedding_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_cover", "mat": "bedding_blue" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_pillows", "mat": "bedding_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_head", "mat": "lacquer_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_head", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_double_02_throw", "mat": "fabric_sofa_rust" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.941, 0, -1.06], "max": [0.941, 1.05, 1.031], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.941, 0, -1.06], "max": [0.941, 1.05, 1.042], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 712,
+  "tris": 1204,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bedroom.mjs#bedroom",

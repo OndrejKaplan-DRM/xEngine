@@ -4,7 +4,7 @@
   "id": "bench_shoe_01",
   "title": "Lavice na boty s polštářem",
   "category": "home.hall",
-  "bounds": { "min": [-0.501, -0.001, -0.181], "max": [0.501, 0.531, 0.181] },
+  "bounds": { "min": [-0.501, -0.001, -0.181], "max": [0.501, 0.539, 0.181] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,13 +18,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_shoes", "mat": "leather_brown" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.18], "max": [0.5, 0.53, 0.18], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.18], "max": [0.5, 0.538, 0.18], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 616,
+  "tris": 576,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bath.mjs#hall",

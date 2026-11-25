@@ -8,6 +8,7 @@
 import { simple, staticFloor } from '../lab/common.mjs';
 import { A, door, screen, knob, merge, T, roundedBox, flatBox, tube, cylinder, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 import { legs } from './living.mjs';
+import { tubShell, waterIn, mirrorFace, soft } from './soft.mjs';
 
 const pad = (i) => String(i).padStart(2, '0');
 const floor = () => ({ components: staticFloor(), group: 'world' });
@@ -16,18 +17,20 @@ const mk = (cat, f) => (id, title, parts, o = {}) => simple(id, title, `home.${c
 
 /** Baterie: stojánková (výtok nad umyvadlem v bodě [x, y, z]). */
 const tap = (x, y, z) => merge([moved(cylinder(0.018, 0, 0.1, { seg: 10 }), mTranslate(x, y, z)), tube([[x, y + 0.1, z], [x, y + 0.13, z], [x, y + 0.13, z + 0.1], [x, y + 0.1, z + 0.12]], 0.01, 8, { bend: 0.03, bendSeg: 2 }), moved(flatBox([-0.004, 0, -0.04], [0.004, 0.012, 0]), mTranslate(x, y + 0.12, z - 0.01))]);
-/** Umyvadlo (miska v desce) se středem v [x, z], deska ve výšce y. */
-const basin = (x, y, z, r = 0.2) => moved(roundedBox([-r, -0.12, -0.17], [r, 0.0, 0.2], 0.03, 1), mTranslate(x, y, z));
-
 /** Koupelna a WC. */
 export function bath() {
   const one = mk('bath', 'bath');
   const vanity = (k, w, mat, sinks) => [
-    A('body', `${k}_cab`, roundedBox([-w / 2, 0.3, -0.24], [w / 2, 0.8, 0.22], 0.01, 1), mat),
-    A('body', `${k}_fronts`, merge([roundedBox([-w / 2 + 0.005, 0.31, 0.22], [w / 2 - 0.005, 0.78, 0.235], 0.004, 1)]), mat),
-    A('body', `${k}_grip`, flatBox([-0.1, 0.72, 0.235], [0.1, 0.73, 0.247]), 'steel_brushed'),
-    A('body', `${k}_top`, merge(Array.from({ length: sinks }, (_, i) => basin(-w / 2 + ((i + 0.5) * w) / sinks, 0.86, 0, Math.min(0.24, w / sinks / 2 - 0.04)))), 'ceramic_white'),
-    A('body', `${k}_slab`, roundedBox([-w / 2, 0.8, -0.24], [w / 2, 0.86, 0.24], 0.01, 1), 'ceramic_white'),
+    // skříňka pod keramickou deskou 16 cm (mísa umyvadla je v desce, ne ve skříňce)
+    A('body', `${k}_cab`, roundedBox([-w / 2, 0.3, -0.24], [w / 2, 0.7, 0.22], 0.01, 1), mat),
+    A('body', `${k}_fronts`, roundedBox([-w / 2 + 0.005, 0.31, 0.22], [w / 2 - 0.005, 0.69, 0.235], 0.004, 1), mat),
+    A('body', `${k}_grip`, flatBox([-0.1, 0.63, 0.235], [0.1, 0.64, 0.247]), 'steel_brushed'),
+    // deska s vydutou mísou umyvadla (jedna skořepina na umyvadlo)
+    A('body', `${k}_top`, merge(Array.from({ length: sinks }, (_, i) => {
+      const cx = -w / 2 + ((i + 0.5) * w) / sinks;
+      const r = Math.min(0.22, w / sinks / 2 - 0.05);
+      return tubShell(cx, 0.01, [w / sinks / 2, 0.24, 0.01], [r, 0.17, 0.12], 0.7, 0.86, 0.14, 0.06, 3);
+    })), 'ceramic_white'),
     A('body', `${k}_taps`, merge(Array.from({ length: sinks }, (_, i) => tap(-w / 2 + ((i + 0.5) * w) / sinks, 0.86, -0.18))), 'steel_chrome'),
   ];
   const wk = 'washer_01';
@@ -46,11 +49,14 @@ export function bath() {
     ], floor()),
     one('vanity_01', 'Umyvadlo se skříňkou 60 cm', vanity('vanity_01', 0.6, 'lacquer_white', 1), floor()),
     one('vanity_02', 'Dvojumyvadlo se skříňkou 120 cm, dub', vanity('vanity_02', 1.2, 'wood_kitchen_oak', 2), floor()),
-    one('sink_pedestal_01', 'Umyvadlo na sloupu', [A('body', 'sink_pedestal_01_basin', roundedBox([-0.28, 0.72, -0.2], [0.28, 0.86, 0.22], 0.05, 1), 'ceramic_white'), A('body', 'sink_pedestal_01_column', lathe([[0.1, 0], [0.08, 0.72], [0, 0.72]], { seg: 14 }), 'ceramic_white'), A('body', 'sink_pedestal_01_tap', tap(0, 0.86, -0.15), 'steel_chrome')], floor()),
+    one('sink_pedestal_01', 'Umyvadlo na sloupu', [A('body', 'sink_pedestal_01_basin', tubShell(0, 0.01, [0.28, 0.21, 0.06], [0.22, 0.15, 0.1], 0.72, 0.86, 0.13, 0.06, 3), 'ceramic_white'), A('body', 'sink_pedestal_01_column', lathe([[0.1, 0], [0.08, 0.72], [0, 0.72]], { seg: 14 }), 'ceramic_white'), A('body', 'sink_pedestal_01_tap', tap(0, 0.86, -0.15), 'steel_chrome')], floor()),
     one('bathtub_01', 'Vana 170 × 75 cm s baterií', [
-      A('body', 'bathtub_01_tub', roundedBox([-0.85, 0, -0.375], [0.85, 0.58, 0.375], 0.04, 1), 'ceramic_white'),
-      A('body', 'bathtub_01_inside', flatBox([-0.78, 0.5, -0.31], [0.78, 0.581, 0.31]), 'wall_tile_bath'),
-      A('body', 'bathtub_01_water', flatBox([-0.76, 0.5815, -0.29], [0.76, 0.582, 0.29]), 'liquid_water'),
+      // skořepina: zástěra, okraj, vydutá mísa 42 cm hluboká se sklonem ke dnu; voda do poloviny
+      A('body', 'bathtub_01_tub', tubShell(0, 0, [0.85, 0.375, 0.04], [0.76, 0.3, 0.14], 0, 0.58, 0.42, 0.1, 4), 'ceramic_white'),
+      A('body', 'bathtub_01_water', waterIn(0, 0, [0.76, 0.3, 0.14], 0.58, 0.42, 0.22, 0.1, 4), 'liquid_water'),
+      A('body', 'bathtub_01_drain', moved(cylinder(0.025, 0, 0.004, { seg: 10 }), mTranslate(0.6, 0.163, 0)), 'steel_chrome'),
+      // složený ručník na okraji vany
+      A('body', 'bathtub_01_towel', soft('bathtub_01_towel', [0.72, 0.58, -0.37], [0.84, 0.63, -0.05], { r: 0.015, nx: 2, ny: 1, nz: 4, puff: 0.006, wrinkle: 0.004, freq: 14 }), 'towel_teal'),
       A('body', 'bathtub_01_tap', merge([tube([[-0.78, 0.7, -0.375], [-0.78, 0.7, -0.3], [-0.78, 0.62, -0.28]], 0.012, 8, { bend: 0.03, bendSeg: 2 }), moved(cylinder(0.02, 0, 0.05, { seg: 8 }), at(mTranslate(-0.7, 0.7, -0.375), mRotate('x', 90)))]), 'steel_chrome'),
     ], floor()),
     one('shower_cabin_01', 'Sprchový kout 90 × 90 cm', [
@@ -68,11 +74,11 @@ export function bath() {
       A('body', `${wk}_drawer`, flatBox([-0.27, 0.74, 0.3], [-0.1, 0.82, 0.305]), 'ceramic_white'),
     ], floor()),
     one('dryer_01', 'Sušička prádla', [A('body', 'dryer_01_body', roundedBox([-0.3, 0.02, -0.3], [0.3, 0.85, 0.3], 0.02, 1), 'ceramic_white'), A('body', 'dryer_01_door', moved(cylinder(0.17, 0, 0.03, { seg: 20, edge: 0.01, n: 1 }), at(mTranslate(0, 0.42, 0.3), mRotate('x', 90))), 'lacquer_anthracite'), ...screen('body', 'dryer_01_scr', -0.12, 0.12, 0.74, 0.82, 0.3, { led: 'emit_green' })], floor()),
-    one('mirror_cabinet_01', 'Zrcadlová skříňka nad umyvadlo', [A('body', 'mirror_cabinet_01_box', roundedBox([-0.3, 0, 0], [0.3, 0.7, 0.14], 0.008, 1), 'lacquer_white'), A('body', 'mirror_cabinet_01_mirror', merge([flatBox([-0.295, 0.005, 0.14], [-0.002, 0.695, 0.143]), flatBox([0.002, 0.005, 0.14], [0.295, 0.695, 0.143])]), 'steel_chrome'), A('body', 'mirror_cabinet_01_light', flatBox([-0.25, -0.02, 0.06], [0.25, 0, 0.12]), 'emit_display')], wall(1.2)),
+    one('mirror_cabinet_01', 'Zrcadlová skříňka nad umyvadlo', [A('body', 'mirror_cabinet_01_box', roundedBox([-0.3, 0, 0], [0.3, 0.7, 0.14], 0.008, 1), 'lacquer_white'), ...mirrorFace('body', 'mirror_cabinet_01_l', -0.295, -0.002, 0.005, 0.695, 0.14), ...mirrorFace('body', 'mirror_cabinet_01_r', 0.002, 0.295, 0.005, 0.695, 0.14), A('body', 'mirror_cabinet_01_light', flatBox([-0.25, -0.02, 0.06], [0.25, 0, 0.12]), 'emit_display')], wall(1.2)),
     one('towel_rail_01', 'Žebříkový radiátor s ručníkem', [A('body', 'towel_rail_01_rails', merge([...[-1, 1].map((s) => tube([[s * 0.25, 0, 0.05], [s * 0.25, 1.1, 0.05]], 0.015, 8)), ...Array.from({ length: 12 }, (_, i) => tube([[-0.25, 0.08 + i * 0.085, 0.05], [0.25, 0.08 + i * 0.085, 0.05]], 0.009, 6))]), 'steel_chrome'), A('body', 'towel_rail_01_towel', roundedBox([-0.2, 0.55, 0.04], [0.2, 0.9, 0.075], 0.01, 1), 'towel_teal')], wall(0.4)),
     one('cabinet_bath_tall_01', 'Vysoká koupelnová skříň', [A('body', 'cabinet_bath_tall_01_body', roundedBox([-0.2, 0.0, -0.17], [0.2, 1.7, 0.15], 0.01, 1), 'lacquer_white'), A('body', 'cabinet_bath_tall_01_fronts', merge([roundedBox([-0.195, 0.02, 0.15], [0.195, 0.8, 0.165], 0.004, 1), roundedBox([-0.195, 0.82, 0.15], [0.195, 1.68, 0.165], 0.004, 1)]), 'lacquer_white'), A('body', 'cabinet_bath_tall_01_grips', merge([flatBox([0.15, 0.6, 0.165], [0.16, 0.75, 0.177]), flatBox([0.15, 0.85, 0.165], [0.16, 1.0, 0.177])]), 'steel_brushed')], floor()),
     one('toilet_paper_01', 'Držák toaletního papíru s rolí', [A('body', 'toilet_paper_01_holder', merge([flatBox([-0.03, -0.04, 0], [0.03, 0.04, 0.01]), tube([[0, 0, 0.01], [0, 0, 0.08], [0.13, 0, 0.08]], 0.005, 6, { bend: 0.02, bendSeg: 1 })]), 'steel_chrome'), A('body', 'toilet_paper_01_roll', moved(cylinder(0.055, 0, 0.1, { seg: 14 }), at(mTranslate(0.02, 0, 0.08), mRotate('z', -90))), 'bedding_white')], wall(0.7)),
-    one('bath_mat_01', 'Koupelnová předložka', [A('body', 'bath_mat_01_mat', roundedBox([-0.35, 0, -0.25], [0.35, 0.015, 0.25], 0.007, 1), 'towel_teal')]),
+    one('bath_mat_01', 'Koupelnová předložka', [A('body', 'bath_mat_01_mat', soft('bath_mat_01_mat', [-0.35, 0.005, -0.25], [0.35, 0.018, 0.25], { r: 0.006, nx: 5, ny: 1, nz: 4, puff: 0.002, wrinkle: 0.0015, freq: 12 }), 'towel_teal')]),
   ];
 }
 
@@ -84,10 +90,10 @@ export function hall() {
   return [
     one('shoe_cabinet_01', 'Botník se sklopnými dvířky', [A('body', 'shoe_cabinet_01_body', roundedBox([-0.4, 0.06, -0.16], [0.4, 1.0, 0.14], 0.01, 1), 'lacquer_white'), A('body', 'shoe_cabinet_01_flaps', merge([0.08, 0.55].map((y) => roundedBox([-0.395, y, 0.14], [0.395, y + 0.43, 0.155], 0.004, 1))), 'lacquer_white'), A('body', 'shoe_cabinet_01_grips', merge([0.48, 0.95].map((y) => flatBox([-0.08, y, 0.155], [0.08, y + 0.012, 0.167]))), 'steel_brushed'), A('body', 'shoe_cabinet_01_plinth', flatBox([-0.39, 0, -0.14], [0.39, 0.06, 0.1]), 'lacquer_anthracite')], floor()),
     one('coat_rack_home_01', 'Věšák s háčky a kabáty', [A('body', 'coat_rack_home_01_board', roundedBox([-0.5, 0, 0], [0.5, 0.12, 0.025], 0.006, 1), 'wood_walnut'), A('body', 'coat_rack_home_01_hooks', merge(Array.from({ length: 5 }, (_, i) => tube([[-0.4 + i * 0.2, 0.06, 0.025], [-0.4 + i * 0.2, 0.06, 0.07], [-0.4 + i * 0.2, 0.1, 0.09]], 0.006, 6, { bend: 0.02, bendSeg: 1 }))), 'steel_chrome'), A('body', 'coat_rack_home_01_coats', merge([[-0.4, 0.95], [0.0, 0.85]].map(([x, h]) => moved(lathe([[0.04, 0], [0.2, -0.15, 'c'], [0.22, -h], [0, -h]], { seg: 10 }), at(mTranslate(x, 0.08, 0.12), [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1])))), 'fabric_sofa_blue'), A('body', 'coat_rack_home_01_coat2', moved(lathe([[0.04, 0], [0.18, -0.12, 'c'], [0.2, -0.75], [0, -0.75]], { seg: 10 }), at(mTranslate(0.4, 0.08, 0.12), [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1])), 'fabric_sofa_rust')], wall(1.7)),
-    one('bench_shoe_01', 'Lavice na boty s polštářem', [A('body', 'bench_shoe_01_seat', roundedBox([-0.5, 0.42, -0.18], [0.5, 0.48, 0.18], 0.012, 1), 'wood_kitchen_oak'), A('body', 'bench_shoe_01_cushion', roundedBox([-0.48, 0.48, -0.16], [0.48, 0.53, 0.16], 0.025, 1), 'fabric_sofa_grey'), A('body', 'bench_shoe_01_shelf', flatBox([-0.48, 0.12, -0.16], [0.48, 0.14, 0.16]), 'wood_kitchen_oak'), legs('bench_shoe_01', 1.0, 0.36, 0.42, 'wood_kitchen_oak', 0.018, 0.03), A('body', 'bench_shoe_01_shoes', merge([-0.3, -0.12, 0.2].map((x) => roundedBox([x - 0.05, 0.14, -0.13], [x + 0.05, 0.22, 0.14], 0.03, 1))), 'leather_brown')], floor()),
-    one('mirror_wall_01', 'Nástěnné zrcadlo v rámu', [A('body', 'mirror_wall_01_frame', roundedBox([-0.35, -0.6, 0], [0.35, 0.6, 0.03], 0.01, 1), 'lacquer_anthracite'), A('body', 'mirror_wall_01_glass', flatBox([-0.32, -0.57, 0.03], [0.32, 0.57, 0.033]), 'steel_chrome')], wall(1.45)),
+    one('bench_shoe_01', 'Lavice na boty s polštářem', [A('body', 'bench_shoe_01_seat', roundedBox([-0.5, 0.42, -0.18], [0.5, 0.48, 0.18], 0.012, 1), 'wood_kitchen_oak'), A('body', 'bench_shoe_01_cushion', soft('bench_shoe_01_cushion', [-0.48, 0.48, -0.16], [0.48, 0.54, 0.16], { r: 0.025, nx: 5, ny: 1, nz: 2, sag: 0.008, puff: 0.006, wrinkle: 0.003 }), 'fabric_sofa_grey'), A('body', 'bench_shoe_01_shelf', flatBox([-0.48, 0.12, -0.16], [0.48, 0.14, 0.16]), 'wood_kitchen_oak'), legs('bench_shoe_01', 1.0, 0.36, 0.42, 'wood_kitchen_oak', 0.018, 0.03), A('body', 'bench_shoe_01_shoes', merge([-0.3, -0.12, 0.2].map((x) => roundedBox([x - 0.05, 0.14, -0.13], [x + 0.05, 0.22, 0.14], 0.03, 1))), 'leather_brown')], floor()),
+    one('mirror_wall_01', 'Nástěnné zrcadlo v rámu', [A('body', 'mirror_wall_01_frame', roundedBox([-0.35, -0.6, 0], [0.35, 0.6, 0.03], 0.01, 1), 'lacquer_anthracite'), ...mirrorFace('body', 'mirror_wall_01', -0.32, 0.32, -0.57, 0.57, 0.03)], wall(1.45)),
     one('umbrella_stand_01', 'Stojan na deštníky s deštníkem', [A('body', 'umbrella_stand_01_body', lathe([[0, 0], [0.1, 0, 'c'], [0.11, 0.5], [0.105, 0.5], [0.095, 0.01], [0, 0.01]], { seg: 14 }), 'lacquer_anthracite'), A('body', 'umbrella_stand_01_umbrella', merge([tube([[0.02, 0.05, 0], [0.04, 0.9, 0.02]], 0.01, 6), tube([[0.04, 0.9, 0.02], [0.04, 0.95, 0.02], [0.08, 0.95, 0.02], [0.08, 0.9, 0.02]], 0.008, 6, { bend: 0.02, bendSeg: 2 }), moved(lathe([[0.01, 0], [0.05, 0.25, 'c'], [0.015, 0.6], [0, 0.6]], { seg: 8 }), mTranslate(0.02, 0.2, 0))]), 'fabric_sofa_blue')], floor()),
-    one('wardrobe_hall_01', 'Šatní skříň do předsíně se zrcadlem', [A('body', 'wardrobe_hall_01_body', flatBox([-0.5, 0.06, -0.3], [0.5, 2.2, 0.28]), 'wood_kitchen_oak'), A('body', 'wardrobe_hall_01_doors', merge([roundedBox([-0.498, 0.07, 0.28], [-0.002, 2.19, 0.3], 0.004, 1), roundedBox([0.002, 0.07, 0.28], [0.498, 2.19, 0.3], 0.004, 1)]), 'wood_kitchen_oak'), A('body', 'wardrobe_hall_01_mirror', flatBox([0.05, 0.3, 0.3], [0.45, 2.0, 0.302]), 'steel_chrome'), A('body', 'wardrobe_hall_01_grips', merge([flatBox([-0.05, 0.9, 0.3], [-0.038, 1.15, 0.318]), flatBox([0.012, 0.9, 0.3], [0.024, 1.15, 0.318])]), 'steel_brushed'), A('body', 'wardrobe_hall_01_plinth', flatBox([-0.49, 0, -0.28], [0.49, 0.06, 0.24]), 'lacquer_anthracite')], floor()),
+    one('wardrobe_hall_01', 'Šatní skříň do předsíně se zrcadlem', [A('body', 'wardrobe_hall_01_body', flatBox([-0.5, 0.06, -0.3], [0.5, 2.2, 0.28]), 'wood_kitchen_oak'), A('body', 'wardrobe_hall_01_doors', merge([roundedBox([-0.498, 0.07, 0.28], [-0.002, 2.19, 0.3], 0.004, 1), roundedBox([0.002, 0.07, 0.28], [0.498, 2.19, 0.3], 0.004, 1)]), 'wood_kitchen_oak'), ...mirrorFace('body', 'wardrobe_hall_01', 0.05, 0.45, 0.3, 2.0, 0.3), A('body', 'wardrobe_hall_01_grips', merge([flatBox([-0.05, 0.9, 0.3], [-0.038, 1.15, 0.318]), flatBox([0.012, 0.9, 0.3], [0.024, 1.15, 0.318])]), 'steel_brushed'), A('body', 'wardrobe_hall_01_plinth', flatBox([-0.49, 0, -0.28], [0.49, 0.06, 0.24]), 'lacquer_anthracite')], floor()),
     one('key_box_01', 'Skříňka na klíče', [A('body', 'key_box_01_box', roundedBox([-0.15, -0.2, 0], [0.15, 0.2, 0.06], 0.008, 1), 'wood_birch'), A('body', 'key_box_01_door', flatBox([-0.14, -0.19, 0.06], [0.14, 0.19, 0.063]), 'glass_tinted'), A('body', 'key_box_01_keys', merge([-0.08, 0, 0.08].map((x) => merge([moved(torus(0.012, 0.003, 0, { seg: 8, n: 2 }), at(mTranslate(x, 0.08, 0.03), mRotate('x', 90))), flatBox([x - 0.004, 0.0, 0.028], [x + 0.004, 0.07, 0.032])]))), 'brass')], wall(1.4)),
     one('desk_home_01', 'Psací stůl s kontejnerem', [A('body', 'desk_home_01_top', roundedBox([-0.7, 0.72, -0.35], [0.7, 0.75, 0.35], 0.01, 1), 'wood_walnut'), A('body', 'desk_home_01_box', roundedBox([0.25, 0.04, -0.33], [0.68, 0.72, 0.33], 0.01, 1), 'lacquer_white'), A('body', 'desk_home_01_drawers', merge([0.06, 0.28, 0.5].map((y) => roundedBox([0.255, y, 0.33], [0.675, y + 0.2, 0.345], 0.004, 1))), 'lacquer_white'), legs('desk_home_01', 1.38, 0.68, 0.72, 'plastic_black', 0.018, 0.03)], { ...floor(), params: { top: 0.75 } }),
     one('desk_home_02', 'Rohový psací stůl', [A('body', 'desk_home_02_top', merge([roundedBox([-0.8, 0.72, -0.35], [0.8, 0.75, 0.35], 0.01, 1), roundedBox([0.1, 0.72, 0.35], [0.8, 0.75, 1.1], 0.01, 1)]), 'wood_birch'), legs('desk_home_02', 1.56, 0.66, 0.72, 'steel_brushed', 0.018, 0.04), A('body', 'desk_home_02_leg2', merge([moved(cylinder(0.018, 0, 0.72, { seg: 8 }), mTranslate(0.75, 0, 1.05)), moved(cylinder(0.018, 0, 0.72, { seg: 8 }), mTranslate(0.15, 0, 1.05))]), 'steel_brushed')], floor()),

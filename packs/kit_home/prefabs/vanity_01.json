@@ -4,7 +4,7 @@
   "id": "vanity_01",
   "title": "Umyvadlo se skříňkou 60 cm",
   "category": "home.bath",
-  "bounds": { "min": [-0.301, 0.299, -0.241], "max": [0.301, 1.001, 0.248] },
+  "bounds": { "min": [-0.301, 0.299, -0.241], "max": [0.301, 1.001, 0.251] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -15,17 +15,16 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vanity_01_fronts", "mat": "lacquer_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vanity_01_grip", "mat": "steel_brushed" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vanity_01_top", "mat": "ceramic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vanity_01_slab", "mat": "ceramic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vanity_01_taps", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.3, -0.24], "max": [0.3, 1, 0.247], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0.3, -0.24], "max": [0.3, 1, 0.25], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 624,
+  "tris": 680,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bath.mjs#bath",

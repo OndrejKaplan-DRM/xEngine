@@ -15,7 +15,9 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_plinth", "mat": "lacquer_anthracite" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_doors", "mat": "lacquer_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_grips", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_mirror", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_mirror", "mat": "mirror_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_reflect", "mat": "mirror_bright" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_rail", "mat": "steel_brushed" }
   ],
   "colliders": [
@@ -25,7 +27,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 288,
+  "tris": 324,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bedroom.mjs#bedroom",

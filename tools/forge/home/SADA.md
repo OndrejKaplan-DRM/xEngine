@@ -2,23 +2,23 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_home`. Neupravovat ručně; zdroj je `tools/forge/home/*.mjs`.
 
-Prefabů: 163 · materiálů: 55 · trojúhelníků celkem: 81344
+Prefabů: 163 · materiálů: 57 · trojúhelníků celkem: 87040
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
-| `sofa_3_01` | Sedačka trojsed 210 cm, šedý potah | home.living | 2,1 × 0,82 × 0,9 | 1144 | — | — |
-| `sofa_3_02` | Sedačka trojsed 210 cm, béžový potah | home.living | 2,1 × 0,82 × 0,9 | 1144 | — | — |
-| `sofa_3_03` | Sedačka trojsed 210 cm, modrý potah | home.living | 2,1 × 0,82 × 0,9 | 1144 | — | — |
-| `sofa_3_04` | Sedačka trojsed 210 cm, zelený potah | home.living | 2,1 × 0,82 × 0,9 | 1144 | — | — |
-| `sofa_3_05` | Sedačka trojsed 210 cm, cihlový potah | home.living | 2,1 × 0,82 × 0,9 | 1144 | — | — |
-| `sofa_2_01` | Sedačka dvojsed 160 cm, hnědá kůže | home.living | 1,6 × 0,82 × 0,9 | 928 | — | — |
-| `sofa_2_02` | Sedačka dvojsed 160 cm, šedý potah | home.living | 1,6 × 0,82 × 0,9 | 928 | — | — |
-| `sofa_corner_01` | Rohová sedačka 260 × 170 cm, lenoška vpravo | home.living | 2,6 × 0,82 × 1,7 | 1468 | — | — |
-| `sofa_corner_02` | Rohová sedačka 260 × 170 cm, lenoška vlevo | home.living | 2,6 × 0,82 × 1,7 | 1468 | — | — |
-| `armchair_01` | Křeslo s látkovým potahem | home.living | 0,96 × 0,82 × 0,76 | 496 | — | — |
-| `armchair_02` | Kožené křeslo | home.living | 0,96 × 0,82 × 0,76 | 496 | — | — |
-| `armchair_03` | Ušák (křeslo s vysokým opěradlem) | home.living | 0,96 × 1,05 × 0,76 | 712 | — | — |
-| `footstool_01` | Taburet | home.living | 0,56 × 0,42 × 0,44 | 364 | — | — |
+| `sofa_3_01` | Sedačka trojsed 210 cm, šedý potah | home.living | 2,1 × 0,82 × 0,9 | 1432 | — | — |
+| `sofa_3_02` | Sedačka trojsed 210 cm, béžový potah | home.living | 2,1 × 0,83 × 0,9 | 1432 | — | — |
+| `sofa_3_03` | Sedačka trojsed 210 cm, modrý potah | home.living | 2,1 × 0,83 × 0,9 | 1432 | — | — |
+| `sofa_3_04` | Sedačka trojsed 210 cm, zelený potah | home.living | 2,1 × 0,82 × 0,9 | 1432 | — | — |
+| `sofa_3_05` | Sedačka trojsed 210 cm, cihlový potah | home.living | 2,1 × 0,83 × 0,9 | 1432 | — | — |
+| `sofa_2_01` | Sedačka dvojsed 160 cm, hnědá kůže | home.living | 1,6 × 0,82 × 0,9 | 1056 | — | — |
+| `sofa_2_02` | Sedačka dvojsed 160 cm, šedý potah | home.living | 1,6 × 0,82 × 0,9 | 1056 | — | — |
+| `sofa_corner_01` | Rohová sedačka 260 × 170 cm, lenoška vpravo | home.living | 2,6 × 0,83 × 1,7 | 1820 | — | — |
+| `sofa_corner_02` | Rohová sedačka 260 × 170 cm, lenoška vlevo | home.living | 2,6 × 0,83 × 1,7 | 1820 | — | — |
+| `armchair_01` | Křeslo s látkovým potahem | home.living | 0,96 × 0,81 × 0,78 | 504 | — | — |
+| `armchair_02` | Kožené křeslo | home.living | 0,96 × 0,81 × 0,78 | 504 | — | — |
+| `armchair_03` | Ušák (křeslo s vysokým opěradlem) | home.living | 0,96 × 1,04 × 0,78 | 720 | — | — |
+| `footstool_01` | Taburet | home.living | 0,58 × 0,42 × 0,46 | 168 | — | — |
 | `coffee_table_01` | Konferenční stolek ořech s policí | home.living | 1,2 × 0,44 × 0,6 | 280 | — | — |
 | `coffee_table_02` | Konferenční stolek se skleněnou deskou | home.living | 0,9 × 0,47 × 0,9 | 512 | — | — |
 | `coffee_table_03` | Konferenční stolek bříza | home.living | 1 × 0,42 × 0,6 | 184 | — | — |
@@ -42,7 +42,7 @@ Prefabů: 163 · materiálů: 55 · trojúhelníků celkem: 81344
 | `picture_frame_02` | Obraz v rámu (pole) | home.decor | 0,9 × 0,6 × 0,03 | 132 | — | — |
 | `picture_frame_03` | Obraz v rámu (les) | home.decor | 0,6 × 0,8 × 0,03 | 132 | — | — |
 | `clock_wall_01` | Nástěnné hodiny | home.decor | 0,36 × 0,36 × 0,05 | 408 | — | — |
-| `mirror_round_01` | Kulaté zrcadlo | home.decor | 0,63 × 0,63 × 0,03 | 280 | — | — |
+| `mirror_round_01` | Kulaté zrcadlo | home.decor | 0,63 × 0,63 × 0,03 | 384 | — | — |
 | `radiator_01` | Článkový radiátor s ventilem | home.decor | 1,04 × 0,65 × 0,07 | 368 | — | — |
 | `piano_01` | Pianino | home.decor | 1,5 × 1,25 × 0,6 | 600 | — | — |
 | `vase_01` | Váza | home.decor | 0,14 × 0,26 × 0,14 | 192 | — | — |
@@ -101,49 +101,49 @@ Prefabů: 163 · materiálů: 55 · trojúhelníků celkem: 81344
 | `plates_stack_01` | Stoh talířů a hrnky | home.kitchen | 0,38 × 0,1 × 0,27 | 732 | — | — |
 | `bottle_wine_01` | Láhev vína a sklenice | home.kitchen | 0,17 × 0,31 × 0,1 | 240 | — | — |
 | `bin_kitchen_01` | Odpadkový koš s pedálem | home.kitchen | 0,29 × 0,65 × 0,32 | 228 | — | — |
-| `bed_double_01` | Manželská postel 160 × 200 cm, ořech, šedé povlečení | home.bedroom | 1,68 × 1 × 2,09 | 712 | — | — |
-| `bed_double_02` | Manželská postel 180 × 200 cm, bílá, modré povlečení | home.bedroom | 1,88 × 1,05 × 2,09 | 712 | — | — |
-| `bed_double_03` | Manželská postel 160 × 200 cm s čalouněným čelem | home.bedroom | 1,68 × 1,15 × 2,09 | 712 | — | — |
-| `bed_single_01` | Jednolůžko 90 × 200 cm, bříza | home.bedroom | 0,98 × 0,8 × 2,09 | 604 | — | — |
-| `bed_single_02` | Jednolůžko 90 × 200 cm, bílé | home.bedroom | 0,98 × 0,8 × 2,09 | 604 | — | — |
+| `bed_double_01` | Manželská postel 160 × 200 cm, ořech, šedé povlečení | home.bedroom | 1,69 × 1 × 2,1 | 1204 | — | — |
+| `bed_double_02` | Manželská postel 180 × 200 cm, bílá, modré povlečení | home.bedroom | 1,88 × 1,05 × 2,1 | 1204 | — | — |
+| `bed_double_03` | Manželská postel 160 × 200 cm s čalouněným čelem | home.bedroom | 1,68 × 1,15 × 2,1 | 1204 | — | — |
+| `bed_single_01` | Jednolůžko 90 × 200 cm, bříza | home.bedroom | 0,98 × 0,8 × 2,1 | 1028 | — | — |
+| `bed_single_02` | Jednolůžko 90 × 200 cm, bílé | home.bedroom | 0,98 × 0,8 × 2,1 | 1028 | — | — |
 | `nightstand_01` | Noční stolek ořech | home.bedroom | 0,48 × 0,52 × 0,43 | 516 | — | — |
 | `nightstand_02` | Noční stolek bílý | home.bedroom | 0,48 × 0,52 × 0,43 | 516 | — | — |
 | `wardrobe_2_01` | Šatní skříň dvoudveřová (dvířka na pantu) | home.bedroom | 1,2 × 2,1 × 1,08 | 264 | swing: 0° až 110° | door |
 | `wardrobe_3_01` | Šatní skříň třídveřová ořech | home.bedroom | 1,5 × 2,2 × 0,62 | 384 | — | — |
-| `wardrobe_sliding_01` | Šatní skříň s posuvnými dveřmi a zrcadlem | home.bedroom | 2 × 2,3 × 0,62 | 288 | — | — |
+| `wardrobe_sliding_01` | Šatní skříň s posuvnými dveřmi a zrcadlem | home.bedroom | 2 × 2,3 × 0,62 | 324 | — | — |
 | `dresser_01` | Komoda se šesti zásuvkami | home.bedroom | 1,2 × 0,9 × 0,51 | 892 | — | — |
-| `mirror_floor_01` | Stojací zrcadlo | home.bedroom | 0,6 × 1,69 × 0,35 | 144 | — | — |
+| `mirror_floor_01` | Stojací zrcadlo | home.bedroom | 0,6 × 1,69 × 0,35 | 180 | — | — |
 | `laundry_basket_01` | Koš na prádlo | home.bedroom | 0,44 × 0,57 × 0,44 | 176 | — | — |
-| `bunk_bed_01` | Palanda (dvě lůžka nad sebou s žebříkem) | home.kids | 1,06 × 1,7 × 2,06 | 600 | — | — |
-| `crib_01` | Dětská postýlka s mřížkami | home.kids | 1,29 × 0,98 × 0,75 | 540 | — | — |
+| `bunk_bed_01` | Palanda (dvě lůžka nad sebou s žebříkem) | home.kids | 1,06 × 1,7 × 2,06 | 688 | — | — |
+| `crib_01` | Dětská postýlka s mřížkami | home.kids | 1,29 × 0,98 × 0,75 | 524 | — | — |
 | `desk_kids_01` | Dětský psací stůl | home.kids | 1 × 0,63 × 0,6 | 508 | — | — |
 | `chair_kids_01` | Dětská židlička | home.kids | 0,34 × 0,6 × 0,34 | 304 | — | — |
 | `shelf_toys_01` | Police s hračkami a boxy | home.kids | 1,1 × 1,05 × 0,36 | 660 | — | — |
 | `chest_toys_01` | Truhla na hračky | home.kids | 0,82 × 0,62 × 0,52 | 236 | — | — |
 | `rocking_horse_01` | Houpací koník | home.kids | 0,34 × 0,65 × 0,91 | 528 | — | — |
-| `bean_bag_01` | Sedací vak | home.kids | 0,84 × 0,45 × 0,84 | 128 | — | — |
+| `bean_bag_01` | Sedací vak | home.kids | 0,84 × 0,46 × 0,83 | 128 | — | — |
 | `toy_blocks_01` | Stavebnice z kostek | home.kids | 0,24 × 0,1 × 0,12 | 648 | — | — |
 | `teddy_01` | Plyšový medvěd | home.kids | 0,18 × 0,32 × 0,22 | 376 | — | — |
 | `toilet_01` | Záchod kombi s nádržkou | home.bath | 0,36 × 0,81 × 0,61 | 376 | — | — |
 | `toilet_wall_01` | Závěsný záchod s ovládacím tlačítkem | home.bath | 0,6 × 1,1 × 0,69 | 340 | — | — |
-| `vanity_01` | Umyvadlo se skříňkou 60 cm | home.bath | 0,6 × 0,7 × 0,49 | 624 | — | — |
-| `vanity_02` | Dvojumyvadlo se skříňkou 120 cm, dub | home.bath | 1,2 × 0,7 × 0,49 | 912 | — | — |
-| `sink_pedestal_01` | Umyvadlo na sloupu | home.bath | 0,56 × 1 × 0,42 | 330 | — | — |
-| `bathtub_01` | Vana 170 × 75 cm s baterií | home.bath | 1,7 × 0,72 × 0,75 | 244 | — | — |
+| `vanity_01` | Umyvadlo se skříňkou 60 cm | home.bath | 0,6 × 0,7 × 0,49 | 680 | — | — |
+| `vanity_02` | Dvojumyvadlo se skříňkou 120 cm, dub | home.bath | 1,2 × 0,7 × 0,49 | 1132 | — | — |
+| `sink_pedestal_01` | Umyvadlo na sloupu | home.bath | 0,56 × 1 × 0,42 | 494 | — | — |
+| `bathtub_01` | Vana 170 × 75 cm s baterií | home.bath | 1,7 × 0,72 × 0,75 | 588 | — | — |
 | `shower_cabin_01` | Sprchový kout 90 × 90 cm | home.bath | 0,91 × 2,01 × 0,91 | 304 | — | — |
 | `washer_01` | Pračka s předním plněním | home.bath | 0,6 × 0,83 × 0,63 | 608 | — | — |
 | `dryer_01` | Sušička prádla | home.bath | 0,6 × 0,83 × 0,63 | 412 | — | — |
-| `mirror_cabinet_01` | Zrcadlová skříňka nad umyvadlo | home.bath | 0,6 × 0,72 × 0,14 | 144 | — | — |
+| `mirror_cabinet_01` | Zrcadlová skříňka nad umyvadlo | home.bath | 0,6 × 0,72 × 0,15 | 216 | — | — |
 | `towel_rail_01` | Žebříkový radiátor s ručníkem | home.bath | 0,53 × 1,1 × 0,04 | 460 | — | — |
 | `cabinet_bath_tall_01` | Vysoká koupelnová skříň | home.bath | 0,4 × 1,7 × 0,35 | 348 | — | — |
 | `toilet_paper_01` | Držák toaletního papíru s rolí | home.bath | 0,16 × 0,11 × 0,14 | 116 | — | — |
-| `bath_mat_01` | Koupelnová předložka | home.bath | 0,7 × 0,02 × 0,5 | 108 | — | — |
+| `bath_mat_01` | Koupelnová předložka | home.bath | 0,7 × 0,02 × 0,5 | 116 | — | — |
 | `shoe_cabinet_01` | Botník se sklopnými dvířky | home.hall | 0,8 × 1 × 0,33 | 360 | — | — |
 | `coat_rack_home_01` | Věšák s háčky a kabáty | home.hall | 1,22 × 0,99 × 0,22 | 498 | — | — |
-| `bench_shoe_01` | Lavice na boty s polštářem | home.hall | 1 × 0,53 × 0,36 | 616 | — | — |
-| `mirror_wall_01` | Nástěnné zrcadlo v rámu | home.hall | 0,7 × 1,2 × 0,04 | 120 | — | — |
+| `bench_shoe_01` | Lavice na boty s polštářem | home.hall | 1 × 0,54 × 0,36 | 576 | — | — |
+| `mirror_wall_01` | Nástěnné zrcadlo v rámu | home.hall | 0,7 × 1,2 × 0,04 | 156 | — | — |
 | `umbrella_stand_01` | Stojan na deštníky s deštníkem | home.hall | 0,22 × 0,97 × 0,22 | 272 | — | — |
-| `wardrobe_hall_01` | Šatní skříň do předsíně se zrcadlem | home.hall | 1 × 2,2 × 0,62 | 276 | — | — |
+| `wardrobe_hall_01` | Šatní skříň do předsíně se zrcadlem | home.hall | 1 × 2,2 × 0,62 | 312 | — | — |
 | `key_box_01` | Skříňka na klíče | home.hall | 0,3 × 0,4 × 0,07 | 252 | — | — |
 | `desk_home_01` | Psací stůl s kontejnerem | home.hall | 1,4 × 0,75 × 0,7 | 604 | — | — |
 | `desk_home_02` | Rohový psací stůl | home.hall | 1,6 × 0,75 × 1,45 | 344 | — | — |

@@ -4,7 +4,7 @@
   "id": "bean_bag_01",
   "title": "Sedací vak",
   "category": "home.kids",
-  "bounds": { "min": [-0.421, -0.001, -0.421], "max": [0.421, 0.451, 0.421] },
+  "bounds": { "min": [-0.426, -0.001, -0.414], "max": [0.413, 0.462, 0.416] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -14,7 +14,7 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bean_bag_01_bag", "mat": "fabric_sofa_rust" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.42, 0, -0.42], "max": [0.42, 0.45, 0.42], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.425, 0, -0.413], "max": [0.412, 0.461, 0.415], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },

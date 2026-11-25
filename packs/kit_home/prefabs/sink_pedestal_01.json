@@ -4,7 +4,7 @@
   "id": "sink_pedestal_01",
   "title": "Umyvadlo na sloupu",
   "category": "home.bath",
-  "bounds": { "min": [-0.281, -0.001, -0.201], "max": [0.281, 1.001, 0.222] },
+  "bounds": { "min": [-0.281, -0.001, -0.201], "max": [0.281, 1.001, 0.221] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sink_pedestal_01_tap", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.28, 0, -0.2], "max": [0.28, 1, 0.221], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.28, 0, -0.2], "max": [0.28, 1, 0.22], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 330,
+  "tris": 494,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bath.mjs#bath",

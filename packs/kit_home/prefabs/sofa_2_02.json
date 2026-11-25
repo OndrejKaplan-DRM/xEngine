@@ -4,7 +4,7 @@
   "id": "sofa_2_02",
   "title": "Sedačka dvojsed 160 cm, šedý potah",
   "category": "home.living",
-  "bounds": { "min": [-0.801, -0.001, -0.451], "max": [0.801, 0.821, 0.451] },
+  "bounds": { "min": [-0.801, -0.001, -0.451], "max": [0.801, 0.822, 0.451] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -19,13 +19,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_02_legs", "mat": "wood_birch" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.45], "max": [0.8, 0.82, 0.45], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.45], "max": [0.8, 0.821, 0.45], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 928,
+  "tris": 1056,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/living.mjs#sofas",

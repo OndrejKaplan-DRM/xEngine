@@ -4,7 +4,7 @@
   "id": "sofa_3_04",
   "title": "Sedačka trojsed 210 cm, zelený potah",
   "category": "home.living",
-  "bounds": { "min": [-1.051, -0.001, -0.451], "max": [1.051, 0.821, 0.451] },
+  "bounds": { "min": [-1.051, -0.001, -0.451], "max": [1.051, 0.823, 0.451] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,16 +16,17 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_04_back", "mat": "fabric_sofa_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_04_seats", "mat": "fabric_sofa_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_04_cushions", "mat": "fabric_sofa_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_04_throw", "mat": "fabric_sofa_rust" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_04_legs", "mat": "wood_walnut" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-1.05, 0, -0.45], "max": [1.05, 0.82, 0.45], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-1.05, 0, -0.45], "max": [1.05, 0.822, 0.45], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 1144,
+  "tris": 1432,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/living.mjs#sofas",

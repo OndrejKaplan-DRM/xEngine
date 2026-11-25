@@ -5,6 +5,10 @@
 
 import { simple, staticFloor } from '../lab/common.mjs';
 import { A, shell, door, screen, casters, merge, T, roundedBox, flatBox, cylinder, tube, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
+import { softBox, seedOf } from '../mesh/noise.mjs';
+
+/** Měkký polštář (druhá iterace, Ondřej 17:00): propadlý a lehce pokrčený. */
+const soft = (key, min, max, o = {}, M = null) => (M ? moved(softBox(min, max, { seed: seedOf(key), ...o }), M) : softBox(min, max, { seed: seedOf(key), ...o }));
 
 const floor = () => ({ components: staticFloor(), group: 'world' });
 const wall = (h) => ({ components: { physics: { body: 'static' }, place: { mount: 'wall', height: h } } });
@@ -77,8 +81,8 @@ export function archive() {
       A('body', `${dk}_leather`, flatBox([-0.4, 0.76, -0.05], [0.4, 0.763, 0.3]), 'fabric_charcoal'),
     ], { ...floor(), params: { top: 0.76, deck: [-0.42, 0.42] } }),
     one(ck, 'Kožené kancelářské křeslo s vysokým opěradlem', [
-      A('body', `${ck}_seat`, roundedBox([-0.27, 0.46, -0.25], [0.27, 0.56, 0.27], 0.04, 1), 'fabric_charcoal'),
-      A('body', `${ck}_back`, moved(roundedBox([-0.26, 0, -0.05], [0.26, 0.75, 0.05], 0.05, 1), at(mTranslate(0, 0.6, -0.26), mRotate('x', -10))), 'fabric_charcoal'),
+      A('body', `${ck}_seat`, soft(`${ck}_seat`, [-0.27, 0.46, -0.25], [0.27, 0.57, 0.27], { r: 0.04, nx: 4, ny: 2, nz: 4, sag: 0.018, puff: 0.01, wrinkle: 0.003 }), 'fabric_charcoal'),
+      A('body', `${ck}_back`, soft(`${ck}_back`, [-0.26, 0, -0.05], [0.26, 0.75, 0.05], { r: 0.05, nx: 4, ny: 5, nz: 1, puff: 0.015, wrinkle: 0.004 }, at(mTranslate(0, 0.6, -0.26), mRotate('x', -10))), 'fabric_charcoal'),
       A('body', `${ck}_arms`, merge([-1, 1].map((s) => roundedBox([s * 0.3 - 0.04, 0.6, -0.2], [s * 0.3 + 0.04, 0.68, 0.2], 0.02, 1))), 'fabric_charcoal'),
       A('body', `${ck}_base`, merge([cylinder(0.03, 0.12, 0.46, { seg: 8 }), ...Array.from({ length: 5 }, (_, i) => tube([[0, 0.1, 0], [Math.cos(i * 1.257) * 0.32, 0.06, Math.sin(i * 1.257) * 0.32]], 0.016, 6))]), 'alu_silver'),
       A('body', `${ck}_wheels`, merge(Array.from({ length: 5 }, (_, i) => moved(cylinder(0.025, 0, 0.05, { seg: 8 }), at(mTranslate(Math.cos(i * 1.257) * 0.32, 0.03, Math.sin(i * 1.257) * 0.32 - 0.025), mRotate('x', 90))))), 'mesh_black'),
@@ -89,8 +93,8 @@ export function archive() {
       A('body', `${vk}_items`, merge([moved(lathe([[0, 0], [0.04, 0, 'c'], [0.02, 0.06], [0.05, 0.16, 'c'], [0, 0.17]], { seg: 10 }), mTranslate(-0.2, 1.008, 0)), roundedBox([0.05, 1.008, -0.08], [0.25, 1.2, 0.0], 0.004, 1), moved(cylinder(0.04, 0, 0.12, { seg: 10 }), mTranslate(0.2, 0.558, 0))]), 'brass'),
     ], floor()),
     one('sofa_office_01', 'Kožená pohovka do kanceláře', [
-      A('body', 'sofa_office_01_base', roundedBox([-0.9, 0.12, -0.4], [0.9, 0.44, 0.42], 0.04, 1), 'fabric_charcoal'),
-      A('body', 'sofa_office_01_back', roundedBox([-0.9, 0.12, -0.42], [0.9, 0.8, -0.24], 0.05, 1), 'fabric_charcoal'),
+      A('body', 'sofa_office_01_base', soft('sofa_office_01_base', [-0.78, 0.12, -0.4], [0.78, 0.45, 0.42], { r: 0.04, nx: 6, ny: 2, nz: 4, sag: 0.015, puff: 0.012, wrinkle: 0.004 }), 'fabric_charcoal'),
+      A('body', 'sofa_office_01_back', soft('sofa_office_01_back', [-0.9, 0.12, -0.42], [0.9, 0.8, -0.24], { r: 0.05, nx: 6, ny: 3, nz: 1, puff: 0.012, wrinkle: 0.004 }), 'fabric_charcoal'),
       A('body', 'sofa_office_01_arms', merge([-1, 1].map((s) => roundedBox([s * 0.9 - 0.12, 0.12, -0.42], [s * 0.9 + 0.04, 0.62, 0.42], 0.04, 1))), 'fabric_charcoal'),
       legs4('sofa_office_01', 1.9, 0.8, 0.12, 'alu_silver', 0.015, 0.06),
     ], floor()),

@@ -4,7 +4,7 @@
   "id": "armchair_03",
   "title": "Ušák (křeslo s vysokým opěradlem)",
   "category": "home.living",
-  "bounds": { "min": [-0.481, -0.001, -0.381], "max": [0.481, 1.051, 0.381] },
+  "bounds": { "min": [-0.481, -0.001, -0.389], "max": [0.481, 1.038, 0.389] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,13 +18,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_03_legs", "mat": "wood_walnut" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.48, 0, -0.38], "max": [0.48, 1.05, 0.38], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.48, 0, -0.388], "max": [0.48, 1.037, 0.388], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 712,
+  "tris": 720,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/living.mjs#armchairs",

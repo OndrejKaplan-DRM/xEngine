@@ -12,7 +12,9 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_frame", "mat": "wood_walnut" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_glass", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_mirror", "mat": "mirror_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_reflect", "mat": "mirror_bright" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_floor_01_stand", "mat": "wood_walnut" }
   ],
   "colliders": [
@@ -22,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 144,
+  "tris": 180,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bedroom.mjs#bedroom",

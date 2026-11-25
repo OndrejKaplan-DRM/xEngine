@@ -4,7 +4,7 @@
   "id": "bed_single_02",
   "title": "Jednolůžko 90 × 200 cm, bílé",
   "category": "home.bedroom",
-  "bounds": { "min": [-0.491, -0.001, -1.061], "max": [0.491, 0.801, 1.032] },
+  "bounds": { "min": [-0.491, -0.001, -1.061], "max": [0.491, 0.801, 1.041] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,16 +16,17 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_mattress", "mat": "bedding_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_cover", "mat": "bedding_rose" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_pillows", "mat": "bedding_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_head", "mat": "lacquer_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_head", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_throw", "mat": "fabric_sofa_beige" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.49, 0, -1.06], "max": [0.49, 0.8, 1.031], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.49, 0, -1.06], "max": [0.49, 0.8, 1.04], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 604,
+  "tris": 1028,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bedroom.mjs#bedroom",

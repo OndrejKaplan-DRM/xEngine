@@ -4,7 +4,7 @@
   "id": "armchair_02",
   "title": "Kožené křeslo",
   "category": "home.living",
-  "bounds": { "min": [-0.481, -0.001, -0.381], "max": [0.481, 0.821, 0.381] },
+  "bounds": { "min": [-0.481, -0.001, -0.388], "max": [0.481, 0.808, 0.387] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,13 +17,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_02_legs", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.48, 0, -0.38], "max": [0.48, 0.82, 0.38], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.48, 0, -0.387], "max": [0.48, 0.807, 0.386], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 496,
+  "tris": 504,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/living.mjs#armchairs",

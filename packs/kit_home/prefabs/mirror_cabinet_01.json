@@ -4,7 +4,7 @@
   "id": "mirror_cabinet_01",
   "title": "Zrcadlová skříňka nad umyvadlo",
   "category": "home.bath",
-  "bounds": { "min": [-0.301, -0.021, -0.001], "max": [0.301, 0.701, 0.144] },
+  "bounds": { "min": [-0.301, -0.021, -0.001], "max": [0.301, 0.701, 0.147] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -12,17 +12,22 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_box", "mat": "lacquer_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_mirror", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_l_mirror", "mat": "mirror_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_l_reflect", "mat": "mirror_bright" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_l_glint", "mat": "glass_glint" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_r_mirror", "mat": "mirror_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_r_reflect", "mat": "mirror_bright" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_r_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_light", "mat": "emit_display" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, -0.02, 0], "max": [0.3, 0.7, 0.143], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.3, -0.02, 0], "max": [0.3, 0.7, 0.146], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 1.2 }
   },
-  "tris": 144,
+  "tris": 216,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bath.mjs#bath",

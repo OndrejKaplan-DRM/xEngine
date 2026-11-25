@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_it`. Neupravovat ručně; zdroj je `tools/forge/it/*.mjs`.
 
-Prefabů: 98 · materiálů: 33 · trojúhelníků celkem: 64650
+Prefabů: 98 · materiálů: 33 · trojúhelníků celkem: 64746
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -96,9 +96,9 @@ Prefabů: 98 · materiálů: 33 · trojúhelníků celkem: 64650
 | `archive_shelf_mobile_02` | Pojízdné archivní regály (3 sekce) s krabicemi | it.office | 1,28 × 2,2 × 1,65 | 1692 | — | — |
 | `archive_box_row_01` | Řada archivních krabic s pořadači | it.office | 0,78 × 0,32 × 0,3 | 600 | — | — |
 | `desk_director_01` | Pracovní stůl ředitele s přístavbou | it.office | 2,6 × 0,77 × 0,9 | 588 | — | — |
-| `chair_executive_01` | Kožené kancelářské křeslo s vysokým opěradlem | it.office | 0,69 × 1,34 × 0,76 | 744 | — | — |
+| `chair_executive_01` | Kožené kancelářské křeslo s vysokým opěradlem | it.office | 0,69 × 1,33 × 0,76 | 772 | — | — |
 | `cabinet_glass_office_01` | Vitrína s policemi a trofejemi | it.office | 0,9 × 2 × 0,4 | 316 | — | — |
-| `sofa_office_01` | Kožená pohovka do kanceláře | it.office | 1,96 × 0,8 × 0,84 | 560 | — | — |
+| `sofa_office_01` | Kožená pohovka do kanceláře | it.office | 1,96 × 0,79 × 0,86 | 628 | — | — |
 | `coffee_machine_office_01` | Velký kávovar do kuchyňky | it.office | 0,4 × 0,6 × 0,52 | 444 | — | — |
 | `vending_machine_01` | Automat na nápoje a svačiny | it.office | 0,9 × 1,81 × 0,81 | 1072 | — | — |
 | `safe_01` | Trezor | it.office | 0,6 × 0,7 × 0,65 | 384 | — | — |

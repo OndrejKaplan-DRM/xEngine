@@ -6,6 +6,7 @@
 
 import { simple, staticFloor } from '../lab/common.mjs';
 import { A, merge, T, roundedBox, flatBox, slab, tube, cylinder, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
+import { soft } from './soft.mjs';
 
 const pad = (i) => String(i).padStart(2, '0');
 const floor = () => ({ components: staticFloor(), group: 'world' });
@@ -47,8 +48,11 @@ export function sofas() {
     A('body', `${k}_base`, roundedBox([-w / 2 + 0.14, 0.1, -0.42], [w / 2 - 0.14, 0.3, 0.44], 0.03, 1), fabric),
     A('body', `${k}_arms`, merge(arms.map((s) => roundedBox([s > 0 ? w / 2 - 0.16 : -w / 2, 0.1, -0.45], [s > 0 ? w / 2 : -w / 2 + 0.16, 0.62, 0.45], 0.05, 1))), fabric),
     A('body', `${k}_back`, roundedBox([-w / 2 + 0.14, 0.1, -0.45], [w / 2 - 0.14, 0.82, -0.27], 0.05, 1), fabric),
-    A('body', `${k}_seats`, merge(Array.from({ length: nSeat(w) }, (_, i) => roundedBox([-w / 2 + 0.15 + i * seatW(w) + 0.005, 0.3, -0.28], [-w / 2 + 0.15 + (i + 1) * seatW(w) - 0.005, 0.43, 0.44], 0.045, 1))), fabric),
-    A('body', `${k}_cushions`, merge(Array.from({ length: nSeat(w) }, (_, i) => moved(roundedBox([-seatW(w) / 2 + 0.01, 0, -0.07], [seatW(w) / 2 - 0.01, 0.4, 0.07], 0.06, 1), at(mTranslate(-w / 2 + 0.15 + (i + 0.5) * seatW(w), 0.42, -0.22), mRotate('x', -12))))), fabric),
+    // sedáky prosezené uprostřed, opěrky vyduté a pomačkané (každý polštář jiné semínko)
+    A('body', `${k}_seats`, merge(Array.from({ length: nSeat(w) }, (_, i) => soft(`${k}_seat${i}`, [-w / 2 + 0.15 + i * seatW(w) + 0.005, 0.3, -0.28], [-w / 2 + 0.15 + (i + 1) * seatW(w) - 0.005, 0.44, 0.44], { r: 0.045, nx: 4, ny: 2, nz: 4, sag: 0.022, puff: 0.012, wrinkle: 0.004, freq: 9 }))), fabric),
+    A('body', `${k}_cushions`, merge(Array.from({ length: nSeat(w) }, (_, i) => soft(`${k}_back${i}`, [-seatW(w) / 2 + 0.01, 0, -0.08], [seatW(w) / 2 - 0.01, 0.4, 0.08], { r: 0.06, nx: 5, ny: 4, nz: 2, puff: 0.02, wrinkle: 0.006, freq: 8 }, at(mTranslate(-w / 2 + 0.15 + (i + 0.5) * seatW(w), 0.42, -0.22), mRotate('x', -12))))), fabric),
+    // dekorační polštářek opřený v rohu u područky
+    ...(w >= 2 ? [A('body', `${k}_throw`, soft(`${k}_throw`, [-0.21, -0.21, -0.06], [0.21, 0.21, 0.06], { r: 0.05, nx: 4, ny: 4, nz: 1, puff: 0.03, wrinkle: 0.006, freq: 12 }, at(mTranslate(-w / 2 + 0.42, 0.62, -0.12), mRotate('y', 18), mRotate('x', -22))), fabric === 'fabric_sofa_rust' ? 'fabric_sofa_beige' : 'fabric_sofa_rust')] : []),
     legs(k, w - 0.1, 0.8, 0.1, legMat, 0.02),
   ];
   const colors = [['fabric_sofa_grey', 'šedý'], ['fabric_sofa_beige', 'béžový'], ['fabric_sofa_blue', 'modrý'], ['fabric_sofa_green', 'zelený'], ['fabric_sofa_rust', 'cihlový']];
@@ -62,7 +66,8 @@ export function sofas() {
     ];
     // područka na straně lenošky odpadá (lenoška má vlastní)
     const base = sofa(k, 2.6, 'fabric_sofa_grey', 'plastic_black', [-side]);
-    return one(k, `Rohová sedačka 260 × 170 cm, lenoška ${side > 0 ? 'vpravo' : 'vlevo'}`, [...base, ...ext], floor());
+    // sestava (sedačka a lenoška, měkké polštáře): mez 3 000 △
+    return one(k, `Rohová sedačka 260 × 170 cm, lenoška ${side > 0 ? 'vpravo' : 'vlevo'}`, [...base, ...ext], { ...floor(), params: { assembly: true } });
   });
   return [...three, ...two, ...corner];
 }
@@ -71,9 +76,9 @@ export function sofas() {
 export function armchairs() {
   const one = mk('living', 'armchairs');
   const chair = (k, fabric, legMat, wing) => [
-    A('body', `${k}_seat`, roundedBox([-0.3, 0.12, -0.3], [0.3, 0.44, 0.38], 0.05, 1), fabric),
+    A('body', `${k}_seat`, soft(`${k}_seat`, [-0.3, 0.12, -0.3], [0.3, 0.45, 0.38], { r: 0.05, nx: 4, ny: 2, nz: 4, sag: 0.025, puff: 0.01, wrinkle: 0.004 }), fabric),
     A('body', `${k}_arms`, merge([-1, 1].map((s) => roundedBox([s * 0.39 - 0.09, 0.12, -0.36], [s * 0.39 + 0.09, 0.62, 0.38], 0.05, 1))), fabric),
-    A('body', `${k}_back`, roundedBox([-0.39, 0.12, -0.38], [0.39, wing ? 1.05 : 0.82, -0.22], 0.06, 1), fabric),
+    A('body', `${k}_back`, soft(`${k}_back`, [-0.39, 0.12, -0.38], [0.39, wing ? 1.05 : 0.82, -0.22], { r: 0.06, nx: 4, ny: 4, nz: 1, puff: 0.012, wrinkle: 0.004 }), fabric),
     ...(wing ? [A('body', `${k}_wings`, merge([-1, 1].map((s) => roundedBox([s * 0.37 - 0.03, 0.62, -0.36], [s * 0.37 + 0.03, 1.0, -0.05], 0.03, 1))), fabric)] : []),
     legs(k, 0.72, 0.68, 0.12, legMat, 0.018, 0.05),
   ];
@@ -81,7 +86,7 @@ export function armchairs() {
     one('armchair_01', 'Křeslo s látkovým potahem', chair('armchair_01', 'fabric_sofa_beige', 'wood_walnut', false), floor()),
     one('armchair_02', 'Kožené křeslo', chair('armchair_02', 'leather_brown', 'steel_chrome', false), floor()),
     one('armchair_03', 'Ušák (křeslo s vysokým opěradlem)', chair('armchair_03', 'fabric_sofa_green', 'wood_walnut', true), floor()),
-    one('footstool_01', 'Taburet', [A('body', 'footstool_01_top', roundedBox([-0.28, 0.12, -0.22], [0.28, 0.42, 0.22], 0.06, 2), 'fabric_sofa_grey'), legs('footstool_01', 0.5, 0.38, 0.12, 'wood_walnut', 0.015, 0.04)], floor()),
+    one('footstool_01', 'Taburet', [A('body', 'footstool_01_top', soft('footstool_01_top', [-0.28, 0.12, -0.22], [0.28, 0.42, 0.22], { r: 0.06, nx: 4, ny: 2, nz: 3, sag: 0.012, puff: 0.012, wrinkle: 0.004 }), 'fabric_sofa_grey'), legs('footstool_01', 0.5, 0.38, 0.12, 'wood_walnut', 0.015, 0.04)], floor()),
   ];
 }
 

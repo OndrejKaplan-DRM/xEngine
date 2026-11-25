@@ -6,6 +6,7 @@
 import { simple, staticFloor } from '../lab/common.mjs';
 import { A, merge, T, roundedBox, flatBox, tube, cylinder, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 import { arc } from '../mesh/lathe.mjs';
+import { mirrorFace } from './soft.mjs';
 
 const pad = (i) => String(i).padStart(2, '0');
 const floor = () => ({ components: staticFloor(), group: 'world' });
@@ -93,7 +94,7 @@ export function decor() {
     ...plants,
     ...pictures,
     one(ck, 'Nástěnné hodiny', [A('body', `${ck}_rim`, moved(lathe([[0.17, 0], [0.18, 0.02, 'c'], [0.17, 0.04], [0.16, 0.04]], { seg: 24 }), mRotate('x', 90)), 'lacquer_anthracite'), A('body', `${ck}_face`, moved(cylinder(0.162, 0, 0.038, { seg: 24 }), mRotate('x', 90)), 'lacquer_white'), A('body', `${ck}_marks`, merge([...ticks, ...hands]), 'plastic_black')], wall(1.8)),
-    one(sk, 'Kulaté zrcadlo', [A('body', `${sk}_frame`, moved(torus(0.3, 0.015, 0, { seg: 28, n: 3 }), at(mTranslate(0, 0, 0.015), mRotate('x', 90))), 'brass'), A('body', `${sk}_glass`, moved(cylinder(0.3, 0, 0.006, { seg: 28 }), at(mTranslate(0, 0, 0.008), mRotate('x', 90))), 'steel_chrome')], wall(1.6)),
+    one(sk, 'Kulaté zrcadlo', [A('body', `${sk}_frame`, moved(torus(0.3, 0.015, 0, { seg: 28, n: 3 }), at(mTranslate(0, 0, 0.015), mRotate('x', 90))), 'brass'), ...mirrorFace('body', sk, 0, 0.29, 0, null, 0.008)], wall(1.6)),
     one(rk, 'Článkový radiátor s ventilem', [A('body', `${rk}_fins`, merge(fins), 'lacquer_white'), A('body', `${rk}_pipes`, merge([tube([[-0.47, 0.05, 0.065], [-0.5, 0.05, 0.065], [-0.5, -0.1, 0.065]], 0.009, 6, { bend: 0.02, bendSeg: 1 }), tube([[0.47, 0.5, 0.065], [0.5, 0.5, 0.065]], 0.009, 6)]), 'steel_chrome'), A('body', `${rk}_valve`, moved(cylinder(0.025, 0, 0.07, { seg: 10, edge: 0.006, n: 1 }), mTranslate(0.5, 0.48, 0.065)), 'lacquer_white')], wall(0.15)),
     one(pk, 'Pianino', [
       A('body', `${pk}_case`, merge([roundedBox([-0.75, 0.0, -0.3], [0.75, 1.25, 0.0], 0.012, 1), roundedBox([-0.75, 0.62, 0.0], [0.75, 0.76, 0.3], 0.01, 1), flatBox([-0.75, 0.0, 0.0], [-0.7, 0.62, 0.28]), flatBox([0.7, 0.0, 0.0], [0.75, 0.62, 0.28])]), 'lacquer_anthracite'),
