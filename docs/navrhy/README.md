@@ -94,4 +94,5 @@ Návrhy N-012 až N-015 leží na větvi `sesna-b`; oddíl „Rozhodnutí“ v j
 
 | Návrh | Rozhodnutí | Kde |
 |---|---|---|
+| N-014 prokazatelná viditelnost, PVS (B) | **přijat**: `levelPVS`, `visibleTris` a rozpočet ≤ 300 tisíc △ z buňky v základu; nezávislá kontrola nadmnožiny náhodnými úsečkami; zkouška horní a dolní meze pro sešnu A (dodatek znění 11) | D-057; `src/xspace/pvs.js`, T1f, `06_ROZPOCTY.md` |
 | N-015 přehled xView u vysokého levelu (B) | **přijat a proveden**: kamera přehledu a půdorysu nad nejvyšším místem levelu, přepínač podlaží s řezem | D-056; `tools/xview/main.js` (xView 0.2), T2 |
