@@ -296,7 +296,7 @@ ok(bake.stats.skippedColliders === 0, 'stíní kolize prefabů přes partCollide
     rows.push(`${lv.id}: ${b.samples} vzorků, ${b.layers.length} vrstev, ${b.stats.doors} dveří a ${b.layers.reduce((n, L) => n + L.gates.length, 0)} úseků s bránou, ${(t / 1000).toFixed(1)} s, ${(encodeBake(b, lv, D.prefabs, D.materials).length / 1024).toFixed(0)} kB`);
     if (b.stats.skippedColliders) rows.push(`CHYBA: ${b.stats.skippedColliders} kolizí bez tvaru`);
   }
-  ok(rows.length === 3 && slow < 60000, 'levely z generátoru se zapečou do 60 s', rows.join(' | '));
+  ok(rows.length === D.pack.levels.length && slow < 60000, 'levely z generátoru se zapečou do 60 s', rows.join(' | '));
 }
 
 finish();
