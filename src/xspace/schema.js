@@ -6,6 +6,7 @@ export const str = (doc, o = {}) => ({ t: 'str', doc, ...o });
 export const num = (doc, o = {}) => ({ t: 'num', doc, ...o });
 export const int = (doc, o = {}) => ({ t: 'int', doc, ...o });
 export const bool = (doc, o = {}) => ({ t: 'bool', doc, ...o });
+export const vec2 = (doc, o = {}) => ({ t: 'vec2', doc, ...o });
 export const vec3 = (doc, o = {}) => ({ t: 'vec3', doc, ...o });
 export const color = (doc, o = {}) => ({ t: 'color', doc, ...o });
 export const en = (values, doc, o = {}) => ({ t: 'enum', values, doc, ...o });

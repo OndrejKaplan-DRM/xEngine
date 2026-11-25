@@ -5,11 +5,14 @@
 //   1. vrcholy sítí `levelLightMeshes` (kvádry v pořadí `brushes`, kvádr s vis: false nic),
 //   2. vrcholy pevných dílů prefabů: entity v pořadí `entities`, díly v pořadí `parts` prefabu, vrcholy v pořadí
 //      `partMesh`, ve světových souřadnicích.
-// Pevný díl = díl tvaru box nebo cyl na uzlu, nad kterým ani na kterém není kloub, u entity, která není dynamické
+// Pevný díl = díl tvaru box, cyl, lathe nebo rbox (N-012, D-058) na uzlu, nad kterým ani na kterém není kloub, u entity, která není dynamické
 // těleso (`physics.body: dynamic`) ani `pickup`. Pohyblivé díly a pohyblivé entity osvětluje běh po stěnách.
 
 import { levelLightMeshes, partMesh, LIGHT_CELL } from './geom.js';
 import { entityMatrix, rigMatrices, mat4Mul, mat4Point } from './rig.js';
+
+/** Tvary dílů, které nesou vzorky světla: síť z partMesh (díl mesh ze souboru ne). */
+export const STATIC_SHAPES = new Set(['box', 'cyl', 'lathe', 'rbox']);
 
 /** Uzly prefabu, které se hýbou: uzel s kloubem a všichni jeho potomci. */
 export function movingNodes(prefab) {
@@ -39,7 +42,7 @@ export function staticPartIndices(prefab) {
   const moving = movingNodes(prefab);
   const out = [];
   (prefab.parts || []).forEach((p, i) => {
-    if ((p.shape === 'box' || p.shape === 'cyl') && !moving.has(p.node)) out.push(i);
+    if (STATIC_SHAPES.has(p.shape) && !moving.has(p.node)) out.push(i);
   });
   return out;
 }

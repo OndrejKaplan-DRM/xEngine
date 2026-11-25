@@ -3,6 +3,8 @@
 // Souřadnice: metry, +Y nahoru, pravotočivá soustava. UV: krabicová projekce ve světových metrech
 // (spotřebitel dělí hodnotou uvScale materiálu).
 
+import { latheMesh, rboxMesh, placeLathe } from './solids.js';
+
 /** Mapování klínu: s = 0…1 po směru stoupání, t = 0…1 napříč. Všechna čtyři jsou otočení, ne zrcadlení. */
 function wedgeMap(b) {
   const [x0, , z0] = b.min;
@@ -461,13 +463,22 @@ function cylMesh(part) {
 export function partMesh(part) {
   if (part.shape === 'box') return brushMesh({ min: part.min, max: part.max });
   if (part.shape === 'cyl') return cylMesh(part);
+  if (part.shape === 'lathe') {
+    const g = latheMesh(part.profile, { seg: part.seg, crease: new Set(part.crease || []), arc: part.arc });
+    return placeLathe(g, part.axis || 'y', part.center || [0, 0, 0]);
+  }
+  if (part.shape === 'rbox') {
+    if (!(part.radius > 0) || !(part.steps >= 1)) return brushMesh({ min: part.min, max: part.max });
+    return rboxMesh(part.min, part.max, part.radius, part.steps);
+  }
   return null;
 }
 
-/** Počet trojúhelníků dílu (box 12, cyl 4 × CYL_SEGMENTS), nebo null pro díl ze souboru. */
+/** Počet trojúhelníků dílu (box 12, cyl 4 × CYL_SEGMENTS, lathe a rbox ze sítě), nebo null pro díl ze souboru. */
 export function partTris(part) {
   if (part.shape === 'box') return 12;
   if (part.shape === 'cyl') return 4 * CYL_SEGMENTS;
+  if (part.shape === 'lathe' || part.shape === 'rbox') return partMesh(part).indices.length / 3; // degenerované se vynechají
   return null;
 }
 

@@ -96,6 +96,26 @@ export function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
   const needsCyl = (x, path) => {
     for (const k of ['center', 'radius', 'height', 'axis']) if (x[k] === undefined) c.err('shape.required', `${path}.${k}`, 'tvar cyl vyžaduje center, radius, height a axis');
   };
+  const needsLathe = (x, path) => {
+    const pr = x.profile;
+    if (!Array.isArray(pr)) return c.err('shape.required', `${path}.profile`, 'tvar lathe vyžaduje profile');
+    if (!pr.every((q) => Array.isArray(q) && q.length === 2 && q.every(Number.isFinite))) return; // tvar hlásí check.js
+    if (pr.some((q) => q[0] < 0)) c.err('part.profile', `${path}.profile`, 'poloměr r bodu profilu nesmí být záporný');
+    let len = 0;
+    for (let i = 1; i < pr.length; i++) len += Math.hypot(pr[i][0] - pr[i - 1][0], pr[i][1] - pr[i - 1][1]);
+    if (Math.max(...pr.map((q) => q[0])) < LIMITS.partMinSize || len < LIMITS.partMinSize) c.err('part.profile', `${path}.profile`, `profil musí mít poloměr i délku aspoň ${LIMITS.partMinSize} m`);
+    const cr = Array.isArray(x.crease) ? x.crease : [];
+    if (cr.some((k) => !Number.isInteger(k) || k < 1 || k > pr.length - 2) || new Set(cr).size !== cr.length) c.err('part.profile', `${path}.crease`, `ostrá hrana jen ve vnitřním bodě profilu (1 až ${pr.length - 2}), každý bod jednou`);
+    if (Array.isArray(x.arc) && !(x.arc[0] >= 0 && x.arc[1] <= 360 && x.arc[1] - x.arc[0] >= 1)) c.err('part.profile', `${path}.arc`, 'úhel od–do musí splnit 0 ≤ od < do ≤ 360 (aspoň 1°)');
+  };
+  const needsRbox = (x, path) => {
+    needsBox(x, path);
+    if (x.radius === undefined || x.steps === undefined) return c.err('shape.required', path, 'tvar rbox vyžaduje min, max, radius a steps');
+    if (isVec(x.min, 3) && isVec(x.max, 3) && Number.isFinite(x.radius)) {
+      const half = Math.min(...[0, 1, 2].map((k) => (x.max[k] - x.min[k]) / 2));
+      if (x.radius > half + 1e-9) c.err('part.radius', `${path}.radius`, `poloměr zaoblení ${x.radius} m je větší než polovina nejmenšího rozměru (${+half.toFixed(4)} m)`);
+    }
+  };
   const needsMesh = (x, path) => {
     if (x.mesh === undefined) return c.err('shape.required', `${path}.mesh`, 'tvar vyžaduje pole mesh');
     const filePart = String(x.mesh).split('#')[0];
@@ -109,8 +129,10 @@ export function checkPrefab(file, p, matIds, prefabIds, assetPaths, c) {
     if (x.mat !== undefined && !matIds.has(x.mat)) c.err('ref.material', `${path}.mat`, `materiál „${x.mat}“ neexistuje`);
     if (x.shape === 'box') needsBox(x, path);
     if (x.shape === 'cyl') needsCyl(x, path);
+    if (x.shape === 'lathe') needsLathe(x, path);
+    if (x.shape === 'rbox') needsRbox(x, path);
     if (x.shape === 'mesh') needsMesh(x, path);
-    if (x.shape !== 'mesh' && x.mat === undefined) c.err('shape.required', `${path}.mat`, 'díl z kvádru nebo válce musí mít materiál');
+    if (x.shape !== 'mesh' && x.mat === undefined) c.err('shape.required', `${path}.mat`, 'díl, který není ze souboru (box, cyl, lathe, rbox), musí mít materiál');
   });
 
   (Array.isArray(p.colliders) ? p.colliders : []).forEach((x, i) => {

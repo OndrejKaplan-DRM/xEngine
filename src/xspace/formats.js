@@ -4,7 +4,7 @@
 // (validate.js) a generuje se z něj dokument docs/02a_XSPACE_pole.md (tools/xspace-doc.mjs).
 // Soubor patří základu; změna jen přes návrh v docs/navrhy a zvýšení XSPACE_VERSION.
 
-import { id, str, num, int, bool, vec3, color, en, arr, obj, map, ref, konst, R } from './schema.js';
+import { id, str, num, int, bool, vec2, vec3, color, en, arr, obj, map, ref, konst, R } from './schema.js';
 import { weaponFormats } from './formats-weapon.js';
 
 export { WEAPON_MODES, RAMP_CURVES, PUSH_MASS, PICKUP_ITEMS } from './formats-weapon.js';
@@ -23,7 +23,8 @@ export const MATERIAL_MODELS = ['lit', 'unlit', 'emissive'];
 export const BRUSH_SHAPES = ['box', 'wedge'];
 export const RISE_DIRS = ['+x', '-x', '+z', '-z'];
 export const FACE_KEYS = ['+x', '-x', '+y', '-y', '+z', '-z'];
-export const PART_SHAPES = ['box', 'cyl', 'mesh'];
+/** Tvary dílu prefabu; lathe (rotační plocha z profilu) a rbox (zaoblený kvádr) od N-012 (D-058). */
+export const PART_SHAPES = ['box', 'cyl', 'lathe', 'rbox', 'mesh'];
 export const COLLIDER_SHAPES = ['box', 'cyl', 'ball', 'hull', 'mesh'];
 export const COLLIDER_GROUPS = ['world', 'prop', 'debris', 'trigger'];
 export const JOINT_TYPES = ['hinge', 'slider'];
@@ -262,12 +263,17 @@ const part = obj(
   {
     node: R(ref('node', 'uzel kostry, ke kterému díl patří')),
     shape: R(en(PART_SHAPES, 'tvar')),
-    min: vec3('box: nejmenší roh v prostoru uzlu'),
-    max: vec3('box: největší roh v prostoru uzlu'),
-    center: vec3('cyl: střed'),
-    radius: num('cyl: poloměr', { min: 0.001, max: 100 }),
+    min: vec3('box a rbox: nejmenší roh v prostoru uzlu'),
+    max: vec3('box a rbox: největší roh v prostoru uzlu'),
+    center: vec3('cyl: střed; lathe: bod osy, kde leží y = 0 profilu (výchozí počátek uzlu)'),
+    radius: num('cyl: poloměr; rbox: poloměr zaoblení hran, nejvýš polovina nejmenšího rozměru', { min: 0.001, max: 100 }),
     height: num('cyl: výška', { min: 0.001, max: 100 }),
-    axis: en(['x', 'y', 'z'], 'cyl: osa'),
+    axis: en(['x', 'y', 'z'], 'cyl: osa; lathe: osa rotace (výchozí y; x: profil roste do +x, z: do +z)'),
+    profile: arr(vec2('[r, y]: vzdálenost od osy a výška, m'), 'lathe: profil od jednoho konce k druhému; líc vpravo od směru (nahoru po vnější stěně = ven), r = 0 je pól', { minLen: 2, maxLen: 256 }),
+    seg: int('lathe: počet stěn po obvodu; výchozí 24', { min: 6, max: 64 }),
+    crease: arr(int('index bodu profilu', { min: 1, max: 254 }), 'lathe: body s ostrou hranou (dva prstence s různou normálou); ostatní body jsou hladké'),
+    arc: vec2('lathe: úhel od–do ve stupních, 0 ≤ od < do ≤ 360; chybí = celý obvod'),
+    steps: int('rbox: úseků oblouku hrany (1 = sražení s hladkou normálou 108 △, 2 = oblá hrana 300 △)', { min: 1, max: 4 }),
     mesh: str('mesh: cesta k souboru .glb, volitelně #jménoUzlu'),
     mat: ref('material', 'materiál; u mesh volitelný (bere se z glTF)'),
   },

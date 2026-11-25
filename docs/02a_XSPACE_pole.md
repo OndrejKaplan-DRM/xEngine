@@ -88,13 +88,18 @@ Generováno z `src/xspace/formats.js` příkazem `npm run doc`. Neupravovat ruč
 | `rig.clips[].file` | ano | text | cesta k souboru animace |
 | `parts` | ano | pole: objekt (aspoň 1) | viditelné díly |
 | `parts[].node` | ano | odkaz (node) | uzel kostry, ke kterému díl patří |
-| `parts[].shape` | ano | `box` · `cyl` · `mesh` | tvar |
-| `parts[].min` |  | [x, y, z] | box: nejmenší roh v prostoru uzlu |
-| `parts[].max` |  | [x, y, z] | box: největší roh v prostoru uzlu |
-| `parts[].center` |  | [x, y, z] | cyl: střed |
-| `parts[].radius` |  | číslo 0.001 až 100 | cyl: poloměr |
+| `parts[].shape` | ano | `box` · `cyl` · `lathe` · `rbox` · `mesh` | tvar |
+| `parts[].min` |  | [x, y, z] | box a rbox: nejmenší roh v prostoru uzlu |
+| `parts[].max` |  | [x, y, z] | box a rbox: největší roh v prostoru uzlu |
+| `parts[].center` |  | [x, y, z] | cyl: střed; lathe: bod osy, kde leží y = 0 profilu (výchozí počátek uzlu) |
+| `parts[].radius` |  | číslo 0.001 až 100 | cyl: poloměr; rbox: poloměr zaoblení hran, nejvýš polovina nejmenšího rozměru |
 | `parts[].height` |  | číslo 0.001 až 100 | cyl: výška |
-| `parts[].axis` |  | `x` · `y` · `z` | cyl: osa |
+| `parts[].axis` |  | `x` · `y` · `z` | cyl: osa; lathe: osa rotace (výchozí y; x: profil roste do +x, z: do +z) |
+| `parts[].profile` |  | pole: [a, b] (aspoň 2) | lathe: profil od jednoho konce k druhému; líc vpravo od směru (nahoru po vnější stěně = ven), r = 0 je pól |
+| `parts[].seg` |  | celé číslo 6 až 64 | lathe: počet stěn po obvodu; výchozí 24 |
+| `parts[].crease` |  | pole: celé číslo 1 až 254 | lathe: body s ostrou hranou (dva prstence s různou normálou); ostatní body jsou hladké |
+| `parts[].arc` |  | [a, b] | lathe: úhel od–do ve stupních, 0 ≤ od < do ≤ 360; chybí = celý obvod |
+| `parts[].steps` |  | celé číslo 1 až 4 | rbox: úseků oblouku hrany (1 = sražení s hladkou normálou 108 △, 2 = oblá hrana 300 △) |
 | `parts[].mesh` |  | text | mesh: cesta k souboru .glb, volitelně #jménoUzlu |
 | `parts[].mat` |  | odkaz (material) | materiál; u mesh volitelný (bere se z glTF) |
 | `colliders` |  | pole: objekt | kolizní tvary |
