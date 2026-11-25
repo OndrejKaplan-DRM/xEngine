@@ -91,17 +91,18 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 2c. [x] rozpočet trojúhelníků podle toho, co je z buňky prokazatelně vidět (PVS, volba 2 a): nejvíc 229 174 △ z buňky (mez 300 tisíc), B-T10, návrh N-014
 2b. [ ] zkouška N-112 na celém `complex_7` (dodatek znění 10, D-055; dřív N-110, D-050), až po bodu 6: atlas po 5 a 10 cm, čas, velikost v half float RGBA a ve 4 B na bod, vrstvy jen pro přepínaná světla a brány
 3. [ ] dodatek znění 6: `door_double_01` jako jeden prefab s `follow` (bez `seeThrough`), v generátoru zrušit párování křídel přes `io`, `door_dleft_01` a `door_dright_01` pryč; mikroskop `focus` → `stage`
-4. [ ] `kit_home` s předvolbou bytu
+4. [x] `kit_home` s předvolbou bytu: hotovo v bodu 6
 5. [x] `kit_lab` 286 a `kit_it` 80 prefabů v levelech `complex` (`3f45c21`, `235b38a`); dřevo, zásuvky, barvy, první dávka tvarů (B_STAV, oddíl B04)
 
 **Potom:** B3.1 plazmová puška z Arény (`kit_arena`, dodatek znění 9) · kartotéka a stůl jako jeden prefab se seznamem interakcí (D-052), až to umí sešna A · B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
 **Ondřej 25. 11. 14:47:** nové kusy (a) byt i (b) obory laboratoří a kanceláří; nový nezávislý level, čtyřpodlažní dům (dole laboratoře, nahoře byty) s novým vybavením; `?bench` pustí později; hra do 80 MB (D-054).
-6. [ ] předvolba domu o čtyřech podlažích + sada `kit_home` + nové obory laboratoří a kanceláří; level v `gen_demo`
+6. [x] předvolba `house` (dům o 4 podlažích: přízemí a 1. patro laboratoře, 2. a 3. patro byty, schodiště přes všechna podlaží), `kit_home` 147 kusů, 4 nové obory laboratoří (50 kusů) a 18 kusů kanceláří; level `house_1` v `gen_demo` (89 buněk, 8 bytů, 1 099 entit, nejvíc 243 736 △ vidět z buňky); regrese zelená (B_STAV, oddíl „Dům o čtyřech podlažích“; `1398169` až `0d94c18`)
 
-**Čeká na jiné:** **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
+**Čeká na jiné:** **N-015 pro svodnou** (přehled xView u vysokého levelu ukáže jen střechu) · **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 25. 11. dům o čtyřech podlažích s byty a laboratořemi, `kit_home`, obory fyzika, elektronika, histologie, materiály, recepce, ředitelna, kuchyňka, archiv (Ondřej 14:47; `1398169` až `0d94c18`)
 - 25. 11. přístroje, nábytek a `kit_it` kus po kuse (Ondřej 1:29, 3 b); generátor ubírá věci z desek, když je z buňky vidět víc než 300 tisíc △ (`3191030` až `80fe066`)
 - 25. 11. rozpočet podle PVS (Ondřej 1:29, 2 a): B-T1 a nová B-T10, návrh N-014
 - 25. 11. sklo s lemem a odleskem (Ondřej 1:02, 2 b); +50 % platí na prefab (1 a), sestava do 3 000 △ (`31d1ed2`)

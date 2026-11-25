@@ -39,7 +39,7 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | sklo výraznější (Ondřej 1:02, volba 2 b): lem a odlesk; návrh N-013 | hotovo v datech | `31d1ed2` a následující |
 | rozpočet podle toho, co je z buňky prokazatelně vidět (PVS; Ondřej 1:29, volba 2 a); B-T10; návrh N-014 | hotovo | viz oddíl níže |
 | přístroje, nábytek a `kit_it` kus po kuse ze stavebnice `appliance.mjs` (Ondřej 1:29, volba 3 b); generátor drží rozpočet viditelného | hotovo (373 prefabů interiéru z hladkých sítí; nové kusy nepřibyly) | `3191030` až `80fe066` |
-| `kit_home` s předvolbou bytu | nezačato | |
+| `kit_home` (147 kusů), předvolba `house` (dům o 4 podlažích: laboratoře a byty), 4 nové obory laboratoří a 18 kusů kanceláří (Ondřej 14:47) | hotovo | `1398169` až `0d94c18` |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
 
@@ -251,6 +251,42 @@ Odpovědi na otázky z konce kroku 25: (1) **nové kusy (a) i (b)**: sada pro by
 
 Čtu to takto: nová předvolba generátoru (dům o čtyřech podlažích, 1. a 2. podlaží laboratoře, 3. a 4. byty, schodiště mezi patry), jeden její level v `gen_demo` vedle stávajících, sada `kit_home` a nové kusy laboratoří a kanceláří v ní použité. Zkouška N-112 (dodatek znění 10) jde za tím.
 
+### Dům o čtyřech podlažích, `kit_home` a nové obory (krok 26, Ondřej 14:47; `1398169` až `0d94c18`)
+
+Odpověď (1) z 14:47 obě varianty: **(a) byt** a **(b) další obory laboratoří a kanceláří**, a k tomu nový nezávislý level. Hotovo:
+
+| Co | Kde | Commit |
+|---|---|---|
+| sada `kit_home`: 147 kusů vybavení bytu z hladkých sítí (obývák 26, doplňky 25, kuchyň 44, ložnice 13, dětský pokoj 10, koupelna 14, předsíň a pracovna 15); `requires` `kit_base` a `kit_lab`; síť `home.glb` | `tools/forge/home/`, `packs/kit_home` | `1398169`, `636e90b` |
+| předvolba `house`: dům 29 × 16 m, 4 podlaží po 3 m, na každém chodba, na konci schodišťová hala přes všechna podlaží (ramena, podesty, galerie, zábradlí); přízemí a 1. patro laboratoře jako `complex`, 2. a 3. patro byty | `src/gen/layout_house.js`, `src/gen/presets/house.js`, `house_home.js`, `stairCore` v `src/gen/build.js` | `befbf34` |
+| byt = skupina sousedních místností s jedněmi dveřmi do chodby; účel místností podle velikosti (předsíň, obývák s kuchyňským koutem nebo kuchyň, koupelna, ložnice, dětský pokoj, pracovna, garsoniéra); místnost bez přístupu z bytu je sklep domu | `apartments`, `rolesOf` v `house.js` | `befbf34` |
+| čtyři nové obory laboratoří, 50 kusů: fyzika a optika (optické stoly, laser, osciloskopy, zdroje, vakuová komora, kryostat, elektromagnet), elektronika (antistatické stoly, pájecí stanice, odsávání, 3D tiskárny, součástky), histologie (mikrotom, kryostat, tkáňový procesor, zalévací stanice, barvení, krycí sklíčka), materiálové zkoušky (trhací stroje, tvrdoměr, leštička, pila, pec, kladivo Charpy, lis) | `tools/forge/lab/fields.mjs` | `3dd6b0c` |
+| kanceláře, 18 kusů: recepce (dva pulty, čekací lavice, stolek, stojan na časopisy, cedule), archiv (pojízdné regály, krabice), ředitelna (stůl s přístavbou, křeslo, vitrína, pohovka), společné (kávovar, automat, trezor, skartovačka, flipchart) | `tools/forge/it/office2.mjs` | `d10f25d` |
+| nové obory jen v domě: polovina laboratoří dostane fyziku, elektroniku, histologii nebo materiály (každý obor aspoň jednou), recepce v přízemí, ředitelna v 1. patře, kuchyňka na každém laboratorním podlaží, část skladů archiv; `complex` beze změny | `src/gen/presets/house_fields.js` | `7017eef`, `588e7b7` |
+| byty berou víc kusů: rohová sedačka, televize na zdi nad stolkem, ostrůvek s barovými židlemi, rohožky, schránky v chodbě 2. patra, kolo a kočárek, umyvadlo na sloupu s kulatým zrcadlem | `house_home.js` | `c08e6cb` |
+| level `house_1` v `gen_demo` (seed 1) | `src/gen/cli.mjs`, `packs/gen_demo` | `befbf34` a následující |
+| PVS se svislou podmínkou (otvory v téže rovině zdi se musejí překrývat i výškou): `complex` o dvou patrech medián viditelného z buňky 181 790 → 176 932 △ | `src/gen/pvs.js` | `ec079e4` |
+
+Sady celkem (sandbox, z `SADA.md`): `kit_lab` 343 prefabů, 282 902 △, sítě 9 932 kB; `kit_it` 98 prefabů, 64 650 △, 3 019 kB; `kit_home` 147 prefabů, 74 568 △ (průměr 507, nejvíc 2 584 sestava `kitchen_line_240_01`), 3 375 kB, 48 materiálů. Za krok přibylo **215 kusů** (147 + 50 + 18); interiér má 588 prefabů z hladkých sítí, se `kit_base` 639.
+
+| Číslo (sandbox) | Hodnota |
+|---|---|
+| `house_1` | 89 buněk (43 místností bytů v 8 bytech), 89 portálů (80 s dveřmi), 979 kvádrů, 1 099 entit, 104 světel, 308 druhů prefabů |
+| 8 seedů `house` | 71 až 90 buněk, 860 až 1 187 entit, 7 až 8 bytů s právě jedněmi dveřmi do chodby a žádnými jinam; generování 132 až 305 ms |
+| využití nových kusů v 8 seedech | obory a kanceláře 68 z 68; `kit_home` 138 ze 147 (nepoužité hlavně samostatné skříňky kuchyně, ze kterých jsou sestavené linky) |
+| nejvíc vidět z buňky (B-T10, mřížka 0,5 m) | `house_1` 243 736 △ ze schodiště (mez 300 tisíc); nejdelší řetěz portálů 5 |
+| robot A × B v `house_1` | došel do `c_living_07` ve 3. patře, 91,8 m za 45 s hry, 4 dveře rukou; nejvýš 182 volání kreslení na pohled (horní mez), v prohlížeči 102 |
+| zapečení `house_1` (B-T5) | 180 072 vzorků, 204 vrstev, 80 dveří a 509 úseků s bránou, 4 791 kB; 43,8 až 52,3 s ve dvou bězích (mez testu 60 s, je blízko) |
+| `dist/xlab_gen.html` | 30,9 MB (mez 80 MB, D-054) |
+
+Pasti, které testy chytily: židle ve vnitřku zaobleného recepčního pultu stojí v jeho obalu (B-T1 měří obaly v klidu): recepční sedí za pultem. Optické stoly v malých místnostech se do řady nevešly: řada uprostřed jen při šířce napříč aspoň 3,6 m a s konci 130 cm od zdí (před dveřmi je volný pruh 120 cm), jinak stůl u zdi. Přístroje hlubší než 42 cm se na laboratorní stůl u zdi nevejdou (pruh desky): velké stolní přístroje stojí na pracovním stole. B-T4, B-T5 a B-T10 měly natvrdo tři levely; čtou je teď z manifestu. Přehled v xView ukáže u domu jen střechu: kamera stojí ve výšce 0,6 × hloubka levelu, dům je vyšší (návrh **N-015**; B-T4 u vyššího levelu chce v přehledu jen 3 odstíny).
+
+Snímky (v `test/out/`, mimo git): `krok26_obory.png` (fyzika dvakrát, elektronika, histologie, materiály, recepce, ředitelna, kuchyňka, archiv), `krok26_byty.png` (obývák s rohovou sedačkou, obývák s televizí na zdi, kuchyň s ostrůvkem, předsíň, koupelna, dětský pokoj), dřív `byt_a.png`, `byt_b.png`, `house_mont.png`.
+
+**Neověřeno:** dům na T460 (čas snímku, krok simulace s 1 099 entitami; poslední `?bench` je z `complex_7` po kroku 25). Rohožka leží v ploše předsíně, ne u dveří (rozmisťování otvory nezná). Zapečení `house_1` trvá v sandboxu až 52 s z meze testu 60 s; další přírůstek domu mez překročí (pak zrychlit xBake, ne zvednout mez).
+
+**Regrese po kroku 26** (sandbox): `npm test` T0 41, T1 155, T1b 14, T1c 27, T1d 31, T1e 16, T4 46, T2 15, T3 12; `npm run test:b` 10 sad (B-T1 98, B-T2 33, B-T3 12, B-T4 26, B-T5 32, B-T6 9, B-T7 47, B-T8 7, B-T9 23, B-T10 10); `npm run test:axb` 38 + 12; 0 selhalo.
+
 ### Přístroje a nábytek kus po kuse (krok 25, Ondřej 1:29, volba 3 b)
 
 Ondřej: „přístroje a nábytek kus po kuse … opět udělej aspoň 300 ks inventáře pro interiér, ať máme z čeho stavět.“ Zeptala jsem se, jestli (a) `kit_home`, (b) přestavba a nové kusy laboratoří a kanceláří, nebo (c) obojí; odpověď nepřišla, pracovala jsem s (b), a to **přestavbou existujících kusů** (id beze změny, levely i testy jedou dál). Nové kusy v tomto kroku nepřibyly.
@@ -394,6 +430,7 @@ Všechno změřeno v sandboxu (Node 22, 2 jádra; prohlížeč Chromium se softw
 | N-011 | pro sešnu A: `?bench` kývá pohledem (řízení robota o krok pozadu, 20 Hz) a dávkou měření srazí hru na 30 snímků/s; přidat do výstupu zorné pole. **Otevřený** | platí `workMs` a `draw.ms`, ne rozestup snímků |
 | N-013 | pro sešnu A: sklo s okrajem podle úhlu pohledu a odleskem (shader průhledného materiálu na stupni `low`, bez nového pole). **Otevřený** | lem a pruhy odlesku jako doprovodné sítě nádob (`31d1ed2`) |
 | N-014 | prokazatelná viditelnost: PVS do základu jako měřítko rozpočtu; pro sešnu A zkouška, že kreslí ⊆ PVS a nic, co je vidět, nevynechá (Ondřej 1:29). **Otevřený** | `test/b_lib/pvs.mjs`, B-T1 a B-T10 |
+| N-015 | pro svodnou: přehled v xView u levelu vyššího než 0,6 × jeho hloubka (dům o 4 podlažích) ukáže jen střechu; výška kamery ze všech tří rozměrů. **Otevřený** | B-T4 chce u vysokého levelu v přehledu jen 3 odstíny |
 | N-012 | rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake (D-041), měřil generátor a viděla zkouška A × B v Node; balík bez megabajtů `.glb`. **Otevřený** | díly `mesh` z xForge (`tools/forge/mesh/`), 4,2 MB sítí v `kit_lab` |
 
 Bez návrhu, jen k zapsání: (1) `build.mjs` najde jeden `target.json` na složku v `tools/`, takže prohlížeč levelů sedí v `tools/designer`; až bude potřeba víc cílů, bude to chtít pole cílů nebo hlubší hledání. (2) Kloub na víc než 8 otáček (rotor centrifugy) formát neumí; rotor je zatím pevný díl. (3) Zápis JSON ve stylu zlatého vzorku mám jako vlastní funkci `fmtJson` v `src/gen/util.js`, protože ta z `tools/golden/make.mjs` není vyvezená; patřila by do `tools/lib`.
@@ -424,6 +461,9 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - (B04) Kamera pro snímek místnosti: ve dveřích, 0,6 m za středem portálu (to místo generátor drží volné), ne v rohu (tam stojí nábytek).
 - (B04, krok 25) Stavebnice přístrojů z hladkých sítí (`tools/forge/lab/appliance.mjs`): zaoblený kvádr s jedním úsekem má 108 △, se dvěma 300 △, se třemi 588 △; plochý kvádr 12 △. Na velké plochy jeden úsek, drobnosti ploché, soustružené díly 6 až 16 stěn. Stejné jméno sítě se stejným tvarem se mezi prefaby sdílí (jeden uzel v `.glb`), materiál je věc dílu.
 - (B04, krok 25) Profil soustružení (`lathe`) jde zdola nahoru po vnější straně; obrácené pořadí dá normály dovnitř. Úhel 270° je čelo (+Z), štítek na válci = `lathe` s `a0: 245, a1: 295`.
+- (B04, krok 26) Byt v generátoru = skupina sousedních místností s jedněmi dveřmi do chodby. Váhy hran kostry (chodba–vstupní místnost 1, chodba–jiná místnost bytu 60, uvnitř bytu 0,5, mezi byty 200) a nulová šance smyčky do chodby to drží; místnost, která k žádnému bytu nepřiléhá, je sklep, ne pokoj s jediným vchodem ze schodiště.
+- (B04, krok 26) Židle u stolu nesmí do obalu stolu ani u zaobleného pultu: nezávislá kontrola měří obaly v klidu. Stůl se židlemi kolem stavět rovnoběžně se zdmi (`yaw: false`), natočený o 45° má obal větší než stůl.
+- (B04, krok 26) Snímek místnosti z rohu: roh vybírat podle volné dráhy pohledu ve výšce očí (obaly entit), jinak kamera stojí v automatu nebo v regálu.
 - (B04, krok 25) Rozpočet viditelného hlídá generátor (`fitPVS`), ne jen test: věci na deskách jsou volitelné a ubírají se v nejhorší množině PVS. Stejná čísla počítá test nad hotovým levelem.
 - (B04, krok 21) Laboratorní sklo jako stoh válců vypadá schodovitě a Ondřej to pozná hned. Tenká stěna z jednoho profilu (ven, přes oblý okraj, dovnitř) dá skutečný tvar za 300 až 900 △. Zjednodušovat profil podle vzdálenosti od přímky, ne podle úhlu (úhel smaže rameno kužele) a dno vnitřku počítat od vnějšího pólu, ne od absolutní výšky.
 - (B04, krok 21) Generátor sítě nečte: kolize prefabu musí síť obepnout (B-T9 to měří po převedení sítě do prostoru prefabu). Válec, který přečnívá zadané kolize, nechávat válcem.
@@ -484,3 +524,5 @@ Starší otázky (B02 až B04) jsou zodpovězené a jejich odpovědi stojí v od
 **Ondřej 25. 11. v 1:29:** (1 a) sklo takhle stačí; (2 a) mez trojúhelníků měřit z místnosti a místností za dveřmi, „udělejme to jako ve hrách – chytře škrtejme, co není vidět. Ale opravdu prokazatelně – už několikrát na mě blikla při jiném projektu místnost, ke které jsem se blížil…“; (3 b) přístroje a nábytek kus po kuse, „opět udělej aspoň 300 ks inventáře pro interiér, ať máme z čeho stavět“ (dotaz, zda byt a dům, nebo laboratoře a kanceláře, poslaný v 1:3x).
 
 Otevřené: „vnitřní kompartmentizace“ = (a) přihrádky a police (pracuju s tím), nebo (b) kresba dřeva.
+
+**Po kroku 26 (25. 11.):** (1) pustíš `xlab_gen.html?level=house_1&bench` na T460? (a) ano · (b) později; (2) další krok: (a) zkouška N-112 (světlo v textuře, `complex_7`) · (b) plazmová puška B3.1 · (c) další kusy nebo level; (3) dům nemá okna (stavba zevnitř): (a) stačí · (b) okna do bytů (potřebuje portál jen pro pohled, N-003); (4) rohožka leží v ploše předsíně, ne u dveří: (a) nevadí · (b) dát k dveřím (rozmisťování podle otvorů).
