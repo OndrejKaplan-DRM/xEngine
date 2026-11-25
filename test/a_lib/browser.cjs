@@ -35,8 +35,16 @@ const BARE = `for (const l of p.levels) {
  * balík upraví. Balík se mění dřív, než ho hra uvidí (past na globál __PACK__), kód hry se nemění.
  * h.open základu neumí skript před načtením stránky, proto je tu vlastní otevření se stejným chováním.
  */
-async function openGame(browser, { q = '', bare = false, mutate = null, context = {}, timeout = 60000 } = {}) {
-  const src = mutate || (bare ? BARE : null);
+/**
+ * D-049: okolní světlo je osvětlení E a běh ho dělí π. Zlatý vzorek má zatím hodnoty z doby, kdy se nedělilo;
+ * svodná je vynásobí π při příštím sloučení. Do té doby testy obrazu pouštějí xLab s okolním světlem × π (stejný
+ * obraz jako dřív, srovnání s xView sedí). Po změně dat v základu: AMBIENT_PI = false.
+ */
+const AMBIENT_PI = true;
+const AMBIENT_FIX = `for (const l of p.levels) if (l.data.env && l.data.env.ambient) l.data.env.ambient = l.data.env.ambient.map((a) => a * Math.PI);`;
+
+async function openGame(browser, { q = '', bare = false, mutate = null, context = {}, timeout = 60000, ambientPi = AMBIENT_PI } = {}) {
+  const src = [ambientPi ? AMBIENT_FIX : '', mutate || '', bare ? BARE : ''].join('\n').trim() || null;
   if (!src) return h.open(browser, { file: 'dist/xlab.html', ready: READY, q, context, timeout });
   const path = require('node:path');
   const ctx = await browser.newContext({ viewport: { width: 1366, height: 768 }, ...context });

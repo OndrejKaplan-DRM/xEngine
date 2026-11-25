@@ -10,7 +10,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Fronta podle Ondřeje (25. 11. 17:25):**
 - [x] 1. sloučit `origin/zaklad-2` (znění 10): bez konfliktu, testy zelené (`b852756`)
-- [ ] 2. D-049: okolní světlo děleno π (potom svodná vynásobí okolní světlo zlatého vzorku π)
+- [x] 2. **D-049 hotovo** (`lighting.js`, `lightmap.js`, `baked.js`): okolní světlo `env.ambient` je E, do barvy vrcholu jde E / π (výpočet při načtení, zapečený soubor i textura světla). Test `a_44_bake`: barvy běhu = `composeColors` ze základu / π (poměrně 1,8e-7). **Pro svodnou:** (a) okolní světlo zlatého vzorku vynásob π; (b) xView zatím okolní světlo π nedělí (srovnání xLab × xView: jas 75,9 proti 85,7), ať dělí taky; (c) moje testy obrazu do té doby pouštějí xLab s okolním světlem × π (`test/a_lib/browser.cjs`, `AMBIENT_PI = true`); po změně dat to přepnu na `false`. Do té doby je xLab v místech bez přímého světla o něco tmavší.
 - [ ] 3. N-010 v běhu: interakce jen přes `interactionOf`, stav po interakcích, spojení `from` / `to` (sešna B čeká s kartotékou a stolem)
 - [ ] 4. A3.1 zkouška zbraní na plazmové pušce + `xlab.html` k vyzkoušení
 - [ ] 5. kostra v kroku přes `rigCompile` / `rigFollow` / `rigSolve` (N-102)
