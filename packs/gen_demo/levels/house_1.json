@@ -2808,7 +2808,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_grey" }
     },
-    { "id": "b_floor_0338", "cell": "c_store_01", "min": [6.95, -0.88, -0.2], "max": [8.45, 0.9, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0338",
+      "cell": "c_store_01",
+      "min": [6.95, -0.88, -0.2],
+      "max": [8.45, 0.9, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_grey" }
+    },
     {
       "id": "b_wall_0339",
       "cell": "c_store_01",
@@ -2854,7 +2862,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_grey" }
     },
-    { "id": "b_floor_0344", "cell": "c_arch_01", "min": [11.45, -0.88, -0.2], "max": [12.95, 0.9, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0344",
+      "cell": "c_arch_01",
+      "min": [11.45, -0.88, -0.2],
+      "max": [12.95, 0.9, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_grey" }
+    },
     {
       "id": "b_wall_0345",
       "cell": "c_arch_01",
@@ -2891,7 +2907,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_light" }
     },
-    { "id": "b_floor_0349", "cell": "c_office_03", "min": [15.15, -0.88, -0.2], "max": [16.65, 0.9, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0349",
+      "cell": "c_office_03",
+      "min": [15.15, -0.88, -0.2],
+      "max": [16.65, 0.9, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_light" }
+    },
     {
       "id": "b_wall_0350",
       "cell": "c_office_03",
@@ -2937,7 +2961,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_light" }
     },
-    { "id": "b_floor_0355", "cell": "c_meet_01", "min": [19.95, -0.88, -0.2], "max": [21.45, 0.9, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0355",
+      "cell": "c_meet_01",
+      "min": [19.95, -0.88, -0.2],
+      "max": [21.45, 0.9, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_light" }
+    },
     {
       "id": "b_wall_0356",
       "cell": "c_meet_01",
@@ -3055,7 +3087,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_light", "+z": "facade_render" }
     },
-    { "id": "b_floor_0369", "cell": "c_office_04", "min": [6.35, -0.88, 16.3], "max": [7.85, 0.9, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0369",
+      "cell": "c_office_04",
+      "min": [6.35, -0.88, 16.3],
+      "max": [7.85, 0.9, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0370",
       "cell": "c_office_04",
@@ -3101,7 +3141,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_light", "+z": "facade_render" }
     },
-    { "id": "b_floor_0375", "cell": "c_office_05", "min": [11.35, -0.88, 16.3], "max": [12.85, 0.9, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0375",
+      "cell": "c_office_05",
+      "min": [11.35, -0.88, 16.3],
+      "max": [12.85, 0.9, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0376",
       "cell": "c_office_05",
@@ -3138,7 +3186,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_light", "+z": "facade_render" }
     },
-    { "id": "b_floor_0380", "cell": "c_kitch_01", "min": [15.15, -0.88, 16.3], "max": [16.65, 0.9, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0380",
+      "cell": "c_kitch_01",
+      "min": [15.15, -0.88, 16.3],
+      "max": [16.65, 0.9, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0381",
       "cell": "c_kitch_01",
@@ -3184,7 +3240,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_light", "+z": "facade_render" }
     },
-    { "id": "b_floor_0386", "cell": "c_recep_01", "min": [20.25, -0.88, 16.3], "max": [21.75, 0.9, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0386",
+      "cell": "c_recep_01",
+      "min": [20.25, -0.88, 16.3],
+      "max": [21.75, 0.9, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_light", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0387",
       "cell": "c_recep_01",
@@ -3221,7 +3285,15 @@
       "tag": "wall",
       "faces": { "-z": "tile_white", "+z": "facade_render" }
     },
-    { "id": "b_floor_0391", "cell": "c_phys_01", "min": [24.6, -0.88, 16.3], "max": [25.8, 0.9, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0391",
+      "cell": "c_phys_01",
+      "min": [24.6, -0.88, 16.3],
+      "max": [25.8, 0.9, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0392",
       "cell": "c_phys_01",
@@ -3267,7 +3339,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "tile_white" }
     },
-    { "id": "b_floor_0397", "cell": "c_histo_01", "min": [-0.2, -0.88, 1.05], "max": [0, 0.9, 2.55], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0397",
+      "cell": "c_histo_01",
+      "min": [-0.2, -0.88, 1.05],
+      "max": [0, 0.9, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "tile_white" }
+    },
     {
       "id": "b_wall_0398",
       "cell": "c_histo_01",
@@ -3304,7 +3384,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "plaster_light" }
     },
-    { "id": "b_floor_0402", "cell": "c_office_01", "min": [-0.2, -0.88, 4.75], "max": [0, 0.9, 6.25], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0402",
+      "cell": "c_office_01",
+      "min": [-0.2, -0.88, 4.75],
+      "max": [0, 0.9, 6.25],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "plaster_light" }
+    },
     {
       "id": "b_wall_0403",
       "cell": "c_office_01",
@@ -3368,7 +3456,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "tile_white" }
     },
-    { "id": "b_floor_0410", "cell": "c_chem_02", "min": [-0.2, -0.88, 10.45], "max": [0, 0.9, 11.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0410",
+      "cell": "c_chem_02",
+      "min": [-0.2, -0.88, 10.45],
+      "max": [0, 0.9, 11.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "tile_white" }
+    },
     {
       "id": "b_wall_0411",
       "cell": "c_chem_02",
@@ -3405,7 +3501,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "tile_white" }
     },
-    { "id": "b_floor_0415", "cell": "c_bio_01", "min": [-0.2, -0.88, 14.1], "max": [0, 0.9, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0415",
+      "cell": "c_bio_01",
+      "min": [-0.2, -0.88, 14.1],
+      "max": [0, 0.9, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "tile_white" }
+    },
     {
       "id": "b_wall_0416",
       "cell": "c_bio_01",
@@ -3433,7 +3537,15 @@
       "tag": "wall",
       "faces": { "-x": "tile_white", "+x": "facade_render" }
     },
-    { "id": "b_floor_0419", "cell": "c_anal_02", "min": [29, -0.88, 1.05], "max": [29.2, 0.9, 2.55], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0419",
+      "cell": "c_anal_02",
+      "min": [29, -0.88, 1.05],
+      "max": [29.2, 0.9, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0420",
       "cell": "c_anal_02",
@@ -3525,7 +3637,15 @@
       "tag": "wall",
       "faces": { "-x": "tile_white", "+x": "facade_render" }
     },
-    { "id": "b_floor_0431", "cell": "c_phys_01", "min": [29, -0.88, 14.1], "max": [29.2, 0.9, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0431",
+      "cell": "c_phys_01",
+      "min": [29, -0.88, 14.1],
+      "max": [29.2, 0.9, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "tile_white", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0432",
       "cell": "c_phys_01",
@@ -4524,7 +4644,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "tile_white" }
     },
-    { "id": "b_floor_0566", "cell": "c_chem_03", "min": [5.35, 3.2, -0.2], "max": [6.85, 4.3, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0566",
+      "cell": "c_chem_03",
+      "min": [5.35, 3.2, -0.2],
+      "max": [6.85, 4.3, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "tile_white" }
+    },
     {
       "id": "b_wall_0567",
       "cell": "c_chem_03",
@@ -4588,7 +4716,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "tile_white" }
     },
-    { "id": "b_floor_0574", "cell": "c_bio_02", "min": [14.75, 3.2, -0.2], "max": [16.25, 4.3, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0574",
+      "cell": "c_bio_02",
+      "min": [14.75, 3.2, -0.2],
+      "max": [16.25, 4.3, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "tile_white" }
+    },
     {
       "id": "b_wall_0575",
       "cell": "c_bio_02",
@@ -4634,7 +4770,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_grey" }
     },
-    { "id": "b_floor_0580", "cell": "c_store_05", "min": [20.25, 3.2, -0.2], "max": [21.75, 4.3, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0580",
+      "cell": "c_store_05",
+      "min": [20.25, 3.2, -0.2],
+      "max": [21.75, 4.3, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_grey" }
+    },
     {
       "id": "b_wall_0581",
       "cell": "c_store_05",
@@ -4671,7 +4815,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "plaster_light" }
     },
-    { "id": "b_floor_0585", "cell": "c_dir_01", "min": [24.6, 3.2, -0.2], "max": [25.8, 4.3, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0585",
+      "cell": "c_dir_01",
+      "min": [24.6, 3.2, -0.2],
+      "max": [25.8, 4.3, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "plaster_light" }
+    },
     {
       "id": "b_wall_0586",
       "cell": "c_dir_01",
@@ -4753,7 +4905,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_grey", "+z": "facade_render" }
     },
-    { "id": "b_floor_0595", "cell": "c_arch_02", "min": [5.75, 3.2, 16.3], "max": [7.25, 4.3, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0595",
+      "cell": "c_arch_02",
+      "min": [5.75, 3.2, 16.3],
+      "max": [7.25, 4.3, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0596",
       "cell": "c_arch_02",
@@ -4817,7 +4977,15 @@
       "tag": "wall",
       "faces": { "-z": "tile_white", "+z": "facade_render" }
     },
-    { "id": "b_floor_0603", "cell": "c_mat_01", "min": [14.65, 3.2, 16.3], "max": [16.15, 4.3, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0603",
+      "cell": "c_mat_01",
+      "min": [14.65, 3.2, 16.3],
+      "max": [16.15, 4.3, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "tile_white", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0604",
       "cell": "c_mat_01",
@@ -4863,7 +5031,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_grey", "+z": "facade_render" }
     },
-    { "id": "b_floor_0609", "cell": "c_store_06", "min": [20.15, 3.2, 16.3], "max": [21.65, 4.3, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0609",
+      "cell": "c_store_06",
+      "min": [20.15, 3.2, 16.3],
+      "max": [21.65, 4.3, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0610",
       "cell": "c_store_06",
@@ -4900,7 +5076,15 @@
       "tag": "wall",
       "faces": { "-z": "plaster_grey", "+z": "facade_render" }
     },
-    { "id": "b_floor_0614", "cell": "c_arch_04", "min": [24.25, 3.2, 16.3], "max": [25.75, 4.3, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0614",
+      "cell": "c_arch_04",
+      "min": [24.25, 3.2, 16.3],
+      "max": [25.75, 4.3, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "plaster_grey", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0615",
       "cell": "c_arch_04",
@@ -4946,7 +5130,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "tile_white" }
     },
-    { "id": "b_floor_0620", "cell": "c_mol_01", "min": [-0.2, 3.2, 0.95], "max": [0, 4.3, 2.45], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0620",
+      "cell": "c_mol_01",
+      "min": [-0.2, 3.2, 0.95],
+      "max": [0, 4.3, 2.45],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "tile_white" }
+    },
     {
       "id": "b_wall_0621",
       "cell": "c_mol_01",
@@ -4983,7 +5175,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "plaster_grey" }
     },
-    { "id": "b_floor_0625", "cell": "c_store_04", "min": [-0.2, 3.2, 4.55], "max": [0, 4.3, 6.05], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0625",
+      "cell": "c_store_04",
+      "min": [-0.2, 3.2, 4.55],
+      "max": [0, 4.3, 6.05],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "plaster_grey" }
+    },
     {
       "id": "b_wall_0626",
       "cell": "c_store_04",
@@ -5047,7 +5247,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "plaster_light" }
     },
-    { "id": "b_floor_0633", "cell": "c_kitch_02", "min": [-0.2, 3.2, 10.45], "max": [0, 4.3, 11.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0633",
+      "cell": "c_kitch_02",
+      "min": [-0.2, 3.2, 10.45],
+      "max": [0, 4.3, 11.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "plaster_light" }
+    },
     {
       "id": "b_wall_0634",
       "cell": "c_kitch_02",
@@ -5084,7 +5292,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "tile_white" }
     },
-    { "id": "b_floor_0638", "cell": "c_phys_02", "min": [-0.2, 3.2, 14.1], "max": [0, 4.3, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0638",
+      "cell": "c_phys_02",
+      "min": [-0.2, 3.2, 14.1],
+      "max": [0, 4.3, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "tile_white" }
+    },
     {
       "id": "b_wall_0639",
       "cell": "c_phys_02",
@@ -5112,7 +5328,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_light", "+x": "facade_render" }
     },
-    { "id": "b_floor_0642", "cell": "c_dir_01", "min": [29, 3.2, 1.05], "max": [29.2, 4.3, 2.55], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0642",
+      "cell": "c_dir_01",
+      "min": [29, 3.2, 1.05],
+      "max": [29.2, 4.3, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_light", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0643",
       "cell": "c_dir_01",
@@ -5158,7 +5382,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_0648", "cell": "c_stair_01", "min": [29, 3.2, 5.65], "max": [29.2, 4.3, 7.15], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0648",
+      "cell": "c_stair_01",
+      "min": [29, 3.2, 5.65],
+      "max": [29.2, 4.3, 7.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0649",
       "cell": "c_stair_01",
@@ -5177,7 +5409,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_0651", "cell": "c_stair_01", "min": [29, 3.2, 9.45], "max": [29.2, 4.3, 10.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0651",
+      "cell": "c_stair_01",
+      "min": [29, 3.2, 9.45],
+      "max": [29.2, 4.3, 10.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0652",
       "cell": "c_stair_01",
@@ -5223,7 +5463,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_0657", "cell": "c_arch_04", "min": [29, 3.2, 14.1], "max": [29.2, 4.3, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0657",
+      "cell": "c_arch_04",
+      "min": [29, 3.2, 14.1],
+      "max": [29.2, 4.3, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0658",
       "cell": "c_arch_04",
@@ -6412,7 +6660,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_warm" }
     },
-    { "id": "b_floor_0814", "cell": "c_kids_01", "min": [7.15, 6.6, -0.2], "max": [8.65, 7.7, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0814",
+      "cell": "c_kids_01",
+      "min": [7.15, 6.6, -0.2],
+      "max": [8.65, 7.7, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_warm" }
+    },
     {
       "id": "b_wall_0815",
       "cell": "c_kids_01",
@@ -6476,7 +6732,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
     },
-    { "id": "b_floor_0822", "cell": "c_kitchen_02", "min": [15.15, 6.6, -0.2], "max": [16.65, 7.7, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0822",
+      "cell": "c_kitchen_02",
+      "min": [15.15, 6.6, -0.2],
+      "max": [16.65, 7.7, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
+    },
     {
       "id": "b_wall_0823",
       "cell": "c_kitchen_02",
@@ -6540,7 +6804,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_blue" }
     },
-    { "id": "b_floor_0830", "cell": "c_kids_02", "min": [22, 6.6, -0.2], "max": [23.2, 7.7, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0830",
+      "cell": "c_kids_02",
+      "min": [22, 6.6, -0.2],
+      "max": [23.2, 7.7, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_blue" }
+    },
     {
       "id": "b_wall_0831",
       "cell": "c_kids_02",
@@ -6640,7 +6912,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_warm", "+z": "facade_render" }
     },
-    { "id": "b_floor_0842", "cell": "c_bedroom_02", "min": [6.95, 6.6, 16.3], "max": [8.45, 7.7, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0842",
+      "cell": "c_bedroom_02",
+      "min": [6.95, 6.6, 16.3],
+      "max": [8.45, 7.7, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_warm", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0843",
       "cell": "c_bedroom_02",
@@ -6695,7 +6975,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_blue", "+z": "facade_render" }
     },
-    { "id": "b_floor_0849", "cell": "c_bedroom_03", "min": [15.25, 6.6, 16.3], "max": [16.75, 7.7, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0849",
+      "cell": "c_bedroom_03",
+      "min": [15.25, 6.6, 16.3],
+      "max": [16.75, 7.7, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_blue", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0850",
       "cell": "c_bedroom_03",
@@ -6741,7 +7029,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_warm", "+z": "facade_render" }
     },
-    { "id": "b_floor_0855", "cell": "c_living_04", "min": [19.95, 6.6, 16.3], "max": [21.45, 7.7, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0855",
+      "cell": "c_living_04",
+      "min": [19.95, 6.6, 16.3],
+      "max": [21.45, 7.7, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_warm", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_0856",
       "cell": "c_living_04",
@@ -6823,7 +7119,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_sage" }
     },
-    { "id": "b_floor_0865", "cell": "c_bedroom_01", "min": [-0.2, 6.6, 0.95], "max": [0, 7.7, 2.45], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0865",
+      "cell": "c_bedroom_01",
+      "min": [-0.2, 6.6, 0.95],
+      "max": [0, 7.7, 2.45],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_sage" }
+    },
     {
       "id": "b_wall_0866",
       "cell": "c_bedroom_01",
@@ -6860,7 +7164,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_white" }
     },
-    { "id": "b_floor_0870", "cell": "c_living_01", "min": [-0.2, 6.6, 4.55], "max": [0, 7.7, 6.05], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0870",
+      "cell": "c_living_01",
+      "min": [-0.2, 6.6, 4.55],
+      "max": [0, 7.7, 6.05],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_white" }
+    },
     {
       "id": "b_wall_0871",
       "cell": "c_living_01",
@@ -6924,7 +7236,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_blue" }
     },
-    { "id": "b_floor_0878", "cell": "c_living_02", "min": [-0.2, 6.6, 10.45], "max": [0, 7.7, 11.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0878",
+      "cell": "c_living_02",
+      "min": [-0.2, 6.6, 10.45],
+      "max": [0, 7.7, 11.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_blue" }
+    },
     {
       "id": "b_wall_0879",
       "cell": "c_living_02",
@@ -6970,7 +7290,15 @@
       "tag": "wall",
       "faces": { "-x": "wall_paint_sage", "+x": "facade_render" }
     },
-    { "id": "b_floor_0884", "cell": "c_living_03", "min": [29, 6.6, 1.05], "max": [29.2, 7.7, 2.55], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0884",
+      "cell": "c_living_03",
+      "min": [29, 6.6, 1.05],
+      "max": [29.2, 7.7, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "wall_paint_sage", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0885",
       "cell": "c_living_03",
@@ -7016,7 +7344,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_0890", "cell": "c_stair_01", "min": [29, 6.6, 5.65], "max": [29.2, 7.7, 7.15], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0890",
+      "cell": "c_stair_01",
+      "min": [29, 6.6, 5.65],
+      "max": [29.2, 7.7, 7.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0891",
       "cell": "c_stair_01",
@@ -7035,7 +7371,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_0893", "cell": "c_stair_01", "min": [29, 6.6, 9.45], "max": [29.2, 7.7, 10.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0893",
+      "cell": "c_stair_01",
+      "min": [29, 6.6, 9.45],
+      "max": [29.2, 7.7, 10.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0894",
       "cell": "c_stair_01",
@@ -7081,7 +7425,15 @@
       "tag": "wall",
       "faces": { "-x": "wall_paint_blue", "+x": "facade_render" }
     },
-    { "id": "b_floor_0899", "cell": "c_bedroom_06", "min": [29, 6.6, 14.1], "max": [29.2, 7.7, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_0899",
+      "cell": "c_bedroom_06",
+      "min": [29, 6.6, 14.1],
+      "max": [29.2, 7.7, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "wall_paint_blue", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_0900",
       "cell": "c_bedroom_06",
@@ -8097,7 +8449,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
     },
-    { "id": "b_floor_1035", "cell": "c_kitchen_05", "min": [6.35, 10, -0.2], "max": [7.85, 11.1, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1035",
+      "cell": "c_kitchen_05",
+      "min": [6.35, 10, -0.2],
+      "max": [7.85, 11.1, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
+    },
     {
       "id": "b_wall_1036",
       "cell": "c_kitchen_05",
@@ -8143,7 +8503,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
     },
-    { "id": "b_floor_1041", "cell": "c_kitchen_06", "min": [11.35, 10, -0.2], "max": [12.85, 11.1, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1041",
+      "cell": "c_kitchen_06",
+      "min": [11.35, 10, -0.2],
+      "max": [12.85, 11.1, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
+    },
     {
       "id": "b_wall_1042",
       "cell": "c_kitchen_06",
@@ -8207,7 +8575,15 @@
       "tag": "wall",
       "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
     },
-    { "id": "b_floor_1049", "cell": "c_kids_03", "min": [20.55, 10, -0.2], "max": [22.05, 11.1, 0], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1049",
+      "cell": "c_kids_03",
+      "min": [20.55, 10, -0.2],
+      "max": [22.05, 11.1, 0],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "facade_render", "+z": "wall_paint_white" }
+    },
     {
       "id": "b_wall_1050",
       "cell": "c_kids_03",
@@ -8307,7 +8683,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_white", "+z": "facade_render" }
     },
-    { "id": "b_floor_1061", "cell": "c_kitchen_07", "min": [4.65, 10, 16.3], "max": [6.15, 11.1, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1061",
+      "cell": "c_kitchen_07",
+      "min": [4.65, 10, 16.3],
+      "max": [6.15, 11.1, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_white", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_1062",
       "cell": "c_kitchen_07",
@@ -8371,7 +8755,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_white", "+z": "facade_render" }
     },
-    { "id": "b_floor_1069", "cell": "c_kitchen_08", "min": [14.25, 10, 16.3], "max": [15.75, 11.1, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1069",
+      "cell": "c_kitchen_08",
+      "min": [14.25, 10, 16.3],
+      "max": [15.75, 11.1, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_white", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_1070",
       "cell": "c_kitchen_08",
@@ -8417,7 +8809,15 @@
       "tag": "wall",
       "faces": { "-z": "wall_paint_blue", "+z": "facade_render" }
     },
-    { "id": "b_floor_1075", "cell": "c_kids_04", "min": [20.45, 10, 16.3], "max": [21.95, 11.1, 16.5], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1075",
+      "cell": "c_kids_04",
+      "min": [20.45, 10, 16.3],
+      "max": [21.95, 11.1, 16.5],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-z": "wall_paint_blue", "+z": "facade_render" }
+    },
     {
       "id": "b_wall_1076",
       "cell": "c_kids_04",
@@ -8481,7 +8881,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_warm" }
     },
-    { "id": "b_floor_1083", "cell": "c_study_01", "min": [-0.2, 10, 0.95], "max": [0, 11.1, 2.45], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1083",
+      "cell": "c_study_01",
+      "min": [-0.2, 10, 0.95],
+      "max": [0, 11.1, 2.45],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_warm" }
+    },
     {
       "id": "b_wall_1084",
       "cell": "c_study_01",
@@ -8518,7 +8926,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_warm" }
     },
-    { "id": "b_floor_1088", "cell": "c_living_05", "min": [-0.2, 10, 4.65], "max": [0, 11.1, 6.15], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1088",
+      "cell": "c_living_05",
+      "min": [-0.2, 10, 4.65],
+      "max": [0, 11.1, 6.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_warm" }
+    },
     {
       "id": "b_wall_1089",
       "cell": "c_living_05",
@@ -8582,7 +8998,15 @@
       "tag": "wall",
       "faces": { "-x": "facade_render", "+x": "wall_paint_white" }
     },
-    { "id": "b_floor_1096", "cell": "c_hallway_03", "min": [-0.2, 10, 10.5], "max": [0, 11.1, 11.7], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1096",
+      "cell": "c_hallway_03",
+      "min": [-0.2, 10, 10.5],
+      "max": [0, 11.1, 11.7],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "facade_render", "+x": "wall_paint_white" }
+    },
     {
       "id": "b_wall_1097",
       "cell": "c_hallway_03",
@@ -8628,7 +9052,15 @@
       "tag": "wall",
       "faces": { "-x": "wall_paint_warm", "+x": "facade_render" }
     },
-    { "id": "b_floor_1102", "cell": "c_bedroom_09", "min": [29, 10, 1.05], "max": [29.2, 11.1, 2.55], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1102",
+      "cell": "c_bedroom_09",
+      "min": [29, 10, 1.05],
+      "max": [29.2, 11.1, 2.55],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "wall_paint_warm", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_1103",
       "cell": "c_bedroom_09",
@@ -8674,7 +9106,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_1108", "cell": "c_stair_01", "min": [29, 10, 5.65], "max": [29.2, 11.1, 7.15], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1108",
+      "cell": "c_stair_01",
+      "min": [29, 10, 5.65],
+      "max": [29.2, 11.1, 7.15],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_1109",
       "cell": "c_stair_01",
@@ -8693,7 +9133,15 @@
       "tag": "wall",
       "faces": { "-x": "plaster_grey", "+x": "facade_render" }
     },
-    { "id": "b_floor_1111", "cell": "c_stair_01", "min": [29, 10, 9.45], "max": [29.2, 11.1, 10.95], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1111",
+      "cell": "c_stair_01",
+      "min": [29, 10, 9.45],
+      "max": [29.2, 11.1, 10.95],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "plaster_grey", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_1112",
       "cell": "c_stair_01",
@@ -8739,7 +9187,15 @@
       "tag": "wall",
       "faces": { "-x": "wall_paint_white", "+x": "facade_render" }
     },
-    { "id": "b_floor_1117", "cell": "c_bedroom_10", "min": [29, 10, 14.1], "max": [29.2, 11.1, 15.3], "mat": "concrete_raw", "tag": "floor" },
+    {
+      "id": "b_wall_1117",
+      "cell": "c_bedroom_10",
+      "min": [29, 10, 14.1],
+      "max": [29.2, 11.1, 15.3],
+      "mat": "concrete_raw",
+      "tag": "wall",
+      "faces": { "-x": "wall_paint_white", "+x": "facade_render" }
+    },
     {
       "id": "b_wall_1118",
       "cell": "c_bedroom_10",
@@ -8837,20 +9293,36 @@
     { "id": "b_stair_1204", "cell": "c_yard_14", "min": [30.68, -0.68, 7.2], "max": [30.96, -0.34, 9.4], "mat": "concrete_smooth", "tag": "stair" },
     { "id": "b_stair_1205", "cell": "c_yard_14", "min": [30.4, -0.68, 7.2], "max": [30.68, -0.17, 9.4], "mat": "concrete_smooth", "tag": "stair" },
     { "id": "b_lawn_1206", "cell": "c_yard_01", "min": [-5.9, -0.68, -5.9], "max": [2.3, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1207", "cell": "c_yard_02", "min": [2.3, -0.68, -5.9], "max": [10.4, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1208", "cell": "c_yard_03", "min": [10.4, -0.68, -5.9], "max": [18.6, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1209", "cell": "c_yard_04", "min": [18.6, -0.68, -5.9], "max": [26.7, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1210", "cell": "c_yard_05", "min": [26.7, -0.68, -5.9], "max": [34.9, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1211", "cell": "c_yard_06", "min": [-5.9, -0.68, 19.1], "max": [2.3, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1212", "cell": "c_yard_07", "min": [2.3, -0.68, 19.1], "max": [10.4, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1213", "cell": "c_yard_08", "min": [10.4, -0.68, 19.1], "max": [18.6, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1214", "cell": "c_yard_09", "min": [18.6, -0.68, 19.1], "max": [26.7, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1215", "cell": "c_yard_10", "min": [26.7, -0.68, 19.1], "max": [34.9, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1216", "cell": "c_yard_11", "min": [-5.9, -0.68, -0.2], "max": [-2.8, -0.66, 8.2], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1217", "cell": "c_yard_12", "min": [-5.9, -0.68, 8.2], "max": [-2.8, -0.66, 16.5], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1218", "cell": "c_yard_13", "min": [31.8, -0.68, -0.2], "max": [34.9, -0.66, 3.5], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1219", "cell": "c_yard_14", "min": [31.8, -0.68, 3.5], "max": [34.9, -0.66, 13.1], "mat": "lawn_green", "tag": "lawn" },
-    { "id": "b_lawn_1220", "cell": "c_yard_15", "min": [31.8, -0.68, 13.1], "max": [34.9, -0.66, 16.5], "mat": "lawn_green", "tag": "lawn" }
+    { "id": "b_plinth_1207", "cell": "c_yard_01", "min": [-0.2, -0.68, -0.22], "max": [2.3, 0.1, -0.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1208", "cell": "c_yard_02", "min": [2.3, -0.68, -5.9], "max": [10.4, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1209", "cell": "c_yard_02", "min": [2.3, -0.68, -0.22], "max": [10.4, 0.1, -0.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1210", "cell": "c_yard_03", "min": [10.4, -0.68, -5.9], "max": [18.6, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1211", "cell": "c_yard_03", "min": [10.4, -0.68, -0.22], "max": [18.6, 0.1, -0.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1212", "cell": "c_yard_04", "min": [18.6, -0.68, -5.9], "max": [26.7, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1213", "cell": "c_yard_04", "min": [18.6, -0.68, -0.22], "max": [26.7, 0.1, -0.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1214", "cell": "c_yard_05", "min": [26.7, -0.68, -5.9], "max": [34.9, -0.66, -2.8], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1215", "cell": "c_yard_05", "min": [26.7, -0.68, -0.22], "max": [29.2, 0.1, -0.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1216", "cell": "c_yard_06", "min": [-5.9, -0.68, 19.1], "max": [2.3, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1217", "cell": "c_yard_06", "min": [-0.2, -0.68, 16.5], "max": [2.3, 0.1, 16.52], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1218", "cell": "c_yard_07", "min": [2.3, -0.68, 19.1], "max": [10.4, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1219", "cell": "c_yard_07", "min": [2.3, -0.68, 16.5], "max": [10.4, 0.1, 16.52], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1220", "cell": "c_yard_08", "min": [10.4, -0.68, 19.1], "max": [18.6, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1221", "cell": "c_yard_08", "min": [10.4, -0.68, 16.5], "max": [18.6, 0.1, 16.52], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1222", "cell": "c_yard_09", "min": [18.6, -0.68, 19.1], "max": [26.7, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1223", "cell": "c_yard_09", "min": [18.6, -0.68, 16.5], "max": [26.7, 0.1, 16.52], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1224", "cell": "c_yard_10", "min": [26.7, -0.68, 19.1], "max": [34.9, -0.66, 22.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1225", "cell": "c_yard_10", "min": [26.7, -0.68, 16.5], "max": [29.2, 0.1, 16.52], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1226", "cell": "c_yard_11", "min": [-5.9, -0.68, -0.2], "max": [-2.8, -0.66, 8.2], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1227", "cell": "c_yard_11", "min": [-0.22, -0.68, -0.2], "max": [-0.2, 0.1, 8.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1228", "cell": "c_yard_12", "min": [-5.9, -0.68, 8.2], "max": [-2.8, -0.66, 16.5], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1229", "cell": "c_yard_12", "min": [-0.22, -0.68, 8.2], "max": [-0.2, 0.1, 16.5], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1230", "cell": "c_yard_13", "min": [31.8, -0.68, -0.2], "max": [34.9, -0.66, 3.5], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1231", "cell": "c_yard_13", "min": [29.2, -0.68, -0.2], "max": [29.22, 0.1, 3.5], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1232", "cell": "c_yard_14", "min": [31.8, -0.68, 3.5], "max": [34.9, -0.66, 13.1], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1233", "cell": "c_yard_14", "min": [29.2, -0.68, 3.5], "max": [29.22, 0.1, 7.2], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_plinth_1234", "cell": "c_yard_14", "min": [29.2, -0.68, 9.4], "max": [29.22, 0.1, 13.1], "mat": "facade_plinth", "tag": "plinth" },
+    { "id": "b_lawn_1235", "cell": "c_yard_15", "min": [31.8, -0.68, 13.1], "max": [34.9, -0.66, 16.5], "mat": "lawn_green", "tag": "lawn" },
+    { "id": "b_plinth_1236", "cell": "c_yard_15", "min": [29.2, -0.68, 13.1], "max": [29.22, 0.1, 16.5], "mat": "facade_plinth", "tag": "plinth" }
   ],
   "entities": [
     { "id": "e_door_01", "prefab": "door_wood_01", "cell": "c_stair_01", "pos": [29.1, 0, 8.3], "rot": [0, 90, 0] },

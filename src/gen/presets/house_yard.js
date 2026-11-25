@@ -69,6 +69,23 @@ export function yardDecorate(b, S, plan, catalog) {
     const key = k === 0 ? (sgn > 0 ? 'x1' : 'x0') : sgn > 0 ? 'z1' : 'z0';
     r[key] += sgn > 0 ? -260 : 260;
     b.add(S.meta[i].id, 'lawn', [r.x0, c.y0, r.z0], [r.x1, c.y0 + 2, r.z1], 'lawn_green');
+    // sokl: tmavý pruh 2 cm před fasádou od dlažby do 10 cm nad podlahu přízemí, přerušený u schodů vchodu
+    const face = sgn > 0 ? c.max[k] : c.min[k];
+    const o = 1 - k;
+    const o3 = o === 0 ? 0 : 2; // zóny jsou 3D [x, y, z], půdorys [x, z]
+    const cuts = S.zones[i].filter((z) => z.steps).map((z) => [Math.round(z.min[o3] * 100), Math.round(z.max[o3] * 100)]);
+    // jen podél fasády (rohové úseky nádvoří přesahují dům)
+    const [lo, hi] = o === 0 ? [-plan.T, plan.W + plan.T] : [-plan.T, plan.D + plan.T];
+    const end = Math.min(c.max[o], hi);
+    let cur = Math.max(c.min[o], lo);
+    for (const [p0, p1] of [...cuts.sort((p, q) => p[0] - q[0]), [end, end]]) {
+      const [a0, a1] = [cur, Math.min(p0, end)];
+      if (a1 - a0 >= 20) {
+        const n = [face - sgn * 2, face].sort((p, q) => p - q);
+        b.add(S.meta[i].id, 'plinth', k === 1 ? [a0, c.y0, n[0]] : [n[0], c.y0, a0], k === 1 ? [a1, 10, n[1]] : [n[1], 10, a1], 'facade_plinth');
+      }
+      cur = Math.max(cur, p1);
+    }
   }
   if (!catalog.has('canopy_entrance_01')) return;
   for (const o of S.openings) {

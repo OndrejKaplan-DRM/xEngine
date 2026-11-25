@@ -12,7 +12,7 @@ const runBox = (run, a0, a1, n0, n1, y0, y1, kind) => (run === RUN_X ? boxM(a0, 
 /** Otvory oken podle úseku zdi (pro wallRun). */
 export function windowOpenings(plan) {
   const bySeg = new Map();
-  for (const w of plan.windows || []) bySeg.set(w.seg, [...(bySeg.get(w.seg) || []), { c0: w.c0, c1: w.c1, sill: w.sill, top: w.top }]);
+  for (const w of plan.windows || []) bySeg.set(w.seg, [...(bySeg.get(w.seg) || []), { c0: w.c0, c1: w.c1, sill: w.sill, top: w.top, window: true }]);
   return bySeg;
 }
 

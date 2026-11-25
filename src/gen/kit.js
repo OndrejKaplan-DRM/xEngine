@@ -49,7 +49,7 @@ const facesOnRun = (run, lo, hi) => {
 
 /**
  * Úsek zdi s otvory. Vyrobí plné kusy mezi otvory, překlad nad každým otvorem a práh pod ním.
- * @param w { cell, run, u, v, b0, b1, y0, y1, mat, faceLo?, faceHi?, sillMat?, openings?: [{ c0, c1, sill, top }] }
+ * @param w { cell, run, u, v, b0, b1, y0, y1, mat, faceLo?, faceHi?, sillMat?, openings?: [{ c0, c1, sill, top, window? }] }
  *   u…v rozsah podél zdi, b0…b1 tloušťka, y0…y1 výška; faceLo a faceHi = materiál líce na straně menší a větší souřadnice.
  */
 export function wallRun(b, w) {
@@ -62,7 +62,9 @@ export function wallRun(b, w) {
     if (c1 <= c0) continue;
     piece(cur, c0, w.y0, w.y1, 'wall', w.mat, faces);
     piece(c0, c1, o.top, w.y1, 'wall', w.mat, faces); // překlad
-    piece(c0, c1, w.y0, o.sill, 'floor', w.sillMat || w.mat); // práh
+    // práh; pod oknem (o.window) zeď s lícem místnosti a fasády
+    if (o.window) piece(c0, c1, w.y0, o.sill, 'wall', w.mat, faces);
+    else piece(c0, c1, w.y0, o.sill, 'floor', w.sillMat || w.mat);
     cur = c1;
   }
   piece(cur, w.v, w.y0, w.y1, 'wall', w.mat, faces);
