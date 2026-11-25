@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_it`. Neupravovat ručně; zdroj je `tools/forge/it/*.mjs`.
 
-Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 53462
+Prefabů: 98 · materiálů: 33 · trojúhelníků celkem: 64650
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -86,6 +86,24 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 53462
 | `coat_rack_01` | Stojanový věšák s bundou | it.office | 0,44 × 1,83 × 0,44 | 484 | — | — |
 | `partition_glass_01` | Skleněná příčka 1,2 m s pruhem | it.office | 1,2 × 2,6 × 0,08 | 252 | — | — |
 | `desk_reception_01` | Recepční pult | it.office | 2,5 × 1,16 × 1,1 | 876 | — | — |
+| `reception_desk_01` | Recepční pult zaoblený | it.office | 1,94 × 1,14 × 0,91 | 1004 | — | — |
+| `reception_desk_02` | Recepční pult rovný s vyvýšenou deskou | it.office | 1,9 × 1,09 × 0,95 | 360 | — | — |
+| `chair_waiting_01` | Čekací lavice se třemi sedáky | it.office | 1,7 × 0,85 × 0,61 | 708 | — | — |
+| `table_low_office_01` | Nízký stolek do čekárny | it.office | 0,9 × 0,45 × 0,6 | 260 | — | — |
+| `magazine_rack_01` | Stojan na časopisy | it.office | 0,5 × 1,2 × 0,3 | 96 | — | — |
+| `sign_reception_01` | Nástěnné logo s podsvícením | it.office | 1,2 × 0,4 × 0,05 | 768 | — | — |
+| `archive_shelf_mobile_01` | Pojízdné archivní regály (2 sekce) s krabicemi | it.office | 1,28 × 2,2 × 1,05 | 1136 | — | — |
+| `archive_shelf_mobile_02` | Pojízdné archivní regály (3 sekce) s krabicemi | it.office | 1,28 × 2,2 × 1,65 | 1692 | — | — |
+| `archive_box_row_01` | Řada archivních krabic s pořadači | it.office | 0,78 × 0,32 × 0,3 | 600 | — | — |
+| `desk_director_01` | Pracovní stůl ředitele s přístavbou | it.office | 2,6 × 0,77 × 0,9 | 588 | — | — |
+| `chair_executive_01` | Kožené kancelářské křeslo s vysokým opěradlem | it.office | 0,69 × 1,34 × 0,76 | 744 | — | — |
+| `cabinet_glass_office_01` | Vitrína s policemi a trofejemi | it.office | 0,9 × 2 × 0,4 | 316 | — | — |
+| `sofa_office_01` | Kožená pohovka do kanceláře | it.office | 1,96 × 0,8 × 0,84 | 560 | — | — |
+| `coffee_machine_office_01` | Velký kávovar do kuchyňky | it.office | 0,4 × 0,6 × 0,52 | 444 | — | — |
+| `vending_machine_01` | Automat na nápoje a svačiny | it.office | 0,9 × 1,81 × 0,81 | 1072 | — | — |
+| `safe_01` | Trezor | it.office | 0,6 × 0,7 × 0,65 | 384 | — | — |
+| `shredder_01` | Skartovačka | it.office | 0,42 × 0,65 × 0,32 | 240 | — | — |
+| `flipchart_01` | Flipchart na trojnožce | it.office | 0,7 × 1,79 × 0,68 | 216 | — | — |
 
 ## Meze kloubů: zdroj nebo úvaha
 

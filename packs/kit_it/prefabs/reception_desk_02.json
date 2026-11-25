@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "reception_desk_02",
+  "title": "Recepční pult rovný s vyvýšenou deskou",
+  "category": "it.office",
+  "bounds": { "min": [-0.951, -0.001, -0.751], "max": [0.951, 1.091, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_02_body", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_02_counter", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_02_desk", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_02_sides", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_02_logo", "mat": "fabric_teal" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.95, 0, -0.75], "max": [0.95, 1.09, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 360,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#reception",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

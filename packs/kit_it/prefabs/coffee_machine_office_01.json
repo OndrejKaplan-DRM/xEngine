@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "coffee_machine_office_01",
+  "title": "Velký kávovar do kuchyňky",
+  "category": "it.office",
+  "bounds": { "min": [-0.201, -0.001, -0.251], "max": [0.201, 0.601, 0.271] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_body", "mat": "mesh_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_spout", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coffee_machine_office_01_tray", "mat": "alu_silver" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.25], "max": [0.2, 0.6, 0.27], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 444,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#common",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "vending_machine_01",
+  "title": "Automat na nápoje a svačiny",
+  "category": "it.office",
+  "bounds": { "min": [-0.451, 0.039, -0.401], "max": [0.451, 1.851, 0.411] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_shell", "mat": "mesh_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_window", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_shelves", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_goods", "mat": "marker_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#vending_machine_01_slot", "mat": "fabric_charcoal" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0.04, -0.4], "max": [0.45, 1.85, 0.41], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1072,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#common",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

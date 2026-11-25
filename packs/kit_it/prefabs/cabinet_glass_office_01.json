@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cabinet_glass_office_01",
+  "title": "Vitrína s policemi a trofejemi",
+  "category": "it.office",
+  "bounds": { "min": [-0.451, -0.001, -0.201], "max": [0.451, 2.001, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cabinet_glass_office_01_body", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cabinet_glass_office_01_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cabinet_glass_office_01_items", "mat": "brass" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.2], "max": [0.45, 2, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 316,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#archive",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

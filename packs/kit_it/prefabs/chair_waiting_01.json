@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chair_waiting_01",
+  "title": "Čekací lavice se třemi sedáky",
+  "category": "it.office",
+  "bounds": { "min": [-0.851, -0.001, -0.337], "max": [0.851, 0.847, 0.271] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_waiting_01_beam", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_waiting_01_legs", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_waiting_01_seats", "mat": "fabric_teal" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.85, 0, -0.336], "max": [0.85, 0.846, 0.27], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 708,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#reception",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

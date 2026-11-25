@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "archive_shelf_mobile_02",
+  "title": "Pojízdné archivní regály (3 sekce) s krabicemi",
+  "category": "it.office",
+  "bounds": { "min": [-0.621, -0.001, -0.501], "max": [0.661, 2.201, 1.151] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_shelf_mobile_02_units", "mat": "steel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_shelf_mobile_02_boxes", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_shelf_mobile_02_rails", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_shelf_mobile_02_wheels", "mat": "alu_silver" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.62, 0, -0.5], "max": [0.66, 2.2, 1.15], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1692,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#archive",
+    "params": { "assembly": true },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

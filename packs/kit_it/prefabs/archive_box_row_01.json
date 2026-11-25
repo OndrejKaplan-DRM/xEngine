@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "archive_box_row_01",
+  "title": "Řada archivních krabic s pořadači",
+  "category": "it.office",
+  "bounds": { "min": [-0.401, -0.001, -0.151], "max": [0.381, 0.321, 0.152] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_box_row_01_boxes", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#archive_box_row_01_labels", "mat": "whiteboard" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.15], "max": [0.38, 0.32, 0.151], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 600,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#archive",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

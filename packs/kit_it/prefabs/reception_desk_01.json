@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "reception_desk_01",
+  "title": "Recepční pult zaoblený",
+  "category": "it.office",
+  "bounds": { "min": [-0.983, -0.001, -0.551], "max": [0.958, 1.141, 0.356] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_01_front", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_01_top", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_01_desk", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reception_desk_01_strip", "mat": "led_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.982, 0, -0.55], "max": [0.957, 1.14, 0.355], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1004,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#reception",
+    "params": { "top": 0.75 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

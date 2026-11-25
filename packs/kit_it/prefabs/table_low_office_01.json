@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "table_low_office_01",
+  "title": "Nízký stolek do čekárny",
+  "category": "it.office",
+  "bounds": { "min": [-0.451, -0.001, -0.301], "max": [0.451, 0.444, 0.301] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_low_office_01_top", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_low_office_01_legs", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_low_office_01_mags", "mat": "whiteboard" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [0.45, 0.443, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 260,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/it/office2.mjs#reception",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
