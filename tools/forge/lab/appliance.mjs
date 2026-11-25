@@ -14,6 +14,16 @@ let FILE = 'appl';
 export const useFile = (f) => {
   FILE = f;
 };
+/** Spustí fn s jiným souborem sítí (sada kit_it má vlastní it.glb) a vrátí soubor zpět. */
+export function withFile(f, fn) {
+  const prev = FILE;
+  FILE = f;
+  try {
+    return fn();
+  } finally {
+    FILE = prev;
+  }
+}
 export const A = (n, name, geom, mat) => meshPart(n, FILE, name, geom, mat);
 const T = (g, x, y, z) => moved(g, mTranslate(x, y, z));
 /** Díl ležící na čele (rovina XY v z): sítě stavěné ve vodorovné rovině se otočí o −90° kolem X (y → z). */

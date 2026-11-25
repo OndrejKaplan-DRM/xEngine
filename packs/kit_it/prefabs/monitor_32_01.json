@@ -4,29 +4,26 @@
   "id": "monitor_32_01",
   "title": "Monitor 32\" 4K",
   "category": "it.computer",
-  "bounds": { "min": [-0.364, -0.001, -0.101], "max": [0.364, 0.512, 0.081] },
+  "bounds": { "min": [-0.362, -0.001, -0.101], "max": [0.362, 0.514, 0.061] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.12, 0.012, 0.08], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.012, -0.07], "max": [0.03, 0.2594, -0.05], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.3622, 0.104, -0.046], "max": [0.3622, 0.5065, -0.024], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.3582, 0.1, -0.046], "max": [0.3582, 0.5105, -0.024], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.3582, 0.104, -0.05], "max": [0.3582, 0.5065, -0.02], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.3542, 0.11, -0.02], "max": [0.3542, 0.5025, -0.018], "mat": "screen_code" },
-    { "node": "body", "shape": "box", "min": [0.3342, 0.102, -0.02], "max": [0.3422, 0.106, -0.017], "mat": "led_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_32_n_0_0_bezel_black_stand", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_32_n_0_0_bezel_black_panel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_32_n_0_0_bezel_black_img_screen_code", "mat": "screen_code" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_32_n_0_0_bezel_black_led", "mat": "led_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.363, 0, -0.1], "max": [0.363, 0.511, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.361, 0, -0.1], "max": [0.361, 0.513, 0.06], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 84,
+  "tris": 264,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#monitors",

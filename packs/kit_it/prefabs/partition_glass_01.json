@@ -4,26 +4,25 @@
   "id": "partition_glass_01",
   "title": "Skleněná příčka 1,2 m s pruhem",
   "category": "it.office",
-  "bounds": { "min": [-0.601, -0.001, -0.041], "max": [0.601, 2.601, 0.041] },
+  "bounds": { "min": [-0.601, -0.001, -0.041], "max": [0.601, 2.602, 0.041] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.04], "max": [0.6, 0.06, 0.04], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.6, 2.54, -0.04], "max": [0.6, 2.6, 0.04], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.06, -0.006], "max": [0.6, 2.54, 0.006], "mat": "glass_tinted" },
-    { "node": "body", "shape": "box", "min": [-0.6, 1, 0.006], "max": [0.6, 1.1, 0.008], "mat": "paint_white_line" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#partition_glass_01_rails", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#partition_glass_01_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#partition_glass_01_band", "mat": "paint_white_line" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.04], "max": [0.6, 2.6, 0.04], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.04], "max": [0.6, 2.601, 0.04], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 48,
+  "tris": 252,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

@@ -4,44 +4,33 @@
   "id": "chair_task_01",
   "title": "Kancelářská židle se síťovým opěradlem (černá)",
   "category": "it.office",
-  "bounds": { "min": [-0.301, -0.001, -0.321], "max": [0.321, 1.131, 0.311] },
+  "bounds": { "min": [-0.307, -0.001, -0.317], "max": [0.325, 1.095, 0.317] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [0.28, 0.04, -0.02], "max": [0.32, 0.07, 0.02], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.0726, 0.04, 0.2654], "max": [0.1126, 0.07, 0.3054], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.2628, 0.04, 0.1562], "max": [-0.2228, 0.07, 0.1962], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.2625, 0.04, -0.1966], "max": [-0.2225, 0.07, -0.1566], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.0731, 0.04, -0.3052], "max": [0.1131, 0.07, -0.2652], "mat": "bezel_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_300_25_0", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_93_25_285", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-243_25_176", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-242_25_-177", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_93_25_-285", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_400_y_0_260_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.48, -0.22], "max": [0.25, 0.5, 0.22], "mat": "fabric_charcoal" },
-    { "node": "body", "shape": "box", "min": [-0.23, 0.46, -0.22], "max": [0.23, 0.52, 0.22], "mat": "fabric_charcoal" },
-    { "node": "body", "shape": "box", "min": [-0.23, 0.48, -0.24], "max": [0.23, 0.5, 0.24], "mat": "fabric_charcoal" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.5, -0.28], "max": [0.02, 0.62, -0.24], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.24, 0.6, -0.31], "max": [0.24, 1.1, -0.27], "mat": "mesh_black" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.58, -0.32], "max": [0.25, 0.6, -0.26], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.25, 1.1, -0.32], "max": [0.25, 1.13, -0.26], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.285, 0.52, -0.05], "max": [-0.255, 0.68, -0.02], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.68, -0.15], "max": [-0.24, 0.7, 0.1], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.255, 0.52, -0.05], "max": [0.285, 0.68, -0.02], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.24, 0.68, -0.15], "max": [0.3, 0.7, 0.1], "mat": "bezel_black" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_star", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_lift", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_mech", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_seat", "mat": "fabric_charcoal" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_spine", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_frame", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_mesh", "mat": "mesh_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_lumbar", "mat": "fabric_charcoal" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_armposts", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#chair_task_01_armpads", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.32], "max": [0.32, 1.13, 0.31], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.306, 0, -0.316], "max": [0.324, 1.094, 0.316], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 672,
+  "tris": 1194,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#chairs",

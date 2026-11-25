@@ -333,7 +333,7 @@ export function cultureAndMore() {
     A('body', `${nk}_probe`, T(cylinder(0.05, 0.1, 0.7, { seg: 10 }), 0, 0, 0), 'steel_dark'),
     A('body', `${nk}_dewar`, T(lathe([[0.32, 0], [0.35, 0.04, 'c'], [0.35, 0.82], [0.3, 0.9], [0.18, 0.92, 'c'], [0, 0.92]], { seg: 24 }), 0, 0.65, 0), 'plastic_light'),
     A('body', `${nk}_turrets`, merge([T(cylinder(0.18, 1.57, 1.62, { seg: 16 }), 0, 0, 0), ...[0.12, -0.12].map((x) => T(cylinder(0.03, 1.62, 1.85, { edge: 0.008, n: 1, seg: 8 }), x, 0, 0)), T(cylinder(0.02, 1.62, 1.8, { seg: 8 }), 0, 0, 0.12)]), 'steel_brushed'),
-    A('body', `${nk}_line`, T(torus(0.6, 0.01, 0.005, { seg: 24, n: 3 }), 0, 0, 0), 'paint_yellow'),
+    A('body', `${nk}_line`, T(torus(0.6, 0.01, 0.011, { seg: 24, n: 3 }), 0, 0, 0), 'paint_yellow'),
   ], 'cultureAndMore', floor());
   return [single, double, lyo, robot, cyto, nmr];
 }

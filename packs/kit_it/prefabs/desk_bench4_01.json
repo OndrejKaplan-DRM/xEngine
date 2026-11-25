@@ -4,36 +4,28 @@
   "id": "desk_bench4_01",
   "title": "Blok stolů pro čtyři s přepážkami",
   "category": "it.office",
-  "bounds": { "min": [-1.601, -0.001, -0.801], "max": [1.601, 1.141, 0.801] },
+  "bounds": { "min": [-1.601, -0.001, -0.801], "max": [1.601, 1.142, 0.801] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-1.6, 0.719, -0.796], "max": [1.6, 0.736, 0.796], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.596, 0.715, -0.796], "max": [1.596, 0.74, 0.796], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.596, 0.719, -0.8], "max": [1.596, 0.736, 0.8], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.58, 0, -0.75], "max": [-1.52, 0.715, -0.69], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-1.58, 0, 0.69], "max": [-1.52, 0.715, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-1.58, 0, -0.75], "max": [-1.52, 0.04, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0, -0.75], "max": [0.03, 0.715, -0.69], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0, 0.69], "max": [0.03, 0.715, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0, -0.75], "max": [0.03, 0.04, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [1.52, 0, -0.75], "max": [1.58, 0.715, -0.69], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [1.52, 0, 0.69], "max": [1.58, 0.715, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [1.52, 0, -0.75], "max": [1.58, 0.04, 0.75], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-1.6, 0.74, -0.015], "max": [1.6, 1.14, 0.015], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [-0.012, 0.74, -0.8], "max": [0.012, 1.04, 0.8], "mat": "felt_grey" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_top", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_leg_-1550", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_leg_0", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_leg_1550", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_tray", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_bench4_01_screens", "mat": "felt_grey" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-1.6, 0, -0.8], "max": [1.6, 1.14, 0.8], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-1.6, 0, -0.8], "max": [1.6, 1.141, 0.8], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.74 }
   },
-  "tris": 168,
+  "tris": 720,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#desks",

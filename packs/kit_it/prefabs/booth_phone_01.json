@@ -4,33 +4,37 @@
   "id": "booth_phone_01",
   "title": "Telefonní budka (akustická kabina pro jednoho)",
   "category": "it.office",
-  "bounds": { "min": [-0.569, -0.001, -0.501], "max": [0.501, 2.201, 1.367] },
+  "bounds": { "min": [-0.562, -0.001, -0.501], "max": [0.501, 2.201, 1.311] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "door", "parent": "body", "pos": [-0.45, 0.05, 0.47] }
+      { "id": "door", "parent": "body", "pos": [-0.42, 0.05, 0.47] }
     ],
     "joints": [
       { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 95, "rest": 0, "damping": 4, "drive": "manual" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 0.05, 0.5], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [-0.45, 2.2, 0.5], "mat": "felt_green" },
-    { "node": "body", "shape": "box", "min": [0.45, 0, -0.5], "max": [0.5, 2.2, 0.5], "mat": "felt_green" },
-    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 2.2, -0.45], "mat": "felt_green" },
-    { "node": "body", "shape": "box", "min": [-0.5, 2.12, -0.5], "max": [0.5, 2.2, 0.5], "mat": "felt_green" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.9, -0.45], "max": [0.45, 0.93, -0.15], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-0.2, 2.1, -0.2], "max": [0.2, 2.12, 0.2], "mat": "emit_warm" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.9, 2.07, 0.012], "mat": "glass_tinted" },
-    { "node": "door", "shape": "box", "min": [0.85, 0.9, 0.012], "max": [0.87, 1.2, 0.04], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_floor", "mat": "felt_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_l_shell", "mat": "felt_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_r_shell", "mat": "felt_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_b_shell", "mat": "felt_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_t_shell", "mat": "felt_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_desk", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_lamp", "mat": "emit_warm" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_vent_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_vent_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_frame", "mat": "alu_silver" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_door_frame", "mat": "alu_silver" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_door_pane", "mat": "glass_tinted" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/it.glb#booth_phone_01_door_handle", "mat": "steel_brushed" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [-0.45, 2.2, 0.5], "group": "world" },
     { "node": "body", "shape": "box", "min": [0.45, 0, -0.5], "max": [0.5, 2.2, 0.5], "group": "world" },
     { "node": "body", "shape": "box", "min": [-0.5, 0, -0.5], "max": [0.5, 2.2, -0.45], "group": "world" },
     { "node": "body", "shape": "box", "min": [-0.5, 2.12, -0.5], "max": [0.5, 2.2, 0.5], "group": "world" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.9, 2.07, 0.04], "group": "world" }
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.84, 2.06, 0.069], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -39,7 +43,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 108,
+  "tris": 900,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#meeting",

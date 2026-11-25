@@ -4,29 +4,26 @@
   "id": "coat_rack_01",
   "title": "Stojanový věšák s bundou",
   "category": "it.office",
-  "bounds": { "min": [-0.221, -0.001, -0.221], "max": [0.221, 1.801, 0.221] },
+  "bounds": { "min": [-0.221, -0.001, -0.221], "max": [0.221, 1.824, 0.221] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_220_20_y_0_10_0", "mat": "bezel_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_18_1800_y_0_900_0", "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.112, 1.6, -0.008], "max": [0.128, 1.75, 0.008], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.008, 1.6, 0.112], "max": [0.008, 1.75, 0.128], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.128, 1.6, -0.008], "max": [-0.112, 1.75, 0.008], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.0079, 1.6, -0.128], "max": [0.0081, 1.75, -0.112], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.06, 1.2, -0.1], "max": [0.12, 1.65, 0.1], "mat": "fabric_teal" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coat_rack_01_base", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coat_rack_01_pole", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coat_rack_01_hooks", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#coat_rack_01_jacket", "mat": "fabric_teal" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.22], "max": [0.22, 1.8, 0.22], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.22], "max": [0.22, 1.823, 0.22], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 284,
+  "tris": 484,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

@@ -4,41 +4,33 @@
   "id": "setup_dev_01",
   "title": "Sestava vývojáře: monitor na výšku a 27\"",
   "category": "it.computer",
-  "bounds": { "min": [-0.579, -0.001, -0.251], "max": [0.488, 0.625, 0.291] },
+  "bounds": { "min": [-0.577, -0.001, -0.251], "max": [0.486, 0.627, 0.292] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.54, 0, -0.25], "max": [-0.3, 0.012, -0.07], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.012, -0.22], "max": [-0.39, 0.2925, -0.2], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.5774, 0.084, -0.196], "max": [-0.2626, 0.6193, -0.174], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.5734, 0.08, -0.196], "max": [-0.2666, 0.6233, -0.174], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.5734, 0.084, -0.2], "max": [-0.2666, 0.6193, -0.17], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.5694, 0.09, -0.17], "max": [-0.2706, 0.6153, -0.168], "mat": "screen_code" },
-    { "node": "body", "shape": "box", "min": [-0.2906, 0.082, -0.17], "max": [-0.2826, 0.086, -0.167], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [0.06, 0, -0.25], "max": [0.3, 0.012, -0.07], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.15, 0.012, -0.22], "max": [0.21, 0.2345, -0.2], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1269, 0.104, -0.196], "max": [0.4869, 0.4442, -0.174], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1229, 0.1, -0.196], "max": [0.4829, 0.4482, -0.174], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1229, 0.104, -0.2], "max": [0.4829, 0.4442, -0.17], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1189, 0.11, -0.17], "max": [0.4789, 0.4402, -0.168], "mat": "screen_code" },
-    { "node": "body", "shape": "box", "min": [0.4589, 0.102, -0.17], "max": [0.4669, 0.106, -0.167], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0, 0.15], "max": [0.22, 0.012, 0.29], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.21, 0.012, 0.16], "max": [0.21, 0.02, 0.28], "mat": "key_black" },
-    { "node": "body", "shape": "box", "min": [0.27, 0.01, 0.2], "max": [0.33, 0.025, 0.26], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.28, 0, 0.2], "max": [0.32, 0.035, 0.26], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.28, 0.01, 0.19], "max": [0.32, 0.025, 0.27], "mat": "bezel_black" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_-420_-150_bezel_black_stand", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_-420_-150_bezel_black_panel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_-420_-150_bezel_black_img_screen_code", "mat": "screen_code" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_-420_-150_bezel_black_led", "mat": "led_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_27_n_180_-150_bezel_black_stand", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_27_n_180_-150_bezel_black_panel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_27_n_180_-150_bezel_black_img_screen_code", "mat": "screen_code" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_27_n_180_-150_bezel_black_led", "mat": "led_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_frame", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_keys", "mat": "key_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_mouse", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.578, 0, -0.25], "max": [0.487, 0.624, 0.29], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.576, 0, -0.25], "max": [0.485, 0.626, 0.291], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 228,
+  "tris": 804,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#workstations",

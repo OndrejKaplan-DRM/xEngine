@@ -4,29 +4,27 @@
   "id": "laptop_16_01",
   "title": "Notebook 16\" stříbrný",
   "category": "it.computer",
-  "bounds": { "min": [-0.186, -0.001, -0.125], "max": [0.186, 0.253, 0.119] },
+  "bounds": { "min": [-0.186, -0.001, -0.179], "max": [0.186, 0.244, 0.119] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1843, 0.003, -0.1147], "max": [0.1843, 0.013, 0.1147], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.1813, 0, -0.1147], "max": [0.1813, 0.016, 0.1147], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.1813, 0.003, -0.1177], "max": [0.1813, 0.013, 0.1177], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.1623, 0.016, -0.0977], "max": [0.1623, 0.018, 0.02], "mat": "key_black" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.016, 0.04], "max": [0.05, 0.0175, 0.0977], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.1843, 0.016, -0.1237], "max": [0.1843, 0.2514, -0.1177], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.1723, 0.026, -0.1177], "max": [0.1723, 0.2414, -0.1162], "mat": "screen_graph" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_16_0_0_alu_silver_base", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_16_0_0_alu_silver_keys", "mat": "key_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_16_0_0_alu_silver_pad", "mat": "alu_space" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_16_0_0_alu_silver_lid", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_16_0_0_alu_silver_img_screen_graph", "mat": "screen_graph" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.185, 0, -0.124], "max": [0.185, 0.252, 0.118], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.185, 0, -0.178], "max": [0.185, 0.243, 0.118], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 84,
+  "tris": 252,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#portables",

@@ -4,37 +4,31 @@
   "id": "desk_reception_01",
   "title": "Recepční pult",
   "category": "it.office",
-  "bounds": { "min": [-1.251, -0.001, -0.701], "max": [1.251, 1.162, 0.401] },
+  "bounds": { "min": [-1.251, -0.001, -0.701], "max": [1.251, 1.164, 0.401] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-1.2, 0.01, -0.34], "max": [1.2, 1.09, 0.34], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-1.19, 0, -0.34], "max": [1.19, 1.1, 0.34], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-1.19, 0.01, -0.35], "max": [1.19, 1.09, 0.35], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-1.25, 1.106, -0.094], "max": [1.25, 1.134, 0.394], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.244, 1.1, -0.094], "max": [1.244, 1.14, 0.394], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.244, 1.106, -0.1], "max": [1.244, 1.134, 0.4], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-1.2, 0.72, -0.7], "max": [1.2, 0.75, -0.35], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-0.4, 0.3, 0.35], "max": [0.4, 0.8, 0.352], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [-0.62, 0.75, -0.55], "max": [-0.38, 0.762, -0.37], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.53, 0.762, -0.52], "max": [-0.47, 0.9695, -0.5], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.7737, 0.854, -0.496], "max": [-0.2263, 1.1569, -0.474], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.7697, 0.85, -0.496], "max": [-0.2303, 1.1609, -0.474], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.7697, 0.854, -0.5], "max": [-0.2303, 1.1569, -0.47], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.7657, 0.86, -0.47], "max": [-0.2343, 1.1529, -0.468], "mat": "screen_doc" },
-    { "node": "body", "shape": "box", "min": [-0.2543, 0.852, -0.47], "max": [-0.2463, 0.856, -0.467], "mat": "led_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_reception_01_front_shell", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_reception_01_counter_top", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_reception_01_desk_top", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_reception_01_strip", "mat": "led_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_reception_01_logo", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_n_0_0_bezel_black_stand_s-500_750_-450", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_n_0_0_bezel_black_panel_s-500_750_-450", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_n_0_0_bezel_black_img_screen_doc_s-500_750_-450", "mat": "screen_doc" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_n_0_0_bezel_black_led_s-500_750_-450", "mat": "led_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-1.25, 0, -0.7], "max": [1.25, 1.161, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-1.25, 0, -0.7], "max": [1.25, 1.163, 0.4], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 1.14 }
   },
-  "tris": 180,
+  "tris": 876,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

@@ -4,45 +4,29 @@
   "id": "table_foosball_01",
   "title": "Stolní fotbal",
   "category": "it.office",
-  "bounds": { "min": [-0.601, -0.001, -0.501], "max": [0.601, 0.951, 0.501] },
+  "bounds": { "min": [-0.601, -0.001, -0.601], "max": [0.601, 0.951, 0.601] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0.71, -0.37], "max": [0.6, 0.94, 0.37], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0.7, -0.37], "max": [0.59, 0.95, 0.37], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0.71, -0.38], "max": [0.59, 0.94, 0.38], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-0.55, 0.75, -0.33], "max": [0.55, 0.752, 0.33], "mat": "table_green" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0, -0.36], "max": [-0.51, 0.7, -0.28], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0, 0.28], "max": [-0.51, 0.7, 0.36], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [0.51, 0, -0.36], "max": [0.59, 0.7, -0.28], "mat": "laminate_oak" },
-    { "node": "body", "shape": "box", "min": [0.51, 0, 0.28], "max": [0.59, 0.7, 0.36], "mat": "laminate_oak" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_1000_z_-450_880_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_1000_z_-250_880_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_1000_z_-50_880_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_1000_z_150_880_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_1000_z_350_880_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.4625, 0.78, -0.165], "max": [-0.4375, 0.9, -0.135], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.4625, 0.78, 0.135], "max": [-0.4375, 0.9, 0.165], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.2625, 0.78, -0.165], "max": [-0.2375, 0.9, -0.135], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.2625, 0.78, 0.135], "max": [-0.2375, 0.9, 0.165], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.0625, 0.78, -0.165], "max": [-0.0375, 0.9, -0.135], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.0625, 0.78, 0.135], "max": [-0.0375, 0.9, 0.165], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [0.1375, 0.78, -0.165], "max": [0.1625, 0.9, -0.135], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [0.1375, 0.78, 0.135], "max": [0.1625, 0.9, 0.165], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [0.3375, 0.78, -0.165], "max": [0.3625, 0.9, -0.135], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [0.3375, 0.78, 0.135], "max": [0.3625, 0.9, 0.165], "mat": "cap_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_shell", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_field", "mat": "table_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_legs", "mat": "laminate_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_rods", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_grips", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_red", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_foosball_01_blue", "mat": "cap_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.5], "max": [0.6, 0.95, 0.5], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.6], "max": [0.6, 0.95, 0.6], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 536,
+  "tris": 1192,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

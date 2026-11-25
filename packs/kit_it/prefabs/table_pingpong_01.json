@@ -4,31 +4,29 @@
   "id": "table_pingpong_01",
   "title": "Stůl na stolní tenis",
   "category": "it.office",
-  "bounds": { "min": [-1.371, -0.001, -0.801], "max": [1.371, 0.916, 0.801] },
+  "bounds": { "min": [-1.371, -0.001, -0.832], "max": [1.371, 0.921, 0.832] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-1.37, 0.734, -0.756], "max": [1.37, 0.756, 0.756], "mat": "table_green" },
-    { "node": "body", "shape": "box", "min": [-1.366, 0.73, -0.756], "max": [1.366, 0.76, 0.756], "mat": "table_green" },
-    { "node": "body", "shape": "box", "min": [-1.366, 0.734, -0.76], "max": [1.366, 0.756, 0.76], "mat": "table_green" },
-    { "node": "body", "shape": "box", "min": [-1.37, 0.76, -0.012], "max": [1.37, 0.762, 0.012], "mat": "paint_white_line" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.76, -0.8], "max": [0.006, 0.915, 0.8], "mat": "mesh_black" },
-    { "node": "body", "shape": "box", "min": [-1.13, 0, -0.63], "max": [-1.07, 0.73, -0.57], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-1.13, 0, 0.57], "max": [-1.07, 0.73, 0.63], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [1.07, 0, -0.63], "max": [1.13, 0.73, -0.57], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [1.07, 0, 0.57], "max": [1.13, 0.73, 0.63], "mat": "steel_painted" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_top", "mat": "table_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_lines", "mat": "paint_white_line" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_net", "mat": "mesh_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_posts", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_legs", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#table_pingpong_01_forks", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-1.37, 0, -0.8], "max": [1.37, 0.915, 0.8], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-1.37, 0, -0.831], "max": [1.37, 0.92, 0.831], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 108,
+  "tris": 1264,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

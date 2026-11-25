@@ -4,24 +4,26 @@
   "id": "screen_projection_01",
   "title": "Projekční plátno svinuté v pouzdře",
   "category": "it.office",
-  "bounds": { "min": [-1.201, -0.001, -0.001], "max": [1.201, 0.101, 0.101] },
+  "bounds": { "min": [-1.201, -0.152, -0.001], "max": [1.201, 0.101, 0.101] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-1.2, 0, 0], "max": [1.2, 0.1, 0.1], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-1.15, 0, 0.04], "max": [1.15, 0.01, 0.06], "mat": "paint_white_line" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projscreen_case", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projscreen_caps", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projscreen_bar", "mat": "paint_white_line" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projscreen_pull", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-1.2, 0, 0], "max": [1.2, 0.1, 0.1], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-1.2, -0.151, 0], "max": [1.2, 0.1, 0.1], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 2.4 }
   },
-  "tris": 24,
+  "tris": 652,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#wallStuff",

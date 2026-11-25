@@ -4,32 +4,28 @@
   "id": "whiteboard_mobile_01",
   "title": "Mobilní oboustranná tabule",
   "category": "it.office",
-  "bounds": { "min": [-0.881, -0.001, -0.305], "max": [0.881, 1.901, 0.305] },
+  "bounds": { "min": [-0.881, -0.001, -0.325], "max": [0.881, 1.901, 0.331] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.87, 0.05, -0.02], "max": [-0.83, 1.9, 0.02], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.88, 0.03, -0.3], "max": [-0.82, 0.06, 0.3], "mat": "alu_silver" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_30_x_-850_25_-280", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_30_x_-850_25_280", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.83, 0.05, -0.02], "max": [0.87, 1.9, 0.02], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [0.82, 0.03, -0.3], "max": [0.88, 0.06, 0.3], "mat": "alu_silver" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_30_x_850_25_-280", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_30_x_850_25_280", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.83, 0.75, -0.015], "max": [0.83, 1.85, 0.015], "mat": "whiteboard" },
-    { "node": "body", "shape": "box", "min": [-0.4, 1.2, 0.015], "max": [0.3, 1.215, 0.016], "mat": "marker_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_legs", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_forks", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_frame", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_board", "mat": "whiteboard" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#whiteboard_mobile_01_sketch", "mat": "marker_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.88, 0, -0.304], "max": [0.88, 1.9, 0.304], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.88, 0, -0.324], "max": [0.88, 1.9, 0.33], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 392,
+  "tris": 1084,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#wallStuff",

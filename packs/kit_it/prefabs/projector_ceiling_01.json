@@ -4,27 +4,28 @@
   "id": "projector_ceiling_01",
   "title": "Projektor na stropním držáku",
   "category": "it.office",
-  "bounds": { "min": [-0.171, -0.451, -0.151], "max": [0.171, 0.001, 0.176] },
+  "bounds": { "min": [-0.171, -0.462, -0.151], "max": [0.171, 0.001, 0.181] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.03, -0.35, -0.03], "max": [0.03, 0, 0.03], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.17, -0.44, -0.14], "max": [0.17, -0.36, 0.14], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.16, -0.45, -0.14], "max": [0.16, -0.35, 0.14], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.16, -0.44, -0.15], "max": [0.16, -0.36, 0.15], "mat": "key_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_30_z_80_-400_160", "mat": "screen_off" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_pole", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_body", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_lens", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_glass", "mat": "screen_off" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#projector_ceiling_01_v_slats", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.17, -0.45, -0.15], "max": [0.17, 0, 0.175], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.17, -0.461, -0.15], "max": [0.17, 0, 0.18], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "ceiling" }
   },
-  "tris": 128,
+  "tris": 658,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#wallStuff",

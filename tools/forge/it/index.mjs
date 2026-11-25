@@ -6,9 +6,11 @@ import { IT_MATERIALS } from './materials.mjs';
 import { COMPUTERS } from './computers.mjs';
 import { SERVER } from './server.mjs';
 import { OFFICE } from './office.mjs';
+import { withFile } from '../lab/appliance.mjs';
 
 export const IT_ID = 'kit_it';
-export const IT_MAKERS = [...COMPUTERS, ...SERVER, ...OFFICE];
+// sítě ze stavebnice spotřebičů jdou do vlastního souboru sady (meshes/it.glb), ne do appl.glb sady kit_lab
+export const IT_MAKERS = [...COMPUTERS, ...SERVER, ...OFFICE].map((make) => () => withFile('it', make));
 
 export const buildIt = () =>
   buildTheme({ id: IT_ID, title: 'IT: počítače, serverovna, open space (xForge)', version: '0.1.0', requires: ['kit_base', 'kit_lab'], makers: IT_MAKERS, materials: IT_MATERIALS });

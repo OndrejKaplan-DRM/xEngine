@@ -4,28 +4,27 @@
   "id": "bins_recycling_01",
   "title": "Třídicí koše na odpad (papír, plast, sklo)",
   "category": "it.office",
-  "bounds": { "min": [-0.396, -0.001, -0.156], "max": [0.396, 0.631, 0.156] },
+  "bounds": { "min": [-0.396, -0.001, -0.156], "max": [0.396, 0.634, 0.156] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.39, 0, -0.15], "max": [-0.15, 0.6, 0.15], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.395, 0.6, -0.155], "max": [-0.145, 0.63, 0.155], "mat": "cap_blue" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.15], "max": [0.12, 0.6, 0.15], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.6, -0.155], "max": [0.125, 0.63, 0.155], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [0.15, 0, -0.15], "max": [0.39, 0.6, 0.15], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [0.145, 0.6, -0.155], "max": [0.395, 0.63, 0.155], "mat": "paint_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#bins_recycling_01_bodies", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#bins_recycling_01_lid_cap_blue", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#bins_recycling_01_lid_cap_yellow", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#bins_recycling_01_lid_paint_green", "mat": "paint_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#bins_recycling_01_slots", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.395, 0, -0.155], "max": [0.395, 0.63, 0.155], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.395, 0, -0.155], "max": [0.395, 0.633, 0.155], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 72,
+  "tris": 720,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#facilities",

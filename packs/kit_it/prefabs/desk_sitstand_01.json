@@ -4,33 +4,29 @@
   "id": "desk_sitstand_01",
   "title": "Stůl s nastavitelnou výškou, bílý",
   "category": "it.office",
-  "bounds": { "min": [-0.801, -0.001, -0.401], "max": [0.801, 0.746, 0.401] },
+  "bounds": { "min": [-0.801, -0.001, -0.401], "max": [0.801, 0.746, 0.412] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.8, 0.724, -0.396], "max": [0.8, 0.741, 0.396], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-0.796, 0.72, -0.396], "max": [0.796, 0.745, 0.396], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-0.796, 0.724, -0.4], "max": [0.796, 0.741, 0.4], "mat": "laminate_white" },
-    { "node": "body", "shape": "box", "min": [-0.69, 0, -0.35], "max": [-0.61, 0.03, 0.35], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.685, 0.03, -0.035], "max": [-0.615, 0.4, 0.035], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.678, 0.4, -0.028], "max": [-0.622, 0.72, 0.028], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.61, 0, -0.35], "max": [0.69, 0.03, 0.35], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.615, 0.03, -0.035], "max": [0.685, 0.4, 0.035], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.622, 0.4, -0.028], "max": [0.678, 0.72, 0.028], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.65, 0.68, -0.03], "max": [0.65, 0.72, 0.03], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.6, 0.715, 0.38], "max": [0.7, 0.72, 0.4], "mat": "key_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_top", "mat": "laminate_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_base", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_inner", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_frame", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_glides", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_ctrl", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#desk_sitstand_01_ctrlbtn", "mat": "key_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.4], "max": [0.8, 0.745, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.4], "max": [0.8, 0.745, 0.411], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.745 }
   },
-  "tris": 132,
+  "tris": 1020,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#desks",

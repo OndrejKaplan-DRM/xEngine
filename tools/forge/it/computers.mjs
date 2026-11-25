@@ -6,6 +6,7 @@
 import { box, boxc, cyl } from '../lib.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, staticFloor } from '../lab/common.mjs';
+import { A, merge, roundedBox, flatBox, cylinder, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 
 const CAT = 'it.computer';
 const gen = (f) => `it/computers.mjs#${f}`;
@@ -19,36 +20,64 @@ const panelSize = (inch, a = 16, b = 9) => {
   return [a * k, b * k];
 };
 
-/** Monitor na stojanu, střed podstavce v (x, z), líc do +Z; portrait = otočený na výšku. */
+const mm = (v) => Math.round(v * 1000);
+
+/** Monitor na stojanu, střed podstavce v (x, z), líc do +Z; portrait = otočený na výšku. Tenký rámeček se zaoblenými
+ * hranami, zadní kryt s vybráním, noha s otvorem na kabel a oválný podstavec; kontrolka vpravo dole. */
 export function monitorParts(x, z, inch, screen, o = {}) {
   let [w, h] = panelSize(inch, o.wide ? 21 : 16, 9);
   if (o.portrait) [w, h] = [h, w];
   const y0 = o.portrait ? 0.08 : 0.1;
   const c = o.color || 'bezel_black';
+  const k = `mon_${inch}_${o.wide ? 'w' : o.portrait ? 'p' : 'n'}_${mm(x)}_${mm(z)}_${c}`;
   return [
-    box('body', [x - 0.12, 0, z - 0.1], [x + 0.12, 0.012, z + 0.08], c),
-    box('body', [x - 0.03, 0.012, z - 0.07], [x + 0.03, y0 + h * 0.4, z - 0.05], c),
-    ...bevelBox('body', [x - w / 2 - 0.008, y0, z - 0.05], [x + w / 2 + 0.008, y0 + h + 0.012, z - 0.02], c, 0.004),
-    box('body', [x - w / 2, y0 + 0.01, z - 0.02], [x + w / 2, y0 + h + 0.004, z - 0.018], screen),
-    box('body', [x + w / 2 - 0.02, y0 + 0.002, z - 0.02], [x + w / 2 - 0.012, y0 + 0.006, z - 0.017], 'led_blue'),
+    A('body', `${k}_stand`, merge([roundedBox([x - 0.12, 0, z - 0.1], [x + 0.12, 0.012, z + 0.06], 0.006, 1), flatBox([x - 0.03, 0.006, z - 0.085], [x + 0.03, y0 + h * 0.45, z - 0.065]), flatBox([x - w * 0.3, y0 + h * 0.2, z - 0.065], [x + w * 0.3, y0 + h * 0.75, z - 0.044])]), c),
+    A('body', `${k}_panel`, roundedBox([x - w / 2 - 0.006, y0, z - 0.045], [x + w / 2 + 0.006, y0 + h + 0.014, z - 0.022], 0.004, 1), c),
+    A('body', `${k}_img_${screen}`, flatBox([x - w / 2, y0 + 0.012, z - 0.022], [x + w / 2, y0 + h + 0.006, z - 0.0215]), screen),
+    A('body', `${k}_led`, flatBox([x + w / 2 - 0.02, y0 + 0.003, z - 0.022], [x + w / 2 - 0.014, y0 + 0.007, z - 0.0205]), 'led_blue'),
   ];
 }
 
-/** Skříň počítače (W × H × D), střed podstavy (x, z); front do +Z. */
+/** Skříň počítače (W × H × D), střed podstavy (x, z); front do +Z: zaoblený plášť, čelo s mřížkou, tlačítko, USB. */
 export function towerParts(x, z, w, h, d, mat = 'bezel_black') {
-  return [...bevelBox('body', [x - w / 2, 0.01, z - d / 2], [x + w / 2, h, z + d / 2], mat, 0.006), box('body', [x - w / 2 + 0.02, h * 0.3, z + d / 2], [x + w / 2 - 0.02, h * 0.85, z + d / 2 + 0.002], 'server_face'), box('body', [x - 0.008, h - 0.04, z + d / 2], [x + 0.008, h - 0.03, z + d / 2 + 0.003], 'led_blue'), ...[-1, 1].map((s) => box('body', [x + s * (w / 2 - 0.02) - 0.01, 0, z - d / 2 + 0.03], [x + s * (w / 2 - 0.02) + 0.01, 0.01, z + d / 2 - 0.03], 'rubber_black'))];
+  const k = `tower_${mm(w)}_${mm(h)}_${mm(d)}_${mm(x)}_${mm(z)}_${mat}`;
+  const slots = [];
+  for (let i = 0; i < 8; i++) slots.push(flatBox([x - w / 2 + 0.02, h * 0.25 + i * h * 0.07, z + d / 2], [x + w / 2 - 0.02, h * 0.25 + i * h * 0.07 + h * 0.03, z + d / 2 + 0.002]));
+  return [
+    A('body', `${k}_case`, roundedBox([x - w / 2, 0.012, z - d / 2], [x + w / 2, h, z + d / 2], 0.008, 1), mat),
+    A('body', `${k}_grille`, merge(slots), 'server_face'),
+    A('body', `${k}_btn`, moved(cylinder(0.008, 0, 0.003, { seg: 8 }), at(mTranslate(x, h - 0.035, z + d / 2), mRotate('x', 90))), 'led_blue'),
+    A('body', `${k}_usb`, merge([-0.012, 0.012].map((dx) => flatBox([x + dx - 0.006, h - 0.07, z + d / 2], [x + dx + 0.006, h - 0.064, z + d / 2 + 0.001]))), 'bezel_black'),
+    A('body', `${k}_feet`, merge([-1, 1].map((s) => flatBox([x + s * (w / 2 - 0.02) - 0.01, 0, z - d / 2 + 0.03], [x + s * (w / 2 - 0.02) + 0.01, 0.012, z + d / 2 - 0.03]))), 'rubber_black'),
+  ];
 }
 
-/** Klávesnice a myš před monitorem, střed klávesnice (x, z). */
+/** Klávesnice a myš před monitorem, střed klávesnice (x, z): nízký zaoblený rám, pole kláves a oblá myš. */
 export function keyboardParts(x, z, key = 'key_black') {
-  return [box('body', [x - 0.22, 0, z - 0.07], [x + 0.22, 0.012, z + 0.07], key === 'key_black' ? 'bezel_black' : 'alu_silver'), box('body', [x - 0.21, 0.012, z - 0.06], [x + 0.21, 0.02, z + 0.06], key), ...bevelBox('body', [x + 0.27, 0, z - 0.03], [x + 0.33, 0.035, z + 0.05], key === 'key_black' ? 'bezel_black' : 'key_white', 0.01)];
+  const dark = key === 'key_black';
+  const k = `kbd_${mm(x)}_${mm(z)}_${key}`;
+  const keys = [];
+  for (let r = 0; r < 5; r++) keys.push(flatBox([x - 0.205 + (r === 4 ? 0.06 : 0), 0.012, z - 0.055 + r * 0.022], [x + 0.205 - (r === 4 ? 0.06 : 0), 0.019, z - 0.055 + r * 0.022 + 0.018]));
+  return [
+    A('body', `${k}_frame`, roundedBox([x - 0.22, 0, z - 0.07], [x + 0.22, 0.013, z + 0.07], 0.005, 1), dark ? 'bezel_black' : 'alu_silver'),
+    A('body', `${k}_keys`, merge(keys), key),
+    A('body', `${k}_mouse`, moved(roundedBox([-0.03, 0, -0.045], [0.03, 0.035, 0.045], 0.015, 1), mTranslate(x + 0.3, 0, z + 0.01)), dark ? 'bezel_black' : 'key_white'),
+  ];
 }
 
-/** Notebook otevřený (víko svisle), střed (x, z); inch = úhlopříčka displeje. */
+/** Notebook otevřený (víko skloněné o 15° dozadu), střed (x, z); inch = úhlopříčka displeje. */
 export function laptopParts(x, z, inch, mat = 'alu_silver', screen = 'screen_code') {
   const [w, h] = panelSize(inch, 16, 10);
   const d = h + 0.02;
-  return [...bevelBox('body', [x - w / 2 - 0.012, 0, z - d / 2], [x + w / 2 + 0.012, 0.016, z + d / 2], mat, 0.003), box('body', [x - w / 2 + 0.01, 0.016, z - d / 2 + 0.02], [x + w / 2 - 0.01, 0.018, z + 0.02], 'key_black'), box('body', [x - 0.05, 0.016, z + 0.04], [x + 0.05, 0.0175, z + d / 2 - 0.02], 'alu_space'), box('body', [x - w / 2 - 0.012, 0.016, z - d / 2 - 0.006], [x + w / 2 + 0.012, 0.016 + h + 0.02, z - d / 2], mat), box('body', [x - w / 2, 0.026, z - d / 2], [x + w / 2, 0.026 + h, z - d / 2 + 0.0015], screen)];
+  const k = `lap_${inch}_${mm(x)}_${mm(z)}_${mat}`;
+  const hinge = at(mTranslate(x, 0.016, z - d / 2 + 0.006), mRotate('x', -15));
+  return [
+    A('body', `${k}_base`, roundedBox([x - w / 2 - 0.012, 0, z - d / 2], [x + w / 2 + 0.012, 0.016, z + d / 2], 0.005, 1), mat),
+    A('body', `${k}_keys`, flatBox([x - w / 2 + 0.01, 0.016, z - d / 2 + 0.02], [x + w / 2 - 0.01, 0.0175, z + 0.02]), 'key_black'),
+    A('body', `${k}_pad`, flatBox([x - 0.05, 0.016, z + 0.04], [x + 0.05, 0.0172, z + d / 2 - 0.02]), 'alu_space'),
+    A('body', `${k}_lid`, moved(roundedBox([-w / 2 - 0.012, 0, -0.006], [w / 2 + 0.012, h + 0.02, 0], 0.004, 1), hinge), mat),
+    A('body', `${k}_img_${screen}`, moved(flatBox([-w / 2, 0.01, 0], [w / 2, h + 0.01, 0.0012]), hinge), screen),
+  ];
 }
 
 /** Monitory: 24" (černý a bílý), 27", 32", 34" ultraširoký a 24" na výšku. */

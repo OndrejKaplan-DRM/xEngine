@@ -4,29 +4,26 @@
   "id": "monitor_24_portrait_01",
   "title": "Monitor 24\" na výšku",
   "category": "it.computer",
-  "bounds": { "min": [-0.159, -0.001, -0.101], "max": [0.159, 0.625, 0.081] },
+  "bounds": { "min": [-0.157, -0.001, -0.101], "max": [0.157, 0.627, 0.061] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.1], "max": [0.12, 0.012, 0.08], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.012, -0.07], "max": [0.03, 0.2925, -0.05], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1574, 0.084, -0.046], "max": [0.1574, 0.6193, -0.024], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1534, 0.08, -0.046], "max": [0.1534, 0.6233, -0.024], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1534, 0.084, -0.05], "max": [0.1534, 0.6193, -0.02], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.1494, 0.09, -0.02], "max": [0.1494, 0.6153, -0.018], "mat": "screen_doc" },
-    { "node": "body", "shape": "box", "min": [0.1294, 0.082, -0.02], "max": [0.1374, 0.086, -0.017], "mat": "led_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_0_0_bezel_black_stand", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_0_0_bezel_black_panel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_0_0_bezel_black_img_screen_doc", "mat": "screen_doc" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#mon_24_p_0_0_bezel_black_led", "mat": "led_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.158, 0, -0.1], "max": [0.158, 0.624, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.156, 0, -0.1], "max": [0.156, 0.626, 0.06], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 84,
+  "tris": 264,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#monitors",

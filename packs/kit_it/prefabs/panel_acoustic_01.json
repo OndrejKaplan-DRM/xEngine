@@ -11,12 +11,7 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.89, 0.01, 0], "max": [-0.31, 0.59, 0.04], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [-0.89, 0.61, 0], "max": [-0.31, 1.19, 0.06], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.01, 0], "max": [0.29, 0.59, 0.06], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.61, 0], "max": [0.29, 1.19, 0.04], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [0.31, 0.01, 0], "max": [0.89, 0.59, 0.04], "mat": "felt_grey" },
-    { "node": "body", "shape": "box", "min": [0.31, 0.61, 0], "max": [0.89, 1.19, 0.06], "mat": "felt_grey" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#panel_acoustic_01_tiles", "mat": "felt_grey" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.89, 0.01, 0], "max": [0.89, 1.19, 0.06], "group": "world" }
@@ -25,7 +20,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 1 }
   },
-  "tris": 72,
+  "tris": 648,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#wallStuff",

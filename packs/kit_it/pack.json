@@ -11,9 +11,17 @@
   "levels": [],
   "assets": [
     {
+      "path": "meshes/it.glb",
+      "bytes": 1623736,
+      "sha256": "022e74ee6f59847fbbdf3e99ff8db607d67bb362e7f384c76cdac9f313eeb81e",
+      "license": "own",
+      "source": "tools/forge/it/computers.mjs",
+      "author": "xForge (sešna B)"
+    },
+    {
       "path": "meshes/parts.glb",
-      "bytes": 111348,
-      "sha256": "63c99198b9f9d0483c0a743502c30c862637227d4c017487166c5366c5dd2b20",
+      "bytes": 22832,
+      "sha256": "441262e31aa99228c001302243cc669e1c84cc09e4a5bae72941dbb7d269d9b4",
       "license": "own",
       "source": "tools/forge/it/server.mjs",
       "author": "xForge (sešna B)"

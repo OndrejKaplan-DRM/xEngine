@@ -4,29 +4,25 @@
   "id": "plant_snake_01",
   "title": "Tchýnin jazyk v květináči",
   "category": "it.office",
-  "bounds": { "min": [-0.131, -0.001, -0.131], "max": [0.131, 0.841, 0.131] },
+  "bounds": { "min": [-0.138, -0.001, -0.138], "max": [0.138, 0.908, 0.138] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_130_250_y_0_125_0", "mat": "pot_terracotta" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_120_20_y_0_240_0", "mat": "soil_dark" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.25, -0.036], "max": [-0.03, 0.6, -0.024], "mat": "leaf_green" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.25, 0.024], "max": [0.02, 0.72, 0.036], "mat": "leaf_green" },
-    { "node": "body", "shape": "box", "min": [0.03, 0.25, -0.036], "max": [0.07, 0.84, -0.024], "mat": "leaf_green" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.25, 0.024], "max": [0, 0.6, 0.036], "mat": "leaf_green" },
-    { "node": "body", "shape": "box", "min": [0.02, 0.25, -0.036], "max": [0.06, 0.72, -0.024], "mat": "leaf_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#snake_pot", "mat": "pot_terracotta" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#snake_soil", "mat": "soil_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#snake_leaves", "mat": "leaf_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.13], "max": [0.13, 0.84, 0.13], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.137, 0, -0.137], "max": [0.137, 0.907, 0.137], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 380,
+  "tris": 340,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office.mjs#lounge",
