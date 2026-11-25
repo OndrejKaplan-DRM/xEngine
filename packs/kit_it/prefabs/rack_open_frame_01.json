@@ -11,16 +11,11 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.2], "max": [0.3, 0.04, 0.2], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.04, -0.04], "max": [-0.21, 2, 0.04], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [0.21, 0.04, -0.04], "max": [0.29, 2, 0.04], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.29, 1.96, -0.04], "max": [0.29, 2, 0.04], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.2225, 1.2, -0.15], "max": [0.2225, 1.2425, 0.04], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [0.19, 1.2182, 0.04], "max": [0.2, 1.2242, 0.044], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [0.17, 1.2182, 0.04], "max": [0.18, 1.2242, 0.044], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.2225, 1.2445, -0.15], "max": [0.2225, 1.2869, 0.04], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [0.19, 1.2627, 0.04], "max": [0.2, 1.2687, 0.044], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [0.17, 1.2627, 0.04], "max": [0.18, 1.2687, 0.044], "mat": "emit_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#rack_open_frame_01_base", "mat": "rack_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#rack_open_frame_01_posts", "mat": "rack_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#rack_open_frame_01_faces", "mat": "server_face" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#rack_open_frame_01_bays", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#rack_open_frame_01_emit_green", "mat": "emit_green" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.3, 0, -0.2], "max": [0.3, 2, 0.2], "group": "world" }
@@ -29,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 120,
+  "tris": 528,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#racks",

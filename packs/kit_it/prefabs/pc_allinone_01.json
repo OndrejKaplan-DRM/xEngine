@@ -4,31 +4,31 @@
   "id": "pc_allinone_01",
   "title": "Počítač vše v jednom 24\"",
   "category": "it.computer",
-  "bounds": { "min": [-0.277, -0.001, -0.121], "max": [0.331, 0.46, 0.271] },
+  "bounds": { "min": [-0.277, -0.001, -0.131], "max": [0.331, 0.46, 0.271] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.12], "max": [0.1, 0.01, 0.06], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.01, -0.1], "max": [0.04, 0.2, -0.07], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.2757, 0.104, -0.066], "max": [0.2757, 0.4549, -0.059], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.2717, 0.1, -0.066], "max": [0.2717, 0.4589, -0.059], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.2717, 0.104, -0.07], "max": [0.2717, 0.4549, -0.055], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.2657, 0.16, -0.055], "max": [0.2657, 0.4539, -0.053], "mat": "screen_doc" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_foot", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_neck", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_body", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_bezel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_lcd", "mat": "screen_doc" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_allinone_01_cam", "mat": "screen_off" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_200_key_white_frame", "mat": "alu_silver" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_200_key_white_keys", "mat": "key_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_200_key_white_mouse", "mat": "key_white" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.276, 0, -0.12], "max": [0.33, 0.459, 0.27], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.276, 0, -0.13], "max": [0.33, 0.459, 0.27], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 348,
+  "tris": 1140,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#towers",

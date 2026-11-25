@@ -4,43 +4,29 @@
   "id": "supercomputer_cabinet_01",
   "title": "Skříň superpočítače s kapalinovým chlazením (modrý proužek)",
   "category": "it.server",
-  "bounds": { "min": [-0.401, -0.001, -0.601], "max": [0.401, 2.501, 0.611] },
+  "bounds": { "min": [-0.401, 0.019, -0.601], "max": [0.401, 2.501, 0.611] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0.015, -0.585], "max": [0.4, 2.185, 0.585], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.385, 0, -0.585], "max": [0.385, 2.2, 0.585], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.385, 0.015, -0.6], "max": [0.385, 2.185, 0.6], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.35, 0.1, 0.6], "max": [0.35, 2.1, 0.605], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.37, 0.1, 0.6], "max": [-0.35, 2.1, 0.61], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [0.35, 0.1, 0.6], "max": [0.37, 2.1, 0.61], "mat": "led_blue" },
-    { "node": "body", "shape": "box", "min": [-0.3, 1.95, 0.605], "max": [0.3, 2.05, 0.608], "mat": "paint_white_line" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.2, 0.605], "max": [0.32, 0.3, 0.61], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.35, 0.605], "max": [0.32, 0.45, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.5, 0.605], "max": [0.32, 0.6, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.65, 0.605], "max": [0.32, 0.75, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.8, 0.605], "max": [0.32, 0.9, 0.61], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.95, 0.605], "max": [0.32, 1.05, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.1, 0.605], "max": [0.32, 1.2, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.25, 0.605], "max": [0.32, 1.35, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.4, 0.605], "max": [0.32, 1.5, 0.61], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.55, 0.605], "max": [0.32, 1.65, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.7, 0.605], "max": [0.32, 1.8, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "box", "min": [-0.32, 1.85, 0.605], "max": [0.32, 1.95, 0.61], "mat": "server_face" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_300_y_-200_2350_-300", "mat": "paint_blue" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_300_y_200_2350_-300", "mat": "paint_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_shell", "mat": "rack_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_front", "mat": "server_face" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_blades", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_strip", "mat": "led_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_badge", "mat": "paint_white_line" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_supply", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#supercomputer_cabinet_01_return", "mat": "paint_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.6], "max": [0.4, 2.5, 0.61], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0.02, -0.6], "max": [0.4, 2.5, 0.61], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 420,
+  "tris": 732,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#supercomputer",

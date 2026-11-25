@@ -4,32 +4,36 @@
   "id": "copier_mfp_01",
   "title": "Multifunkční kopírka",
   "category": "it.computer",
-  "bounds": { "min": [-0.401, -0.001, -0.321], "max": [0.301, 1.121, 0.363] },
+  "bounds": { "min": [-0.401, -0.001, -0.321], "max": [0.301, 1.136, 0.335] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.012, -0.308], "max": [0.3, 0.988, 0.308], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.288, 0, -0.308], "max": [0.288, 1, 0.308], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.288, 0.012, -0.32], "max": [0.288, 0.988, 0.32], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.28, 1, -0.3], "max": [0.28, 1.12, 0.3], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [0.05, 1, 0.22], "max": [0.28, 1.08, 0.36], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [0.08, 1.04, 0.36], "max": [0.25, 1.075, 0.362], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.28, 0.15, 0.32], "max": [0.28, 0.31, 0.325], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.28, 0.35, 0.32], "max": [0.28, 0.51, 0.325], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.28, 0.55, 0.32], "max": [0.28, 0.71, 0.325], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.4, 0.75, -0.2], "max": [-0.3, 0.8, 0.2], "mat": "key_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_body", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_plinth", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_scanner", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_feeder", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_gap", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_d_leaf", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_t0_leaf", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_t0_grip", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_t1_leaf", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_t1_grip", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_arm", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_bypass", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#copier_mfp_01_sheets", "mat": "paint_white_line" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.32], "max": [0.3, 1.12, 0.362], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.32], "max": [0.3, 1.135, 0.334], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 120,
+  "tris": 1332,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#printers",

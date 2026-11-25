@@ -247,7 +247,7 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 215416
 | `lyophilizer_01` | Lyofilizátor s akrylovou komorou | lab.large | 0,65 × 0,79 × 0,61 | 1248 | — | — |
 | `liquid_handler_01` | Pipetovací robot v proskleném krytu | lab.large | 1,2 × 0,89 × 0,74 | 920 | — | — |
 | `cytometer_flow_01` | Průtokový cytometr | lab.large | 0,6 × 0,64 × 0,63 | 668 | — | — |
-| `nmr_magnet_01` | NMR spektrometr (supravodivý magnet) | lab.large | 1,22 × 1,86 × 1,22 | 744 | — | — |
+| `nmr_magnet_01` | NMR spektrometr (supravodivý magnet) | lab.large | 1,22 × 1,85 × 1,22 | 744 | — | — |
 | `washer_labware_01` | Myčka laboratorního skla pod pult | lab.large | 0,6 × 0,85 × 1,21 | 1044 | drop: 0° až 90° | door |
 | `ice_maker_01` | Výrobník šupinového ledu | lab.large | 0,5 × 0,9 × 0,67 | 576 | — | — |
 | `water_ultrapure_01` | Úprava ultračisté vody na zeď s výdejním ramenem | lab.large | 0,36 × 0,5 × 0,43 | 680 | — | — |

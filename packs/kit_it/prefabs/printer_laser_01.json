@@ -4,28 +4,31 @@
   "id": "printer_laser_01",
   "title": "Laserová tiskárna",
   "category": "it.computer",
-  "bounds": { "min": [-0.201, -0.001, -0.201], "max": [0.201, 0.253, 0.241] },
+  "bounds": { "min": [-0.201, -0.001, -0.201], "max": [0.201, 0.252, 0.219] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.2, 0.01, -0.19], "max": [0.2, 0.24, 0.19], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.19, 0, -0.19], "max": [0.19, 0.25, 0.19], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.19, 0.01, -0.2], "max": [0.19, 0.24, 0.2], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [-0.16, 0.25, -0.15], "max": [0.16, 0.252, 0.05], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.15, 0.06, 0.2], "max": [0.15, 0.1, 0.24], "mat": "key_white" },
-    { "node": "body", "shape": "box", "min": [0.12, 0.2, 0.2], "max": [0.18, 0.23, 0.202], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_body", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_out", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_paper", "mat": "paint_white_line" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_tray", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_grip", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_panel", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#printer_laser_01_feet", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.2], "max": [0.2, 0.252, 0.24], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.2], "max": [0.2, 0.251, 0.218], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 72,
+  "tris": 540,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#printers",

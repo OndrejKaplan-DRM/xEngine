@@ -4,27 +4,29 @@
   "id": "cooler_inrow_01",
   "title": "Chladicí jednotka do řady racků",
   "category": "it.server",
-  "bounds": { "min": [-0.151, -0.001, -0.536], "max": [0.151, 2.001, 0.539] },
+  "bounds": { "min": [-0.151, -0.001, -0.536], "max": [0.151, 2.001, 0.542] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0.01, -0.525], "max": [0.15, 1.99, 0.525], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.14, 0, -0.525], "max": [0.14, 2, 0.525], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.14, 0.01, -0.535], "max": [0.14, 1.99, 0.535], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.13, 0.1, 0.535], "max": [0.13, 1.8, 0.537], "mat": "rack_mesh" },
-    { "node": "body", "shape": "box", "min": [-0.1, 1.85, 0.535], "max": [0.1, 1.95, 0.538], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_shell", "mat": "rack_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_plinth", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_v_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#cooler_inrow_01_scr_led", "mat": "emit_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.535], "max": [0.15, 2, 0.538], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.535], "max": [0.15, 2, 0.541], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 60,
+  "tris": 564,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#powerCooling",

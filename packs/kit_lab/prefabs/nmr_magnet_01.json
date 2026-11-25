@@ -4,7 +4,7 @@
   "id": "nmr_magnet_01",
   "title": "NMR spektrometr (supravodivý magnet)",
   "category": "lab.large",
-  "bounds": { "min": [-0.61, -0.006, -0.61], "max": [0.61, 1.851, 0.61] },
+  "bounds": { "min": [-0.61, -0.001, -0.61], "max": [0.61, 1.851, 0.61] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -18,7 +18,7 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_line", "mat": "paint_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.609, -0.005, -0.609], "max": [0.609, 1.85, 0.609], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.609, 0, -0.609], "max": [0.609, 1.85, 0.609], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },

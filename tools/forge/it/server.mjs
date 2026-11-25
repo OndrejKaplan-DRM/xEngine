@@ -3,10 +3,12 @@
 // s kapalinovým chlazením (dvě barvy proužku), UPS a bateriová skříň, chladicí jednotka do řady a skříňová (CRAH),
 // kabelový žlab ze stropu, děrovaná dlaždice zdvojené podlahy, láhev hasicího plynu, přístupová čtečka, kamera,
 // přístupový bod Wi-Fi, přepínač na stůl. Rozměry obvyklé pro 19" techniku; tvar obecný.
+// Ondřej 25. 11. 2026 v 1:29: kus po kuse; hladké sítě ze stavebnice appliance.mjs, do 1 500 △ na kus.
 
-import { box, boxc, cyl, shiftPart, shiftParts } from '../lib.mjs';
-import { bevelBox } from '../shapes.mjs';
+import { shiftParts } from '../lib.mjs';
 import { simple, moving, staticFloor } from '../lab/common.mjs';
+import { A, shell, door, barHandle, grille, screen, lock, merge, T, roundedBox, flatBox, cylinder, tube, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
+import { arc } from '../mesh/lathe.mjs';
 
 const CAT = 'it.server';
 const gen = (f) => `it/server.mjs#${f}`;
@@ -14,21 +16,37 @@ const U = 0.04445;
 const floor = () => ({ components: staticFloor(), group: 'world' });
 const one = (id, title, parts, f, o = {}) => simple(id, title, CAT, parts, { gen: gen(f), ...o });
 
-/** Skříň racku 42U bez dveří: boky, záda, strop, sokl, svislé lišty; vrací díly a výšku vnitřku. */
-function rackShell(w = 0.6, d = 1.07, h = 2.0) {
-  return [box('body', [-w / 2, 0.05, -d / 2], [-w / 2 + 0.02, h, d / 2], 'rack_black'), box('body', [w / 2 - 0.02, 0.05, -d / 2], [w / 2, h, d / 2], 'rack_black'), box('body', [-w / 2 + 0.02, 0.05, -d / 2], [w / 2 - 0.02, h, -d / 2 + 0.02], 'rack_mesh'), box('body', [-w / 2, h - 0.03, -d / 2], [w / 2, h, d / 2], 'rack_black'), box('body', [-w / 2 + 0.03, 0, -d / 2 + 0.05], [w / 2 - 0.03, 0.05, d / 2 - 0.05], 'rack_black'), ...[-1, 1].map((s) => box('body', [s * 0.2325 - 0.01, 0.1, d / 2 - 0.1], [s * 0.2325 + 0.01, h - 0.05, d / 2 - 0.08], 'steel_dark'))];
+/** Skříň racku 42U bez dveří: boky se zaoblenou hranou, děrovaná záda, strop s průchodkami, sokl, svislé lišty. */
+function rackShell(k, w = 0.6, d = 1.07, h = 2.0) {
+  return [
+    shell('body', `${k}_l`, [-w / 2, 0.05, -d / 2], [-w / 2 + 0.02, h, d / 2], 'rack_black', 0.006),
+    shell('body', `${k}_r`, [w / 2 - 0.02, 0.05, -d / 2], [w / 2, h, d / 2], 'rack_black', 0.006),
+    shell('body', `${k}_t`, [-w / 2 + 0.018, h - 0.03, -d / 2], [w / 2 - 0.018, h, d / 2], 'rack_black', 0.006),
+    A('body', `${k}_back`, flatBox([-w / 2 + 0.02, 0.05, -d / 2], [w / 2 - 0.02, h - 0.03, -d / 2 + 0.02]), 'rack_mesh'),
+    A('body', `${k}_plinth`, flatBox([-w / 2 + 0.03, 0, -d / 2 + 0.05], [w / 2 - 0.03, 0.05, d / 2 - 0.05]), 'rack_black'),
+    A('body', `${k}_rails`, merge([-1, 1].map((s) => flatBox([s * 0.2325 - 0.01, 0.1, d / 2 - 0.1], [s * 0.2325 + 0.01, h - 0.05, d / 2 - 0.08]))), 'steel_dark'),
+    A('body', `${k}_glands`, merge([-0.15, 0.15].map((x) => T(cylinder(0.04, h, h + 0.006, { seg: 8 }), x, 0, -0.3))), 'rubber_black'),
+  ];
 }
 
-/** Servery 1U až 4U od výšky y v čelní rovině z; vrací díly (čelo, LED, disky). */
-function servers(z, list, y = 0.12) {
-  const out = [];
+/** Servery 1U až 4U od výšky y v čelní rovině z: čelo, šachty disků, kontrolka. Jedna síť na materiál; uši serverů
+ * kryje svislá lišta racku. depth = hloubka skříně serveru. */
+function servers(k, z, list, y = 0.12, depth = 0.75) {
+  const faces = [];
+  const bays = [];
+  const blue = [];
+  const green = [];
+  const amber = [];
   for (const [u, kind] of list) {
     const h = u * U - 0.002;
-    out.push(box('body', [-0.2225, y, z - 0.75], [0.2225, y + h, z], 'server_face'));
-    if (kind === 'disk') for (let i = 0; i < 6; i++) out.push(box('body', [-0.2 + i * 0.068, y + 0.004, z], [-0.14 + i * 0.068, y + h - 0.004, z + 0.003], 'steel_dark'));
-    out.push(box('body', [0.19, y + h / 2 - 0.003, z], [0.2, y + h / 2 + 0.003, z + 0.004], kind === 'warn' ? 'led_orange' : 'led_blue'), box('body', [0.17, y + h / 2 - 0.003, z], [0.18, y + h / 2 + 0.003, z + 0.004], 'emit_green'));
+    faces.push(flatBox([-0.2225, y, z - depth], [0.2225, y + h, z]));
+    if (kind === 'disk') for (let i = 0; i < 4; i++) bays.push(flatBox([-0.2 + i * 0.09, y + 0.004, z], [-0.12 + i * 0.09, y + h - 0.004, z + 0.003]));
+    else for (let i = 0; i < 2; i++) bays.push(flatBox([-0.19 + i * 0.17, y + h * 0.25, z], [-0.05 + i * 0.17, y + h * 0.75, z + 0.002]));
+    (kind === 'warn' ? amber : kind === 'disk' ? blue : green).push(flatBox([0.18, y + h / 2 - 0.003, z], [0.2, y + h / 2 + 0.003, z + 0.004]));
     y += u * U;
   }
+  const out = [A('body', `${k}_faces`, merge(faces), 'server_face'), A('body', `${k}_bays`, merge(bays), 'steel_dark')];
+  for (const [g, m] of [[blue, 'led_blue'], [green, 'emit_green'], [amber, 'led_orange']]) if (g.length) out.push(A('body', `${k}_${m}`, merge(g), m));
   return out;
 }
 
@@ -36,70 +54,132 @@ function servers(z, list, y = 0.12) {
 export function racks() {
   const [w, d, h] = [0.6, 1.07, 2.0];
   const z = d / 2 - 0.09;
-  const full = servers(z, [[2, 'disk'], [2, 'disk'], [1, ''], [1, 'warn'], [2, 'disk'], [4, ''], [1, ''], [2, 'disk'], [1, ''], [2, ''], [4, 'disk']]);
-  const glassRack = moving('rack_servers_01', 'Rack 42U se servery a prosklenými dveřmi', CAT, [...rackShell(w, d, h), ...full], {
+  const gk = 'rack_servers_01';
+  const glassRack = moving(gk, 'Rack 42U se servery a prosklenými dveřmi', CAT, [...rackShell(gk, w, d, h), ...servers(gk, z, [[2, 'disk'], [2, 'disk'], [1, ''], [1, 'warn'], [2, 'disk'], [4, ''], [1, ''], [2, 'disk'], [1, ''], [2, ''], [4, 'disk']])], {
     node: 'door', at: [-w / 2 + 0.01, 0.06, d / 2 - 0.02], joint: 'swing', type: 'hinge', axis: [0, -1, 0], max: 120, kind: 'door', prompt: 'Otevřít rack',
-    parts: [box('door', [0, 0, 0], [w - 0.02, h - 0.1, 0.02], 'glass_tinted'), box('door', [0, 0, 0], [0.04, h - 0.1, 0.022], 'rack_black'), box('door', [w - 0.06, 0, 0], [w - 0.02, h - 0.1, 0.022], 'rack_black'), box('door', [w - 0.055, 0.9, 0.022], [w - 0.04, 1.1, 0.04], 'steel_brushed')],
+    parts: [...door('door', `${gk}_door`, 0, w - 0.02, 0, h - 0.1, 0, 0.02, { mat: 'rack_black', window: [0.045, 0.06], flat: true }), barHandle('door', `${gk}_door`, w - 0.045, 0.85, 1.15, 0.02, { rad: 0.008, off: 0.025 }), ...lock('door', `${gk}_door`, w - 0.045, 0.8, 0.02)],
     note: 'Čelní dveře racku 42U na pantu se otvírají o 110 až 180° podle sousedů v řadě; 120°. Úvaha, neměřeno.',
   }, { gen: gen('racks'), place: { mount: 'floor' }, group: 'world' });
-  const meshRack = one('rack_servers_02', 'Rack 42U se servery a děrovanými dveřmi', [...rackShell(w, d, h), ...servers(z, [[1, ''], [1, ''], [1, ''], [1, ''], [2, 'disk'], [2, 'disk'], [1, ''], [1, 'warn'], [4, ''], [4, ''], [1, ''], [1, ''], [2, 'disk']]), box('body', [-w / 2 + 0.02, 0.06, d / 2 - 0.02], [w / 2 - 0.02, h - 0.04, d / 2], 'rack_mesh')], 'racks', floor());
-  const net = [...rackShell(w, d, h)];
+  const mk = 'rack_servers_02';
+  const meshRack = one(mk, 'Rack 42U se servery a děrovanými dveřmi', [
+    ...rackShell(mk, w, d, h),
+    ...servers(mk, z, [[1, ''], [1, ''], [1, ''], [1, ''], [2, 'disk'], [2, 'disk'], [1, ''], [1, 'warn'], [4, ''], [4, ''], [1, ''], [1, ''], [2, 'disk']]),
+    // děrované dveře: rám a síťovina; přes síťovinu prosvítají kontrolky
+    A('body', `${mk}_doorframe`, merge([flatBox([-w / 2 + 0.02, 0.06, d / 2 - 0.02], [-w / 2 + 0.06, h - 0.04, d / 2]), flatBox([w / 2 - 0.06, 0.06, d / 2 - 0.02], [w / 2 - 0.02, h - 0.04, d / 2]), flatBox([-w / 2 + 0.06, 0.06, d / 2 - 0.02], [w / 2 - 0.06, 0.12, d / 2]), flatBox([-w / 2 + 0.06, h - 0.1, d / 2 - 0.02], [w / 2 - 0.06, h - 0.04, d / 2])]), 'rack_black'),
+    A('body', `${mk}_doormesh`, flatBox([-w / 2 + 0.06, 0.12, d / 2 - 0.012], [w / 2 - 0.06, h - 0.1, d / 2 - 0.008]), 'rack_mesh'),
+    barHandle('body', `${mk}_door`, w / 2 - 0.04, 0.85, 1.15, d / 2, { rad: 0.008, off: 0.025 }),
+  ], 'racks', floor());
+  const nk = 'rack_network_01';
+  const panels = [];
+  const ports = [];
+  const loops = { cable_blue: [], cable_yellow: [], cable_grey: [] };
   let y = 1.1;
+  const names = ['cable_blue', 'cable_yellow', 'cable_grey'];
   for (let i = 0; i < 6; i++) {
     const patch = i % 2 === 0;
-    net.push(box('body', [-0.2225, y, z - (patch ? 0.1 : 0.4)], [0.2225, y + U - 0.002, z], patch ? 'steel_dark' : 'server_face'));
-    for (let k = 0; k < 4; k++) net.push(box('body', [-0.2 + k * 0.1, y + 0.01, z], [-0.13 + k * 0.1, y + 0.03, z + 0.03], i % 3 === 0 ? 'cable_blue' : i % 3 === 1 ? 'cable_yellow' : 'cable_grey'));
-    if (!patch) net.push(box('body', [0.17, y + 0.018, z], [0.2, y + 0.026, z + 0.004], 'emit_green'));
+    panels.push(flatBox([-0.2225, y, z - (patch ? 0.1 : 0.4)], [0.2225, y + U - 0.002, z]));
+    for (let k = 0; k < 2; k++) ports.push(flatBox([-0.2 + k * 0.21, y + 0.012, z], [-0.01 + k * 0.21, y + 0.03, z + 0.002]));
+    // svazek propojovacích kabelů: oblouk z portů do bočního vedení
+    for (let k = 0; k < 3; k++) loops[names[(i + k) % 3]].push(tube([[-0.15 + k * 0.15, y + 0.02, z + 0.002], [-0.15 + k * 0.15, y + 0.02, z + 0.05], [k < 1 ? -0.26 : 0.26, y - 0.03, z + 0.04]], 0.0035, 4, { bend: 0.03, bendSeg: 1 }));
     y += U * 1.5;
   }
-  net.push(box('body', [-0.28, 0.2, z - 0.05], [-0.24, 1.9, z + 0.02], 'cable_blue'), box('body', [0.24, 0.2, z - 0.05], [0.28, 1.9, z + 0.02], 'cable_yellow'), ...servers(z, [[2, ''], [1, '']]));
-  const storage = one('rack_storage_01', 'Rack 42U s diskovým polem', [...rackShell(w, d, h), ...servers(z, [[4, 'disk'], [4, 'disk'], [4, 'disk'], [4, 'disk'], [2, ''], [2, ''], [4, 'disk'], [4, 'disk']])], 'racks', floor());
-  const frame = one('rack_open_frame_01', 'Otevřený dvousloupkový rám 42U', [box('body', [-0.3, 0, -0.2], [0.3, 0.04, 0.2], 'rack_black'), ...[-1, 1].map((s) => box('body', [s * 0.25 - 0.04, 0.04, -0.04], [s * 0.25 + 0.04, 2.0, 0.04], 'rack_black')), box('body', [-0.29, 1.96, -0.04], [0.29, 2.0, 0.04], 'rack_black'), ...servers(0.04, [[1, ''], [1, '']], 1.2).map((p) => ({ ...p, min: [p.min[0], p.min[1], Math.max(p.min[2], -0.15)] }))], 'racks', floor());
-  return [glassRack, meshRack, one('rack_network_01', 'Síťový rack 42U s propojovacími panely', net, 'racks', floor()), storage, frame];
+  const net = [
+    ...rackShell(nk, w, d, h),
+    A('body', `${nk}_panels`, merge(panels), 'steel_dark'),
+    A('body', `${nk}_ports`, merge(ports), 'bezel_black'),
+    ...Object.entries(loops).map(([m, g]) => A('body', `${nk}_${m}`, merge(g), m)),
+    A('body', `${nk}_managers`, merge([-1, 1].map((s) => flatBox([s * 0.26 - 0.025, 0.2, z - 0.06], [s * 0.26 + 0.025, 1.9, z + 0.03]))), 'rack_black'),
+    ...servers(nk, z, [[2, ''], [1, '']]),
+  ];
+  const sk = 'rack_storage_01';
+  const storage = one(sk, 'Rack 42U s diskovým polem', [...rackShell(sk, w, d, h), ...servers(sk, z, [[4, 'disk'], [4, 'disk'], [4, 'disk'], [4, 'disk'], [2, ''], [2, ''], [4, 'disk'], [4, 'disk']])], 'racks', floor());
+  const fk = 'rack_open_frame_01';
+  const frame = one(fk, 'Otevřený dvousloupkový rám 42U', [
+    A('body', `${fk}_base`, roundedBox([-0.3, 0, -0.2], [0.3, 0.04, 0.2], 0.008, 1), 'rack_black'),
+    A('body', `${fk}_posts`, merge([...[-1, 1].map((s) => roundedBox([s * 0.25 - 0.04, 0.04, -0.04], [s * 0.25 + 0.04, 2.0, 0.04], 0.006, 1)), roundedBox([-0.29, 1.96, -0.04], [0.29, 2.0, 0.04], 0.006, 1)]), 'rack_black'),
+    ...servers(fk, 0.04, [[1, ''], [1, '']], 1.2, 0.19),
+  ], 'racks', floor());
+  return [glassRack, meshRack, one(nk, 'Síťový rack 42U s propojovacími panely', net, 'racks', floor()), storage, frame];
 }
 
-/** Superpočítač: skříň s kapalinovým chlazením 80 × 120 × 220 cm, proužek modrý nebo oranžový; uzel s potrubím. */
+/** Superpočítač: skříň s kapalinovým chlazením 80 × 120 × 220 cm, proužek modrý nebo oranžový; potrubí nahoře. */
 export function supercomputer() {
   return [['led_blue', 'modrý'], ['led_orange', 'oranžový']].map(([led, name], v) => {
     const [w, d, h] = [0.8, 1.2, 2.2];
-    const parts = [...bevelBox('body', [-w / 2, 0, -d / 2], [w / 2, h, d / 2], 'rack_black', 0.015), box('body', [-w / 2 + 0.05, 0.1, d / 2], [w / 2 - 0.05, h - 0.1, d / 2 + 0.005], 'server_face'), box('body', [-w / 2 + 0.03, 0.1, d / 2], [-w / 2 + 0.05, h - 0.1, d / 2 + 0.01], led), box('body', [w / 2 - 0.05, 0.1, d / 2], [w / 2 - 0.03, h - 0.1, d / 2 + 0.01], led), box('body', [-0.3, h - 0.25, d / 2 + 0.005], [0.3, h - 0.15, d / 2 + 0.008], 'paint_white_line')];
-    for (let i = 0; i < 12; i++) parts.push(box('body', [-w / 2 + 0.08, 0.2 + i * 0.15, d / 2 + 0.005], [w / 2 - 0.08, 0.3 + i * 0.15, d / 2 + 0.01], i % 4 === 0 ? 'steel_dark' : 'server_face'));
-    parts.push(cyl('body', [-0.2, h + 0.15, -0.3], 0.05, 0.3, 'y', 'paint_blue'), cyl('body', [0.2, h + 0.15, -0.3], 0.05, 0.3, 'y', 'paint_red'));
-    return one(`supercomputer_cabinet_${String(v + 1).padStart(2, '0')}`, `Skříň superpočítače s kapalinovým chlazením (${name} proužek)`, parts, 'supercomputer', floor());
+    const k = `supercomputer_cabinet_${String(v + 1).padStart(2, '0')}`;
+    const blades = [];
+    for (let i = 0; i < 12; i++) blades.push(flatBox([-w / 2 + 0.08, 0.2 + i * 0.15, d / 2 + 0.005], [w / 2 - 0.08, 0.3 + i * 0.15, d / 2 + 0.01]));
+    const parts = [
+      shell('body', k, [-w / 2, 0.02, -d / 2], [w / 2, h, d / 2], 'rack_black', 0.02, 2),
+      A('body', `${k}_front`, flatBox([-w / 2 + 0.05, 0.1, d / 2], [w / 2 - 0.05, h - 0.1, d / 2 + 0.005]), 'server_face'),
+      A('body', `${k}_blades`, merge(blades), 'steel_dark'),
+      A('body', `${k}_strip`, merge([flatBox([-w / 2 + 0.03, 0.1, d / 2], [-w / 2 + 0.05, h - 0.1, d / 2 + 0.01]), flatBox([w / 2 - 0.05, 0.1, d / 2], [w / 2 - 0.03, h - 0.1, d / 2 + 0.01])]), led),
+      A('body', `${k}_badge`, flatBox([-0.3, h - 0.25, d / 2 + 0.005], [0.3, h - 0.15, d / 2 + 0.008]), 'paint_white_line'),
+      A('body', `${k}_supply`, tube([[-0.2, h, -0.3], [-0.2, h + 0.25, -0.3], [-0.2, h + 0.25, -0.55]], 0.05, 10, { bend: 0.1, bendSeg: 3 }), 'paint_blue'),
+      A('body', `${k}_return`, tube([[0.2, h, -0.3], [0.2, h + 0.25, -0.3], [0.2, h + 0.25, -0.55]], 0.05, 10, { bend: 0.1, bendSeg: 3 }), 'paint_red'),
+    ];
+    return one(k, `Skříň superpočítače s kapalinovým chlazením (${name} proužek)`, parts, 'supercomputer', floor());
   });
 }
 
 /** Napájení a chlazení: UPS, bateriová skříň, chladicí jednotka do řady, skříňová jednotka CRAH, láhev hasicího plynu. */
 export function powerCooling() {
-  const cab = (w, d, h, mat = 'rack_black') => [...bevelBox('body', [-w / 2, 0, -d / 2], [w / 2, h, d / 2], mat, 0.01)];
+  const cab = (k, w, d, h, mat = 'rack_black') => [shell('body', k, [-w / 2, 0.03, -d / 2], [w / 2, h, d / 2], mat, 0.012), A('body', `${k}_plinth`, flatBox([-w / 2 + 0.02, 0, -d / 2 + 0.03], [w / 2 - 0.02, 0.03, d / 2 - 0.05]), 'bezel_black')];
+  const ups = 'ups_cabinet_01';
+  const bat = 'battery_cabinet_01';
+  const irc = 'cooler_inrow_01';
+  const crah = 'cooler_crah_01';
+  const fg = 'cylinder_fire_gas_01';
   return [
-    one('ups_cabinet_01', 'UPS (zdroj nepřerušitelného napájení)', [...cab(0.6, 0.9, 1.9), box('body', [-0.2, 1.4, 0.45], [0.2, 1.6, 0.452], 'emit_display'), box('body', [-0.25, 0.2, 0.45], [0.25, 1.2, 0.452], 'rack_mesh'), box('body', [0.22, 1.65, 0.45], [0.25, 1.68, 0.454], 'emit_green')], 'powerCooling', floor()),
-    one('battery_cabinet_01', 'Bateriová skříň k UPS', [...cab(0.6, 0.9, 1.9), ...[0.3, 0.7, 1.1, 1.5].map((y) => box('body', [-0.25, y, 0.45], [0.25, y + 0.25, 0.452], 'server_face'))], 'powerCooling', floor()),
-    one('cooler_inrow_01', 'Chladicí jednotka do řady racků', [...cab(0.3, 1.07, 2.0), box('body', [-0.13, 0.1, 0.535], [0.13, 1.8, 0.537], 'rack_mesh'), box('body', [-0.1, 1.85, 0.535], [0.1, 1.95, 0.538], 'emit_display')], 'powerCooling', floor()),
-    one('cooler_crah_01', 'Skříňová chladicí jednotka (CRAH)', [...cab(1.7, 0.9, 1.95, 'key_white'), ...[-0.55, 0, 0.55].map((x) => box('body', [x - 0.25, 0.1, 0.45], [x + 0.25, 1.7, 0.452], 'cable_grey')), box('body', [0.5, 1.75, 0.45], [0.8, 1.9, 0.452], 'emit_display')], 'powerCooling', floor()),
-    one('cylinder_fire_gas_01', 'Láhev hasicího plynu se ventilem', [cyl('body', [0, 0.65, 0], 0.15, 1.3, 'y', 'paint_red'), cyl('body', [0, 1.35, 0], 0.08, 0.1, 'y', 'paint_red'), box('body', [-0.05, 1.4, -0.05], [0.05, 1.5, 0.05], 'brass'), cyl('body', [0, 1.6, 0.06], 0.02, 0.25, 'y', 'steel_brushed'), box('body', [-0.08, 0.7, 0.148], [0.08, 0.95, 0.152], 'label_paper')], 'powerCooling', floor()),
+    one(ups, 'UPS (zdroj nepřerušitelného napájení)', [...cab(ups, 0.6, 0.9, 1.9), ...screen('body', `${ups}_scr`, -0.2, 0.2, 1.4, 1.62, 0.45, { buttons: 4, led: 'emit_green' }), ...grille('body', `${ups}_v`, -0.25, 0.25, 0.2, 1.2, 0.45, 18)], 'powerCooling', floor()),
+    one(bat, 'Bateriová skříň k UPS', [...cab(bat, 0.6, 0.9, 1.9), ...[0.3, 0.7, 1.1, 1.5].flatMap((y, i) => door('body', `${bat}_b${i}`, -0.25, 0.25, y, y + 0.32, 0.45, 0.01, { mat: 'server_face', r: 0.004 })), A('body', `${bat}_led`, flatBox([0.2, 1.84, 0.45], [0.24, 1.86, 0.455]), 'emit_green')], 'powerCooling', floor()),
+    one(irc, 'Chladicí jednotka do řady racků', [...cab(irc, 0.3, 1.07, 2.0), ...grille('body', `${irc}_v`, -0.13, 0.13, 0.1, 1.8, 0.535, 24), ...screen('body', `${irc}_scr`, -0.1, 0.1, 1.84, 1.96, 0.535, { led: 'emit_green' })], 'powerCooling', floor()),
+    one(crah, 'Skříňová chladicí jednotka (CRAH)', [...cab(crah, 1.7, 0.9, 1.95, 'key_white'), ...[-0.55, 0, 0.55].flatMap((x, i) => grille('body', `${crah}_g${i}`, x - 0.25, x + 0.25, 0.1, 1.7, 0.45, 14, { mat: 'cable_grey' })), ...screen('body', `${crah}_scr`, 0.5, 0.8, 1.75, 1.9, 0.45, { buttons: 3, led: 'emit_green' })], 'powerCooling', floor()),
+    one(fg, 'Láhev hasicího plynu se ventilem', [
+      A('body', `${fg}_body`, lathe([[0, 0], [0.13, 0.0, 'c'], [0.15, 0.04], [0.15, 1.2], [0.13, 1.3], [0.08, 1.36], [0.06, 1.4, 'c'], [0, 1.4]], { seg: 16 }), 'paint_red'),
+      A('body', `${fg}_valve`, merge([roundedBox([-0.05, 1.4, -0.05], [0.05, 1.5, 0.05], 0.01, 1), moved(cylinder(0.02, 0, 0.06, { seg: 8 }), at(mTranslate(0.05, 1.45, 0), mRotate('z', -90)))]), 'brass'),
+      A('body', `${fg}_hose`, tube([[0, 1.5, 0.0], [0, 1.6, 0.06], [0, 1.85, 0.06]], 0.015, 6, { bend: 0.05, bendSeg: 2 }), 'steel_brushed'),
+      A('body', `${fg}_label`, lathe([[0.1515, 0.7], [0.1515, 0.95]], { a0: 240, a1: 300, seg: 4 }), 'label_paper'),
+      A('body', `${fg}_strap`, lathe([[0.153, 1.0], [0.153, 1.04]], { seg: 16 }), 'steel_dark'),
+    ], 'powerCooling', floor()),
   ];
 }
 
 /** Rozvody a drobnosti: kabelový žlab (prázdný a s kabely) ze stropu, děrovaná dlaždice, čtečka karet, kamera, Wi-Fi, přepínač. */
 export function infrastructure() {
-  const tray = (full) => {
-    const parts = [box('body', [-1, 0, -0.15], [1, 0.006, 0.15], 'steel_brushed'), box('body', [-1, 0, -0.15], [1, 0.08, -0.144], 'steel_brushed'), box('body', [-1, 0, 0.144], [1, 0.08, 0.15], 'steel_brushed'), ...[-0.9, 0.9].map((x) => box('body', [x - 0.01, 0.08, -0.01], [x + 0.01, 0.6, 0.01], 'steel_dark'))];
-    if (full) parts.push(box('body', [-1, 0.006, -0.13], [1, 0.05, -0.02], 'cable_yellow'), box('body', [-1, 0.006, 0.0], [1, 0.06, 0.12], 'cable_blue'));
+  const tray = (k, full) => {
+    const wires = [];
+    for (let i = 0; i <= 20; i++) wires.push(flatBox([-1 + i * 0.1 - 0.002, 0, -0.15], [-1 + i * 0.1 + 0.002, 0.006, 0.15]));
+    const parts = [
+      A('body', `${k}_wire`, merge([...wires, flatBox([-1, 0, -0.15], [1, 0.08, -0.144]), flatBox([-1, 0, 0.144], [1, 0.08, 0.15]), flatBox([-1, 0.074, -0.15], [1, 0.08, -0.14]), flatBox([-1, 0.074, 0.14], [1, 0.08, 0.15])]), 'steel_brushed'),
+      A('body', `${k}_rods`, merge([-0.9, 0.9].flatMap((x) => [T(cylinder(0.006, 0.0, 0.6, { seg: 6 }), x, 0, 0), flatBox([x - 0.02, -0.01, -0.17], [x + 0.02, 0.0, 0.17])])), 'steel_dark'),
+    ];
+    if (full) parts.push(A('body', `${k}_yellow`, merge([0, 1, 2].map((i) => tube([[-1, 0.015 + (i % 2) * 0.01, -0.12 + i * 0.03], [1, 0.015 + (i % 2) * 0.01, -0.12 + i * 0.03]], 0.012, 5))), 'cable_yellow'), A('body', `${k}_blue`, merge([0, 1, 2, 3].map((i) => tube([[-1, 0.015 + (i % 2) * 0.015, 0.02 + i * 0.028], [1, 0.015 + (i % 2) * 0.015, 0.02 + i * 0.028]], 0.012, 5))), 'cable_blue'));
     return parts;
   };
   const ceiling = { physics: { body: 'static' }, place: { mount: 'ceiling' } };
   // u stropních prefabů je počátek na stropě a díly visí pod ním (jako svítidla v kit_base)
-  const hang = (parts, top) => shiftParts(parts, 0, -top, 0);
+  const hang = (parts, topY) => shiftParts(parts, 0, -topY, 0);
   const wall = (h) => ({ physics: { body: 'static' }, place: { mount: 'wall', height: h } });
+  const ft = 'floor_tile_perforated_01';
+  const holes = [];
+  for (let i = 0; i < 4; i++) for (let k = 0; k < 4; k++) holes.push(flatBox([-0.26 + i * 0.135, 0.012, -0.26 + k * 0.135], [-0.17 + i * 0.135, 0.0125, -0.17 + k * 0.135]));
+  const sw = 'switch_desk_01';
   return [
-    one('tray_cable_01', 'Kabelový žlab 2 m na závěsech, prázdný', hang(tray(false), 0.6), 'infrastructure', { components: ceiling, group: 'world' }),
-    one('tray_cable_02', 'Kabelový žlab 2 m na závěsech, s kabely', hang(tray(true), 0.6), 'infrastructure', { components: ceiling, group: 'world' }),
-    one('floor_tile_perforated_01', 'Děrovaná dlaždice zdvojené podlahy 60 × 60 cm', [box('body', [-0.3, 0, -0.3], [0.3, 0.012, 0.3], 'rack_mesh'), box('body', [-0.3, 0, -0.3], [0.3, 0.006, 0.3], 'steel_dark')], 'infrastructure', { components: staticFloor(), group: 'world' }),
-    one('reader_card_01', 'Čtečka přístupových karet', [box('body', [-0.04, 0, 0], [0.04, 0.12, 0.025], 'bezel_black'), box('body', [-0.025, 0.06, 0.025], [0.025, 0.1, 0.027], 'emit_green')], 'infrastructure', { components: wall(1.2) }),
-    one('camera_dome_01', 'Kupolová bezpečnostní kamera', hang([cyl('body', [0, 0.06, 0], 0.07, 0.02, 'y', 'key_white'), cyl('body', [0, 0.025, 0], 0.05, 0.05, 'y', 'screen_off')], 0.07), 'infrastructure', { components: ceiling }),
-    one('access_point_01', 'Přístupový bod Wi-Fi', hang([...bevelBox('body', [-0.1, 0.002, -0.1], [0.1, 0.037, 0.1], 'key_white', 0.012), box('body', [-0.008, 0, 0.05], [0.008, 0.002, 0.066], 'led_blue')], 0.037), 'infrastructure', { components: ceiling }),
-    one('switch_desk_01', 'Síťový přepínač na stůl s kabely', [...bevelBox('body', [-0.14, 0, -0.08], [0.14, 0.04, 0.08], 'alu_space', 0.004), ...[0, 1, 2, 3, 4].map((i) => box('body', [-0.12 + i * 0.05, 0.01, 0.08], [-0.1 + i * 0.05, 0.03, 0.15], i % 2 ? 'cable_blue' : 'cable_grey')), box('body', [0.11, 0.015, 0.08], [0.125, 0.025, 0.082], 'emit_green')], 'infrastructure'),
+    one('tray_cable_01', 'Kabelový žlab 2 m na závěsech, prázdný', hang(tray('tray_cable_01', false), 0.6), 'infrastructure', { components: ceiling, group: 'world' }),
+    one('tray_cable_02', 'Kabelový žlab 2 m na závěsech, s kabely', hang(tray('tray_cable_02', true), 0.6), 'infrastructure', { components: ceiling, group: 'world' }),
+    one(ft, 'Děrovaná dlaždice zdvojené podlahy 60 × 60 cm', [A('body', `${ft}_tile`, roundedBox([-0.3, 0, -0.3], [0.3, 0.012, 0.3], 0.003, 1), 'steel_dark'), A('body', `${ft}_holes`, merge(holes), 'rack_mesh')], 'infrastructure', { components: staticFloor(), group: 'world' }),
+    one('reader_card_01', 'Čtečka přístupových karet', [A('body', 'reader_card_body', roundedBox([-0.04, 0, 0], [0.04, 0.12, 0.025], 0.008, 1), 'bezel_black'), A('body', 'reader_card_pad', flatBox([-0.025, 0.06, 0.025], [0.025, 0.1, 0.0265]), 'emit_green'), A('body', 'reader_card_keys', merge([0, 1, 2].flatMap((r) => [0, 1, 2].map((c) => flatBox([-0.02 + c * 0.015, 0.012 + r * 0.014, 0.025], [-0.01 + c * 0.015, 0.02 + r * 0.014, 0.027])))), 'key_white')], 'infrastructure', { components: wall(1.2) }),
+    one('camera_dome_01', 'Kupolová bezpečnostní kamera', hang([A('body', 'camera_dome_base', cylinder(0.075, 0.05, 0.07, { seg: 16, edge: 0.005 }), 'key_white'), A('body', 'camera_dome_glass', lathe(arc(0, 0.05, 0.05, -90, 0, 3), { seg: 16 }), 'screen_off')], 0.07), 'infrastructure', { components: ceiling }),
+    one('access_point_01', 'Přístupový bod Wi-Fi', hang([A('body', 'access_point_body', roundedBox([-0.1, 0.002, -0.1], [0.1, 0.037, 0.1], 0.015, 2), 'key_white'), A('body', 'access_point_led', moved(cylinder(0.008, 0, 0.002, { seg: 8 }), mTranslate(0, 0, 0.06)), 'led_blue')], 0.037), 'infrastructure', { components: ceiling }),
+    one(sw, 'Síťový přepínač na stůl s kabely', [
+      A('body', `${sw}_body`, roundedBox([-0.14, 0.004, -0.08], [0.14, 0.04, 0.08], 0.006, 1), 'alu_space'),
+      A('body', `${sw}_feet`, merge([-1, 1].flatMap((sx) => [-1, 1].map((sz) => T(cylinder(0.01, 0, 0.004, { seg: 6 }), sx * 0.11, 0, sz * 0.06)))), 'rubber_black'),
+      A('body', `${sw}_ports`, merge([0, 1, 2, 3, 4, 5, 6, 7].map((i) => flatBox([-0.12 + i * 0.03, 0.012, 0.08], [-0.1 + i * 0.03, 0.028, 0.0815]))), 'bezel_black'),
+      A('body', `${sw}_blue`, merge([0, 2, 4].map((i) => tube([[-0.11 + i * 0.03, 0.02, 0.08], [-0.11 + i * 0.03, 0.02, 0.12], [-0.11 + i * 0.03 + 0.02, 0.006, 0.2]], 0.003, 4, { bend: 0.02, bendSeg: 2 }))), 'cable_blue'),
+      A('body', `${sw}_grey`, merge([1, 3].map((i) => tube([[-0.11 + i * 0.03, 0.02, 0.08], [-0.11 + i * 0.03, 0.02, 0.12], [-0.11 + i * 0.03 - 0.02, 0.006, 0.2]], 0.003, 4, { bend: 0.02, bendSeg: 2 }))), 'cable_grey'),
+      A('body', `${sw}_led`, flatBox([0.11, 0.015, 0.08], [0.125, 0.025, 0.082]), 'emit_green'),
+    ], 'infrastructure'),
   ];
 }
 

@@ -4,26 +4,27 @@
   "id": "pc_mini_01",
   "title": "Mini počítač",
   "category": "it.computer",
-  "bounds": { "min": [-0.101, -0.001, -0.101], "max": [0.101, 0.051, 0.103] },
+  "bounds": { "min": [-0.101, -0.001, -0.101], "max": [0.101, 0.052, 0.102] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0.01, -0.09], "max": [0.1, 0.04, 0.09], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.09], "max": [0.09, 0.05, 0.09], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.09, 0.01, -0.1], "max": [0.09, 0.04, 0.1], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.02, 0.1], "max": [0.006, 0.026, 0.102], "mat": "led_blue" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_mini_01_body", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_mini_01_top", "mat": "alu_space" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_mini_01_ports", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_mini_01_led", "mat": "led_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#pc_mini_01_feet", "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.1], "max": [0.1, 0.05, 0.102], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.1], "max": [0.1, 0.051, 0.101], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 48,
+  "tris": 468,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#towers",

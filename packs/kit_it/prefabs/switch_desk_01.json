@@ -4,31 +4,28 @@
   "id": "switch_desk_01",
   "title": "Síťový přepínač na stůl s kabely",
   "category": "it.server",
-  "bounds": { "min": [-0.141, -0.001, -0.081], "max": [0.141, 0.041, 0.151] },
+  "bounds": { "min": [-0.141, -0.001, -0.081], "max": [0.141, 0.041, 0.202] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.14, 0.004, -0.076], "max": [0.14, 0.036, 0.076], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.136, 0, -0.076], "max": [0.136, 0.04, 0.076], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.136, 0.004, -0.08], "max": [0.136, 0.036, 0.08], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.01, 0.08], "max": [-0.1, 0.03, 0.15], "mat": "cable_grey" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.01, 0.08], "max": [-0.05, 0.03, 0.15], "mat": "cable_blue" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.01, 0.08], "max": [0, 0.03, 0.15], "mat": "cable_grey" },
-    { "node": "body", "shape": "box", "min": [0.03, 0.01, 0.08], "max": [0.05, 0.03, 0.15], "mat": "cable_blue" },
-    { "node": "body", "shape": "box", "min": [0.08, 0.01, 0.08], "max": [0.1, 0.03, 0.15], "mat": "cable_grey" },
-    { "node": "body", "shape": "box", "min": [0.11, 0.015, 0.08], "max": [0.125, 0.025, 0.082], "mat": "emit_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_body", "mat": "alu_space" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_feet", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_ports", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_blue", "mat": "cable_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_grey", "mat": "cable_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#switch_desk_01_led", "mat": "emit_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.14, 0, -0.08], "max": [0.14, 0.04, 0.15], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.14, 0, -0.08], "max": [0.14, 0.04, 0.201], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 108,
+  "tris": 512,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#infrastructure",

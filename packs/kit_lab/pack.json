@@ -53,7 +53,7 @@
     {
       "path": "meshes/appl.glb",
       "bytes": 2764212,
-      "sha256": "77b2cdc82bbe34f76a84fbe77e733e5c2f09fe4b7f379bb644faa3de98d095c2",
+      "sha256": "ce0a35193c7e5bac67b0fd1c59e1dc7c298bbd37cb6aa739de76a8aad6974851",
       "license": "own",
       "source": "tools/forge/lab/large.mjs",
       "author": "xForge (sešna B)"

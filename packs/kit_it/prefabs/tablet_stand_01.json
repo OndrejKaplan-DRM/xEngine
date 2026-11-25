@@ -4,26 +4,26 @@
   "id": "tablet_stand_01",
   "title": "Tablet na stojanu",
   "category": "it.computer",
-  "bounds": { "min": [-0.126, -0.001, -0.061], "max": [0.126, 0.211, 0.041] },
+  "bounds": { "min": [-0.126, -0.001, -0.085], "max": [0.126, 0.207, 0.042] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.06], "max": [0.06, 0.01, 0.04], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.01, -0.05], "max": [0.02, 0.06, -0.04], "mat": "alu_silver" },
-    { "node": "body", "shape": "box", "min": [-0.125, 0.03, -0.04], "max": [0.125, 0.21, -0.032], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.115, 0.038, -0.032], "max": [0.115, 0.202, -0.031], "mat": "screen_graph" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_stand_01_base", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_stand_01_arm", "mat": "alu_silver" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_stand_01_body", "mat": "alu_space" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_stand_01_lcd", "mat": "screen_graph" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.125, 0, -0.06], "max": [0.125, 0.21, 0.04], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.125, 0, -0.084], "max": [0.125, 0.206, 0.041], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 48,
+  "tris": 324,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#portables",

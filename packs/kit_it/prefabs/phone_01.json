@@ -4,26 +4,25 @@
   "id": "phone_01",
   "title": "Mobilní telefon",
   "category": "it.computer",
-  "bounds": { "min": [-0.037, -0.001, -0.076], "max": [0.037, 0.011, 0.076] },
+  "bounds": { "min": [-0.037, -0.001, -0.076], "max": [0.037, 0.01, 0.076] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.036, 0.002, -0.073], "max": [0.036, 0.006, 0.073], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.034, 0, -0.073], "max": [0.034, 0.008, 0.073], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.034, 0.002, -0.075], "max": [0.034, 0.006, 0.075], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.033, 0.008, -0.071], "max": [0.033, 0.0095, 0.071], "mat": "screen_code" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#phone_01_body", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#phone_01_lcd", "mat": "screen_code" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#phone_01_cam", "mat": "screen_off" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.036, 0, -0.075], "max": [0.036, 0.01, 0.075], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.036, 0, -0.075], "max": [0.036, 0.009, 0.075], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 48,
+  "tris": 132,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#portables",

@@ -4,24 +4,24 @@
   "id": "camera_dome_01",
   "title": "Kupolová bezpečnostní kamera",
   "category": "it.server",
-  "bounds": { "min": [-0.071, -0.071, -0.07], "max": [0.071, 0.001, 0.07] },
+  "bounds": { "min": [-0.076, -0.071, -0.076], "max": [0.076, 0.001, 0.076] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_20_y_0_-10_0", "mat": "key_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_50_y_0_-45_0", "mat": "screen_off" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#camera_dome_base_s0_-70_0", "mat": "key_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#camera_dome_glass_s0_-70_0", "mat": "screen_off" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.07, -0.07, -0.069], "max": [0.07, 0, 0.069], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.075, -0.07, -0.075], "max": [0.075, 0, 0.075], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "ceiling" }
   },
-  "tris": 208,
+  "tris": 272,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#infrastructure",

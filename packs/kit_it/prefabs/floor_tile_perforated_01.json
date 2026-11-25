@@ -4,24 +4,24 @@
   "id": "floor_tile_perforated_01",
   "title": "Děrovaná dlaždice zdvojené podlahy 60 × 60 cm",
   "category": "it.server",
-  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.013, 0.301] },
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.014, 0.301] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.012, 0.3], "mat": "rack_mesh" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.006, 0.3], "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#floor_tile_perforated_01_tile", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#floor_tile_perforated_01_holes", "mat": "rack_mesh" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.012, 0.3], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.013, 0.3], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 24,
+  "tris": 300,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#infrastructure",

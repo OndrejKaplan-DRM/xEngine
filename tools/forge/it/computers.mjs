@@ -3,10 +3,8 @@
 // notebooky, tablety, telefon, klávesnice a myš, tiskárny a sestavy na stůl (jeden až tři monitory, notebook
 // s dokovací stanicí). Rozměry z obvyklých úhlopříček 16 : 9 a 21 : 9; obecný tvar bez značek.
 
-import { box, boxc, cyl } from '../lib.mjs';
-import { bevelBox } from '../shapes.mjs';
 import { simple, staticFloor } from '../lab/common.mjs';
-import { A, merge, roundedBox, flatBox, cylinder, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
+import { A, door, merge, roundedBox, flatBox, slab, cylinder, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 
 const CAT = 'it.computer';
 const gen = (f) => `it/computers.mjs#${f}`;
@@ -96,31 +94,71 @@ export function monitors() {
 export function towers() {
   const aio = (() => {
     const [w, h] = panelSize(24);
-    return [box('body', [-0.1, 0, -0.12], [0.1, 0.01, 0.06], 'alu_silver'), box('body', [-0.04, 0.01, -0.1], [0.04, 0.2, -0.07], 'alu_silver'), ...bevelBox('body', [-w / 2 - 0.01, 0.1, -0.07], [w / 2 + 0.01, 0.1 + h + 0.06, -0.055], 'alu_silver', 0.004), box('body', [-w / 2, 0.16, -0.055], [w / 2, 0.16 + h - 0.005, -0.053], 'screen_doc')];
+    const k = 'pc_allinone_01';
+    return [
+      A('body', `${k}_foot`, roundedBox([-0.1, 0, -0.13], [0.1, 0.008, 0.05], 0.03, 2), 'alu_silver'),
+      A('body', `${k}_neck`, merge([roundedBox([-0.04, 0.006, -0.11], [0.04, 0.2, -0.085], 0.006, 1), roundedBox([-0.035, 0.14, -0.09], [0.035, 0.19, -0.07], 0.004, 1)]), 'alu_silver'),
+      A('body', `${k}_body`, roundedBox([-w / 2 - 0.01, 0.1, -0.072], [w / 2 + 0.01, 0.1 + h + 0.06, -0.055], 0.006, 2), 'alu_silver'),
+      A('body', `${k}_bezel`, flatBox([-w / 2 - 0.004, 0.155, -0.0552], [w / 2 + 0.004, 0.1 + h + 0.054, -0.0546]), 'bezel_black'),
+      A('body', `${k}_lcd`, flatBox([-w / 2, 0.16, -0.0548], [w / 2, 0.155 + h, -0.054]), 'screen_doc'),
+      A('body', `${k}_cam`, moved(cylinder(0.002, 0, 0.001, { seg: 6 }), at(mTranslate(0, 0.1 + h + 0.045, -0.0545), mRotate('x', 90))), 'screen_off'),
+    ];
   })();
+  const mk = 'pc_mini_01';
+  const mini = [
+    A('body', `${mk}_body`, roundedBox([-0.1, 0.004, -0.1], [0.1, 0.05, 0.1], 0.012, 2), 'alu_silver'),
+    A('body', `${mk}_top`, flatBox([-0.085, 0.05, -0.085], [0.085, 0.0505, 0.085]), 'alu_space'),
+    A('body', `${mk}_ports`, merge([flatBox([-0.06, 0.018, 0.0995], [-0.045, 0.024, 0.1005]), flatBox([-0.04, 0.018, 0.0995], [-0.025, 0.024, 0.1005]), flatBox([0.02, 0.018, 0.0995], [0.03, 0.026, 0.1005])]), 'bezel_black'),
+    A('body', `${mk}_led`, moved(cylinder(0.003, 0, 0.001, { seg: 6 }), at(mTranslate(0.07, 0.022, 0.1), mRotate('x', 90))), 'led_blue'),
+    A('body', `${mk}_feet`, merge([-1, 1].flatMap((sx) => [-1, 1].map((sz) => moved(cylinder(0.008, 0, 0.004, { seg: 6 }), mTranslate(sx * 0.075, 0, sz * 0.075))))), 'bezel_black'),
+  ];
   return [
     one('pc_tower_01', 'Počítačová skříň černá', towerParts(0, 0, 0.2, 0.42, 0.42), 'towers', { components: staticFloor() }),
     one('pc_tower_02', 'Počítačová skříň bílá', towerParts(0, 0, 0.2, 0.42, 0.42, 'key_white'), 'towers', { components: staticFloor() }),
     one('pc_workstation_01', 'Pracovní stanice (velká skříň)', towerParts(0, 0, 0.24, 0.55, 0.55, 'alu_space'), 'towers', { components: staticFloor() }),
-    one('pc_mini_01', 'Mini počítač', [...bevelBox('body', [-0.1, 0, -0.1], [0.1, 0.05, 0.1], 'alu_silver', 0.01), box('body', [-0.006, 0.02, 0.1], [0.006, 0.026, 0.102], 'led_blue')], 'towers'),
+    one(mk, 'Mini počítač', mini, 'towers'),
     one('pc_allinone_01', 'Počítač vše v jednom 24"', [...aio, ...keyboardParts(0, 0.2, 'key_white')], 'towers'),
   ];
 }
 
+/** Tablet ve vodorovné poloze: tělo se zaoblenými rohy, displej a kamera. */
+function slate(k, w, d, t, body, screen, y = 0) {
+  return [
+    A('body', `${k}_body`, slabOf(w, d, y, y + t, Math.min(w, d) * 0.08), body),
+    A('body', `${k}_lcd`, flatBox([-w / 2 + 0.006, y + t, -d / 2 + 0.006], [w / 2 - 0.006, y + t + 0.0004, d / 2 - 0.006]), screen),
+  ];
+}
+const slabOf = (w, d, y0, y1, rc) => slab(0, 0, w, d, y0, y1, rc, 2, Math.min(0.0015, (y1 - y0) * 0.3));
+
 /** Notebooky (14" stříbrný, 15,6" černý, 16" stříbrný, zavřený), tablet na stole a na stojanu, telefon, klávesnice s myší. */
 export function portables() {
-  const closed = [...bevelBox('body', [-0.16, 0, -0.11], [0.16, 0.018, 0.11], 'alu_space', 0.003)];
-  const tabletFlat = [...bevelBox('body', [-0.125, 0, -0.09], [0.125, 0.008, 0.09], 'alu_space', 0.002), box('body', [-0.115, 0.008, -0.082], [0.115, 0.0095, 0.082], 'screen_doc')];
-  const tabletStand = [box('body', [-0.06, 0, -0.06], [0.06, 0.01, 0.04], 'alu_silver'), box('body', [-0.02, 0.01, -0.05], [0.02, 0.06, -0.04], 'alu_silver'), box('body', [-0.125, 0.03, -0.04], [0.125, 0.21, -0.032], 'alu_space'), box('body', [-0.115, 0.038, -0.032], [0.115, 0.202, -0.031], 'screen_graph')];
-  const phone = [...bevelBox('body', [-0.036, 0, -0.075], [0.036, 0.008, 0.075], 'bezel_black', 0.002), box('body', [-0.033, 0.008, -0.071], [0.033, 0.0095, 0.071], 'screen_code')];
+  const ck = 'laptop_closed_01';
+  const closed = [
+    A('body', `${ck}_base`, slabOf(0.32, 0.22, 0, 0.009, 0.01), 'alu_space'),
+    A('body', `${ck}_lid`, slabOf(0.318, 0.218, 0.0095, 0.017, 0.01), 'alu_space'),
+    A('body', `${ck}_hinge`, flatBox([-0.12, 0.004, -0.111], [0.12, 0.013, -0.108]), 'bezel_black'),
+    A('body', `${ck}_logo`, moved(cylinder(0.012, 0, 0.0004, { seg: 10 }), mTranslate(0, 0.017, 0)), 'alu_silver'),
+  ];
+  const tk = 'tablet_stand_01';
+  const tabletStand = [
+    A('body', `${tk}_base`, roundedBox([-0.06, 0, -0.07], [0.06, 0.01, 0.04], 0.006, 1), 'alu_silver'),
+    A('body', `${tk}_arm`, moved(roundedBox([-0.02, 0, -0.004], [0.02, 0.09, 0.004], 0.003, 1), at(mTranslate(0, 0.008, -0.05), mRotate('x', -20))), 'alu_silver'),
+    A('body', `${tk}_body`, moved(slabOf(0.25, 0.175, -0.004, 0.004, 0.012), at(mTranslate(0, 0.12, -0.035), mRotate('x', 75))), 'alu_space'),
+    A('body', `${tk}_lcd`, moved(flatBox([-0.119, 0.004, -0.0815], [0.119, 0.0044, 0.0815]), at(mTranslate(0, 0.12, -0.035), mRotate('x', 75))), 'screen_graph'),
+  ];
+  const pk = 'phone_01';
+  const phone = [
+    ...slate(pk, 0.072, 0.15, 0.008, 'bezel_black', 'screen_code'),
+    A('body', `${pk}_cam`, merge([moved(cylinder(0.002, 0, 0.0005, { seg: 6 }), mTranslate(0, 0.0084, -0.068))]), 'screen_off'),
+  ];
   return [
     one('laptop_14_01', 'Notebook 14" stříbrný', laptopParts(0, 0, 14), 'portables'),
     one('laptop_15_01', 'Notebook 15,6" černý', laptopParts(0, 0, 15.6, 'alu_space', 'screen_doc'), 'portables'),
     one('laptop_16_01', 'Notebook 16" stříbrný', laptopParts(0, 0, 16, 'alu_silver', 'screen_graph'), 'portables'),
-    one('laptop_closed_01', 'Notebook zavřený', closed, 'portables'),
-    one('tablet_flat_01', 'Tablet na stole', tabletFlat, 'portables'),
-    one('tablet_stand_01', 'Tablet na stojanu', tabletStand, 'portables'),
-    one('phone_01', 'Mobilní telefon', phone, 'portables'),
+    one(ck, 'Notebook zavřený', closed, 'portables'),
+    one('tablet_flat_01', 'Tablet na stole', slate('tablet_flat_01', 0.25, 0.18, 0.008, 'alu_space', 'screen_doc'), 'portables'),
+    one(tk, 'Tablet na stojanu', tabletStand, 'portables'),
+    one(pk, 'Mobilní telefon', phone, 'portables'),
     one('keyboard_set_01', 'Klávesnice s myší (černé)', keyboardParts(0, 0), 'portables'),
     one('keyboard_set_02', 'Klávesnice s myší (bílé)', keyboardParts(0, 0, 'key_white'), 'portables'),
   ];
@@ -129,22 +167,46 @@ export function portables() {
 /** Sestavy na stůl: jeden monitor a skříň, dva monitory, tři monitory, ultraširoký s notebookem, vývojářská (na výšku + 27"), notebook s dokem a monitorem. */
 export function workstations() {
   const kb = keyboardParts(0, 0.22);
+  const dock = (k) => [A('body', `${k}_dock`, roundedBox([-0.3, 0, -0.2], [-0.22, 0.03, -0.12], 0.006, 1), 'bezel_black'), A('body', `${k}_dockled`, flatBox([-0.265, 0.012, -0.1202], [-0.255, 0.016, -0.1198]), 'emit_green')];
   return [
     one('setup_single_01', 'Sestava: monitor 24" a skříň vedle', [...monitorParts(-0.05, -0.15, 24, 'screen_doc'), ...towerParts(0.5, -0.1, 0.2, 0.42, 0.42), ...kb], 'workstations'),
     one('setup_dual_01', 'Sestava: dva monitory 24"', [...monitorParts(-0.29, -0.15, 24, 'screen_code'), ...monitorParts(0.29, -0.15, 24, 'screen_doc'), ...kb], 'workstations'),
     one('setup_triple_01', 'Sestava: tři monitory 24" (dispečink)', [...monitorParts(-0.56, -0.12, 24, 'screen_graph'), ...monitorParts(0, -0.15, 24, 'screen_code'), ...monitorParts(0.56, -0.12, 24, 'screen_graph'), ...kb], 'workstations'),
     one('setup_wide_laptop_01', 'Sestava: ultraširoký monitor a notebook', [...monitorParts(0.1, -0.15, 34, 'screen_code', { wide: true }), ...laptopParts(-0.62, 0.05, 14, 'alu_silver', 'screen_doc'), ...kb], 'workstations'),
     one('setup_dev_01', 'Sestava vývojáře: monitor na výšku a 27"', [...monitorParts(-0.42, -0.15, 24, 'screen_code', { portrait: true }), ...monitorParts(0.18, -0.15, 27, 'screen_code'), ...kb], 'workstations'),
-    one('setup_dock_01', 'Sestava: notebook v dokovací stanici a monitor 27"', [...monitorParts(0.15, -0.15, 27, 'screen_doc'), ...laptopParts(-0.55, -0.05, 15.6, 'alu_space', 'screen_code'), box('body', [-0.3, 0, -0.2], [-0.22, 0.03, -0.12], 'bezel_black'), ...kb], 'workstations'),
+    one('setup_dock_01', 'Sestava: notebook v dokovací stanici a monitor 27"', [...monitorParts(0.15, -0.15, 27, 'screen_doc'), ...laptopParts(-0.55, -0.05, 15.6, 'alu_space', 'screen_code'), ...dock('setup_dock_01'), ...kb], 'workstations'),
   ];
 }
 
 /** Tiskárny: laserová na stůl a multifunkční kopírka na podlahu. */
 export function printers() {
-  return [
-    one('printer_laser_01', 'Laserová tiskárna', [...bevelBox('body', [-0.2, 0, -0.2], [0.2, 0.25, 0.2], 'key_white', 0.01), box('body', [-0.16, 0.25, -0.15], [0.16, 0.252, 0.05], 'bezel_black'), box('body', [-0.15, 0.06, 0.2], [0.15, 0.1, 0.24], 'key_white'), box('body', [0.12, 0.2, 0.2], [0.18, 0.23, 0.202], 'emit_display')], 'printers'),
-    one('copier_mfp_01', 'Multifunkční kopírka', [...bevelBox('body', [-0.3, 0, -0.32], [0.3, 1.0, 0.32], 'key_white', 0.012), box('body', [-0.28, 1.0, -0.3], [0.28, 1.12, 0.3], 'key_white'), box('body', [0.05, 1.0, 0.22], [0.28, 1.08, 0.36], 'bezel_black'), box('body', [0.08, 1.04, 0.36], [0.25, 1.075, 0.362], 'emit_display'), ...[0.15, 0.35, 0.55].map((y) => box('body', [-0.28, y, 0.32], [0.28, y + 0.16, 0.325], 'key_white')), box('body', [-0.4, 0.75, -0.2], [-0.3, 0.8, 0.2], 'key_white')], 'printers', { components: staticFloor() }),
+  const lk = 'printer_laser_01';
+  const laser = [
+    A('body', `${lk}_body`, roundedBox([-0.2, 0.004, -0.2], [0.2, 0.25, 0.2], 0.012, 2), 'key_white'),
+    A('body', `${lk}_out`, merge([flatBox([-0.16, 0.2, -0.15], [0.16, 0.2505, 0.05]), flatBox([-0.16, 0.2, 0.05], [0.16, 0.25, 0.052])]), 'bezel_black'),
+    A('body', `${lk}_paper`, merge([flatBox([-0.1, 0.205, -0.13], [0.1, 0.21, 0.02])]), 'paint_white_line'),
+    A('body', `${lk}_tray`, roundedBox([-0.15, 0.03, 0.2], [0.15, 0.09, 0.215], 0.004, 1), 'key_white'),
+    A('body', `${lk}_grip`, flatBox([-0.05, 0.075, 0.215], [0.05, 0.085, 0.218]), 'bezel_black'),
+    A('body', `${lk}_panel`, flatBox([0.1, 0.19, 0.2], [0.19, 0.24, 0.203]), 'bezel_black'),
+    A('body', `${lk}_lcd`, flatBox([0.11, 0.205, 0.203], [0.16, 0.232, 0.2034]), 'emit_display'),
+    A('body', `${lk}_led`, flatBox([0.168, 0.21, 0.203], [0.176, 0.216, 0.2036]), 'emit_green'),
+    A('body', `${lk}_feet`, merge([-1, 1].flatMap((sx) => [-1, 1].map((sz) => flatBox([sx * 0.17 - 0.015, 0, sz * 0.17 - 0.015], [sx * 0.17 + 0.015, 0.004, sz * 0.17 + 0.015])))), 'bezel_black'),
   ];
+  const ck = 'copier_mfp_01';
+  const copier = [
+    A('body', `${ck}_body`, roundedBox([-0.3, 0.03, -0.32], [0.3, 1.0, 0.32], 0.012, 2), 'key_white'),
+    A('body', `${ck}_plinth`, flatBox([-0.28, 0, -0.3], [0.28, 0.03, 0.29]), 'bezel_black'),
+    A('body', `${ck}_scanner`, roundedBox([-0.29, 1.0, -0.31], [0.29, 1.1, 0.31], 0.01, 2), 'key_white'),
+    A('body', `${ck}_feeder`, merge([roundedBox([-0.26, 1.1, -0.28], [0.22, 1.13, 0.26], 0.008, 1), flatBox([-0.24, 1.13, -0.22], [0.08, 1.135, 0.2])]), 'key_white'),
+    A('body', `${ck}_gap`, flatBox([-0.29, 0.86, 0.3], [0.29, 0.9, 0.321]), 'bezel_black'),
+    ...door('body', `${ck}_d`, -0.28, 0.28, 0.6, 0.84, 0.32, 0.006, { mat: 'key_white', r: 0.004 }),
+    ...[0.12, 0.33].flatMap((y, i) => [...door('body', `${ck}_t${i}`, -0.28, 0.28, y, y + 0.18, 0.32, 0.006, { mat: 'key_white', r: 0.004 }), A('body', `${ck}_t${i}_grip`, flatBox([-0.08, y + 0.14, 0.326], [0.08, y + 0.16, 0.334]), 'bezel_black')]),
+    A('body', `${ck}_arm`, roundedBox([0.05, 1.0, 0.24], [0.28, 1.06, 0.33], 0.006, 1), 'bezel_black'),
+    A('body', `${ck}_lcd`, flatBox([0.07, 1.06, 0.25], [0.26, 1.0606, 0.32]), 'emit_display'),
+    A('body', `${ck}_bypass`, roundedBox([-0.4, 0.75, -0.2], [-0.3, 0.765, 0.2], 0.004, 1), 'key_white'),
+    A('body', `${ck}_sheets`, flatBox([-0.38, 0.765, -0.15], [-0.31, 0.77, 0.15]), 'paint_white_line'),
+  ];
+  return [one(lk, 'Laserová tiskárna', laser, 'printers'), one(ck, 'Multifunkční kopírka', copier, 'printers', { components: staticFloor() })];
 }
 
 export const COMPUTERS = [monitors, towers, portables, workstations, printers];

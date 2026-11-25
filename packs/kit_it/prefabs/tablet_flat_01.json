@@ -4,26 +4,24 @@
   "id": "tablet_flat_01",
   "title": "Tablet na stole",
   "category": "it.computer",
-  "bounds": { "min": [-0.126, -0.001, -0.091], "max": [0.126, 0.011, 0.091] },
+  "bounds": { "min": [-0.126, -0.001, -0.091], "max": [0.126, 0.01, 0.091] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.125, 0.002, -0.088], "max": [0.125, 0.006, 0.088], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.123, 0, -0.088], "max": [0.123, 0.008, 0.088], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.123, 0.002, -0.09], "max": [0.123, 0.006, 0.09], "mat": "alu_space" },
-    { "node": "body", "shape": "box", "min": [-0.115, 0.008, -0.082], "max": [0.115, 0.0095, 0.082], "mat": "screen_doc" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_flat_01_body", "mat": "alu_space" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#tablet_flat_01_lcd", "mat": "screen_doc" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.125, 0, -0.09], "max": [0.125, 0.01, 0.09], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.125, 0, -0.09], "max": [0.125, 0.009, 0.09], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 48,
+  "tris": 108,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#portables",

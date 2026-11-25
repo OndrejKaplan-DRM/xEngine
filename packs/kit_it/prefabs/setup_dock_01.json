@@ -20,7 +20,8 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_15.6_-550_-50_alu_space_pad", "mat": "alu_space" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_15.6_-550_-50_alu_space_lid", "mat": "alu_space" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#lap_15.6_-550_-50_alu_space_img_screen_code", "mat": "screen_code" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.2], "max": [-0.22, 0.03, -0.12], "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#setup_dock_01_dock", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#setup_dock_01_dockled", "mat": "emit_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_frame", "mat": "bezel_black" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_keys", "mat": "key_black" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#kbd_0_220_key_black_mouse", "mat": "bezel_black" }
@@ -32,7 +33,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 804,
+  "tris": 912,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/computers.mjs#workstations",

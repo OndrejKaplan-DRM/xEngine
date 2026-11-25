@@ -11,8 +11,9 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.04, 0, 0], "max": [0.04, 0.12, 0.025], "mat": "bezel_black" },
-    { "node": "body", "shape": "box", "min": [-0.025, 0.06, 0.025], "max": [0.025, 0.1, 0.027], "mat": "emit_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reader_card_body", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reader_card_pad", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#reader_card_keys", "mat": "key_white" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.04, 0, 0], "max": [0.04, 0.12, 0.027], "group": "prop" }
@@ -21,7 +22,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 1.2 }
   },
-  "tris": 24,
+  "tris": 228,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#infrastructure",

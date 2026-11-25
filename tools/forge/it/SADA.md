@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_it`. Neupravovat ručně; zdroj je `tools/forge/it/*.mjs`.
 
-Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 42646
+Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 53462
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -15,15 +15,15 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 42646
 | `pc_tower_01` | Počítačová skříň černá | it.computer | 0,2 × 0,42 × 0,43 | 284 | — | — |
 | `pc_tower_02` | Počítačová skříň bílá | it.computer | 0,2 × 0,42 × 0,43 | 284 | — | — |
 | `pc_workstation_01` | Pracovní stanice (velká skříň) | it.computer | 0,24 × 0,55 × 0,56 | 284 | — | — |
-| `pc_mini_01` | Mini počítač | it.computer | 0,2 × 0,05 × 0,2 | 48 | — | — |
-| `pc_allinone_01` | Počítač vše v jednom 24" | it.computer | 0,61 × 0,46 × 0,39 | 348 | — | — |
+| `pc_mini_01` | Mini počítač | it.computer | 0,2 × 0,05 × 0,2 | 468 | — | — |
+| `pc_allinone_01` | Počítač vše v jednom 24" | it.computer | 0,61 × 0,46 × 0,4 | 1140 | — | — |
 | `laptop_14_01` | Notebook 14" stříbrný | it.computer | 0,33 × 0,22 × 0,27 | 252 | — | — |
 | `laptop_15_01` | Notebook 15,6" černý | it.computer | 0,36 × 0,24 × 0,29 | 252 | — | — |
 | `laptop_16_01` | Notebook 16" stříbrný | it.computer | 0,37 × 0,25 × 0,3 | 252 | — | — |
-| `laptop_closed_01` | Notebook zavřený | it.computer | 0,32 × 0,02 × 0,22 | 36 | — | — |
-| `tablet_flat_01` | Tablet na stole | it.computer | 0,25 × 0,01 × 0,18 | 48 | — | — |
-| `tablet_stand_01` | Tablet na stojanu | it.computer | 0,25 × 0,21 × 0,1 | 48 | — | — |
-| `phone_01` | Mobilní telefon | it.computer | 0,07 × 0,01 × 0,15 | 48 | — | — |
+| `laptop_closed_01` | Notebook zavřený | it.computer | 0,32 × 0,02 × 0,22 | 244 | — | — |
+| `tablet_flat_01` | Tablet na stole | it.computer | 0,25 × 0,01 × 0,18 | 108 | — | — |
+| `tablet_stand_01` | Tablet na stojanu | it.computer | 0,25 × 0,21 × 0,13 | 324 | — | — |
+| `phone_01` | Mobilní telefon | it.computer | 0,07 × 0,01 × 0,15 | 132 | — | — |
 | `keyboard_set_01` | Klávesnice s myší (černé) | it.computer | 0,55 × 0,04 × 0,14 | 276 | — | — |
 | `keyboard_set_02` | Klávesnice s myší (bílé) | it.computer | 0,55 × 0,04 × 0,14 | 276 | — | — |
 | `setup_single_01` | Sestava: monitor 24" a skříň vedle | it.computer | 0,92 × 0,42 × 0,6 | 824 | — | — |
@@ -31,28 +31,28 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 42646
 | `setup_triple_01` | Sestava: tři monitory 24" (dispečink) | it.computer | 1,67 × 0,42 × 0,54 | 1068 | — | — |
 | `setup_wide_laptop_01` | Sestava: ultraširoký monitor a notebook | it.computer | 1,29 × 0,46 × 0,54 | 792 | — | — |
 | `setup_dev_01` | Sestava vývojáře: monitor na výšku a 27" | it.computer | 1,06 × 0,63 × 0,54 | 804 | — | — |
-| `setup_dock_01` | Sestava: notebook v dokovací stanici a monitor 27" | it.computer | 1,19 × 0,45 × 0,54 | 804 | — | — |
-| `printer_laser_01` | Laserová tiskárna | it.computer | 0,4 × 0,25 × 0,44 | 72 | — | — |
-| `copier_mfp_01` | Multifunkční kopírka | it.computer | 0,7 × 1,12 × 0,68 | 120 | — | — |
-| `rack_servers_01` | Rack 42U se servery a prosklenými dveřmi | it.server | 0,92 × 2 × 1,63 | 888 | swing: 0° až 120° | door |
-| `rack_servers_02` | Rack 42U se servery a děrovanými dveřmi | it.server | 0,6 × 2 × 1,07 | 780 | — | — |
-| `rack_network_01` | Síťový rack 42U s propojovacími panely | it.server | 0,6 × 2 × 1,07 | 576 | — | — |
-| `rack_storage_01` | Rack 42U s diskovým polem | it.server | 0,6 × 2 × 1,07 | 804 | — | — |
-| `rack_open_frame_01` | Otevřený dvousloupkový rám 42U | it.server | 0,6 × 2 × 0,4 | 120 | — | — |
-| `supercomputer_cabinet_01` | Skříň superpočítače s kapalinovým chlazením (modrý proužek) | it.server | 0,8 × 2,5 × 1,21 | 420 | — | — |
-| `supercomputer_cabinet_02` | Skříň superpočítače s kapalinovým chlazením (oranžový proužek) | it.server | 0,8 × 2,5 × 1,21 | 420 | — | — |
-| `ups_cabinet_01` | UPS (zdroj nepřerušitelného napájení) | it.server | 0,6 × 1,9 × 0,91 | 72 | — | — |
-| `battery_cabinet_01` | Bateriová skříň k UPS | it.server | 0,6 × 1,9 × 0,9 | 84 | — | — |
-| `cooler_inrow_01` | Chladicí jednotka do řady racků | it.server | 0,3 × 2 × 1,08 | 60 | — | — |
-| `cooler_crah_01` | Skříňová chladicí jednotka (CRAH) | it.server | 1,7 × 1,95 × 0,9 | 84 | — | — |
-| `cylinder_fire_gas_01` | Láhev hasicího plynu se ventilem | it.server | 0,3 × 1,73 × 0,3 | 376 | — | — |
-| `tray_cable_01` | Kabelový žlab 2 m na závěsech, prázdný | it.server | 2 × 0,6 × 0,3 | 60 | — | — |
-| `tray_cable_02` | Kabelový žlab 2 m na závěsech, s kabely | it.server | 2 × 0,6 × 0,3 | 84 | — | — |
-| `floor_tile_perforated_01` | Děrovaná dlaždice zdvojené podlahy 60 × 60 cm | it.server | 0,6 × 0,01 × 0,6 | 24 | — | — |
-| `reader_card_01` | Čtečka přístupových karet | it.server | 0,08 × 0,12 × 0,03 | 24 | — | — |
-| `camera_dome_01` | Kupolová bezpečnostní kamera | it.server | 0,14 × 0,07 × 0,14 | 208 | — | — |
-| `access_point_01` | Přístupový bod Wi-Fi | it.server | 0,2 × 0,04 × 0,2 | 48 | — | — |
-| `switch_desk_01` | Síťový přepínač na stůl s kabely | it.server | 0,28 × 0,04 × 0,23 | 108 | — | — |
+| `setup_dock_01` | Sestava: notebook v dokovací stanici a monitor 27" | it.computer | 1,19 × 0,45 × 0,54 | 912 | — | — |
+| `printer_laser_01` | Laserová tiskárna | it.computer | 0,4 × 0,25 × 0,42 | 540 | — | — |
+| `copier_mfp_01` | Multifunkční kopírka | it.computer | 0,7 × 1,14 × 0,66 | 1332 | — | — |
+| `rack_servers_01` | Rack 42U se servery a prosklenými dveřmi | it.server | 0,93 × 2,01 × 1,63 | 1284 | swing: 0° až 120° | door |
+| `rack_servers_02` | Rack 42U se servery a děrovanými dveřmi | it.server | 0,6 × 2,01 × 1,1 | 1288 | — | — |
+| `rack_network_01` | Síťový rack 42U s propojovacími panely | it.server | 0,6 × 2,01 × 1,07 | 1348 | — | — |
+| `rack_storage_01` | Rack 42U s diskovým polem | it.server | 0,6 × 2,01 × 1,07 | 964 | — | — |
+| `rack_open_frame_01` | Otevřený dvousloupkový rám 42U | it.server | 0,6 × 2 × 0,4 | 528 | — | — |
+| `supercomputer_cabinet_01` | Skříň superpočítače s kapalinovým chlazením (modrý proužek) | it.server | 0,8 × 2,48 × 1,21 | 732 | — | — |
+| `supercomputer_cabinet_02` | Skříň superpočítače s kapalinovým chlazením (oranžový proužek) | it.server | 0,8 × 2,48 × 1,21 | 732 | — | — |
+| `ups_cabinet_01` | UPS (zdroj nepřerušitelného napájení) | it.server | 0,6 × 1,9 × 0,91 | 588 | — | — |
+| `battery_cabinet_01` | Bateriová skříň k UPS | it.server | 0,6 × 1,9 × 0,91 | 564 | — | — |
+| `cooler_inrow_01` | Chladicí jednotka do řady racků | it.server | 0,3 × 2 × 1,08 | 564 | — | — |
+| `cooler_crah_01` | Skříňová chladicí jednotka (CRAH) | it.server | 1,7 × 1,95 × 0,91 | 876 | — | — |
+| `cylinder_fire_gas_01` | Láhev hasicího plynu se ventilem | it.server | 0,31 × 1,85 × 0,31 | 432 | — | — |
+| `tray_cable_01` | Kabelový žlab 2 m na závěsech, prázdný | it.server | 2,01 × 0,61 × 0,34 | 372 | — | — |
+| `tray_cable_02` | Kabelový žlab 2 m na závěsech, s kabely | it.server | 2,01 × 0,61 × 0,34 | 512 | — | — |
+| `floor_tile_perforated_01` | Děrovaná dlaždice zdvojené podlahy 60 × 60 cm | it.server | 0,6 × 0,02 × 0,6 | 300 | — | — |
+| `reader_card_01` | Čtečka přístupových karet | it.server | 0,08 × 0,12 × 0,03 | 228 | — | — |
+| `camera_dome_01` | Kupolová bezpečnostní kamera | it.server | 0,15 × 0,07 × 0,15 | 272 | — | — |
+| `access_point_01` | Přístupový bod Wi-Fi | it.server | 0,2 × 0,04 × 0,2 | 332 | — | — |
+| `switch_desk_01` | Síťový přepínač na stůl s kabely | it.server | 0,28 × 0,04 × 0,28 | 512 | — | — |
 | `desk_bench4_01` | Blok stolů pro čtyři s přepážkami | it.office | 3,2 × 1,14 × 1,6 | 720 | — | — |
 | `desk_bench4_02` | Blok stolů pro čtyři s přepážkami a počítači | it.office | 3,2 × 1,2 × 1,6 | 2580 | — | — |
 | `desk_sitstand_01` | Stůl s nastavitelnou výškou, bílý | it.office | 1,6 × 0,75 × 0,81 | 1020 | — | — |

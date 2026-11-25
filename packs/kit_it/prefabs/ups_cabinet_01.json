@@ -4,28 +4,30 @@
   "id": "ups_cabinet_01",
   "title": "UPS (zdroj nepřerušitelného napájení)",
   "category": "it.server",
-  "bounds": { "min": [-0.301, -0.001, -0.451], "max": [0.301, 1.901, 0.455] },
+  "bounds": { "min": [-0.301, -0.001, -0.451], "max": [0.301, 1.901, 0.458] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.01, -0.44], "max": [0.3, 1.89, 0.44], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0, -0.44], "max": [0.29, 1.9, 0.44], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.01, -0.45], "max": [0.29, 1.89, 0.45], "mat": "rack_black" },
-    { "node": "body", "shape": "box", "min": [-0.2, 1.4, 0.45], "max": [0.2, 1.6, 0.452], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.2, 0.45], "max": [0.25, 1.2, 0.452], "mat": "rack_mesh" },
-    { "node": "body", "shape": "box", "min": [0.22, 1.65, 0.45], "max": [0.25, 1.68, 0.454], "mat": "emit_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_shell", "mat": "rack_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_plinth", "mat": "bezel_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/it.glb#ups_cabinet_01_v_slats", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.45], "max": [0.3, 1.9, 0.454], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.45], "max": [0.3, 1.9, 0.457], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 72,
+  "tris": 588,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/server.mjs#powerCooling",
