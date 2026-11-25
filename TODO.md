@@ -13,7 +13,9 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 
 ## Čeká na Ondřeje
 
-Nic.
+| # | Co | Ptá se | Od | Podrobně |
+|---|---|---|---|---|
+| 1 | Další krok základu: a) okolní světlo zlatého vzorku × π a svítivosti N-105 (sešna A v 17:36 přešla na dělení π, D-049), b) zvuk z Arény (Z-2), c) předávka | svodná | 25. 11. večer | `docs/STATE.md` znění 11, `START_SVOD.md` body 6 a 4d |
 
 **Zodpovězeno 25. 11. 2026:** 17:00 svodné (main 04): další krok základu **návrhy sešny B** v pořadí N-015 → N-014 → rozdělit `formats.js` → N-012 (zvuk z Arény i N-105 počkají, až sešna A dožene znění 6 až 10); **zpráva pro sešnu A** připravená svodnou (sešna A stojí od 0:02); „vnitřní kompartmentizace“ prefabů = **obojí**, a) přihrádky a police i b) kresba dřeva (pro sešnu B); body 6/ až 8/ zadání **potvrzené beze změny**. 0:49 svodné: **velikost hry až 80 MB** (D-054, předtím 25 MB); další krok základu **(a) atlas ploch a soubor textury světla (N-112)**. 0:00 svodné: textura světla N-110 **(a) bod 5 cm** (D-050; zapéká xBake, rozhodne zkouška celého `complex_7`); pořadí převzetí z Arény **(a) zbraně, střelba, zoom a výbuchy → zvuk → tvorové** (D-051).
 
