@@ -34,7 +34,9 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | sady `kit_lab` (286 prefabů) a `kit_it` (80 prefabů) | hotovo | `611f325`, `334315f`, `1952f28`, `105c8ac`, `428b2e8`, `42b7dae` |
 | zařazení obou sad do předvolby `complex` (obory laboratoří, serverovna, výpočetní sál, open space, zasedačka) | hotovo | `3f45c21` a následující |
 | realistický inventář: hladké sítě, sklo, plasty, chemikálie, zaoblení přístrojů; návrh N-012 | hotovo první kolo (kus po kuse zbývá u přístrojů, nábytku a `kit_it`) | `2a9a4bb` až `3be532e` |
-| `kit_home` s předvolbou bytu; xBake zapeče pevné díly prefabů (D-041) | nezačato | |
+| znění 8 a 9 základu sloučeno; interakce jen přes `src/xspace/interact.js` (D-052) | hotovo | `8ba697c`, `73cb0bb` |
+| xBake zapeče pevné díly prefabů (D-041) | hotovo | `d91f6ba` a následující |
+| `kit_home` s předvolbou bytu | nezačato | |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
 
@@ -160,6 +162,30 @@ Po kategoriích `kit_lab`: sklo 76 kusů 60 960 △, plasty 53 / 29 180, chemik�
 - Díly `mesh` xBake nezapeče (vzorky D-041 berou jen `box` a `cyl`) a zkouška A × B v Node je nevidí (čte balík bez souborů). Obojí řeší návrh **N-012** (rotační a zaoblený díl ve formátu); do té doby sítě svítí běh sám.
 - Sklo je v enginu A kreslené jako průhledný materiál bez lomu a odlesku; jak vypadá při vyhlazování a na T460, neviděl nikdo.
 - Snímek místností z kamery ve dveřích chytí otevřené křídlo dveří přes půl obrazu (serverovny v `b_mistnosti.png`); je to pomůcka, ne chyba levelu.
+
+### Zapečené pevné díly prefabů (krok 22, D-041; 25. 11. 2026)
+
+**Znění 8 a 9 základu** sloučeno bez konfliktů (`8ba697c`). Podle dodatku D-052 čtu interakce jen přes `src/xspace/interact.js` (`interactions`, `doorInteraction`) v `src/gen/catalog.js`, `furnish.js`, `tools/bake/gates.mjs`, `view.js`, `tools/forge/doc.mjs`, galerii a testech; `b_t7` odebírá z manifestu zlatého vzorku i `ammo` a `weapons` (`73cb0bb`). Kartotéka a stůl zůstávají korpus + zásuvky, dokud sešna A neumí vybrat interakci podle zasaženého uzlu (dodatek, bod 2).
+
+**Co xBake dělá nově.** Vzorky jsou v pořadí `levelSamples` ze základu: kvádry, potom vrcholy pevných dílů prefabů po entitách (`tools/bake/scene.mjs`). Plocha dílu = souvislá část jeho sítě (stěna kvádru, plášť a podstavy válce); počátek paprsku 2 cm nad plochou a 1 cm k jejímu středu jako u kvádrů. Hlavička souboru nese `entities: [[id, počet]]`, otisk geometrie zahrnuje entity (id, prefab, poloha, natočení, počet vzorků). Náhled xBake barví pevné díly ze zapečených vzorků, pohyblivé díly dál počítá sám. `cli.mjs --no-entities` zapeče jen kvádry (ke srovnání).
+
+Rozhodla jsem (pro svodnou a sešnu A k vědomí):
+- **Vlastní kolize entity její díly nestíní** (paprsky ze vzorku dílu přeskočí kolize téže entity). Kolize je obal; bez toho by díly uvnitř obalu (police pod deskou, přístroj v nástavbě) byly černé. Cena: spodní police regálu dostane světlo, jako by nad ní horní police nebyla, a kout pod deskou stolu nemá vlastní stín. Cizí entity a kvádry stíní normálně.
+- Zdrojem odrazu jsou dál jen kvádry (zásah kolize prefabu se počítá jen do přístupnosti okolního světla) a mez jasu zdroje se počítá jen z vzorků kvádrů, takže **vzorky kvádrů mají s díly i bez nich stejné hodnoty ve všech vrstvách** (B-T5).
+- Okraj stínu po podílech je jen na kvádrech (díl nemá mřížku řad a sloupců, jeden paprsek na vzorek).
+
+| Level (sandbox, `node tools/bake/cli.mjs packs/gen_demo`) | Vzorků (z toho na dílech) | Zapečení | Soubor (gzip) | Bez dílů |
+|---|---|---|---|---|
+| `complex_7` | 182 468 (116 850) | 28,1 s | 4 835 kB (3 420 kB) | 65 618 vzorků, 8,6 s, 1 744 kB (1 131 kB) |
+| `complex_21` | 149 303 | 20 až 25 s | 4 047 kB | |
+| `catacombs_3` | 57 132 | 5,2 s | 1 404 kB | |
+| `golden/xlab` | 22 111 (1 602 na 11 entitách) | 1,1 s | 533 kB | 20 509 vzorků |
+
+Vzorků v tělese (dno dílu na podlaze, záda u zdi) je v `complex_7` o 9 768 víc; nejsou vidět. 116 vrstev = jedna na světlo, z toho většina řídkých. **Velikost:** tři levely by v dnešním formátu přidaly do hry 10,3 MB (gzip 7,6 MB); s hrou 13,6 MB by to bylo těsně pod 25 MB. Kolik ušetří vrstvy jen pro přepínaná světla a kratší čísla, je otázka zkoušky N-110 (dodatek D-050, další krok).
+
+**Kontroly** (B-T5, 32): vzorky kvádrů a za nimi díly po entitách v pořadí `levelSamples`, každý vzorek ve vrcholu `levelSamples` se stejnou normálou, bez zastínění přesně `lightIrradiance` i na dílech, horní plocha entity, na kterou světlo míří, světlo dostane (36 z 36 v xLabu), na dílech 77 % vzorků, na které světlo míří, světlo dostane (zbytek stíní jiná tělesa), vzorky kvádrů beze změny, hlavička `entities` a otisk s polohou entity. B-T6: náhled zapeče xLab stejně jako Node.
+
+**Neověřeno:** běh soubor dál nečte, takže v enginu A zapečené díly nikdo neviděl; náhled `complex_7` (přehled a start) vypadá v pořádku, laboratoře zblízka ne. Díly `mesh` (sklo, plasty, chemikálie, zaoblené pláště a panely ze sítí) do vzorků nepatří (D-041 bere jen `box` a `cyl`) a svítí je běh: N-012.
 
 **Regrese po kroku 21** (sandbox): `npm test` T0 41, T1 155, T1b 14, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 26, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
 
@@ -565,14 +591,10 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 
 ## Otázky pro Ondřeje
 
-Zodpovězeno 24. 11. 2026: **1 (a)** opotřebený provoz, **2 (a)** z webu jen materiály a textury, tvary vlastní na vlastních kostrách, **3 (a)** herní vzhled nejdřív v galerii sady. Otázka 5: cílový stroj podle dnešního trhu do 35 000 Kč (oddíl „Sešna B03“, Cílový stroj). Otázka 4 je stažená od B02.
+Starší otázky (B02 až B04) jsou zodpovězené a jejich odpovědi stojí v oddílech sešen výše. Otevřené (poslané 25. 11. kolem 0:45, stačí písmeno):
 
-Tři otázky z konce sešny B03 zodpovězeny 24. 11. ve 02:04: mez grafické paměti **(a) 8 GB**; nejdřív **(a) xSearcher a první textury v galerii**; náhled zapečeného světla pro vygenerované levely **(b) počkat, až soubor načte hra**.
-
-Nové otázky z 24. 11. odpoledne (B2.4; galerie `dist/kit.html`, montáže `b_kit_pohledy.png` a `b_kit_vzornik.png`):
-
-1. **Barvy materiálů jsou proti skutečným povrchům světlejší** (beton 5×, omítka 2×). (a) stáhnout je k barvě textur a v generovaných levelech přidat expozici; kresba bude výraznější a povrchy přirozenější. (b) nechat dnešní světlé barvy, textura se jim přizpůsobuje. Doporučuju (a).
-2. **Textury v galerii:** (a) směr sedí, pokračuj; (b) některé vyměnit (napiš které); (c) jinak.
-3. **Co dál:** (a) bohatší hrubý tvar prefabů (zkosení, drobné díly; zbytek B2.4); (b) B2.5 zkouška povrchu na jednom kusu (dveře ze sítě `.glb`). Doporučuju (a).
-
-Mimo sešnu B na tebe čekají čtyři otázky sešny A (`A_STAV.md`, konec): zkouška textury světla hned, nebo později (N-110); dveře od hráče do dat (N-109); měření `?bench`; terminál po Esc.
+1. „+50 % trojúhelníků“: (a) na jeden prefab, jak to je (sada +83 %, level +24 %); (b) na celou sadu, sklo a plasty se ztenčí.
+2. Sklo ve hře (`b_sklo_hra.png`): (a) směr sedí; (b) výraznější okraj a odlesk.
+3. Co dál: (a) D-041 (mezitím hotové, další je zkouška N-110); (b) nejdřív přístroje, nábytek a `kit_it` kus po kuse.
+4. `?bench` s novým sestavením: (a) pustí; (b) počkat na opravu N-011.
+5. Starší: „vnitřní kompartmentizace“ = (a) přihrádky a police (pracuju s tím), nebo (b) kresba dřeva.
