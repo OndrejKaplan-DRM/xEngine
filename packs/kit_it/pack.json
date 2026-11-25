@@ -13,7 +13,7 @@
     {
       "path": "meshes/it.glb",
       "bytes": 3091860,
-      "sha256": "d7d4f51117eba0a9f8a12285951ea5dd474804c0b5e91dc8e2e80a441dc14c81",
+      "sha256": "cce7c0c6b511e1dcdf4f89a145cb876d798a2615f06cbad47045389e77b5a468",
       "license": "own",
       "source": "tools/forge/it/computers.mjs",
       "author": "xForge (sešna B)"

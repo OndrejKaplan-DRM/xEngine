@@ -10,6 +10,7 @@ import { makeHouseLayout, sharesWall } from '../layout_house.js';
 import { complex } from './complex.js';
 import { refineComplex, VARIANT_NAMES, VARIANT_KEYS } from './complex_kits.js';
 import { homePlan, HOME_NAMES, HOME_KEYS, homeLight, homeMaterials, hasHome } from './house_home.js';
+import { refineFields, fieldPlan, FIELD_NAMES, FIELD_KEYS } from './house_fields.js';
 
 const WARM = [1, 0.9, 0.75];
 const LAB_FLOORS = 2; // podlaží 0 a 1 laboratoře, výš byty
@@ -172,10 +173,12 @@ export const house = {
 
   /** Obory laboratoří a kanceláří jako v předvolbě complex, jen na laboratorních podlažích. */
   refine(cells, catalog, rng) {
-    refineComplex(cells.filter((c) => !isHome(c)), catalog, rng);
+    const labs = cells.filter((c) => !isHome(c));
+    refineComplex(labs, catalog, rng);
+    refineFields(labs, catalog, rng.fork('fields'));
   },
-  cellKey: (c) => (c.role === 'stair' ? 'stair' : isFlat(c) ? HOME_KEYS[c.role] : VARIANT_KEYS[c.variant] || complex.cellKey(c)),
-  cellName: (c) => (c.role === 'stair' ? 'Schodiště' : isFlat(c) ? HOME_NAMES[c.role] : c.kind === 'corridor' && isHome(c) ? 'Chodba k bytům' : VARIANT_NAMES[c.variant] || complex.cellName(c)),
+  cellKey: (c) => (c.role === 'stair' ? 'stair' : isFlat(c) ? HOME_KEYS[c.role] : FIELD_KEYS[c.variant] || VARIANT_KEYS[c.variant] || complex.cellKey(c)),
+  cellName: (c) => (c.role === 'stair' ? 'Schodiště' : isFlat(c) ? HOME_NAMES[c.role] : c.kind === 'corridor' && isHome(c) ? 'Chodba k bytům' : FIELD_NAMES[c.variant] || VARIANT_NAMES[c.variant] || complex.cellName(c)),
   zone: (c) => (c.role === 'stair' ? 'hall' : c.kind === 'corridor' ? 'corridor' : isFlat(c) ? (c.role === 'bath' ? 'room_tiled' : 'room_small') : complex.zone(c)),
   materials: (c) => (c.role === 'stair' ? { floor: 'concrete_smooth', wall: 'plaster_grey', ceiling: 'plaster_light' } : isFlat(c) || (isHome(c) && c.kind === 'corridor') ? homeMaterials(c) : complex.materials(c)),
   lighting: (c) => (c.role === 'stair' ? { fixture: null, color: WARM, cd: 40, range: 12, spacing: 520, perFloor: 270 } : isFlat(c) || (isHome(c) && c.kind === 'corridor') ? homeLight(c) : complex.lighting(c)),
@@ -202,6 +205,7 @@ export const house = {
     if (c.role === 'stair') return { walls: [{ p: 'bench_metal_01' }], maxDepth: 60 };
     if (isHome(c) && c.kind === 'corridor') return { walls: hasHome(catalog) ? [{ p: 'plant_floor_home_01' }] : [], maxDepth: 45 };
     if (isFlat(c)) return homePlan(c, rng, catalog);
-    return complex.furniture(c, rng, catalog);
+    const field = FIELD_NAMES[c.variant] && fieldPlan(c, rng, (fixed, pool, k) => [...fixed, ...rng.shuffle(pool)].slice(0, k), catalog);
+    return field || complex.furniture(c, rng, catalog);
   },
 };

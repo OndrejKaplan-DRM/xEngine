@@ -72,10 +72,10 @@ export function archive() {
     one(dk, 'Pracovní stůl ředitele s přístavbou', [
       A('body', `${dk}_top`, roundedBox([-1.0, 0.72, -0.45], [1.0, 0.76, 0.45], 0.012, 1), 'laminate_oak'),
       A('body', `${dk}_panels`, merge([flatBox([-0.98, 0, -0.43], [-0.94, 0.72, 0.43]), flatBox([0.94, 0, -0.43], [0.98, 0.72, 0.43]), flatBox([-0.94, 0.3, -0.42], [0.94, 0.7, -0.39])]), 'laminate_oak'),
-      A('body', `${dk}_return`, roundedBox([0.98, 0.0, -0.45], [1.6, 0.66, 0.05], 0.01, 1), 'laminate_oak'),
+      A('body', `${dk}_return`, roundedBox([0.98, 0.0, -0.45], [1.6, 0.76, 0.05], 0.01, 1), 'laminate_oak'),
       A('body', `${dk}_drawers`, merge([0.06, 0.28, 0.48].map((y) => roundedBox([1.0, y, 0.05], [1.58, y + 0.18, 0.065], 0.004, 1))), 'laminate_oak'),
       A('body', `${dk}_leather`, flatBox([-0.4, 0.76, -0.05], [0.4, 0.763, 0.3]), 'fabric_charcoal'),
-    ], { ...floor(), params: { top: 0.76 } }),
+    ], { ...floor(), params: { top: 0.76, deck: [-0.42, 0.42] } }),
     one(ck, 'Kožené kancelářské křeslo s vysokým opěradlem', [
       A('body', `${ck}_seat`, roundedBox([-0.27, 0.46, -0.25], [0.27, 0.56, 0.27], 0.04, 1), 'fabric_charcoal'),
       A('body', `${ck}_back`, moved(roundedBox([-0.26, 0, -0.05], [0.26, 0.75, 0.05], 0.05, 1), at(mTranslate(0, 0.6, -0.26), mRotate('x', -10))), 'fabric_charcoal'),

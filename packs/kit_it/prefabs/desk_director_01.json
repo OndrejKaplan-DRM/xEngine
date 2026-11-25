@@ -28,7 +28,7 @@
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/it/office2.mjs#archive",
-    "params": { "top": 0.76 },
+    "params": { "top": 0.76, "deck": [-0.42, 0.42] },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"
