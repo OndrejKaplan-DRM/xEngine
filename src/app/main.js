@@ -39,10 +39,24 @@ async function boot() {
     phase: 'ui',
     frame(real) {
       hud.setPrompt(E.mode === 'playing' ? game.interact.prompt : '');
+      hud.setAmmo(E.mode === 'playing' && !game.interact.seated ? ammoText() : '');
       if (game.light.progress < 1) hud.notify(`Počítám světlo: ${Math.round(game.light.progress * 100)} %`, 0.4);
       hud.frame(real);
       devTools.frame(real);
     },
+  });
+
+  /** Zbraň, munice, nabití a přiblížení pro HUD (A3.1). */
+  function ammoText() {
+    const w = game.weapons.current;
+    if (!w) return '';
+    const k = game.get('weapons.charge');
+    const n = w.ammo ? game.get(`weapons.ammo.${w.ammo}`) : '∞';
+    const unit = w.ammo ? game.pack.ammo?.ammo?.[w.ammo]?.title || w.ammo : '';
+    return `${w.title}${game.weapons.zoomed ? ' · přiblíženo' : ''}\n${k >= 0 ? `nabíjení ${Math.round(k * 100)} %   ` : ''}${unit ? `${unit}: ` : ''}${n}`;
+  }
+  E.on('weapon:switched', (e) => {
+    if (e.weapon) hud.notify(`${game.weapons.current.title}: střelba ${keyLabel('grab')}, nabíjení ${keyLabel('alt')} (podržet), přiblížení ${keyLabel('zoom')}`, 6);
   });
 
   let lostAt = -Infinity;
@@ -175,6 +189,7 @@ async function boot() {
       } else game.interact.pointer(...toView(e), e.button === 0); // bez zámku: kurzor systému
       return;
     }
+    if (e.button === 1) e.preventDefault(); // prostřední tlačítko = druhá střelba, ne posouvání stránky
     input.key(`Mouse${e.button}`, true);
   });
   addEventListener('mouseup', (e) => input.key(`Mouse${e.button}`, false));

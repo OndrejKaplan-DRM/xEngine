@@ -12,7 +12,9 @@ export function createHud({ root }) {
   const prompt = el('hud-prompt');
   const notice = el('hud-notice');
   const dev = el('hud-dev');
-  prompt.hidden = notice.hidden = dev.hidden = true;
+  const ammo = el('hud-ammo');
+  prompt.hidden = notice.hidden = dev.hidden = ammo.hidden = true;
+  let ammoText = '';
 
   let promptText = '';
   let noticeLeft = 0;
@@ -32,6 +34,13 @@ export function createHud({ root }) {
       notice.hidden = !text;
       noticeLeft = text ? seconds : 0;
     },
+    /** Zbraň a munice vpravo dole (A3.1); prázdný text = bez zbraně. */
+    setAmmo(text) {
+      if (text === ammoText) return;
+      ammoText = text;
+      ammo.textContent = text;
+      ammo.hidden = !text;
+    },
     setCross(on) {
       cross.hidden = !on;
     },
@@ -48,7 +57,7 @@ export function createHud({ root }) {
       }
     },
     get state() {
-      return { prompt: promptText, notice: notice.hidden ? '' : notice.textContent };
+      return { prompt: promptText, notice: notice.hidden ? '' : notice.textContent, ammo: ammoText };
     },
   };
 }

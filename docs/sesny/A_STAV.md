@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1766f03` (znění 10 a D-056, D-057; sloučení `b852756`, 25. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 25. 11. večer, po N-010 v běhu): `npm test` **377**, `npm run test:a` **453 ve 30 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: naposledy „vlna 2, krok 6“.
+Poslední regrese (sandbox, 25. 11. v noci, po A3.1 a N-011): `npm test` **377**, `npm run test:a` **494 ve 32 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: „vlna 2, krok 7 (A3.1 zbraně)“. 
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
@@ -12,11 +12,46 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [x] 1. sloučit `origin/zaklad-2` (znění 10): bez konfliktu, testy zelené (`b852756`)
 - [x] 2. **D-049 hotovo** (`lighting.js`, `lightmap.js`, `baked.js`): okolní světlo `env.ambient` je E, do barvy vrcholu jde E / π (výpočet při načtení, zapečený soubor i textura světla). Test `a_44_bake`: barvy běhu = `composeColors` ze základu / π (poměrně 1,8e-7). **Pro svodnou:** (a) okolní světlo zlatého vzorku vynásob π; (b) xView zatím okolní světlo π nedělí (srovnání xLab × xView: jas 75,9 proti 85,7), ať dělí taky; (c) moje testy obrazu do té doby pouštějí xLab s okolním světlem × π (`test/a_lib/browser.cjs`, `AMBIENT_PI = true`); po změně dat to přepnu na `false`. Do té doby je xLab v místech bez přímého světla o něco tmavší.
 - [x] 3. **N-010 v běhu hotovo** (D-052). Interakce čte běh jen přes `src/xspace/interact.js`: entita má `ixs` (záznam na interakci: `id`, `def`, `kind`, `joint`, `state`) a `door` (`doorInteraction`, portál, brána světla, ořez pohledem, „Dveře od hráče“). Hráč vybírá interakci zasaženým uzlem (`interactionOf`; pevný korpus nic), nápověda, dosah, tažení, zámek i klidný režim jsou z té interakce. Stav (zamčeno, zapnuto, fáze tlačítka, hlášená poloha) má každá interakce svůj; u jediné interakce je to dál `ent.state`, takže data s jedním objektem se chovají beze změny. Výstup nese id interakce, spojení s `from` bere jen tu, `to` doručí jen do té, bez `to` do všech. Uložení nese stav po interakcích (`x`). Test `a_15_multi` (22): kartotéka se čtyřmi zásuvkami v kopii zlatého vzorku, každá se otevře zvlášť (hráč míří na zásuvku), `from: d2` otevře dveře laboratoře a `d3` ne, `lock` s `to: d3` zamkne jen třetí, `unlock` bez `to` všechny, nahrání a nová hra. **Sešna B může kartotéku a stůl vrátit do jednoho prefabu.** Pro svodnou: robot zkoušky A × B (`test/t5_lib/robot.mjs`) čte `e.kind === 'door'` a `behave.mainJoint(e)`; obojí platí dál pro prefaby s jedinou interakcí (`kind` je druh jediné interakce, `mainJoint` její kloub; u seznamu `null`). Dveře portálu jsou spolehlivě `e.door` (`e.door.joint`), doporučuji přejít na to, než B pošle dveře se seznamem interakcí.
-- [ ] 4. A3.1 zkouška zbraní na plazmové pušce + `xlab.html` k vyzkoušení
+- [x] 4. **A3.1 zkouška zbraní na plazmové pušce** (D-053, dodatek znění 9). Podrobně v oddílu 1a níže. Testy `a_31_weapons` (Node) a `a_31_view` (prohlížeč); `?bench` střílí a má opravy N-011. Cena na T460 čeká na Ondřejův `?bench`.
 - [ ] 5. kostra v kroku přes `rigCompile` / `rigFollow` / `rigSolve` (N-102)
 - [ ] 6. textura světla ze souboru XLM1, až sešna B dodá zapečený `complex_7`; potom `?bench` na T460
-- [ ] N-011 (návrh sešny B, `?bench`): **přijímám**, udělám před `?bench` k A3.1 (bod 4)
+- [x] N-011 (návrh sešny B, `?bench`): **hotovo**. Robot píše záměr před vstupem (`input` má `after: ['?bench']`): v sandboxu 6 obratů otáčení za 1 160 kroků chůze na 13 bodech trasy (sešna B naměřila před opravou 10 obratů za 88 kroků). Čas vykreslení dávkou jen v každém 10. snímku a rozestup snímků bez snímků po dávce (`frame.intervalFrames`, `draw.samples`); `env.fov` a `env.hfov`; věta výsledku začíná nastavením; měří se až po dostavění světla. `a_18_bench` (13).
 - [ ] N-013 (návrh sešny B, sklo s okrajem a odleskem): **přijímám**, udělám po bodu 5
+
+### 1a. A3.1 zbraně: co je hotové, rozhodnutí a co ve formátu nesedí
+
+**Hotovo, když (tabulka dodatku znění 9) → doloženo:**
+
+| Část | Kde | Doloženo |
+|---|---|---|
+| sebrání a výběr | `behave.onPickup` → `weapons.give`; slot 0–9 = klávesy 1–0 | `a_31_weapons`: robot sebere pušku u startu, má 40 článků a pušku v ruce |
+| hlavní střelba: střela 45 m/s, 10 ran/s, rozptyl přes `rngNext` | `src/play/weapons.js`, `src/play/projectiles.js` (paprsek Rapieru po dráze za krok) | jedna rána trefí `e_target`, výstup `hit` přepne `e_lamp_hall_b`; 10 ran za 120 kroků; směr v kuželi 0,46°; dva běhy dají stejné směry |
+| druhé tlačítko: nabíjení 2 s, samo ve 2,6 s | `chargeOf` (nabití nejvýš na to, co munice zaplatí) | po 1 s nabití 0,496; po 2,6 s výstřel s nabitím 1 za 20 článků |
+| výbuch: `splashFalloff`, `pushDelta`, kryt paprskem přes kvádry | `src/world/combat.js` | bedna 3,1 m od koule: Δv 13,154 proti `pushDelta` 13,209 m/s (0,4 %), směr od středu; ztráta hp podle vzdálenosti; bedna za zdí 2,8 m od výbuchu se nehne |
+| zásah `health`: `hit`, `destroyed`, `breakInto` | trosky se postaví vypnuté při načtení (`entities.addHidden`) | kopie bedny s 5 hp: výstupy `hit`, `destroyed`, `combat:destroyed`, zmizí i s kolizí, na jejím místě trosky; nová hra vrátí |
+| šest událostí boje deklarovaných | `weapon:*` systém `weapons`, `combat:*` systém `combat` | `E.eventList()` v testu |
+| zbraň v ruce: druhý průchod po vymazání hloubky, bez světla po pixelech; záblesk jediné efektové světlo; ústí za zdí → z oka | `src/render/effects.js`, záblesk v `materials.js` (vertex shader) | `a_31_view`: zbraň u zdi vidět stejně jako volně (17,6 % bodů dolní pravé čtvrtiny obojí), žádné světlo three.js ve scéně; v Node u zdi střela z oka, volně z ústí |
+| přiblížení 45° vodorovně | klávesa Z; nastavení „Přiblížení zbraně“ držet / přepínat (apply / probe) | `a_31_weapons` |
+| cena na T460 | `?bench` střílí při rozhlížení v buňkách (`weapon` ve výsledku, `&fire=0` bez střelby) | čeká na Ondřejův běh |
+
+**Moje volby (zapsané podle zadání):**
+- Levé tlačítko střílí; ovladač pod zaměřovačem v dosahu (páka, ventil, zásuvka, křídlo dveří) se levým dál chytá a v tu chvíli se nestřílí. Se zbraní v ruce zamčený ovladač levé tlačítko neodmítá (střílí se).
+- Druhá střelba **F** nebo prostřední tlačítko (pravé tlačítko je od vlny 1 skok). Přiblížení **Z**, výchozí „držet“. Zbraně **1–0** podle `slot`, opakovaný stisk přepíná uvnitř slotu podle `order`.
+- Hlavní střela s plošným poškozením nepřidá plošné poškození entitě, kterou zasáhla přímo (jako Quake); odhození ano. Jinak by terč dostal dva `hit` z jedné rány a lampa by se přepnula dvakrát.
+- Záblesk: 8 cd na 0,05 s (hlavní), 40 cd (nabitá koule), výbuch od poloměru 2 m 300 cd. Odhad, ladit podle oka na T460.
+- Zbraň v ruce se nasvítí jako pohyblivý díl v místě oka (natočená jako zbraň), ne v místě zbraně: zbraň u zdi by jinak ležela ve zdi a ztmavla.
+- Výbuch kryjí jen kvádry levelu (`SOLID`); zavřené dveře a bedny ne.
+
+**Co ve formátu chybí nebo nesedí (pro svodnou, formát je zkušební):**
+1. `crate_wood_01` ve zlatém vzorku má `outputs: ["damaged", "broken"]` a `inputs: ["break"]`; kontrakt (D-053) říká výstupy `hit` a `destroyed`. Běh vysílá jen deklarované výstupy, takže bedna dnes nic nevyšle. Návrh: přejmenovat v datech na `hit`, `destroyed`.
+2. **Pevná entita s `health` nejde schovat:** její pevné díly jsou ve statické dávce (D-041 je počítá do vzorků světla). Po zničení zmizí kolize, díly zůstanou vidět (běh to hlásí do konzole). Terč má 100 000 hp, takže dnes to nevadí. Návrh: entity s `health` do vzorků D-041 nepočítat a kreslit je jako celý kus (jako bedny), nebo pole „zničitelné“.
+3. `breakInto` umím jen pro dynamický nebo sebratelný prefab trosek (postaví se vypnutý; pevné díly schovat nejde, viz bod 2).
+4. Hráč nemá zdraví ani brnění: `pickup.item` `health` a `armor` (lékárnička) se sebere a nic nedá. Odhození výbuchem na hráče (raketový skok) zatím není.
+5. `recoil` beru jako posun zbraně v ruce k oku o `recoil × 6 cm` s poločasem návratu 0,07 s (jen obraz). Formát neříká jednotku.
+6. Poloměr obrazu střely: `projectile.radius` je v poli „pro zásah“; bez něj kreslím 5 cm (hlavní) a 12 až 30 cm podle nabití (koule). Zásah je paprsek (poloměr 0).
+7. Režim `melee` zatím neumím; `hitscan` umím (paprsek, zásah, splash), nevyzkoušený na datech.
+
+**Neověřeno:** cena na T460 (`?bench`), jak záblesk a zbraň vypadají na skutečné grafice, citlivost myši při přiblížení (zatím se nemění).
 
 **Předtím (znění 4 základu, dodatek START_A z 24. 11. odpoledne):**
 - [x] sloučeno znění 4 (`a842098`)
@@ -395,6 +430,8 @@ Vlna 2:
 - `E.init()` staví level hned; volba, která mění stavbu (mřížka, dveře, zdroj světla), musí `start()` přimět postavit level znovu.
 
 ## 11. Otázky pro Ondřeje
+
+**25. 11. v noci, ke kroku 7 (A3.1):** (1) druhá střelba na F a prostřední tlačítko, nebo (b) na pravé tlačítko a skok jen mezerníkem; (2) přiblížení (a) držet Z, nebo (b) přepínat; (3) záblesk ústí (a) tak akorát, (b) slabší, (c) silnější; (4) `?bench` na T460 se střelbou: pošli JSON.
 
 Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Zodpovězeno 24. 11. 19:49: zorné pole (a) použitelné, terminál (a) funguje, černé boky (a) počkat na odražené světlo ze zapečeného souboru. 21:13: výchozí rozlišení (a) zůstává 768 řádků. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“).
 

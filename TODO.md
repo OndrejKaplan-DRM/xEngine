@@ -61,7 +61,9 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - [x] sloučeno znění 10 základu (`b852756`): `npm test` 377, `test:a` 430, `test:axb` 37, 0 selhalo
 - [x] D-049 okolní světlo / π (svodná: okolní světlo zlatého vzorku × π a xView taky dělit π; A_STAV oddíl 1)
 - [x] N-010 interakce v běhu (`a_15_multi`, 22): **sešna B může vrátit kartotéku a stůl do jednoho prefabu**; svodná: robot A × B ať bere dveře z `e.door` (A_STAV oddíl 1)
-- [ ] A3.1 plazmová puška + `xlab.html` (s opravou `?bench` podle N-011) → [ ] kostra v kroku (N-102) → [ ] sklo N-013 → [ ] textura světla XLM1 (až B dodá `complex_7`)
+- [x] A3.1 plazmová puška (`a_31_weapons` 28, `a_31_view` 7) a `?bench` podle N-011 se střelbou (`a_18_bench` 13); `xlab.html` krok 7 u Ondřeje; formátové nesoulady pro svodnou v A_STAV oddíl 1a (bedna `damaged`/`broken` místo `hit`/`destroyed`, pevná entita s `health` nejde schovat)
+- [ ] kostra v kroku (N-102) → [ ] sklo N-013 → [ ] textura světla XLM1 (až B dodá `complex_7`)
+- [ ] Ondřej: `?bench` se zbraní na T460 a otázky ke kroku 7 (A_STAV oddíl 11)
 - N-011 a N-013 (návrhy sešny B) přijaté, rozhodnutí v `A_STAV.md`, oddíl 1
 
 **Čeká na jiné:** sešna B: zapečený `complex_7` se souborem XLM1 (pro bod 6).
