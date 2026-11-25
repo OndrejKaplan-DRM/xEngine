@@ -109,7 +109,8 @@ function apartmentsOf(level, st) {
   const flats = [...comps.values()].filter((x) => x.rooms >= 2);
   for (const f of flats) if (f.corr !== 1) st.bad.push(`${level.id}: byt o ${f.rooms} místnostech má ${f.corr} dveří do chodby`);
   st.flats.push(flats.length);
-  const ys = [...new Set(level.cells.filter((c) => !/^c_stair_/.test(c.id)).map((c) => c.bounds.min[1]))];
+  // podlaží domu: buňky kromě schodiště a nádvoří (nádvoří je o 68 cm níž než přízemí)
+  const ys = [...new Set(level.cells.filter((c) => !/^c_(stair|yard)_/.test(c.id)).map((c) => c.bounds.min[1]))];
   st.floors.push(ys.length);
 }
 
@@ -120,7 +121,7 @@ const RUNS = [
   { preset: 'complex', opts: { floors: 1 }, n: Math.ceil(SEEDS / 4), name: 'complex (jedno patro)' },
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
   { preset: 'complex', opts: {}, n: Math.ceil(SEEDS / 4), name: 'complex jen se sadou kit_base', cat: baseCatalog },
-  { preset: 'house', opts: {}, n: Math.ceil(SEEDS / 4), name: 'dům (4 podlaží: laboratoře, byty)', cells: [40, 100], house: true },
+  { preset: 'house', opts: {}, n: Math.ceil(SEEDS / 4), name: 'dům (4 podlaží: laboratoře, byty)', cells: [40, 120], house: true },
 ];
 // místnosti ze sad kit_lab a kit_it (obor laboratoře, serverovna, open space) podle jména buňky
 const KINDS = { lab: /^c_(chem|bio|mol|anal|viv)_/, server: /^c_(server|hpc)_/, office: /^c_(open|meet)_/ };

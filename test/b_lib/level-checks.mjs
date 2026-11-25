@@ -60,8 +60,11 @@ export function checkPortals(level, catalog, player = playerOf(level.profile)) {
         if (!solidAt(level, pt)) out.push(`${p.id}: pod otvorem chybí práh (díra v podlaze)`);
       }
     }
+    // okno (portál jen pro pohled, N-003) se neprochází: v otvoru stojí okno
+    if (p.passable === false) continue;
     // průchod: na šířku hráče na každou stranu od zdi nesmí nic stát (kromě dveří tohoto portálu)
-    const pass = { min: [0, f.sill + 0.03, 0], max: [0, f.top - 0.03, 0] };
+    // do výšky 2,2 m nad prahem (průchod mezi nádvořími je portál přes celou výšku domu, chodí se jen dole)
+    const pass = { min: [0, f.sill + 0.03, 0], max: [0, Math.min(f.top - 0.03, f.sill + 2.2), 0] };
     pass.min[f.k] = f.lo - W;
     pass.max[f.k] = f.hi + W;
     pass.min[f.o] = f.c0 + 0.02;
@@ -174,7 +177,9 @@ export function checkPlacement(level, catalog) {
   for (const e of level.entities) {
     const box = restBox(catalog, e);
     const c = cellById.get(e.cell).bounds;
-    if (!isDoor(catalog, e) && [0, 1, 2].some((k) => box.min[k] < c.min[k] - 0.003 || box.max[k] > c.max[k] + 0.003)) out.push(`${e.id} přesahuje svou buňku`);
+    // dveře a okna stojí v otvoru zdi a přes zeď přesahují (okno má parapet uvnitř i plech venku)
+    const inOpening = isDoor(catalog, e) || catalog.get(e.prefab).components?.place?.mount === 'opening';
+    if (!inOpening && [0, 1, 2].some((k) => box.min[k] < c.min[k] - 0.003 || box.max[k] > c.max[k] + 0.003)) out.push(`${e.id} přesahuje svou buňku`);
   }
   for (const b of level.brushes.filter((x) => x.tag === 'wall')) {
     const c = cellById.get(b.cell).bounds;
@@ -196,7 +201,8 @@ export function checkPassable(level, catalog, player = playerOf(level.profile)) 
   const G = 0.1;
   const R = player.r;
   for (const cell of level.cells) {
-    const mine = level.portals.filter((p) => p.a === cell.id || p.b === cell.id);
+    // okna (passable: false) se neprocházejí
+    const mine = level.portals.filter((p) => (p.a === cell.id || p.b === cell.id) && p.passable !== false);
     if (mine.length < 2) continue;
     const b = cell.bounds;
     const y0 = b.min[1];

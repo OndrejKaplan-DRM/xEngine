@@ -61,14 +61,102 @@ export function makeHouseLayout(P, rng) {
     c.d = c.max[1] - c.min[1];
     c.area = (c.w * c.d) / 1e4;
   }
+  // nádvoří kolem domu: čtyři vysoké buňky bez stropu (jižní a severní přes celou šířku i s rohy, západní a východní
+  // mezi nimi), podlaha o yardDrop níž než přízemí (do vchodu se stoupá po schodech); spolu se dotýkají bez zdi
+  const yards = [];
+  if (P.yard) {
+    const Y = snap(rng.int(P.yard[0], P.yard[1]), P.grid);
+    const top = floorY[P.floors - 1] + P.storeyH;
+    const rects = [
+      ['s', [-T - Y, -T - Y], [W + T + Y, -T]],
+      ['n', [-T - Y, D + T], [W + T + Y, D + T + Y]],
+      ['w', [-T - Y, -T], [-T, D + T]],
+      ['e', [W + T, -T], [W + T + Y, D + T]],
+    ];
+    // každá strana po úsecích kolem P.yardChunk (menší buňka vidí okny méně místností: rozpočet viditelného)
+    // čelo domu se schodištěm: předěly 1 m za okraji haly (schody před vchodem nesmějí do průchodu mezi úseky)
+    const end = hi ? 'e' : 'w';
+    for (const [side, min, max] of rects) {
+      const k = max[0] - min[0] >= max[1] - min[1] ? 0 : 1;
+      let cuts;
+      if (side === end) cuts = [snap(kz0 - 100, P.grid), snap(kz1 + 100, P.grid)].filter((z) => z > min[k] + 300 && z < max[k] - 300);
+      else {
+        const n = Math.max(1, Math.round((max[k] - min[k]) / P.yardChunk));
+        cuts = Array.from({ length: n - 1 }, (_, j) => snap(min[k] + ((max[k] - min[k]) * (j + 1)) / n, P.grid));
+      }
+      const pts = [min[k], ...cuts, max[k]];
+      for (let j = 0; j + 1 < pts.length; j++) {
+        const [lo, hi2] = [pts[j], pts[j + 1]];
+        const cmin = [...min];
+        const cmax = [...max];
+        cmin[k] = lo;
+        cmax[k] = hi2;
+        const c = { i: cells.length, f: 0, tall: true, open: true, kind: 'yard', side, part: j, min: cmin, max: cmax, y0: -P.yardDrop, y1: top };
+        c.w = cmax[0] - cmin[0];
+        c.d = cmax[1] - cmin[1];
+        c.area = (c.w * c.d) / 1e4;
+        cells.push(c);
+        yards.push(c);
+      }
+    }
+  }
   const ctx = { W, D, T, floorY, pitch, corridor: [cz0, cz0 + cw], core: { x: [sx0, sx1], z: [kz0, kz1], hi } };
   P.classify(cells, ctx, rng.fork('classify'));
   const segments = segment(out.slabs, cells, floorY, T);
-  const cands = candidates(segments, cells, floorY, P);
+  let cands = candidates(segments, cells, floorY, P);
+  let windows = [];
+  if (yards.length) {
+    // z nádvoří vede jen vchod do schodišťové haly v přízemí; ostatní zdi do nádvoří nesou okna (windowAt předvolby)
+    const isYard = (c) => c.kind === 'yard';
+    cands = cands.filter((e) => {
+      const [a, b] = [cells[e.a], cells[e.b]];
+      if (!isYard(a) && !isYard(b)) return true;
+      const other = isYard(a) ? b : a;
+      return other.kind === 'hall' && segments[e.seg].f === 0;
+    });
+    // úseky nádvoří, které se dotýkají stěnou aspoň 1 m, spojí průchod bez zdi
+    for (const p of yards) {
+      for (const q of yards) {
+        if (q.i <= p.i) continue;
+        const touch = [0, 1].some((k) => (p.max[k] === q.min[k] || q.max[k] === p.min[k]) && Math.min(p.max[1 - k], q.max[1 - k]) - Math.max(p.min[1 - k], q.min[1 - k]) >= 100);
+        if (touch) cands.push({ seg: -1, a: p.i, b: q.i, sill: -P.yardDrop, head: p.y1 + P.yardDrop, gallery: false, virtual: true });
+      }
+    }
+    windows = houseWindows(segments, cells, floorY, P);
+  }
   const start = P.pickStart(cells, ctx);
   const edges = connect(cells, cands, P, rng.fork('doors'), start);
   if (!edges) return null;
-  return { W, D, T, pitch, floorY, cells, segments, edges, start, hall: 0 };
+  return { W, D, T, pitch, floorY, cells, segments, edges, start, hall: 0, windows, yards: yards.map((c) => c.i) };
+}
+
+/**
+ * Okna ve zdech mezi domem a nádvořím: P.windowAt(buňka domu, úsek) dá druh ('clear' průhledné s portálem jen pro
+ * pohled, 'frosted' matné bez portálu) nebo null. Parapet 90 cm nad podlahou podlaží, výška 130 cm, šířka 150 nebo
+ * 120 cm podle délky úseku, od konců úseku aspoň 90 cm; na úsek od 6,6 m dvě okna.
+ */
+function houseWindows(segments, cells, floorY, P) {
+  const out = [];
+  segments.forEach((s, si) => {
+    if (s.A < 0 || s.B < 0) return;
+    const [A, B] = [cells[s.A], cells[s.B]];
+    const yard = A.kind === 'yard' ? A : B.kind === 'yard' ? B : null;
+    const X = yard === A ? B : A;
+    if (!yard || X.kind === 'yard' || (X.kind === 'hall' && s.f === 0)) return;
+    const kind = P.windowAt(X, s);
+    if (!kind) return;
+    // od konců úseku aspoň 90 cm: u rohu domu a u předělu nádvoří nic nevyčnívá do průchodu (šířka hráče 74 cm)
+    const len = s.v - s.u;
+    const w = len >= 330 ? 150 : len >= 300 ? 120 : 0;
+    if (!w) return;
+    const n = len >= 660 ? 2 : 1;
+    const sill = floorY[s.f] + 90;
+    for (let k = 0; k < n; k++) {
+      const mid = s.u + Math.round((len * (2 * k + 1)) / (2 * n) / 10) * 10;
+      out.push({ seg: si, house: X.i, yard: yard.i, kind, w, c0: mid - w / 2, c1: mid + w / 2, sill, top: sill + 130 });
+    }
+  });
+  return out;
 }
 
 /** Sdílí buňky a a b zeď (tloušťky T) s průnikem aspoň need? Jen buňky téhož podlaží. */

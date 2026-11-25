@@ -6,6 +6,7 @@
 import { createBuilder, floorSlab, ceilingSlab, wallRun, portalQuad, stairs, ramp, block, pillar, RUN_X } from './kit.js';
 import { m, Vcm, V, pad } from './util.js';
 import { bodyWidth } from './body.js';
+import { windowOpenings, buildWindows, yardPortals } from './exterior.js';
 
 const rectOf = (c) => ({ x0: c.min[0], x1: c.max[0], z0: c.min[1], z1: c.max[1] });
 /** Kvádr v metrech ze souřadnic v centimetrech. kind: 'solid' = stojí tam něco pevného, 'zone' = má zůstat volno. */
@@ -85,9 +86,10 @@ function hallGallery(b, S, plan, P, preset, rng) {
  * Schodišťová hala domu přes všechna podlaží: na každém podlaží galerie po obvodu (chodby a místnosti do ní ústí
  * kdekoli), mezi podlažími přímá ramena střídavě ve dvou pruzích podél delší osy (sudé rameno jedním směrem, liché
  * zpět), u ramene, které nezačíná u galerie, podesta. Ramena nad sebou jsou o dvě podlaží výš (volná výška 6,8 m),
- * pod galerií je výška patra bez desky. Sloupy pod rohy galerií, zábradlí po vnitřním obvodu s mezerami u ramen.
+ * pod galerií je výška patra bez desky. Sloupy pod rohy galerií, zábradlí po vnitřním obvodu s mezerami u ramen
+ * a na ramenech u zrcadla; s P.soffit zubaté podhledí a pod prvním ramenem věci z preset.underStairs.
  */
-function stairCore(b, S, plan, P, preset, rng) {
+function stairCore(b, S, plan, P, preset, rng, catalog) {
   const h = plan.cells[plan.hall];
   const id = S.meta[h.i].id;
   const gw = P.galleryW;
@@ -103,11 +105,13 @@ function stairCore(b, S, plan, P, preset, rng) {
   if (a1 - a0 < run + 120 || s1 - s0 < 2 * P.stairW + 120) return false;
   const R = (p, q, u, v) => (alongX ? { x0: p, x1: q, z0: u, z1: v } : { x0: u, x1: v, z0: p, z1: q });
   const Z = (r, y0, y1, kind) => boxM(r.x0, y0, r.z0, r.x1, y1, r.z1, kind);
+  const at3 = (along, y, across) => (alongX ? Vcm(along, y, across) : Vcm(across, y, along));
   for (let f = 1; f < F; f++) {
     const G = plan.floorY[f];
     for (const r of [{ x0, x1, z0, z1: iz0 }, { x0, x1, z0: iz1, z1 }, { x0, x1: ix0, z0: iz0, z1: iz1 }, { x0: ix1, x1, z0: iz0, z1: iz1 }]) block(b, id, r, G - T, G, pal.gallery, 'gallery');
   }
   const lanes = [[s0, s0 + P.stairW], [s1 - P.stairW, s1]];
+  const flights = [];
   for (let f = 0; f + 1 < F; f++) {
     const even = f % 2 === 0;
     const [u, v] = lanes[even ? 0 : 1];
@@ -115,9 +119,17 @@ function stairCore(b, S, plan, P, preset, rng) {
     const end = even ? a1 : a0;
     const at = end - dir * run;
     const base = plan.floorY[f];
-    stairs(b, { cell: id, run: alongX ? 0 : 1, dir, at, s0: u, s1: v, baseY: base, steps, riser: P.riser, tread: P.tread, mat: pal.stair });
+    stairs(b, { cell: id, run: alongX ? 0 : 1, dir, at, s0: u, s1: v, baseY: base, steps, riser: P.riser, tread: P.tread, mat: pal.stair, soffit: P.soffit });
+    flights.push({ f, u, v, dir, at, end, base, even });
     const [p, q] = even ? [at, end] : [end, at];
-    S.zones[h.i].push(Z(R(p, q, u, v), base, plan.floorY[f + 1]));
+    if (f > 0 || !P.soffit) S.zones[h.i].push(Z(R(p, q, u, v), base, plan.floorY[f + 1]));
+    else {
+      // pod prvním ramenem je volno: zóna každého stupně jen od jeho podhledí nahoru
+      for (let i = 1; i <= steps; i++) {
+        const [c, d] = [at + dir * (i - 1) * P.tread, at + dir * i * P.tread];
+        S.zones[h.i].push(Z(R(Math.min(c, d), Math.max(c, d), u, v), Math.max(base, base + i * P.riser - P.soffit), plan.floorY[f + 1]));
+      }
+    }
     if (f === 0) {
       const foot = even ? R(at - 120, at, u, v) : R(at, at + 120, u, v);
       S.zones[h.i].push(Z(foot, 0, 220, 'zone'));
@@ -140,6 +152,36 @@ function stairCore(b, S, plan, P, preset, rng) {
     const G = plan.floorY[f];
     for (const fixed of [s0 - inset, s1 + inset]) if (a1 - a0 >= 100) railRun(S, id, ra, a0, a1, fixed, G, rails);
     for (const fixed of [a0 - inset, a1 + inset]) if (lanes[1][0] - lanes[0][1] >= 100) railRun(S, id, 1 - ra, lanes[0][1], lanes[1][0], fixed, G, rails);
+  }
+  // zábradlí ramen na straně zrcadla schodiště (díly podle stupňů, jen když sedí na rozměr stupně předvolby)
+  const piece = (pid) => catalog && catalog.has(pid) && catalog.get(pid).source && catalog.get(pid).source.params;
+  const pieces = ['railing_stair_01', 'railing_stair_02'].map((pid) => [pid, piece(pid)]).filter(([, q]) => q && Math.round(q.riser * 100) === P.riser && Math.round(q.tread * 100) === P.tread);
+  if (pieces.length && Math.max(...pieces.map(([, q]) => q.last)) === steps) {
+    for (const fl of flights) {
+      const across = fl.even ? fl.v - inset : fl.u + inset;
+      const ry = alongX ? (fl.dir > 0 ? 0 : 180) : fl.dir > 0 ? -90 : 90;
+      for (const [pid, q] of pieces) S.entities.push({ id: S.eid('rail'), prefab: pid, cell: id, pos: at3(fl.at + fl.dir * (q.first - 1) * P.tread, fl.base + (q.first - 1) * P.riser, across), rot: V(0, ry, 0) });
+    }
+  }
+  // prostor pod prvním ramenem: od horního konce dolů, co se vejde pod podhledí (preset.underStairs)
+  if (P.soffit && catalog && preset.underStairs) {
+    const fl = flights[0];
+    const clear = (x) => (Math.floor(x / P.tread) + 1) * P.riser - P.soffit; // podhledí nad vzdáleností x od paty
+    let cur = run - 10;
+    for (const pid of preset.underStairs) {
+      if (!catalog.has(pid)) continue;
+      const rb = catalog.restBox(pid);
+      const w = Math.ceil((rb.max[0] - rb.min[0]) * 100);
+      const ht = Math.ceil((rb.max[1] - rb.min[1]) * 100);
+      const p = cur - w;
+      if (p < 0 || clear(p) < ht + 5) continue;
+      const pos = at3(fl.at + fl.dir * (p + w / 2), fl.base, (fl.u + fl.v) / 2);
+      const ry = alongX ? 0 : 90;
+      const e = { id: S.eid(pid.replace(/_\d+$/, '')), prefab: pid, cell: id, pos, rot: V(0, ry, 0) };
+      S.entities.push(e);
+      S.zones[h.i].push({ ...catalog.worldBox(pid, pos, ry, 'rest'), kind: 'solid', e });
+      cur = p - 10;
+    }
   }
   S.hall = { cell: h.i, gallery: plan.floorY[1], inner: [ix0, ix1, iz0, iz1], stairs: true };
   return true;
@@ -223,7 +265,8 @@ export function buildStructure(preset, P, plan, catalog, rng) {
   });
 
   // 1) styl a poloha otvorů
-  const ops = plan.edges.map((e) => {
+  // hrany bez úseku zdi (virtual: nádvoří, která se dotýkají bez zdi) dělá yardPortals
+  const ops = plan.edges.filter((e) => !e.virtual).map((e) => {
     const s = segments[e.seg];
     const [A, B] = [cells[e.a], cells[e.b]];
     const len = s.v - s.u;
@@ -264,13 +307,14 @@ export function buildStructure(preset, P, plan, catalog, rng) {
   cells.forEach((c, i) => {
     const mt = S.meta[i];
     floorSlab(b, mt.id, rectOf(c), c.y0, mt.mats.floor, T);
-    ceilingSlab(b, mt.id, rectOf(c), c.y1, mt.mats.ceiling, T);
+    if (!c.open) ceilingSlab(b, mt.id, rectOf(c), c.y1, mt.mats.ceiling, T); // nádvoří je bez stropu
     S.cells.push({ id: mt.id, name: mt.name, bounds: { min: Vcm(c.min[0], c.y0, c.min[1]), max: Vcm(c.max[0], c.y1, c.max[1]) }, zone: mt.zone });
   });
 
   // 3) zdi: každý úsek jednou, vlastní ho jedna buňka; líce nesou povrch místnosti, do které se dívají
   const bySeg = new Map();
   for (const o of ops) bySeg.set(o.e.seg, [...(bySeg.get(o.e.seg) || []), o]);
+  const winBySeg = windowOpenings(plan);
   segments.forEach((s, si) => {
     const owner = S.meta[s.owner];
     const here = bySeg.get(si) || [];
@@ -288,7 +332,7 @@ export function buildStructure(preset, P, plan, catalog, rng) {
       faceLo: s.A >= 0 ? S.meta[s.A].mats.wall : undefined,
       faceHi: s.B >= 0 ? S.meta[s.B].mats.wall : undefined,
       sillMat: high ? S.meta[high.i].mats.floor : undefined,
-      openings: here.map((o) => ({ c0: o.c0, c1: o.c1, sill: o.sill, top: o.top })),
+      openings: [...here.map((o) => ({ c0: o.c0, c1: o.c1, sill: o.sill, top: o.top })), ...(winBySeg.get(si) || [])],
     });
   });
 
@@ -328,9 +372,13 @@ export function buildStructure(preset, P, plan, catalog, rng) {
     }
   });
 
+  // 4b) okna a průchody mezi buňkami nádvoří (předvolba house)
+  buildWindows(S, plan, catalog);
+  yardPortals(S, plan);
+
   // 5) zvláštní stavby
   const core = preset.core === 'stairs' ? stairCore : P.floors > 1 ? hallGallery : hallDock;
-  if (plan.hall >= 0 && !core(b, S, plan, P, preset, rng)) return null;
+  if (plan.hall >= 0 && !core(b, S, plan, P, preset, rng, catalog)) return null;
   for (const o of ops) {
     if (o.e.gallery) continue;
     if (o.A.y0 < o.sill && !sunkSteps(b, S, P, preset, o, o.A, true)) return null;
@@ -348,5 +396,7 @@ export function buildStructure(preset, P, plan, catalog, rng) {
       }
     }
   });
+  // doplňky předvolby k hrubé stavbě (dům: trávník, stříška nad vchodem)
+  if (preset.decorate) preset.decorate(b, S, plan, catalog, rng.fork('decorate'));
   return S;
 }

@@ -51,7 +51,9 @@ export function generateLevel(presetId, seed, catalog, opts = {}) {
     const ramps = S.brushes.filter((b) => b.shape === 'wedge').length;
     if (!stairs && !ramps) continue;
     const F = furnish(preset, P, plan, S, catalog, rng.fork('furnish'), opts);
-    const dist = distances(plan.cells.length, S.openings, plan.start);
+    // průchody bez zdi (nádvoří) počítají do dosažitelnosti stejně jako otvory
+    const open = [...S.openings, ...plan.edges.filter((e) => e.virtual).map((e) => ({ A: plan.cells[e.a], B: plan.cells[e.b] }))];
+    const dist = distances(plan.cells.length, open, plan.start);
     if (dist.some((d) => d === Infinity)) continue;
     const params = { ...(opts.floors ? { floors: opts.floors } : {}), ...(opts.puzzle ? { puzzle: true } : {}) };
     const level = {

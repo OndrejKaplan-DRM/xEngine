@@ -55,7 +55,7 @@ export function homePlan(c, rng, catalog) {
   const island = () => ({ p: 'kitchen_island_01', yaw: false, aisle: 0.7, top: rng.shuffle(['bowl_fruit_01', 'cutting_board_01', 'bottle_wine_01']).slice(0, 2), seat: 'stool_bar_01', seats: [[-0.4, 0.62, 180], [0.4, 0.62, 180]] });
   switch (c.role) {
     case 'hallway':
-      return { walls: take([{ p: 'wardrobe_hall_01' }, { p: 'shoe_cabinet_01', top: decor(1) }], [{ p: 'coat_rack_home_01', h: 170 }, { p: pick(['mirror_wall_01', 'mirror_round_01']), h: 150 }, { p: 'bench_shoe_01' }, { p: 'umbrella_stand_01' }, { p: 'key_box_01', h: 140 }, { p: pick(['stroller_01', 'bike_01']) }, art()]), center: [{ p: 'doormat_01', aisle: 0.05 }], maxDepth: 62 };
+      return { walls: take([{ p: 'wardrobe_hall_01' }, { p: 'shoe_cabinet_01', top: decor(1) }], [{ p: 'coat_rack_home_01', h: 170 }, { p: pick(['mirror_wall_01', 'mirror_round_01']), h: 150 }, { p: 'bench_shoe_01' }, { p: 'umbrella_stand_01' }, { p: 'key_box_01', h: 140 }, { p: pick(['stroller_01', 'bike_01']) }, art()]), maxDepth: 62 };
     case 'living': {
       // velký obývák: rohová sedačka; televize na stolku, nebo na zdi nad ním
       const corner = c.area >= 20 && !c.kitchenette && rng.chance(0.6);

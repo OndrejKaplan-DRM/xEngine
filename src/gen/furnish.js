@@ -42,7 +42,8 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const occ = S.zones[ci];
     const fat = grow(rest, o.margin ?? 0.02);
     const mine = (z) => Boolean(o.host) && z.e === o.host; // věc na stole se smí dotýkat svého stolu
-    if (occ.some((z) => !mine(z) && boxesHit(z, fat))) return null;
+    // plochá věc (rohožka) smí do volných zón před otvory, jen ne do pevných věcí
+    if (occ.some((z) => !mine(z) && !(o.flat && z.kind === 'zone') && boxesHit(z, fat))) return null;
     const swept = catalog.worldBox(prefab, pos, ry, 'swept');
     const moves = swept.max.some((x, k) => x - rest.max[k] > 0.01) || swept.min.some((x, k) => rest.min[k] - x > 0.01);
     if (moves && (!inside(swept, cellBox[ci]) || occ.some((z) => z.kind === 'solid' && !mine(z) && boxesHit(z, swept)))) return null;
@@ -164,6 +165,10 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
   function scatter(ci, list) {
     const c = cells[ci];
     for (const item of list) {
+      if (item.atDoors) {
+        doorMats(ci, item);
+        continue;
+      }
       for (let t = 0; t < 12; t++) {
         const x = rng.int(c.min[0] + 110, Math.max(c.min[0] + 110, c.max[0] - 110));
         const z = rng.int(c.min[1] + 110, Math.max(c.min[1] + 110, c.max[1] - 110));
@@ -174,6 +179,30 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
         seatsAround(ci, e, item);
         break;
       }
+    }
+  }
+
+  /** Plochá věc před každými dveřmi buňky, za kterými je buňka, pro kterou item.atDoors(buňka) platí (rohožka). */
+  function doorMats(ci, item) {
+    const c = cells[ci];
+    const d = depthCm(item.p);
+    for (const side of S.sides[ci]) {
+      if (!side.o.doorIds.length) continue;
+      const other = side.o.A === c ? side.o.B : side.o.A;
+      if (!item.atDoors(other)) continue;
+      const wall = { run: side.run, face: side.face, n: side.n };
+      const [ry] = facing(wall);
+      const along = (side.c0 + side.c1) / 2;
+      const normal = side.face + side.n * (d / 2 + 3);
+      tryPlace(ci, item.p, side.run === RUN_X ? [m(along), m(c.y0), m(normal)] : [m(normal), m(c.y0), m(along)], ry, { margin: 0.01, flat: true });
+    }
+  }
+
+  /** Radiátor (nebo jiná věc na zeď) pod každým oknem buňky, uprostřed pod parapetem. */
+  function underWindows(ci, prefab, height) {
+    for (const w of S.windows || []) {
+      if (w.cell !== ci || !catalog.has(prefab)) continue;
+      againstWall(ci, { run: w.run, face: w.face, n: w.n }, prefab, Math.round((w.c0 + w.c1) / 2 - widthCm(prefab) / 2), height);
     }
   }
 
@@ -298,6 +327,19 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
       if (!got && L.fallback) addLight((c.min[0] + c.max[0]) / 2, c.y1 - 30, (c.min[1] + c.max[1]) / 2, L.cd * 0.6);
       return;
     }
+    if (L.mount === 'post') {
+      // venkovní lampy v řadě podél L.line [x0, z0, x1, z1] (cm), pevné světlo v hlavě lampy
+      const [lx0, lz0, lx1, lz1] = L.line;
+      const len = Math.hypot(lx1 - lx0, lz1 - lz0);
+      const n = Math.max(1, Math.round(len / L.spacing));
+      for (let i = 0; i < n; i++) {
+        const a = (i + 0.5) / n;
+        const [x, z] = [Math.round(lx0 + (lx1 - lx0) * a), Math.round(lz0 + (lz1 - lz0) * a)];
+        const e = tryPlace(ci, L.fixture, [m(x), m(c.y0), m(z)], 0, { margin: 0.1 });
+        if (e) addLight(x, c.y0 + L.height, z, L.cd);
+      }
+      return;
+    }
     if (L.perFloor && c.tall) {
       // vysoká hala přes víc podlaží: řada světel nad každým podlažím (strop je až nad posledním)
       const longX0 = c.w >= c.d;
@@ -356,6 +398,7 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const plan2 = preset.furniture(c, rng, catalog);
     if (!plan2) return;
     const before = S.entities.length;
+    if (plan2.underWindows) underWindows(ci, plan2.underWindows.p, plan2.underWindows.h);
     if (plan2.rows && plan2.rowsFirst) rowsIn(ci, plan2.rows);
     packWalls(ci, plan2.walls || [], plan2.maxDepth ?? 90);
     if (plan2.rows && !plan2.rowsFirst) rowsIn(ci, plan2.rows);

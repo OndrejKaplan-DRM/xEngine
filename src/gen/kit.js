@@ -76,8 +76,9 @@ export function portalQuad(run, c0, c1, plane, sill, top) {
 }
 
 /**
- * Přímé schodiště z plných stupňů (každý stupeň je sloupec od základny po svou výšku, pod schody není dutina).
- * @param o { cell, run, dir, at, s0, s1, baseY, steps, riser, tread, mat }
+ * Přímé schodiště: stupeň je sloupec od základny po svou výšku (pod schody není dutina), nebo s o.soffit jen deska
+ * pod nášlapem (prostor pod ramenem zůstane volný).
+ * @param o { cell, run, dir, at, s0, s1, baseY, steps, riser, tread, mat, soffit? }
  *   run = osa chůze (RUN_X nebo RUN_Z), dir = +1 nebo −1 (kam se stoupá), at = hrana prvního stupně,
  *   s0…s1 = šířka napříč. Vrací { end, topY }: kde schody končí a jak vysoko je poslední stupeň.
  */
@@ -86,7 +87,9 @@ export function stairs(b, o) {
     const a = o.at + o.dir * (i - 1) * o.tread;
     const c = o.at + o.dir * i * o.tread;
     const [lo, hi] = a < c ? [a, c] : [c, a];
-    const [min, max] = o.run === RUN_X ? [[lo, o.baseY, o.s0], [hi, o.baseY + i * o.riser, o.s1]] : [[o.s0, o.baseY, lo], [o.s1, o.baseY + i * o.riser, hi]];
+    // soffit: stupeň jen jako deska tloušťky soffit pod nášlapem (zubaté podhledí, pod rameny je volno), jinak plný sloupec
+    const y0 = o.soffit ? Math.max(o.baseY, o.baseY + i * o.riser - o.soffit) : o.baseY;
+    const [min, max] = o.run === RUN_X ? [[lo, y0, o.s0], [hi, o.baseY + i * o.riser, o.s1]] : [[o.s0, y0, lo], [o.s1, o.baseY + i * o.riser, hi]];
     b.add(o.cell, 'stair', min, max, o.mat);
   }
   return { end: o.at + o.dir * o.steps * o.tread, topY: o.baseY + o.steps * o.riser };
