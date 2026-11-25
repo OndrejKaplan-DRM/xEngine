@@ -229,6 +229,22 @@ Pruhy jsou namalované, točí se s předmětem a nesledují světlo; skutečný
 
 Shoda s měřením: PVS `complex_7` při mřížce 0,25 m (Ondřejovo nastavení) je nejvýš 251 278 △ v `c_corr_01`; T460 změřil nejvýš 149 094 △ a nejvíc volání (496) právě v `c_corr_01`. **Pozor:** při mřížce 0,25 m mají kvádry asi dvakrát víc △ (`complex_21` 293 394 vidět z buňky); se světlem v textuře (D-050) budou kvádry zase 12 △. Návrh **N-014**: PVS do základu a pro sešnu A zkouška „kreslím ⊆ PVS“ (rozpočet) a „vše, co paprsek z oka zasáhne, kreslím“ (nic nebliká), hlavně u portálů.
 
+### Ondřej 25. 11. 2026, 14:53: `?bench` po kroku 25 na T460
+
+`xlab_gen.html?level=complex_7&bench` (stejná hra jako v kroku 25, 1 080 řádků, mřížka světla 0,25 m), záznam `docs/navrhy/N-011-bench-T460-2026-11-25-1453.json`. Srovnání s během z 1:14 (před přestavbou kus po kuse):
+
+| T460 | 25. 11. 1:14 | 25. 11. 14:53 (po kroku 25) |
+|---|---|---|
+| díly ze sítí v levelu / jejich △ | 588 / 65 806 | 1 487 / 149 204 |
+| statické △ celkem | 457 778 | 512 920 |
+| vykreslení snímku, medián / 95 % / max (ms) | 11,05 / 17,65 / 45,1 | 10,95 / 17,0 / 72,2 |
+| △ v pohledu, 95 % / max | 95 712 / 149 094 | 105 558 / 179 954 |
+| volání kreslení, 95 % / max | 269 / 496 | 263 / 486 |
+| krok simulace, medián (ms) | 0,21 | 0,22 |
+| stavba světla při načtení (ms) | 34 347 | 36 183 |
+
+**Čtení:** sítí je 2,3× víc a △ v pohledu o 10 až 21 % víc, čas vykreslení se nezměnil (rozdíl je v šumu mezi běhy). Max 72 ms je jeden snímek (načítání nebo teleport robota), ne trvalý stav. 30 snímků/s je strop, který si `?bench` nastaví sám (N-011). **Pro sešnu A:** stavba světla při mřížce 0,25 m trvá na T460 při načtení 36 s; při 0,5 m to bylo zhruba čtvrtinu (odhad podle počtu vzorků).
+
 ### Ondřej 25. 11. 2026, 14:47
 
 Odpovědi na otázky z konce kroku 25: (1) **nové kusy (a) i (b)**: sada pro byt (`kit_home`) i další obory laboratoří a kanceláří; „přistav však úplně jinou nezávislou level – 4 podlažní bytový komplex – horní patra byty, dolní patra laboratoře – dej tam to nové vybavení“; (2) `?bench` nad `complex_7` pustí později; (3) když bude potřeba šetřit, zvednout mez: **hra smí mít 80 MB** (totéž D-054 z 0:49; mez 25 MB z 23:57 neplatí).
