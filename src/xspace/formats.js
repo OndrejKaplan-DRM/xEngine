@@ -1,7 +1,13 @@
 // xSpace, verze formátu 1: popis datových souborů, které spojují nástroje (xForge, xSearcher,
-// generátory, xDesigner) s enginem. Tento soubor je JEDINÁ pravda o polích: čte ho validátor
+// generátory, xDesigner) s enginem. Tento soubor (se zkušebními zbraněmi ve formats-weapon.js a stavebnicí
+// popisu v schema.js) je JEDINÁ pravda o polích: čte ho validátor
 // (validate.js) a generuje se z něj dokument docs/02a_XSPACE_pole.md (tools/xspace-doc.mjs).
 // Soubor patří základu; změna jen přes návrh v docs/navrhy a zvýšení XSPACE_VERSION.
+
+import { id, str, num, int, bool, vec3, color, en, arr, obj, map, ref, konst, R } from './schema.js';
+import { weaponFormats } from './formats-weapon.js';
+
+export { WEAPON_MODES, RAMP_CURVES, PUSH_MASS, PICKUP_ITEMS } from './formats-weapon.js';
 
 export const XSPACE_VERSION = 1;
 
@@ -36,17 +42,6 @@ export const PLACE_MOUNTS = ['floor', 'wall', 'ceiling', 'top', 'opening'];
  */
 export const JOINT_TRAVEL_SECONDS = { button: 0.06, switch: 0.1, lever: 0.25, drawer: 0.5, door: 1, valve: 3, other: 0.5 };
 export const SPAWN_KINDS = ['player', 'enemy', 'item'];
-/** Druh režimu zbraně (N-201, zkušební): paprsek, střela s letem, úder na dosah. */
-export const WEAPON_MODES = ['hitscan', 'projectile', 'melee'];
-/** Průběh hodnoty podle nabití zbraně: lineárně, nebo s druhou mocninou nabití (N-201). */
-export const RAMP_CURVES = ['linear', 'square'];
-/**
- * Odhození výbuchem a zásahem (N-201, vzorec Arény v2): Δv = push · (1 − d/r) / (1 + m / PUSH_MASS), kg.
- * Lehké věci letí rychlostí push, auto 1 100 kg se převrátí.
- */
-export const PUSH_MASS = 800;
-/** Předměty, které dává pickup.item a nejsou zbraní ani municí balíku. */
-export const PICKUP_ITEMS = ['health', 'armor'];
 /** Druhy souborů, jejichž pole jsou zkušební (N-201): po zkoušce na jednom kusu se smějí změnit. */
 export const EXPERIMENTAL_KINDS = ['ammo', 'weapon'];
 /** Vestavěné cíle vstupů, které nejsou entitou levelu. */
@@ -67,24 +62,7 @@ export const LIMITS = {
   overlapCheckMax: 4000, // nad tento počet kvádrů se překryvy nehledají (kvadratická cena)
 };
 
-// ---- stavebnice popisu -----------------------------------------------------------------
-
-const id = (doc, o = {}) => ({ t: 'id', doc, ...o });
-const str = (doc, o = {}) => ({ t: 'str', doc, ...o });
-const num = (doc, o = {}) => ({ t: 'num', doc, ...o });
-const int = (doc, o = {}) => ({ t: 'int', doc, ...o });
-const bool = (doc, o = {}) => ({ t: 'bool', doc, ...o });
-const vec3 = (doc, o = {}) => ({ t: 'vec3', doc, ...o });
-const color = (doc, o = {}) => ({ t: 'color', doc, ...o });
-const en = (values, doc, o = {}) => ({ t: 'enum', values, doc, ...o });
-const arr = (of, doc, o = {}) => ({ t: 'arr', of, doc, ...o });
-const obj = (fields, doc, o = {}) => ({ t: 'obj', fields, doc, ...o });
-const map = (of, doc, o = {}) => ({ t: 'map', of, doc, ...o });
-const ref = (to, doc, o = {}) => ({ t: 'ref', to, doc, ...o });
-const konst = (value, doc) => ({ t: 'const', value, doc, req: true });
-/** Číslo, nebo { min, max, curve? } podle nabití zbraně (N-201); meze min a max platí pro obě hodnoty. */
-const ramp = (doc, o = {}) => ({ t: 'ramp', doc, ...o });
-const R = (d) => ({ ...d, req: true });
+// ---- stavebnice popisu: schema.js -------------------------------------------------------
 
 const head = (kind) => ({
   xspace: konst(XSPACE_VERSION, 'verze formátu xSpace'),
@@ -312,51 +290,6 @@ const collider = obj(
   'kolizní tvar',
 );
 
-const MODE = (doc) =>
-  obj(
-    {
-      kind: R(en(WEAPON_MODES, 'paprsek, střela s letem, nebo úder na dosah')),
-      cooldown: R(num('nejkratší čas mezi výstřely, s', { min: 0.01, max: 60 })),
-      cost: ramp('munice na výstřel; výchozí 1, má-li zbraň munici', { min: 0, max: 1000 }),
-      pellets: int('počet broků; výchozí 1', { min: 1, max: 64 }),
-      spread: num('rozptyl, polovina vrcholového úhlu kužele ve stupních', { min: 0, max: 45 }),
-      damage: R(ramp('poškození jednoho zásahu', { min: 0, max: 100000 })),
-      range: num('dosah paprsku nebo úderu, m (hitscan, melee)', { min: 0.1, max: 2000 }),
-      push: ramp('rychlost, kterou zásah udělí lehkému tělesu, m/s (PUSH_MASS)', { min: 0, max: 200 }),
-      projectile: obj(
-        {
-          speed: R(ramp('počáteční rychlost, m/s', { min: 0.1, max: 2000 })),
-          accel: num('zrychlení po dráze letu, m/s²', { min: 0, max: 1000 }),
-          gravity: num('násobek tíže; 0 = letí rovně', { min: 0, max: 10 }),
-          life: R(num('doba letu, potom zanikne nebo vybuchne, s', { min: 0.05, max: 60 })),
-          radius: num('poloměr koule střely pro zásah, m', { min: 0, max: 2 }),
-          bounce: num('odrazivost od světa 0–1; bez ní se střela při dopadu zastaví', { min: 0, max: 1 }),
-          fuse: num('rozbuška: výbuch po tolika s od výstřelu', { min: 0.01, max: 60 }),
-        },
-        'střela (kind projectile)',
-      ),
-      splash: obj(
-        {
-          radius: R(ramp('poloměr, m', { min: 0.05, max: 100 })),
-          damage: R(ramp('poškození ve středu; k okraji lineárně k nule', { min: 0, max: 100000 })),
-          push: ramp('odhození ve středu, m/s', { min: 0, max: 200 }),
-        },
-        'výbuch nebo šplouchnutí v místě dopadu',
-      ),
-      charge: obj(
-        {
-          time: R(num('doba do plného nabití, s', { min: 0.05, max: 30 })),
-          release: num('samovolné vystřelení po tolika s držení', { min: 0.05, max: 60 }),
-        },
-        'nabíjení podržením tlačítka; hodnoty { min, max } se berou podle nabití 0–1',
-      ),
-      recoil: num('zákluz obrazu zbraně 0–1', { min: 0, max: 1 }),
-      noise: num('poloměr, na který výstřel slyší nepřátelé, m', { min: 0, max: 500 }),
-      sounds: map(str('id zvukové události'), 'fire, charged, empty → zvuková událost (Z-2)'),
-    },
-    doc,
-  );
-
 export const FORMATS = {
   pack: obj(
     {
@@ -545,44 +478,6 @@ export const FORMATS = {
     'level',
   ),
 
-  ammo: obj(
-    {
-      ...head('ammo'),
-      ammo: R(
-        map(
-          obj({ title: R(str('název česky')), max: R(int('nejvíc, co hráč unese', { min: 1, max: 100000 })) }),
-          'id munice → druh',
-        ),
-      ),
-    },
-    'druhy munice (zkušební, N-201)',
-  ),
-
-  weapon: obj(
-    {
-      ...head('weapon'),
-      id: R(id('id zbraně, tvar <co>_<varianta>_<nn>')),
-      title: R(str('název česky')),
-      slot: R(int('klávesa 0–9; víc zbraní ve slotu se střídá podle order', { min: 0, max: 9 })),
-      order: int('pořadí ve slotu; výchozí 0', { min: 0, max: 99 }),
-      ammo: ref('ammo', 'munice; bez ní zbraň munici nepotřebuje'),
-      view: R(
-        obj(
-          {
-            prefab: R(ref('prefab', 'model v ruce')),
-            pos: R(vec3('poloha vůči kameře, m (x vpravo, y nahoru, −z dopředu)')),
-            rot: vec3('natočení ve stupních, YXZ'),
-            muzzle: R(vec3('ústí v prostoru prefabu')),
-          },
-          'zbraň v ruce',
-        ),
-      ),
-      zoom: obj({ fov: R(num('vodorovné zorné pole při přiblížení, stupně', { min: 5, max: 120 })) }, 'přiblížení'),
-      primary: R(MODE('hlavní tlačítko')),
-      alt: MODE('druhé tlačítko'),
-      source: R(source),
-    },
-    'zbraň (zkušební, N-201)',
-  ),
+  ...weaponFormats({ head, source }),
 
 };
