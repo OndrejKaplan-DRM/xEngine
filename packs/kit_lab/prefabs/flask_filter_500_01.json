@@ -11,7 +11,9 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_filter_glass", "mat": "glass_lab" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_filter_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_filter_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_filter_glass_glint", "mat": "glass_glint" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.051, -0.001, -0.05], "max": [0.051, 0.202, 0.05], "group": "prop" }
@@ -20,7 +22,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 556,
+  "tris": 712,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#newGlass",

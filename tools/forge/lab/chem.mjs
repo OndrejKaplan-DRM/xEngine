@@ -144,7 +144,8 @@ export function buffers() {
 /** Vialky se zalisovaným hliníkovým víčkem v kartonu (4 × 4) a sklenice s krystaly. */
 export function vialsAndCrystals() {
   const vial = lathe([[0, 0], [0.0058, 0, 'c'], [0.0058, 0.032], [0.0042, 0.036], [0.0042, 0.038]], { seg: 6 });
-  const crimp = lathe([[0.0042, 0.0365], [0.0062, 0.0365, 'c'], [0.0062, 0.0415, 'c'], [0.003, 0.0415, 'c'], [0.003, 0.041]], { seg: 6 });
+  // víčko a náplň malé vialky jen bokem a vrškem (dno a prohlubeň septa z 1 m nikdo nevidí; vialek je v kartonu 12)
+  const crimp = lathe([[0.0062, 0.0365], [0.0062, 0.0415, 'c'], [0, 0.0415]], { seg: 6 });
   const racks = ['liquid_amber', 'liquid_purple'].map((liq, v) => {
     const glass = [];
     const caps = [];
@@ -154,7 +155,7 @@ export function vialsAndCrystals() {
       const z = -0.02 + Math.floor(i / 4) * 0.02;
       glass.push(T(vial, x, 0.022, z));
       caps.push(T(crimp, x, 0.022, z));
-      if (i % 3) fill.push(T(lathe([[0, 0.0015], [0.0052, 0.0015, 'c'], [0.0052, 0.022, 'c'], [0, 0.022]], { seg: 6 }), x, 0.022, z));
+      if (i % 3) fill.push(T(lathe([[0.0052, 0.0015], [0.0052, 0.022, 'c'], [0, 0.022]], { seg: 6 }), x, 0.022, z));
     }
     return one(`rack_vials_crimp_${pad(v + 1)}`, `Vialky se zalisovaným víčkem v kartonu ${v + 1}`, [part('rack_vials_crimp', 'carton', openBox([-0.045, 0, -0.045], [0.045, 0.03, 0.045], 0.002), 'paper_kraft'), part('rack_vials_crimp', 'insert', flatBox([-0.043, 0.02, -0.043], [0.043, 0.022, 0.043]), 'paper_kraft'), part('rack_vials_crimp', 'glass', merge(glass), 'glass_lab'), part('rack_vials_crimp', 'caps', merge(caps), 'steel_brushed'), part(`rack_vials_crimp_${v}`, 'fill', merge(fill), liq)], 'vialsAndCrystals');
   });

@@ -19,6 +19,8 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_titrant", "mat": "liquid_purple" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_cock", "mat": "ptfe" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_flask_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_flask_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_burette_flaskliq", "mat": "liquid_pink" }
   ],
   "colliders": [
@@ -28,7 +30,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1372,
+  "tris": 1512,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#standSetups",

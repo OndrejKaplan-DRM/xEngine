@@ -591,10 +591,6 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 
 ## Otázky pro Ondřeje
 
-Starší otázky (B02 až B04) jsou zodpovězené a jejich odpovědi stojí v oddílech sešen výše. Otevřené (poslané 25. 11. kolem 0:45, stačí písmeno):
+Starší otázky (B02 až B04) jsou zodpovězené a jejich odpovědi stojí v oddílech sešen výše. **Ondřej 25. 11. v 1:02:** (1 a) +50 % trojúhelníků platí na jeden prefab (sada +83 %, level +24 % nechat); (2 b) sklo ve hře je málo vidět, chce **výraznější okraj a odlesk**; (3 a) D-041 (hotové v téže noci); (4 a) `?bench` s novým sestavením pustí.
 
-1. „+50 % trojúhelníků“: (a) na jeden prefab, jak to je (sada +83 %, level +24 %); (b) na celou sadu, sklo a plasty se ztenčí.
-2. Sklo ve hře (`b_sklo_hra.png`): (a) směr sedí; (b) výraznější okraj a odlesk.
-3. Co dál: (a) D-041 (mezitím hotové, další je zkouška N-110); (b) nejdřív přístroje, nábytek a `kit_it` kus po kuse.
-4. `?bench` s novým sestavením: (a) pustí; (b) počkat na opravu N-011.
-5. Starší: „vnitřní kompartmentizace“ = (a) přihrádky a police (pracuju s tím), nebo (b) kresba dřeva.
+Otevřené: „vnitřní kompartmentizace“ = (a) přihrádky a police (pracuju s tím), nebo (b) kresba dřeva.

@@ -230,7 +230,8 @@ export function benchware() {
 /** Vialky do HPLC 2 ml (sklo, víčko se septem) v podložce 3 × 6; stojánek s kryozkumavkami. */
 export function vialTrays() {
   const vial = lathe([[0, 0], [0.0058, 0, 'c'], [0.0058, 0.027], [0.0042, 0.03], [0.0042, 0.032]], { seg: 6 });
-  const vcap = lathe([[0.004, 0.031], [0.0062, 0.031, 'c'], [0.0062, 0.037, 'c'], [0.0025, 0.037, 'c'], [0.0025, 0.0365]], { seg: 6 });
+  // víčko a náplň malé vialky jen bokem a vrškem (vialek je v podložce 12; dno a septum z 1 m nikdo nevidí)
+  const vcap = lathe([[0.0062, 0.031], [0.0062, 0.037, 'c'], [0, 0.037]], { seg: 6 });
   const trays = ['cap_blue', 'cap_red'].map((cap, v) => {
     const glass = [];
     const caps = [];
@@ -240,7 +241,7 @@ export function vialTrays() {
       const z = -0.009 + Math.floor(i / 6) * 0.018;
       glass.push(T(vial, x, 0.008, z));
       caps.push(T(vcap, x, 0.008, z));
-      if (i % 3 !== 1) fill.push(T(cylinder(0.0052, 0.009, 0.02 + (i % 4) * 0.002, { seg: 6 }), x, 0, z));
+      if (i % 3 !== 1) fill.push(T(lathe([[0.0052, 0.009], [0.0052, 0.02 + (i % 4) * 0.002, 'c'], [0, 0.02 + (i % 4) * 0.002]], { seg: 6 }), x, 0, z));
     }
     return one(`tray_vials_hplc_${pad(v + 1)}`, `Vialky do HPLC v podložce (víčka ${v ? 'červená' : 'modrá'})`, [part('tray_vials', 'tray', crate([-0.06, 0, -0.033], [0.06, 0.012, 0.033], 0.003, 1), 'plastic_white'), part('tray_vials', 'glass', merge(glass), 'glass_lab'), part(`tray_vials_${v}`, 'caps', merge(caps), cap), part(`tray_vials_${v}`, 'fill', merge(fill), v ? 'liquid_amber' : 'liquid_water')], 'vialTrays');
   });

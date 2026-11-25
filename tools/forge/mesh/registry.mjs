@@ -20,6 +20,27 @@ export function meshPart(node, file, name, geom, mat) {
 }
 
 export const meshGeom = (ref) => REG.get(ref) || null;
+
+/**
+ * Díly s doprovodnými sítěmi: síť dílu může nést extras [{ suffix, mat: (materiál dílu) => materiál | null, geom }]
+ * (lem a odlesk skla). Každá doprovodná síť se stane vlastním dílem téhož uzlu hned za svým dílem, uzel
+ * „<jméno>_<suffix>“ v témž souboru. mat vrátí null → doprovodná síť se k tomuto materiálu nehodí (kovová lázeň).
+ */
+export function expandExtras(parts) {
+  const out = [];
+  for (const p of parts) {
+    out.push(p);
+    const g = p.shape === 'mesh' ? REG.get(p.mesh) : null;
+    for (const e of (g && g.extras) || []) {
+      const mat = typeof e.mat === 'function' ? e.mat(p.mat) : e.mat;
+      if (!mat || !e.geom.indices.length) continue;
+      const ref = `${p.mesh}_${e.suffix}`;
+      REG.set(ref, e.geom);
+      out.push({ node: p.node, shape: 'mesh', mesh: ref, mat });
+    }
+  }
+  return out;
+}
 export const meshTris = (part) => (part.shape === 'mesh' && REG.has(part.mesh) ? tris(REG.get(part.mesh)) : null);
 /** Osm rohů obalu sítě dílu (pro obal prefabu), nebo null. */
 export function meshCorners(part) {
@@ -65,14 +86,18 @@ export function shiftMeshPart(part, dx, dy, dz, mapPos = null) {
   const tag = `${name}_s${Math.round(dx * 1000)}_${Math.round(dy * 1000)}_${Math.round(dz * 1000)}${mapPos ? '_m' : ''}`;
   const ref = `${file}#${tag}`;
   if (!REG.has(ref)) {
-    const out = { positions: g.positions.slice(), normals: g.normals.slice(), uvs: g.uvs.slice(), indices: g.indices.slice() };
-    for (let i = 0; i < out.positions.length; i += 3) {
-      const q = mapPos ? mapPos([out.positions[i], out.positions[i + 1], out.positions[i + 2]]) : [out.positions[i] + dx, out.positions[i + 1] + dy, out.positions[i + 2] + dz];
-      out.positions[i] = q[0];
-      out.positions[i + 1] = q[1];
-      out.positions[i + 2] = q[2];
-    }
-    REG.set(ref, out);
+    const shift = (src) => {
+      const out = { positions: src.positions.slice(), normals: src.normals.slice(), uvs: src.uvs.slice(), indices: src.indices.slice() };
+      for (let i = 0; i < out.positions.length; i += 3) {
+        const q = mapPos ? mapPos([out.positions[i], out.positions[i + 1], out.positions[i + 2]]) : [out.positions[i] + dx, out.positions[i + 1] + dy, out.positions[i + 2] + dz];
+        out.positions[i] = q[0];
+        out.positions[i + 1] = q[1];
+        out.positions[i + 2] = q[2];
+      }
+      if (src.extras) out.extras = src.extras.map((e) => ({ ...e, geom: shift(e.geom) }));
+      return out;
+    };
+    REG.set(ref, shift(g));
   }
   return { ...part, mesh: ref };
 }

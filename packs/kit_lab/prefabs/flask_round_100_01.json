@@ -13,6 +13,8 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_cork", "mat": "cork" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_glass_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#flask_round_100_joint", "mat": "glass_frosted" }
   ],
   "colliders": [
@@ -22,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 644,
+  "tris": 772,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#roundFlasks",

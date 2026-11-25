@@ -10,6 +10,69 @@ import { meshPart } from '../mesh/registry.mjs';
 export const GLASS = 'glass_lab';
 export const ENAMEL = 'enamel_white';
 
+// Ondřej 25. 11. 2026 v 1:02: sklo je ve hře málo vidět, chce výraznější okraj a odlesk (volba 2 b). Běh kreslí
+// sklo jako průhlednou barvu bez lomu a zrcadlení, proto to nesou data: lem nádoby (horní okraj s kouskem vnější
+// a vnitřní stěny) je hustší a světlejší sklo a na vnější stěně vlevo vpředu jsou dva svislé pruhy odlesku.
+// Obojí jsou doprovodné sítě nádoby (extras), které se ohnou s hubičkou a posunou se sestavou; díly z nich
+// udělá definePrefab. Kovová lázeň ani plast je nedostane (materiál dílu není sklo).
+const RIM_MAT = { glass_lab: 'glass_rim', glass_tinted: 'glass_rim', glass_amber: 'glass_amber_rim' };
+const GLINT_MAT = { glass_lab: 'glass_glint', glass_tinted: 'glass_glint', glass_amber: 'glass_glint' };
+const RIM_OFF = 0.00015; // m nad sklem (proti blikání dvou ploch v téže hloubce)
+const GLINT_OFF = 0.0002;
+/** Pruhy odlesku: [od, do] ve stupních od přední strany (úmluva lathe; záporně = vlevo vpředu). Odlesk stropního
+ * světla na válci leží blízko směru k pozorovateli, proto pruhy míří skoro dopředu (hráč sklo vidí z místnosti). */
+const GLINTS = [
+  [-24, -15],
+  [7, 9.5],
+];
+
+/** Lomená čára [[r, y], …] posunutá po své normále (vpravo od směru) o off. */
+function offsetLine(pts, off) {
+  return pts.map((p, i) => {
+    const a = pts[Math.max(0, i - 1)];
+    const b = pts[Math.min(pts.length - 1, i + 1)];
+    const dr = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const l = Math.hypot(dr, dy) || 1;
+    return [Math.max(0, p[0] + (dy / l) * off), p[1] - (dr / l) * off];
+  });
+}
+
+/** Část lomené čáry s y mezi lo a hi; úseky, které mez protínají, se oříznou přesně na ní. */
+function clipY(P, lo, hi) {
+  const out = [];
+  const inside = (p) => p[1] >= lo && p[1] <= hi;
+  const at = (a, b, y) => {
+    const t = (y - a[1]) / (b[1] - a[1] || 1);
+    return [a[0] + (b[0] - a[0]) * t, y];
+  };
+  for (let i = 0; i < P.length; i++) {
+    const p = P[i];
+    const q = P[i - 1];
+    if (q) {
+      for (const y of q[1] < p[1] ? [lo, hi] : [hi, lo]) if ((q[1] - y) * (p[1] - y) < 0) out.push(at(q, p, y));
+    }
+    if (inside(p)) out.push(p);
+  }
+  return out;
+}
+
+/** Úsek lomené čáry kolem indexu top, kde y ≥ yCut; konce oříznuté přesně na yCut. */
+function band2d(P, top, yCut) {
+  let i0 = top;
+  while (i0 > 0 && P[i0 - 1][1] >= yCut) i0--;
+  let i1 = top;
+  while (i1 < P.length - 1 && P[i1 + 1][1] >= yCut) i1++;
+  const out = P.slice(i0, i1 + 1);
+  const cut = (a, b) => {
+    const t = (yCut - a[1]) / (b[1] - a[1] || 1);
+    return [a[0] + (b[0] - a[0]) * t, yCut];
+  };
+  if (i0 > 0) out.unshift(cut(P[i0 - 1], P[i0]));
+  if (i1 < P.length - 1) out.push(cut(P[i1], P[i1 + 1]));
+  return out;
+}
+
 /** Počet stěn po obvodu podle poloměru (m): malé věci 12, velké nejvýš 24; vždy sudý. Hladké normály schovají hrany. */
 export const segFor = (r, k = 1) => 2 * Math.round(Math.min(22, Math.max(10, (10 + (r * 1000) / 7) * k)) / 2);
 /** Tloušťka stěny skla podle průměru (m): 0,8 mm u malých, 2 mm u velkých. */
@@ -22,8 +85,34 @@ export const wallFor = (r) => Math.min(0.002, Math.max(0.0008, r * 0.03));
 export function vesselGeom(outer, o = {}) {
   const r = Math.max(...outer.map((p) => p[0]));
   const wall = o.wall ?? wallFor(r);
-  const v = vesselProfile(outer, { wall, bottom: o.bottom ?? wall * 1.6, lip: o.lip ?? wall * 0.75, n: o.n ?? 2, lipN: o.lipN });
-  return { geom: lathe(v.profile, { seg: o.seg ?? segFor(r) }), inner: v.inner, outer: v.outer };
+  const lipN = o.lipN ?? 3;
+  const seg = o.seg ?? segFor(r);
+  const v = vesselProfile(outer, { wall, bottom: o.bottom ?? wall * 1.6, lip: o.lip ?? wall * 0.75, n: o.n ?? 2, lipN });
+  const geom = lathe(v.profile, { seg });
+  if (o.accents !== false) {
+    // lem: horní okraj s kouskem vnější a vnitřní stěny (vrchol oblouku lemu je uprostřed za posledním bodem vnějšku)
+    const P = v.profile.map((p) => [p[0], p[1]]);
+    const top = v.outer.length - 1 + Math.floor(lipN / 2);
+    const yTop = P[top][1];
+    const h = Math.min(0.004, Math.max(0.0012, wall * 2.2));
+    // pět bodů: řez na vnější stěně, začátek lemu, vrchol lemu, konec lemu, řez na vnitřní stěně (průhledné sklo
+    // nezapisuje hloubku, takže lem s méně body se se sklem nebije; ušetří 30 až 50 % trojúhelníků lemu)
+    const band = band2d(P, top, yTop - h);
+    const a = P[v.outer.length - 1];
+    const z = P[v.outer.length - 1 + lipN];
+    const rim = offsetLine([band[0], a, P[top], z, band[band.length - 1]].filter((p, i, arr) => !i || Math.hypot(p[0] - arr[i - 1][0], p[1] - arr[i - 1][1]) > 1e-6), RIM_OFF);
+    // odlesk: vnější stěna od 12 % výšky po lem
+    const O = v.outer.map((p) => [p[0], p[1]]);
+    const y0 = O[0][1];
+    const yb = y0 + (yTop - y0) * 0.12;
+    const side = offsetLine(simplify(clipY(O, yb, yTop - h).filter((p) => p[0] > 0.002), Math.max(0.0005, r * 0.01)), GLINT_OFF);
+    geom.extras = [{ suffix: 'rim', mat: (m) => RIM_MAT[m] || null, geom: lathe(rim, { seg }) }];
+    if (side.length >= 2) {
+      const glint = merge(GLINTS.map(([a, b]) => lathe(side, { a0: FRONT + a, a1: FRONT + b, seg: 1 })));
+      geom.extras.push({ suffix: 'glint', mat: (m) => GLINT_MAT[m] || null, geom: glint });
+    }
+  }
+  return { geom, inner: v.inner, outer: v.outer };
 }
 
 /**

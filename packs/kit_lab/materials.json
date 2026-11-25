@@ -2,7 +2,10 @@
   "xspace": 1,
   "kind": "materials",
   "materials": {
-    "glass_lab": { "model": "lit", "color": [0.8, 0.86, 0.88], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.25 },
+    "glass_lab": { "model": "lit", "color": [0.76, 0.87, 0.88], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.3 },
+    "glass_rim": { "model": "lit", "color": [0.9, 0.97, 0.98], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.72 },
+    "glass_amber_rim": { "model": "lit", "color": [0.6, 0.34, 0.1], "rough": 0.08, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.9 },
+    "glass_glint": { "model": "lit", "color": [1, 1, 1], "rough": 0.02, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.55 },
     "glass_amber": { "model": "lit", "color": [0.42, 0.2, 0.04], "rough": 0.08, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.75 },
     "glass_tinted": { "model": "lit", "color": [0.55, 0.68, 0.72], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.4 },
     "glass_thin": { "model": "lit", "color": [0.82, 0.88, 0.9], "rough": 0.05, "metal": 0, "uvScale": 1, "surface": "glass", "opacity": 0.3, "twoSided": true },

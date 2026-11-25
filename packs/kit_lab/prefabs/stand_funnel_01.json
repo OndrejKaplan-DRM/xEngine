@@ -15,11 +15,15 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_steel", "mat": "steel_brushed" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_dark", "mat": "steel_dark" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_sep", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_sep_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_sep_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_lower", "mat": "liquid_amber" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_stem", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_cock", "mat": "ptfe" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_plug", "mat": "ptfe" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beaker", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beaker_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beaker_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_funnel_beakerliq", "mat": "liquid_yellow" }
   ],
   "colliders": [
@@ -29,7 +33,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 2192,
+  "tris": 2492,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#standSetups",

@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_glass_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_pipette", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_teat", "mat": "rubber_black" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#bottle_dropper_02_liquid", "mat": "liquid_purple" }
@@ -23,7 +25,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 814,
+  "tris": 958,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#newGlass",

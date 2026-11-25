@@ -61,6 +61,13 @@ export function append(dst, src, M = null) {
     dst.uvs.push(src.uvs[i * 2], src.uvs[i * 2 + 1]);
   }
   for (const k of src.indices) dst.indices.push(k + base);
+  // doprovodné sítě (lem a odlesk skla, viz glassware.mjs) jdou s hlavní sítí: spojí se podle přípony a materiálu
+  for (const e of src.extras || []) {
+    dst.extras = dst.extras || [];
+    const same = dst.extras.find((x) => x.suffix === e.suffix && x.mat === e.mat);
+    if (same) append(same.geom, e.geom, M);
+    else dst.extras.push({ ...e, geom: append(newGeom(), e.geom, M) });
+  }
   return dst;
 }
 
@@ -95,6 +102,7 @@ export const moved = (g, M) => append(newGeom(), g, M);
 
 /** Posune vrcholy funkcí f(p) → p (deformace, např. hubička kádinky); normály přepočte. */
 export function deform(g, f) {
+  for (const e of g.extras || []) deform(e.geom, f); // doprovodné sítě se ohnou stejně (f bere jen polohu)
   for (let i = 0; i < verts(g); i++) {
     const q = f(P(g, i), i);
     g.positions[i * 3] = q[0];
@@ -141,7 +149,8 @@ export function bounds(g) {
 
 /** Zrcadlí síť podle osy (0 = x, 1 = y, 2 = z): souřadnice i normály, pořadí vrcholů trojúhelníků se otočí. */
 export function mirror(g, axis) {
-  const out = append(newGeom(), g);
+  const out = append(newGeom(), { ...g, extras: null });
+  if (g.extras) out.extras = g.extras.map((e) => ({ ...e, geom: mirror(e.geom, axis) }));
   for (let i = axis; i < out.positions.length; i += 3) {
     out.positions[i] = -out.positions[i];
     out.normals[i] = -out.normals[i];

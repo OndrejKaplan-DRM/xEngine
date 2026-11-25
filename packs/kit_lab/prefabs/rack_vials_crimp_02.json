@@ -24,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1344,
+  "tris": 936,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#vialsAndCrystals",

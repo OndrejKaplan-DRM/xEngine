@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_glass_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_0_fill", "mat": "powder_blue" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_cap", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/chem.glb#jar_crystals_label", "mat": "label_paper" },
@@ -24,7 +26,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 888,
+  "tris": 1044,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/chem.mjs#vialsAndCrystals",

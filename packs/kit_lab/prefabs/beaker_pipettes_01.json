@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_beaker", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_beaker_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_beaker_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_pipettes", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_pipettes_bulbs", "mat": "cap_red" }
   ],
@@ -22,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 918,
+  "tris": 1070,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#newGlass",

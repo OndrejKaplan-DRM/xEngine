@@ -12,24 +12,24 @@
   "assets": [
     {
       "path": "meshes/glass.glb",
-      "bytes": 1232244,
-      "sha256": "5b737619ab92ed94334ffa035de9fb01040a8c1f645188bddb2137964f3c63d8",
+      "bytes": 1497256,
+      "sha256": "9c62983e1605e9160da0e30578a7ad22e9c7b27e38ae3c5b13554950c29b57ba",
       "license": "own",
       "source": "tools/forge/lab/glass.mjs",
       "author": "xForge (sešna B)"
     },
     {
       "path": "meshes/plastic.glb",
-      "bytes": 1070492,
-      "sha256": "994c1cc59c5793aaf8c48fdf41dac3050b5859c932a93bdf6a50322d4057181a",
+      "bytes": 1039736,
+      "sha256": "1da62271d1e6ba159ae72caa38630cf715723cea97423f0cc1ee65872331a991",
       "license": "own",
       "source": "tools/forge/lab/plastic.mjs",
       "author": "xForge (sešna B)"
     },
     {
       "path": "meshes/chem.glb",
-      "bytes": 559524,
-      "sha256": "6451a54351186e1e5928c6e7952d39d122b9c3eb0607abf27fe83543ce04706a",
+      "bytes": 554728,
+      "sha256": "88e8cb82cbf83f5bcfbcf8e83a8077796b5eb571b1a88f07dfff57d739d7f3ff",
       "license": "own",
       "source": "tools/forge/lab/chem.mjs",
       "author": "xForge (sešna B)"
@@ -44,8 +44,8 @@
     },
     {
       "path": "meshes/bench.glb",
-      "bytes": 63068,
-      "sha256": "99c941fc10c131029eafd189b9386efd0632ee5672b62e50cb208c90af3477a2",
+      "bytes": 78436,
+      "sha256": "420c74913be73fa5800981cb7da8d93a84ced41bd6337b2928ad2414bd3eb4fe",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"

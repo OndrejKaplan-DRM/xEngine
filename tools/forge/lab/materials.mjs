@@ -9,7 +9,10 @@ const glow = (color, emissive, strength) => ({ model: 'emissive', color, emissiv
 
 export const LAB_MATERIALS = {
   // sklo
-  glass_lab: lit([0.8, 0.86, 0.88], 'glass', { rough: 0.05, opacity: 0.25 }), // borosilikát, čiré
+  glass_lab: lit([0.76, 0.87, 0.88], 'glass', { rough: 0.05, opacity: 0.3 }), // borosilikát, čiré (lehce do zelenomodra, ať je ve hře vidět)
+  glass_rim: lit([0.9, 0.97, 0.98], 'glass', { rough: 0.05, opacity: 0.72 }), // lem nádoby: sklo viděné po délce je hustší a světlejší
+  glass_amber_rim: lit([0.6, 0.34, 0.1], 'glass', { rough: 0.08, opacity: 0.9 }), // lem hnědé lahve
+  glass_glint: lit([1, 1, 1], 'glass', { rough: 0.02, opacity: 0.55 }), // pruh odlesku na vnější stěně (běh zrcadlení nekreslí)
   glass_amber: lit([0.42, 0.2, 0.04], 'glass', { rough: 0.08, opacity: 0.75 }), // hnědé sklo lahví
   glass_tinted: lit([0.55, 0.68, 0.72], 'glass', { rough: 0.05, opacity: 0.4 }), // tónované sklo dveří a krytů
   glass_thin: lit([0.82, 0.88, 0.9], 'glass', { rough: 0.05, opacity: 0.3, twoSided: true }), // tenké sklo jednou plochou (zkumavky, pipety, hodinové sklo)

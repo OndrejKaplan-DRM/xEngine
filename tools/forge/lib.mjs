@@ -6,7 +6,7 @@
 import { partTris } from '../../src/xspace/index.js';
 import { CYL_SIDES, partPoints, boundsAt } from '../../src/gen/measure.js';
 import { r4, V, source } from '../../src/gen/util.js';
-import { meshTris, meshCorners, shiftMeshPart } from './mesh/registry.mjs';
+import { meshTris, meshCorners, shiftMeshPart, expandExtras } from './mesh/registry.mjs';
 
 // ---- díly a kolize -----------------------------------------------------------------------
 
@@ -79,6 +79,7 @@ export function sweptBounds(prefab) {
  * @param notes zdůvodnění mezí kloubů: { idKloubu: 'zdroj nebo úvaha' } (jde do dokumentu a do galerie, ne do dat)
  */
 export function definePrefab(d, notes = {}) {
+  d = { ...d, parts: expandExtras(d.parts) }; // lem a odlesk skla jako vlastní díly (glassware.mjs)
   const rig = { nodes: d.nodes, ...(d.joints && d.joints.length ? { joints: d.joints } : {}) };
   const draft = { rig, parts: d.parts, colliders: d.colliders };
   for (const j of rig.joints || []) if (!notes[j.id]) throw new Error(`${d.id}: kloub „${j.id}“ nemá zdůvodnění mezí`);

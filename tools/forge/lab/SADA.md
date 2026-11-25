@@ -2,86 +2,86 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 171484
+Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
-| `beaker_50_01` | Kádinka 50 ml | lab.glass | 0,05 × 0,06 × 0,05 | 368 | — | — |
-| `beaker_50_02` | Kádinka 50 ml s roztokem | lab.glass | 0,05 × 0,06 × 0,05 | 440 | — | — |
-| `beaker_100_01` | Kádinka 100 ml | lab.glass | 0,06 × 0,07 × 0,05 | 368 | — | — |
-| `beaker_100_02` | Kádinka 100 ml s roztokem | lab.glass | 0,06 × 0,07 × 0,05 | 480 | — | — |
-| `beaker_250_01` | Kádinka 250 ml | lab.glass | 0,08 × 0,1 × 0,07 | 416 | — | — |
-| `beaker_250_02` | Kádinka 250 ml s roztokem | lab.glass | 0,08 × 0,1 × 0,07 | 528 | — | — |
-| `beaker_600_01` | Kádinka 600 ml | lab.glass | 0,1 × 0,13 × 0,1 | 416 | — | — |
-| `beaker_600_02` | Kádinka 600 ml s roztokem | lab.glass | 0,1 × 0,13 × 0,1 | 544 | — | — |
-| `beaker_1000_01` | Kádinka 1000 ml | lab.glass | 0,12 × 0,15 × 0,11 | 464 | — | — |
-| `beaker_1000_02` | Kádinka 1000 ml s roztokem | lab.glass | 0,12 × 0,15 × 0,11 | 608 | — | — |
-| `beaker_2000_01` | Kádinka 2000 ml | lab.glass | 0,14 × 0,19 × 0,14 | 512 | — | — |
-| `beaker_2000_02` | Kádinka 2000 ml s roztokem | lab.glass | 0,14 × 0,19 × 0,14 | 656 | — | — |
-| `flask_erlen_100_01` | Erlenmeyerova baňka 100 ml | lab.glass | 0,06 × 0,11 × 0,06 | 388 | — | — |
-| `flask_erlen_100_02` | Erlenmeyerova baňka 100 ml s roztokem | lab.glass | 0,06 × 0,11 × 0,06 | 528 | — | — |
-| `flask_erlen_250_01` | Erlenmeyerova baňka 250 ml | lab.glass | 0,08 × 0,15 × 0,08 | 448 | — | — |
-| `flask_erlen_250_02` | Erlenmeyerova baňka 250 ml s roztokem | lab.glass | 0,08 × 0,15 × 0,08 | 588 | — | — |
-| `flask_erlen_500_01` | Erlenmeyerova baňka 500 ml | lab.glass | 0,1 × 0,18 × 0,1 | 448 | — | — |
-| `flask_erlen_500_02` | Erlenmeyerova baňka 500 ml s roztokem | lab.glass | 0,1 × 0,18 × 0,1 | 608 | — | — |
-| `flask_erlen_1000_01` | Erlenmeyerova baňka 1000 ml | lab.glass | 0,13 × 0,22 × 0,13 | 508 | — | — |
-| `flask_erlen_1000_02` | Erlenmeyerova baňka 1000 ml s roztokem | lab.glass | 0,13 × 0,22 × 0,13 | 668 | — | — |
-| `cylinder_grad_10_01` | Odměrný válec 10 ml | lab.glass | 0,05 × 0,15 × 0,04 | 360 | — | — |
-| `cylinder_grad_10_02` | Odměrný válec 10 ml s kapalinou | lab.glass | 0,05 × 0,15 × 0,04 | 420 | — | — |
-| `cylinder_grad_100_01` | Odměrný válec 100 ml | lab.glass | 0,06 × 0,26 × 0,05 | 360 | — | — |
-| `cylinder_grad_100_02` | Odměrný válec 100 ml s kapalinou | lab.glass | 0,06 × 0,26 × 0,05 | 432 | — | — |
-| `cylinder_grad_500_01` | Odměrný válec 500 ml | lab.glass | 0,11 × 0,4 × 0,1 | 404 | — | — |
-| `cylinder_grad_500_02` | Odměrný válec 500 ml s kapalinou | lab.glass | 0,11 × 0,4 × 0,1 | 488 | — | — |
-| `cylinder_grad_1000_01` | Odměrný válec 1000 ml | lab.glass | 0,14 × 0,47 × 0,12 | 448 | — | — |
-| `cylinder_grad_1000_02` | Odměrný válec 1000 ml s kapalinou | lab.glass | 0,14 × 0,47 × 0,12 | 532 | — | — |
-| `flask_vol_50_01` | Odměrná baňka 50 ml | lab.glass | 0,05 × 0,14 × 0,05 | 658 | — | — |
-| `flask_vol_50_02` | Odměrná baňka 50 ml doplněná po rysku | lab.glass | 0,05 × 0,14 × 0,05 | 818 | — | — |
-| `flask_vol_100_01` | Odměrná baňka 100 ml | lab.glass | 0,06 × 0,17 × 0,06 | 754 | — | — |
-| `flask_vol_100_02` | Odměrná baňka 100 ml doplněná po rysku | lab.glass | 0,06 × 0,17 × 0,06 | 994 | — | — |
-| `flask_vol_250_01` | Odměrná baňka 250 ml | lab.glass | 0,07 × 0,22 × 0,07 | 754 | — | — |
-| `flask_vol_250_02` | Odměrná baňka 250 ml doplněná po rysku | lab.glass | 0,07 × 0,22 × 0,07 | 994 | — | — |
-| `flask_vol_1000_01` | Odměrná baňka 1000 ml | lab.glass | 0,11 × 0,31 × 0,11 | 850 | — | — |
-| `flask_vol_1000_02` | Odměrná baňka 1000 ml doplněná po rysku | lab.glass | 0,11 × 0,31 × 0,11 | 1138 | — | — |
-| `flask_round_100_01` | Varná baňka 100 ml na korkovém kroužku | lab.glass | 0,07 × 0,13 × 0,07 | 644 | — | — |
-| `flask_round_100_02` | Varná baňka 100 ml na korkovém kroužku, s náplní | lab.glass | 0,07 × 0,13 × 0,07 | 756 | — | — |
-| `flask_round_250_01` | Varná baňka 250 ml na korkovém kroužku | lab.glass | 0,09 × 0,16 × 0,08 | 728 | — | — |
-| `flask_round_250_02` | Varná baňka 250 ml na korkovém kroužku, s náplní | lab.glass | 0,09 × 0,16 × 0,08 | 856 | — | — |
-| `flask_round_500_01` | Varná baňka 500 ml na korkovém kroužku | lab.glass | 0,11 × 0,2 × 0,1 | 728 | — | — |
-| `flask_round_500_02` | Varná baňka 500 ml na korkovém kroužku, s náplní | lab.glass | 0,11 × 0,2 × 0,1 | 856 | — | — |
-| `flask_round_1000_01` | Varná baňka 1000 ml na korkovém kroužku | lab.glass | 0,13 × 0,23 × 0,13 | 812 | — | — |
-| `flask_round_1000_02` | Varná baňka 1000 ml na korkovém kroužku, s náplní | lab.glass | 0,13 × 0,23 × 0,13 | 956 | — | — |
-| `bottle_gl45_100_01` | Reagenční lahev 100 ml | lab.glass | 0,06 × 0,11 × 0,06 | 848 | — | — |
-| `bottle_gl45_100_02` | Reagenční lahev 100 ml, se štítkem | lab.glass | 0,06 × 0,11 × 0,06 | 940 | — | — |
-| `bottle_gl45_100_03` | Reagenční lahev 100 ml, hnědé sklo, se štítkem | lab.glass | 0,06 × 0,11 × 0,06 | 940 | — | — |
-| `bottle_gl45_250_01` | Reagenční lahev 250 ml | lab.glass | 0,07 × 0,15 × 0,07 | 824 | — | — |
-| `bottle_gl45_250_02` | Reagenční lahev 250 ml, se štítkem | lab.glass | 0,07 × 0,15 × 0,07 | 916 | — | — |
-| `bottle_gl45_250_03` | Reagenční lahev 250 ml, hnědé sklo, se štítkem | lab.glass | 0,07 × 0,15 × 0,07 | 916 | — | — |
-| `bottle_gl45_500_01` | Reagenční lahev 500 ml | lab.glass | 0,09 × 0,19 × 0,09 | 824 | — | — |
-| `bottle_gl45_500_02` | Reagenční lahev 500 ml, se štítkem | lab.glass | 0,09 × 0,19 × 0,09 | 928 | — | — |
-| `bottle_gl45_500_03` | Reagenční lahev 500 ml, hnědé sklo, se štítkem | lab.glass | 0,09 × 0,19 × 0,09 | 928 | — | — |
-| `bottle_gl45_1000_01` | Reagenční lahev 1000 ml | lab.glass | 0,1 × 0,23 × 0,1 | 1016 | — | — |
-| `bottle_gl45_1000_02` | Reagenční lahev 1000 ml, se štítkem | lab.glass | 0,1 × 0,23 × 0,1 | 1152 | — | — |
-| `bottle_gl45_1000_03` | Reagenční lahev 1000 ml, hnědé sklo, se štítkem | lab.glass | 0,1 × 0,23 × 0,1 | 1152 | — | — |
-| `bottle_gl45_2000_01` | Reagenční lahev 2000 ml | lab.glass | 0,14 × 0,27 × 0,14 | 1112 | — | — |
-| `bottle_gl45_2000_02` | Reagenční lahev 2000 ml, se štítkem | lab.glass | 0,14 × 0,27 × 0,14 | 1280 | — | — |
-| `bottle_gl45_2000_03` | Reagenční lahev 2000 ml, hnědé sklo, se štítkem | lab.glass | 0,14 × 0,27 × 0,14 | 1280 | — | — |
+| `beaker_50_01` | Kádinka 50 ml | lab.glass | 0,05 × 0,06 × 0,05 | 484 | — | — |
+| `beaker_50_02` | Kádinka 50 ml s roztokem | lab.glass | 0,05 × 0,06 × 0,05 | 556 | — | — |
+| `beaker_100_01` | Kádinka 100 ml | lab.glass | 0,06 × 0,07 × 0,05 | 484 | — | — |
+| `beaker_100_02` | Kádinka 100 ml s roztokem | lab.glass | 0,06 × 0,07 × 0,05 | 596 | — | — |
+| `beaker_250_01` | Kádinka 250 ml | lab.glass | 0,08 × 0,1 × 0,07 | 552 | — | — |
+| `beaker_250_02` | Kádinka 250 ml s roztokem | lab.glass | 0,08 × 0,1 × 0,07 | 664 | — | — |
+| `beaker_600_01` | Kádinka 600 ml | lab.glass | 0,1 × 0,13 × 0,1 | 552 | — | — |
+| `beaker_600_02` | Kádinka 600 ml s roztokem | lab.glass | 0,1 × 0,13 × 0,1 | 680 | — | — |
+| `beaker_1000_01` | Kádinka 1000 ml | lab.glass | 0,12 × 0,15 × 0,11 | 616 | — | — |
+| `beaker_1000_02` | Kádinka 1000 ml s roztokem | lab.glass | 0,12 × 0,15 × 0,11 | 760 | — | — |
+| `beaker_2000_01` | Kádinka 2000 ml | lab.glass | 0,14 × 0,19 × 0,14 | 680 | — | — |
+| `beaker_2000_02` | Kádinka 2000 ml s roztokem | lab.glass | 0,14 × 0,19 × 0,14 | 824 | — | — |
+| `flask_erlen_100_01` | Erlenmeyerova baňka 100 ml | lab.glass | 0,06 × 0,11 × 0,06 | 496 | — | — |
+| `flask_erlen_100_02` | Erlenmeyerova baňka 100 ml s roztokem | lab.glass | 0,06 × 0,11 × 0,06 | 636 | — | — |
+| `flask_erlen_250_01` | Erlenmeyerova baňka 250 ml | lab.glass | 0,08 × 0,15 × 0,08 | 572 | — | — |
+| `flask_erlen_250_02` | Erlenmeyerova baňka 250 ml s roztokem | lab.glass | 0,08 × 0,15 × 0,08 | 712 | — | — |
+| `flask_erlen_500_01` | Erlenmeyerova baňka 500 ml | lab.glass | 0,1 × 0,18 × 0,1 | 572 | — | — |
+| `flask_erlen_500_02` | Erlenmeyerova baňka 500 ml s roztokem | lab.glass | 0,1 × 0,18 × 0,1 | 732 | — | — |
+| `flask_erlen_1000_01` | Erlenmeyerova baňka 1000 ml | lab.glass | 0,13 × 0,22 × 0,13 | 648 | — | — |
+| `flask_erlen_1000_02` | Erlenmeyerova baňka 1000 ml s roztokem | lab.glass | 0,13 × 0,22 × 0,13 | 808 | — | — |
+| `cylinder_grad_10_01` | Odměrný válec 10 ml | lab.glass | 0,05 × 0,15 × 0,04 | 444 | — | — |
+| `cylinder_grad_10_02` | Odměrný válec 10 ml s kapalinou | lab.glass | 0,05 × 0,15 × 0,04 | 504 | — | — |
+| `cylinder_grad_100_01` | Odměrný válec 100 ml | lab.glass | 0,06 × 0,26 × 0,05 | 444 | — | — |
+| `cylinder_grad_100_02` | Odměrný válec 100 ml s kapalinou | lab.glass | 0,06 × 0,26 × 0,05 | 516 | — | — |
+| `cylinder_grad_500_01` | Odměrný válec 500 ml | lab.glass | 0,11 × 0,4 × 0,1 | 504 | — | — |
+| `cylinder_grad_500_02` | Odměrný válec 500 ml s kapalinou | lab.glass | 0,11 × 0,4 × 0,1 | 588 | — | — |
+| `cylinder_grad_1000_01` | Odměrný válec 1000 ml | lab.glass | 0,14 × 0,47 × 0,12 | 564 | — | — |
+| `cylinder_grad_1000_02` | Odměrný válec 1000 ml s kapalinou | lab.glass | 0,14 × 0,47 × 0,12 | 648 | — | — |
+| `flask_vol_50_01` | Odměrná baňka 50 ml | lab.glass | 0,05 × 0,14 × 0,05 | 762 | — | — |
+| `flask_vol_50_02` | Odměrná baňka 50 ml doplněná po rysku | lab.glass | 0,05 × 0,14 × 0,05 | 922 | — | — |
+| `flask_vol_100_01` | Odměrná baňka 100 ml | lab.glass | 0,06 × 0,17 × 0,06 | 874 | — | — |
+| `flask_vol_100_02` | Odměrná baňka 100 ml doplněná po rysku | lab.glass | 0,06 × 0,17 × 0,06 | 1114 | — | — |
+| `flask_vol_250_01` | Odměrná baňka 250 ml | lab.glass | 0,07 × 0,22 × 0,07 | 874 | — | — |
+| `flask_vol_250_02` | Odměrná baňka 250 ml doplněná po rysku | lab.glass | 0,07 × 0,22 × 0,07 | 1114 | — | — |
+| `flask_vol_1000_01` | Odměrná baňka 1000 ml | lab.glass | 0,11 × 0,31 × 0,11 | 986 | — | — |
+| `flask_vol_1000_02` | Odměrná baňka 1000 ml doplněná po rysku | lab.glass | 0,11 × 0,31 × 0,11 | 1274 | — | — |
+| `flask_round_100_01` | Varná baňka 100 ml na korkovém kroužku | lab.glass | 0,07 × 0,13 × 0,07 | 772 | — | — |
+| `flask_round_100_02` | Varná baňka 100 ml na korkovém kroužku, s náplní | lab.glass | 0,07 × 0,13 × 0,07 | 884 | — | — |
+| `flask_round_250_01` | Varná baňka 250 ml na korkovém kroužku | lab.glass | 0,09 × 0,16 × 0,08 | 872 | — | — |
+| `flask_round_250_02` | Varná baňka 250 ml na korkovém kroužku, s náplní | lab.glass | 0,09 × 0,16 × 0,08 | 1000 | — | — |
+| `flask_round_500_01` | Varná baňka 500 ml na korkovém kroužku | lab.glass | 0,11 × 0,2 × 0,1 | 868 | — | — |
+| `flask_round_500_02` | Varná baňka 500 ml na korkovém kroužku, s náplní | lab.glass | 0,11 × 0,2 × 0,1 | 996 | — | — |
+| `flask_round_1000_01` | Varná baňka 1000 ml na korkovém kroužku | lab.glass | 0,13 × 0,23 × 0,13 | 972 | — | — |
+| `flask_round_1000_02` | Varná baňka 1000 ml na korkovém kroužku, s náplní | lab.glass | 0,13 × 0,23 × 0,13 | 1116 | — | — |
+| `bottle_gl45_100_01` | Reagenční lahev 100 ml | lab.glass | 0,06 × 0,11 × 0,06 | 964 | — | — |
+| `bottle_gl45_100_02` | Reagenční lahev 100 ml, se štítkem | lab.glass | 0,06 × 0,11 × 0,06 | 1056 | — | — |
+| `bottle_gl45_100_03` | Reagenční lahev 100 ml, hnědé sklo, se štítkem | lab.glass | 0,06 × 0,11 × 0,06 | 1056 | — | — |
+| `bottle_gl45_250_01` | Reagenční lahev 250 ml | lab.glass | 0,07 × 0,15 × 0,07 | 940 | — | — |
+| `bottle_gl45_250_02` | Reagenční lahev 250 ml, se štítkem | lab.glass | 0,07 × 0,15 × 0,07 | 1032 | — | — |
+| `bottle_gl45_250_03` | Reagenční lahev 250 ml, hnědé sklo, se štítkem | lab.glass | 0,07 × 0,15 × 0,07 | 1032 | — | — |
+| `bottle_gl45_500_01` | Reagenční lahev 500 ml | lab.glass | 0,09 × 0,19 × 0,09 | 948 | — | — |
+| `bottle_gl45_500_02` | Reagenční lahev 500 ml, se štítkem | lab.glass | 0,09 × 0,19 × 0,09 | 1052 | — | — |
+| `bottle_gl45_500_03` | Reagenční lahev 500 ml, hnědé sklo, se štítkem | lab.glass | 0,09 × 0,19 × 0,09 | 1052 | — | — |
+| `bottle_gl45_1000_01` | Reagenční lahev 1000 ml | lab.glass | 0,1 × 0,23 × 0,1 | 1156 | — | — |
+| `bottle_gl45_1000_02` | Reagenční lahev 1000 ml, se štítkem | lab.glass | 0,1 × 0,23 × 0,1 | 1292 | — | — |
+| `bottle_gl45_1000_03` | Reagenční lahev 1000 ml, hnědé sklo, se štítkem | lab.glass | 0,1 × 0,23 × 0,1 | 1292 | — | — |
+| `bottle_gl45_2000_01` | Reagenční lahev 2000 ml | lab.glass | 0,14 × 0,27 × 0,14 | 1264 | — | — |
+| `bottle_gl45_2000_02` | Reagenční lahev 2000 ml, se štítkem | lab.glass | 0,14 × 0,27 × 0,14 | 1432 | — | — |
+| `bottle_gl45_2000_03` | Reagenční lahev 2000 ml, hnědé sklo, se štítkem | lab.glass | 0,14 × 0,27 × 0,14 | 1432 | — | — |
 | `rack_testtube_01` | Stojan se skleněnými zkumavkami 1 | lab.glass | 0,19 × 0,17 × 0,06 | 1056 | — | — |
 | `rack_testtube_02` | Stojan se skleněnými zkumavkami 2 | lab.glass | 0,19 × 0,17 × 0,06 | 1236 | — | — |
 | `rack_testtube_03` | Stojan se skleněnými zkumavkami 3 | lab.glass | 0,19 × 0,17 × 0,06 | 1056 | — | — |
-| `stand_burette_01` | Stojan s byretou a titrační baňkou | lab.glass | 0,2 × 0,72 × 0,16 | 1372 | — | — |
-| `stand_funnel_01` | Stojan s dělicí nálevkou | lab.glass | 0,2 × 0,63 × 0,18 | 2192 | — | — |
-| `stand_distill_01` | Destilační aparatura s chladičem a topným hnízdem | lab.glass | 0,46 × 0,61 × 0,2 | 2230 | — | — |
-| `desiccator_150_01` | Exsikátor 150 mm se silikagelem | lab.glass | 0,18 × 0,16 × 0,18 | 1456 | — | — |
-| `desiccator_250_01` | Exsikátor 250 mm se silikagelem | lab.glass | 0,3 × 0,26 × 0,3 | 1520 | — | — |
+| `stand_burette_01` | Stojan s byretou a titrační baňkou | lab.glass | 0,2 × 0,72 × 0,16 | 1512 | — | — |
+| `stand_funnel_01` | Stojan s dělicí nálevkou | lab.glass | 0,2 × 0,63 × 0,18 | 2492 | — | — |
+| `stand_distill_01` | Destilační aparatura s chladičem a topným hnízdem | lab.glass | 0,46 × 0,61 × 0,2 | 2462 | — | — |
+| `desiccator_150_01` | Exsikátor 150 mm se silikagelem | lab.glass | 0,18 × 0,16 × 0,18 | 1768 | — | — |
+| `desiccator_250_01` | Exsikátor 250 mm se silikagelem | lab.glass | 0,3 × 0,26 × 0,3 | 1832 | — | — |
 | `mortar_porcelain_01` | Třecí miska s tloučkem | lab.glass | 0,15 × 0,11 × 0,12 | 724 | — | — |
 | `watchglass_01` | Hodinové sklo s krystaly | lab.glass | 0,1 × 0,02 × 0,1 | 336 | — | — |
-| `funnel_erlen_01` | Erlenmeyerova baňka s nálevkou a skládaným filtrem | lab.glass | 0,08 × 0,19 × 0,08 | 816 | — | — |
-| `buchner_flask_01` | Büchnerova nálevka na odsávací baňce s hadicí k vývěvě | lab.glass | 0,26 × 0,27 × 0,14 | 1396 | — | — |
-| `dish_cryst_01` | Krystalizační miska s krystaly | lab.glass | 0,1 × 0,06 × 0,1 | 688 | — | — |
-| `bottle_dropper_01` | Kapací lahvička 50 ml s pipetou, hnědá | lab.glass | 0,04 × 0,11 × 0,04 | 814 | — | — |
-| `bottle_dropper_02` | Kapací lahvička 50 ml s pipetou, čirá | lab.glass | 0,04 × 0,11 × 0,04 | 814 | — | — |
-| `beaker_pipettes_01` | Kádinka s Pasteurovými pipetami | lab.glass | 0,11 × 0,25 × 0,1 | 918 | — | — |
-| `flask_filter_500_01` | Odsávací baňka 500 ml s olivkou | lab.glass | 0,1 × 0,21 × 0,1 | 556 | — | — |
+| `funnel_erlen_01` | Erlenmeyerova baňka s nálevkou a skládaným filtrem | lab.glass | 0,08 × 0,19 × 0,08 | 956 | — | — |
+| `buchner_flask_01` | Büchnerova nálevka na odsávací baňce s hadicí k vývěvě | lab.glass | 0,26 × 0,27 × 0,14 | 1552 | — | — |
+| `dish_cryst_01` | Krystalizační miska s krystaly | lab.glass | 0,1 × 0,06 × 0,1 | 852 | — | — |
+| `bottle_dropper_01` | Kapací lahvička 50 ml s pipetou, hnědá | lab.glass | 0,04 × 0,11 × 0,04 | 958 | — | — |
+| `bottle_dropper_02` | Kapací lahvička 50 ml s pipetou, čirá | lab.glass | 0,04 × 0,11 × 0,04 | 958 | — | — |
+| `beaker_pipettes_01` | Kádinka s Pasteurovými pipetami | lab.glass | 0,11 × 0,25 × 0,1 | 1070 | — | — |
+| `flask_filter_500_01` | Odsávací baňka 500 ml s olivkou | lab.glass | 0,1 × 0,21 × 0,1 | 712 | — | — |
 | `rack_microtube_01` | Stojánek s mikrozkumavkami 1,5 ml 1 | lab.plastic | 0,18 × 0,05 × 0,06 | 744 | — | — |
 | `rack_microtube_02` | Stojánek s mikrozkumavkami 1,5 ml 2 | lab.plastic | 0,18 × 0,05 × 0,06 | 744 | — | — |
 | `rack_microtube_03` | Stojánek s mikrozkumavkami 1,5 ml 3 | lab.plastic | 0,18 × 0,05 × 0,06 | 744 | — | — |
@@ -132,8 +132,8 @@ Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 171484
 | `box_gloves_02` | Krabice nitrilových rukavic (fialové) | lab.plastic | 0,24 × 0,1 × 0,12 | 180 | — | — |
 | `box_gloves_03` | Krabice nitrilových rukavic (bílé) | lab.plastic | 0,24 × 0,1 × 0,12 | 180 | — | — |
 | `roll_parafilm_01` | Parafilm v krabičce | lab.plastic | 0,11 × 0,06 × 0,11 | 204 | — | — |
-| `tray_vials_hplc_01` | Vialky do HPLC v podložce (víčka modrá) | lab.plastic | 0,12 × 0,05 × 0,07 | 1380 | — | — |
-| `tray_vials_hplc_02` | Vialky do HPLC v podložce (víčka červená) | lab.plastic | 0,12 × 0,05 × 0,07 | 1380 | — | — |
+| `tray_vials_hplc_01` | Vialky do HPLC v podložce (víčka modrá) | lab.plastic | 0,12 × 0,05 × 0,07 | 972 | — | — |
+| `tray_vials_hplc_02` | Vialky do HPLC v podložce (víčka červená) | lab.plastic | 0,12 × 0,05 × 0,07 | 972 | — | — |
 | `rack_cryotube_01` | Stojánek s kryozkumavkami | lab.plastic | 0,14 × 0,09 × 0,07 | 1068 | — | — |
 | `bottle_chem_100_01` | Lahev s chemikálií 100 ml (hořlavé) | lab.chem | 0,05 × 0,11 × 0,06 | 616 | — | — |
 | `bottle_chem_100_02` | Lahev s chemikálií 100 ml (zdraví škodlivé) | lab.chem | 0,05 × 0,11 × 0,06 | 616 | — | — |
@@ -163,14 +163,14 @@ Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 171484
 | `can_safety_10l_01` | Bezpečnostní kanystr na rozpouštědla 10 l | lab.chem | 0,26 × 0,38 × 0,26 | 528 | — | — |
 | `box_dryice_01` | Polystyrenový box na suchý led malý | lab.chem | 0,31 × 0,25 × 0,23 | 252 | — | — |
 | `box_dryice_02` | Polystyrenový box na suchý led velký | lab.chem | 0,46 × 0,35 × 0,36 | 252 | — | — |
-| `bottle_buffer_01` | Lahev s roztokem: PBS | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
-| `bottle_buffer_02` | Lahev s roztokem: TAE 50× | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
-| `bottle_buffer_03` | Lahev s roztokem: tris-HCl | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
-| `bottle_buffer_04` | Lahev s roztokem: kultivační médium | lab.chem | 0,1 × 0,23 × 0,1 | 1160 | — | — |
-| `rack_vials_crimp_01` | Vialky se zalisovaným víčkem v kartonu 1 | lab.chem | 0,09 × 0,07 × 0,09 | 1344 | — | — |
-| `rack_vials_crimp_02` | Vialky se zalisovaným víčkem v kartonu 2 | lab.chem | 0,09 × 0,07 × 0,09 | 1344 | — | — |
-| `jar_crystals_01` | Sklenice s modrou skalicí | lab.chem | 0,09 × 0,13 × 0,09 | 888 | — | — |
-| `jar_crystals_02` | Sklenice s chloridem sodným | lab.chem | 0,09 × 0,13 × 0,09 | 888 | — | — |
+| `bottle_buffer_01` | Lahev s roztokem: PBS | lab.chem | 0,1 × 0,23 × 0,1 | 1332 | — | — |
+| `bottle_buffer_02` | Lahev s roztokem: TAE 50× | lab.chem | 0,1 × 0,23 × 0,1 | 1332 | — | — |
+| `bottle_buffer_03` | Lahev s roztokem: tris-HCl | lab.chem | 0,1 × 0,23 × 0,1 | 1332 | — | — |
+| `bottle_buffer_04` | Lahev s roztokem: kultivační médium | lab.chem | 0,1 × 0,23 × 0,1 | 1332 | — | — |
+| `rack_vials_crimp_01` | Vialky se zalisovaným víčkem v kartonu 1 | lab.chem | 0,09 × 0,07 × 0,09 | 936 | — | — |
+| `rack_vials_crimp_02` | Vialky se zalisovaným víčkem v kartonu 2 | lab.chem | 0,09 × 0,07 × 0,09 | 936 | — | — |
+| `jar_crystals_01` | Sklenice s modrou skalicí | lab.chem | 0,09 × 0,13 × 0,09 | 1044 | — | — |
+| `jar_crystals_02` | Sklenice s chloridem sodným | lab.chem | 0,09 × 0,13 × 0,09 | 1044 | — | — |
 | `container_waste_01` | Nádoba na chemický odpad 10 l (halogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
 | `container_waste_02` | Nádoba na chemický odpad 10 l (nehalogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
 | `balance_analytical_01` | Analytické váhy s krytem (0,1 mg) | lab.bench | 0,2 × 0,29 × 0,5 | 504 | slide: 0 až 0,12 m | drawer |
@@ -208,7 +208,7 @@ Prefabů: 293 · materiálů: 46 · trojúhelníků celkem: 171484
 | `bath_ultrasonic_01` | Ultrazvuková lázeň | lab.bench | 0,3 × 0,15 × 0,19 | 344 | — | — |
 | `ph_meter_01` | pH metr s elektrodou na rameni | lab.bench | 0,2 × 0,34 × 0,23 | 516 | — | — |
 | `burner_bunsen_01` | Plynový kahan | lab.bench | 0,12 × 0,15 × 0,09 | 288 | — | — |
-| `rotavap_01` | Rotační vakuová odparka | lab.bench | 0,55 × 0,84 × 0,46 | 2458 | — | — |
+| `rotavap_01` | Rotační vakuová odparka | lab.bench | 0,55 × 0,84 × 0,46 | 2814 | — | — |
 | `cylinder_gas_helium_01` | Tlaková láhev 50 l: Helium, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
 | `cylinder_gas_nitrogen_01` | Tlaková láhev 50 l: Dusík, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
 | `cylinder_gas_co2_01` | Tlaková láhev 50 l: Oxid uhličitý, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |

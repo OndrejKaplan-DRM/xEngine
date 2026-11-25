@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_flask_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_flask_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_filtrate", "mat": "liquid_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_funnel", "mat": "porcelain" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#buchner_cake", "mat": "powder_white" },
@@ -24,7 +26,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1396,
+  "tris": 1552,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#newGlass",

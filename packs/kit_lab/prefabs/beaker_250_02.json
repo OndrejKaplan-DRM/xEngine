@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_250_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_250_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_250_glass_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_250_marks", "mat": "enamel_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#beaker_250_liquid", "mat": "liquid_water" }
   ],
@@ -22,7 +24,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 528,
+  "tris": 664,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass.mjs#beakers",

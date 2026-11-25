@@ -12,6 +12,8 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_flask_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_flask_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_filtrate", "mat": "liquid_yellow" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_funnel", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#funnel_erlen_paper", "mat": "label_paper" },
@@ -24,7 +26,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 816,
+  "tris": 956,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#newGlass",

@@ -21,11 +21,17 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_water", "mat": "liquid_water" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_tower", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flask_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flask_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_flaskliq", "mat": "liquid_amber" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_duct", "mat": "glass_lab" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_jacket", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_jacket_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_jacket_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_coil", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recv", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recv_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recv_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/bench.glb#rotavap_recvliq", "mat": "liquid_water" }
   ],
   "colliders": [
@@ -35,7 +41,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 2458,
+  "tris": 2814,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#rotavap",

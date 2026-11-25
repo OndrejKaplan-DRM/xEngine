@@ -52,9 +52,10 @@ for (const [id, t] of Object.entries(THEMES)) {
     if (baseIds.has(p.id) || goldenPrefabs.has(p.id) || seenIds.has(p.id)) bad.push(`${p.id}: id už je v kit_base, ve zlatém vzorku nebo v jiné sadě`);
     seenIds.add(p.id);
     const bb = boundsAt(p);
-    // Ondřej 24. 11. 23:57: o 50 % víc trojúhelníků → prefab do 1 500 △; sestava několika předmětů (stojan s byretou
-    // a baňkou, destilace) do 2 500 △, označená source.params.assembly
-    const cap = p.source.params?.assembly ? 2500 : 1500;
+    // Ondřej 24. 11. 23:57 (a 25. 11. 1:02, volba 1 a: platí na jeden prefab): o 50 % víc trojúhelníků → prefab do
+    // 1 500 △ (dřív 1 000); sestava několika předmětů (stojan s byretou a baňkou, destilace, odparka) do 3 000 △
+    // (dřív přístroj do 2 000 △ v kit_base), označená source.params.assembly
+    const cap = p.source.params?.assembly ? 3000 : 1500;
     if (p.tris > cap) bad.push(`${p.id}: ${p.tris} △ (mez ${cap})`);
     // díl ze sítě: soubor je v assets a v klidu ho obepínají kvádry, válce a kolize (generátor .glb nečte, místo měří z nich)
     for (const part of p.parts.filter((x) => x.shape === 'mesh')) {
@@ -75,7 +76,7 @@ for (const [id, t] of Object.entries(THEMES)) {
     if (mount === 'ceiling' && bb.max[1] > 0.001) bad.push(`${p.id}: díly nad počátkem (visí ze stropu)`);
     if (mount === 'wall' && bb.min[2] < -0.001) bad.push(`${p.id}: díly za počátkem (ve zdi)`);
   }
-  ok(bad.length === 0, `${id}: jména, kategorie, do 1 500 △ (sestava 2 500), sítě v assets a v kolizích, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
+  ok(bad.length === 0, `${id}: jména, kategorie, do 1 500 △ (sestava 3 000), sítě v assets a v kolizích, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
   // součet sady je jen přehled (rozhoduje mez prefabu a měření scény); pojistka proti nechtěnému nárůstu: nejvýš 2×
   // stavu před přestavbou na hladké sítě (B04, 24. 11. 2026: kit_lab 93 580 △, kit_it 15 128 △)
   const BEFORE = { kit_lab: 93580, kit_it: 15128 };

@@ -17,8 +17,12 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_mantle", "mat": "steel_dark" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_lamp", "mat": "emit_amber" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flask", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flask_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flask_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_flaskliq", "mat": "liquid_amber" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_glass_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_glass_glint", "mat": "glass_glint" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_inner", "mat": "glass_thin" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_hoses", "mat": "rubber_black" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/glass.glb#stand_distill_distillate", "mat": "liquid_water" }
@@ -30,7 +34,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 2230,
+  "tris": 2462,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/glass_kits.mjs#standSetups",
