@@ -4,32 +4,34 @@
   "id": "microscope_stereo_01",
   "title": "Stereoskopický mikroskop",
   "category": "lab.bench",
-  "bounds": { "min": [-0.121, -0.001, -0.141], "max": [0.121, 0.416, 0.121] },
+  "bounds": { "min": [-0.121, -0.001, -0.141], "max": [0.121, 0.422, 0.121] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.14], "max": [0.12, 0.03, 0.12], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.03, -0.13], "max": [0.03, 0.4, -0.09], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.25, -0.1], "max": [0.05, 0.33, 0.02], "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_90_y_-25_370_-40", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_90_y_25_370_-40", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_50_y_0_220_-40", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_4_y_0_32_-20", "mat": "glass_lab" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_base", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_stage", "mat": "glass_frosted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_clips", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_pillar", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_carrier", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_knobs", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_objective", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_stereo_01_eyes", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.14], "max": [0.12, 0.415, 0.12], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.14], "max": [0.12, 0.421, 0.12], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 340,
+  "tris": 1140,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#opticsAndOven",
+    "generator": "tools/forge/lab/bench_c.mjs#opticsAndOven",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

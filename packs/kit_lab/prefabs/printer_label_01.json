@@ -4,28 +4,30 @@
   "id": "printer_label_01",
   "title": "Tiskárna štítků",
   "category": "lab.bench",
-  "bounds": { "min": [-0.061, -0.001, -0.101], "max": [0.061, 0.151, 0.131] },
+  "bounds": { "min": [-0.061, 0.003, -0.101], "max": [0.061, 0.155, 0.136] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_120_200_150_14_8", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_120_200_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.08, 0.1], "max": [0.04, 0.081, 0.13], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#printer_label_01_body", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#printer_label_01_window", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#printer_label_01_slot", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#printer_label_01_label", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#printer_label_01_btn", "mat": "emit_green" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.1], "max": [0.06, 0.15, 0.13], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.06, 0.004, -0.1], "max": [0.06, 0.154, 0.135], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 216,
+  "tris": 376,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "generator": "tools/forge/lab/bench_c.mjs#smallDevices",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

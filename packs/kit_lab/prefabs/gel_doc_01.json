@@ -4,30 +4,33 @@
   "id": "gel_doc_01",
   "title": "Skříň na dokumentaci gelů s kamerou",
   "category": "lab.bench",
-  "bounds": { "min": [-0.201, -0.001, -0.226], "max": [0.201, 0.561, 0.241] },
+  "bounds": { "min": [-0.201, -0.001, -0.226], "max": [0.201, 0.601, 0.253] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_400_450_500_18_8", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_400_450_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.17, 0.08, 0.225], "max": [0.17, 0.4, 0.228], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.2, 0.228], "max": [0.03, 0.26, 0.24], "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_60_y_0_530_0", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_shell", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_door_leaf", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_grip", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_cam", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gel_doc_01_feet", "mat": "rubber_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.225], "max": [0.2, 0.56, 0.24], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.225], "max": [0.2, 0.6, 0.252], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 324,
+  "tris": 1168,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

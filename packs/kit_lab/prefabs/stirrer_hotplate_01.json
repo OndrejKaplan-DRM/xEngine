@@ -4,7 +4,7 @@
   "id": "stirrer_hotplate_01",
   "title": "Magnetická míchačka s ohřevem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.086, -0.001, -0.141], "max": [0.086, 0.106, 0.149] },
+  "bounds": { "min": [-0.086, -0.001, -0.141], "max": [0.086, 0.109, 0.157] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -13,19 +13,20 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_170_280_100_11_8", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_170_280_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_8_y_0_100_-40", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_-50_50_142", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_50_50_142", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.08, 0.14], "max": [0.02, 0.09, 0.142], "mat": "emit_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_01_top", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_01_l_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_01_r_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_01_marks", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_01_led", "mat": "emit_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.14], "max": [0.085, 0.105, 0.148], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.14], "max": [0.085, 0.108, 0.156], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 456,
+  "tris": 696,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

@@ -4,31 +4,34 @@
   "id": "electrophoresis_horizontal_01",
   "title": "Horizontální elektroforéza s gelem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.131, -0.001, -0.071], "max": [0.131, 0.101, 0.071] },
+  "bounds": { "min": [-0.204, -0.001, -0.073], "max": [0.133, 0.119, 0.104] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.07], "max": [0.13, 0.07, 0.07], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.004, -0.06], "max": [0.12, 0.05, 0.06], "mat": "liquid_water" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.035, -0.05], "max": [0.07, 0.045, 0.05], "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.13, 0.07, -0.07], "max": [0.13, 0.08, 0.07], "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [-0.12, 0.09, 0.05], "radius": 0.006, "height": 0.02, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [-0.12, 0.09, -0.05], "radius": 0.006, "height": 0.02, "axis": "y", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_tank", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_buffer", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_gel", "mat": "glass_frosted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_wells", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_lid", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_red", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_black", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_lead_r", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_horizontal_01_lead_b", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.07], "max": [0.13, 0.1, 0.07], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.203, 0, -0.072], "max": [0.132, 0.118, 0.103], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 176,
+  "tris": 520,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

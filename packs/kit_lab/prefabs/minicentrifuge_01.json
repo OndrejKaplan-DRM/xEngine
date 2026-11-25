@@ -4,27 +4,29 @@
   "id": "minicentrifuge_01",
   "title": "Minicentrifuga",
   "category": "lab.bench",
-  "bounds": { "min": [-0.071, -0.002, -0.07], "max": [0.071, 0.101, 0.07] },
+  "bounds": { "min": [-0.073, -0.001, -0.073], "max": [0.073, 0.115, 0.073] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_80_y_0_40_0", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_65_20_y_0_90_0", "mat": "plastic_ps" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#minicentrifuge_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#minicentrifuge_01_lid", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#minicentrifuge_01_rotor", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#minicentrifuge_01_feet", "mat": "rubber_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.07, -0.001, -0.069], "max": [0.07, 0.1, 0.069], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.072, 0, -0.072], "max": [0.072, 0.114, 0.072], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 224,
+  "tris": 404,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "generator": "tools/forge/lab/bench_c.mjs#smallDevices",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

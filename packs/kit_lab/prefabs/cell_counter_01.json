@@ -4,29 +4,29 @@
   "id": "cell_counter_01",
   "title": "Automatický počítač buněk",
   "category": "lab.bench",
-  "bounds": { "min": [-0.091, -0.001, -0.111], "max": [0.091, 0.171, 0.116] },
+  "bounds": { "min": [-0.091, 0.003, -0.111], "max": [0.091, 0.181, 0.116] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_180_220_170_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_180_220_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.07, 0.11], "max": [0.07, 0.15, 0.112], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.03, 0.11], "max": [0.03, 0.04, 0.115], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cell_counter_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cell_counter_01_face", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cell_counter_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cell_counter_01_slot", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.11], "max": [0.09, 0.17, 0.115], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.09, 0.004, -0.11], "max": [0.09, 0.18, 0.115], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 228,
+  "tris": 432,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "generator": "tools/forge/lab/bench_c.mjs#smallDevices",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

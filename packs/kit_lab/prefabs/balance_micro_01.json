@@ -4,7 +4,7 @@
   "id": "balance_micro_01",
   "title": "Mikrováhy s kruhovým krytem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.099, -0.001, -0.24], "max": [0.099, 0.211, 0.25] },
+  "bounds": { "min": [-0.099, -0.001, -0.24], "max": [0.099, 0.225, 0.25] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,17 +17,21 @@
     { "node": "body", "shape": "box", "min": [-0.074, 0.0375, 0.241], "max": [0.016, 0.059, 0.2425], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_239_-80_80_15_65_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_239_-80_80_15_65_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_120_y_0_140_-100", "mat": "glass_tinted" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_72_10_y_0_205_-100", "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_shield", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_shield_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_shield_glint", "mat": "glass_glint" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_cap", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_micro_01_pan", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.239], "max": [0.098, 0.21, 0.249], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.098, 0, -0.239], "max": [0.098, 0.224, 0.249], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 576,
+  "tris": 1060,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

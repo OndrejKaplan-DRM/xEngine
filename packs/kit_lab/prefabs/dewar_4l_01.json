@@ -4,32 +4,30 @@
   "id": "dewar_4l_01",
   "title": "Dewarova nádoba na kapalný dusík 4 l",
   "category": "lab.bench",
-  "bounds": { "min": [-0.094, -0.001, -0.093], "max": [0.094, 0.428, 0.093] },
+  "bounds": { "min": [-0.116, -0.001, -0.094], "max": [0.116, 0.432, 0.094] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_0_10_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_93_300_y_0_170_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_72_64_y_0_352_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_39_13_y_0_391_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_26_30_y_0_412_0", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.0647, 0.363, -0.012], "max": [-0.0509, 0.3928, 0.012], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [0.0509, 0.363, -0.012], "max": [0.0648, 0.3928, 0.012], "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#dewar_4l_01_body", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#dewar_4l_01_foot", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#dewar_4l_01_cap", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#dewar_4l_01_handles", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#dewar_4l_01_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.093, 0, -0.092], "max": [0.093, 0.427, 0.092], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.115, 0, -0.093], "max": [0.115, 0.431, 0.093], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 584,
+  "tris": 624,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#gasAndCryo",
+    "generator": "tools/forge/lab/bench_c.mjs#gasAndCryo",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

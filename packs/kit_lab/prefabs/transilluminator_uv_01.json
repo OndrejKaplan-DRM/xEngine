@@ -4,7 +4,7 @@
   "id": "transilluminator_uv_01",
   "title": "Transiluminátor UV s ochranným krytem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.201, -0.001, -0.151], "max": [0.201, 0.371, 0.153] },
+  "bounds": { "min": [-0.201, -0.001, -0.151], "max": [0.201, 0.371, 0.157] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -17,13 +17,15 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_400_300_100_11_8", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_400_300_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.17, 0.1, -0.12], "max": [0.17, 0.103, 0.12], "mat": "emit_uv" },
-    { "node": "body", "shape": "box", "min": [-0.18, 0.04, 0.15], "max": [-0.1, 0.07, 0.152], "mat": "plastic_light" },
-    { "node": "shield", "shape": "box", "min": [-0.19, 0, 0], "max": [0.19, 0.006, 0.27], "mat": "plastic_orange" },
-    { "node": "shield", "shape": "box", "min": [-0.03, 0.006, 0.25], "max": [0.03, 0.02, 0.27], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_glass", "mat": "emit_uv" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_frame", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_switch", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_warn", "mat": "plastic_orange" },
+    { "node": "shield", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_shield", "mat": "plastic_orange" },
+    { "node": "shield", "shape": "mesh", "mesh": "meshes/appl.glb#transilluminator_uv_01_grip", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.15], "max": [0.2, 0.103, 0.152], "group": "prop" },
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.15], "max": [0.2, 0.102, 0.156], "group": "prop" },
     { "node": "shield", "shape": "box", "min": [-0.19, 0, 0], "max": [0.19, 0.02, 0.27], "group": "prop" }
   ],
   "components": {
@@ -33,10 +35,10 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 252,
+  "tris": 600,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

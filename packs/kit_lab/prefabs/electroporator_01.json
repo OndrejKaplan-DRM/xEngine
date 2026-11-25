@@ -13,12 +13,13 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_300_300_140_16_8", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_300_300_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_150_-130_50_20_120", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.124, 0.065, 0.152], "max": [-0.022, 0.114, 0.1535], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_150_-130_50_20_120_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_150_-130_50_20_120_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.07, 0.03, 0.06], "max": [0.13, 0.12, 0.155], "mat": "plastic_navy" },
-    { "node": "body", "shape": "box", "min": [0.09, 0.12, 0.09], "max": [0.11, 0.14, 0.11], "mat": "cap_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_chamber", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_slot", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electroporator_01_pulse", "mat": "cap_red" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.15, 0, -0.15], "max": [0.15, 0.14, 0.16], "group": "prop" }
@@ -27,10 +28,10 @@
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 360,
+  "tris": 836,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

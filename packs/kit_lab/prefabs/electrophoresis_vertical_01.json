@@ -4,31 +4,32 @@
   "id": "electrophoresis_vertical_01",
   "title": "Vertikální elektroforéza (SDS-PAGE)",
   "category": "lab.bench",
-  "bounds": { "min": [-0.081, -0.001, -0.061], "max": [0.081, 0.212, 0.061] },
+  "bounds": { "min": [-0.083, -0.001, -0.063], "max": [0.083, 0.201, 0.063] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.08, 0, -0.06], "max": [0.08, 0.17, 0.06], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.004, -0.05], "max": [0.07, 0.08, 0.05], "mat": "liquid_water" },
-    { "node": "body", "shape": "box", "min": [-0.05, 0.02, -0.02], "max": [0.05, 0.15, 0.02], "mat": "plastic_pp" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.17, -0.06], "max": [0.08, 0.19, 0.06], "mat": "plastic_ps" },
-    { "node": "body", "shape": "cyl", "center": [0.06, 0.2, 0.03], "radius": 0.006, "height": 0.02, "axis": "y", "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [0.06, 0.2, -0.03], "radius": 0.006, "height": 0.02, "axis": "y", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_tank", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_buffer", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_core", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_plates", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_lid", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_red", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#electrophoresis_vertical_01_black", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.08, 0, -0.06], "max": [0.08, 0.211, 0.06], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.082, 0, -0.062], "max": [0.082, 0.2, 0.062], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 176,
+  "tris": 488,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

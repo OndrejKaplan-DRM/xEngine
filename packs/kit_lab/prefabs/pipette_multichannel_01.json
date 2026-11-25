@@ -4,29 +4,31 @@
   "id": "pipette_multichannel_01",
   "title": "Elektronická osmikanálová pipeta",
   "category": "lab.bench",
-  "bounds": { "min": [-0.046, -0.001, -0.016], "max": [0.046, 0.201, 0.018] },
+  "bounds": { "min": [-0.046, -0.001, -0.029], "max": [0.046, 0.216, 0.018] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.012], "max": [0.045, 0.012, 0.012], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.012, -0.01], "max": [0.04, 0.05, 0.01], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.018, 0.05, -0.015], "max": [0.018, 0.2, 0.015], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.012, 0.15, 0.015], "max": [0.012, 0.18, 0.017], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_manifold", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_nozzles", "mat": "plastic_pp" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_hook", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_multichannel_01_btn", "mat": "cap_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.015], "max": [0.045, 0.2, 0.017], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.045, 0, -0.028], "max": [0.045, 0.215, 0.017], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 48,
+  "tris": 944,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#pipettes",
+    "generator": "tools/forge/lab/bench_b.mjs#pipettes",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

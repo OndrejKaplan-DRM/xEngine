@@ -4,29 +4,29 @@
   "id": "pipette_controller_01",
   "title": "Pipetovací nástavec na sérologické pipety",
   "category": "lab.bench",
-  "bounds": { "min": [-0.021, -0.001, -0.031], "max": [0.021, 0.221, 0.041] },
+  "bounds": { "min": [-0.023, -0.001, -0.03], "max": [0.023, 0.231, 0.033] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.03], "max": [0.02, 0.1, 0.03], "mat": "plastic_navy" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_80_y_0_140_20", "mat": "plastic_navy" },
-    { "node": "body", "shape": "box", "min": [-0.006, 0.09, 0.025], "max": [0.006, 0.1, 0.04], "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [0, 0.2, 0.02], "radius": 0.006, "height": 0.04, "axis": "y", "mat": "plastic_pp" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_controller_01_grip", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_controller_01_head", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_controller_01_nose", "mat": "plastic_pp" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pipette_controller_01_btns", "mat": "cap_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.02, 0, -0.03], "max": [0.02, 0.22, 0.04], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.022, 0, -0.029], "max": [0.022, 0.23, 0.032], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 152,
+  "tris": 644,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#pipettes",
+    "generator": "tools/forge/lab/bench_b.mjs#pipettes",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

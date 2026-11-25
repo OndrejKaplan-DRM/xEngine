@@ -4,7 +4,7 @@
   "id": "power_supply_ep_01",
   "title": "Zdroj napětí pro elektroforézu",
   "category": "lab.bench",
-  "bounds": { "min": [-0.111, -0.001, -0.161], "max": [0.111, 0.091, 0.171] },
+  "bounds": { "min": [-0.111, -0.001, -0.161], "max": [0.111, 0.091, 0.175] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -13,26 +13,25 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_220_320_90_10_8", "mat": "plastic_light" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_220_320_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_160_-100_100_12_80", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.094, 0.0426, 0.162], "max": [0.02, 0.074, 0.1635], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_160_-100_100_12_80_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_160_-100_100_12_80_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "cyl", "center": [-0.06, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [-0.03, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "cyl", "center": [0.03, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "cap_red" },
-    { "node": "body", "shape": "cyl", "center": [0.06, 0.04, 0.162], "radius": 0.005, "height": 0.01, "axis": "z", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_160_-100_30_12_80", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "box", "min": [-0.094, 0.0426, 0.162], "max": [-0.022, 0.074, 0.1635], "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_160_-100_30_12_80_0", "mat": "cap_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_160_-100_30_12_80_3", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#power_supply_ep_01_knob", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#power_supply_ep_01_red", "mat": "cap_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#power_supply_ep_01_black", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.11, 0, -0.16], "max": [0.11, 0.09, 0.17], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.11, 0, -0.16], "max": [0.11, 0.09, 0.174], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 592,
+  "tris": 622,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#electrophoresis",
+    "generator": "tools/forge/lab/bench_b.mjs#electrophoresis",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

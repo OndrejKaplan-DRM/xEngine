@@ -4,27 +4,28 @@
   "id": "bin_tips_01",
   "title": "Odpadní nádobka na špičky",
   "category": "lab.bench",
-  "bounds": { "min": [-0.076, -0.001, -0.076], "max": [0.076, 0.161, 0.076] },
+  "bounds": { "min": [-0.076, -0.001, -0.076], "max": [0.076, 0.164, 0.076] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.07], "max": [0.07, 0.15, 0.07], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.075, 0.15, -0.075], "max": [0.075, 0.16, 0.075], "mat": "plastic_orange" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_tips_01_bin", "mat": "plastic_hdpe" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_tips_01_lid", "mat": "plastic_orange" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_tips_01_hole", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.075, 0, -0.075], "max": [0.075, 0.16, 0.075], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.075, 0, -0.075], "max": [0.075, 0.163, 0.075], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 24,
+  "tris": 656,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "generator": "tools/forge/lab/bench_c.mjs#smallDevices",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

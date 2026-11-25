@@ -21,16 +21,16 @@
     { "node": "body", "shape": "box", "min": [-0.0955, 0.0733, 0.242], "max": [0.0203, 0.1188, 0.2435], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_240_-101_102_31_125_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_240_-101_102_31_125_3", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_104_10_y_0_161_-20", "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_20_y_0_166_-20", "mat": "steel_brushed" },
-    { "node": "lid", "shape": "box", "min": [-0.145, 0.006, 0.006], "max": [0.145, 0.0928, 0.4068], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.139, 0, 0.006], "max": [0.139, 0.0988, 0.4068], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.139, 0.006, 0], "max": [0.139, 0.0928, 0.4128], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.0725, 0.0988, 0.144], "max": [0.0725, 0.1008, 0.336], "mat": "glass_tinted" },
-    { "node": "lid", "shape": "box", "min": [-0.03, 0.052, 0.4128], "max": [0.03, 0.078, 0.4248], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_side_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_side_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_seat", "mat": "plastic_anthracite" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_lid", "mat": "plastic_light" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_window", "mat": "glass_tinted" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_rotor", "mat": "aluminium" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#microcentrifuge_cold_01_latch", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.24], "max": [0.145, 0.177, 0.25], "group": "prop" },
+    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.24], "max": [0.145, 0.164, 0.25], "group": "prop" },
     { "node": "lid", "shape": "box", "min": [-0.145, 0, 0], "max": [0.145, 0.101, 0.425], "group": "prop" }
   ],
   "components": {
@@ -40,7 +40,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 602,
+  "tris": 1022,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#microcentrifuges",

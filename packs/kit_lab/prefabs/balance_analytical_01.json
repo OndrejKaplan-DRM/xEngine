@@ -4,11 +4,11 @@
   "id": "balance_analytical_01",
   "title": "Analytické váhy s krytem (0,1 mg)",
   "category": "lab.bench",
-  "bounds": { "min": [-0.1, -0.001, -0.244], "max": [0.099, 0.293, 0.253] },
+  "bounds": { "min": [-0.102, -0.001, -0.244], "max": [0.099, 0.293, 0.253] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "door", "parent": "body", "pos": [-0.0955, 0.09, -0.2125] }
+      { "id": "door", "parent": "body", "pos": [-0.0955, 0.094, -0.2125] }
     ],
     "joints": [
       { "id": "slide", "node": "door", "type": "slider", "axis": [0, 0, 1], "min": 0, "max": 0.12, "rest": 0, "damping": 8, "drive": "manual" }
@@ -21,17 +21,24 @@
     { "node": "body", "shape": "box", "min": [-0.074, 0.0425, 0.2445], "max": [0.016, 0.064, 0.246], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_243_-80_80_20_70_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_243_-80_80_20_70_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.0875, 0.09, -0.2325], "max": [0.0875, 0.292, -0.2125], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.0875, 0.28, -0.2125], "max": [0.0875, 0.292, 0.05], "mat": "glass_tinted" },
-    { "node": "body", "shape": "box", "min": [-0.0875, 0.09, 0.048], "max": [0.0875, 0.292, 0.052], "mat": "glass_tinted" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_4_y_0_100_-80", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.0915, 0.09, -0.2125], "max": [0.0955, 0.28, 0.048], "mat": "glass_tinted" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.004, 0.19, 0.018], "mat": "glass_tinted" },
-    { "node": "door", "shape": "box", "min": [-0.004, 0.08, 0.004], "max": [0, 0.12, 0.014], "mat": "plastic_light" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_back", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_floor", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_pan", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_ring", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_bubble", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_top_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_top_frame", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_right_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_right_frame", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_front_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_front_frame", "mat": "aluminium" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_door_glass", "mat": "glass_tinted" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_door_frame", "mat": "aluminium" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#balance_analytical_01_grip", "mat": "plastic_light" }
   ],
   "colliders": [
     { "node": "body", "shape": "box", "min": [-0.098, 0, -0.243], "max": [0.098, 0.292, 0.252], "group": "prop" },
-    { "node": "door", "shape": "box", "min": [-0.004, 0, 0], "max": [0.004, 0.19, 0.018], "group": "prop" }
+    { "node": "door", "shape": "box", "min": [-0.006, 0, 0.002], "max": [0.005, 0.192, 0.07], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -40,7 +47,7 @@
   },
   "inputs": ["open", "close", "lock", "unlock"],
   "outputs": ["opened", "closed"],
-  "tris": 504,
+  "tris": 1276,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

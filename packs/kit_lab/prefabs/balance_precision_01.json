@@ -4,7 +4,7 @@
   "id": "balance_precision_01",
   "title": "Předvážky s talířem (0,01 g)",
   "category": "lab.bench",
-  "bounds": { "min": [-0.101, -0.001, -0.161], "max": [0.101, 0.09, 0.171] },
+  "bounds": { "min": [-0.101, -0.001, -0.161], "max": [0.101, 0.091, 0.171] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,16 +17,17 @@
     { "node": "body", "shape": "box", "min": [-0.074, 0.0375, 0.162], "max": [0.016, 0.059, 0.1635], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_160_-80_80_15_65_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_160_-80_80_15_65_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_75_6_y_0_85_-30", "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_precision_01_pan", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#balance_precision_01_bubble", "mat": "glass_tinted" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.16], "max": [0.1, 0.089, 0.17], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.16], "max": [0.1, 0.09, 0.17], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 464,
+  "tris": 560,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#balances",

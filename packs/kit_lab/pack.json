@@ -36,8 +36,16 @@
     },
     {
       "path": "meshes/parts.glb",
-      "bytes": 897128,
-      "sha256": "49a07f926fdb53be774e947d88d65b61c9c77de3ecf5d116adbdf1d6ae3f96d3",
+      "bytes": 556064,
+      "sha256": "1154cc1a284f84e466c7eeea2e471befe49735260909344722b30195a45bde99",
+      "license": "own",
+      "source": "tools/forge/lab/bench.mjs",
+      "author": "xForge (sešna B)"
+    },
+    {
+      "path": "meshes/appl.glb",
+      "bytes": 4108064,
+      "sha256": "77ec25756bac8675685a7f41cea0b5368fba5b2bf23e644859672aba7036d569",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"
@@ -47,15 +55,7 @@
       "bytes": 78436,
       "sha256": "420c74913be73fa5800981cb7da8d93a84ced41bd6337b2928ad2414bd3eb4fe",
       "license": "own",
-      "source": "tools/forge/lab/bench.mjs",
-      "author": "xForge (sešna B)"
-    },
-    {
-      "path": "meshes/appl.glb",
-      "bytes": 2764212,
-      "sha256": "ce0a35193c7e5bac67b0fd1c59e1dc7c298bbd37cb6aa739de76a8aad6974851",
-      "license": "own",
-      "source": "tools/forge/lab/large.mjs",
+      "source": "tools/forge/lab/bench_b.mjs",
       "author": "xForge (sešna B)"
     }
   ]

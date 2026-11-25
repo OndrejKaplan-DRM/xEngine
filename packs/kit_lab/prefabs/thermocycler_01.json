@@ -4,7 +4,7 @@
   "id": "thermocycler_01",
   "title": "Termocykler PCR",
   "category": "lab.bench",
-  "bounds": { "min": [-0.166, -0.001, -0.286], "max": [0.166, 0.377, 0.231] },
+  "bounds": { "min": [-0.166, -0.001, -0.306], "max": [0.166, 0.38, 0.233] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -17,17 +17,17 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_330_460_120_13_8", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_330_460_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.13, 0.12, 0.08], "max": [0.13, 0.13, 0.22], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.11, 0.13, 0.1], "max": [0.11, 0.131, 0.2], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.12, -0.15], "max": [0.07, 0.128, -0.02], "mat": "steel_brushed" },
-    { "node": "lid", "shape": "box", "min": [-0.12, 0.01, 0.01], "max": [0.12, 0.07, 0.23], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.11, 0, 0.01], "max": [0.11, 0.08, 0.23], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.11, 0.01, 0], "max": [0.11, 0.07, 0.24], "mat": "plastic_light" },
-    { "node": "lid", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_10_y_0_85_120", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_console", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_block", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_v_slats", "mat": "plastic_anthracite" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_lid", "mat": "plastic_light" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#thermocycler_01_wheel", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.23], "max": [0.165, 0.131, 0.23], "group": "prop" },
-    { "node": "lid", "shape": "box", "min": [-0.12, 0, 0], "max": [0.12, 0.091, 0.24], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.23], "max": [0.165, 0.145, 0.232], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.12, 0, -0.035], "max": [0.12, 0.1, 0.24], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -36,7 +36,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 356,
+  "tris": 1156,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#thermocyclers",

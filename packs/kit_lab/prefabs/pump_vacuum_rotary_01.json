@@ -4,30 +4,32 @@
   "id": "pump_vacuum_rotary_01",
   "title": "Olejová rotační vývěva",
   "category": "lab.bench",
-  "bounds": { "min": [-0.221, -0.001, -0.081], "max": [0.221, 0.241, 0.081] },
+  "bounds": { "min": [-0.221, -0.001, -0.081], "max": [0.221, 0.271, 0.081] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.08], "max": [0.22, 0.02, 0.08], "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_200_x_-80_110_0", "mat": "paint_blue" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_180_x_110_110_0", "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_60_y_110_210_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.18, 0.06, 0.07], "max": [0.21, 0.1, 0.08], "mat": "glass_tinted" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_base", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_motor", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_fins", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_pump", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_exhaust", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_sight", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pump_vacuum_rotary_01_oil", "mat": "liquid_amber" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.08], "max": [0.22, 0.24, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.08], "max": [0.22, 0.27, 0.08], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 328,
+  "tris": 940,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "generator": "tools/forge/lab/bench_b.mjs#benchUtility",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

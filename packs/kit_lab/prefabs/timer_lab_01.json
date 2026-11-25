@@ -4,27 +4,28 @@
   "id": "timer_lab_01",
   "title": "Laboratorní minutka",
   "category": "lab.bench",
-  "bounds": { "min": [-0.036, -0.001, -0.013], "max": [0.036, 0.071, 0.015] },
+  "bounds": { "min": [-0.036, -0.001, -0.013], "max": [0.036, 0.071, 0.017] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.035, 0, -0.012], "max": [0.035, 0.07, 0.012], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.028, 0.035, 0.012], "max": [0.028, 0.062, 0.0135], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#timer_lab_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#timer_lab_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#timer_lab_01_keys", "mat": "plastic_light" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.035, 0, -0.012], "max": [0.035, 0.07, 0.014], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.035, 0, -0.012], "max": [0.035, 0.07, 0.016], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 24,
+  "tris": 408,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#smallDevices",
+    "generator": "tools/forge/lab/bench_c.mjs#smallDevices",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

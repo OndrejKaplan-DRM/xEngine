@@ -4,7 +4,7 @@
   "id": "thermomixer_01",
   "title": "Termomixér s blokem na mikrozkumavky",
   "category": "lab.bench",
-  "bounds": { "min": [-0.106, -0.001, -0.151], "max": [0.106, 0.153, 0.161] },
+  "bounds": { "min": [-0.106, -0.001, -0.151], "max": [0.106, 0.171, 0.161] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,20 +17,19 @@
     { "node": "body", "shape": "box", "min": [-0.084, 0.0353, 0.152], "max": [0.018, 0.054, 0.1535], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_150_-90_90_15_60_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_150_-90_90_15_60_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.13, -0.12], "max": [0.07, 0.15, 0.02], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.11], "max": [0.06, 0.152, -0.1], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.08], "max": [0.06, 0.152, -0.07], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.05], "max": [0.06, 0.152, -0.04], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.15, -0.02], "max": [0.06, 0.152, -0.01], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermomixer_01_well", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermomixer_01_block", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermomixer_01_holes", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#thermomixer_01_tubes", "mat": "plastic_pp" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.15], "max": [0.105, 0.152, 0.16], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.15], "max": [0.105, 0.17, 0.16], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 396,
+  "tris": 1320,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

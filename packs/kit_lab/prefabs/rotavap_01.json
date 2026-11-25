@@ -44,7 +44,7 @@
   "tris": 2814,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#rotavap",
+    "generator": "tools/forge/lab/bench_b.mjs#rotavap",
     "params": { "assembly": true },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",

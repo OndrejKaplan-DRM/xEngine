@@ -4,7 +4,7 @@
   "id": "shaker_orbital_01",
   "title": "Orbitální třepačka",
   "category": "lab.bench",
-  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 0.131, 0.236] },
+  "bounds": { "min": [-0.226, -0.001, -0.226], "max": [0.226, 0.135, 0.236] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -17,16 +17,17 @@
     { "node": "body", "shape": "box", "min": [-0.114, 0.0515, 0.227], "max": [0.024, 0.084, 0.2285], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_225_-120_120_20_90_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_225_-120_120_20_90_3", "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.21, 0.12, -0.21], "max": [0.21, 0.13, 0.21], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shaker_orbital_01_deck", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shaker_orbital_01_mat", "mat": "rubber_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 0.13, 0.235], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.225], "max": [0.225, 0.134, 0.235], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 330,
+  "tris": 438,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#shakers",

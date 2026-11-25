@@ -4,7 +4,7 @@
   "id": "bath_water_01",
   "title": "Vodní lázeň s víkem",
   "category": "lab.bench",
-  "bounds": { "min": [-0.176, -0.001, -0.438], "max": [0.176, 0.775, 0.286] },
+  "bounds": { "min": [-0.179, -0.001, -0.437], "max": [0.176, 0.789, 0.302] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -17,17 +17,18 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_350_550_260_18_8", "mat": "steel_brushed" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_350_550_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.155, 0.23, -0.255], "max": [0.155, 0.235, 0.215], "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bath_water_01_water", "mat": "liquid_water" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_275_-140_140_30_100", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [-0.134, 0.0615, 0.277], "max": [0.028, 0.094, 0.2785], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_275_-140_140_30_100_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_275_-140_140_30_100_3", "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.175, 0, 0], "max": [0.175, 0.06, 0.51], "mat": "steel_brushed" },
-    { "node": "lid", "shape": "box", "min": [-0.06, 0.06, 0.47], "max": [0.06, 0.075, 0.5], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bath_water_01_drain", "mat": "plastic_anthracite" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#bath_water_01_lid", "mat": "steel_brushed" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#bath_water_01_grip", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.275], "max": [0.175, 0.26, 0.285], "group": "prop" },
-    { "node": "lid", "shape": "box", "min": [-0.175, 0, 0], "max": [0.175, 0.075, 0.51], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.275], "max": [0.175, 0.26, 0.301], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.178, 0, 0], "max": [0.174, 0.071, 0.525], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -36,10 +37,10 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 354,
+  "tris": 686,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#benchUtility",
+    "generator": "tools/forge/lab/bench_b.mjs#benchUtility",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

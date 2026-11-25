@@ -4,7 +4,7 @@
   "id": "oven_drying_01",
   "title": "Laboratorní sušárna se dvířky",
   "category": "lab.bench",
-  "bounds": { "min": [-0.621, -0.001, -0.276], "max": [0.301, 0.701, 0.836] },
+  "bounds": { "min": [-0.628, -0.001, -0.276], "max": [0.301, 0.731, 0.837] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,20 +15,24 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_600_550_700_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_600_550_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.27, 0.05, 0.265], "max": [0.27, 0.58, 0.275], "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_275_-250_250_600_680", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.244, 0.636, 0.277], "max": [0.05, 0.674, 0.2785], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_275_-250_250_600_680_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_275_-250_250_600_680_4", "mat": "plastic_light" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.56, 0.55, 0.04], "mat": "plastic_white" },
-    { "node": "door", "shape": "box", "min": [0.12, 0.14, 0.04], "max": [0.45, 0.385, 0.042], "mat": "glass_tinted" },
-    { "node": "door", "shape": "box", "min": [0.5, 0.21, 0.04], "max": [0.52, 0.35, 0.07], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_feet", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_gasket", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_v_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_vent", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_door_frame", "mat": "plastic_white" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_door_pane", "mat": "glass_tinted" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_door_handle", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#oven_drying_01_hinges", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.275], "max": [0.3, 0.7, 0.285], "group": "prop" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.56, 0.55, 0.07], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.275], "max": [0.3, 0.73, 0.282], "group": "prop" },
+    { "node": "door", "shape": "box", "min": [-0.012, 0, 0.002], "max": [0.56, 0.55, 0.078], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -37,10 +41,10 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 384,
+  "tris": 1260,
   "source": {
     "tool": "xforge",
-    "generator": "tools/forge/lab/bench.mjs#opticsAndOven",
+    "generator": "tools/forge/lab/bench_c.mjs#opticsAndOven",
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

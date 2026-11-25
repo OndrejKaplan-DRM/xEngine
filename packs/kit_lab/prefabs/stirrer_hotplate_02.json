@@ -4,7 +4,7 @@
   "id": "stirrer_hotplate_02",
   "title": "Magnetická míchačka s ohřevem a kádinkou",
   "category": "lab.bench",
-  "bounds": { "min": [-0.086, -0.001, -0.141], "max": [0.086, 0.201, 0.149] },
+  "bounds": { "min": [-0.086, -0.001, -0.141], "max": [0.086, 0.211, 0.157] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -13,22 +13,25 @@
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_170_280_100_11_8", "mat": "plastic_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_170_280_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_8_y_0_100_-40", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_-50_50_142", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_13_12_z_50_50_142", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.08, 0.14], "max": [0.02, 0.09, 0.142], "mat": "emit_red" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_45_96_y_0_152_-40", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_43_56_y_0_134_-40", "mat": "liquid_blue" },
-    { "node": "body", "shape": "box", "min": [-0.012, 0.106, -0.044], "max": [0.012, 0.112, -0.036], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_top", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_l_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_r_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_marks", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_led", "mat": "emit_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_beaker", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_beaker_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_beaker_glint", "mat": "glass_glint" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_beakerliq", "mat": "liquid_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stirrer_hotplate_02_bar", "mat": "ptfe" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.14], "max": [0.085, 0.2, 0.148], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.085, 0, -0.14], "max": [0.085, 0.21, 0.156], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 660,
+  "tris": 1388,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/bench.mjs#mixers",

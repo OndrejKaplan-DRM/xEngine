@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 215416
+Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240548
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -173,58 +173,58 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 215416
 | `jar_crystals_02` | Sklenice s chloridem sodným | lab.chem | 0,09 × 0,13 × 0,09 | 1044 | — | — |
 | `container_waste_01` | Nádoba na chemický odpad 10 l (halogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
 | `container_waste_02` | Nádoba na chemický odpad 10 l (nehalogenovaný) | lab.chem | 0,24 × 0,38 × 0,2 | 732 | — | — |
-| `balance_analytical_01` | Analytické váhy s krytem (0,1 mg) | lab.bench | 0,2 × 0,29 × 0,5 | 504 | slide: 0 až 0,12 m | drawer |
-| `balance_precision_01` | Předvážky s talířem (0,01 g) | lab.bench | 0,2 × 0,09 × 0,33 | 464 | — | — |
-| `balance_micro_01` | Mikrováhy s kruhovým krytem | lab.bench | 0,2 × 0,21 × 0,49 | 576 | — | — |
-| `microcentrifuge_01` | Mikrocentrifuga | lab.bench | 0,24 × 0,51 × 0,49 | 570 | lid: 0° až 75° | door |
-| `microcentrifuge_cold_01` | Mikrocentrifuga chlazená | lab.bench | 0,29 × 0,6 × 0,59 | 602 | lid: 0° až 75° | door |
-| `thermomixer_01` | Termomixér s blokem na mikrozkumavky | lab.bench | 0,21 × 0,15 × 0,31 | 396 | — | — |
-| `vortex_01` | Vortex (třepačka na zkumavky) 1 | lab.bench | 0,13 × 0,14 × 0,17 | 360 | — | — |
-| `vortex_02` | Vortex (třepačka na zkumavky) 2 | lab.bench | 0,13 × 0,14 × 0,17 | 360 | — | — |
-| `stirrer_hotplate_01` | Magnetická míchačka s ohřevem | lab.bench | 0,17 × 0,11 × 0,29 | 456 | — | — |
-| `stirrer_hotplate_02` | Magnetická míchačka s ohřevem a kádinkou | lab.bench | 0,17 × 0,2 × 0,29 | 660 | — | — |
-| `shaker_orbital_01` | Orbitální třepačka | lab.bench | 0,45 × 0,13 × 0,46 | 330 | — | — |
-| `shaker_orbital_02` | Orbitální třepačka s baňkami | lab.bench | 0,45 × 0,26 × 0,46 | 1290 | — | — |
-| `shaker_incubator_01` | Inkubační třepačka s víkem | lab.bench | 0,7 × 1,16 × 0,88 | 408 | lid: 0° až 80° | door |
-| `thermocycler_01` | Termocykler PCR | lab.bench | 0,33 × 0,38 × 0,52 | 356 | lid: 0° až 70° | door |
-| `qpcr_01` | Přístroj pro kvantitativní PCR | lab.bench | 0,33 × 0,36 × 0,47 | 240 | — | — |
-| `spectrophotometer_uv_01` | Spektrofotometr UV-VIS | lab.bench | 0,45 × 0,47 × 0,56 | 402 | lid: 0° až 90° | door |
-| `spectrophotometer_micro_01` | Mikroobjemový spektrofotometr | lab.bench | 0,2 × 0,22 × 0,3 | 316 | — | — |
-| `plate_reader_01` | Čtečka mikrotitračních destiček | lab.bench | 0,4 × 0,35 × 0,65 | 252 | tray: 0 až 0,14 m | drawer |
-| `electrophoresis_horizontal_01` | Horizontální elektroforéza s gelem | lab.bench | 0,26 × 0,1 × 0,14 | 176 | — | — |
-| `electrophoresis_vertical_01` | Vertikální elektroforéza (SDS-PAGE) | lab.bench | 0,16 × 0,21 × 0,12 | 176 | — | — |
-| `power_supply_ep_01` | Zdroj napětí pro elektroforézu | lab.bench | 0,22 × 0,09 × 0,33 | 592 | — | — |
-| `electroporator_01` | Elektroporátor s komorou na kyvety | lab.bench | 0,3 × 0,14 × 0,31 | 360 | — | — |
-| `transilluminator_uv_01` | Transiluminátor UV s ochranným krytem | lab.bench | 0,4 × 0,37 × 0,3 | 252 | shield: 0° až 85° | door |
-| `gel_doc_01` | Skříň na dokumentaci gelů s kamerou | lab.bench | 0,4 × 0,56 × 0,47 | 324 | — | — |
-| `lamp_uv_hand_01` | Ruční UV lampa | lab.bench | 0,24 × 0,06 × 0,06 | 36 | — | — |
-| `pipettes_linear_01` | Lineární stojan se šesti pipetami | lab.bench | 0,34 × 0,2 × 0,08 | 564 | — | — |
-| `pipettes_carousel_01` | Otočný stojan s pipetami | lab.bench | 0,18 × 0,23 × 0,18 | 848 | — | — |
-| `pipette_multichannel_01` | Elektronická osmikanálová pipeta | lab.bench | 0,09 × 0,2 × 0,03 | 48 | — | — |
-| `pipette_controller_01` | Pipetovací nástavec na sérologické pipety | lab.bench | 0,04 × 0,22 × 0,07 | 152 | — | — |
-| `pump_vacuum_membrane_01` | Membránová vývěva | lab.bench | 0,25 × 0,26 × 0,3 | 392 | — | — |
-| `pump_vacuum_rotary_01` | Olejová rotační vývěva | lab.bench | 0,44 × 0,24 × 0,16 | 328 | — | — |
-| `bath_water_01` | Vodní lázeň s víkem | lab.bench | 0,35 × 0,78 × 0,72 | 354 | lid: 0° až 100° | door |
-| `bath_ultrasonic_01` | Ultrazvuková lázeň | lab.bench | 0,3 × 0,15 × 0,19 | 344 | — | — |
-| `ph_meter_01` | pH metr s elektrodou na rameni | lab.bench | 0,2 × 0,34 × 0,23 | 516 | — | — |
-| `burner_bunsen_01` | Plynový kahan | lab.bench | 0,12 × 0,15 × 0,09 | 288 | — | — |
+| `balance_analytical_01` | Analytické váhy s krytem (0,1 mg) | lab.bench | 0,2 × 0,29 × 0,5 | 1276 | slide: 0 až 0,12 m | drawer |
+| `balance_precision_01` | Předvážky s talířem (0,01 g) | lab.bench | 0,2 × 0,09 × 0,33 | 560 | — | — |
+| `balance_micro_01` | Mikrováhy s kruhovým krytem | lab.bench | 0,2 × 0,23 × 0,49 | 1060 | — | — |
+| `microcentrifuge_01` | Mikrocentrifuga | lab.bench | 0,24 × 0,51 × 0,49 | 1022 | lid: 0° až 75° | door |
+| `microcentrifuge_cold_01` | Mikrocentrifuga chlazená | lab.bench | 0,29 × 0,6 × 0,59 | 1022 | lid: 0° až 75° | door |
+| `thermomixer_01` | Termomixér s blokem na mikrozkumavky | lab.bench | 0,21 × 0,17 × 0,31 | 1320 | — | — |
+| `vortex_01` | Vortex (třepačka na zkumavky) 1 | lab.bench | 0,15 × 0,13 × 0,16 | 636 | — | — |
+| `vortex_02` | Vortex (třepačka na zkumavky) 2 | lab.bench | 0,15 × 0,13 × 0,16 | 636 | — | — |
+| `stirrer_hotplate_01` | Magnetická míchačka s ohřevem | lab.bench | 0,17 × 0,11 × 0,3 | 696 | — | — |
+| `stirrer_hotplate_02` | Magnetická míchačka s ohřevem a kádinkou | lab.bench | 0,17 × 0,21 × 0,3 | 1388 | — | — |
+| `shaker_orbital_01` | Orbitální třepačka | lab.bench | 0,45 × 0,14 × 0,46 | 438 | — | — |
+| `shaker_orbital_02` | Orbitální třepačka s baňkami | lab.bench | 0,45 × 0,3 × 0,46 | 2870 | — | — |
+| `shaker_incubator_01` | Inkubační třepačka s víkem | lab.bench | 0,7 × 1,18 × 0,9 | 1080 | lid: 0° až 80° | door |
+| `thermocycler_01` | Termocykler PCR | lab.bench | 0,33 × 0,38 × 0,54 | 1156 | lid: 0° až 70° | door |
+| `qpcr_01` | Přístroj pro kvantitativní PCR | lab.bench | 0,33 × 0,36 × 0,48 | 480 | — | — |
+| `spectrophotometer_uv_01` | Spektrofotometr UV-VIS | lab.bench | 0,45 × 0,48 × 0,56 | 858 | lid: 0° až 90° | door |
+| `spectrophotometer_micro_01` | Mikroobjemový spektrofotometr | lab.bench | 0,2 × 0,22 × 0,3 | 708 | — | — |
+| `plate_reader_01` | Čtečka mikrotitračních destiček | lab.bench | 0,4 × 0,35 × 0,65 | 732 | tray: 0 až 0,14 m | drawer |
+| `electrophoresis_horizontal_01` | Horizontální elektroforéza s gelem | lab.bench | 0,34 × 0,12 × 0,18 | 520 | — | — |
+| `electrophoresis_vertical_01` | Vertikální elektroforéza (SDS-PAGE) | lab.bench | 0,17 × 0,2 × 0,13 | 488 | — | — |
+| `power_supply_ep_01` | Zdroj napětí pro elektroforézu | lab.bench | 0,22 × 0,09 × 0,34 | 622 | — | — |
+| `electroporator_01` | Elektroporátor s komorou na kyvety | lab.bench | 0,3 × 0,14 × 0,31 | 836 | — | — |
+| `transilluminator_uv_01` | Transiluminátor UV s ochranným krytem | lab.bench | 0,4 × 0,37 × 0,31 | 600 | shield: 0° až 85° | door |
+| `gel_doc_01` | Skříň na dokumentaci gelů s kamerou | lab.bench | 0,4 × 0,6 × 0,48 | 1168 | — | — |
+| `lamp_uv_hand_01` | Ruční UV lampa | lab.bench | 0,24 × 0,08 × 0,06 | 548 | — | — |
+| `pipettes_linear_01` | Lineární stojan se šesti pipetami | lab.bench | 0,34 × 0,22 × 0,09 | 1080 | — | — |
+| `pipettes_carousel_01` | Otočný stojan s pipetami | lab.bench | 0,19 × 0,23 × 0,18 | 1008 | — | — |
+| `pipette_multichannel_01` | Elektronická osmikanálová pipeta | lab.bench | 0,09 × 0,22 × 0,05 | 944 | — | — |
+| `pipette_controller_01` | Pipetovací nástavec na sérologické pipety | lab.bench | 0,05 × 0,23 × 0,06 | 644 | — | — |
+| `pump_vacuum_membrane_01` | Membránová vývěva | lab.bench | 0,25 × 0,24 × 0,31 | 748 | — | — |
+| `pump_vacuum_rotary_01` | Olejová rotační vývěva | lab.bench | 0,44 × 0,27 × 0,16 | 940 | — | — |
+| `bath_water_01` | Vodní lázeň s víkem | lab.bench | 0,36 × 0,79 × 0,74 | 686 | lid: 0° až 100° | door |
+| `bath_ultrasonic_01` | Ultrazvuková lázeň | lab.bench | 0,3 × 0,16 × 0,2 | 648 | — | — |
+| `ph_meter_01` | pH metr s elektrodou na rameni | lab.bench | 0,2 × 0,34 × 0,22 | 1080 | — | — |
+| `burner_bunsen_01` | Plynový kahan | lab.bench | 0,13 × 0,16 × 0,09 | 368 | — | — |
 | `rotavap_01` | Rotační vakuová odparka | lab.bench | 0,55 × 0,84 × 0,46 | 2814 | — | — |
-| `cylinder_gas_helium_01` | Tlaková láhev 50 l: Helium, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
-| `cylinder_gas_nitrogen_01` | Tlaková láhev 50 l: Dusík, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
-| `cylinder_gas_co2_01` | Tlaková láhev 50 l: Oxid uhličitý, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
-| `cylinder_gas_argon_01` | Tlaková láhev 50 l: Argon, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
-| `cylinder_gas_oxygen_01` | Tlaková láhev 50 l: Kyslík, s redukčním ventilem | lab.bench | 0,23 × 1,58 × 0,24 | 648 | — | — |
-| `dewar_4l_01` | Dewarova nádoba na kapalný dusík 4 l | lab.bench | 0,19 × 0,43 × 0,19 | 584 | — | — |
-| `dewar_10l_01` | Dewarova nádoba na kapalný dusík 10 l | lab.bench | 0,26 × 0,55 × 0,26 | 664 | — | — |
-| `dewar_35l_01` | Dewarova nádoba na kapalný dusík 35 l | lab.bench | 0,48 × 0,67 × 0,48 | 728 | — | — |
-| `microscope_stereo_01` | Stereoskopický mikroskop | lab.bench | 0,24 × 0,42 × 0,26 | 340 | — | — |
-| `microscope_inverted_01` | Invertovaný mikroskop pro buněčné kultury | lab.bench | 0,3 × 0,55 × 0,58 | 540 | — | — |
-| `oven_drying_01` | Laboratorní sušárna se dvířky | lab.bench | 0,92 × 0,7 × 1,11 | 384 | swing: 0° až 120° | door |
-| `cell_counter_01` | Automatický počítač buněk | lab.bench | 0,18 × 0,17 × 0,23 | 228 | — | — |
-| `timer_lab_01` | Laboratorní minutka | lab.bench | 0,07 × 0,07 × 0,03 | 24 | — | — |
-| `printer_label_01` | Tiskárna štítků | lab.bench | 0,12 × 0,15 × 0,23 | 216 | — | — |
-| `minicentrifuge_01` | Minicentrifuga | lab.bench | 0,14 × 0,1 × 0,14 | 224 | — | — |
-| `bin_tips_01` | Odpadní nádobka na špičky | lab.bench | 0,15 × 0,16 × 0,15 | 24 | — | — |
+| `cylinder_gas_helium_01` | Tlaková láhev 50 l: Helium, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `cylinder_gas_nitrogen_01` | Tlaková láhev 50 l: Dusík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `cylinder_gas_co2_01` | Tlaková láhev 50 l: Oxid uhličitý, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `cylinder_gas_argon_01` | Tlaková láhev 50 l: Argon, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `cylinder_gas_oxygen_01` | Tlaková láhev 50 l: Kyslík, s redukčním ventilem | lab.bench | 0,25 × 1,59 × 0,23 | 1542 | — | — |
+| `dewar_4l_01` | Dewarova nádoba na kapalný dusík 4 l | lab.bench | 0,23 × 0,43 × 0,19 | 624 | — | — |
+| `dewar_10l_01` | Dewarova nádoba na kapalný dusík 10 l | lab.bench | 0,3 × 0,55 × 0,26 | 624 | — | — |
+| `dewar_35l_01` | Dewarova nádoba na kapalný dusík 35 l | lab.bench | 0,49 × 0,67 × 0,48 | 700 | — | — |
+| `microscope_stereo_01` | Stereoskopický mikroskop | lab.bench | 0,24 × 0,42 × 0,26 | 1140 | — | — |
+| `microscope_inverted_01` | Invertovaný mikroskop pro buněčné kultury | lab.bench | 0,33 × 0,56 × 0,6 | 1420 | — | — |
+| `oven_drying_01` | Laboratorní sušárna se dvířky | lab.bench | 0,93 × 0,73 × 1,11 | 1260 | swing: 0° až 120° | door |
+| `cell_counter_01` | Automatický počítač buněk | lab.bench | 0,18 × 0,18 × 0,23 | 432 | — | — |
+| `timer_lab_01` | Laboratorní minutka | lab.bench | 0,07 × 0,07 × 0,03 | 408 | — | — |
+| `printer_label_01` | Tiskárna štítků | lab.bench | 0,12 × 0,15 × 0,24 | 376 | — | — |
+| `minicentrifuge_01` | Minicentrifuga | lab.bench | 0,15 × 0,12 × 0,15 | 404 | — | — |
+| `bin_tips_01` | Odpadní nádobka na špičky | lab.bench | 0,15 × 0,17 × 0,15 | 656 | — | — |
 | `uplc_stack_01` | Sestava UPLC (čerpadlo, dávkovač vzorků, termostat kolon) | lab.large | 0,35 × 0,96 × 0,72 | 1416 | — | — |
 | `hplc_stack_01` | Sestava HPLC se čtyřmi moduly | lab.large | 0,37 × 0,96 × 0,56 | 1488 | — | — |
 | `ms_detector_01` | Hmotnostní detektor (trojitý kvadrupól) | lab.large | 0,45 × 0,78 × 0,81 | 740 | — | — |
