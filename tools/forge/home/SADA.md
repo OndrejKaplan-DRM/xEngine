@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_home`. Neupravovat ručně; zdroj je `tools/forge/home/*.mjs`.
 
-Prefabů: 163 · materiálů: 57 · trojúhelníků celkem: 87040
+Prefabů: 163 · materiálů: 57 · trojúhelníků celkem: 90208
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -59,22 +59,22 @@ Prefabů: 163 · materiálů: 57 · trojúhelníků celkem: 87040
 | `plant_pot_small_01` | Malá rostlina v květináči | home.decor | 0,16 × 0,2 × 0,16 | 264 | — | — |
 | `kitchen_base_60_01` | Kuchyňská spodní skříňka 60 cm s dvířky, bílá | home.kitchen | 0,6 × 0,9 × 0,62 | 372 | — | — |
 | `kitchen_drawers_60_01` | Kuchyňská spodní skříňka 60 cm se zásuvkami, bílá | home.kitchen | 0,6 × 0,9 × 0,62 | 492 | — | — |
-| `kitchen_sink_80_01` | Kuchyňská skříňka 80 cm s dřezem a baterií, bílá | home.kitchen | 0,8 × 1,21 × 0,62 | 596 | — | — |
+| `kitchen_sink_80_01` | Kuchyňská skříňka 80 cm s dřezem a baterií, bílá | home.kitchen | 0,8 × 1,21 × 0,62 | 948 | — | — |
 | `kitchen_wall_60_01` | Kuchyňská horní skříňka 60 cm, bílá | home.kitchen | 0,6 × 0,7 × 0,37 | 252 | — | — |
-| `kitchen_line_180_01` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), bílá | home.kitchen | 1,8 × 2,2 × 0,64 | 2176 | — | — |
-| `kitchen_line_240_01` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), bílá | home.kitchen | 2,4 × 2,2 × 0,64 | 2584 | — | — |
+| `kitchen_line_180_01` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), bílá | home.kitchen | 1,8 × 2,2 × 0,64 | 2528 | — | — |
+| `kitchen_line_240_01` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), bílá | home.kitchen | 2,4 × 2,2 × 0,64 | 2936 | — | — |
 | `kitchen_base_60_02` | Kuchyňská spodní skříňka 60 cm s dvířky, dub | home.kitchen | 0,6 × 0,9 × 0,62 | 372 | — | — |
 | `kitchen_drawers_60_02` | Kuchyňská spodní skříňka 60 cm se zásuvkami, dub | home.kitchen | 0,6 × 0,9 × 0,62 | 492 | — | — |
-| `kitchen_sink_80_02` | Kuchyňská skříňka 80 cm s dřezem a baterií, dub | home.kitchen | 0,8 × 1,21 × 0,62 | 596 | — | — |
+| `kitchen_sink_80_02` | Kuchyňská skříňka 80 cm s dřezem a baterií, dub | home.kitchen | 0,8 × 1,21 × 0,62 | 948 | — | — |
 | `kitchen_wall_60_02` | Kuchyňská horní skříňka 60 cm, dub | home.kitchen | 0,6 × 0,7 × 0,37 | 252 | — | — |
-| `kitchen_line_180_02` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), dub | home.kitchen | 1,8 × 2,2 × 0,64 | 2176 | — | — |
-| `kitchen_line_240_02` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), dub | home.kitchen | 2,4 × 2,2 × 0,64 | 2584 | — | — |
+| `kitchen_line_180_02` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), dub | home.kitchen | 1,8 × 2,2 × 0,64 | 2528 | — | — |
+| `kitchen_line_240_02` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), dub | home.kitchen | 2,4 × 2,2 × 0,64 | 2936 | — | — |
 | `kitchen_base_60_03` | Kuchyňská spodní skříňka 60 cm s dvířky, šalvějová | home.kitchen | 0,6 × 0,9 × 0,62 | 372 | — | — |
 | `kitchen_drawers_60_03` | Kuchyňská spodní skříňka 60 cm se zásuvkami, šalvějová | home.kitchen | 0,6 × 0,9 × 0,62 | 492 | — | — |
-| `kitchen_sink_80_03` | Kuchyňská skříňka 80 cm s dřezem a baterií, šalvějová | home.kitchen | 0,8 × 1,21 × 0,62 | 596 | — | — |
+| `kitchen_sink_80_03` | Kuchyňská skříňka 80 cm s dřezem a baterií, šalvějová | home.kitchen | 0,8 × 1,21 × 0,62 | 948 | — | — |
 | `kitchen_wall_60_03` | Kuchyňská horní skříňka 60 cm, šalvějová | home.kitchen | 0,6 × 0,7 × 0,37 | 252 | — | — |
-| `kitchen_line_180_03` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), šalvějová | home.kitchen | 1,8 × 2,2 × 0,64 | 2176 | — | — |
-| `kitchen_line_240_03` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), šalvějová | home.kitchen | 2,4 × 2,2 × 0,64 | 2584 | — | — |
+| `kitchen_line_180_03` | Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), šalvějová | home.kitchen | 1,8 × 2,2 × 0,64 | 2528 | — | — |
+| `kitchen_line_240_03` | Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), šalvějová | home.kitchen | 2,4 × 2,2 × 0,64 | 2936 | — | — |
 | `kitchen_stove_60_01` | Sporák s troubou a sklokeramickou deskou 60 cm | home.kitchen | 0,6 × 0,91 × 0,64 | 776 | — | — |
 | `kitchen_dishwasher_60_01` | Myčka nádobí 60 cm | home.kitchen | 0,6 × 0,9 × 0,62 | 168 | — | — |
 | `hood_60_01` | Komínová digestoř 60 cm | home.kitchen | 0,43 × 0,7 × 0,3 | 36 | — | — |

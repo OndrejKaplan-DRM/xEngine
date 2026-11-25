@@ -24,7 +24,7 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_fronts", "mat": "wood_kitchen_oak" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_grips", "mat": "steel_brushed" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_basin", "mat": "enamel_steel" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_hole", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_drain", "mat": "steel_chrome" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_tap", "mat": "steel_chrome" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_ucarcass", "mat": "lacquer_white" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_line_240_02_m1_ufronts", "mat": "wood_kitchen_oak" },
@@ -57,7 +57,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 2584,
+  "tris": 2936,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/kitchen.mjs#units",

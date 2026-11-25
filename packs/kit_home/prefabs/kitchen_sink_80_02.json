@@ -16,7 +16,7 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_fronts", "mat": "wood_kitchen_oak" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_grips", "mat": "steel_brushed" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_basin", "mat": "enamel_steel" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_hole", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_drain", "mat": "steel_chrome" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_tap", "mat": "steel_chrome" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_02_top", "mat": "worktop_light" }
   ],
@@ -27,7 +27,7 @@
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 596,
+  "tris": 948,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/kitchen.mjs#units",

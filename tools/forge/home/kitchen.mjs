@@ -7,6 +7,22 @@
 import { simple, moving, staticFloor } from '../lab/common.mjs';
 import { A, merge, T, roundedBox, flatBox, slab, tube, cylinder, torus, lathe, moved, mTranslate, mRotate, at } from '../lab/appliance.mjs';
 import { legs } from './living.mjs';
+import { tubShell } from './soft.mjs';
+
+/** Otvor pro dřez v modulu od x0 šířky w: [x0, x1, z0, z1] (pod lemem dřezu). */
+const sinkHole = (x0, w) => [x0 + w / 2 - w * 0.33, x0 + w / 2 + w * 0.33, -0.16, 0.14];
+/** Pracovní deska -w/2…w/2 s otvory pro dřez: celé kusy mezi otvory, u otvoru pruh vpředu a vzadu. */
+function worktopWithHoles(w, holes, H0) {
+  const parts = [];
+  let cur = -w / 2;
+  for (const [hx0, hx1, hz0, hz1] of [...holes].sort((p, q) => p[0] - q[0])) {
+    if (hx0 > cur) parts.push(roundedBox([cur, H0, -0.3], [hx0, 0.9, 0.32], 0.006, 1));
+    parts.push(flatBox([hx0, H0, -0.3], [hx1, 0.9, hz0]), flatBox([hx0, H0, hz1], [hx1, 0.9, 0.32]));
+    cur = hx1;
+  }
+  parts.push(roundedBox([cur, H0, -0.3], [w / 2, 0.9, 0.32], 0.006, 1));
+  return merge(parts);
+}
 import { shiftMeshPart as moveMesh } from '../mesh/registry.mjs';
 
 const pad = (i) => String(i).padStart(2, '0');
@@ -52,9 +68,10 @@ function base(k, x0, w, kind, front) {
     out.push(A('body', `${k}_fronts`, merge(fronts), front), A('body', `${k}_grips`, merge(gr), 'steel_brushed'));
     if (kind === 'sink') {
       const cx = (x0 + x1) / 2;
+      // nerezový dřez: lem na desce a vydutá vana 18 cm pod ní (deska má pod lemem otvor)
       out.push(
-        A('body', `${k}_basin`, flatBox([cx - w * 0.38, 0.9, -0.2], [cx + w * 0.38, 0.9015, 0.18]), 'enamel_steel'),
-        A('body', `${k}_hole`, flatBox([cx - w * 0.33, 0.9016, -0.16], [cx + w * 0.33, 0.902, 0.14]), 'lacquer_anthracite'),
+        A('body', `${k}_basin`, tubShell(cx, -0.01, [w * 0.38, 0.19, 0.03], [w * 0.33 - 0.005, 0.145, 0.05], 0.895, 0.904, 0.18, 0.04, 2), 'enamel_steel'),
+        A('body', `${k}_drain`, moved(cylinder(0.03, 0, 0.004, { seg: 10 }), mTranslate(cx, 0.725, -0.01)), 'steel_chrome'),
         A('body', `${k}_tap`, merge([moved(cylinder(0.022, 0.9, 0.93, { seg: 10 }), mTranslate(cx, 0, -0.24)), tube([[cx, 0.93, -0.24], [cx, 1.2, -0.24], [cx, 1.2, -0.06], [cx, 1.13, -0.06]], 0.012, 8, { bend: 0.06, bendSeg: 3 })]), 'steel_chrome'),
       );
     }
@@ -88,7 +105,13 @@ function line(k, mods, front, worktop) {
     parts.push(...(kind === 'oven' ? hood(`${k}_m${i}`, x, mw) : upper(`${k}_m${i}`, x, mw, front)));
     x += mw;
   });
-  parts.push(A('body', `${k}_top`, roundedBox([-w / 2, H, -0.3], [w / 2, 0.9, 0.32], 0.006, 1), worktop), A('body', `${k}_splash`, flatBox([-w / 2, 0.9, -0.3], [w / 2, 1.45, -0.29]), 'wall_tile_bath'));
+  const holes = [];
+  let hx = -w / 2;
+  for (const [kind, mw] of mods) {
+    if (kind === 'sink') holes.push(sinkHole(hx, mw));
+    hx += mw;
+  }
+  parts.push(A('body', `${k}_top`, worktopWithHoles(w, holes, H), worktop), A('body', `${k}_splash`, flatBox([-w / 2, 0.9, -0.3], [w / 2, 1.45, -0.29]), 'wall_tile_bath'));
   return parts;
 }
 
@@ -98,7 +121,7 @@ export function units() {
   const out = [];
   FRONTS.forEach(([front, worktop, name], v) => {
     const s = pad(v + 1);
-    const withTop = (k, w, kind) => [...base(k, -w / 2, w, kind, front), A('body', `${k}_top`, roundedBox([-w / 2, H, -0.3], [w / 2, 0.9, 0.32], 0.006, 1), worktop)];
+    const withTop = (k, w, kind) => [...base(k, -w / 2, w, kind, front), A('body', `${k}_top`, worktopWithHoles(w, kind === 'sink' ? [sinkHole(-w / 2, w)] : [], H), worktop)];
     out.push(
       one(`kitchen_base_60_${s}`, `Kuchyňská spodní skříňka 60 cm s dvířky, ${name}`, withTop(`kitchen_base_60_${s}`, 0.6, 'doors'), { ...floor(), params: COUNTER }),
       one(`kitchen_drawers_60_${s}`, `Kuchyňská spodní skříňka 60 cm se zásuvkami, ${name}`, withTop(`kitchen_drawers_60_${s}`, 0.6, 'drawers'), { ...floor(), params: COUNTER }),
