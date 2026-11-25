@@ -203,7 +203,8 @@ export const house = {
 
   furniture(c, rng, catalog) {
     if (c.role === 'stair') return { walls: [{ p: 'bench_metal_01' }], maxDepth: 60 };
-    if (isHome(c) && c.kind === 'corridor') return { walls: hasHome(catalog) ? [{ p: 'plant_floor_home_01' }] : [], maxDepth: 45 };
+    // chodba k bytům: rostlina, schránky v prvním bytovém podlaží, kolo nebo kočárek u zdi
+    if (isHome(c) && c.kind === 'corridor') return { walls: hasHome(catalog) ? [{ p: 'plant_floor_home_01' }, ...(c.f === LAB_FLOORS ? [{ p: 'mailbox_unit_01', h: 130 }] : []), { p: rng.pick(['bike_01', 'stroller_01']) }] : [], maxDepth: 52 };
     if (isFlat(c)) return homePlan(c, rng, catalog);
     const field = FIELD_NAMES[c.variant] && fieldPlan(c, rng, (fixed, pool, k) => [...fixed, ...rng.shuffle(pool)].slice(0, k), catalog);
     return field || complex.furniture(c, rng, catalog);
