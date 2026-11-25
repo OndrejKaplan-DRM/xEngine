@@ -1,9 +1,11 @@
 // xWorld: entity = umístěný prefab. Kostra před tvarem: uzly a klouby určují, co se hýbe; díly a kolize se na
-// uzly jen věší. Matice uzlů počítá výhradně rigMatrices (src/xspace/rig.js), tady se jen roznášejí do
-// vykreslení (pohyblivé díly) a do fyziky (kinematická tělesa uzlů, dynamická tělesa beden).
+// uzly jen věší. Matice uzlů počítá výhradně src/xspace/rig.js: v kroku rigFollow (svázané klouby, N-002) a
+// rigSolve nad předem přeloženou kostrou (rigCompile jednou na prefab, N-102), bez alokací; tady se matice jen
+// roznášejí do vykreslení (pohyblivé díly) a do fyziky (kinematická tělesa uzlů, dynamická tělesa beden).
 // Engine o „dveřích“ neví nic: co kloub znamená, říká interakce prefabu (behaviors.js).
 
-import { entityMatrix, rigMatrices, mat4Mul, mat4Point, interactions, doorInteraction } from '../xspace/index.js';
+import { entityMatrix, mat4Mul, mat4Point, interactions, doorInteraction } from '../xspace/index.js';
+import { createRigRun } from './rigrun.js';
 import { newBatch, appendMesh } from '../render/batch.js';
 import { decompose, compose, mul4 } from '../phys/xform.js';
 import { addFacets } from './facets.js';
@@ -19,6 +21,7 @@ const CELL_CHECK_FRAMES = 16;
 
 export function createEntities({ phys, render, world, light, pack, assets = createAssets(pack) }) {
   const prefabs = new Map(pack.prefabs.map((p) => [p.data.id, p.data]));
+  const { attachRig, solve } = createRigRun();
   const packOf = new Map(pack.prefabs.map((p) => [p.data.id, p.from || null])); // balík původu (soubory .glb)
   const matDefs = pack.materials?.materials || {};
   // síť z .glb nese vlastní UV (0..1 na texturu); krabicová projekce kvádrů a válců je v metrech a dělí se uvScale
@@ -116,7 +119,9 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       for (let n = id; n !== undefined; n = parent.get(n)) if (jointNodes.has(n)) return true;
       return false;
     };
-    const M = rigMatrices(prefab, ent.values);
+    const C = attachRig(ent, prefab);
+    solve(ent);
+    const M = Object.fromEntries(nodes.map((n, i) => [n.id, Array.from(ent.rig.mats.subarray(16 * i, 16 * i + 16))]));
     for (const n of nodes) ent.nodeWorld[n.id] = mat4Mul(em, M[n.id]);
 
     // ---- viditelné díly
@@ -179,7 +184,8 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     for (const n of nodes) {
       if (whole || !moves(n.id)) continue;
       const pieces = nodePieces.has(n.id) ? toPieces(nodePieces.get(n.id)) : null;
-      const rec = { id: n.id, world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, pieces, also) : null, body: null, lit: null };
+      const ni = C.nodeIndex.get(n.id);
+      const rec = { id: n.id, view: ent.rig.mats.subarray(16 * ni, 16 * ni + 16), world: ent.nodeWorld[n.id], mover: pieces ? render.addMover(ent.cell, pieces, also) : null, body: null, lit: null };
       rec.mover?.setMatrix(rec.world);
       if (rec.mover) rec.lit = light.addMover(rec.mover, rec.world, facetsOf(pieces));
       ent.movers.push(rec);
@@ -236,13 +242,12 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     return ent;
   }
 
-  /** Roznese hodnoty kloubů do matic, vykreslení a kinematických těles. given = matice, které už někdo spočítal. */
-  function pose(ent, teleport, given) {
-    for (const j of ent.joints) ent.values[j.def.id] = j.value;
+  /** Roznese hodnoty kloubů do matic, vykreslení a kinematických těles. solved = ent.rig.mats už sedí. */
+  function pose(ent, teleport, solved = false) {
+    if (!solved) solve(ent);
     if (!ent.movers.length) return;
-    const M = given || rigMatrices(ent.prefab, ent.values);
     for (const rec of ent.movers) {
-      mul4(ent.em, M[rec.id], rec.world);
+      mul4(ent.em, rec.view, rec.world);
       rec.mover?.setMatrix(rec.world);
       light.touchMover(rec.lit);
       if (rec.body) {
@@ -399,7 +404,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         const ent = active[i];
         let moved = false;
         let busy = false;
-        let M = null;
+        let solved = false;
         for (const j of ent.joints) {
           j.bits = 0;
           if (!j.active) continue;
@@ -410,9 +415,9 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         }
         if (moved && ent.guard) {
           // D-025: nová poloha se nejdřív zkusí proti hráči a volným tělesům
-          for (const j of ent.joints) ent.values[j.def.id] = j.value;
-          M = rigMatrices(ent.prefab, ent.values);
-          if (obstructed(ent, M, phys)) {
+          solve(ent);
+          solved = true;
+          if (obstructed(ent, phys)) {
             stall(ent, dt);
             moved = false;
           } else {
@@ -424,7 +429,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
           if (j.bits && behave) behave.onJoint(ent, j, j.bits);
           if (j.active) busy = true;
         }
-        if (moved) pose(ent, false, M);
+        if (moved) pose(ent, false, solved);
         if (!busy) {
           settle(ent);
           active[i] = active[active.length - 1];
@@ -469,15 +474,15 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     setJoint(ent, j, value, held = false) {
       const v = Math.min(j.def.max, Math.max(j.def.min, value));
       let moved = v !== j.value;
-      let M = null;
+      let solved = false;
       if (moved && ent.guard) {
         // ani ruka hráče díl do nikoho nezatlačí: zablokovaný posun se prostě neprovede
-        ent.values[j.def.id] = v;
-        M = rigMatrices(ent.prefab, ent.values);
-        if (obstructed(ent, M, phys)) {
+        solve(ent, j, v);
+        solved = true;
+        if (obstructed(ent, phys)) {
           ent.values[j.def.id] = j.value;
           moved = false;
-          M = null;
+          solved = false;
           stat.stalled++;
         }
       }
@@ -487,7 +492,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       j.held = held;
       j.active = true; // i po puštění: pružina nebo zarážka kloub dotáhne
       activate(ent);
-      if (moved) pose(ent, false, M);
+      if (moved) pose(ent, false, solved);
       return moved;
     },
     release(ent, j) {

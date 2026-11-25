@@ -25,11 +25,11 @@ export function guardOf(col) {
   return { col, lx: t.x, ly: t.y, lz: t.z, qx: r.x, qy: r.y, qz: r.z, qw: r.w };
 }
 
-/** Stál by některý díl entity s maticemi uzlů M (z rigMatrices) v hráči nebo ve volném tělese hlouběji než teď? */
-export function obstructed(ent, M, phys) {
+/** Stál by některý díl entity s maticemi uzlů v ent.rig.mats (právě spočítanými) v hráči nebo ve volném tělese hlouběji než teď? */
+export function obstructed(ent, phys) {
   for (const rec of ent.movers) {
     if (!rec.guards) continue;
-    mul4(ent.em, M[rec.id], W);
+    mul4(ent.em, rec.view, W);
     decompose(W, T);
     const { qx, qy, qz, qw } = T;
     for (const g of rec.guards) {
