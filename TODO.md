@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 9 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 984 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 10 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 1 000 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -50,9 +50,11 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 - [x] zkušební formát zbraní a munice, události boje, plazmová puška ve zlatém vzorku (N-201, D-053, T1d; regrese 984 kontrol, 0 selhalo)
 
-**Teď (Ondřej 0:49):** atlas ploch a soubor textury světla pro xBake i běh (N-112, D-050). Čeká na sešny: zkouška zbraní A3.1 a B3.1, potom zmrazit formát zbraní (D-030).
+- [x] atlas ploch a soubor textury světla (N-112, D-055, `atlas.js`, `lightmap.js`, T1e; regrese 1 000 kontrol, 0 selhalo)
 
-**Další na řadě:** zvuk z Arény (Z-2, D-051) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Teď:** čeká na sešny: zkouška zbraní (A3.1, B3.1) a zkouška textury světla na celém `complex_7` (B zapeče, A přečte a změří); potom zmrazit oba zkušební formáty (D-030). Mezitím zvuk z Arény (Z-2, D-051).
+
+**Další na řadě:** svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 

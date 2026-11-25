@@ -1,10 +1,24 @@
 # Stav
 
-**Verze:** základ 2, znění 9 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
+**Verze:** základ 2, znění 10 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 10 základu 2 (25. 11. 2026 v noci): atlas a soubor textury světla (N-112)
+
+Ondřej 0:49: hra smí mít až 80 MB (D-054), další krok základu (a) N-112. Rozhodnutí D-055.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| atlas ploch: `lightmapLayout` (mapy ze vzorků `levelSamples`, UV 1 každého vzorku, otisk), `lightmapTexels` (body na ploše pro xBake), `lightmapDilation` (okraje map) | `src/xspace/atlas.js` (330 řádků) | T1e: opakovatelnost, mapy se nepřekrývají, UV vrcholu uvnitř mapy a čtyři body filtru kolem mají hodnotu, body leží v rovině mapy, po 5 cm 3,90× víc bodů než po 10 cm |
+| soubor XLM1: `encodeLightmap`, `decodeLightmap`, `composeLightmap`, half float | `src/xspace/lightmap.js` (206 řádků) | T1e: zápis a čtení přes gzip, chyba half float pod 0,1 %, skládání světel a bran |
+| pole `level.baked.lightmap` (`file`, `texel`, `atlas`); zapečené soubory mimo `assets` hlásí `ref.asset` | `formats.js` (588 řádků), `validate.js` | T1e |
+| atlas na datech (sandbox, počty) | xLab: po 10 cm 1 024 × 1 024, 381 915 bodů; po 5 cm 2 048 × 1 024, 1 489 446 bodů. `complex_7` (`gen_demo` na `main`): po 10 cm 2 048 × 2 048, 1 066 190 bodů (25,4 %); po 5 cm 4 096 × 2 048, 3 915 567 bodů (46,7 %), 14 863 map, okraj 1 816 102 bodů | `node` nad balíky, čas atlasu a bodů v sandboxu 0,5 s, okraj 0,35 s |
+| regrese na `main` (`eb84574`) | **1 000 kontrol, 0 selhalo**: základ 357, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 0:56 až 1:01 |
+
+Paměť grafiky pro `complex_7` po 5 cm v half float RGBA by byla 64 MB (4 096 × 2 048 × 8 B; výpočet, ne měření). Co z toho unese T460, ukáže až zkouška: B zapeče, A přečte a změří `?bench`.
 
 ## Znění 9 základu 2 (25. 11. 2026 v noci): zkušební formát zbraní (N-201)
 
