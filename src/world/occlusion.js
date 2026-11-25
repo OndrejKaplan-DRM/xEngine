@@ -113,7 +113,7 @@ export function createOcclusion({ phys, light }) {
           min[k] -= 1e-3;
           max[k] += 1e-3;
         }
-        const d = { ent, joint: ent.joints[0] || null, q: q[0], n: [n[0] / len, n[1] / len, n[2] / len], min, max, open: 0 };
+        const d = { ent, joint: ent.door?.joint || ent.joints[0] || null, q: q[0], n: [n[0] / len, n[1] / len, n[2] / len], min, max, open: 0 };
         d.open = openness(d);
         doors.push(d);
       }

@@ -2,6 +2,8 @@
 // tady je jen fronta. Kontrakt (docs/02_KONTRAKTY.md): vyřizuje se ve fázi 'late' v pořadí (krok splatnosti,
 // pořadí vzniku), zpoždění se převádí na kroky nahoru, řetěz v jednom kroku má strop 32 článků, fronta je součást
 // uloženého stavu. Cíl je entita levelu, nebo vestavěný @level (checkpoint, complete, message).
+// Víc interakcí v prefabu (N-010): spojení s `from` bere výstup jen z té interakce zdroje, `to` doručí vstup jen do
+// té interakce cíle (bez něj do všech).
 
 const CHAIN_MAX = 32;
 const STEPS_PER_SECOND = 120;
@@ -9,7 +11,9 @@ const STEPS_PER_SECOND = 120;
 export function createIo({ entities, world }) {
   let E = null;
   let behave = null;
-  let links = []; // { on, target (index entity, −1 = @level), input, delay (kroky), once, hasParam, param, fired, from }
+  // { on, target (index entity, −1 = @level), input, delay (kroky), once, hasParam, param, fired, src (id zdroje),
+  //   from (id interakce zdroje | null), to (id interakce cíle | null) }
+  let links = [];
   let trigLinks = []; // index spouštěče → { enter: [indexy spojení], exit: […] }
   // fronta: souběžná pole, bez objektů na položku
   let cap = 64;
@@ -63,7 +67,7 @@ export function createIo({ entities, world }) {
         }
         target = ent.index;
       }
-      links.push({ on: k.on, target, input: k.input, delay: Math.ceil((k.delay || 0) * STEPS_PER_SECOND - 1e-9), once: !!k.once, hasParam: k.param !== undefined, param: k.param, fired: false, from: fromId });
+      links.push({ on: k.on, target, input: k.input, delay: Math.ceil((k.delay || 0) * STEPS_PER_SECOND - 1e-9), once: !!k.once, hasParam: k.param !== undefined, param: k.param, fired: false, src: fromId, from: k.from ?? null, to: k.to ?? null });
       (table[k.on] ||= []).push(links.length - 1);
     }
   }
@@ -71,7 +75,7 @@ export function createIo({ entities, world }) {
     const k = links[qLink[i]];
     const value = qVal[i];
     stat.delivered++;
-    evt.source = k.from;
+    evt.source = k.src;
     evt.output = k.on;
     evt.input = k.input;
     evt.value = value;
@@ -87,7 +91,7 @@ export function createIo({ entities, world }) {
     const ent = entities.list[k.target];
     evt.target = ent.id;
     E.emit('io:fired', evt);
-    if (!behave.input(ent, k.input, value)) {
+    if (!behave.input(ent, k.input, value, k.to)) {
       stat.unknown++;
       warn(`entita ${ent.id} (${ent.prefab.id}) nezná vstup „${k.input}“`);
     }
@@ -134,19 +138,21 @@ export function createIo({ entities, world }) {
     },
 
     /**
-     * Výstup entity nebo spouštěče. kind: 'entity' | 'trigger', index do příslušného seznamu.
-     * Když spojení nemá param, předá se hodnota výstupu.
+     * Výstup entity nebo spouštěče. kind: 'entity' | 'trigger', index do příslušného seznamu; ix = id interakce,
+     * ze které výstup přišel (spojení s `from` jiné interakce ho nevezme). Když spojení nemá param, předá se
+     * hodnota výstupu.
      */
-    fire(kind, index, output, value) {
+    fire(kind, index, output, value, ix = null) {
       const table = kind === 'entity' ? entities.list[index].links : trigLinks[index];
       const list = table && table[output];
       if (!list) return;
       for (let n = 0; n < list.length; n++) {
         const k = links[list[n]];
         if (k.once && k.fired) continue;
+        if (k.from !== null && k.from !== ix) continue; // výstup jiné interakce zdroje
         if (k.delay === 0 && gen >= CHAIN_MAX) {
           stat.broken++;
-          warn(`řetěz spojení přesáhl ${CHAIN_MAX} článků u ${k.from}.${k.on}; přerušeno (smyčka v datech?)`);
+          warn(`řetěz spojení přesáhl ${CHAIN_MAX} článků u ${k.src}.${k.on}; přerušeno (smyčka v datech?)`);
           continue;
         }
         k.fired = true;
@@ -206,7 +212,7 @@ export function createIo({ entities, world }) {
       if (path[0] === 'stat') return { ...stat };
       if (path[0] === 'queue') {
         const out = [];
-        for (let i = 0; i < count; i++) out.push({ due: qDue[i], from: links[qLink[i]].from, on: links[qLink[i]].on, input: links[qLink[i]].input });
+        for (let i = 0; i < count; i++) out.push({ due: qDue[i], from: links[qLink[i]].src, on: links[qLink[i]].on, input: links[qLink[i]].input });
         return out.sort((a, b) => a.due - b.due);
       }
       return undefined;

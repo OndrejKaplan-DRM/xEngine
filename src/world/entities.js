@@ -3,7 +3,7 @@
 // vykreslení (pohyblivé díly) a do fyziky (kinematická tělesa uzlů, dynamická tělesa beden).
 // Engine o „dveřích“ neví nic: co kloub znamená, říká interakce prefabu (behaviors.js).
 
-import { entityMatrix, rigMatrices, mat4Mul, mat4Point } from '../xspace/index.js';
+import { entityMatrix, rigMatrices, mat4Mul, mat4Point, interactions, doorInteraction } from '../xspace/index.js';
 import { newBatch, appendMesh } from '../render/batch.js';
 import { decompose, compose, mul4 } from '../phys/xform.js';
 import { addFacets } from './facets.js';
@@ -54,10 +54,13 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     if (sys.doorsAway && roomDoors.has(def.id)) prefab = swingBoth(prefab);
     const comp = prefab.components || {};
     const bodyKind = comp.physics?.body || 'static';
-    const kind = comp.interact?.kind || null;
+    // interakce jen přes src/xspace/interact.js (N-010): jedna, seznam, nebo žádná
+    const ixDefs = interactions(prefab);
+    const kind = ixDefs.length === 1 ? ixDefs[0].kind || null : null; // druh jediné interakce (u seznamu null)
+    const kindOfJoint = new Map(ixDefs.filter((x) => x.joint !== undefined).map((x) => [x.joint, x.kind]));
     const em = entityMatrix(def);
     const scale = def.scale ?? 1;
-    const joints = (prefab.rig.joints || []).map((j) => makeJoint(j, kind));
+    const joints = (prefab.rig.joints || []).map((j) => makeJoint(j, kindOfJoint.get(j.id) ?? kind));
     const ent = {
       id: def.id,
       index,
@@ -65,9 +68,11 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       prefab,
       cell: def.cell,
       kind,
-      guard: GUARDED.has(kind), // díly se zastaví o hráče a volná tělesa (D-025)
+      guard: ixDefs.some((x) => GUARDED.has(x.kind)), // díly se zastaví o hráče a volná tělesa (D-025)
       kin: false, // tělesa uzlů jsou právě kinematická
-      interact: comp.interact || null,
+      ixs: [], // interakce: { id, def, kind, joint, state } (behaviors.js); u jediné je state === ent.state
+      ixById: null,
+      door: null, // interakce dveří portálu (doorInteraction), nebo null
       comp,
       em,
       scale,
@@ -90,6 +95,17 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       links: null, // spojení výstupů (doplní io)
       inActive: false,
     };
+    ent.ixs = ixDefs.map((d) => ({
+      id: d.id,
+      def: d,
+      kind: d.kind || null,
+      // kloub interakce: pole joint; jediná interakce bez něj ovládá první kloub (jako před N-010)
+      joint: (d.joint !== undefined ? ent.jointById[d.joint] : ixDefs.length === 1 ? joints[0] : null) || null,
+      state: ixDefs.length === 1 ? ent.state : { locked: false, on: false, phase: 0, rep: 0 },
+    }));
+    ent.ixById = new Map(ent.ixs.map((r) => [r.id, r]));
+    const doorDef = doorInteraction(prefab);
+    ent.door = doorDef ? ent.ixById.get(doorDef.id) || null : null;
 
     // ---- které uzly se hýbou (uzel s kloubem a jeho potomci)
     const nodes = prefab.rig.nodes;
@@ -300,6 +316,10 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     s.level = props.level ?? 1;
     s.phase = 0;
     s.enabled = props.enabled ?? true;
+    for (const r of ent.ixs) {
+      if (r.state === s) continue;
+      Object.assign(r.state, { locked: s.locked, on: false, phase: 0, rep: 0 }); // props.locked zamyká všechny interakce
+    }
     for (const j of ent.joints) {
       j.value = j.rest;
       j.vel = 0;
@@ -506,6 +526,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     snapshot() {
       return list.map((ent) => {
         const out = { s: { ...ent.state } };
+        if (ent.ixs.length > 1) out.x = ent.ixs.map((r) => ({ ...r.state })); // stav po interakcích (N-010)
         if (ent.joints.length) out.j = ent.joints.map((j) => [j.value, j.vel, Number.isNaN(j.target) ? null : j.target, j.speed, j.active ? 1 : 0, j.from, j.blocked]);
         if (ent.body) {
           const p = ent.body.translation();
@@ -524,6 +545,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         settle(ent);
         if (!d) return;
         Object.assign(ent.state, d.s);
+        if (ent.ixs.length > 1) (d.x || []).forEach((st, k) => ent.ixs[k] && Object.assign(ent.ixs[k].state, st));
         (d.j || []).forEach((r, k) => {
           const j = ent.joints[k];
           if (!j) return;

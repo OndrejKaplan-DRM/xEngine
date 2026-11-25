@@ -15,8 +15,11 @@ export function inspectEntities(path, { list, byId, active, stat }) {
       return ent.joints[0]?.norm;
     case 'blocked':
       return ent.joints[0]?.blocked;
-    case 'state':
-      return { ...ent.state };
+    case 'state': {
+      if (!path[2]) return { ...ent.state };
+      const r = ent.ixById?.get(path[2]); // stav jedné interakce (N-010): entity.<id>.state.<interakce>
+      return r ? { ...r.state } : undefined;
+    }
     case 'node':
       return ent.nodeWorld[path[2]] ? [...ent.nodeWorld[path[2]]] : undefined;
     case 'pos': {

@@ -27,6 +27,7 @@ const CURSOR_SPAN = 700; // bodů myši přes celou šířku obrazovky terminál
 export function createInteract({ phys, player, input, behave, entities, render }) {
   let E = null;
   let target = null; // entita pod zaměřovačem v dosahu
+  let targetIx = null; // její interakce, kterou ovládá zasažený uzel (interactionOf, N-010)
   let prompt = '';
   let tick = 0;
   let manip = null; // { ent, j, node, local: [x, y, z] } úchop kloubu
@@ -52,7 +53,8 @@ export function createInteract({ phys, player, input, behave, entities, render }
     const h = phys.raycast(eye[0], eye[1], eye[2], dir[0], dir[1], dir[2], MAX_RANGE, USE_RAY, player.collider);
     const ent = h && h.ref && h.ref.kind === 'entity' ? h.ref.ent : null;
     let ok = false;
-    if (ent && ent.interact && ent.state.enabled) {
+    const rec = ent && ent.state.enabled ? behave.interactionAt(ent, h.ref.node) : null; // korpus kartotéky: null
+    if (rec) {
       // Dosah se měří od těla (osa postavy od nohou po oči), ne od očí: předmět na podlaze je od očí 1,6 m,
       // i když u něj hráč stojí. Kontrakt říká jen „dosah v metrech“ (návrh N-104).
       hitP[0] = eye[0] + dir[0] * h.dist;
@@ -60,27 +62,29 @@ export function createInteract({ phys, player, input, behave, entities, render }
       hitP[2] = eye[2] + dir[2] * h.dist;
       const feet = player.pos[1];
       const dy = hitP[1] > eye[1] ? hitP[1] - eye[1] : hitP[1] < feet ? feet - hitP[1] : 0;
-      ok = Math.hypot(hitP[0] - eye[0], dy, hitP[2] - eye[2]) <= (ent.interact.range ?? DEFAULT_RANGE);
+      ok = Math.hypot(hitP[0] - eye[0], dy, hitP[2] - eye[2]) <= (rec.def.range ?? DEFAULT_RANGE);
     }
-    setTarget(ok ? ent : null);
+    setTarget(ok ? ent : null, ok ? rec : null);
     return ok ? h : null;
   }
-  function setTarget(ent) {
+  function setTarget(ent, rec) {
     target = ent;
-    const text = ent ? behave.prompt(ent) : '';
+    targetIx = ent ? rec : null;
+    const text = ent && rec ? behave.prompt(ent, rec) : '';
     if (!text) prompt = '';
-    else if (ent.state.locked) prompt = text;
-    else prompt = ent.interact.manipulate ? `[${useKey}] ${text} · ${grabKey}: táhni` : `[${useKey}] ${text}`;
+    else if (rec.state.locked) prompt = text;
+    else prompt = rec.def.manipulate ? `[${useKey}] ${text} · ${grabKey}: táhni` : `[${useKey}] ${text}`;
   }
 
   // ---- manipulace: držené tlačítko myši hýbe kloubem
   function grab(h) {
-    const j = behave.mainJoint(target);
+    const rec = targetIx;
+    const j = rec?.joint;
     if (!j) return;
     const node = j.def.node;
     // úchop = bod zásahu, pokud paprsek trefil pohyblivý uzel; jinak střed jeho kolize
     const world = h.ref.node === node ? hitP : entities.center(target.id);
-    manip = { ent: target, j, node, local: toLocal(target.nodeWorld[node], world), edge: edgeOf(j) };
+    manip = { ent: target, rec, j, node, local: toLocal(target.nodeWorld[node], world), edge: edgeOf(j) };
     entities.setJoint(target, j, j.value, true);
     input.lookEnabled = false;
     screenDir[0] = screenDir[1] = 0;
@@ -168,8 +172,8 @@ export function createInteract({ phys, player, input, behave, entities, render }
     screenDir[1] = G.ky / n;
   }
   function drag(I) {
-    const { ent, j } = manip;
-    if (!ent.state.enabled || ent.state.locked) return;
+    const { ent, rec, j } = manip;
+    if (!ent.state.enabled || rec.state.locked) return;
     measure();
     const dv = I.mx * G.kx + I.my * G.ky;
     if (!dv || !entities.setJoint(ent, j, j.value + dv, true)) return;
@@ -190,14 +194,14 @@ export function createInteract({ phys, player, input, behave, entities, render }
   }
 
   // ---- klidný režim: kamera ukotvená podle station
-  function sit(ent) {
-    const st = ent.interact.station;
+  function sit(ent, rec) {
+    const st = rec.def.station;
     const e = mat4Point(ent.em, st.eye);
     const l = mat4Point(ent.em, st.look);
     const dx = l[0] - e[0];
     const dy = l[1] - e[1];
     const dz = l[2] - e[2];
-    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseVfov, term: terms.get(ent.id) || null };
+    seat = { ent, phase: 'in', t: 0, eye: e, yaw: Math.atan2(-dx, -dz) / RAD, pitch: Math.atan2(dy, Math.hypot(dx, dz)) / RAD, fov: st.fov ?? render.baseVfov, term: terms.get(ent.id) || null, rec };
     player.frozen = true;
     player.viewOverride = true;
     input.lookEnabled = false;
@@ -291,6 +295,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     },
     reset() {
       target = null;
+      targetIx = null;
       prompt = '';
       tick = 0;
       manip = null;
@@ -332,19 +337,19 @@ export function createInteract({ phys, player, input, behave, entities, render }
       if (I.use || I.grabPressed || ++tick % SCAN_EVERY === 0) h = scan();
       if (!target) return;
       if (I.use) {
-        const r = behave.use(target);
+        const r = behave.use(target, targetIx);
         if (r === 'ok') {
           stat.uses++;
           E.emit('interact:used', target.id);
-          if (target.interact.station && (target.kind === 'terminal' || target.kind === 'station')) {
-            sit(target);
+          if (targetIx.def.station && (targetIx.kind === 'terminal' || targetIx.kind === 'station')) {
+            sit(target, targetIx);
             return;
           }
         } else if (r === 'locked') E.emit('interact:denied', target.id);
-        setTarget(target); // stav se mohl změnit (zamčeno, sebráno)
+        setTarget(target, targetIx); // stav se mohl změnit (zamčeno, sebráno)
       } else if (I.grabPressed && h) {
-        if (target.state.locked) E.emit('interact:denied', target.id);
-        else if (target.interact.manipulate) grab(h);
+        if (targetIx.state.locked) E.emit('interact:denied', target.id);
+        else if (targetIx.def.manipulate) grab(h);
       }
     },
 
@@ -377,7 +382,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
         seat.term.term.pointer = null;
         seat.term.term.dirty = true;
       }
-      behave.emit(seat.ent, 'left');
+      behave.emit(seat.ent, 'left', undefined, seat.rec);
       E.emit('interact:left', seat.ent.id);
     },
     /** Znak napsaný na klávesnici. */
@@ -388,7 +393,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     key(key) {
       if (!seat?.term || seat.phase !== 'on') return;
       const cmd = termKey(seat.term.term, key);
-      if (cmd !== null) behave.emit(seat.ent, 'command', cmd);
+      if (cmd !== null) behave.emit(seat.ent, 'command', cmd, seat.rec);
     },
     /**
      * Posun myši se zamčeným kurzorem (body myši, x vpravo, y dolů): vede vlastní kurzor po ploše obrazovky,
@@ -407,7 +412,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     /** Kliknutí v místě vlastního kurzoru: vyšle command s textem 'click'. */
     click() {
       if (!seat?.term || seat.phase !== 'on' || !seat.term.term.pointer) return false;
-      behave.emit(seat.ent, 'command', 'click');
+      behave.emit(seat.ent, 'command', 'click', seat.rec);
       return true;
     },
     /**
@@ -420,7 +425,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
       const uv = screenUv(seat, t, nx, ny);
       t.term.pointer = uv;
       t.term.dirty = true;
-      if (click && uv) behave.emit(seat.ent, 'command', 'click');
+      if (click && uv) behave.emit(seat.ent, 'command', 'click', seat.rec);
       return uv;
     },
     /** Vstup print terminálu (volá chování entity). */
@@ -437,6 +442,8 @@ export function createInteract({ phys, player, input, behave, entities, render }
       switch (path[0]) {
         case 'target':
           return target ? target.id : null;
+        case 'ix':
+          return targetIx ? targetIx.id : null; // interakce pod zaměřovačem (N-010)
         case 'prompt':
           return prompt;
         case 'stat':

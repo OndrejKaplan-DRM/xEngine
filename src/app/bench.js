@@ -91,10 +91,10 @@ export function createBench({ game, lock, root }) {
   /** Dveře otevřít (i zamčené), lampy rozsvítit: měří se level tak, jak je vidět celý. */
   function openUp() {
     for (const ent of entities.list) {
-      if (ent.kind === 'door') {
-        if (ent.state.locked) behave.input(ent, 'unlock');
-        behave.input(ent, 'open');
-      } else if (ent.comp.light && !ent.kind) behave.input(ent, 'turnOn');
+      if (ent.door) {
+        if (ent.door.state.locked) behave.input(ent, 'unlock', undefined, ent.door.id);
+        behave.input(ent, 'open', undefined, ent.door.id);
+      } else if (ent.comp.light && !ent.ixs.length) behave.input(ent, 'turnOn');
     }
   }
 

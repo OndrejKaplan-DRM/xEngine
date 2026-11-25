@@ -3,6 +3,8 @@
 // řídit. Data balíku se nemění: entita dostane kopii prefabu. Až budou mít prefaby rozsah na obě strany v datech,
 // tenhle soubor zmizí.
 
+import { doorInteraction } from '../xspace/index.js';
+
 const widened = new Map();
 /** Jak daleko od roviny a okraje otvoru portálu smí ležet počátek dveří (m). */
 const PORTAL_TOL = 0.15;
@@ -35,8 +37,11 @@ export function portalDoorIds(level) {
 }
 
 export function swingBoth(prefab) {
-  const j = prefab.rig?.joints?.[0];
-  if (prefab.components?.interact?.kind !== 'door' || !j || j.type !== 'hinge' || j.min !== (j.rest ?? j.min)) return prefab;
-  if (!widened.has(prefab)) widened.set(prefab, { ...prefab, rig: { ...prefab.rig, joints: prefab.rig.joints.map((k, i) => (i ? k : { ...k, rest: k.min, min: 2 * k.min - k.max })) } });
+  const door = doorInteraction(prefab); // interakce dveří (N-010); kloub z ní, bez pole joint první kloub
+  const joints = prefab.rig?.joints || [];
+  const id = door?.joint ?? joints[0]?.id;
+  const j = joints.find((k) => k.id === id);
+  if (!door || !j || j.type !== 'hinge' || j.min !== (j.rest ?? j.min)) return prefab;
+  if (!widened.has(prefab)) widened.set(prefab, { ...prefab, rig: { ...prefab.rig, joints: joints.map((k) => (k !== j ? k : { ...k, rest: k.min, min: 2 * k.min - k.max })) } });
   return widened.get(prefab);
 }
