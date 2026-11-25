@@ -277,9 +277,15 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
   // ---- 1) výchozí místo hráče: uprostřed startovní buňky, čelem k nejbližšímu otvoru
   {
     const c = cells[plan.start];
-    const [x, z] = [(c.min[0] + c.max[0]) / 2, (c.min[1] + c.max[1]) / 2];
-    S.zones[plan.start].push(boxM(x - 50, c.y0, z - 50, x + 50, c.y0 + 190, z + 50, 'zone'));
+    let [x, z] = [(c.min[0] + c.max[0]) / 2, (c.min[1] + c.max[1]) / 2];
     const side = S.sides[plan.start][0];
+    // střed obsadily schody (nádvoří před vchodem): o kus dál od otvoru, dokud místo není volné
+    const taken = () => S.zones[plan.start].some((q) => q.kind === 'solid' && boxesHit(q, boxM(x - 45, c.y0, z - 45, x + 45, c.y0 + 190, z + 45)));
+    for (let t = 0; side && t < 20 && taken(); t++) {
+      if (side.run === RUN_X) z = Math.max(c.min[1] + 50, Math.min(c.max[1] - 50, z + side.n * 20));
+      else x = Math.max(c.min[0] + 50, Math.min(c.max[0] - 50, x + side.n * 20));
+    }
+    S.zones[plan.start].push(boxM(x - 50, c.y0, z - 50, x + 50, c.y0 + 190, z + 50, 'zone'));
     let yaw = 0;
     if (side) {
       const along = (side.c0 + side.c1) / 2;

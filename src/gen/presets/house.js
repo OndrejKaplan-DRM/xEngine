@@ -141,6 +141,7 @@ export const house = {
       yard: [450, 600],
       yardChunk: 900,
       yardDrop: 68,
+      landing: 120, // podesta před vchodem ve výšce prahu
       riser: 17,
       tread: 28,
       classify(cells, ctx, rng) {
@@ -195,8 +196,9 @@ export const house = {
 
   /** Otvory: do schodiště průchod, do bytu dveře, uvnitř bytu dveře nebo průchod, laboratoře jako complex. */
   opening(A, B, info, rng, catalog) {
-    // vchod z nádvoří do schodišťové haly: dvoukřídlé dveře uprostřed
-    if (A.kind === 'yard' || B.kind === 'yard') return { kind: 'door', pair: ['door_dleft_01', 'door_dright_01'], ...catalog.opening('door_dleft_01'), center: true };
+    // vchod z nádvoří do schodišťové haly: dveře uprostřed čela (jednokřídlé: dvoukřídlé robot zkoušky A × B
+    // na schodech neotevře, viz B_STAV krok 27)
+    if (A.kind === 'yard' || B.kind === 'yard') return { ...door(catalog, 'door_wood_01'), center: true };
     const stair = [A, B].find((c) => c.role === 'stair');
     if (stair) return { kind: 'arch', w: Math.floor(Math.min(info.len - 2 * info.margin, 200) / 10) * 10, h: 240, center: true };
     const apt = [A, B].find((c) => c.apt);
@@ -210,7 +212,8 @@ export const house = {
     return complex.opening(A, B, info, rng, catalog);
   },
   fallbackDoor: (catalog) => door(catalog, 'door_wood_01'),
-  swingInto: (A, B, rng) => (A.kind === 'room' && B.kind !== 'room' ? 'a' : B.kind === 'room' && A.kind !== 'room' ? 'b' : A.role === 'bath' ? 'a' : B.role === 'bath' ? 'b' : rng.chance(0.5) ? 'a' : 'b'),
+  // vchod se otevírá dovnitř do haly (venku stojí hráč na schodech a křídlo by o něj narazilo, D-025)
+  swingInto: (A, B, rng) => (A.kind === 'yard' ? 'b' : B.kind === 'yard' ? 'a' : A.kind === 'room' && B.kind !== 'room' ? 'a' : B.kind === 'room' && A.kind !== 'room' ? 'b' : A.role === 'bath' ? 'a' : B.role === 'bath' ? 'b' : rng.chance(0.5) ? 'a' : 'b'),
 
   /** Pod prvním ramenem schodiště (od horního konce): kola, kočárek, regál, koše na tříděný odpad. */
   underStairs: ['shelf_rack_01', 'bike_01', 'stroller_01', 'bins_recycling_01'],

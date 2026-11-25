@@ -223,14 +223,18 @@ function sunkSteps(b, S, P, preset, o, X, isA) {
   const s = o.s;
   const face = isA ? s.b0 : s.b1;
   const into = isA ? -1 : 1;
-  const depth = steps * P.tread;
+  // P.landing: podesta ve výšce prahu před dveřmi (u vchodu z venku); na poslední stupeň se stoupá mimo nadpraží,
+  // které by kontrolér postavy při vyšlapování schodu (zdvih až 0,46 m) trefil hlavou
+  const land = P.landing || 0;
+  const depth = land + steps * P.tread;
   const r = s.run;
-  const s0 = Math.max(X.min[r], o.c0 - 20);
-  const s1 = Math.min(X.max[r], o.c1 + 20);
+  const s0 = Math.max(X.min[r], o.c0 - 20 - (land ? 40 : 0));
+  const s1 = Math.min(X.max[r], o.c1 + 20 + (land ? 40 : 0));
   const solid = runBox(r, s0, s1, face, face + into * depth, X.y0, o.sill, 'solid');
   const landing = runBox(r, s0, s1, face + into * depth, face + into * (depth + 100), X.y0, o.top, 'zone');
   // schody nesmí vlézt do jiných schodů ani před jiný otvor téže místnosti
   if (S.zones[X.i].some((z) => (z.steps && (boxesHit(z, solid) || boxesHit(z, landing))) || (z.o && z.o !== o && boxesHit(z, solid)))) return false;
+  if (land) block(b, S.meta[X.i].id, r === RUN_X ? { x0: s0, x1: s1, z0: Math.min(face, face + into * land), z1: Math.max(face, face + into * land) } : { x0: Math.min(face, face + into * land), x1: Math.max(face, face + into * land), z0: s0, z1: s1 }, X.y0, o.sill, preset.palette.stair, 'landing');
   stairs(b, { cell: S.meta[X.i].id, run: 1 - r, dir: -into, at: face + into * depth, s0, s1, baseY: X.y0, steps, riser: P.riser, tread: P.tread, mat: preset.palette.stair });
   S.zones[X.i].push({ ...solid, steps: true }, { ...landing, steps: true });
   return true;

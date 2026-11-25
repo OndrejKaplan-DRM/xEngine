@@ -1,6 +1,6 @@
 // Předvolba house, nádvoří a okna (Ondřej 25. 11. 2026 v 17:00: „přidat okna do bytů … udělat malé nádvoří kolem
 // domu a schodové dveře do komplexu. Ať dům vypadá realisticky“). Nádvoří jsou čtyři buňky bez stropu kolem domu,
-// o 68 cm níž než přízemí: dlažba, u domu chodník 2 m, dál trávník; podél kraje živý plot, lampy, stromy, lavičky,
+// o 68 cm níž než přízemí: dlažba, u domu chodník 2,6 m, dál trávník; podél kraje živý plot, lampy, stromy, lavičky,
 // stojan na kola a koše. Vchod do schodišťové haly po schodech, nad ním skleněná stříška. Okna: byty, chodby k bytům
 // a schodiště průhledná, laboratorní podlaží matná, koupelny a strojovny bez okna.
 
@@ -58,7 +58,7 @@ export function yardPlan(c, rng, catalog) {
 }
 
 /**
- * Doplňky stavby: trávník (deska 2 cm na dlažbě, od domu 2 m chodník) a skleněná stříška nad vchodem.
+ * Doplňky stavby: trávník (deska 2 cm na dlažbě, od domu 2,6 m chodník a podesta se schody) a skleněná stříška nad vchodem.
  * b = builder kvádrů, S = stavba (buildStructure), plan = rozvržení.
  */
 export function yardDecorate(b, S, plan, catalog) {
@@ -67,7 +67,7 @@ export function yardDecorate(b, S, plan, catalog) {
     const [k, sgn] = houseSide(c);
     const r = { x0: c.min[0], x1: c.max[0], z0: c.min[1], z1: c.max[1] };
     const key = k === 0 ? (sgn > 0 ? 'x1' : 'x0') : sgn > 0 ? 'z1' : 'z0';
-    r[key] += sgn > 0 ? -200 : 200;
+    r[key] += sgn > 0 ? -260 : 260;
     b.add(S.meta[i].id, 'lawn', [r.x0, c.y0, r.z0], [r.x1, c.y0 + 2, r.z1], 'lawn_green');
   }
   if (!catalog.has('canopy_entrance_01')) return;
