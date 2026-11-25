@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "slide_stainer_01",
+  "title": "Barvicí automat na sklíčka",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.451, -0.001, -0.301], "max": [0.451, 0.613, 0.308] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_cover", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_baths", "mat": "liquid_purple" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_stainer_01_plinth", "mat": "plastic_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [0.45, 0.612, 0.307], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 564,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

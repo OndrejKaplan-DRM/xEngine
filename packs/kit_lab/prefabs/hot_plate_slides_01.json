@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "hot_plate_slides_01",
+  "title": "Plotna na sušení sklíček",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.201, 0.01, -0.151], "max": [0.201, 0.066, 0.151] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hot_plate_slides_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hot_plate_slides_01_plate", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hot_plate_slides_01_slides", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0.011, -0.15], "max": [0.2, 0.065, 0.15], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 216,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

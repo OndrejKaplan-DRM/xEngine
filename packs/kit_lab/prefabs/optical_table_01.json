@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "optical_table_01",
+  "title": "Optický stůl 180 × 120 cm s tlumením",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.901, -0.001, -0.601], "max": [0.901, 0.802, 0.601] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_01_top", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_01_grid", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_01_legs", "mat": "steel_painted" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.9, 0, -0.6], "max": [0.9, 0.801, 0.6], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 828,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "params": { "top": 0.8 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

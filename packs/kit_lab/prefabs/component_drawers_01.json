@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "component_drawers_01",
+  "title": "Zásobník součástek se šuplíčky",
+  "category": "lab.electronics",
+  "bounds": { "min": [-0.201, -0.001, -0.101], "max": [0.201, 0.501, 0.112] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#component_drawers_01_body", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#component_drawers_01_fronts", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#component_drawers_01_labels", "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.1], "max": [0.2, 0.5, 0.111], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 876,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#electronics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

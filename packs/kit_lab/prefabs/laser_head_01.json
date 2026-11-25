@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "laser_head_01",
+  "title": "Laser na desku stolu",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.081, -0.001, -0.251], "max": [0.081, 0.141, 0.231] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laser_head_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laser_head_01_ap", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laser_head_01_warn", "mat": "cap_yellow" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.08, 0, -0.25], "max": [0.08, 0.14, 0.23], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 160,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

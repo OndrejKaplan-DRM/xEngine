@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "embedding_station_01",
+  "title": "Zalévací stanice s chladicí deskou",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.551, 0.011, -0.301], "max": [0.551, 0.401, 0.308] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_cold", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_tank", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_tap", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_molds", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#embedding_station_01_scr_keys", "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.55, 0.012, -0.3], "max": [0.55, 0.4, 0.307], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 480,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tensile_specimens_01",
+  "title": "Zkušební tyče (podnos)",
+  "category": "lab.materials",
+  "bounds": { "min": [-0.151, -0.001, -0.101], "max": [0.151, 0.031, 0.101] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tensile_specimens_01_tray", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tensile_specimens_01_bars", "mat": "aluminium" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.1], "max": [0.15, 0.03, 0.1], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 324,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#materials",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

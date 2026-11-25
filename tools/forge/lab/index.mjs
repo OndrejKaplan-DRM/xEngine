@@ -13,9 +13,10 @@ import { LARGE } from './large.mjs';
 import { COLD } from './cold.mjs';
 import { LAB_FURNITURE } from './furniture.mjs';
 import { ANIMAL } from './animal.mjs';
+import { FIELDS } from './fields.mjs';
 
 export const LAB_ID = 'kit_lab';
-export const LAB_MAKERS = [...VESSELS, ...GLASS_KITS, ...PLASTIC, ...CHEM, ...BENCH, ...LARGE, ...COLD, ...LAB_FURNITURE, ...ANIMAL];
+export const LAB_MAKERS = [...VESSELS, ...GLASS_KITS, ...PLASTIC, ...CHEM, ...BENCH, ...LARGE, ...COLD, ...LAB_FURNITURE, ...ANIMAL, ...FIELDS];
 
 export const buildLab = () =>
   buildTheme({ id: LAB_ID, title: 'Laboratoře: sklo, plasty, chemikálie, přístroje (xForge)', version: '0.1.0', requires: ['kit_base'], makers: LAB_MAKERS, materials: LAB_MATERIALS });

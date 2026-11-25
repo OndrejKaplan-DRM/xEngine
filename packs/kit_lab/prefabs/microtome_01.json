@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "microtome_01",
+  "title": "Rotační mikrotom",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.201, -0.001, -0.221], "max": [0.301, 0.401, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microtome_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microtome_01_wheel", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microtome_01_head", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microtome_01_block", "mat": "enamel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microtome_01_feet", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.22], "max": [0.3, 0.4, 0.22], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 464,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

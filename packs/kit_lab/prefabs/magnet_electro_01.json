@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "magnet_electro_01",
+  "title": "Elektromagnet s pólovými nástavci",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.401, -0.001, -0.201], "max": [0.401, 0.751, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#magnet_electro_01_yoke", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#magnet_electro_01_coils", "mat": "copper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#magnet_electro_01_poles", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.2], "max": [0.4, 0.75, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 692,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

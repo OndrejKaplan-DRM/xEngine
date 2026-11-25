@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 255496
+Prefabů: 343 · materiálů: 54 · trojúhelníků celkem: 282902
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -299,6 +299,56 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 255496
 | `isolator_glovebox_01` | Izolátor s rukavicemi (třída III) | lab.animal | 1,76 × 1,9 × 0,81 | 1330 | — | — |
 | `shower_decon_01` | Dekontaminační sprcha (průchozí kabina) | lab.animal | 1,1 × 2,35 × 1,1 | 984 | — | — |
 | `bin_biohazard_01` | Nádoba na infekční odpad s víkem | lab.animal | 0,47 × 1,06 × 0,5 | 444 | lid: 0° až 80° | door |
+| `optical_table_01` | Optický stůl 180 × 120 cm s tlumením | lab.physics | 1,8 × 0,8 × 1,2 | 828 | — | — |
+| `optical_table_02` | Optický stůl se sestavou laseru, zrcadel a čoček | lab.physics | 1,8 × 1,2 × 1,2 | 1558 | — | — |
+| `laser_head_01` | Laser na desku stolu | lab.physics | 0,16 × 0,14 × 0,48 | 160 | — | — |
+| `oscilloscope_01` | Osciloskop | lab.physics | 0,38 × 0,2 × 0,17 | 752 | — | — |
+| `oscilloscope_02` | Osciloskop s velkým displejem | lab.physics | 0,45 × 0,31 × 0,22 | 824 | — | — |
+| `function_generator_01` | Funkční generátor | lab.physics | 0,3 × 0,12 × 0,3 | 544 | — | — |
+| `power_supply_lab_01` | Laboratorní zdroj dvojitý | lab.physics | 0,26 × 0,16 × 0,32 | 752 | — | — |
+| `spectrum_analyzer_01` | Spektrální analyzátor | lab.physics | 0,42 × 0,27 × 0,44 | 592 | — | — |
+| `multimeter_bench_01` | Stolní multimetr | lab.physics | 0,22 × 0,09 × 0,29 | 512 | — | — |
+| `lockin_amplifier_01` | Synchronní zesilovač | lab.physics | 0,43 × 0,13 × 0,42 | 728 | — | — |
+| `vacuum_chamber_01` | Vakuová komora s turbomolekulární vývěvou | lab.physics | 0,84 × 1,4 × 0,81 | 900 | — | — |
+| `cryostat_01` | Kryostat s tlakovou hlavou a kompresorem | lab.physics | 1,11 × 1,46 × 0,52 | 1100 | — | — |
+| `magnet_electro_01` | Elektromagnet s pólovými nástavci | lab.physics | 0,8 × 0,75 × 0,4 | 692 | — | — |
+| `rack_instruments_01` | Rack s měřicími přístroji | lab.physics | 0,6 × 1,6 × 0,8 | 724 | — | — |
+| `goggles_rack_01` | Držák ochranných brýlí proti laseru | lab.physics | 0,5 × 0,24 × 0,07 | 432 | — | — |
+| `sign_laser_01` | Výstražná tabulka: laser | lab.physics | 0,3 × 0,2 × 0,02 | 132 | — | — |
+| `workbench_esd_01` | Antistatický pracovní stůl s nástavbou a lampou | lab.electronics | 1,6 × 1,6 × 0,75 | 532 | — | — |
+| `soldering_station_01` | Pájecí stanice s držákem pájky | lab.electronics | 0,3 × 0,16 × 0,17 | 292 | — | — |
+| `fume_extractor_01` | Odsávání kouře z pájení | lab.electronics | 0,2 × 0,37 × 0,26 | 312 | — | — |
+| `pcb_microscope_01` | Mikroskop na kontrolu desek s monitorem | lab.electronics | 0,55 × 0,45 × 0,3 | 364 | — | — |
+| `printer_3d_01` | 3D tiskárna stolní | lab.electronics | 0,57 × 0,5 × 0,5 | 368 | — | — |
+| `printer_3d_02` | 3D tiskárna velká v krytu | lab.electronics | 0,9 × 1,5 × 0,82 | 1072 | — | — |
+| `component_drawers_01` | Zásobník součástek se šuplíčky | lab.electronics | 0,4 × 0,5 × 0,21 | 876 | — | — |
+| `cabinet_components_01` | Vysoká skříň se zásuvkami na součástky | lab.electronics | 0,6 × 1,8 × 0,51 | 684 | — | — |
+| `reel_rack_01` | Regál na cívky součástek | lab.electronics | 0,84 × 1,4 × 0,4 | 1272 | — | — |
+| `multimeter_hand_01` | Ruční multimetr s hroty | lab.electronics | 0,25 × 0,05 × 0,24 | 248 | — | — |
+| `pcb_holder_01` | Držák desky plošných spojů s deskou | lab.electronics | 0,24 × 0,12 × 0,16 | 180 | — | — |
+| `workbench_esd_02` | Antistatický stůl se zásuvkovým kontejnerem | lab.electronics | 1,6 × 1,6 × 0,75 | 736 | — | — |
+| `microtome_01` | Rotační mikrotom | lab.histology | 0,5 × 0,4 × 0,44 | 464 | — | — |
+| `cryostat_histo_01` | Kryostat pro zmrazené řezy | lab.histology | 0,72 × 1,12 × 0,71 | 468 | — | — |
+| `tissue_processor_01` | Tkáňový procesor (automat) | lab.histology | 0,8 × 1,3 × 0,72 | 480 | — | — |
+| `embedding_station_01` | Zalévací stanice s chladicí deskou | lab.histology | 1,1 × 0,39 × 0,61 | 480 | — | — |
+| `slide_stainer_01` | Barvicí automat na sklíčka | lab.histology | 0,9 × 0,61 × 0,61 | 564 | — | — |
+| `slide_cabinet_01` | Skříň na podložní sklíčka | lab.histology | 0,45 × 1,2 × 0,51 | 468 | — | — |
+| `water_bath_sections_01` | Lázeň na napínání řezů | lab.histology | 0,3 × 0,09 × 0,3 | 192 | — | — |
+| `hot_plate_slides_01` | Plotna na sušení sklíček | lab.histology | 0,4 × 0,06 × 0,3 | 216 | — | — |
+| `paraffin_dispenser_01` | Dávkovač parafínu | lab.histology | 0,24 × 0,36 × 0,36 | 264 | — | — |
+| `slide_rack_01` | Stojánek se sklíčky | lab.histology | 0,12 × 0,1 × 0,08 | 228 | — | — |
+| `cassette_box_01` | Krabička s kazetami na tkáň | lab.histology | 0,2 × 0,06 × 0,14 | 252 | — | — |
+| `coverslipper_01` | Automat na krycí sklíčka | lab.histology | 0,45 × 0,35 × 0,51 | 336 | — | — |
+| `testing_machine_01` | Univerzální trhací stroj (zkoušky tahem a tlakem) | lab.materials | 1 × 2,3 × 0,71 | 900 | — | — |
+| `testing_machine_02` | Stolní zkušební stroj | lab.materials | 0,5 × 0,95 × 0,4 | 500 | — | — |
+| `hardness_tester_01` | Tvrdoměr | lab.materials | 0,24 × 0,59 × 0,4 | 472 | — | — |
+| `polisher_01` | Brusno-leštička vzorků | lab.materials | 0,5 × 0,42 × 0,61 | 580 | — | — |
+| `saw_precision_01` | Přesná pila na vzorky | lab.materials | 0,6 × 0,45 × 0,51 | 464 | — | — |
+| `furnace_muffle_01` | Muflová pec | lab.materials | 0,5 × 0,55 × 0,69 | 536 | — | — |
+| `impact_tester_01` | Kladivo pro rázovou zkoušku (Charpy) | lab.materials | 1,45 × 2,17 × 0,61 | 316 | — | — |
+| `press_mounting_01` | Lis na zalévání vzorků | lab.materials | 0,34 × 0,56 × 0,45 | 388 | — | — |
+| `specimen_cabinet_01` | Skříň na zkušební vzorky | lab.materials | 0,9 × 1 × 0,61 | 348 | — | — |
+| `tensile_specimens_01` | Zkušební tyče (podnos) | lab.materials | 0,3 × 0,03 × 0,2 | 324 | — | — |
 
 ## Meze kloubů: zdroj nebo úvaha
 

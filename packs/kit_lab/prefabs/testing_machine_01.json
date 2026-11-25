@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "testing_machine_01",
+  "title": "Univerzální trhací stroj (zkoušky tahem a tlakem)",
+  "category": "lab.materials",
+  "bounds": { "min": [-0.501, -0.001, -0.351], "max": [0.501, 2.301, 0.358] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_base", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_columns", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_head", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_cross", "mat": "paint_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_grips", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_specimen", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_shield", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#testing_machine_01_scr_led", "mat": "emit_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.35], "max": [0.5, 2.3, 0.357], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 900,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#materials",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

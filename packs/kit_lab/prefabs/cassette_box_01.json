@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cassette_box_01",
+  "title": "Krabička s kazetami na tkáň",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.101, -0.001, -0.071], "max": [0.101, 0.055, 0.071] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cassette_box_01_box", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cassette_box_01_cassettes", "mat": "cap_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.07], "max": [0.1, 0.054, 0.07], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 252,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

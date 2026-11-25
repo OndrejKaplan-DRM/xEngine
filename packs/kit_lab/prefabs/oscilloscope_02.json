@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "oscilloscope_02",
+  "title": "Osciloskop s velkým displejem",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.226, -0.001, -0.101], "max": [0.226, 0.312, 0.117] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_case", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_face", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_feet", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_knobs", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_jacks", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#oscilloscope_02_handle", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.1], "max": [0.225, 0.311, 0.116], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 824,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

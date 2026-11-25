@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "impact_tester_01",
+  "title": "Kladivo pro rázovou zkoušku (Charpy)",
+  "category": "lab.materials",
+  "bounds": { "min": [-0.401, -0.001, -0.307], "max": [1.049, 2.172, 0.307] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#impact_tester_01_base", "mat": "paint_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#impact_tester_01_posts", "mat": "paint_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#impact_tester_01_axle", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#impact_tester_01_arm", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#impact_tester_01_guard", "mat": "glass_tinted" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.306], "max": [1.048, 2.171, 0.306], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 316,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#materials",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

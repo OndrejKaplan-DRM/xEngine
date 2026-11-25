@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cabinet_components_01",
+  "title": "Vysoká skříň se zásuvkami na součástky",
+  "category": "lab.electronics",
+  "bounds": { "min": [-0.301, -0.001, -0.251], "max": [0.301, 1.801, 0.262] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cabinet_components_01_body", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cabinet_components_01_fronts", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cabinet_components_01_labels", "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.25], "max": [0.3, 1.8, 0.261], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 684,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#electronics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

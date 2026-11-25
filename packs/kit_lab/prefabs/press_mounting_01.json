@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "press_mounting_01",
+  "title": "Lis na zalévání vzorků",
+  "category": "lab.materials",
+  "bounds": { "min": [-0.171, 0.011, -0.221], "max": [0.171, 0.572, 0.228] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#press_mounting_01_body", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#press_mounting_01_cyl", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#press_mounting_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#press_mounting_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#press_mounting_01_scr_keys", "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.17, 0.012, -0.22], "max": [0.17, 0.571, 0.227], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 388,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#materials",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

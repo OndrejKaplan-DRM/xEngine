@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pcb_microscope_01",
+  "title": "Mikroskop na kontrolu desek s monitorem",
+  "category": "lab.electronics",
+  "bounds": { "min": [-0.151, -0.001, -0.152], "max": [0.401, 0.451, 0.151] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pcb_microscope_01_base", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pcb_microscope_01_pole", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pcb_microscope_01_cam", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pcb_microscope_01_mon", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#pcb_microscope_01_scr", "mat": "emit_display" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.151], "max": [0.4, 0.45, 0.15], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 364,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#electronics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

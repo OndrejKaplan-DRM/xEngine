@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "water_bath_sections_01",
+  "title": "Lázeň na napínání řezů",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.151, 0.01, -0.151], "max": [0.151, 0.104, 0.152] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_bath_sections_01_body", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_bath_sections_01_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_bath_sections_01_led", "mat": "emit_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0.011, -0.15], "max": [0.15, 0.103, 0.151], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 192,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

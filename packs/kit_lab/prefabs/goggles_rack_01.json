@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "goggles_rack_01",
+  "title": "Držák ochranných brýlí proti laseru",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.251, -0.121, -0.001], "max": [0.251, 0.121, 0.071] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#goggles_rack_01_board", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#goggles_rack_01_goggles", "mat": "cap_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.25, -0.12, 0], "max": [0.25, 0.12, 0.07], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.5 }
+  },
+  "tris": 432,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "slide_cabinet_01",
+  "title": "Skříň na podložní sklíčka",
+  "category": "lab.histology",
+  "bounds": { "min": [-0.226, -0.001, -0.251], "max": [0.226, 1.201, 0.262] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_cabinet_01_body", "mat": "steel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_cabinet_01_fronts", "mat": "steel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#slide_cabinet_01_labels", "mat": "label_paper" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.25], "max": [0.225, 1.2, 0.261], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 468,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#histology",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

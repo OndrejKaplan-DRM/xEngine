@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "reel_rack_01",
+  "title": "Regál na cívky součástek",
+  "category": "lab.electronics",
+  "bounds": { "min": [-0.422, -0.001, -0.201], "max": [0.422, 1.401, 0.201] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#reel_rack_01_frame", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#reel_rack_01_reels", "mat": "plastic_navy" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.421, 0, -0.2], "max": [0.421, 1.4, 0.2], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1272,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#electronics",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "polisher_01",
+  "title": "Brusno-leštička vzorků",
+  "category": "lab.materials",
+  "bounds": { "min": [-0.251, 0.011, -0.301], "max": [0.251, 0.429, 0.308] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_body", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_bowl", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_disk", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_tap", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#polisher_01_scr_keys", "mat": "plastic_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.25, 0.012, -0.3], "max": [0.25, 0.428, 0.307], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 580,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#materials",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

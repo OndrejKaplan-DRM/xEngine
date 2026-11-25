@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "optical_table_02",
+  "title": "Optický stůl se sestavou laseru, zrcadel a čoček",
+  "category": "lab.physics",
+  "bounds": { "min": [-0.901, -0.001, -0.601], "max": [0.901, 1.201, 0.601] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_top", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_grid", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_legs", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_laser", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_aperture", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_posts", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_mounts", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_beam", "mat": "emit_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_detector", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#optical_table_02_curtain", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.9, 0, -0.6], "max": [0.9, 1.2, 0.6], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1558,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#physics",
+    "params": { "assembly": true },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "workbench_esd_01",
+  "title": "Antistatický pracovní stůl s nástavbou a lampou",
+  "category": "lab.electronics",
+  "bounds": { "min": [-0.801, -0.001, -0.376], "max": [0.801, 1.601, 0.376] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_top", "mat": "bench_phenolic" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_mat", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_frame", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_strip", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_sockets", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#workbench_esd_01_lamp", "mat": "plastic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.375], "max": [0.8, 1.6, 0.375], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 532,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/lab/fields.mjs#electronics",
+    "params": { "top": 0.9, "deck": [-0.28, 0.34] },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
