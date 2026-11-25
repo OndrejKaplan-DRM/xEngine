@@ -1,6 +1,6 @@
 # Stav sešny B
 
-**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 25. 11. 2026 v noci, sešna B04 (krok 21: realistický inventář z hladkých sítí)
+**Vlna:** 2 (zadání nahoře v `START_B.md`) · **Větev:** `sesna-b` · **Základ:** základ 2, znění 5 (`zaklad-2` = `main` = `608f0cb`: sloučená vlna 2 obou sešen, D-045 až D-048), sloučeno 24. 11. 2026 (`614e4d7`) · **Stav:** 25. 11. 2026 v noci, sešna B04 (krok 25: přístroje a nábytek kus po kuse, rozpočet viditelného v generátoru)
 
 > **Základ.** Od znění 5 je v základu i engine sešny A z vlny 2 (světlo po vrcholech, textury a `.glb`, `?bench`) a moje vlna 2 do `ba16d8d`. Nová pole a rozhodnutí, která se týkají dat sešny B: `albedoMean` (D-045, N-009 přijat), soubory balíku ve hře (D-046, N-111), zavřené dveře se `seeThrough` zadržují světlo (D-047).
 
@@ -38,6 +38,7 @@ Navazuje na B03 po přepnutí modelu (Ondřej v 15:58: limit u Fable 5.2, pokra�
 | xBake zapeče pevné díly prefabů (D-041) | hotovo | `d91f6ba` a následující |
 | sklo výraznější (Ondřej 1:02, volba 2 b): lem a odlesk; návrh N-013 | hotovo v datech | `31d1ed2` a následující |
 | rozpočet podle toho, co je z buňky prokazatelně vidět (PVS; Ondřej 1:29, volba 2 a); B-T10; návrh N-014 | hotovo | viz oddíl níže |
+| přístroje, nábytek a `kit_it` kus po kuse ze stavebnice `appliance.mjs` (Ondřej 1:29, volba 3 b); generátor drží rozpočet viditelného | hotovo (373 prefabů interiéru z hladkých sítí; nové kusy nepřibyly) | `3191030` až `80fe066` |
 | `kit_home` s předvolbou bytu | nezačato | |
 
 **Bohatší tvary (`tools/forge/shapes.mjs`).** Jen z kvádrů a válců: pevné díly prefabu z kvádrů a válců zapeče xBake (D-041) a engine A je kreslí bez `.glb`. Funkce: `bevelBox` (sražené hrany ze tří překrytých kvádrů, 36 △), `planks` (prkna se škvírami, drobně různou tloušťkou a délkou podle semínka), `framedPanel` (rám s vpadlou výplní), `cornice` (římsa po vrstvách), `lathe` (soustružený profil z válců), `tray` (dutá vana s přepážkami), `handle` (madlo), `noise` (opakovatelná nepravidelnost podle id). Přestavěno: bedny (prkna se škvírami 6 mm, tmavé jádro, rohové lišty), sudy (dřevěný s vyboulením a obručemi, ocelový s lemy a žebry), truhla (prkna, kování, vnitřní přihrádka), skříň s dvířky (rám s výplní, římsa, zapuštěný sokl, police s lištou), stoly (prkenná deska, gumové patky, lubové desky, příčky), židle, regály (úhelníky, police s lištou, krabice), kamenná lavice.
@@ -218,7 +219,7 @@ Pruhy jsou namalované, točí se s předmětem a nesledují světlo; skutečný
 
 ### Rozpočet podle viditelnosti (krok 24, Ondřej 1:29, volba 2 a)
 
-`test/b_lib/pvs.mjs`: pro každou buňku množina buněk, do kterých z ní vede přímka otvory portálů (všechny dveře otevřené, v půdorysu, tedy nadmnožina skutečné viditelnosti z kteréhokoli místa buňky). B-T1 teď hlídá **„z žádné buňky víc než 300 tisíc △“** s kvádry po síti světla (`levelLightMeshes`, mřížka dat 0,5 m), jak je kreslí běh, a délku řetězu portálů s výhledem do 12 (`MAX_DEPTH` viditelnosti sešny A). Celý level se jen hlásí. Nová sada **B-T10** (10 kontrol): ručně složené případy, souměrnost, ukázkové levely a shoda s T460.
+`src/gen/pvs.js` (do kroku 25 `test/b_lib/pvs.mjs`): pro každou buňku množina buněk, do kterých z ní vede přímka otvory portálů (všechny dveře otevřené, v půdorysu, tedy nadmnožina skutečné viditelnosti z kteréhokoli místa buňky). B-T1 teď hlídá **„z žádné buňky víc než 300 tisíc △“** s kvádry po síti světla (`levelLightMeshes`, mřížka dat 0,5 m), jak je kreslí běh, a délku řetězu portálů s výhledem do 12 (`MAX_DEPTH` viditelnosti sešny A). Celý level se jen hlásí. Nová sada **B-T10** (10 kontrol): ručně složené případy, souměrnost, ukázkové levely a shoda s T460.
 
 | 200 seedů (sandbox) | Nejvíc △ vidět z buňky | Celý level (kvádry po síti světla) | Řetěz s výhledem |
 |---|---|---|---|
@@ -227,6 +228,38 @@ Pruhy jsou namalované, točí se s předmětem a nesledují světlo; skutečný
 | `catacombs` | 46 926 až 106 804 | 68 430 až 134 348 | 3 až 8 |
 
 Shoda s měřením: PVS `complex_7` při mřížce 0,25 m (Ondřejovo nastavení) je nejvýš 251 278 △ v `c_corr_01`; T460 změřil nejvýš 149 094 △ a nejvíc volání (496) právě v `c_corr_01`. **Pozor:** při mřížce 0,25 m mají kvádry asi dvakrát víc △ (`complex_21` 293 394 vidět z buňky); se světlem v textuře (D-050) budou kvádry zase 12 △. Návrh **N-014**: PVS do základu a pro sešnu A zkouška „kreslím ⊆ PVS“ (rozpočet) a „vše, co paprsek z oka zasáhne, kreslím“ (nic nebliká), hlavně u portálů.
+
+### Přístroje a nábytek kus po kuse (krok 25, Ondřej 1:29, volba 3 b)
+
+Ondřej: „přístroje a nábytek kus po kuse … opět udělej aspoň 300 ks inventáře pro interiér, ať máme z čeho stavět.“ Zeptala jsem se, jestli (a) `kit_home`, (b) přestavba a nové kusy laboratoří a kanceláří, nebo (c) obojí; odpověď nepřišla, pracovala jsem s (b), a to **přestavbou existujících kusů** (id beze změny, levely i testy jedou dál). Nové kusy v tomto kroku nepřibyly.
+
+Stavebnice `tools/forge/lab/appliance.mjs` (plášť se zaoblenými hranami, dvířka s těsněním a oknem, madla, mřížky, displej v rámečku, knoflíky, panty, zámek, nožky, kolečka, drátěné rošty, štítky, kabely). Velké plochy zaoblený kvádr s jedním úsekem (108 △; se dvěma úseky 300 △, jen kde je vidět zblízka), drobnosti plochý kvádr (12 △) a soustružené díly s 6 až 16 stěnami. Každá síť má jméno začínající id prefabu; stejný tvar u více prefabů sdílí jeden uzel (tlakové láhve 5 plynů: tělo, ventil, redukce a manometry jednou, barva hrdla materiálem).
+
+| Skupina | Kusů | Co přibylo |
+|---|---|---|
+| stolní přístroje (`bench.mjs`, `bench_b.mjs`, `bench_c.mjs`) | 52 | váhy s krytem v hliníkových rámečcích a talířem, centrifugy s víkem, okénkem a rotorem, vortex a míchačky soustružené, třepačka s baňkami v držácích, termocykler s kolem víka, elektroforézy s kabely, pipety soustružené ve stojanech, vývěvy, sedlové víko lázně, pH metr s elektrodou, láhve s ventilem, redukcí a barevným hrdlem, Dewarovy nádoby, mikroskopy s okuláry a Petriho miskou, sušárna s oknem a madlem, drobnosti |
+| velké přístroje (`large.mjs`) | 26 | kapalinová a plynová chromatografie, sekvenátory, mikroskopy, autoklávy, biohazard boxy, inkubátory, rozvody (krok 25 začal tady) |
+| chlazení (`cold.mjs`) | 11 | lednice a mrazáky s dutým pláštěm, rošty a vnitřními dvířky; truhlicový mrazák, zásobník LN2 na podvozku, komory s regály, krabicemi, výparníkem a madlem |
+| nábytek a reaktory (`furniture.mjs`) | 23 | stoly, ostrůvek, výlevka, regály, bezpečnostní skříně, digestoř, židle, vozík, sprcha; stolní bioreaktory s čerpadly a hadičkami, nerezové s průhledítkem, duplikované reaktory s chladičem |
+| chovy a karanténa (`animal.mjs`) | 14 | akvária na skříňce, nádrže z pěti tabulí se silikonem a rostlinami, terária s kameny a lampou, klece IVC s napáječkou, regál klecí s kolečky, klec pro králíka, izolátor s porty a rukavicemi, sprcha se závěsy, nádoba na odpad s pedálem |
+| `kit_it` (`computers.mjs`, `office.mjs`, `server.mjs`) | 80 | monitory, skříně, klávesnice, notebooky, tablety, telefon, tiskárny, kopírka; stoly, židle, zasedačky, budka, rostliny; racky se servery v jedné síti na materiál, síťový rack s kabely, superpočítač s potrubím, UPS, chlazení, láhev hasiva, žlaby, dlaždice, čtečka, kamera |
+
+Sklo, plasty a chemikálie (167 kusů) zůstávají z prvního kola (hladké sítě, lem a odlesk). **Interiér má tedy 373 prefabů z hladkých sítí** (`kit_lab` 293, `kit_it` 80); `kit_base` (51) zůstává z kvádrů a válců.
+
+| Číslo (sandbox) | Hodnota |
+|---|---|
+| `kit_lab` | 293 prefabů, 255 496 △, průměr 872 △ (mez 1 000), nejvíc 2 870 (třepačka s baňkami, sestava); sítě 8 620 kB |
+| `kit_it` | 80 prefabů, 53 462 △, průměr 668 △; sítě 2 471 kB |
+| sestavy (přístroj se sadou skla, do 3 000 △) | odparka 2 814, třepačka s baňkami 2 870, stolní bioreaktory 1 784 a 2 836, duplikované reaktory 2 148 a 2 184 |
+| galerie `dist/kit.html` | 20,1 MB (všechny sady; hra bere jen `gen_demo` se sadami) |
+
+**Rozpočet viditelného v generátoru.** Po přestavbě vyšel `complex` o jednom patře na 303 966 △ viditelných z buňky (mez 300 tisíc). Výpočet PVS je teď v generátoru (`src/gen/pvs.js`, testy ho načítají z `test/b_lib/pvs.mjs`); generátor po rozmístění spočítá z každé buňky viditelné △ jako běh (kvádry po síti světla, prefaby podle katalogu) a když je někde víc než `PVS_BUDGET` = 300 000, ubere z věcí na deskách stolů v nejhorší množině tu s nejvíc △, dokud se nevejde; kdyby nestačilo, zkusí další pokus. Věci na deskách označuje `furnish.js` (`dressTop`) jako volitelné. B-T1: `complex` o jednom patře upraven ve 2 z 50 levelů (nejvýš 2 entity), ostatní běhy 0 z 200 a 0 z 50. Nejvíc vidět z buňky: dvě patra 271 530, jedno patro 299 672, katakomby 106 804. Čas generování `complex` s 53 buňkami 62,7 ms (dřív 10,6 ms; sítě světla kvádrů a PVS).
+
+**Neověřeno:** cena nových sítí na T460 (poslední měření 25. 11. v 1:14 bylo před krokem 25). Odhad: velikost `xlab_gen.html` a počet △ v pohledu vzrostly; `?bench` nad `complex_7` by to ukázal.
+
+Montáže (v `test/out/`, mimo git): `pristroje_a.png`, `pristroje_b.png`, `chovy_po.png`, `reaktory_po.png`, `server_po.png`, `pocitace_po.png`, dřív `nabytek_po.png`, `velke_po.png`, `kancelar_po.png`, `chlazeni.png`.
+
+**Regrese po kroku 25** (sandbox): `npm test` T0 41, T1 155, T1b 14, T1c 27, T1d 31, T4 46, T2 15, T3 12; `npm run test:b` 10 sad (B-T10 10, B-T1 83, B-T2 33, B-T3 12, B-T4 20, B-T5 32, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
 
 **Regrese po krocích 22 a 23** (sandbox): `npm test` T0 41, T1 155, T1b 14, T1c 27, T1d 31, T4 46, T2 15, T3 12; `npm run test:b` 9 sad (B-T1 78, B-T2 33, B-T3 12, B-T4 20, B-T5 32, B-T6 9, B-T7 47, B-T8 7, B-T9 16); `npm run test:axb` 31 + 9; 0 selhalo.
 
@@ -367,6 +400,9 @@ Nic neblokuje. Co by ses měla dozvědět dřív než při slučování:
 - (B04) Věci na desku: šířky z `restBox`, výška z `components.place.top`, hloubka z `source.params.deck`; bez pruhu desky stojí vysoký přístroj v polici nástavby.
 - (B04) `TODO.md` má oddíl „Nedávno hotovo“ v každé sešně: nahrazování textu podle prvního výskytu zapíše do oddílu svodné. Hledej od nadpisu svého oddílu.
 - (B04) Kamera pro snímek místnosti: ve dveřích, 0,6 m za středem portálu (to místo generátor drží volné), ne v rohu (tam stojí nábytek).
+- (B04, krok 25) Stavebnice přístrojů z hladkých sítí (`tools/forge/lab/appliance.mjs`): zaoblený kvádr s jedním úsekem má 108 △, se dvěma 300 △, se třemi 588 △; plochý kvádr 12 △. Na velké plochy jeden úsek, drobnosti ploché, soustružené díly 6 až 16 stěn. Stejné jméno sítě se stejným tvarem se mezi prefaby sdílí (jeden uzel v `.glb`), materiál je věc dílu.
+- (B04, krok 25) Profil soustružení (`lathe`) jde zdola nahoru po vnější straně; obrácené pořadí dá normály dovnitř. Úhel 270° je čelo (+Z), štítek na válci = `lathe` s `a0: 245, a1: 295`.
+- (B04, krok 25) Rozpočet viditelného hlídá generátor (`fitPVS`), ne jen test: věci na deskách jsou volitelné a ubírají se v nejhorší množině PVS. Stejná čísla počítá test nad hotovým levelem.
 - (B04, krok 21) Laboratorní sklo jako stoh válců vypadá schodovitě a Ondřej to pozná hned. Tenká stěna z jednoho profilu (ven, přes oblý okraj, dovnitř) dá skutečný tvar za 300 až 900 △. Zjednodušovat profil podle vzdálenosti od přímky, ne podle úhlu (úhel smaže rameno kužele) a dno vnitřku počítat od vnějšího pólu, ne od absolutní výšky.
 - (B04, krok 21) Generátor sítě nečte: kolize prefabu musí síť obepnout (B-T9 to měří po převedení sítě do prostoru prefabu). Válec, který přečnívá zadané kolize, nechávat válcem.
 - (B04, krok 21) Galerie čte `__PACK__` z `packs/`: po změně xForge nejdřív `make-pack.mjs`, potom `node build.mjs kit`, jinak galerie ukáže stará data.

@@ -82,8 +82,8 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 
 Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“), zadání `docs/sesny/START_B.md`. Vede sešna B.
 
-**Teď** (Ondřej 24. 11. 23:57: hustota laboratoří stačí (1 a); další krok zapečené světlo na pevných dílech prefabů D-041 (2 b), `kit_home` až potom; hra smí mít až 25 MB (3 a); `?bench` nad `complex_7` pustí (4 a). Nové zadání: **„víc prefabů, ve vyšší kvalitě, víc trojúhelníků… lépe řeš kužely, válce, jehlany, zaoblení… materiál je sklo, ať to tak vypadá“; trojúhelníků o 50 % víc, práce 5× lepší, celému inventáři víc realismu.**):
-1. [~] realistický inventář: **první kolo hotovo** (sítě `tools/forge/mesh/`, sklo 76, plasty 53, chemikálie 38, odparka, zaoblení všech přístrojů ze společné vrstvy; 7 nových kusů skla; návrh N-012; `kit_lab` 171 484 △, level `complex` medián 197 622 △, nejvíc 295 204 z meze 300 tisíc; hra 13,6 MB). Zbývá kus po kuse: stolní a velké přístroje → nábytek a chlazení → `kit_it` → `kit_base`; nové prefaby
+**Teď** (Ondřej 25. 11. 1:29: sklo stačí (1 a); rozpočet podle toho, co je prokazatelně vidět (2 a); přístroje a nábytek kus po kuse, „aspoň 300 ks inventáře pro interiér“ (3 b). Dřív 24. 11. 23:57: hustota laboratoří stačí (1 a); další krok zapečené světlo na pevných dílech prefabů D-041 (2 b), `kit_home` až potom; hra smí mít až 25 MB (3 a); `?bench` nad `complex_7` pustí (4 a). Nové zadání: **„víc prefabů, ve vyšší kvalitě, víc trojúhelníků… lépe řeš kužely, válce, jehlany, zaoblení… materiál je sklo, ať to tak vypadá“; trojúhelníků o 50 % víc, práce 5× lepší, celému inventáři víc realismu.**):
+1. [x] realistický inventář kus po kuse (krok 25): 373 prefabů interiéru z hladkých sítí (`kit_lab` 293, `kit_it` 80; stavebnice `appliance.mjs`), vše do 1 500 △ (sestavy se sklem do 3 000), generátor drží rozpočet viditelného 300 tisíc △ (`src/gen/pvs.js`). Nové kusy nepřibyly; `kit_base` (51) zůstává z kvádrů. Dřív: **první kolo hotovo** (sítě `tools/forge/mesh/`, sklo 76, plasty 53, chemikálie 38, odparka, zaoblení všech přístrojů ze společné vrstvy; 7 nových kusů skla; návrh N-012; `kit_lab` 171 484 △, level `complex` medián 197 622 △, nejvíc 295 204 z meze 300 tisíc; hra 13,6 MB). Zbývá kus po kuse: stolní a velké přístroje → nábytek a chlazení → `kit_it` → `kit_base`; nové prefaby
 2. [x] xBake zapeče pevné díly prefabů (D-041): `complex_7` 182 468 vzorků (116 850 na dílech), 28 s v sandboxu, 4,8 MB; vlastní kolize entity díly nestíní (B_STAV, oddíl „Zapečené pevné díly“)
 2a. [x] sklo výraznější (volba 2 b): lem a pruhy odlesku v datech, návrh N-013 pro sešnu A; level `complex` nejvýš 299 608 △ z meze 300 tisíc (B_STAV, oddíl „Sklo s lemem a odleskem“)
 2c. [x] rozpočet trojúhelníků podle toho, co je z buňky prokazatelně vidět (PVS, volba 2 a): nejvíc 229 174 △ z buňky (mez 300 tisíc), B-T10, návrh N-014
@@ -94,9 +94,12 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 
 **Potom:** B3.1 plazmová puška z Arény (`kit_arena`, dodatek znění 9) · kartotéka a stůl jako jeden prefab se seznamem interakcí (D-052), až to umí sešna A · B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
+**Otázka na Ondřeje:** má přibýt dalších 300 **nových** kusů (např. `kit_home`, další obory laboratoří), nebo stačí přestavba 373 stávajících? · cena nových sítí na T460 (`?bench` nad `complex_7`).
+
 **Čeká na jiné:** **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 25. 11. přístroje, nábytek a `kit_it` kus po kuse (Ondřej 1:29, 3 b); generátor ubírá věci z desek, když je z buňky vidět víc než 300 tisíc △ (`3191030` až `80fe066`)
 - 25. 11. rozpočet podle PVS (Ondřej 1:29, 2 a): B-T1 a nová B-T10, návrh N-014
 - 25. 11. sklo s lemem a odleskem (Ondřej 1:02, 2 b); +50 % platí na prefab (1 a), sestava do 3 000 △ (`31d1ed2`)
 - 25. 11. xBake zapéká pevné díly prefabů (D-041), hlavička `entities`; znění 8 a 9 základu sloučeno, interakce přes `interact.js` (D-052) (`8ba697c`, `73cb0bb`, `d91f6ba`)

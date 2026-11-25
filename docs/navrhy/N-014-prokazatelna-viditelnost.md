@@ -4,7 +4,7 @@ Sešna: B · Datum: 2026-11-25 · Stav: otevřený · Pro: svodnou sešnu (funkc
 
 ## Co potřebuju
 
-1. **Do základu** funkci `levelPVS(level)` (dnes `test/b_lib/pvs.mjs`, 130 řádků bez knihoven): pro každou buňku množina buněk, do kterých z ní vede přímka otvory portálů (všechny dveře otevřené). Je to **horní mez** toho, co smí běh kdy kreslit, a jedno měřítko rozpočtu pro generátor, xBench i běh.
+1. **Do základu** funkci `levelPVS(level)` (od 25. 11. 2026 `src/gen/pvs.js`, kde podle ní generátor drží rozpočet 300 tisíc △ funkcí `fitPVS`; dřív `test/b_lib/pvs.mjs`; 170 řádků bez knihoven): pro každou buňku množina buněk, do kterých z ní vede přímka otvory portálů (všechny dveře otevřené). Je to **horní mez** toho, co smí běh kdy kreslit, a jedno měřítko rozpočtu pro generátor, xBench i běh.
 2. **Od sešny A** zkoušku, že kreslení je mezi dvěma mezemi: nekreslí nic mimo PVS buňky kamery (rozpočet platí) a nevynechá nic, co je z oka skutečně vidět (místnost nebliká).
 
 ## Proč
