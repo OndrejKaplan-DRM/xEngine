@@ -10,16 +10,16 @@
 
 import { snap } from './util.js';
 
-const sub = (r, ax, lo, hi) => {
+export const sub = (r, ax, lo, hi) => {
   const o = { min: [...r.min], max: [...r.max] };
   o.min[ax] = lo;
   o.max[ax] = hi;
   return o;
 };
-const slab = (f, run, a0, a1, b0, b1) => ({ f, run, a0, a1, b0, b1 });
+export const slab = (f, run, a0, a1, b0, b1) => ({ f, run, a0, a1, b0, b1 });
 
 /** Rekurzivní dělení oblasti r patra f na listy (místnosti, chodby) a desky zdí. */
-function bsp(r, f, P, rng, out, depth) {
+export function bsp(r, f, P, rng, out, depth) {
   const size = [r.max[0] - r.min[0], r.max[1] - r.min[1]];
   const la = size[0] >= size[1] ? 0 : 1; // delší osa
   const sa = 1 - la;
@@ -67,7 +67,7 @@ function bsp(r, f, P, rng, out, depth) {
 const onFloor = (c, f) => c.tall || c.f === f;
 
 /** Rozdělí desky na úseky podle buněk po obou stranách; každý úsek má nejvýš jednu buňku z každé strany. */
-function segment(slabs, cells, floorY, T) {
+export function segment(slabs, cells, floorY, T) {
   const segs = [];
   const top = floorY.length - 1;
   for (const s of slabs) {
@@ -116,7 +116,7 @@ function segment(slabs, cells, floorY, T) {
  * Kostra grafu sousedství (Primův algoritmus s váhami od předvolby) + náhodné smyčky.
  * Vrací vybrané hrany, nebo null, když graf není souvislý.
  */
-function connect(cells, cands, P, rng, start) {
+export function connect(cells, cands, P, rng, start) {
   const weighted = cands.map((e) => ({ e, w: P.edgeWeight(cells[e.a], cells[e.b], e) + rng.next() }));
   const inTree = new Set([start]);
   const chosen = [];
@@ -196,6 +196,15 @@ export function makeLayout(P, rng) {
   P.classify(cells, ctx, rng.fork('classify'));
 
   const segments = segment(out.slabs, cells, floorY, T);
+  const cands = candidates(segments, cells, floorY, P);
+  const start = P.pickStart(cells, ctx);
+  const edges = connect(cells, cands, P, rng.fork('doors'), start);
+  if (!edges) return null;
+  return { W, D, T, pitch, floorY, cells, segments, edges, start, hall: hall ? 0 : -1 };
+}
+
+/** Kandidáti na otvory: úseky zdí mezi dvěma buňkami, kudy projde člověk (u vysoké buňky galerií patra). */
+export function candidates(segments, cells, floorY, P) {
   const cands = [];
   segments.forEach((s, si) => {
     if (s.A < 0 || s.B < 0) return;
@@ -209,9 +218,5 @@ export function makeLayout(P, rng) {
     if (!gallery && Math.abs(a.y0 - b.y0) > P.maxStep) return;
     cands.push({ seg: si, a: s.A, b: s.B, sill: level, head, gallery });
   });
-
-  const start = P.pickStart(cells, ctx);
-  const edges = connect(cells, cands, P, rng.fork('doors'), start);
-  if (!edges) return null;
-  return { W, D, T, pitch, floorY, cells, segments, edges, start, hall: hall ? 0 : -1 };
+  return cands;
 }

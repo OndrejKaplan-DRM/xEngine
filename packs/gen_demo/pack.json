@@ -5,7 +5,7 @@
   "title": "Ukázkové levely xGen",
   "version": "0.1.0",
   "free": true,
-  "requires": ["kit_base", "kit_lab", "kit_it"],
-  "levels": ["levels/complex_7.json", "levels/complex_21.json", "levels/catacombs_3.json"],
+  "requires": ["kit_base", "kit_lab", "kit_it", "kit_home"],
+  "levels": ["levels/complex_7.json", "levels/complex_21.json", "levels/catacombs_3.json", "levels/house_1.json"],
   "assets": []
 }

@@ -23,8 +23,8 @@ import { BODY, bodyWidth, passRadius } from '../src/gen/body.js';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEEDS = Number(process.env.B_SEEDS || 200);
 const { ok, finish } = makeChecker('B-T1 xGen');
-// sady jako v packs/ (kit_base, kit_lab, kit_it), sestavené v paměti stejným kódem jako make-pack
-const kitsNow = () => [kitAsPack(), ...['kit_lab', 'kit_it'].map((id) => themePack(THEMES[id].build()))];
+// sady jako v packs/ (kit_base, kit_lab, kit_it, kit_home), sestavené v paměti stejným kódem jako make-pack
+const kitsNow = () => [kitAsPack(), ...['kit_lab', 'kit_it', 'kit_home'].map((id) => themePack(THEMES[id].build()))];
 const KITS = kitsNow();
 const kitPack = KITS[0];
 const catalog = makeCatalog(mergeKits(KITS));
@@ -90,6 +90,29 @@ function asPack(level, cat = catalog) {
   ok(!/R\s*=\s*0\.\d/.test(code), 'poloměr postavy není v kódu generátoru napsaný číslem');
 }
 
+// ---- dům: byty jako souvislé skupiny místností bytu (přes portály) s jedněmi dveřmi do chodby
+const HOME = /^c_(hallway|living|kitchen|bedroom|kids|study|bath|studio)_/;
+function apartmentsOf(level, st) {
+  const home = new Set(level.cells.filter((c) => HOME.test(c.id)).map((c) => c.id));
+  const par = new Map([...home].map((id) => [id, id]));
+  const find = (x) => (par.get(x) === x ? x : (par.set(x, find(par.get(x))), par.get(x)));
+  for (const p of level.portals) if (home.has(p.a) && home.has(p.b)) par.set(find(p.a), find(p.b));
+  const comps = new Map([...home].map((id) => [find(id), { rooms: 0, corr: 0 }]));
+  for (const id of home) comps.get(find(id)).rooms++;
+  for (const p of level.portals) {
+    const h = home.has(p.a) && !home.has(p.b) ? p.a : home.has(p.b) && !home.has(p.a) ? p.b : null;
+    if (!h) continue;
+    const o = h === p.a ? p.b : p.a;
+    if (/^c_stair_/.test(o)) st.bad.push(`${level.id}: ${h} vede do schodiště`);
+    else if (/^c_corr_/.test(o)) comps.get(find(h)).corr++;
+  }
+  const flats = [...comps.values()].filter((x) => x.rooms >= 2);
+  for (const f of flats) if (f.corr !== 1) st.bad.push(`${level.id}: byt o ${f.rooms} místnostech má ${f.corr} dveří do chodby`);
+  st.flats.push(flats.length);
+  const ys = [...new Set(level.cells.filter((c) => !/^c_stair_/.test(c.id)).map((c) => c.bounds.min[1]))];
+  st.floors.push(ys.length);
+}
+
 // ---- 200 seedů × předvolby ------------------------------------------------------------------
 const RUNS = [
   { preset: 'complex', opts: {}, n: SEEDS, name: 'complex (dvě patra)' },
@@ -97,6 +120,7 @@ const RUNS = [
   { preset: 'complex', opts: { floors: 1 }, n: Math.ceil(SEEDS / 4), name: 'complex (jedno patro)' },
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
   { preset: 'complex', opts: {}, n: Math.ceil(SEEDS / 4), name: 'complex jen se sadou kit_base', cat: baseCatalog },
+  { preset: 'house', opts: {}, n: Math.ceil(SEEDS / 4), name: 'dům (4 podlaží: laboratoře, byty)', cells: [40, 100], house: true },
 ];
 // místnosti ze sad kit_lab a kit_it (obor laboratoře, serverovna, open space) podle jména buňky
 const KINDS = { lab: /^c_(chem|bio|mol|anal|viv)_/, server: /^c_(server|hpc)_/, office: /^c_(open|meet)_/ };
@@ -116,6 +140,7 @@ for (const run of RUNS) {
   let withStairs = 0;
   let puzzles = 0;
   let prefabsUsed = new Set();
+  const aptStats = { levels: 0, flats: [], bad: [], stairDoors: 0, floors: [] };
   const kinds = { lab: [], server: [], office: [] };
   for (let seed = 1; seed <= run.n; seed++) {
     let made;
@@ -147,6 +172,7 @@ for (const run of RUNS) {
     agg.vis.push(vis.max);
     agg.pvs.push(Math.max(...[...vis.pvs.values()].map((x) => x.size)));
     for (const k of Object.keys(kinds)) kinds[k].push(level.cells.filter((c) => KINDS[k].test(c.id)).length);
+    if (run.house) apartmentsOf(level, aptStats);
     const res = validatePack(asPack(level, catalog));
     for (const x of [...res.errors, ...res.warnings]) findings[x.code] = (findings[x.code] || 0) + 1;
     const insp = inspectLevel(level, catalog);
@@ -164,10 +190,15 @@ for (const run of RUNS) {
   const n = agg.cells.length;
   ok(fails.length === 0 && n === run.n, `${run.name}: ${run.n} seedů, každý dal level`, fails.slice(0, 2).join(' | ') || `pokusů na level ${span(agg.attempt.map((a) => a + 1))}`);
   ok(Object.keys(findings).length === 0, `${run.name}: validátor bez chyb a bez varování`, JSON.stringify(findings) === '{}' ? `${n} levelů` : JSON.stringify(findings));
-  ok(Math.min(...agg.cells) >= 20 && Math.max(...agg.cells) <= 60, `${run.name}: 20 až 60 buněk`, span(agg.cells));
+  const [cLo, cHi] = run.cells || [20, 60];
+  ok(Math.min(...agg.cells) >= cLo && Math.max(...agg.cells) <= cHi, `${run.name}: ${cLo} až ${cHi} buněk`, span(agg.cells));
   // rozpočet scény (06_ROZPOCTY, měřeno na T460): do 300 tisíc viditelných △. Ondřej 25. 11. 1:29 (2 a): měřit, co je
   // z buňky prokazatelně vidět (PVS: přímka otvory portálů, všechny dveře otevřené), ne celý level
   ok(Math.max(...agg.vis) <= 300000, `${run.name}: z žádné buňky není vidět víc než 300 tisíc △ (PVS, všechny dveře otevřené, kvádry po síti světla)`, `nejvíc ${span(agg.vis)}; buněk v PVS nejvýš ${span(agg.pvs)}; celý level ${span(agg.tris)}; generátor ubral věci z desek v ${agg.cut.filter((x) => x > 0).length} z ${agg.cut.length} levelů (nejvýš ${Math.max(0, ...agg.cut)} entit)`);
+  if (run.house) {
+    ok(aptStats.bad.length === 0, `${run.name}: každý byt (aspoň dvě místnosti) má do chodby právě jedny dveře a žádná místnost bytu nevede do schodiště`, aptStats.bad.slice(0, 3).join(' | ') || `bytů na level ${span(aptStats.flats)}`);
+    ok(aptStats.floors.every((f) => f === 4), `${run.name}: čtyři podlaží, dvě dolní laboratoře a dvě horní byty`, span(aptStats.floors));
+  }
   ok(Math.max(...agg.depth) <= 12, `${run.name}: nejdelší řetěz portálů s výhledem do 12 (MAX_DEPTH viditelnosti sešny A)`, span(agg.depth));
   ok(Math.min(...agg.doors) >= 3, `${run.name}: aspoň troje dveře v portálech`, span(agg.doors));
   ok(withStairs === n, `${run.name}: každý level má schod nebo rampu`, `${withStairs} z ${n}`);

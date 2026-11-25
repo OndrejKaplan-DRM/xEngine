@@ -15,6 +15,8 @@ const wall = (h) => ({ components: { physics: { body: 'static' }, place: { mount
 const mk = (cat, f) => (id, title, parts, o = {}) => simple(id, title, `home.${cat}`, parts, { gen: `home/kitchen.mjs#${f}`, ...o });
 const FRONTS = [['lacquer_white', 'worktop_stone', 'bílá'], ['wood_kitchen_oak', 'worktop_light', 'dub'], ['lacquer_sage', 'worktop_stone', 'šalvějová']];
 const H = 0.86; // horní hrana korpusu, deska do 0,9
+// věci na desku linky: výška desky a volný pruh hloubky (pod horními skříňkami)
+const COUNTER = { top: 0.9, deck: [-0.28, 0.3] };
 
 /**
  * Spodní modul kuchyně od x0 šířky w: korpus, sokl a čelo podle druhu ('doors', 'drawers', 'sink', 'oven', 'dw').
@@ -98,12 +100,12 @@ export function units() {
     const s = pad(v + 1);
     const withTop = (k, w, kind) => [...base(k, -w / 2, w, kind, front), A('body', `${k}_top`, roundedBox([-w / 2, H, -0.3], [w / 2, 0.9, 0.32], 0.006, 1), worktop)];
     out.push(
-      one(`kitchen_base_60_${s}`, `Kuchyňská spodní skříňka 60 cm s dvířky, ${name}`, withTop(`kitchen_base_60_${s}`, 0.6, 'doors'), floor()),
-      one(`kitchen_drawers_60_${s}`, `Kuchyňská spodní skříňka 60 cm se zásuvkami, ${name}`, withTop(`kitchen_drawers_60_${s}`, 0.6, 'drawers'), floor()),
-      one(`kitchen_sink_80_${s}`, `Kuchyňská skříňka 80 cm s dřezem a baterií, ${name}`, withTop(`kitchen_sink_80_${s}`, 0.8, 'sink'), floor()),
+      one(`kitchen_base_60_${s}`, `Kuchyňská spodní skříňka 60 cm s dvířky, ${name}`, withTop(`kitchen_base_60_${s}`, 0.6, 'doors'), { ...floor(), params: COUNTER }),
+      one(`kitchen_drawers_60_${s}`, `Kuchyňská spodní skříňka 60 cm se zásuvkami, ${name}`, withTop(`kitchen_drawers_60_${s}`, 0.6, 'drawers'), { ...floor(), params: COUNTER }),
+      one(`kitchen_sink_80_${s}`, `Kuchyňská skříňka 80 cm s dřezem a baterií, ${name}`, withTop(`kitchen_sink_80_${s}`, 0.8, 'sink'), { ...floor(), params: COUNTER }),
       one(`kitchen_wall_60_${s}`, `Kuchyňská horní skříňka 60 cm, ${name}`, shiftUp(upper(`kitchen_wall_60_${s}`, -0.3, 0.6, front)), wall(1.45)),
-      one(`kitchen_line_180_${s}`, `Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), ${name}`, line(`kitchen_line_180_${s}`, [['drawers', 0.4], ['sink', 0.8], ['oven', 0.6]], front, worktop), { ...floor(), params: { assembly: true } }),
-      one(`kitchen_line_240_${s}`, `Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), ${name}`, line(`kitchen_line_240_${s}`, [['dw', 0.6], ['sink', 0.8], ['oven', 0.6], ['drawers', 0.4]], front, worktop), { ...floor(), params: { assembly: true } }),
+      one(`kitchen_line_180_${s}`, `Kuchyňská linka 180 cm (dřez, sporák, horní skříňky), ${name}`, line(`kitchen_line_180_${s}`, [['drawers', 0.4], ['sink', 0.8], ['oven', 0.6]], front, worktop), { ...floor(), params: { assembly: true, ...COUNTER } }),
+      one(`kitchen_line_240_${s}`, `Kuchyňská linka 240 cm (myčka, dřez, sporák, zásuvky), ${name}`, line(`kitchen_line_240_${s}`, [['dw', 0.6], ['sink', 0.8], ['oven', 0.6], ['drawers', 0.4]], front, worktop), { ...floor(), params: { assembly: true, ...COUNTER } }),
     );
   });
   out.push(
@@ -115,7 +117,7 @@ export function units() {
       A('body', 'kitchen_island_01_plinth', flatBox([-0.58, 0, -0.26], [0.58, 0.1, 0.26]), 'lacquer_anthracite'),
       A('body', 'kitchen_island_01_fronts', merge([-0.6, 0].map((x) => roundedBox([x + 0.003, 0.11, 0.3], [x + 0.597, H - 0.005, 0.32], 0.004, 1))), 'wood_kitchen_oak'),
       A('body', 'kitchen_island_01_top', roundedBox([-0.7, H, -0.6], [0.7, 0.9, 0.34], 0.008, 1), 'worktop_light'),
-    ], floor()),
+    ], { ...floor(), params: { top: 0.9 } }),
   );
   // lednice volně stojící s dvířky na pantu (vlevo) a vestavná ve vysoké skříni
   const [w, d, h] = [0.6, 0.65, 1.85];

@@ -12,8 +12,8 @@
   "assets": [
     {
       "path": "meshes/home.glb",
-      "bytes": 3452404,
-      "sha256": "51c0e1b55f4457219e7721d5eb23fc6c99e19899d2aad08b47e74cb838d8528e",
+      "bytes": 3455780,
+      "sha256": "acd3decee59ba7f0f28c65a64d489d6820586e1359e898804afd41935214e420",
       "license": "own",
       "source": "tools/forge/home/living.mjs",
       "author": "xForge (sešna B)"

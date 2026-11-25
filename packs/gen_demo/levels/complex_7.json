@@ -4855,7 +4855,7 @@
   "source": {
     "tool": "gen",
     "generator": "src/gen/presets/complex.js",
-    "params": { "preset": "complex", "kit": "kit_base+kit_lab+kit_it", "puzzle": true },
+    "params": { "preset": "complex", "kit": "kit_base+kit_lab+kit_it+kit_home", "puzzle": true },
     "seed": 7,
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",

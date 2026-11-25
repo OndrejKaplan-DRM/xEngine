@@ -1,7 +1,7 @@
 // xGen z příkazové řádky: vygeneruje levely a zapíše je jako balík xSpace.
 //
 //   node src/gen/cli.mjs <předvolba> --seed N [--seed M …] --out packs/<balík> [--floors 1|2] [--puzzle] [--kit packs/kit_base --kit …]
-//   node src/gen/cli.mjs demo --out packs/gen_demo      ukázkový balík (tři levely pro prohlížeč a pro zkoušku A × B)
+//   node src/gen/cli.mjs demo --out packs/gen_demo      ukázkový balík (čtyři levely pro prohlížeč a pro zkoušku A × B)
 //   node src/gen/cli.mjs list                          vypíše předvolby
 //
 // Balík se jmenuje jako jeho adresář (tak ho hledá requires). Stejné parametry = stejné bajty.
@@ -16,13 +16,14 @@ import { generateLevel, levelPackManifest, makeCatalog, mergeKits, fmtJson, PRES
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
 /** Výchozí sady v pořadí závislostí. */
-export const KITS = ['kit_base', 'kit_lab', 'kit_it'];
+export const KITS = ['kit_base', 'kit_lab', 'kit_it', 'kit_home'];
 
 /** Ukázkový balík: pevná sestava, aby se dala hlídat bajt po bajtu. */
 export const DEMO = [
   { preset: 'complex', seed: 7, opts: { puzzle: true } },
   { preset: 'complex', seed: 21, opts: { floors: 1 } },
   { preset: 'catacombs', seed: 3, opts: {} },
+  { preset: 'house', seed: 1, opts: {} },
 ];
 
 export async function loadKit(dir) {

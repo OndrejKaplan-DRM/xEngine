@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_home`. Neupravovat ručně; zdroj je `tools/forge/home/*.mjs`.
 
-Prefabů: 147 · materiálů: 48 · trojúhelníků celkem: 74488
+Prefabů: 147 · materiálů: 48 · trojúhelníků celkem: 74568
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -117,10 +117,10 @@ Prefabů: 147 · materiálů: 48 · trojúhelníků celkem: 74488
 | `bunk_bed_01` | Palanda (dvě lůžka nad sebou s žebříkem) | home.kids | 1,06 × 1,7 × 2,06 | 600 | — | — |
 | `crib_01` | Dětská postýlka s mřížkami | home.kids | 1,29 × 0,98 × 0,75 | 540 | — | — |
 | `desk_kids_01` | Dětský psací stůl | home.kids | 1 × 0,63 × 0,6 | 508 | — | — |
-| `chair_kids_01` | Dětská židlička | home.kids | 0,34 × 0,6 × 0,34 | 280 | — | — |
+| `chair_kids_01` | Dětská židlička | home.kids | 0,34 × 0,6 × 0,34 | 304 | — | — |
 | `shelf_toys_01` | Police s hračkami a boxy | home.kids | 1,1 × 1,05 × 0,36 | 660 | — | — |
 | `chest_toys_01` | Truhla na hračky | home.kids | 0,82 × 0,62 × 0,52 | 236 | — | — |
-| `rocking_horse_01` | Houpací koník | home.kids | 0,33 × 1,2 × 0,79 | 472 | — | — |
+| `rocking_horse_01` | Houpací koník | home.kids | 0,34 × 0,65 × 0,91 | 528 | — | — |
 | `bean_bag_01` | Sedací vak | home.kids | 0,84 × 0,45 × 0,84 | 128 | — | — |
 | `toy_blocks_01` | Stavebnice z kostek | home.kids | 0,24 × 0,1 × 0,12 | 648 | — | — |
 | `teddy_01` | Plyšový medvěd | home.kids | 0,18 × 0,32 × 0,22 | 376 | — | — |

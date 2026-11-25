@@ -4463,7 +4463,7 @@
   "source": {
     "tool": "gen",
     "generator": "src/gen/presets/complex.js",
-    "params": { "preset": "complex", "kit": "kit_base+kit_lab+kit_it", "floors": 1 },
+    "params": { "preset": "complex", "kit": "kit_base+kit_lab+kit_it+kit_home", "floors": 1 },
     "seed": 21,
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",

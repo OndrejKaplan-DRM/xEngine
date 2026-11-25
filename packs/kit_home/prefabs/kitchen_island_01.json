@@ -27,6 +27,7 @@
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/kitchen.mjs#units",
+    "params": { "top": 0.9 },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

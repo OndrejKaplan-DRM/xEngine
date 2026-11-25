@@ -298,6 +298,18 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
       if (!got && L.fallback) addLight((c.min[0] + c.max[0]) / 2, c.y1 - 30, (c.min[1] + c.max[1]) / 2, L.cd * 0.6);
       return;
     }
+    if (L.perFloor && c.tall) {
+      // vysoká hala přes víc podlaží: řada světel nad každým podlažím (strop je až nad posledním)
+      const longX0 = c.w >= c.d;
+      const n = Math.max(1, Math.round(Math.max(c.w, c.d) / L.spacing));
+      for (const y of plan.floorY) {
+        for (let i = 0; i < n; i++) {
+          const a = (i + 0.5) / n;
+          addLight(Math.round(longX0 ? c.min[0] + c.w * a : (c.min[0] + c.max[0]) / 2), y + L.perFloor, Math.round(longX0 ? (c.min[1] + c.max[1]) / 2 : c.min[1] + c.d * a), L.cd);
+        }
+      }
+      return;
+    }
     const longX = c.w >= c.d;
     const nLong = Math.max(1, Math.round(Math.max(c.w, c.d) / L.spacing));
     const nShort = Math.min(c.w, c.d) >= L.spacing * 1.6 ? 2 : 1;

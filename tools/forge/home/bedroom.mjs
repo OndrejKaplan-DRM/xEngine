@@ -91,7 +91,7 @@ export function kids() {
       A('body', `${ck}_ends`, merge([-1, 1].map((sx) => flatBox([sx * 0.62 - 0.015, 0.35, -0.33], [sx * 0.62 + 0.015, 0.95, 0.33]))), 'lacquer_white'),
     ], floor()),
     one('desk_kids_01', 'Dětský psací stůl', [A('body', 'desk_kids_01_top', roundedBox([-0.5, 0.6, -0.3], [0.5, 0.63, 0.3], 0.01, 1), 'wood_birch'), A('body', 'desk_kids_01_box', flatBox([0.12, 0.08, -0.28], [0.48, 0.6, 0.28]), 'lacquer_sage'), A('body', 'desk_kids_01_drawers', merge([0.1, 0.27, 0.44].map((y) => roundedBox([0.125, y, 0.28], [0.475, y + 0.15, 0.295], 0.004, 1))), 'toy_yellow'), legs('desk_kids_01', 1.0, 0.6, 0.6, 'wood_birch', 0.018, 0.04)], floor()),
-    one('chair_kids_01', 'Dětská židlička', [A('body', 'chair_kids_01_seat', roundedBox([-0.17, 0.33, -0.16], [0.17, 0.36, 0.16], 0.01, 1), 'toy_red'), A('body', 'chair_kids_01_back', roundedBox([-0.16, 0.45, -0.18], [0.16, 0.6, -0.16], 0.01, 1), 'toy_red'), legs('chair_kids_01', 0.32, 0.32, 0.33, 'wood_birch', 0.012, 0.02)], floor()),
+    one('chair_kids_01', 'Dětská židlička', [A('body', 'chair_kids_01_seat', roundedBox([-0.17, 0.33, -0.16], [0.17, 0.36, 0.16], 0.01, 1), 'toy_red'), A('body', 'chair_kids_01_back', roundedBox([-0.16, 0.45, -0.18], [0.16, 0.6, -0.16], 0.01, 1), 'toy_red'), A('body', 'chair_kids_01_posts', merge([-1, 1].map((x) => flatBox([x * 0.13 - 0.012, 0.36, -0.15], [x * 0.13 + 0.012, 0.6, -0.126]))), 'wood_birch'), legs('chair_kids_01', 0.32, 0.32, 0.33, 'wood_birch', 0.012, 0.02)], floor()),
     one(tk, 'Police s hračkami a boxy', [
       A('body', `${tk}_frame`, merge([flatBox([-0.55, 0, -0.18], [-0.53, 1.05, 0.18]), flatBox([0.53, 0, -0.18], [0.55, 1.05, 0.18]), flatBox([-0.02, 0, -0.18], [0.02, 1.05, 0.18]), ...[0, 0.34, 0.68, 1.02].map((y) => flatBox([-0.55, y, -0.18], [0.55, y + 0.03, 0.18]))]), 'lacquer_white'),
       A('body', `${tk}_boxes`, merge([[-0.28, 0.03], [0.28, 0.37]].map(([x, y]) => roundedBox([x - 0.22, y, -0.16], [x + 0.22, y + 0.28, 0.16], 0.02, 1))), 'toy_blue'),
@@ -100,7 +100,7 @@ export function kids() {
     ], floor()),
     one('chest_toys_01', 'Truhla na hračky', [A('body', 'chest_toys_01_body', roundedBox([-0.4, 0, -0.25], [0.4, 0.42, 0.25], 0.02, 1), 'lacquer_sage'), A('body', 'chest_toys_01_lid', roundedBox([-0.41, 0.42, -0.26], [0.41, 0.46, 0.26], 0.015, 1), 'wood_birch'), A('body', 'chest_toys_01_ball', moved(lathe([[0, -0.08], [0.08, 0], [0, 0.08]], { seg: 10 }), mTranslate(0.25, 0.54, 0.05)), 'toy_red')], floor()),
     one('rocking_horse_01', 'Houpací koník', [
-      A('body', 'rocking_horse_01_rockers', merge([-1, 1].map((s) => moved(torus(0.6, 0.015, 0, { seg: 20, n: 2 }), at(mTranslate(s * 0.15, 0.62, 0), mRotate('z', 90), [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.6, 0, 0, 0, 0, 1])))), 'wood_birch'),
+      A('body', 'rocking_horse_01_rockers', merge([-1, 1].map((s) => tube([[s * 0.15, 0.1, -0.45], [s * 0.15, 0.02, 0], [s * 0.15, 0.1, 0.45]], 0.018, 6, { bend: 0.35, bendSeg: 6 }))), 'wood_birch'),
       A('body', 'rocking_horse_01_body', merge([roundedBox([-0.1, 0.3, -0.3], [0.1, 0.45, 0.25], 0.06, 1), moved(roundedBox([-0.07, 0, -0.08], [0.07, 0.25, 0.08], 0.04, 1), at(mTranslate(0, 0.42, 0.25), mRotate('x', 30)))]), 'toy_yellow'),
       A('body', 'rocking_horse_01_legs', merge([-1, 1].flatMap((sx) => [-1, 1].map((sz) => tube([[sx * 0.08, 0.32, sz * 0.2], [sx * 0.15, 0.05, sz * 0.28]], 0.015, 6)))), 'wood_birch'),
     ], floor()),

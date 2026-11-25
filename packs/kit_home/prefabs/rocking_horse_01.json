@@ -4,7 +4,7 @@
   "id": "rocking_horse_01",
   "title": "Houpací koník",
   "category": "home.kids",
-  "bounds": { "min": [-0.167, 0.019, -0.361], "max": [0.167, 1.221, 0.43] },
+  "bounds": { "min": [-0.17, 0.008, -0.454], "max": [0.17, 0.662, 0.454] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -16,13 +16,13 @@
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#rocking_horse_01_legs", "mat": "wood_birch" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.166, 0.02, -0.36], "max": [0.166, 1.22, 0.429], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.169, 0.009, -0.453], "max": [0.169, 0.661, 0.453], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 472,
+  "tris": 528,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/home/bedroom.mjs#kids",

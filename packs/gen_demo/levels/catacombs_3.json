@@ -2709,7 +2709,7 @@
   "source": {
     "tool": "gen",
     "generator": "src/gen/presets/catacombs.js",
-    "params": { "preset": "catacombs", "kit": "kit_base+kit_lab+kit_it" },
+    "params": { "preset": "catacombs", "kit": "kit_base+kit_lab+kit_it+kit_home" },
     "seed": 3,
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",

@@ -11,12 +11,13 @@ import { fitPVS } from './pvs.js';
 import { levelLightMeshes, LIGHT_CELL } from '../xspace/index.js';
 import { complex } from './presets/complex.js';
 import { catacombs } from './presets/catacombs.js';
+import { house } from './presets/house.js';
 
 export { makeCatalog, mergeKits } from './catalog.js';
 export { fmtJson } from './util.js';
 export * as kit from './kit.js';
 
-export const PRESETS = { complex, catacombs };
+export const PRESETS = { complex, catacombs, house };
 const MAX_ATTEMPTS = 60;
 /**
  * Nejvýš trojúhelníků viditelných z jedné buňky (PVS, všechny dveře otevřené). Ondřej 25. 11. 2026 v 1:29: „chytře
@@ -42,7 +43,7 @@ export function generateLevel(presetId, seed, catalog, opts = {}) {
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     // každý pokus má vlastní proud náhody; první, který projde všemi podmínkami, je výsledek
     const rng = base.fork(`attempt${attempt}`);
-    const plan = makeLayout(P, rng.fork('layout'));
+    const plan = (preset.layout || makeLayout)(P, rng.fork('layout'));
     if (!plan || plan.cells.length < P.cells[0] || plan.cells.length > P.cells[1]) continue;
     const S = buildStructure(preset, P, plan, catalog, rng.fork('build'));
     if (!S) continue;

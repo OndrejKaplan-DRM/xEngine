@@ -82,6 +82,70 @@ function hallGallery(b, S, plan, P, preset, rng) {
 }
 
 /**
+ * Schodišťová hala domu přes všechna podlaží: na každém podlaží galerie po obvodu (chodby a místnosti do ní ústí
+ * kdekoli), mezi podlažími přímá ramena střídavě ve dvou pruzích podél delší osy (sudé rameno jedním směrem, liché
+ * zpět), u ramene, které nezačíná u galerie, podesta. Ramena nad sebou jsou o dvě podlaží výš (volná výška 6,8 m),
+ * pod galerií je výška patra bez desky. Sloupy pod rohy galerií, zábradlí po vnitřním obvodu s mezerami u ramen.
+ */
+function stairCore(b, S, plan, P, preset, rng) {
+  const h = plan.cells[plan.hall];
+  const id = S.meta[h.i].id;
+  const gw = P.galleryW;
+  const T = plan.T;
+  const F = plan.floorY.length;
+  const pal = preset.palette;
+  const [x0, x1, z0, z1] = [h.min[0], h.max[0], h.min[1], h.max[1]];
+  const [ix0, ix1, iz0, iz1] = [x0 + gw, x1 - gw, z0 + gw, z1 - gw];
+  const alongX = ix1 - ix0 >= iz1 - iz0;
+  const [a0, a1, s0, s1] = alongX ? [ix0, ix1, iz0, iz1] : [iz0, iz1, ix0, ix1];
+  const steps = Math.round(plan.pitch / P.riser) - 1;
+  const run = steps * P.tread;
+  if (a1 - a0 < run + 120 || s1 - s0 < 2 * P.stairW + 120) return false;
+  const R = (p, q, u, v) => (alongX ? { x0: p, x1: q, z0: u, z1: v } : { x0: u, x1: v, z0: p, z1: q });
+  const Z = (r, y0, y1, kind) => boxM(r.x0, y0, r.z0, r.x1, y1, r.z1, kind);
+  for (let f = 1; f < F; f++) {
+    const G = plan.floorY[f];
+    for (const r of [{ x0, x1, z0, z1: iz0 }, { x0, x1, z0: iz1, z1 }, { x0, x1: ix0, z0: iz0, z1: iz1 }, { x0: ix1, x1, z0: iz0, z1: iz1 }]) block(b, id, r, G - T, G, pal.gallery, 'gallery');
+  }
+  const lanes = [[s0, s0 + P.stairW], [s1 - P.stairW, s1]];
+  for (let f = 0; f + 1 < F; f++) {
+    const even = f % 2 === 0;
+    const [u, v] = lanes[even ? 0 : 1];
+    const dir = even ? 1 : -1;
+    const end = even ? a1 : a0;
+    const at = end - dir * run;
+    const base = plan.floorY[f];
+    stairs(b, { cell: id, run: alongX ? 0 : 1, dir, at, s0: u, s1: v, baseY: base, steps, riser: P.riser, tread: P.tread, mat: pal.stair });
+    const [p, q] = even ? [at, end] : [end, at];
+    S.zones[h.i].push(Z(R(p, q, u, v), base, plan.floorY[f + 1]));
+    if (f === 0) {
+      const foot = even ? R(at - 120, at, u, v) : R(at, at + 120, u, v);
+      S.zones[h.i].push(Z(foot, 0, 220, 'zone'));
+    } else {
+      // podesta od galerie k patě ramena
+      const [l0, l1] = even ? [a0, at] : [at, a1];
+      if (l1 > l0) block(b, id, R(l0, l1, u, v), base - T, base, pal.gallery, 'gallery');
+    }
+  }
+  // sloupy pod rohy galerií, mezi každými dvěma podlažími zvlášť (deska galerie je mezi nimi)
+  for (const [cx, cz] of [[ix0 - 20, iz0 - 20], [ix1 + 20, iz0 - 20], [ix0 - 20, iz1 + 20], [ix1 + 20, iz1 + 20]]) {
+    for (let f = 0; f + 1 < F; f++) pillar(b, id, cx, cz, 30, plan.floorY[f], plan.floorY[f + 1] - T, pal.core);
+    S.zones[h.i].push(boxM(cx - 15, 0, cz - 15, cx + 15, plan.floorY[1] - T, cz + 15));
+  }
+  // zábradlí: dlouhé hrany galerie celé, krátké hrany jen mezi pruhy ramen (ramena a podesty ústí na krátké strany)
+  const rails = preset.railings;
+  const inset = 4;
+  const ra = alongX ? 0 : 1;
+  for (let f = 1; f < F; f++) {
+    const G = plan.floorY[f];
+    for (const fixed of [s0 - inset, s1 + inset]) if (a1 - a0 >= 100) railRun(S, id, ra, a0, a1, fixed, G, rails);
+    for (const fixed of [a0 - inset, a1 + inset]) if (lanes[1][0] - lanes[0][1] >= 100) railRun(S, id, 1 - ra, lanes[0][1], lanes[1][0], fixed, G, rails);
+  }
+  S.hall = { cell: h.i, gallery: plan.floorY[1], inner: [ix0, ix1, iz0, iz1], stairs: true };
+  return true;
+}
+
+/**
  * Nakládací plošina v rohu haly s rampou a krátkým schodištěm (jednopatrová varianta).
  * Zkouší čtyři rohy v náhodném pořadí a vezme první, kde plošina nezakryje žádný otvor.
  */
@@ -151,7 +215,7 @@ export function buildStructure(preset, P, plan, catalog, rng) {
   };
   // upřesnění účelu místností podle toho, co sada umí (předvolba complex: obor laboratoře, serverovna, open space)
   if (preset.refine) preset.refine(cells, catalog, rng.fork('refine'));
-  const floorName = (c) => (P.floors < 2 ? '' : c.tall ? ' · obě patra' : c.f === 0 ? ' · přízemí' : ` · ${c.f}. patro`);
+  const floorName = (c) => (P.floors < 2 ? '' : c.tall ? (P.floors === 2 ? ' · obě patra' : ' · všechna podlaží') : c.f === 0 ? ' · přízemí' : ` · ${c.f}. patro`);
   S.meta = cells.map((c) => {
     const key = preset.cellKey(c);
     const n = (counters[key] = (counters[key] || 0) + 1);
@@ -265,7 +329,8 @@ export function buildStructure(preset, P, plan, catalog, rng) {
   });
 
   // 5) zvláštní stavby
-  if (plan.hall >= 0 && !(P.floors > 1 ? hallGallery(b, S, plan, P, preset, rng) : hallDock(b, S, plan, P, preset, rng))) return null;
+  const core = preset.core === 'stairs' ? stairCore : P.floors > 1 ? hallGallery : hallDock;
+  if (plan.hall >= 0 && !core(b, S, plan, P, preset, rng)) return null;
   for (const o of ops) {
     if (o.e.gallery) continue;
     if (o.A.y0 < o.sill && !sunkSteps(b, S, P, preset, o, o.A, true)) return null;
