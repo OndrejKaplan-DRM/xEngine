@@ -22,6 +22,23 @@ import { createCombat } from '../world/combat.js';
 import { createWeapons } from '../play/weapons.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
+/** Průměrná barva vrcholů statických dávek × 0,6 (průměrný odraz povrchů): záře okolí, každý 16. vrchol. */
+function meanStaticColor(statics) {
+  const out = [0, 0, 0];
+  let n = 0;
+  for (const b of statics) {
+    const c = b.colors;
+    if (!c) continue;
+    for (let i = 0; i < c.length; i += 48) {
+      out[0] += c[i];
+      out[1] += c[i + 1];
+      out[2] += c[i + 2];
+      n++;
+    }
+  }
+  return n ? out.map((v) => (v / n) * 0.6) : [0.3, 0.3, 0.3];
+}
+
 export const VERSION = 'xEngine 0.1 · vlna 2, krok 7 (A3.1 zbraně) · 2026-11-25';
 
 /**
@@ -65,10 +82,19 @@ export function createGame({ pack, render, now }) {
   const vis = createVisibility({ world, entities, render });
   // před každým vykreslením: které buňky jsou vidět, potom poznamenané změny světla do barev vrcholů
   let lightmap = null; // zkouška textury světla (N-110): { lm, view }
+  let envFlushes = -1;
+  let envWait = 0;
   render.beforeDraw = () => {
     vis.update();
     light.flush();
     if (lightmap && lightmap.lm.update()) lightmap.view.refresh();
+    // průměrná záře levelu pro odraz skla (N-013): po změně světla, nejvýš jednou za 60 snímků
+    if (light.stat.flushes !== envFlushes && --envWait <= 0 && render.materials?.setGlassEnv) {
+      envFlushes = light.stat.flushes;
+      envWait = 60;
+      const c = meanStaticColor(render.statics);
+      render.materials.setGlassEnv(c[0], c[1], c[2]);
+    }
   };
   const io = createIo({ entities, world });
   const behave = createBehaviors({ entities, io, world });

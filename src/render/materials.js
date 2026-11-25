@@ -72,13 +72,54 @@ if (uFlashRange > 0.0) {
 }
 #endif`;
 
+/**
+ * Sklo (N-013, Ondřejova volba 2 b z 25. 11.): průhledný osvětlený materiál má okraj podle úhlu pohledu (Fresnel:
+ * šikmo hustší a světlejší o 0,35 × světlo v místě, odraz se k pozadí přičítá) a odlesk světla shora (Blinn, ostrost podle rough, síla podle
+ * světla v místě). Bez světel po pixelech a bez stínů: jen normála, směr k oku a barva vrcholu (D-022).
+ */
+const GLASS_VARY = 'varying vec3 vGlassN;\nvarying vec3 vGlassV;';
+const GLASS_VS = `
+vGlassN = normalize(normalMatrix * normal);
+vGlassV = -mvPosition.xyz;`;
+const GLASS_FS = `
+{
+  vec3 gn = normalize(vGlassN);
+  if (!gl_FrontFacing) gn = -gn;
+  vec3 gv = normalize(vGlassV);
+  float gf = pow(1.0 - abs(dot(gn, gv)), 2.5);
+#ifdef USE_COLOR
+  vec3 genv = vColor.rgb;
+#else
+  vec3 genv = vec3(1.0);
+#endif
+  // okraj hustší (víc barvy skla) a odraz okolí navrch: odraz se k pozadí přičítá (materiál má premultipliedAlpha,
+  // shader na konci násobí barvu průhledností, proto / a), takže okraj pozadí neztmaví (zkouška a_32_glass)
+  diffuseColor.a = mix(diffuseColor.a, 0.85, gf);
+  vec3 gup = normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz);
+  float gs = pow(max(dot(gn, normalize(gv + gup)), 0.0), 40.0 / (uGlassRough + 0.02));
+  // odraz okolí: světlo v místě (0,35, návrh N-013) a průměrná záře levelu (uGlassEnv); stěna nádoby pod lampou
+  // dostává světla málo, a odráží přitom osvětlenou místnost
+  vec3 grefl = gf * (0.35 * genv + 2.5 * uGlassEnv) + gs * 0.6 * dot(genv, vec3(0.2126, 0.7152, 0.0722));
+  outgoingLight += grefl / max(diffuseColor.a, 0.05);
+}
+#include <opaque_fragment>`;
+
 export function createMaterials({ onChange = null } = {}) {
+  const glassEnv = { value: new THREE.Vector3(0.3, 0.3, 0.3) }; // průměrná záře levelu pro odraz skla (setGlassEnv)
   const flash = { uFlashPos: { value: new THREE.Vector3() }, uFlashCol: { value: new THREE.Vector3() }, uFlashRange: { value: 0 } };
   /** Jedna funkce pro všechny osvětlené materiály: three podle ní sdílí jeden program. */
   const flashPatch = (sh) => {
     Object.assign(sh.uniforms, flash);
     sh.vertexShader = sh.vertexShader.replace('#include <common>', `#include <common>\n${FLASH_HEAD}`).replace('#include <color_vertex>', `#include <color_vertex>${FLASH_VS}`);
   };
+  /** Sklo: záblesk + okraj a odlesk; volá se jako metoda materiálu (this = materiál, drsnost v userData). */
+  function glassPatch(sh) {
+    flashPatch(sh);
+    sh.uniforms.uGlassRough = { value: this.userData.rough ?? 0.05 };
+    sh.uniforms.uGlassEnv = glassEnv;
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', `#include <common>\n${GLASS_VARY}`).replace('#include <project_vertex>', `#include <project_vertex>${GLASS_VS}`);
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>\n${GLASS_VARY}\nuniform float uGlassRough;\nuniform vec3 uGlassEnv;`).replace('#include <opaque_fragment>', GLASS_FS);
+  }
   let defs = {};
   let assets = null;
   const cache = new Map();
@@ -164,7 +205,9 @@ export function createMaterials({ onChange = null } = {}) {
     let m;
     if (d.model === 'lit') {
       m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true, ...glass, ...map });
-      m.onBeforeCompile = flashPatch;
+      m.userData.rough = d.rough;
+      m.onBeforeCompile = isTransparent(d) && sys.glassFx ? glassPatch : flashPatch;
+      if (isTransparent(d) && sys.glassFx) m.premultipliedAlpha = true; // odraz skla se k pozadí přičítá
     }
     else if (d.model === 'unlit') m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, ...glass, ...map });
     else {
@@ -200,6 +243,12 @@ export function createMaterials({ onChange = null } = {}) {
       assets = files;
     },
     has: (id) => id in defs,
+    /** Okraj a odlesk skla (N-013); false = jen průhledná barva (srovnání v testu). Platí pro materiály vzniklé potom. */
+    glassFx: true,
+    /** Průměrná záře okolí (jednotky barvy vrcholu) pro odraz na okraji skla. */
+    setGlassEnv(r, g, b) {
+      glassEnv.value.set(r, g, b);
+    },
     /** Záblesk (effects.setFlash): poloha, barva × svítivost (cd), dosah; dosah 0 = zhasnuto. */
     setFlash(x, y, z, r, g, b, range) {
       flash.uFlashPos.value.set(x, y, z);
