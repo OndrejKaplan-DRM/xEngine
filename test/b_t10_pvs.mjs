@@ -50,7 +50,9 @@ const row = (doors) => ({
 // ---- ukázkové levely: PVS, rozpočet a shoda s měřením na T460
 const prefabTris = new Map();
 const mats = {};
-for (const k of ['kit_base', 'kit_lab', 'kit_it']) {
+// sady a levely z manifestu ukázkového balíku (počty z dat, ne z testu)
+const demo = JSON.parse(fs.readFileSync(path.join(root, 'packs/gen_demo/pack.json'), 'utf8'));
+for (const k of demo.requires) {
   for (const f of fs.readdirSync(path.join(root, 'packs', k, 'prefabs'))) {
     const p = JSON.parse(fs.readFileSync(path.join(root, 'packs', k, 'prefabs', f), 'utf8'));
     prefabTris.set(p.id, p.tris);
@@ -60,7 +62,7 @@ for (const k of ['kit_base', 'kit_lab', 'kit_it']) {
 const load = (id) => JSON.parse(fs.readFileSync(path.join(root, 'packs/gen_demo/levels', `${id}.json`), 'utf8'));
 const rows = [];
 let deepest = 0;
-for (const id of ['complex_7', 'complex_21', 'catacombs_3']) {
+for (const id of demo.levels.map((f) => path.basename(f, '.json'))) {
   const L = load(id);
   const t0 = performance.now();
   const pvs = levelPVS(L);
