@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { validatePack, brushMesh, partMesh, entityMatrix, rigMatrices, mat4Mul } from '../../src/xspace/index.js';
 
-const VERSION = 'xView 0.1 · 2026-11-22';
+const VERSION = 'xView 0.2 · 2026-11-25';
 const pack = globalThis.__PACK__;
 const findings = validatePack(pack);
 const level = pack.levels[0].data;
@@ -150,9 +150,22 @@ const cellCenter = (id) => {
   const b = level.cells.find((c) => c.id === id).bounds;
   return new THREE.Vector3((b.min[0] + b.max[0]) / 2, 1.6, (b.min[2] + b.max[2]) / 2);
 };
+// Podlaží (N-015): buňky seskupené podle výšky podlahy; nové podlaží začíná nejméně STOREY_MIN nad
+// předchozím (schody a sklony v katakombách podlaží netvoří). Řez podlažím = rovina těsně pod podlahou
+// dalšího podlaží (renderer.clippingPlanes), takže přehled ukáže místnosti vybraného podlaží shora.
+const STOREY_MIN = 2;
+const storeys = [];
+for (const y of [...new Set(level.cells.map((c) => c.bounds.min[1]))].sort((a, b) => a - b)) {
+  if (!storeys.length || y - storeys[storeys.length - 1].floor >= STOREY_MIN) storeys.push({ floor: y });
+}
+storeys.forEach((s, i) => (s.cut = i + 1 < storeys.length ? storeys[i + 1].floor - 0.02 : Infinity));
+let storey = -1; // -1 = celý level
+const lookY = () => (storey < 0 ? 0 : storeys[storey].floor);
+// Kamera přehledu a půdorysu vždy nad nejvyšším místem levelu (dům o 4 podlažích je vyšší než size.z * 0.6).
+const above = () => all.max.y + Math.max(size.x, size.z) * 0.25;
 const VIEWS = {
-  iso: () => ({ pos: [center.x + size.x * 0.8, size.z * 0.6, center.z + size.z * 0.5], look: [center.x, 0, center.z - size.z * 0.05], ceiling: false, overlay: true, flat: 0.3 }),
-  top: () => ({ pos: [center.x, Math.max(size.x, size.z) * 0.95, center.z + 0.01], look: [center.x, 0, center.z], ceiling: false, overlay: true, flat: 0.3 }),
+  iso: () => ({ pos: [center.x + size.x * 0.8, Math.max(size.z * 0.6, above()), center.z + size.z * 0.5], look: [center.x, lookY(), center.z - size.z * 0.05], ceiling: false, overlay: true, flat: 0.3 }),
+  top: () => ({ pos: [center.x, Math.max(Math.max(size.x, size.z) * 0.95, above()), center.z + 0.01], look: [center.x, lookY(), center.z], ceiling: false, overlay: true, flat: 0.3 }),
   start: () => ({ pos: [player.pos[0], player.pos[1] + 1.6, player.pos[2]], look: [player.pos[0], player.pos[1] + 1.5, player.pos[2] - 4], ceiling: true, overlay: false, flat: 0 }),
   lab: () => ({ pos: [5, 1.6, -3], look: [11, 1.0, -6.5], ceiling: true, overlay: false, flat: 0 }),
   hall: () => ({ pos: [3, 1.6, -9.2], look: [1.5, 1.2, -22], ceiling: true, overlay: false, flat: 0 }),
@@ -218,6 +231,27 @@ for (const [k, label] of Object.entries(TLABELS)) {
   };
   toggles.appendChild(b);
 }
+function floor(n) {
+  storey = Number.isInteger(n) && n >= 0 && n < storeys.length ? n : -1;
+  const cut = storey < 0 ? Infinity : storeys[storey].cut;
+  renderer.clippingPlanes = Number.isFinite(cut) ? [new THREE.Plane(new THREE.Vector3(0, -1, 0), cut)] : [];
+  document.querySelectorAll('#floors button').forEach((b) => b.classList.toggle('on', Number(b.dataset.floor) === storey));
+  view(current);
+}
+if (storeys.length > 1) {
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.id = 'floors';
+  views.after(row);
+  [-1, ...storeys.keys()].forEach((i) => {
+    const b = document.createElement('button');
+    b.textContent = i < 0 ? 'Vše' : `${i + 1}. podl.`;
+    b.dataset.floor = i;
+    b.classList.toggle('on', i === -1);
+    b.onclick = () => floor(i);
+    row.appendChild(b);
+  });
+}
 
 resize();
 view('iso');
@@ -230,6 +264,9 @@ globalThis.__xview = {
   views: Object.keys(VIEWS),
   view,
   current: () => current,
+  floors: storeys.map((s) => ({ floor: s.floor, cut: Number.isFinite(s.cut) ? s.cut : null })),
+  floor,
+  storey: () => storey,
   layer: (k, on) => {
     layers[k].visible = on;
     render();

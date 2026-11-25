@@ -87,3 +87,11 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | N-111 soubory balíku ve hře (A) | přijat, body 1 až 4 provedeny; kontrola uzlu v `.glb` a strop velikosti odloženy | D-046; `read-pack.mjs`, `build.mjs`, `load.js` (`materialFrom`), validátor `ref.asset` pro textury, T1 |
 | N-112 textura světla ve formátu a v xBake (A) | **přijat** 25. 11. 2026, zkušební: atlas ploch a soubor XLM1 v základu; zmrazí se po zkoušce celého `complex_7` (B zapeče, A přečte a změří) | D-050, D-055; `atlas.js`, `lightmap.js`, pole `baked.lightmap`, T1e |
 | N-201 zbraně, munice a události boje (svodná) | **přijat ke zkoušce** 25. 11. 2026: zkušební druhy `ammo` a `weapon`, plazmová puška ve zlatém vzorku; zmrazí se po zkoušce sešen A a B | D-051, D-053; `formats.js`, `weapon.js`, `check-weapon.js`, T1d |
+
+## Rozhodnuto ve vlně 2 (svodná sešna main 04, 25. 11. 2026)
+
+Návrhy N-012 až N-015 leží na větvi `sesna-b`; oddíl „Rozhodnutí“ v jejich souborech se doplní při sloučení.
+
+| Návrh | Rozhodnutí | Kde |
+|---|---|---|
+| N-015 přehled xView u vysokého levelu (B) | **přijat a proveden**: kamera přehledu a půdorysu nad nejvyšším místem levelu, přepínač podlaží s řezem | D-056; `tools/xview/main.js` (xView 0.2), T2 |
