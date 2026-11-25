@@ -33,6 +33,10 @@ const { launch, openGame, ok, finish, clean } = require('./a_lib/browser.cjs');
     ok(visited === f.level.cells && f.run.waypoints >= f.level.cells, 'celá trasa projde všechny buňky levelu', `${visited} z ${f.level.cells} buněk, ${f.run.waypoints} bodů trasy, ${f.run.seconds} s, ${f.run.frames} snímků`);
     ok(f.run.teleports === 0, 'robot dojde celou trasu po svých (dveře otevřené, nikde neuvízne)', `přenesení ${f.run.teleports}`);
     ok(f.env.image[1] === 768 && f.draw.calls.max <= 150, 'výchozí měření běží v 768 řádcích a volání jsou v rozpočtu vlny', `obraz ${f.env.image.join(' × ')}, volání nejvýš ${f.draw.calls.max}`);
+    ok(f.env.fov > 0 && f.env.hfov > 0 && /Nastavení: 768 řádků/.test(f.verdict) && f.verdict.includes('zorné pole') && f.verdict.includes('mřížka světla'), 'N-011: zorné pole v env a nastavení ve větě výsledku', f.verdict.slice(0, 160));
+    ok(f.draw.samples > 0 && f.draw.samples <= Math.ceil(f.run.frames / 10) + 1 && f.frame.intervalFrames < f.run.frames, 'N-011: vykreslení dávkou jen v každém 10. snímku, rozestup bez snímků po dávce', `dávek ${f.draw.samples} z ${f.run.frames} snímků, rozestupů ${f.frame.intervalFrames}`);
+    ok(f.run.turnFlips <= Math.max(6, f.run.waypoints), 'N-011: robot při chůzi nekývá (obraty otáčení jen u bodů trasy)', `${f.run.turnFlips} obratů za ${f.run.walkSteps} kroků chůze, ${f.run.waypoints} bodů trasy`);
+    ok(f.weapon && f.weapon.fired > 10 && f.weapon.explosions > 0, 'A3.1: robot při rozhlížení střílí z pušky (cena střelby v měření)', JSON.stringify(f.weapon));
     ok(clean(full.errs).length === 0, 'žádná chyba v konzoli ani při celé trase', clean(full.errs).slice(0, 3).join(' | '));
     await full.page.context().close();
   } finally {

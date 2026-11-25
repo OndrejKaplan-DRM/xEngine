@@ -14,6 +14,8 @@ const LOOK_SECONDS = 1.6; // rozhlédnutí o 360° v buňce
 const STUCK_SECONDS = 1.5; // bez přiblížení k cíli = přenést (nábytek, schod); počítá se do výsledku
 const WARMUP_SECONDS = 1; // první sekunda se neměří (překlad shaderů, nahrání sítí)
 const MAX_SAMPLES = 20000;
+const DRAW_EVERY = 10; // čas vykreslení dávkou jen v každém 10. snímku; snímek po dávce se do rozestupu nepočítá (N-011)
+const AMMO_REFILL = 1; // s: robot si doplní munici (měří se střelba, ne prázdný zásobník)
 
 const quantile = (sorted, q) => (sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))] : 0);
 function summary(arr, n) {
@@ -55,6 +57,16 @@ export function createBench({ game, lock, root }) {
   let done = null;
   let panel = null;
   let steps = 0;
+  let frameNo = 0;
+  let lastBatch = false; // předchozí snímek měl dávku: jeho rozestup obsahuje i ji
+  let gaps = 0;
+  let draws = 0;
+  let fireOn = false;
+  let flips = 0; // obraty směru otáčení při chůzi (kývání, N-011)
+  let walkSteps = 0;
+  let lastTurn = 0;
+  let refill = 0;
+  const shots = { fired: 0, explosions: 0, projectilesMax: 0, weapon: null };
 
   /** Trasa z dat: prohlídka buněk do hloubky od výchozího místa; mezi buňkami přes střed portálu. */
   function plan(quick) {
@@ -134,7 +146,7 @@ export function createBench({ game, lock, root }) {
       w.sort((a, b) => a - b);
       return { cell: c.id, frames: w.length, workMsMedian: +quantile(w, 0.5).toFixed(2), workMsP95: +quantile(w, 0.95).toFixed(2), callsMax: cs };
     });
-    const g = summary(gap, n);
+    const g = summary(gap, gaps);
     const st = light.stat;
     const pr = probe.result();
     return {
@@ -151,14 +163,17 @@ export function createBench({ game, lock, root }) {
         rowsChosen: render.rows,
         rowsCapped: !!render.capped, // D-039: víc řádků, než má plátno fyzických bodů, se nekreslí
         antialias: render.antialias,
+        fov: render.baseFov, // nastavení (vodorovně při 4 : 3)
+        hfov: +render.hfov.toFixed(1), // skutečný vodorovný úhel v tomto okně
       },
       level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, ...assetLine(game, render), lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1), lightBaked: st.baked, lightBakeNote: st.bakeNote, lightmap: game.lightmapStat },
-      run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports },
-      frame: { workMs: summary(work, n), intervalMs: g, fps: g.median ? +(1000 / g.median).toFixed(1) : 0 },
+      run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports, walkSteps, turnFlips: flips },
+      frame: { workMs: summary(work, n), intervalMs: g, intervalFrames: gaps, fps: g.median ? +(1000 / g.median).toFixed(1) : 0, note: 'rozestup jen ze snímků, před kterými nebyla dávka měření vykreslení (N-011)' },
+      weapon: fireOn ? { ...shots, note: 'robot střílí hlavním režimem při rozhlížení v buňkách (A3.1)' } : null,
       step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech', sys: pr.sys },
       phys: pr.phys,
       calib,
-      draw: { ms: summary(drawMs, n), calls: summary(calls, n), tris: summary(tris, n), note: 'ms = jedno vykreslení pohledu včetně grafiky, měřeno dávkou bez čekání na obnovu displeje; workMs ve frame je na skutečné grafice svázané s obnovou displeje a o rezervě nevypovídá' },
+      draw: { ms: summary(drawMs, draws), samples: draws, calls: summary(calls, n), tris: summary(tris, n), note: 'ms = jedno vykreslení pohledu včetně grafiky, měřeno dávkou v každém 10. snímku bez čekání na obnovu displeje; workMs ve frame je na skutečné grafice svázané s obnovou displeje a o rezervě nevypovídá' },
       cells: perCell,
     };
   }
@@ -166,10 +181,14 @@ export function createBench({ game, lock, root }) {
   function finish() {
     active = false;
     input.releaseAll();
+    if (fireOn) {
+      shots.fired = game.weapons.stat.fired;
+      shots.explosions = game.combat.stat.explosions;
+    }
     const r = result();
     probe.stop();
     E.profile = prevProfile;
-    r.verdict = `Vykreslení jednoho snímku (procesor i grafika, bez čekání na displej): medián ${r.draw.ms.median} ms, 95 % ${r.draw.ms.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms (fyzika ${r.step.sys.phys?.median ?? '?'} ms, z toho uvnitř Rapieru průměrně ${r.phys.rapierMs.step.mean} ms; nespí ${r.phys.awake.median} z ${r.phys.dynamic} volných těles; pevná práce: skript ${r.calib.jsMs} ms, paprsky ${r.calib.raysMs} ms). Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
+    r.verdict = `Nastavení: ${r.env.rowsChosen} řádků${r.env.rowsCapped ? ' (stropem méně)' : ''}, vyhlazování ${r.env.antialias ? 'zapnuto' : 'vypnuto'}, zorné pole ${r.env.fov}° (na šířku ${r.env.hfov}°), mřížka světla ${r.level.lightGrid} m${r.weapon ? `, střelba ${r.weapon.fired} ran` : ''}. Vykreslení jednoho snímku (procesor i grafika, bez čekání na displej): medián ${r.draw.ms.median} ms, 95 % ${r.draw.ms.p95} ms. Rozestup snímků: medián ${r.frame.intervalMs.median} ms = ${r.frame.fps} snímků/s, 95 % ${r.frame.intervalMs.p95} ms. Krok simulace ${r.step.ms.median} ms (fyzika ${r.step.sys.phys?.median ?? '?'} ms, z toho uvnitř Rapieru průměrně ${r.phys.rapierMs.step.mean} ms; nespí ${r.phys.awake.median} z ${r.phys.dynamic} volných těles; pevná práce: skript ${r.calib.jsMs} ms, paprsky ${r.calib.raysMs} ms). Obraz ${r.env.image.join(' × ')}, volání nejvýš ${r.draw.calls.max}, △ nejvýš ${r.draw.tris.max}.`;
     if (E.mode === 'playing') E.setMode('paused');
     status(`Měření hotovo. ${r.verdict}\n`);
     const area = document.createElement('textarea');
@@ -204,10 +223,22 @@ export function createBench({ game, lock, root }) {
       if (!active) return;
       steps++;
       const w = route[idx];
+      if (fireOn) {
+        refill -= dt;
+        if (refill <= 0 && game.weapons.current?.ammo) {
+          game.weapons.addAmmo(game.weapons.current.ammo, 1000);
+          refill = AMMO_REFILL;
+        }
+      }
       if (lookLeft > 0) {
         input.turn((360 / LOOK_SECONDS) * dt, 0);
+        // střelba při rozhlížení: robot stojí uprostřed buňky, levým tlačítkem nic neuchopí
+        input.hold('grab', fireOn && !game.interact.manipulating);
         lookLeft -= dt;
-        if (lookLeft <= 0) next();
+        if (lookLeft <= 0) {
+          input.hold('grab', false);
+          next();
+        }
         return;
       }
       const dx = w.x - player.pos[0];
@@ -219,7 +250,13 @@ export function createBench({ game, lock, root }) {
       }
       let d = (Math.atan2(-dx, -dz) * 180) / Math.PI - player.yaw;
       d -= Math.round(d / 360) * 360;
-      input.turn(Math.max(-TURN_RATE * dt, Math.min(TURN_RATE * dt, d)), 0);
+      const turn = Math.max(-TURN_RATE * dt, Math.min(TURN_RATE * dt, d));
+      input.turn(turn, 0);
+      walkSteps++;
+      if (Math.abs(turn) > 0.05) {
+        if (lastTurn && Math.sign(turn) !== Math.sign(lastTurn)) flips++;
+        lastTurn = turn;
+      }
       input.hold('fwd', Math.abs(d) < 50);
       if (dist < bestDist - 0.05) {
         bestDist = dist;
@@ -246,21 +283,27 @@ export function createBench({ game, lock, root }) {
     // Jedno čtení po jednom snímku na skutečné grafice čeká na předchozí předání obrazu a ukáže vždy asi 16 ms.
     const calls0 = render.counts.calls;
     const tris0 = render.counts.tris;
-    const t2 = performance.now();
-    for (let i = 0; i < repeat; i++) render.redraw();
-    gl.readPixels(0, 0, 1, 1, 6408, 5121, px);
-    const batch = performance.now() - t2;
-    const perDraw = batch / repeat;
-    if (batch < 12 && repeat < 16) repeat *= 2;
-    else if (batch > 40 && repeat > 1) repeat /= 2;
-    render.counts.calls = calls0;
-    render.counts.tris = tris0;
     elapsed += real;
-    if (elapsed > WARMUP_SECONDS && n < MAX_SAMPLES) {
+    const sampling = elapsed > WARMUP_SECONDS && n < MAX_SAMPLES && light.progress >= 1;
+    // dávka jen v každém 10. snímku: přičte se k rozestupu následujícího snímku, ten se proto nepočítá
+    const doBatch = sampling && frameNo++ % DRAW_EVERY === 0;
+    if (sampling && !lastBatch) gap[gaps++] = real * 1000;
+    lastBatch = doBatch;
+    if (doBatch) {
+      const t2 = performance.now();
+      for (let i = 0; i < repeat; i++) render.redraw();
+      gl.readPixels(0, 0, 1, 1, 6408, 5121, px);
+      const batch = performance.now() - t2;
+      drawMs[draws++] = batch / repeat;
+      if (batch < 12 && repeat < 16) repeat *= 2;
+      else if (batch > 40 && repeat > 1) repeat /= 2;
+      render.counts.calls = calls0;
+      render.counts.tris = tris0;
+    }
+    if (fireOn) shots.projectilesMax = Math.max(shots.projectilesMax, game.weapons.projectiles.count);
+    if (sampling) {
       work[n] = t1 - t0;
-      gap[n] = real * 1000;
       stepMs[n] = E.stats.stepMs;
-      drawMs[n] = perDraw;
       calls[n] = render.counts.calls;
       tris[n] = render.counts.tris;
       probe.sample();
@@ -291,9 +334,24 @@ export function createBench({ game, lock, root }) {
       light.finish();
       openUp();
       game.sim(2); // dveře dojedou, bedny si sednou
+      // zbraň (A3.1): robot dostane první zbraň balíku a střílí při rozhlížení; ?bench&fire=0 bez střelby
+      const wpn = (game.pack.weapons || [])[0]?.data;
+      fireOn = opts.fire !== false && !!wpn;
+      if (fireOn) {
+        game.weapons.give(wpn.id, 0);
+        refill = 0;
+      }
+      Object.assign(shots, { fired: 0, explosions: 0, projectilesMax: 0, weapon: fireOn ? wpn.id : null });
       route = plan(!!opts.quick);
       idx = 0;
       n = 0;
+      gaps = 0;
+      draws = 0;
+      frameNo = 0;
+      lastBatch = false;
+      flips = 0;
+      walkSteps = 0;
+      lastTurn = 0;
       steps = 0;
       repeat = 1;
       elapsed = 0;

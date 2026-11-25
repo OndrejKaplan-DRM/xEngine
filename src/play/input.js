@@ -33,6 +33,8 @@ export function createInput() {
   const sys = {
     name: 'input',
     phase: 'input',
+    // robot měření (?bench) píše záměr před vstupem: jeho otočení a chůze platí v témže kroku (N-011, bez kývání)
+    after: ['?bench'],
     sensitivity: 1,
     intent,
     /** false = pohled se nečte (klidný režim u terminálu, kurzor je volný). */

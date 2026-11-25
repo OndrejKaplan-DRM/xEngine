@@ -198,7 +198,7 @@ async function boot() {
   // ?bench: měření skutečné hry hned po načtení; volitelně &rows=576|768|1080, &aa=1, &quick (jen první dvě buňky)
   if (params.has('bench')) {
     const rows = Number(params.get('rows'));
-    setTimeout(() => bench.run({ rows: ROWS.includes(rows) ? rows : undefined, aa: params.has('aa') ? params.get('aa') !== '0' : undefined, quick: params.has('quick') }), 600);
+    setTimeout(() => bench.run({ rows: ROWS.includes(rows) ? rows : undefined, aa: params.has('aa') ? params.get('aa') !== '0' : undefined, quick: params.has('quick'), fire: params.get('fire') !== '0' }), 600);
   }
 }
 

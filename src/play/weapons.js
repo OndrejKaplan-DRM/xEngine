@@ -17,8 +17,9 @@ import { createProjectiles } from './projectiles.js';
 const RAD = Math.PI / 180;
 const AIM_MAX = 1000; // m: dosah paprsku, kterým se hledá bod pod zaměřovačem
 const RNG_SEED = 0x5eed2b1;
-// záblesk (obraz, odhad podle Arény): svítivost cd, dosah m, doba s
-const FLASH = { primary: [120, 5, 0.05], alt: [500, 8, 0.09], blast: [900, 10, 0.12] };
+// záblesk (obraz; odhad, ladit podle oka na T460): svítivost cd, dosah m, doba s. Lampa xLabu má 60 cd ve 3 m
+// (6,7 lx); 8 cd z ústí 0,7 m před zdí dá zdi asi 16 lx na 0,05 s
+const FLASH = { primary: [8, 5, 0.05], alt: [40, 8, 0.09], blast: [300, 10, 0.12] };
 const FLASH_COLOR = [0.45, 0.7, 1];
 const BLAST_TIME = 0.28; // s: koule výbuchu doroste a zmizí
 const KICK_M = 0.06; // m: zákluz 1 = posun zbraně o 6 cm k oku
@@ -295,6 +296,8 @@ export function createWeapons({ pack, phys, player, input, interact, combat, ren
     projectiles,
     /** Přiblížení: 'hold' = jen při držení klávesy, 'toggle' = stisk zapne, další vypne. */
     zoomMode: 'hold',
+    /** Schovat zbraň v ruce (snímky testů, budoucí cutscény). */
+    hidden: false,
     init(engine) {
       E = engine;
       E.on('combat:exploded', (e) => {
@@ -430,7 +433,7 @@ export function createWeapons({ pack, phys, player, input, interact, combat, ren
       }
       // zbraň v ruce: vůči kameře s zákluzem; schovaná u terminálu
       if (!vm) return;
-      vm.ctrl.setVisible(!interact.seated);
+      vm.ctrl.setVisible(!interact.seated && !sys.hidden);
       kick *= Math.pow(0.5, real / KICK_HALF);
       vmM.set(vm.V0);
       vmM[14] += kick * KICK_M;
