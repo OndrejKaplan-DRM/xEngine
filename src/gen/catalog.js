@@ -130,6 +130,8 @@ export function makeCatalog(pack) {
       return Math.floor(best * 100 + 1e-6);
     },
     hasMaterial: (id) => Boolean(pack.materials && pack.materials.materials[id]),
+    /** Materiály sady (id → materiál); generátor podle nich počítá sítě kvádrů jako běh. */
+    materials: (pack.materials && pack.materials.materials) || {},
     ids: [...byId.keys()],
   };
 }

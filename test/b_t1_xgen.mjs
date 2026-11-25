@@ -107,7 +107,7 @@ const usedAll = new Set();
 for (const run of RUNS) {
   const catalog = run.cat || catalogAll;
   const attachIds = new Set(catalog.ids.flatMap((id) => catalog.attachments(id).map((a) => a.prefab)));
-  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [], vis: [], pvs: [], depth: [] };
+  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [], tris: [], drawers: [], vis: [], pvs: [], depth: [], cut: [] };
   let walker = null;
   const ruleBreaks = [];
   const findings = {};
@@ -133,6 +133,7 @@ for (const run of RUNS) {
     agg.doors.push(level.portals.filter((p) => portalDoors(level, catalog, p).length > 0).length);
     for (const p of level.portals) if (p.door) portalDoorPrefabs.add(level.entities.find((e) => e.id === p.door).prefab);
     agg.attempt.push(info.attempt);
+    agg.cut.push(info.pvsRemoved || 0);
     agg.entities.push(level.entities.length);
     agg.drawers.push(level.entities.filter((e) => attachIds.has(e.prefab)).length);
     agg.brushes.push(level.brushes.length);
@@ -166,7 +167,7 @@ for (const run of RUNS) {
   ok(Math.min(...agg.cells) >= 20 && Math.max(...agg.cells) <= 60, `${run.name}: 20 až 60 buněk`, span(agg.cells));
   // rozpočet scény (06_ROZPOCTY, měřeno na T460): do 300 tisíc viditelných △. Ondřej 25. 11. 1:29 (2 a): měřit, co je
   // z buňky prokazatelně vidět (PVS: přímka otvory portálů, všechny dveře otevřené), ne celý level
-  ok(Math.max(...agg.vis) <= 300000, `${run.name}: z žádné buňky není vidět víc než 300 tisíc △ (PVS, všechny dveře otevřené, kvádry po síti světla)`, `nejvíc ${span(agg.vis)}; buněk v PVS nejvýš ${span(agg.pvs)}; celý level ${span(agg.tris)}`);
+  ok(Math.max(...agg.vis) <= 300000, `${run.name}: z žádné buňky není vidět víc než 300 tisíc △ (PVS, všechny dveře otevřené, kvádry po síti světla)`, `nejvíc ${span(agg.vis)}; buněk v PVS nejvýš ${span(agg.pvs)}; celý level ${span(agg.tris)}; generátor ubral věci z desek v ${agg.cut.filter((x) => x > 0).length} z ${agg.cut.length} levelů (nejvýš ${Math.max(0, ...agg.cut)} entit)`);
   ok(Math.max(...agg.depth) <= 12, `${run.name}: nejdelší řetěz portálů s výhledem do 12 (MAX_DEPTH viditelnosti sešny A)`, span(agg.depth));
   ok(Math.min(...agg.doors) >= 3, `${run.name}: aspoň troje dveře v portálech`, span(agg.doors));
   ok(withStairs === n, `${run.name}: každý level má schod nebo rampu`, `${withStairs} z ${n}`);

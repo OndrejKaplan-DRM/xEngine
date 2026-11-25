@@ -7,6 +7,8 @@ import { makeLayout } from './layout.js';
 import { buildStructure } from './build.js';
 import { furnish, distances } from './furnish.js';
 import { source } from './util.js';
+import { fitPVS } from './pvs.js';
+import { levelLightMeshes, LIGHT_CELL } from '../xspace/index.js';
 import { complex } from './presets/complex.js';
 import { catacombs } from './presets/catacombs.js';
 
@@ -16,6 +18,12 @@ export * as kit from './kit.js';
 
 export const PRESETS = { complex, catacombs };
 const MAX_ATTEMPTS = 60;
+/**
+ * Nejvýš trojúhelníků viditelných z jedné buňky (PVS, všechny dveře otevřené). Ondřej 25. 11. 2026 v 1:29: „chytře
+ * škrtejme, co není vidět. Ale opravdu prokazatelně.“ Mez viditelné scény z docs/06_ROZPOCTY.md (xBench na T460:
+ * 594 tisíc △ za 7,15 ms); test B-T1 drží totéž číslo nezávisle.
+ */
+export const PVS_BUDGET = 300000;
 
 /**
  * Vygeneruje level.
@@ -61,6 +69,11 @@ export function generateLevel(presetId, seed, catalog, opts = {}) {
       spawns: F.spawns,
       source: source('gen', `src/gen/presets/${presetId}.js`, { params: { preset: presetId, kit: catalog.id, ...params }, seed }),
     };
+    // rozpočet viditelného: co se z některé buňky nevejde, ubere z věcí na deskách; kdyby nestačilo, další pokus
+    const brushTris = levelLightMeshes(level.brushes, catalog.materials, LIGHT_CELL).map((g) => (g ? g.indices.length / 3 : 0));
+    const trisOf = (id) => (catalog.has(id) ? catalog.get(id).tris : 0);
+    const fit = fitPVS(level, trisOf, brushTris, F.optional, PVS_BUDGET);
+    if (fit.max > PVS_BUDGET) continue;
     const doors = S.openings.filter((o) => o.doorIds.length).length;
     return {
       level,
@@ -74,7 +87,9 @@ export function generateLevel(presetId, seed, catalog, opts = {}) {
         stairs,
         ramps,
         brushes: S.brushes.length,
-        entities: S.entities.length,
+        entities: level.entities.length,
+        pvsMax: fit.max,
+        pvsRemoved: fit.removed,
         lights: F.lights.length,
         farthest: Math.max(...dist),
         startCell: S.meta[plan.start].id,

@@ -32,6 +32,8 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
   const spawns = [];
   const cellBox = cells.map((c) => ({ min: [m(c.min[0]), m(c.y0), m(c.min[1])], max: [m(c.max[0]), m(c.y1), m(c.max[1])] }));
   const lampsOf = cells.map(() => []);
+  const attachOf = new Map(); // entita → její připojené entity
+  const optional = new Map(); // volitelné entity (věci na deskách) → připojené; čte je rozpočet viditelného
 
   /** Zkusí postavit prefab; vrátí entitu, nebo null, když místo není volné. */
   function tryPlace(ci, prefab, pos, ry, o = {}) {
@@ -53,9 +55,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     S.entities.push(e);
     // připojené prefaby (zásuvky): vlastní entity hned za rodičem; místo za ně drží obaly rodiče z katalogu
     const mtx = entityMatrix(e);
-    for (const a of catalog.attachments(prefab)) {
-      S.entities.push({ id: S.eid(stem(a.prefab)), prefab: a.prefab, cell: e.cell, pos: V(...mat4Point(mtx, a.pos).map(r4)), rot: V(0, ry + (a.ry || 0), 0) });
-    }
+    const att = catalog.attachments(prefab).map((a) => ({ id: S.eid(stem(a.prefab)), prefab: a.prefab, cell: e.cell, pos: V(...mat4Point(mtx, a.pos).map(r4)), rot: V(0, ry + (a.ry || 0), 0) }));
+    S.entities.push(...att);
+    attachOf.set(e, att);
     return e;
   }
 
@@ -106,7 +108,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const gap = (span - used) / (items.length + 1);
     let x = rb.min[0] + edge + gap;
     for (const [t, tb, w] of items) {
-      relative(ci, host, t, [x - tb.min[0], topY, deck ? deck[0] + 0.01 - tb.min[2] : -0.02]);
+      const e = relative(ci, host, t, [x - tb.min[0], topY, deck ? deck[0] + 0.01 - tb.min[2] : -0.02]);
+      // věc na desce je volitelná: když je z některé buňky vidět víc, než unese T460, generátor ji odebere (fitPVS)
+      if (e) optional.set(e, attachOf.get(e));
       x += w + gap;
     }
   }
@@ -406,7 +410,7 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
       }
     }
   }
-  return { lights, triggers, spawns };
+  return { lights, triggers, spawns, optional };
 }
 
 /** Vzdálenost buněk od startu v počtu otvorů. */
