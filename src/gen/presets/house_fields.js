@@ -97,7 +97,7 @@ export function fieldPlan(c, rng, take0, catalog) {
       return {
         walls: take([{ p: 'chair_waiting_01' }, { p: 'sign_reception_01', h: 180 }], [{ p: 'magazine_rack_01' }, { p: 'plant_ficus_01' }, { p: 'water_cooler_01' }, { p: 'chair_waiting_01' }, { p: 'plant_monstera_01' }]),
         // pult stojí volně: recepční sedí za ním (−Z), návštěva přichází zepředu (+Z); deska pultu se nezdobí
-        center: [rng.chance(0.5) ? { p: 'reception_desk_01', yaw: false, aisle: 0.5, seat: 'chair_task_01', seats: [[0, -0.45, 0]] } : { p: 'reception_desk_02', yaw: false, aisle: 0.5, seat: 'chair_task_01', seats: [[0, -1.08, 0]] }, { p: 'table_low_office_01', aisle: 0.5 }],
+        center: [rng.chance(0.5) ? { p: 'reception_desk_01', yaw: false, aisle: 0.5, seat: 'chair_task_01', seats: [[0, -0.9, 0]] } : { p: 'reception_desk_02', yaw: false, aisle: 0.5, seat: 'chair_task_01', seats: [[0, -1.1, 0]] }, { p: 'table_low_office_01', aisle: 0.5 }],
         maxDepth: 70,
       };
     case 'director':

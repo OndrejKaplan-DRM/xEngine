@@ -8005,7 +8005,7 @@
     { "id": "e_chair_waiting_02", "prefab": "chair_waiting_01", "cell": "c_recep_01", "pos": [21.3, 0, 12.357], "rot": [0, 0, 0] },
     { "id": "e_water_cooler_03", "prefab": "water_cooler_01", "cell": "c_recep_01", "pos": [22.66, 0, 12.181], "rot": [0, 0, 0] },
     { "id": "e_reception_desk_01", "prefab": "reception_desk_01", "cell": "c_recep_01", "pos": [20.61, 0, 14.81], "rot": [0, 0, 0] },
-    { "id": "e_chair_task_05", "prefab": "chair_task_01", "cell": "c_recep_01", "pos": [20.61, 0, 14.36], "rot": [0, 0, 0] },
+    { "id": "e_chair_task_05", "prefab": "chair_task_01", "cell": "c_recep_01", "pos": [20.61, 0, 13.91], "rot": [0, 0, 0] },
     { "id": "e_optical_table_01", "prefab": "optical_table_01", "cell": "c_phys_01", "pos": [25.8, 0, 14.161], "rot": [0, 0, 0] },
     { "id": "e_laser_head_01", "prefab": "laser_head_01", "cell": "c_phys_01", "pos": [25.2275, 0.8, 14.141], "rot": [0, 0, 0] },
     { "id": "e_oscilloscope_01", "prefab": "oscilloscope_02", "cell": "c_phys_01", "pos": [25.75, 0.8, 14.141], "rot": [0, 0, 0] },
