@@ -89,14 +89,15 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 2. [x] xBake zapeče pevné díly prefabů (D-041): `complex_7` 182 468 vzorků (116 850 na dílech), 28 s v sandboxu, 4,8 MB; vlastní kolize entity díly nestíní (B_STAV, oddíl „Zapečené pevné díly“)
 2a. [x] sklo výraznější (volba 2 b): lem a pruhy odlesku v datech, návrh N-013 pro sešnu A; level `complex` nejvýš 299 608 △ z meze 300 tisíc (B_STAV, oddíl „Sklo s lemem a odleskem“)
 2c. [x] rozpočet trojúhelníků podle toho, co je z buňky prokazatelně vidět (PVS, volba 2 a): nejvíc 229 174 △ z buňky (mez 300 tisíc), B-T10, návrh N-014
-2b. [ ] zkouška N-110 na celém `complex_7` (dodatek D-050): atlas po 5 a 10 cm, čas, velikost v half float RGBA a ve 4 B na bod, vrstvy jen pro přepínaná světla a brány
+2b. [ ] zkouška N-112 na celém `complex_7` (dodatek znění 10, D-055; dřív N-110, D-050), až po bodu 6: atlas po 5 a 10 cm, čas, velikost v half float RGBA a ve 4 B na bod, vrstvy jen pro přepínaná světla a brány
 3. [ ] dodatek znění 6: `door_double_01` jako jeden prefab s `follow` (bez `seeThrough`), v generátoru zrušit párování křídel přes `io`, `door_dleft_01` a `door_dright_01` pryč; mikroskop `focus` → `stage`
 4. [ ] `kit_home` s předvolbou bytu
 5. [x] `kit_lab` 286 a `kit_it` 80 prefabů v levelech `complex` (`3f45c21`, `235b38a`); dřevo, zásuvky, barvy, první dávka tvarů (B_STAV, oddíl B04)
 
 **Potom:** B3.1 plazmová puška z Arény (`kit_arena`, dodatek znění 9) · kartotéka a stůl jako jeden prefab se seznamem interakcí (D-052), až to umí sešna A · B2.5 (dveře ze sítě pro sešnu A, D-030) · zbytek B2.2 (`components.place`, `passable` u oken, `seeThrough` u mříže, `speed`; `opacity` skla a `screen.offset` hotové) · B2.7.
 
-**Otázka na Ondřeje:** má přibýt dalších 300 **nových** kusů (např. `kit_home`, další obory laboratoří), nebo stačí přestavba 373 stávajících? · cena nových sítí na T460 (`?bench` nad `complex_7`).
+**Ondřej 25. 11. 14:47:** nové kusy (a) byt i (b) obory laboratoří a kanceláří; nový nezávislý level, čtyřpodlažní dům (dole laboratoře, nahoře byty) s novým vybavením; `?bench` pustí později; hra do 80 MB (D-054).
+6. [ ] předvolba domu o čtyřech podlažích + sada `kit_home` + nové obory laboratoří a kanceláří; level v `gen_demo`
 
 **Čeká na jiné:** **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 

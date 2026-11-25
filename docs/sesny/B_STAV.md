@@ -229,6 +229,12 @@ Pruhy jsou namalované, točí se s předmětem a nesledují světlo; skutečný
 
 Shoda s měřením: PVS `complex_7` při mřížce 0,25 m (Ondřejovo nastavení) je nejvýš 251 278 △ v `c_corr_01`; T460 změřil nejvýš 149 094 △ a nejvíc volání (496) právě v `c_corr_01`. **Pozor:** při mřížce 0,25 m mají kvádry asi dvakrát víc △ (`complex_21` 293 394 vidět z buňky); se světlem v textuře (D-050) budou kvádry zase 12 △. Návrh **N-014**: PVS do základu a pro sešnu A zkouška „kreslím ⊆ PVS“ (rozpočet) a „vše, co paprsek z oka zasáhne, kreslím“ (nic nebliká), hlavně u portálů.
 
+### Ondřej 25. 11. 2026, 14:47
+
+Odpovědi na otázky z konce kroku 25: (1) **nové kusy (a) i (b)**: sada pro byt (`kit_home`) i další obory laboratoří a kanceláří; „přistav však úplně jinou nezávislou level – 4 podlažní bytový komplex – horní patra byty, dolní patra laboratoře – dej tam to nové vybavení“; (2) `?bench` nad `complex_7` pustí později; (3) když bude potřeba šetřit, zvednout mez: **hra smí mít 80 MB** (totéž D-054 z 0:49; mez 25 MB z 23:57 neplatí).
+
+Čtu to takto: nová předvolba generátoru (dům o čtyřech podlažích, 1. a 2. podlaží laboratoře, 3. a 4. byty, schodiště mezi patry), jeden její level v `gen_demo` vedle stávajících, sada `kit_home` a nové kusy laboratoří a kanceláří v ní použité. Zkouška N-112 (dodatek znění 10) jde za tím.
+
 ### Přístroje a nábytek kus po kuse (krok 25, Ondřej 1:29, volba 3 b)
 
 Ondřej: „přístroje a nábytek kus po kuse … opět udělej aspoň 300 ks inventáře pro interiér, ať máme z čeho stavět.“ Zeptala jsem se, jestli (a) `kit_home`, (b) přestavba a nové kusy laboratoří a kanceláří, nebo (c) obojí; odpověď nepřišla, pracovala jsem s (b), a to **přestavbou existujících kusů** (id beze změny, levely i testy jedou dál). Nové kusy v tomto kroku nepřibyly.
