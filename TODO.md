@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 9 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 984 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 10 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 1 000 kontrol, 0 selhalo (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -18,7 +18,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 | 1 | „Vnitřní kompartmentizace“ prefabů: a) přihrádky a police (sešna B pracuje s a), b) kresba dřeva | sešna B | 24. 11. | `B_STAV.md` na `sesna-b` |
 | 2 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
 
-**Zodpovězeno 25. 11. 2026:** 0:00 svodné: textura světla N-110 **(a) bod 5 cm** (D-050; zapéká xBake, rozhodne zkouška celého `complex_7`); pořadí převzetí z Arény **(a) zbraně, střelba, zoom a výbuchy → zvuk → tvorové** (D-051).
+**Zodpovězeno 25. 11. 2026:** 0:49 svodné: **velikost hry až 80 MB** (D-054, předtím 25 MB); další krok základu **(a) atlas ploch a soubor textury světla (N-112)**. 0:00 svodné: textura světla N-110 **(a) bod 5 cm** (D-050; zapéká xBake, rozhodne zkouška celého `complex_7`); pořadí převzetí z Arény **(a) zbraně, střelba, zoom a výbuchy → zvuk → tvorové** (D-051).
 
 **Zodpovězeno 24. 11. 2026:** 23:57 sešně B: hustota laboratoří stačí (a), další krok zapečení pevných dílů prefabů (b), **hra smí mít až 25 MB** (a), `?bench` nad `complex_7` pustíš (a). 21:13 a 21:20 sešně A: výchozí rozlišení **(a) zůstává 768 řádků** (`complex_7` na 1 080 řádcích 95 % 10,2 ms); dva běhy s texturami: textury barvy na T460 únosné (`A_STAV.md`, oddíl 5). 23:38 svodné: kód staré hry **(a) jen Aréna v2** z GitHubu (`OndrejKaplan-DRM/Arena`, připojit jen pro čtení, sepsat co převzít); další krok **(b) N-102** (kostry bez alokací), N-010 až potom. 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 
@@ -50,9 +50,11 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 - [x] zkušební formát zbraní a munice, události boje, plazmová puška ve zlatém vzorku (N-201, D-053, T1d; regrese 984 kontrol, 0 selhalo)
 
-**Teď:** čeká na zkoušku zbraní u sešen A (A3.1) a B (B3.1); potom zmrazit formát zbraní (D-030). Mezitím svítivosti zlatého vzorku (N-105) a `rig.noSpeed` (N-103).
+- [x] atlas ploch a soubor textury světla (N-112, D-055, `atlas.js`, `lightmap.js`, T1e; regrese 1 000 kontrol, 0 selhalo)
 
-**Další na řadě:** zvuk z Arény (Z-2, D-051) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Předávka main 03:** `docs/sesny/predavky/main03_predavka_2026-11-25.md` (25. 11. 1:04). **Teď:** čeká na sešny: zkouška zbraní (A3.1, B3.1) a zkouška textury světla na celém `complex_7` (B zapeče, A přečte a změří); potom zmrazit oba zkušební formáty (D-030). Mezitím zvuk z Arény (Z-2, D-051).
+
+**Další na řadě:** svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 

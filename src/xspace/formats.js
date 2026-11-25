@@ -529,6 +529,14 @@ export const FORMATS = {
           file: R(str('soubor se zapečeným světlem')),
           method: R(en(['vertex', 'lightmap'], 'způsob')),
           hash: R(str('otisk geometrie a světel, pro které zapečení platí')),
+          lightmap: obj(
+            {
+              file: R(str('soubor textury světla levels/<id>.lightmap.bin, zabalený gzipem')),
+              texel: R(num('velikost bodu, m (výchozí 0,05)', { min: 0.01, max: 0.5 })),
+              atlas: R(str('otisk atlasu lightmapLayout(…).hash, pro který zapečení platí')),
+            },
+            'textura přímého světla (zkušební, N-112); odraz a body mimo atlas zůstávají v souboru file',
+          ),
         },
         'zapečené světlo; chybí-li, engine svítí za běhu',
       ),

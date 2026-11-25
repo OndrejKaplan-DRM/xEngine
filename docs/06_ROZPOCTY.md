@@ -147,6 +147,7 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | generování levelu (50 místností) | ≤ 1 s v Node | odhad | B | test |
 | zapečení světla xLabu | ≤ 60 s v Node | odhad | B | test |
 | kód enginu ve hře (bez Rapieru a dat) | ≤ 1,5 MB | cíl | A | výpis sestavení |
+| celá hra (sestavení s balíky a daty) | ≤ 80 MB | Ondřej 25. 11. 2026 (D-054; předtím 25 MB) | B (data), A (kód) | výpis sestavení |
 | celá regrese základu | ≤ 3 min | cíl | svodná | `npm test` |
 
 Sandbox, ve kterém vznikají testy, kreslí softwarově na 2 jádrech. Jeho časy snímku s T460 nesouvisejí a nikde se neuvádějí jako výkon.
