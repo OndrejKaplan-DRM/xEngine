@@ -9,16 +9,13 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 10 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen v 0:24: `sesna-a` = `17b8176`, `sesna-b` = `5ed1070` (sloučení nanečisto se zněním 9: 1 059 kontrol, 0 selhalo). Regrese na `main`: 1 000 kontrol, 0 selhalo (`docs/STATE.md`).
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 10 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen 25. 11. v 16:25: `sesna-a` = `17b8176` (0:02; základ sloučený naposledy u znění 5), `sesna-b` = `36653bc` (16:20; znění 10 sloučené). Regrese na `main`: 1 000 kontrol, 0 selhalo (`docs/STATE.md`); `npm test` na čistém klonu v 16:25: 357, 0 selhalo.
 
 ## Čeká na Ondřeje
 
-| # | Co | Ptá se | Od | Podrobně |
-|---|---|---|---|---|
-| 1 | „Vnitřní kompartmentizace“ prefabů: a) přihrádky a police (sešna B pracuje s a), b) kresba dřeva | sešna B | 24. 11. | `B_STAV.md` na `sesna-b` |
-| 2 | Potvrdit nebo přepsat body 6/ až 8/ zadání (sestavila je svodná sešna z tvých vět) | svodná | 22. 11. | `docs/00_ZADANI.md`, oddíl B |
+Nic.
 
-**Zodpovězeno 25. 11. 2026:** 0:49 svodné: **velikost hry až 80 MB** (D-054, předtím 25 MB); další krok základu **(a) atlas ploch a soubor textury světla (N-112)**. 0:00 svodné: textura světla N-110 **(a) bod 5 cm** (D-050; zapéká xBake, rozhodne zkouška celého `complex_7`); pořadí převzetí z Arény **(a) zbraně, střelba, zoom a výbuchy → zvuk → tvorové** (D-051).
+**Zodpovězeno 25. 11. 2026:** 17:00 svodné (main 04): další krok základu **návrhy sešny B** v pořadí N-015 → N-014 → rozdělit `formats.js` → N-012 (zvuk z Arény i N-105 počkají, až sešna A dožene znění 6 až 10); **zpráva pro sešnu A** připravená svodnou (sešna A stojí od 0:02); „vnitřní kompartmentizace“ prefabů = **obojí**, a) přihrádky a police i b) kresba dřeva (pro sešnu B); body 6/ až 8/ zadání **potvrzené beze změny**. 0:49 svodné: **velikost hry až 80 MB** (D-054, předtím 25 MB); další krok základu **(a) atlas ploch a soubor textury světla (N-112)**. 0:00 svodné: textura světla N-110 **(a) bod 5 cm** (D-050; zapéká xBake, rozhodne zkouška celého `complex_7`); pořadí převzetí z Arény **(a) zbraně, střelba, zoom a výbuchy → zvuk → tvorové** (D-051).
 
 **Zodpovězeno 24. 11. 2026:** 23:57 sešně B: hustota laboratoří stačí (a), další krok zapečení pevných dílů prefabů (b), **hra smí mít až 25 MB** (a), `?bench` nad `complex_7` pustíš (a). 21:13 a 21:20 sešně A: výchozí rozlišení **(a) zůstává 768 řádků** (`complex_7` na 1 080 řádcích 95 % 10,2 ms); dva běhy s texturami: textury barvy na T460 únosné (`A_STAV.md`, oddíl 5). 23:38 svodné: kód staré hry **(a) jen Aréna v2** z GitHubu (`OndrejKaplan-DRM/Arena`, připojit jen pro čtení, sepsat co převzít); další krok **(b) N-102** (kostry bez alokací), N-010 až potom. 21:19 svodné: další krok **(a) pravidlo zakrytí dveří a svázané klouby**; černá obrazovka byl **omyl** (snímek poslaný omylem, uzavřeno). 19:57 svodné: sloučit vlnu 2 do základu **teď (a)**; `?bench` pustíš **(a)**; otázce na černou obrazovku jsi nerozuměl (přeformulováno výše). 19:49 sešně A: zorné pole **(a) použitelné**, terminál po Esc **(a) funguje**, černé boky bez přímého světla **(a) počkat na odražené světlo ze zapečeného souboru**; poslal tři běhy `?bench` (`A_STAV.md`, oddíl 5.1). 02:26 sešně A: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče do dat. 02:04 sešně B: mez 8 GB, nejdřív xSearcher a textury, náhled zapečení počká.
 

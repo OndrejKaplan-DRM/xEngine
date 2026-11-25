@@ -82,7 +82,7 @@ Muzes si pomoci zakladnimi knihovnami jako je: Three.js; Octree; Rapier s bezchy
 | 4 | 2026-11-22 | nový bod 7/ | — | xSearcher jako zdroj k importu, úpravě, převzetí a inspiraci | tamtéž |
 | 5 | 2026-11-22 | nový bod 8/ | — | rezerva pro rychlejší stroje s grafickou kartou | tamtéž |
 
-Body 6/ až 8/ sestavila svodná sešna z Ondřejových vět v oddílu D. Ondřej je má potvrdit nebo přepsat vlastními slovy.
+Body 6/ až 8/ sestavila svodná sešna z Ondřejových vět v oddílu D. **Ondřej je potvrdil beze změny 25. 11. 2026 v 17:00** (svodné sešně main 04, volba „Potvrzuji, jak jsou“).
 
 ## C. Kde se projekt od zadání liší (stav 2026-11-22)
 
