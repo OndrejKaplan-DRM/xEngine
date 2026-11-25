@@ -4,30 +4,32 @@
   "id": "sequencer_floor_01",
   "title": "Velký sekvenátor (stojací)",
   "category": "lab.large",
-  "bounds": { "min": [-0.433, -0.001, -0.471], "max": [0.433, 1.601, 0.492] },
+  "bounds": { "min": [-0.434, -0.001, -0.471], "max": [0.434, 1.589, 0.524] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.432, 0.02, -0.45], "max": [0.432, 1.568, 0.45], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.412, 0, -0.45], "max": [0.412, 1.588, 0.45], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.412, 0.02, -0.47], "max": [0.412, 1.568, 0.47], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0.2, 0.47], "max": [0.38, 1, 0.472], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.25, 1.1, 0.47], "max": [0.25, 1.42, 0.49], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.24, 1.11, 0.49], "max": [0.24, 1.41, 0.491], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.4, 1.588, -0.4], "max": [0.4, 1.6, 0.4], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.6, 0.472], "max": [0.3, 0.62, 0.474], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_bay_leaf", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_bay_rail", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_strip", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_kick_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_kick_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_floor_01_feet", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.432, 0, -0.47], "max": [0.432, 1.6, 0.491], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.433, 0, -0.47], "max": [0.433, 1.588, 0.523], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 96,
+  "tris": 952,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#sequencers",

@@ -4,35 +4,33 @@
   "id": "microscope_tem_01",
   "title": "Transmisní elektronový mikroskop (TEM)",
   "category": "lab.large",
-  "bounds": { "min": [-0.901, -0.001, -0.501], "max": [0.901, 2.251, 0.501] },
+  "bounds": { "min": [-0.901, 0.019, -0.501], "max": [0.901, 2.211, 0.521] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.9, 0.02, -0.48], "max": [0.9, 0.73, 0.48], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.88, 0, -0.48], "max": [0.88, 0.75, 0.48], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.88, 0.02, -0.5], "max": [0.88, 0.73, 0.5], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.9, 0.75, 0.1], "max": [0.9, 0.78, 0.5], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_250_1100_y_0_1300_-200", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_200_y_0_1950_-200", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_140_200_y_0_2150_-200", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_250_x_330_1000_-200", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_130_450_y_-400_1300_-300", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.75, 0.95, 0.2], "max": [-0.25, 1.27, 0.22], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.74, 0.96, 0.22], "max": [-0.26, 1.26, 0.221], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [0.25, 0.95, 0.2], "max": [0.75, 1.27, 0.22], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.26, 0.96, 0.22], "max": [0.74, 1.26, 0.221], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_desk_shell", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_plate", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_column", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_flanges", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_ports", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_binocular", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_l_mon", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_l_img", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_r_mon", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_r_img", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_tem_01_knobs", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.9, 0, -0.5], "max": [0.9, 2.25, 0.5], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.9, 0.02, -0.5], "max": [0.9, 2.21, 0.52], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.78 }
   },
-  "tris": 848,
+  "tris": 1296,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#microscopes",

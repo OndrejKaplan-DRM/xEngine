@@ -4,7 +4,7 @@
   "id": "autoclave_floor_01",
   "title": "Autokláv stojací 100 l, plněný shora",
   "category": "lab.large",
-  "bounds": { "min": [-0.326, -0.001, -0.451], "max": [0.326, 1.492, 0.461] },
+  "bounds": { "min": [-0.326, -0.001, -0.451], "max": [0.326, 1.485, 0.483] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,21 +15,23 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.325, 0.015, -0.435], "max": [0.325, 0.97, 0.435], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.31, 0, -0.435], "max": [0.31, 0.985, 0.435], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.31, 0.015, -0.45], "max": [0.31, 0.97, 0.45], "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_220_10_y_0_985_-80", "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_450_-250_250_735_905", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.244, 0.8115, 0.452], "max": [0.05, 0.899, 0.4535], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_450_-250_250_735_905_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_450_-250_250_735_905_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.285, 0.05, 0.45], "max": [0.285, 0.4, 0.452], "mat": "steel_dark" },
-    { "node": "lid", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_250_60_y_0_30_240", "mat": "steel_brushed" },
-    { "node": "lid", "shape": "box", "min": [-0.05, 0.06, 0.4], "max": [0.05, 0.1, 0.5], "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_shell", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_rim", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_gauge", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_dial", "mat": "label_paper" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_kick_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_kick_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_feet", "mat": "plastic_black" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_lid", "mat": "steel_brushed" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_floor_01_wheel", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.45], "max": [0.325, 0.99, 0.46], "group": "world" },
-    { "node": "lid", "shape": "box", "min": [-0.25, 0, -0.011], "max": [0.25, 0.1, 0.5], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.45], "max": [0.325, 1.005, 0.482], "group": "world" },
+    { "node": "lid", "shape": "box", "min": [-0.25, 0, -0.011], "max": [0.25, 0.112, 0.49], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -38,7 +40,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 512,
+  "tris": 1280,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#autoclaves",

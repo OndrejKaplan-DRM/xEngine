@@ -4,35 +4,36 @@
   "id": "incubator_co2_01",
   "title": "CO₂ inkubátor 165 l na podstavci",
   "category": "lab.large",
-  "bounds": { "min": [-0.612, -0.001, -0.441], "max": [0.32, 1.501, 1.032] },
+  "bounds": { "min": [-0.624, -0.001, -0.441], "max": [0.319, 1.501, 1.024] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "door", "parent": "body", "pos": [-0.3185, 0.62, 0.39] }
+      { "id": "door", "parent": "body", "pos": [-0.3185, 0.62, 0.38] }
     ],
     "joints": [
       { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 4, "drive": "manual" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.29, 0, -0.37], "max": [-0.25, 0.6, -0.33], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0, 0.33], "max": [-0.25, 0.6, 0.37], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.25, 0, -0.37], "max": [0.29, 0.6, -0.33], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.25, 0, 0.33], "max": [0.29, 0.6, 0.37], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.58, -0.4], "max": [0.3, 0.6, 0.35], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.3185, 0.612, -0.428], "max": [0.3185, 1.488, 0.378], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 0.6, -0.428], "max": [0.3065, 1.5, 0.378], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 0.612, -0.44], "max": [0.3065, 1.488, 0.39], "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_390_-268_269_1380_1470", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.2625, 1.4205, 0.392], "max": [0.0537, 1.464, 0.3935], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_390_-268_269_1380_1470_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_390_-268_269_1380_1470_3", "mat": "plastic_light" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.05], "mat": "plastic_white" },
-    { "node": "door", "shape": "box", "min": [0.577, 0.27, 0.05], "max": [0.597, 0.495, 0.08], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_stand", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_l_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_r_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_t_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_bb", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_inner", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_28_wire_852", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_48_wire_1032", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_scr_led", "mat": "emit_green" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_door_leaf", "mat": "plastic_white" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_door_gasket", "mat": "rubber_black" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_01_door_handle", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.319, 0, -0.44], "max": [0.319, 1.5, 0.4], "group": "world" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.08], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3185, 0, -0.44], "max": [0.3185, 1.5, 0.38], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, -0.006], "max": [0.637, 0.73, 0.093], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -41,7 +42,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 234,
+  "tris": 1056,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

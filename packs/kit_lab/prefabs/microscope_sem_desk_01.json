@@ -4,27 +4,27 @@
   "id": "microscope_sem_desk_01",
   "title": "Stolní rastrovací elektronový mikroskop",
   "category": "lab.large",
-  "bounds": { "min": [-0.166, -0.001, -0.301], "max": [0.166, 0.561, 0.341] },
+  "bounds": { "min": [-0.166, -0.001, -0.302], "max": [0.166, 0.561, 0.336] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_330_600_380_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_330_600_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_180_y_0_470_-80", "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.08, 0.3], "max": [0.12, 0.25, 0.32], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.03, 0.15, 0.32], "max": [0.03, 0.18, 0.34], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_sem_desk_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_sem_desk_01_col", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_sem_desk_01_drawer_leaf", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_sem_desk_01_knob", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#microscope_sem_desk_01_feet", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.3], "max": [0.165, 0.56, 0.34], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.165, 0, -0.301], "max": [0.165, 0.56, 0.335], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 356,
+  "tris": 712,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#microscopes",

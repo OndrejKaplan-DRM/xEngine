@@ -4,32 +4,34 @@
   "id": "laminar_flow_01",
   "title": "Horizontální laminární box (čistý stůl)",
   "category": "lab.large",
-  "bounds": { "min": [-0.601, -0.001, -0.351], "max": [0.601, 1.451, 0.351] },
+  "bounds": { "min": [-0.601, -0.001, -0.351], "max": [0.601, 1.451, 0.358] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0.76, -0.34], "max": [0.6, 1.44, 0.34], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0.75, -0.34], "max": [0.59, 1.45, 0.34], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0.76, -0.35], "max": [0.59, 1.44, 0.35], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.55, 0.75, -0.3], "max": [0.55, 0.77, 0.32], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.55, 0.8, -0.32], "max": [0.55, 1.35, -0.3], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.77, 0.34], "max": [0.6, 1, 0.35], "mat": "glass_tinted" },
-    { "node": "body", "shape": "box", "min": [-0.57, 0, -0.3], "max": [-0.53, 0.75, -0.26], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.57, 0, 0.26], "max": [-0.53, 0.75, 0.3], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.53, 0, -0.3], "max": [0.57, 0.75, -0.26], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [0.53, 0, 0.26], "max": [0.57, 0.75, 0.3], "mat": "steel_painted" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_stand", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_s_feet", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_hood_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_top_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_filter", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_desk", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_sides", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#laminar_flow_01_lamp", "mat": "emit_cool" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.35], "max": [0.6, 1.45, 0.35], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.35], "max": [0.6, 1.45, 0.357], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.77 }
   },
-  "tris": 120,
+  "tris": 780,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cabinetsBio",

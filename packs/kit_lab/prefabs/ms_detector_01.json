@@ -4,27 +4,29 @@
   "id": "ms_detector_01",
   "title": "Hmotnostní detektor (trojitý kvadrupól)",
   "category": "lab.large",
-  "bounds": { "min": [-0.226, -0.001, -0.401], "max": [0.226, 0.701, 0.405] },
+  "bounds": { "min": [-0.226, -0.001, -0.401], "max": [0.226, 0.781, 0.406] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_450_800_600_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_450_800_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.2, 0.3, 0.4], "max": [0.2, 0.5, 0.402], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.12, 0.6, 0.2], "max": [0.18, 0.7, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.18, 0.44, 0.402], "max": [-0.1, 0.46, 0.404], "mat": "emit_green" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_front", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_strip", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_source", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_side_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_side_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#ms_detector_01_feet", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.4], "max": [0.225, 0.7, 0.404], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.4], "max": [0.225, 0.78, 0.405], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 240,
+  "tris": 740,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#liquidChrom",

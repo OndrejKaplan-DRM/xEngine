@@ -4,52 +4,38 @@
   "id": "hplc_stack_01",
   "title": "Sestava HPLC se čtyřmi moduly",
   "category": "lab.large",
-  "bounds": { "min": [-0.186, -0.001, -0.276], "max": [0.186, 0.871, 0.279] },
+  "bounds": { "min": [-0.186, -0.001, -0.276], "max": [0.186, 0.959, 0.28] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.185, 0.006, -0.269], "max": [0.185, 0.13, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0, -0.269], "max": [0.179, 0.136, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.006, -0.275], "max": [0.179, 0.13, 0.275], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.165, 0.042, 0.275], "max": [0.165, 0.105, 0.277], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.125, 0.056, 0.277], "max": [0.155, 0.07, 0.278], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.185, 0.146, -0.269], "max": [0.185, 0.31, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.14, -0.269], "max": [0.179, 0.316, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.146, -0.275], "max": [0.179, 0.31, 0.275], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.165, 0.194, 0.275], "max": [0.165, 0.275, 0.277], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.125, 0.212, 0.277], "max": [0.155, 0.23, 0.278], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.185, 0.326, -0.269], "max": [0.185, 0.51, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.32, -0.269], "max": [0.179, 0.516, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.326, -0.275], "max": [0.179, 0.51, 0.275], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.165, 0.38, 0.275], "max": [0.165, 0.47, 0.277], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.125, 0.4, 0.277], "max": [0.155, 0.42, 0.278], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.185, 0.526, -0.269], "max": [0.185, 0.65, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.52, -0.269], "max": [0.179, 0.656, 0.269], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.179, 0.526, -0.275], "max": [0.179, 0.65, 0.275], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.165, 0.562, 0.275], "max": [0.165, 0.625, 0.277], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.125, 0.576, 0.277], "max": [0.155, 0.59, 0.278], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.185, 0.66, -0.275], "max": [0.185, 0.69, 0.275], "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_-135_765_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_-135_855_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_-135_754_-150", "mat": "liquid_amber" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_-45_765_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_-45_855_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_-45_754_-150", "mat": "liquid_water" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_40_150_y_45_765_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_30_y_45_855_-150", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_38_124_y_45_754_-150", "mat": "liquid_amber" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_m0_shell", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_w0", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_led0", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_m1_shell", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_w1", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_led1", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_m2_shell", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_w2", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_led2", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_m3_shell", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_w3", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_led3", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_tray", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_bottles", "mat": "glass_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_caps", "mat": "cap_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#hplc_lines", "mat": "ptfe" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.185, 0, -0.275], "max": [0.185, 0.87, 0.278], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.185, 0, -0.275], "max": [0.185, 0.958, 0.279], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1020,
+  "tris": 1488,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#liquidChrom",

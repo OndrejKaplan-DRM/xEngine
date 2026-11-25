@@ -4,29 +4,28 @@
   "id": "water_ultrapure_01",
   "title": "Úprava ultračisté vody na zeď s výdejním ramenem",
   "category": "lab.large",
-  "bounds": { "min": [-0.181, -0.001, -0.001], "max": [0.181, 0.501, 0.429] },
+  "bounds": { "min": [-0.181, -0.001, -0.001], "max": [0.181, 0.501, 0.433] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.18, 0.01, 0.01], "max": [0.18, 0.49, 0.17], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.17, 0, 0.01], "max": [0.17, 0.5, 0.17], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.17, 0.01, 0], "max": [0.17, 0.49, 0.18], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.12, 0.3, 0.18], "max": [0.12, 0.42, 0.182], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_250_z_120_250_300", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_8_100_y_120_200_420", "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.16, 0.04, 0.18], "max": [-0.04, 0.12, 0.185], "mat": "plastic_light" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_scr_led", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_arm", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#water_ultrapure_01_cart", "mat": "plastic_light" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.18, 0, 0], "max": [0.18, 0.5, 0.428], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.18, 0, 0], "max": [0.18, 0.5, 0.432], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "wall", "height": 0.9 }
   },
-  "tris": 188,
+  "tris": 680,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#utilities",

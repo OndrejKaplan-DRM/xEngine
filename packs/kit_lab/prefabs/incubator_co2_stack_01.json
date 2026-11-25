@@ -4,35 +4,42 @@
   "id": "incubator_co2_stack_01",
   "title": "Dvojice CO₂ inkubátorů nad sebou",
   "category": "lab.large",
-  "bounds": { "min": [-0.612, -0.001, -0.441], "max": [0.32, 1.921, 1.032] },
+  "bounds": { "min": [-0.624, -0.001, -0.441], "max": [0.319, 1.921, 1.024] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "door", "parent": "body", "pos": [-0.3185, 1.04, 0.39] }
+      { "id": "door", "parent": "body", "pos": [-0.3185, 1.04, 0.38] }
     ],
     "joints": [
       { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 4, "drive": "manual" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.4], "max": [0.3, 0.12, 0.35], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.3185, 0.132, -0.428], "max": [0.3185, 1.008, 0.428], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 0.12, -0.428], "max": [0.3065, 1.02, 0.428], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 0.132, -0.44], "max": [0.3065, 1.008, 0.44], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.2585, 0.4, 0.44], "max": [0.2785, 0.6, 0.47], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.3185, 1.032, -0.428], "max": [0.3185, 1.908, 0.378], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 1.02, -0.428], "max": [0.3065, 1.92, 0.378], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.3065, 1.032, -0.44], "max": [0.3065, 1.908, 0.39], "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_390_-268_269_1800_1890", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.2625, 1.8405, 0.392], "max": [0.0537, 1.884, 0.3935], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_390_-268_269_1800_1890_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_390_-268_269_1800_1890_3", "mat": "plastic_light" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.05], "mat": "plastic_white" },
-    { "node": "door", "shape": "box", "min": [0.577, 0.27, 0.05], "max": [0.597, 0.495, 0.08], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_base", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_low_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_lowd_leaf", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_lowd_handle", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_lows_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_lows_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_lows_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_l_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_r_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_t_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_bb", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_inner", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_28_wire_1272", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_48_wire_1452", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_scr_led", "mat": "emit_green" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_door_leaf", "mat": "plastic_white" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_door_gasket", "mat": "rubber_black" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#incubator_co2_stack_01_door_handle", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.319, 0, -0.44], "max": [0.319, 1.92, 0.47], "group": "world" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.637, 0.75, 0.08], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3185, 0, -0.44], "max": [0.3185, 1.92, 0.38], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, -0.006], "max": [0.637, 0.73, 0.093], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -41,7 +48,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 234,
+  "tris": 1464,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

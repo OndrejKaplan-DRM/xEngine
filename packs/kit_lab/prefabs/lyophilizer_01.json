@@ -4,34 +4,34 @@
   "id": "lyophilizer_01",
   "title": "Lyofilizátor s akrylovou komorou",
   "category": "lab.large",
-  "bounds": { "min": [-0.326, -0.001, -0.301], "max": [0.326, 0.811, 0.311] },
+  "bounds": { "min": [-0.326, -0.001, -0.301], "max": [0.326, 0.791, 0.308] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_650_600_450_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_650_600_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_300_-280_0_300_420", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.274, 0.354, 0.302], "max": [-0.112, 0.414, 0.3035], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_300_-280_0_300_420_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_300_-280_0_300_420_3", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_150_350_y_0_620_-50", "mat": "plastic_ps" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_160_20_y_0_800_-50", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_130_6_y_0_520_-50", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_130_6_y_0_620_-50", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_130_6_y_0_720_-50", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_300_y_200_600_100", "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_v_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_v_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_bell", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_shelves", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_ports", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_base", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#lyophilizer_01_feet", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.3], "max": [0.325, 0.81, 0.31], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.325, 0, -0.3], "max": [0.325, 0.79, 0.307], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1198,
+  "tris": 1248,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

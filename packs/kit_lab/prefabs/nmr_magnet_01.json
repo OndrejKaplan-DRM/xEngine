@@ -4,31 +4,27 @@
   "id": "nmr_magnet_01",
   "title": "NMR spektrometr (supravodivý magnet)",
   "category": "lab.large",
-  "bounds": { "min": [-0.361, -0.001, -0.361], "max": [0.361, 1.851, 0.361] },
+  "bounds": { "min": [-0.61, -0.006, -0.61], "max": [0.61, 1.851, 0.61] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_700_y_0_350_0", "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [0.22, 0, -0.03], "max": [0.28, 0.6, 0.03], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.1562, 0, 0.1858], "max": [-0.0962, 0.6, 0.2458], "mat": "steel_painted" },
-    { "node": "body", "shape": "box", "min": [-0.1526, 0, -0.2479], "max": [-0.0926, 0.6, -0.1879], "mat": "steel_painted" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_350_900_y_0_1100_0", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_180_100_y_0_1600_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_200_y_120_1750_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_200_y_-120_1750_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.36, 0, -0.36], "max": [0.36, 0.01, 0.36], "mat": "paint_yellow" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_legs", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_probe", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_dewar", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_turrets", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#nmr_magnet_01_line", "mat": "paint_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.36, 0, -0.36], "max": [0.36, 1.85, 0.36], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.609, -0.005, -0.609], "max": [0.609, 1.85, 0.609], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 624,
+  "tris": 744,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

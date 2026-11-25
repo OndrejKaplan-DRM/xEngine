@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 199516
+Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 215416
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -225,32 +225,32 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 199516
 | `printer_label_01` | Tiskárna štítků | lab.bench | 0,12 × 0,15 × 0,23 | 216 | — | — |
 | `minicentrifuge_01` | Minicentrifuga | lab.bench | 0,14 × 0,1 × 0,14 | 224 | — | — |
 | `bin_tips_01` | Odpadní nádobka na špičky | lab.bench | 0,15 × 0,16 × 0,15 | 24 | — | — |
-| `uplc_stack_01` | Sestava UPLC (čerpadlo, dávkovač vzorků, termostat kolon) | lab.large | 0,35 × 0,87 × 0,72 | 1216 | — | — |
-| `hplc_stack_01` | Sestava HPLC se čtyřmi moduly | lab.large | 0,37 × 0,87 × 0,56 | 1020 | — | — |
-| `ms_detector_01` | Hmotnostní detektor (trojitý kvadrupól) | lab.large | 0,45 × 0,7 × 0,81 | 240 | — | — |
-| `gc_01` | Plynový chromatograf s automatickým dávkovačem | lab.large | 0,52 × 0,66 × 0,55 | 588 | — | — |
-| `gc_compact_01` | Kompaktní plynový chromatograf | lab.large | 0,35 × 0,66 × 0,63 | 588 | — | — |
-| `gcms_01` | Plynový chromatograf s hmotnostním detektorem | lab.large | 0,98 × 0,66 × 0,55 | 612 | — | — |
-| `sequencer_bench_01` | Stolní sekvenátor | lab.large | 0,69 × 0,9 × 0,72 | 276 | lid: 0° až 85° | door |
-| `sequencer_floor_01` | Velký sekvenátor (stojací) | lab.large | 0,87 × 1,6 × 0,96 | 96 | — | — |
-| `microscope_confocal_01` | Konfokální mikroskop na antivibračním stole | lab.large | 1,2 × 1,36 × 0,9 | 316 | — | — |
-| `microscope_tem_01` | Transmisní elektronový mikroskop (TEM) | lab.large | 1,8 × 2,25 × 1 | 848 | — | — |
-| `microscope_sem_01` | Rastrovací elektronový mikroskop (SEM) | lab.large | 1,75 × 1,55 × 0,92 | 388 | — | — |
-| `microscope_sem_desk_01` | Stolní rastrovací elektronový mikroskop | lab.large | 0,33 × 0,56 × 0,64 | 356 | — | — |
-| `autoclave_floor_01` | Autokláv stojací 100 l, plněný shora | lab.large | 0,65 × 1,49 × 0,91 | 512 | lid: 0° až 85° | door |
-| `autoclave_bench_01` | Stolní autokláv s čelními dvířky | lab.large | 0,62 × 0,45 × 0,97 | 490 | swing: 0° až 100° | door |
-| `bsc_class2_120_01` | Biologický bezpečnostní box třídy II, 1,2 m | lab.large | 1,3 × 2,23 × 0,81 | 312 | sash: 0 až 0,25 m | drawer |
-| `bsc_class2_180_01` | Biologický bezpečnostní box třídy II, 1,8 m | lab.large | 1,9 × 2,23 × 0,81 | 312 | sash: 0 až 0,25 m | drawer |
-| `laminar_flow_01` | Horizontální laminární box (čistý stůl) | lab.large | 1,2 × 1,45 × 0,7 | 120 | — | — |
-| `incubator_co2_01` | CO₂ inkubátor 165 l na podstavci | lab.large | 0,93 × 1,5 × 1,47 | 234 | swing: 0° až 110° | door |
-| `incubator_co2_stack_01` | Dvojice CO₂ inkubátorů nad sebou | lab.large | 0,93 × 1,92 × 1,47 | 234 | swing: 0° až 110° | door |
-| `lyophilizer_01` | Lyofilizátor s akrylovou komorou | lab.large | 0,65 × 0,81 × 0,61 | 1198 | — | — |
-| `liquid_handler_01` | Pipetovací robot v proskleném krytu | lab.large | 1,2 × 0,9 × 0,74 | 168 | — | — |
-| `cytometer_flow_01` | Průtokový cytometr | lab.large | 0,6 × 0,6 × 0,61 | 324 | — | — |
-| `nmr_magnet_01` | NMR spektrometr (supravodivý magnet) | lab.large | 0,72 × 1,85 × 0,72 | 624 | — | — |
-| `washer_labware_01` | Myčka laboratorního skla pod pult | lab.large | 0,6 × 0,85 × 1,21 | 192 | drop: 0° až 90° | door |
-| `ice_maker_01` | Výrobník šupinového ledu | lab.large | 0,5 × 0,9 × 0,63 | 60 | — | — |
-| `water_ultrapure_01` | Úprava ultračisté vody na zeď s výdejním ramenem | lab.large | 0,36 × 0,5 × 0,43 | 188 | — | — |
+| `uplc_stack_01` | Sestava UPLC (čerpadlo, dávkovač vzorků, termostat kolon) | lab.large | 0,35 × 0,96 × 0,72 | 1416 | — | — |
+| `hplc_stack_01` | Sestava HPLC se čtyřmi moduly | lab.large | 0,37 × 0,96 × 0,56 | 1488 | — | — |
+| `ms_detector_01` | Hmotnostní detektor (trojitý kvadrupól) | lab.large | 0,45 × 0,78 × 0,81 | 740 | — | — |
+| `gc_01` | Plynový chromatograf s automatickým dávkovačem | lab.large | 0,52 × 0,66 × 0,55 | 1164 | — | — |
+| `gc_compact_01` | Kompaktní plynový chromatograf | lab.large | 0,35 × 0,66 × 0,63 | 1164 | — | — |
+| `gcms_01` | Plynový chromatograf s hmotnostním detektorem | lab.large | 0,98 × 0,66 × 0,55 | 1476 | — | — |
+| `sequencer_bench_01` | Stolní sekvenátor | lab.large | 0,69 × 0,88 × 0,69 | 756 | lid: 0° až 85° | door |
+| `sequencer_floor_01` | Velký sekvenátor (stojací) | lab.large | 0,87 × 1,59 × 1 | 952 | — | — |
+| `microscope_confocal_01` | Konfokální mikroskop na antivibračním stole | lab.large | 1,2 × 1,32 × 0,9 | 1196 | — | — |
+| `microscope_tem_01` | Transmisní elektronový mikroskop (TEM) | lab.large | 1,8 × 2,19 × 1,02 | 1296 | — | — |
+| `microscope_sem_01` | Rastrovací elektronový mikroskop (SEM) | lab.large | 1,75 × 1,55 × 0,97 | 1172 | — | — |
+| `microscope_sem_desk_01` | Stolní rastrovací elektronový mikroskop | lab.large | 0,33 × 0,56 × 0,64 | 712 | — | — |
+| `autoclave_floor_01` | Autokláv stojací 100 l, plněný shora | lab.large | 0,65 × 1,49 × 0,93 | 1280 | lid: 0° až 85° | door |
+| `autoclave_bench_01` | Stolní autokláv s čelními dvířky | lab.large | 0,61 × 0,45 × 0,99 | 876 | swing: 0° až 100° | door |
+| `bsc_class2_120_01` | Biologický bezpečnostní box třídy II, 1,2 m | lab.large | 1,3 × 2,24 × 0,81 | 1272 | sash: 0 až 0,25 m | drawer |
+| `bsc_class2_180_01` | Biologický bezpečnostní box třídy II, 1,8 m | lab.large | 1,9 × 2,24 × 0,81 | 1272 | sash: 0 až 0,25 m | drawer |
+| `laminar_flow_01` | Horizontální laminární box (čistý stůl) | lab.large | 1,2 × 1,45 × 0,71 | 780 | — | — |
+| `incubator_co2_01` | CO₂ inkubátor 165 l na podstavci | lab.large | 0,94 × 1,5 × 1,47 | 1056 | swing: 0° až 110° | door |
+| `incubator_co2_stack_01` | Dvojice CO₂ inkubátorů nad sebou | lab.large | 0,94 × 1,92 × 1,47 | 1464 | swing: 0° až 110° | door |
+| `lyophilizer_01` | Lyofilizátor s akrylovou komorou | lab.large | 0,65 × 0,79 × 0,61 | 1248 | — | — |
+| `liquid_handler_01` | Pipetovací robot v proskleném krytu | lab.large | 1,2 × 0,89 × 0,74 | 920 | — | — |
+| `cytometer_flow_01` | Průtokový cytometr | lab.large | 0,6 × 0,64 × 0,63 | 668 | — | — |
+| `nmr_magnet_01` | NMR spektrometr (supravodivý magnet) | lab.large | 1,22 × 1,86 × 1,22 | 744 | — | — |
+| `washer_labware_01` | Myčka laboratorního skla pod pult | lab.large | 0,6 × 0,85 × 1,21 | 1044 | drop: 0° až 90° | door |
+| `ice_maker_01` | Výrobník šupinového ledu | lab.large | 0,5 × 0,9 × 0,67 | 576 | — | — |
+| `water_ultrapure_01` | Úprava ultračisté vody na zeď s výdejním ramenem | lab.large | 0,36 × 0,5 × 0,43 | 680 | — | — |
 | `freezer_ult_01` | Mrazák −80 °C na 500 krabic | lab.cold | 1,39 × 1,98 × 1,75 | 1400 | swing: 0° až 120° | door |
 | `freezer_ult_02` | Mrazák −80 °C na 600 krabic | lab.cold | 1,6 × 1,98 × 1,89 | 1400 | swing: 0° až 120° | door |
 | `freezer_ult_03` | Mrazák −80 °C na 700 krabic | lab.cold | 1,82 × 1,98 × 2,04 | 1400 | swing: 0° až 120° | door |

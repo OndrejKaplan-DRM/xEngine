@@ -4,36 +4,30 @@
   "id": "liquid_handler_01",
   "title": "Pipetovací robot v proskleném krytu",
   "category": "lab.large",
-  "bounds": { "min": [-0.601, -0.001, -0.371], "max": [0.601, 0.901, 0.371] },
+  "bounds": { "min": [-0.601, 0.011, -0.371], "max": [0.601, 0.901, 0.371] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0.01, -0.36], "max": [0.6, 0.11, 0.36], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0, -0.36], "max": [0.59, 0.12, 0.36], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.59, 0.01, -0.37], "max": [0.59, 0.11, 0.37], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.12, -0.37], "max": [-0.57, 0.9, 0.37], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.57, 0.12, -0.37], "max": [0.6, 0.9, 0.37], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.86, -0.37], "max": [0.6, 0.9, 0.37], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.57, 0.12, 0.36], "max": [0.57, 0.86, 0.37], "mat": "glass_tinted" },
-    { "node": "body", "shape": "box", "min": [-0.57, 0.7, -0.3], "max": [0.57, 0.75, -0.24], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.1, 0.45, -0.3], "max": [0.02, 0.75, -0.18], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.464, 0.12, -0.04], "max": [-0.336, 0.14, 0.045], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [-0.264, 0.12, -0.04], "max": [-0.136, 0.14, 0.045], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.064, 0.12, -0.04], "max": [0.064, 0.14, 0.045], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [0.136, 0.12, -0.04], "max": [0.264, 0.14, 0.045], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [0.336, 0.12, -0.04], "max": [0.464, 0.14, 0.045], "mat": "plastic_ps" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_base_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_posts", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_roof_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_gantry", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_tips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_plates", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#liquid_handler_01_tipbox", "mat": "cap_yellow" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.37], "max": [0.6, 0.9, 0.37], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.6, 0.012, -0.37], "max": [0.6, 0.9, 0.37], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 168,
+  "tris": 920,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#cultureAndMore",

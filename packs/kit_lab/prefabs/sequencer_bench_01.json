@@ -4,29 +4,29 @@
   "id": "sequencer_bench_01",
   "title": "Stolní sekvenátor",
   "category": "lab.large",
-  "bounds": { "min": [-0.344, -0.001, -0.42], "max": [0.344, 0.899, 0.304] },
+  "bounds": { "min": [-0.344, -0.001, -0.37], "max": [0.344, 0.877, 0.317] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "lid", "parent": "body", "pos": [-0.12, 0.38, -0.28] }
+      { "id": "lid", "parent": "body", "pos": [-0.12, 0.38, -0.27] }
     ],
     "joints": [
       { "id": "lid", "node": "lid", "type": "hinge", "axis": [-1, 0, 0], "min": 0, "max": 85, "rest": 0, "damping": 4, "drive": "manual" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_686_565_380_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_686_565_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [0.09, 0.2, 0.282], "max": [0.31, 0.34, 0.302], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.1, 0.21, 0.302], "max": [0.3, 0.33, 0.303], "mat": "emit_display" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.06, 0.282], "max": [0.05, 0.3, 0.284], "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.2, 0.01, 0.01], "max": [0.2, 0.13, 0.49], "mat": "plastic_white" },
-    { "node": "lid", "shape": "box", "min": [-0.19, 0, 0.01], "max": [0.19, 0.14, 0.49], "mat": "plastic_white" },
-    { "node": "lid", "shape": "box", "min": [-0.19, 0.01, 0], "max": [0.19, 0.13, 0.5], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_scr", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_img", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_bay", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_bar", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_feet", "mat": "plastic_black" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_lid_shell", "mat": "plastic_white" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#sequencer_bench_01_grip", "mat": "plastic_light" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.343, 0, -0.283], "max": [0.343, 0.38, 0.303], "group": "prop" },
-    { "node": "lid", "shape": "box", "min": [-0.2, 0, 0], "max": [0.2, 0.14, 0.5], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.343, 0, -0.28], "max": [0.343, 0.38, 0.316], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.2, 0, 0], "max": [0.2, 0.1, 0.49], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -35,7 +35,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 276,
+  "tris": 756,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#sequencers",

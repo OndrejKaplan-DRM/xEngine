@@ -4,31 +4,34 @@
   "id": "gc_compact_01",
   "title": "Kompaktní plynový chromatograf",
   "category": "lab.large",
-  "bounds": { "min": [-0.176, -0.001, -0.311], "max": [0.176, 0.661, 0.321] },
+  "bounds": { "min": [-0.176, -0.001, -0.311], "max": [0.176, 0.661, 0.323] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_350_620_440_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_350_620_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.155, 0.05, 0.31], "max": [0.035, 0.36, 0.312], "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_310_53_155_240_390", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.0585, 0.3075, 0.312], "max": [0.114, 0.384, 0.3135], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_310_53_155_240_390_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_310_53_155_240_390_4", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_200_y_53_540_-50", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_75_20_y_53_650_-50", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_case_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_oven", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_ov_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_ov_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_inlets", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_tower", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_vials", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gc_compact_01_feet", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.31], "max": [0.175, 0.66, 0.32], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.175, 0, -0.31], "max": [0.175, 0.66, 0.322], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 588,
+  "tris": 1164,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#gasChrom",

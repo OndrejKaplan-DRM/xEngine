@@ -4,7 +4,7 @@
   "id": "autoclave_bench_01",
   "title": "Stolní autokláv s čelními dvířky",
   "category": "lab.large",
-  "bounds": { "min": [-0.368, -0.001, -0.311], "max": [0.251, 0.451, 0.658] },
+  "bounds": { "min": [-0.362, -0.001, -0.311], "max": [0.251, 0.451, 0.675] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,18 +15,18 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_500_620_450_18_8", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_500_620_8", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_310_100_230_300_420", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.106, 0.354, 0.312], "max": [0.178, 0.414, 0.3135], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_310_100_230_300_420_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_310_100_230_300_420_3", "mat": "plastic_light" },
-    { "node": "door", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_150_40_z_170_180_20", "mat": "steel_brushed" },
-    { "node": "door", "shape": "box", "min": [0.3, 0.16, 0.04], "max": [0.34, 0.2, 0.08], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_mouth", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_feet", "mat": "plastic_black" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_door", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#autoclave_bench_01_lever", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.31], "max": [0.25, 0.45, 0.32], "group": "prop" },
-    { "node": "door", "shape": "box", "min": [0.02, 0.03, 0], "max": [0.34, 0.33, 0.08], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.25, 0, -0.31], "max": [0.25, 0.45, 0.317], "group": "prop" },
+    { "node": "door", "shape": "box", "min": [0.01, 0, -0.001], "max": [0.36, 0.32, 0.07], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -35,7 +35,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 490,
+  "tris": 876,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#autoclaves",

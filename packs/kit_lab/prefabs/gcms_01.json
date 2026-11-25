@@ -4,33 +4,39 @@
   "id": "gcms_01",
   "title": "Plynový chromatograf s hmotnostním detektorem",
   "category": "lab.large",
-  "bounds": { "min": [-0.359, -0.001, -0.271], "max": [0.621, 0.661, 0.281] },
+  "bounds": { "min": [-0.359, -0.001, -0.271], "max": [0.621, 0.661, 0.283] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#casing_515_540_440_18_8_s-100_0_0", "mat": "plastic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#feet_515_540_8_s-100_0_0", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.3375, 0.05, 0.27], "max": [-0.0485, 0.36, 0.272], "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_270_77_238_240_390_s-100_0_0", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.0167, 0.3075, 0.272], "max": [0.0734, 0.384, 0.2735], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_270_77_238_240_390_0_s-100_0_0", "mat": "cap_green" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_270_77_238_240_390_4_s-100_0_0", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_200_y_-23_540_-50", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_75_20_y_-23_650_-50", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.29, 0, -0.27], "max": [0.62, 0.42, 0.27], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.32, 0.25, 0.27], "max": [0.59, 0.38, 0.272], "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_case_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_oven", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_ov_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_ov_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_scr_keys", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_inlets", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_tower", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_vials", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_01_feet", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_ms_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_ms_front", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_msv_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_msv_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#gcms_line_cable", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.358, 0, -0.27], "max": [0.62, 0.66, 0.28], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.358, 0, -0.27], "max": [0.62, 0.66, 0.282], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 612,
+  "tris": 1476,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/large.mjs#gasChrom",
