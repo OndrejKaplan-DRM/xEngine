@@ -60,7 +60,10 @@ for (const [id, t] of Object.entries(THEMES)) {
     // díl ze sítě: soubor je v assets a v klidu ho obepínají kvádry, válce a kolize (generátor .glb nečte, místo měří z nich)
     for (const part of p.parts.filter((x) => x.shape === 'mesh')) {
       if (!kit.manifest.assets.some((a) => a.path === part.mesh.split('#')[0])) bad.push(`${p.id}: soubor ${part.mesh} není v assets`);
-      if (!meshCorners(part)) bad.push(`${p.id}: síť ${part.mesh} chybí v registru`);
+      const c = meshCorners(part);
+      if (!c) bad.push(`${p.id}: síť ${part.mesh} chybí v registru`);
+      // síť nesmí být plochá ve dvou osách (válec otočený zdegenerovanou maticí se zplacatí; 25. 11. 46 dílů)
+      else if ([0, 1, 2].filter((k) => Math.max(...c.map((q) => q[k])) - Math.min(...c.map((q) => q[k])) < 0.0002).length) bad.push(`${p.id}: síť ${part.mesh} je placatá (rozměr pod 0,2 mm)`);
     }
     const full = boundsAt(p, {}, meshCorners);
     if (full.min.some((v, k) => v < bb.min[k] - 0.003) || full.max.some((v, k) => v > bb.max[k] + 0.003)) bad.push(`${p.id}: sítě přečnívají kolize o víc než 3 mm (${full.min.map((v, k) => (bb.min[k] - v) * 1000).concat(full.max.map((v, k) => (v - bb.max[k]) * 1000)).map((x) => Math.round(x)).join(' ')} mm)`);

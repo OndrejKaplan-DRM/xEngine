@@ -4,7 +4,7 @@
   "id": "whiteboard_mobile_01",
   "title": "Mobilní oboustranná tabule",
   "category": "it.office",
-  "bounds": { "min": [-0.881, 0.024, -0.316], "max": [0.881, 1.901, 0.316] },
+  "bounds": { "min": [-0.881, -0.001, -0.305], "max": [0.881, 1.901, 0.305] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -23,7 +23,7 @@
     { "node": "body", "shape": "box", "min": [-0.4, 1.2, 0.015], "max": [0.3, 1.215, 0.016], "mat": "marker_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.88, 0.025, -0.315], "max": [0.88, 1.9, 0.315], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.88, 0, -0.304], "max": [0.88, 1.9, 0.304], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },

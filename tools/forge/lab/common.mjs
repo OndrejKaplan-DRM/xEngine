@@ -27,7 +27,7 @@ export function roundCyl(p, cover = null) {
   const e = Math.min(0.004, Math.min(p.radius, p.height) * 0.12);
   const seg = 2 * Math.round(Math.min(20, Math.max(8, 6 + p.radius * 1000 / 8)) / 2);
   const g = cylinder(p.radius, -p.height / 2, p.height / 2, { edge: e, n: 1, seg });
-  const R = p.axis === 'x' ? [0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] : p.axis === 'z' ? [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1] : null;
+  const R = p.axis === 'x' ? [0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] : p.axis === 'z' ? [1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1] : null;
   const M = R ? [...R.slice(0, 12), ...p.center, 1] : mTranslate(...p.center);
   return shared(p.node, `cyl_${mm(p.radius)}_${mm(p.height)}_${p.axis}_${mm(p.center[0])}_${mm(p.center[1])}_${mm(p.center[2])}`, moved(g, M), p.mat);
 }

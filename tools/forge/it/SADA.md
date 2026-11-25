@@ -57,9 +57,9 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 16696
 | `desk_bench4_02` | Blok stolů pro čtyři s přepážkami a počítači | it.office | 3,2 × 1,19 × 1,6 | 708 | — | — |
 | `desk_sitstand_01` | Stůl s nastavitelnou výškou, bílý | it.office | 1,6 × 0,75 × 0,8 | 132 | — | — |
 | `desk_sitstand_02` | Stůl s nastavitelnou výškou, dubový | it.office | 1,6 × 0,75 × 0,8 | 132 | — | — |
-| `chair_task_01` | Kancelářská židle se síťovým opěradlem (černá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
-| `chair_task_02` | Kancelářská židle se síťovým opěradlem (šedá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
-| `chair_task_03` | Kancelářská židle se síťovým opěradlem (modrá) | it.office | 0,62 × 1,11 × 0,64 | 672 | — | — |
+| `chair_task_01` | Kancelářská židle se síťovým opěradlem (černá) | it.office | 0,62 × 1,13 × 0,63 | 672 | — | — |
+| `chair_task_02` | Kancelářská židle se síťovým opěradlem (šedá) | it.office | 0,62 × 1,13 × 0,63 | 672 | — | — |
+| `chair_task_03` | Kancelářská židle se síťovým opěradlem (modrá) | it.office | 0,62 × 1,13 × 0,63 | 672 | — | — |
 | `table_meeting_240_01` | Jednací stůl 2,4 m, dub | it.office | 2,4 × 0,75 × 1,2 | 120 | — | — |
 | `table_meeting_400_01` | Jednací stůl 4 m, bílý | it.office | 4 × 0,75 × 1,2 | 120 | — | — |
 | `booth_phone_01` | Telefonní budka (akustická kabina pro jednoho) | it.office | 1,07 × 2,2 × 1,87 | 108 | swing: 0° až 95° | door |
@@ -68,7 +68,7 @@ Prefabů: 80 · materiálů: 33 · trojúhelníků celkem: 16696
 | `panel_acoustic_02` | Akustické panely z filcu, zelené | it.office | 1,78 × 1,18 × 0,06 | 72 | — | — |
 | `tv_wall_65_01` | Televize 65" na zeď | it.office | 1,46 × 0,84 × 0,05 | 48 | — | — |
 | `screen_projection_01` | Projekční plátno svinuté v pouzdře | it.office | 2,4 × 0,1 × 0,1 | 24 | — | — |
-| `whiteboard_mobile_01` | Mobilní oboustranná tabule | it.office | 1,76 × 1,88 × 0,63 | 392 | — | — |
+| `whiteboard_mobile_01` | Mobilní oboustranná tabule | it.office | 1,76 × 1,9 × 0,61 | 392 | — | — |
 | `projector_ceiling_01` | Projektor na stropním držáku | it.office | 0,34 × 0,45 × 0,33 | 128 | — | — |
 | `plant_ficus_01` | Fíkus ve velkém květináči | it.office | 0,62 × 1,63 × 0,51 | 420 | — | — |
 | `plant_snake_01` | Tchýnin jazyk v květináči | it.office | 0,26 × 0,84 × 0,26 | 380 | — | — |

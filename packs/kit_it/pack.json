@@ -12,8 +12,8 @@
   "assets": [
     {
       "path": "meshes/parts.glb",
-      "bytes": 111516,
-      "sha256": "990a47b65697787ee310c9df25163d9f791c9505c4a513361454cdf1c3a08e02",
+      "bytes": 111348,
+      "sha256": "63c99198b9f9d0483c0a743502c30c862637227d4c017487166c5366c5dd2b20",
       "license": "own",
       "source": "tools/forge/it/server.mjs",
       "author": "xForge (sešna B)"

@@ -4,7 +4,7 @@
   "id": "stool_lab_01",
   "title": "Laboratorní židle s opěradlem",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.224, 0.024, -0.274], "max": [0.271, 1.021, 0.274] },
+  "bounds": { "min": [-0.224, -0.001, -0.263], "max": [0.271, 1.021, 0.263] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -27,7 +27,7 @@
     { "node": "body", "shape": "box", "min": [-0.17, 0.82, -0.22], "max": [0.17, 1.02, -0.17], "mat": "plastic_navy" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.223, 0.025, -0.273], "max": [0.27, 1.02, 0.273], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.223, 0, -0.262], "max": [0.27, 1.02, 0.262], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },

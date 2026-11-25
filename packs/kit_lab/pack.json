@@ -36,8 +36,8 @@
     },
     {
       "path": "meshes/parts.glb",
-      "bytes": 1397272,
-      "sha256": "9b764fca45b7edcce6d6e8facc6f691581fe0ac68739dd37aefe2453cb747736",
+      "bytes": 1397004,
+      "sha256": "c22bee868f03a8e398e932a55a599303801ec61cc019bc9e6666dc9e997024d3",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"

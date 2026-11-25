@@ -4,7 +4,7 @@
   "id": "chair_task_01",
   "title": "Kancelářská židle se síťovým opěradlem (černá)",
   "category": "it.office",
-  "bounds": { "min": [-0.301, 0.024, -0.322], "max": [0.321, 1.131, 0.322] },
+  "bounds": { "min": [-0.301, -0.001, -0.321], "max": [0.321, 1.131, 0.311] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -35,7 +35,7 @@
     { "node": "body", "shape": "box", "min": [0.24, 0.68, -0.15], "max": [0.3, 0.7, 0.1], "mat": "bezel_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.025, -0.321], "max": [0.32, 1.13, 0.321], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.32], "max": [0.32, 1.13, 0.31], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },

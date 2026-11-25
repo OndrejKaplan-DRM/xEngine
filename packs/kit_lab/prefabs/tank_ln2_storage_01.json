@@ -4,7 +4,7 @@
   "id": "tank_ln2_storage_01",
   "title": "Zásobník kapalného dusíku na pojízdném podstavci",
   "category": "lab.cold",
-  "bounds": { "min": [-0.401, 0.029, -0.401], "max": [0.401, 1.132, 0.401] },
+  "bounds": { "min": [-0.401, -0.001, -0.401], "max": [0.401, 1.132, 0.401] },
   "rig": {
     "nodes": [
       { "id": "body" }
@@ -24,7 +24,7 @@
     { "node": "body", "shape": "box", "min": [-0.06, 0.6, 0.345], "max": [0.06, 0.66, 0.347], "mat": "emit_display" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0.03, -0.4], "max": [0.4, 1.131, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.4], "max": [0.4, 1.131, 0.4], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },

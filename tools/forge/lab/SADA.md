@@ -203,7 +203,7 @@ Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
 | `pipette_multichannel_01` | Elektronická osmikanálová pipeta | lab.bench | 0,09 × 0,2 × 0,03 | 48 | — | — |
 | `pipette_controller_01` | Pipetovací nástavec na sérologické pipety | lab.bench | 0,04 × 0,22 × 0,07 | 152 | — | — |
 | `pump_vacuum_membrane_01` | Membránová vývěva | lab.bench | 0,25 × 0,26 × 0,3 | 392 | — | — |
-| `pump_vacuum_rotary_01` | Olejová rotační vývěva | lab.bench | 0,44 × 0,24 × 0,23 | 328 | — | — |
+| `pump_vacuum_rotary_01` | Olejová rotační vývěva | lab.bench | 0,44 × 0,24 × 0,16 | 328 | — | — |
 | `bath_water_01` | Vodní lázeň s víkem | lab.bench | 0,35 × 0,78 × 0,72 | 354 | lid: 0° až 100° | door |
 | `bath_ultrasonic_01` | Ultrazvuková lázeň | lab.bench | 0,3 × 0,15 × 0,19 | 344 | — | — |
 | `ph_meter_01` | pH metr s elektrodou na rameni | lab.bench | 0,2 × 0,34 × 0,23 | 516 | — | — |
@@ -259,7 +259,7 @@ Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
 | `freezer_lab_20_01` | Laboratorní mrazák −20 °C | lab.cold | 0,94 × 1,85 × 1,18 | 234 | swing: 0° až 115° | door |
 | `fridge_undercounter_01` | Podstolová lednice | lab.cold | 0,94 × 0,82 × 1,13 | 120 | swing: 0° až 115° | door |
 | `freezer_chest_ult_01` | Truhlicový mrazák −80 °C | lab.cold | 1,6 × 1,8 × 0,94 | 198 | lid: 0° až 80° | door |
-| `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,8 × 1,1 × 0,8 | 1144 | — | — |
+| `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,8 × 1,13 × 0,8 | 1144 | — | — |
 | `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 492 | swing: 0° až 100° | door |
 | `freezer_walkin_01` | Mrazicí komora −20 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 492 | swing: 0° až 100° | door |
 | `bench_lab_wall_01` | Laboratorní stůl ke zdi 1,2 m s nástavbou | lab.furniture | 1,2 × 1,65 × 0,78 | 204 | — | — |
@@ -275,9 +275,9 @@ Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
 | `cabinet_flammable_01` | Bezpečnostní skříň na hořlaviny | lab.furniture | 1,36 × 1,95 × 1,15 | 108 | swing: 0° až 100° | door |
 | `cabinet_corrosive_01` | Bezpečnostní skříň na kyseliny a louhy | lab.furniture | 1,36 × 1,95 × 1,15 | 108 | swing: 0° až 100° | door |
 | `fumehood_180_01` | Digestoř 1,8 m s posuvným oknem | lab.furniture | 1,8 × 2,5 × 0,93 | 312 | sash: 0 až 0,6 m | drawer |
-| `stool_lab_01` | Laboratorní židle s opěradlem | lab.furniture | 0,5 × 1 × 0,55 | 724 | — | — |
-| `stool_lab_high_01` | Vysoká laboratorní židle s kruhem pro nohy | lab.furniture | 0,5 × 0,81 × 0,55 | 860 | — | — |
-| `cart_lab_01` | Laboratorní vozík se dvěma policemi | lab.furniture | 0,76 × 1,04 × 0,52 | 720 | — | — |
+| `stool_lab_01` | Laboratorní židle s opěradlem | lab.furniture | 0,5 × 1,02 × 0,53 | 724 | — | — |
+| `stool_lab_high_01` | Vysoká laboratorní židle s kruhem pro nohy | lab.furniture | 0,5 × 0,83 × 0,53 | 860 | — | — |
+| `cart_lab_01` | Laboratorní vozík se dvěma policemi | lab.furniture | 0,76 × 1,07 × 0,49 | 720 | — | — |
 | `shower_emergency_01` | Nouzová sprcha s oční sprchou | lab.furniture | 0,3 × 2,22 × 0,58 | 696 | — | — |
 | `bioreactor_bench_01` | Stolní bioreaktor se skleněnou nádobou | lab.furniture | 0,54 × 0,65 × 0,4 | 864 | — | — |
 | `bioreactor_bench_02` | Stolní bioreaktor se dvěma nádobami | lab.furniture | 0,69 × 0,65 × 0,4 | 1440 | — | — |
