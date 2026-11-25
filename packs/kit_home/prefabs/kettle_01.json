@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "kettle_01",
+  "title": "Rychlovarná konvice",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.132, -0.001, -0.084], "max": [0.118, 0.231, 0.084] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kettle_01_base", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kettle_01_body", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kettle_01_handle", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kettle_01_spout", "mat": "enamel_steel" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.131, 0, -0.083], "max": [0.117, 0.23, 0.083], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 328,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

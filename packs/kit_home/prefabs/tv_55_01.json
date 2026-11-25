@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tv_55_01",
+  "title": "Televize 55\" na podstavci",
+  "category": "home.living",
+  "bounds": { "min": [-0.611, -0.001, -0.121], "max": [0.611, 0.766, 0.082] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_55_01_panel", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_55_01_screen", "mat": "hob_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_55_01_stand", "mat": "enamel_steel" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.61, 0, -0.12], "max": [0.61, 0.765, 0.081], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 240,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#storage",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

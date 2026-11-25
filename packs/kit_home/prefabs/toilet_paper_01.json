@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "toilet_paper_01",
+  "title": "Držák toaletního papíru s rolí",
+  "category": "home.bath",
+  "bounds": { "min": [-0.031, -0.056, -0.001], "max": [0.131, 0.057, 0.135] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_paper_01_holder", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_paper_01_roll", "mat": "bedding_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.03, -0.055, 0], "max": [0.13, 0.056, 0.134], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 0.7 }
+  },
+  "tris": 116,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#bath",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

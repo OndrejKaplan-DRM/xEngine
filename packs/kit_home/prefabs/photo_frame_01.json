@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "photo_frame_01",
+  "title": "Rámeček s fotkou",
+  "category": "home.decor",
+  "bounds": { "min": [-0.081, -0.002, -0.05], "max": [0.081, 0.198, 0.008] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#photo_frame_01_frame", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#photo_frame_01_photo", "mat": "picture_sea" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.08, -0.001, -0.049], "max": [0.08, 0.197, 0.007], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

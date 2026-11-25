@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "plant_floor_home_04",
+  "title": "Pokojová rostlina: tchýnin jazyk",
+  "category": "home.decor",
+  "bounds": { "min": [-0.195, -0.001, -0.227], "max": [0.221, 0.974, 0.149] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#plant_floor_home_04_pot", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#plant_floor_home_04_soil", "mat": "soil_home" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#plant_floor_home_04_leaves", "mat": "plant_leaf" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.194, 0, -0.226], "max": [0.22, 0.973, 0.148], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 280,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#decor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

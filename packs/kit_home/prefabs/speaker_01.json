@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "speaker_01",
+  "title": "Reproduktor",
+  "category": "home.decor",
+  "bounds": { "min": [-0.091, -0.001, -0.101], "max": [0.091, 0.281, 0.106] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#speaker_01_box", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#speaker_01_cones", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.09, 0, -0.1], "max": [0.09, 0.28, 0.105], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 220,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

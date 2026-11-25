@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "sofa_3_03",
+  "title": "Sedačka trojsed 210 cm, modrý potah",
+  "category": "home.living",
+  "bounds": { "min": [-1.051, -0.001, -0.451], "max": [1.051, 0.821, 0.451] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_base", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_arms", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_back", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_seats", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_cushions", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_3_03_legs", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1.05, 0, -0.45], "max": [1.05, 0.82, 0.45], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 1144,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#sofas",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

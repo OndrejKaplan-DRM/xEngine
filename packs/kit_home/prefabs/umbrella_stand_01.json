@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "umbrella_stand_01",
+  "title": "Stojan na deštníky s deštníkem",
+  "category": "home.hall",
+  "bounds": { "min": [-0.111, -0.001, -0.109], "max": [0.111, 0.965, 0.109] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#umbrella_stand_01_body", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#umbrella_stand_01_umbrella", "mat": "fabric_sofa_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.11, 0, -0.108], "max": [0.11, 0.964, 0.108], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 272,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

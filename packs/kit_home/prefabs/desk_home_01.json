@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "desk_home_01",
+  "title": "Psací stůl s kontejnerem",
+  "category": "home.hall",
+  "bounds": { "min": [-0.701, -0.001, -0.351], "max": [0.701, 0.751, 0.351] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_home_01_top", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_home_01_box", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_home_01_drawers", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_home_01_legs", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.7, 0, -0.35], "max": [0.7, 0.75, 0.35], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 604,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "params": { "top": 0.75 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

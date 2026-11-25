@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "desk_kids_01",
+  "title": "Dětský psací stůl",
+  "category": "home.kids",
+  "bounds": { "min": [-0.501, -0.001, -0.301], "max": [0.501, 0.631, 0.301] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_kids_01_top", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_kids_01_box", "mat": "lacquer_sage" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_kids_01_drawers", "mat": "toy_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#desk_kids_01_legs", "mat": "wood_birch" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.3], "max": [0.5, 0.63, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 508,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#kids",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

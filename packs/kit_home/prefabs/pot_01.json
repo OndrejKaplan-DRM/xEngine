@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "pot_01",
+  "title": "Hrnec s pokličkou",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.151, -0.001, -0.125], "max": [0.151, 0.191, 0.125] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#pot_01_body", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#pot_01_lid", "mat": "hob_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#pot_01_handles", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.15, 0, -0.124], "max": [0.15, 0.19, 0.124], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 330,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

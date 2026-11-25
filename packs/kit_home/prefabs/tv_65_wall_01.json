@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tv_65_wall_01",
+  "title": "Televize 65\" na zdi",
+  "category": "home.living",
+  "bounds": { "min": [-0.721, -0.401, -0.001], "max": [0.721, 0.412, 0.062] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_65_wall_01_bracket", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_65_wall_01_panel", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tv_65_wall_01_screen", "mat": "hob_glass" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.72, -0.4, 0], "max": [0.72, 0.411, 0.061], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.1 }
+  },
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#storage",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

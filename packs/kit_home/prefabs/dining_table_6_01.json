@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "dining_table_6_01",
+  "title": "Jídelní stůl pro šest 200 × 90 cm, ořech",
+  "category": "home.kitchen",
+  "bounds": { "min": [-1.001, -0.001, -0.451], "max": [1.001, 0.751, 0.451] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_6_01_top", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_6_01_legs", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_6_01_apron", "mat": "wood_walnut" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1, 0, -0.45], "max": [1, 0.75, 0.45], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 184,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#dining",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bench_shoe_01",
+  "title": "Lavice na boty s polštářem",
+  "category": "home.hall",
+  "bounds": { "min": [-0.501, -0.001, -0.181], "max": [0.501, 0.531, 0.181] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_seat", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_cushion", "mat": "fabric_sofa_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_shelf", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_legs", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_shoe_01_shoes", "mat": "leather_brown" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.18], "max": [0.5, 0.53, 0.18], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 616,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

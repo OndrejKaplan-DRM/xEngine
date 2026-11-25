@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "mirror_cabinet_01",
+  "title": "Zrcadlová skříňka nad umyvadlo",
+  "category": "home.bath",
+  "bounds": { "min": [-0.301, -0.021, -0.001], "max": [0.301, 0.701, 0.144] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_box", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_mirror", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_cabinet_01_light", "mat": "emit_display" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, -0.02, 0], "max": [0.3, 0.7, 0.143], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.2 }
+  },
+  "tris": 144,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#bath",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

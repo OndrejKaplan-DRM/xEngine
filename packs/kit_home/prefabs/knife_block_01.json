@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "knife_block_01",
+  "title": "Blok s noži",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.061, 0.002, -0.136], "max": [0.061, 0.304, 0.076] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#knife_block_01_block", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#knife_block_01_handles", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.06, 0.003, -0.135], "max": [0.06, 0.303, 0.075], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 432,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

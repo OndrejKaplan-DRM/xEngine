@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "dining_table_round_01",
+  "title": "Kulatý jídelní stůl Ø 110 cm",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.551, -0.001, -0.551], "max": [0.551, 0.751, 0.551] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_round_01_top", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_round_01_foot", "mat": "lacquer_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.55, 0, -0.55], "max": [0.55, 0.75, 0.55], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 384,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#dining",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "kitchen_base_60_02",
+  "title": "Kuchyňská spodní skříňka 60 cm s dvířky, dub",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.901, 0.321] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_base_60_02_carcass", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_base_60_02_plinth", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_base_60_02_fronts", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_base_60_02_grips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_base_60_02_top", "mat": "worktop_light" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.9, 0.32], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 372,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#units",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

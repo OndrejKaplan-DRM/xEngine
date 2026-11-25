@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "coffee_table_01",
+  "title": "Konferenční stolek ořech s policí",
+  "category": "home.living",
+  "bounds": { "min": [-0.601, -0.001, -0.301], "max": [0.601, 0.441, 0.301] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_top", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_shelf", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_legs", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_books_140_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_books_140_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_books_140_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_01_books_140_book_green", "mat": "book_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.3], "max": [0.6, 0.44, 0.3], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 280,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#tables",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

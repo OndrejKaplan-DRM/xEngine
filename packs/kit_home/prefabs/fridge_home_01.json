@@ -1,0 +1,43 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "fridge_home_01",
+  "title": "Lednice s mrazákem volně stojící",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.563, 0.019, -0.327], "max": [0.301, 1.851, 0.88] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.295, 0.61, 0.285] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#fridge_home_01_body", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#fridge_home_01_freezer", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#fridge_home_01_fgrip", "mat": "steel_chrome" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/home.glb#fridge_home_01_door", "mat": "enamel_steel" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/home.glb#fridge_home_01_grip", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.02, -0.326], "max": [0.3, 1.85, 0.355], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.59, 1.23, 0.07], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "floor" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít lednici", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 348,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#units",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

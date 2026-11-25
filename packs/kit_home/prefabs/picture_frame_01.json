@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "picture_frame_01",
+  "title": "Obraz v rámu (moře)",
+  "category": "home.decor",
+  "bounds": { "min": [-0.301, -0.401, -0.001], "max": [0.301, 0.401, 0.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#picture_frame_01_frame", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#picture_frame_01_mat", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#picture_frame_01_art", "mat": "picture_sea" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, -0.4, 0], "max": [0.3, 0.4, 0.031], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.55 }
+  },
+  "tris": 132,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#decor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

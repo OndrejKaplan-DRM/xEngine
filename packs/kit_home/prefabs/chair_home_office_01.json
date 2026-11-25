@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chair_home_office_01",
+  "title": "Kancelářská židle do pracovny",
+  "category": "home.hall",
+  "bounds": { "min": [-0.269, 0.003, -0.337], "max": [0.326, 1.077, 0.312] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chair_home_office_01_seat", "mat": "fabric_sofa_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chair_home_office_01_back", "mat": "fabric_sofa_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chair_home_office_01_base", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chair_home_office_01_wheels", "mat": "rubber_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.268, 0.004, -0.336], "max": [0.325, 1.076, 0.311], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 528,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

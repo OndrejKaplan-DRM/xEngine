@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "wardrobe_sliding_01",
+  "title": "Šatní skříň s posuvnými dveřmi a zrcadlem",
+  "category": "home.bedroom",
+  "bounds": { "min": [-1.001, -0.001, -0.301], "max": [1.001, 2.301, 0.319] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_body", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_plinth", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_doors", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_grips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_mirror", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_sliding_01_rail", "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1, 0, -0.3], "max": [1, 2.3, 0.318], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 288,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#bedroom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

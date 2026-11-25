@@ -1,0 +1,31 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "cutting_board_01",
+  "title": "Prkénko na krájení",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.201, -0.001, -0.131], "max": [0.201, 0.021, 0.131] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#cutting_board_01_board", "mat": "wood_birch" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.13], "max": [0.2, 0.02, 0.13], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

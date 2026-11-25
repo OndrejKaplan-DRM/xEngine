@@ -1,0 +1,31 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bean_bag_01",
+  "title": "Sedací vak",
+  "category": "home.kids",
+  "bounds": { "min": [-0.421, -0.001, -0.421], "max": [0.421, 0.451, 0.421] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bean_bag_01_bag", "mat": "fabric_sofa_rust" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.42, 0, -0.42], "max": [0.42, 0.45, 0.42], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 128,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#kids",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

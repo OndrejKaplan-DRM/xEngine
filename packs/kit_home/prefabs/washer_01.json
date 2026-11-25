@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "washer_01",
+  "title": "Pračka s předním plněním",
+  "category": "home.bath",
+  "bounds": { "min": [-0.301, 0.019, -0.301], "max": [0.301, 0.851, 0.326] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_body", "mat": "ceramic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_door", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_glass", "mat": "hob_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_knob", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#washer_01_drawer", "mat": "ceramic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0.02, -0.3], "max": [0.3, 0.85, 0.325], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 608,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#bath",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

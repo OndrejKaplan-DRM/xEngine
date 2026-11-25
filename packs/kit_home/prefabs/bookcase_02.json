@@ -1,0 +1,48 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bookcase_02",
+  "title": "Knihovna s knihami, bílá",
+  "category": "home.living",
+  "bounds": { "min": [-0.401, -0.001, -0.161], "max": [0.401, 1.881, 0.161] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_sides", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_shelves", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_0_books_20_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_0_books_20_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_0_books_20_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_0_books_20_book_green", "mat": "book_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_1_books_400_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_1_books_400_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_1_books_400_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_1_books_400_book_green", "mat": "book_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_2_books_780_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_2_books_780_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_2_books_780_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_2_books_780_book_green", "mat": "book_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_3_books_1160_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_3_books_1160_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_3_books_1160_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bookcase_02_3_books_1160_book_green", "mat": "book_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.16], "max": [0.4, 1.88, 0.16], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 912,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#storage",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

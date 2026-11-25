@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "floor_lamp_02",
+  "title": "Stojací lampa na trojnožce",
+  "category": "home.decor",
+  "bounds": { "min": [-0.181, 0.01, -0.23], "max": [0.262, 1.451, 0.23] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_02_legs", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_02_shade", "mat": "bedding_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_02_stem", "mat": "brass" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.18, 0.011, -0.229], "max": [0.261, 1.45, 0.229], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 204,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#decor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

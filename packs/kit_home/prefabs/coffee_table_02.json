@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "coffee_table_02",
+  "title": "Konferenční stolek se skleněnou deskou",
+  "category": "home.living",
+  "bounds": { "min": [-0.451, 0.008, -0.451], "max": [0.451, 0.473, 0.451] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_02_glass", "mat": "glass_tinted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_02_frame", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#coffee_table_02_bowl", "mat": "ceramic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.45, 0.009, -0.45], "max": [0.45, 0.472, 0.45], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 512,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#tables",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bike_01",
+  "title": "Jízdní kolo",
+  "category": "home.hall",
+  "bounds": { "min": [-0.859, 0.001, -0.251], "max": [0.859, 0.962, 0.251] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bike_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bike_01_frame", "mat": "lacquer_sage" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bike_01_seat", "mat": "leather_brown" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.858, 0.002, -0.25], "max": [0.858, 0.961, 0.25], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 564,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

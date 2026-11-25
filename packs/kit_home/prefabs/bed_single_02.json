@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bed_single_02",
+  "title": "Jednolůžko 90 × 200 cm, bílé",
+  "category": "home.bedroom",
+  "bounds": { "min": [-0.491, -0.001, -1.061], "max": [0.491, 0.801, 1.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_frame", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_legs", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_mattress", "mat": "bedding_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_cover", "mat": "bedding_rose" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_pillows", "mat": "bedding_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bed_single_02_head", "mat": "lacquer_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.49, 0, -1.06], "max": [0.49, 0.8, 1.031], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 604,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#bedroom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "alarm_clock_01",
+  "title": "Budík",
+  "category": "home.decor",
+  "bounds": { "min": [-0.061, -0.001, -0.031], "max": [0.061, 0.081, 0.032] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#alarm_clock_01_body", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#alarm_clock_01_lcd", "mat": "emit_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.06, 0, -0.03], "max": [0.06, 0.08, 0.031], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

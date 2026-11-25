@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "lamp_bedside_01",
+  "title": "Stolní lampička se stínidlem",
+  "category": "home.decor",
+  "bounds": { "min": [-0.131, -0.001, -0.131], "max": [0.131, 0.381, 0.131] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#lamp_bedside_01_base", "mat": "ceramic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#lamp_bedside_01_shade", "mat": "bedding_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.13, 0, -0.13], "max": [0.13, 0.38, 0.13], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 208,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

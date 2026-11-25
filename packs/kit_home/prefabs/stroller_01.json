@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "stroller_01",
+  "title": "Dětský kočárek",
+  "category": "home.hall",
+  "bounds": { "min": [-0.419, 0.004, -0.261], "max": [0.563, 1.013, 0.251] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stroller_01_tub", "mat": "fabric_sofa_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stroller_01_hood", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stroller_01_frame", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stroller_01_wheels", "mat": "rubber_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.418, 0.005, -0.26], "max": [0.562, 1.012, 0.25], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 602,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "kitchen_stove_60_01",
+  "title": "Sporák s troubou a sklokeramickou deskou 60 cm",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 0.911, 0.338] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_carcass", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_plinth", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_oven", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_window", "mat": "hob_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_bar", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_panel", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_knobs", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_clock", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_hob", "mat": "hob_glass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_rings", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_stove_60_01_top", "mat": "enamel_steel" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.91, 0.337], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 776,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#units",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

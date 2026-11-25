@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shoe_cabinet_01",
+  "title": "Botník se sklopnými dvířky",
+  "category": "home.hall",
+  "bounds": { "min": [-0.401, -0.001, -0.162], "max": [0.401, 1.001, 0.168] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shoe_cabinet_01_body", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shoe_cabinet_01_flaps", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shoe_cabinet_01_grips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shoe_cabinet_01_plinth", "mat": "lacquer_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.161], "max": [0.4, 1, 0.167], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 360,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

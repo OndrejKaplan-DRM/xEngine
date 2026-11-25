@@ -1,0 +1,38 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "kitchen_sink_80_01",
+  "title": "Kuchyňská skříňka 80 cm s dřezem a baterií, bílá",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.401, -0.001, -0.301], "max": [0.401, 1.213, 0.321] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_carcass", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_plinth", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_fronts", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_grips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_basin", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_hole", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_tap", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_sink_80_01_top", "mat": "worktop_stone" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.3], "max": [0.4, 1.212, 0.32], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 596,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#units",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

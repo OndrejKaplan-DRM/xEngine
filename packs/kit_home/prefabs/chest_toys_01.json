@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "chest_toys_01",
+  "title": "Truhla na hračky",
+  "category": "home.kids",
+  "bounds": { "min": [-0.411, -0.001, -0.261], "max": [0.411, 0.621, 0.261] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chest_toys_01_body", "mat": "lacquer_sage" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chest_toys_01_lid", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#chest_toys_01_ball", "mat": "toy_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.41, 0, -0.26], "max": [0.41, 0.62, 0.26], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 236,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#kids",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

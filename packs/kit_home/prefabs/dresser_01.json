@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "dresser_01",
+  "title": "Komoda se šesti zásuvkami",
+  "category": "home.bedroom",
+  "bounds": { "min": [-0.601, -0.001, -0.241], "max": [0.601, 0.901, 0.265] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dresser_01_body", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dresser_01_drawers", "mat": "wood_walnut" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dresser_01_grips", "mat": "brass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dresser_01_legs", "mat": "wood_walnut" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.24], "max": [0.6, 0.9, 0.264], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 892,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#bedroom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "globe_01",
+  "title": "Glóbus na stojanu",
+  "category": "home.hall",
+  "bounds": { "min": [-0.156, -0.001, -0.151], "max": [0.156, 0.466, 0.151] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#globe_01_ball", "mat": "picture_sea" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#globe_01_stand", "mat": "brass" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.155, 0, -0.15], "max": [0.155, 0.465, 0.15], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 272,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

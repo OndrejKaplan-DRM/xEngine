@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "shelf_toys_01",
+  "title": "Police s hračkami a boxy",
+  "category": "home.kids",
+  "bounds": { "min": [-0.551, -0.001, -0.181], "max": [0.551, 1.051, 0.181] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_frame", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_boxes", "mat": "toy_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_boxes2", "mat": "toy_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_books_370_book_red", "mat": "book_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_books_370_book_blue", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_books_370_book_ochre", "mat": "book_ochre" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#shelf_toys_01_books_370_book_green", "mat": "book_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.55, 0, -0.18], "max": [0.55, 1.05, 0.18], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 660,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#kids",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

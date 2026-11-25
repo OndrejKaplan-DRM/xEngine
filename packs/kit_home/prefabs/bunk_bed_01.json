@@ -1,0 +1,35 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bunk_bed_01",
+  "title": "Palanda (dvě lůžka nad sebou s žebříkem)",
+  "category": "home.kids",
+  "bounds": { "min": [-0.531, -0.001, -1.031], "max": [0.531, 1.701, 1.031] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bunk_bed_01_posts", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bunk_bed_01_frames", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bunk_bed_01_rail", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bunk_bed_01_mattresses", "mat": "bedding_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bunk_bed_01_pillows", "mat": "bedding_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.53, 0, -1.03], "max": [0.53, 1.7, 1.03], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 600,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#kids",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "footstool_01",
+  "title": "Taburet",
+  "category": "home.living",
+  "bounds": { "min": [-0.281, -0.001, -0.221], "max": [0.281, 0.422, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#footstool_01_top", "mat": "fabric_sofa_grey" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#footstool_01_legs", "mat": "wood_walnut" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.28, 0, -0.22], "max": [0.28, 0.421, 0.22], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 364,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#armchairs",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

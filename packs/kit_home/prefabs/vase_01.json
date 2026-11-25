@@ -1,0 +1,31 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "vase_01",
+  "title": "Váza",
+  "category": "home.decor",
+  "bounds": { "min": [-0.071, -0.001, -0.071], "max": [0.071, 0.261, 0.071] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#vase_01_vase", "mat": "ceramic_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.07, 0, -0.07], "max": [0.07, 0.26, 0.07], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 192,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

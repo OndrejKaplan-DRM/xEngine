@@ -1,0 +1,31 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "doormat_01",
+  "title": "Rohožka",
+  "category": "home.hall",
+  "bounds": { "min": [-0.401, -0.001, -0.251], "max": [0.401, 0.013, 0.251] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#doormat_01_mat", "mat": "paper_kraft" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.25], "max": [0.4, 0.012, 0.25], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

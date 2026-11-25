@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bin_kitchen_01",
+  "title": "Odpadkový koš s pedálem",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.146, -0.001, -0.144], "max": [0.146, 0.651, 0.181] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bin_kitchen_01_body", "mat": "enamel_steel" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bin_kitchen_01_lid", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bin_kitchen_01_pedal", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.145, 0, -0.143], "max": [0.145, 0.65, 0.18], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 228,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "floor_lamp_01",
+  "title": "Stojací oblouková lampa",
+  "category": "home.decor",
+  "bounds": { "min": [-0.161, -0.001, -0.248], "max": [1.501, 1.924, 0.161] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_01_base", "mat": "worktop_stone" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_01_arc", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#floor_lamp_01_shade", "mat": "lacquer_anthracite" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.16, 0, -0.247], "max": [1.5, 1.923, 0.16], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 490,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#decor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

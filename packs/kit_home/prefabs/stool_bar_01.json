@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "stool_bar_01",
+  "title": "Barová stolička",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.221, -0.001, -0.218], "max": [0.221, 0.771, 0.218] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stool_bar_01_seat", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#stool_bar_01_frame", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.217], "max": [0.22, 0.77, 0.217], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 312,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#dining",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

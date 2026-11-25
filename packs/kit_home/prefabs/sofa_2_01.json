@@ -1,0 +1,36 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "sofa_2_01",
+  "title": "Sedačka dvojsed 160 cm, hnědá kůže",
+  "category": "home.living",
+  "bounds": { "min": [-0.801, -0.001, -0.451], "max": [0.801, 0.821, 0.451] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_base", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_arms", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_back", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_seats", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_cushions", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#sofa_2_01_legs", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.45], "max": [0.8, 0.82, 0.45], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 928,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#sofas",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

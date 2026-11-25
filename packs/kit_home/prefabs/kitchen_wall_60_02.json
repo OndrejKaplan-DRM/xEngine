@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "kitchen_wall_60_02",
+  "title": "Kuchyňská horní skříňka 60 cm, dub",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.299, -0.001, -0.001], "max": [0.299, 0.701, 0.367] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_wall_60_02_ucarcass_s0_-1450_300", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_wall_60_02_ufronts_s0_-1450_300", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#kitchen_wall_60_02_ugrips_s0_-1450_300", "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.298, 0, 0], "max": [0.298, 0.7, 0.366], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.45 }
+  },
+  "tris": 252,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#units",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

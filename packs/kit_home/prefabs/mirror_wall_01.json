@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "mirror_wall_01",
+  "title": "Nástěnné zrcadlo v rámu",
+  "category": "home.hall",
+  "bounds": { "min": [-0.351, -0.601, -0.001], "max": [0.351, 0.601, 0.034] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_frame", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#mirror_wall_01_glass", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.35, -0.6, 0], "max": [0.35, 0.6, 0.033], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 1.45 }
+  },
+  "tris": 120,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#hall",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "dining_table_4_01",
+  "title": "Jídelní stůl pro čtyři 140 × 80 cm, dub",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.701, -0.001, -0.401], "max": [0.701, 0.751, 0.401] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_4_01_top", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_4_01_legs", "mat": "wood_kitchen_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#dining_table_4_01_apron", "mat": "wood_kitchen_oak" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.7, 0, -0.4], "max": [0.7, 0.75, 0.4], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 184,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#dining",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

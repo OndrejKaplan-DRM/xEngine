@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "radiator_01",
+  "title": "Článkový radiátor s ventilem",
+  "category": "home.decor",
+  "bounds": { "min": [-0.509, -0.101, 0.029], "max": [0.526, 0.551, 0.101] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#radiator_01_fins", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#radiator_01_pipes", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#radiator_01_valve", "mat": "lacquer_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.508, -0.1, 0.03], "max": [0.525, 0.55, 0.1], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 0.15 }
+  },
+  "tris": 368,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#decor",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

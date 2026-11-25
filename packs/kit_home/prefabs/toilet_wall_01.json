@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "toilet_wall_01",
+  "title": "Závěsný záchod s ovládacím tlačítkem",
+  "category": "home.bath",
+  "bounds": { "min": [-0.301, -0.001, -0.301], "max": [0.301, 1.101, 0.391] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_wall_01_frame", "mat": "wall_tile_bath" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_wall_01_bowl", "mat": "ceramic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_wall_01_seat", "mat": "ceramic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#toilet_wall_01_plate", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 1.1, 0.39], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 340,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#bath",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

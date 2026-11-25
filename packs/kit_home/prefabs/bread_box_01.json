@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bread_box_01",
+  "title": "Chlebník",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.201, -0.001, -0.141], "max": [0.201, 0.161, 0.161] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bread_box_01_body", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bread_box_01_knob", "mat": "plastic_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.2, 0, -0.14], "max": [0.2, 0.16, 0.16], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 140,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

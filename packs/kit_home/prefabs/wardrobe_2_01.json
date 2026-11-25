@@ -1,0 +1,44 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "wardrobe_2_01",
+  "title": "Šatní skříň dvoudveřová (dvířka na pantu)",
+  "category": "home.bedroom",
+  "bounds": { "min": [-0.701, -0.001, -0.301], "max": [0.501, 2.101, 0.775] },
+  "rig": {
+    "nodes": [
+      { "id": "body" },
+      { "id": "door", "parent": "body", "pos": [-0.496, 0.09, 0.28] }
+    ],
+    "joints": [
+      { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 110, "rest": 0, "damping": 4, "drive": "manual" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_body", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_plinth", "mat": "lacquer_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_right", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_rgrip", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_door", "mat": "wood_birch" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/home.glb#wardrobe_2_01_grip", "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.3], "max": [0.5, 2.1, 0.318], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.494, 2, 0.038], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "kinematic" },
+    "place": { "mount": "floor" },
+    "interact": { "kind": "door", "joint": "swing", "prompt": "Otevřít skříň", "range": 1.6, "manipulate": true }
+  },
+  "inputs": ["open", "close", "toggle", "lock", "unlock"],
+  "outputs": ["opened", "closed", "locked", "unlocked"],
+  "tris": 264,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#bedroom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

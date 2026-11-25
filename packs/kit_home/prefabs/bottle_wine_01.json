@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bottle_wine_01",
+  "title": "Láhev vína a sklenice",
+  "category": "home.kitchen",
+  "bounds": { "min": [-0.038, -0.001, -0.038], "max": [0.136, 0.311, 0.066] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bottle_wine_01_bottle", "mat": "glass_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bottle_wine_01_glass", "mat": "glass_lab" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.037, 0, -0.037], "max": [0.135, 0.31, 0.065], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 240,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/kitchen.mjs#appliances",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

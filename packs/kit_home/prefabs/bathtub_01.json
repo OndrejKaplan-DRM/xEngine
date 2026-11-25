@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bathtub_01",
+  "title": "Vana 170 × 75 cm s baterií",
+  "category": "home.bath",
+  "bounds": { "min": [-0.851, -0.001, -0.376], "max": [0.851, 0.721, 0.376] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_tub", "mat": "ceramic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_inside", "mat": "wall_tile_bath" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_tap", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.85, 0, -0.375], "max": [0.85, 0.72, 0.375], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 244,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bath.mjs#bath",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "laundry_basket_01",
+  "title": "Koš na prádlo",
+  "category": "home.bedroom",
+  "bounds": { "min": [-0.221, -0.001, -0.221], "max": [0.221, 0.572, 0.221] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#laundry_basket_01_body", "mat": "wood_birch" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#laundry_basket_01_laundry", "mat": "bedding_blue" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.22, 0, -0.22], "max": [0.22, 0.571, 0.22], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 176,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/bedroom.mjs#bedroom",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "books_stack_01",
+  "title": "Stoh knih",
+  "category": "home.decor",
+  "bounds": { "min": [-0.121, -0.001, -0.093], "max": [0.121, 0.101, 0.093] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#books_stack_01_a", "mat": "book_blue" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#books_stack_01_b", "mat": "book_red" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.12, 0, -0.092], "max": [0.12, 0.1, 0.092], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "top" }
+  },
+  "tris": 36,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/decor.mjs#tops",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

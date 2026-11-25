@@ -1,0 +1,34 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "armchair_02",
+  "title": "Kožené křeslo",
+  "category": "home.living",
+  "bounds": { "min": [-0.481, -0.001, -0.381], "max": [0.481, 0.821, 0.381] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_02_seat", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_02_arms", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_02_back", "mat": "leather_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#armchair_02_legs", "mat": "steel_chrome" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.48, 0, -0.38], "max": [0.48, 0.82, 0.38], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 496,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/living.mjs#armchairs",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
