@@ -1,14 +1,24 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `36faf65` (znění 4: D-039 až D-044; sloučení `a842098`) · **Stav:** 25. 11. 2026, 0:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1766f03` (znění 10 a D-056, D-057; sloučení `b852756`, 25. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 24. 11. 22:40, krok 6: znění 4, zapečené světlo, zkouška textury světla): `npm run test:a` **430 kontrol ve 29 sadách**, `npm test` **266**, vše 0 selhalo; `npm run test:axb` 37, 0 selhalo (21:40, od té doby se data ani běh levelů B nezměnily, jen zkouška za přepínačem). Sestavení pro Ondřeje: „vlna 2, krok 6“.
+Poslední regrese (sandbox, 25. 11. 18:20, po sloučení znění 10): `npm test` **377**, `npm run test:a` **430 ve 29 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: naposledy „vlna 2, krok 6“.
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
 ## 1. Kde jsme (čti první)
 
-**Teď (znění 4 základu, dodatek START_A z 24. 11. odpoledne):**
+**Fronta podle Ondřeje (25. 11. 17:25):**
+- [x] 1. sloučit `origin/zaklad-2` (znění 10): bez konfliktu, testy zelené (`b852756`)
+- [ ] 2. D-049: okolní světlo děleno π (potom svodná vynásobí okolní světlo zlatého vzorku π)
+- [ ] 3. N-010 v běhu: interakce jen přes `interactionOf`, stav po interakcích, spojení `from` / `to` (sešna B čeká s kartotékou a stolem)
+- [ ] 4. A3.1 zkouška zbraní na plazmové pušce + `xlab.html` k vyzkoušení
+- [ ] 5. kostra v kroku přes `rigCompile` / `rigFollow` / `rigSolve` (N-102)
+- [ ] 6. textura světla ze souboru XLM1, až sešna B dodá zapečený `complex_7`; potom `?bench` na T460
+- [ ] N-011 (návrh sešny B, `?bench`): **přijímám**, udělám před `?bench` k A3.1 (bod 4)
+- [ ] N-013 (návrh sešny B, sklo s okrajem a odleskem): **přijímám**, udělám po bodu 5
+
+**Předtím (znění 4 základu, dodatek START_A z 24. 11. odpoledne):**
 - [x] sloučeno znění 4 (`a842098`)
 - [x] D-039 strop řádků = fyzická výška plátna (okno 702 bodů × 1,25 → 878 řádků místo 1 080; `a_11_shell`)
 - [x] D-040 rozměry postavy a odstup kontroléru ze `src/xspace/body.js`
@@ -28,6 +38,10 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
 **Čeká na Ondřeje:** nic otevřeného.
+
+**Rozhodnutí o návrzích sešny B (25. 11.):**
+- **N-011 přijato.** Sešna B má pravdu a moje vysvětlení bylo špatné: 30 snímků/s v `?bench` od kroku 5 nezpůsobovala Úspora energie v Chrome, ale samo měření. Dávka opakovaných vykreslení pro `draw.ms` (12 až 40 ms) se přičítá ke každému snímku: 16 až 21 ms práce + ≥ 12 ms dávky ≈ 33 ms. Kývání pohledu je zpoždění robota o jeden krok (vstup čte otočení z minulého kroku; zesílení 1 → kmit 20 Hz). Oprava: robot počítá s otočením, které ještě nebylo použité; `draw.ms` jen v každém 10. snímku a rozestup snímků jen ze snímků bez dávky; zorné pole do `env` a do věty výsledku; měřit až po dostavění světla. Z dosavadních běhů platí `draw.ms`, `step`, `calls`, `tris`; rozestup snímků a „30 snímků/s“ ne.
+- **N-013 přijato.** Okraj podle úhlu a odlesk pro průhledné `lit` materiály v shaderu `MeshBasicMaterial` (`onBeforeCompile`, bez světel po pixelech). Po bodu 5; potom sešna B vyřadí namalované pruhy.
 
 **Ondřej 24. 11. 23:58:** stíny **(a) textura světla do formátu a do xBake s bodem 5 cm**. Návrh pro svodnou: **N-112** (atlas v základu, soubor `levels/<id>.lightmap.bin`, xBake, běh: přímé světlo z textury, odraz po vrcholech).
 
@@ -162,7 +176,7 @@ Bez vyhlazování, mřížka 0,5 m, Chrome 158, okno 1 536 × 864 při `devicePi
 
 1. **1 080 řádků v xLabu se vejde do 10 ms** (95 % 7,38 ms, nejvíc 9,9 ms). Ondřejovo pravidlo (volba 4 b) je tím splněné pro xLab; pro velký level ne ověřené: `complex_7` na 1 080 řádcích změřený není. Odhad z poměru 1 080 / 576 v xLabu (asi 2,4×, ale jeden běh s texturami a jeden bez): 95 % kolem 9 ms, tedy na hraně. Proto ještě běh `xlab_gen.html?bench&rows=1080`. Pozor na D-039: strop řádků = fyzická výška plátna; v Ondřejově okně (asi 878 bodů) se 1 080 dostane jen na celé obrazovce.
 2. **Textury jsou levné**: 14 textur 512 px na všech plochách xLabu a vykreslení 2,29 / 2,9 ms. Srovnání bez textur ve stejném sestavení chybí (`?tex=0` nepřišel); běh s texturami měl navíc 3× pomalejší pevnou práci skriptu (13,1 proti 3,9 a 4,3 ms), procesor byl tedy v jiném stavu nebo zaneprázdněný (dekódování textur na pozadí?) a čísla procesoru z něj nesrovnávám.
-3. **Všechny tři běhy mají 30 snímků/s** (rozestup 33,2 ms), ráno v kroku 2 to bylo 60 (16,7 ms). Práce snímku je 7 až 12 ms, hra tedy 60 snímků/s stíhá; omezení dělá prohlížeč nebo systém. Nejpravděpodobněji Úspora energie v Chrome (na baterii snižuje obnovovací frekvenci a `requestAnimationFrame` se jí přizpůsobí). Ověřit během na síti.
+3. **Všechny tři běhy mají 30 snímků/s** (rozestup 33,2 ms), ráno v kroku 2 to bylo 60 (16,7 ms). ~~Úspora energie v Chrome~~ **Oprava 25. 11. (N-011 sešny B): 30 snímků/s způsobuje samo měření `draw.ms` od kroku 5** (dávka ≥ 12 ms navíc ke každému snímku). Rozestup snímků z těchto běhů o hře nevypovídá.
 4. **Stavba světla v `complex_7` trvá 13,1 s výpočtu** (s okrajem stínu). Hra ji staví po 8 ms za snímek, při 30 snímcích/s je to asi 54 s, než je světlo hotové (odhad 13 065 / 8 / 30). Řešení je zapečený soubor (D-044): běh ho zatím nečte, je to další krok sešny A.
 5. Krok simulace 0,22 až 0,45 ms medián (ráno 0,55 až 0,68 ms; jiný stav napájení, srovnávat jen v rámci jednoho večera).
 
@@ -179,7 +193,7 @@ Bez vyhlazování, mřížka 0,5 m, Chrome 158, okno 1 536 × 864 při `devicePi
 
 6. **`complex_7` na 1 080 řádcích: 95 % 10,2 ms**, medián 6,97 ms. Ondřejovo pravidlo (1 080, když se vejde do 10 ms) je na hraně a bez textur; s texturami bude hůř. Podle D-039 se v okně (878 fyzických bodů) 1 080 nekreslí; při 878 řádcích odhad 95 % kolem 7 až 8 ms (poměr bodů 0,66, neměřeno). Otázka pro Ondřeje: výchozí 768, nebo 1 080 se stropem okna.
 7. **Cena textur pořád oddělená není**: běh `&tex=0` je na 1 080 řádcích, běh s texturami (5.1 výše) na 576. Navíc pevná práce skriptu 60,1 ms (jinak 4): procesor byl v tu chvíli vytížený (podle snímku obrazovky v jiné kartě běžel výpočet světla `complex_7`). Potřebný běh: `xlab_tex.html?bench&rows=1080`, jen jedna karta s hrou.
-8. Oba běhy znovu 30 snímků/s (Úspora energie nebo napájení z baterie trvá).
+8. Oba běhy znovu 30 snímků/s: měřením (oprava 25. 11., N-011), ne Úsporou energie.
 
 **Cena textur (Ondřej, 24. 11. 21:20, `xlab_tex.html?bench&rows=1080`, jediná karta, dva běhy):**
 

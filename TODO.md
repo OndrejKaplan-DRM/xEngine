@@ -57,16 +57,12 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, oddíl 2 deník rozhodnutí sešny A), zadání `docs/sesny/START_A.md`.
 
-**Teď (24. 11. večer):**
-- [x] A2.5 nová pole základu; A2.6 na zkušebních datech (T460: 14 textur v xLabu, vykreslení 2,29 / 2,9 ms)
-- [x] znění 4 základu: D-039 strop řádků, D-040 rozměry postavy, D-042 zkoušky dveří připravené na ±105°, **D-041 a D-044 běh čte zapečené světlo** (shoda s výpočtem, soubor ze xBake se přečte), N-009 barva materiálu s texturou
-- [ ] A2.6 na kusu ze sešny B a zapečené světlo ve hře: potřebuje **N-111** (build vkládá jen JSON) a soubor `levels/<id>.light.bin` v balíku od sešny B
-- [x] zkouška textury světla na hale xLabu s bodem 5 i 10 cm (N-110, D-043); T460: vykreslení +0,7 až +0,9 ms, výpočet haly při načtení 1,8 s / 6,1 s
-- [ ] **Ondřej 23:58 (a): textura světla 5 cm do formátu a xBake** → návrh **N-112** pro svodnou; běh čeká na atlas a formát
+**Teď (fronta podle Ondřeje 25. 11. 17:25):**
+- [x] sloučeno znění 10 základu (`b852756`): `npm test` 377, `test:a` 430, `test:axb` 37, 0 selhalo
+- [ ] D-049 okolní světlo / π → [ ] N-010 interakce v běhu (B čeká s kartotékou a stolem) → [ ] A3.1 plazmová puška + `xlab.html` (s opravou `?bench` podle N-011) → [ ] kostra v kroku (N-102) → [ ] sklo N-013 → [ ] textura světla XLM1 (až B dodá `complex_7`)
+- N-011 a N-013 (návrhy sešny B) přijaté, rozhodnutí v `A_STAV.md`, oddíl 1
 
-**Rozhodnuto (Ondřej 21:13):** výchozí rozlišení zůstává 768 řádků (`complex_7` na 1 080 řádcích: 95 % 10,2 ms na T460).
-
-**Čeká na jiné:** svodná: **N-112**, N-111, přepnout dveře zlatého vzorku na ±105° (testy A připravené), N-009, `composeColors` bez dělení π (A_STAV, oddíl 9), N-110; sešna B: zapečený soubor do balíků (se vzorky dílů podle D-041), B2.5 (u dílů `mesh` vyplňovat `mat`), `screen.offset` a `opacity` v `kit_base`.
+**Čeká na jiné:** sešna B: zapečený `complex_7` se souborem XLM1 (pro bod 6).
 
 **Nedávno hotovo:**
 - 24. 11. N-110 zkouška: textura světla 5 / 10 cm na hale xLabu (`a_43_*`); sandbox 16 / 4 MB, 3,9 až 5,4 / 1,2 až 1,7 s
