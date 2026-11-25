@@ -19,9 +19,71 @@ const SPAN = 1e-6; // rozšíření otvoru, ať přímka po hraně otvoru projde
 export function portalSegment(p) {
   const xs = p.quad.map((q) => q[0]);
   const zs = p.quad.map((q) => q[2]);
-  if (Math.max(...xs) - Math.min(...xs) < 1e-6) return { axis: 'x', at: xs[0], lo: Math.min(...zs) - SPAN, hi: Math.max(...zs) + SPAN };
-  if (Math.max(...zs) - Math.min(...zs) < 1e-6) return { axis: 'z', at: zs[0], lo: Math.min(...xs) - SPAN, hi: Math.max(...xs) + SPAN };
+  const ys = p.quad.map((q) => q[1]);
+  const y = [Math.min(...ys) - SPAN, Math.max(...ys) + SPAN];
+  if (Math.max(...xs) - Math.min(...xs) < 1e-6) return { axis: 'x', at: xs[0], lo: Math.min(...zs) - SPAN, hi: Math.max(...zs) + SPAN, y };
+  if (Math.max(...zs) - Math.min(...zs) < 1e-6) return { axis: 'z', at: zs[0], lo: Math.min(...xs) - SPAN, hi: Math.max(...xs) + SPAN, y };
   return null; // vodorovný nebo šikmý otvor: nic neomezuje (rezerva ve prospěch viditelnosti)
+}
+
+/** Koncové body úseku v půdorysu [[x, z], [x, z]]. */
+const ends = (s) => (s.axis === 'x' ? [[s.at, s.lo], [s.at, s.hi]] : [[s.lo, s.at], [s.hi, s.at]]);
+/** Nejmenší vzdálenost bodu od úseku. */
+function pointSeg(p, [a, b]) {
+  const [dx, dz] = [b[0] - a[0], b[1] - a[1]];
+  const L = dx * dx + dz * dz;
+  const t = L ? Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dz) / L)) : 0;
+  return Math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dz);
+}
+/** Nejmenší a největší vzdálenost dvou úseků v půdorysu (osově rovnoběžných nebo kolmých). */
+function segDist(s, t) {
+  const A = ends(s);
+  const B = ends(t);
+  let min = Math.min(pointSeg(A[0], B), pointSeg(A[1], B), pointSeg(B[0], A), pointSeg(B[1], A));
+  if (s.axis !== t.axis) {
+    // kolmé úseky se mohou křížit
+    const [x, z] = s.axis === 'x' ? [s.at, t.at] : [t.at, s.at];
+    const inS = (s.axis === 'x' ? z : x) >= s.lo && (s.axis === 'x' ? z : x) <= s.hi;
+    const inT = (t.axis === 'x' ? z : x) >= t.lo && (t.axis === 'x' ? z : x) <= t.hi;
+    if (inS && inT) min = 0;
+  } else if (s.at === t.at && s.lo <= t.hi && t.lo <= s.hi) min = 0;
+  let max = 0;
+  for (const p of A) for (const q of B) max = Math.max(max, Math.hypot(p[0] - q[0], p[1] - q[1]));
+  return [min, max];
+}
+
+/**
+ * Svislá podmínka: přímka v prostoru má v půdorysu jeden sklon k = Δy / vodorovná vzdálenost. Mezi otvory i a j
+ * (v pořadí cesty) leží průsečíky ve vzdálenosti z ⟨dmin, dmax⟩ a výšky v otvorech, takže k leží v intervalu
+ * Δy / d. Když se intervaly všech dvojic neprotnou, přímka neexistuje. Otvory v téže rovině zdi jsou přímkou
+ * protnuté v jednom bodě (vzdálenost 0): musejí se překrývat i výškou. Podmínka je nutná, ne postačující, takže
+ * výsledek zůstává nadmnožinou viditelnosti (patra nad sebou přes schodiště se tím přestanou „vidět“ skrz zeď).
+ */
+function vertical(segs) {
+  let lo = -Infinity;
+  let hi = Infinity;
+  for (let i = 0; i < segs.length; i++) {
+    for (let j = i + 1; j < segs.length; j++) {
+      const [s, t] = [segs[i], segs[j]];
+      if (!s || !t || !s.y || !t.y) continue;
+      const [dmin, dmax] = segDist(s, t);
+      const L = t.y[0] - s.y[1];
+      const U = t.y[1] - s.y[0];
+      if (dmax < EPS) {
+        if (L > EPS || U < -EPS) return false;
+        continue;
+      }
+      let a;
+      let b;
+      if (L >= 0) [a, b] = [L / dmax, dmin > EPS ? U / dmin : Infinity];
+      else if (U <= 0) [a, b] = [dmin > EPS ? L / dmin : -Infinity, U / dmax];
+      else [a, b] = [dmin > EPS ? L / dmin : -Infinity, dmin > EPS ? U / dmin : Infinity];
+      lo = Math.max(lo, a);
+      hi = Math.min(hi, b);
+      if (lo > hi + EPS) return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -91,7 +153,7 @@ export function levelPVS(level, o = {}) {
         if (path.has(to) || chain.length >= maxChain) continue;
         const next = [...chain, seg.get(p.id)];
         chains++;
-        if (chain.length && !stabbable(next)) continue;
+        if (chain.length && (!stabbable(next) || !vertical(next))) continue;
         seen.add(to);
         if (next.length > depth) depth = next.length;
         path.add(to);
