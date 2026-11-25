@@ -251,6 +251,22 @@ Odpovědi na otázky z konce kroku 25: (1) **nové kusy (a) i (b)**: sada pro by
 
 Čtu to takto: nová předvolba generátoru (dům o čtyřech podlažích, 1. a 2. podlaží laboratoře, 3. a 4. byty, schodiště mezi patry), jeden její level v `gen_demo` vedle stávajících, sada `kit_home` a nové kusy laboratoří a kanceláří v ní použité. Zkouška N-112 (dodatek znění 10) jde za tím.
 
+### Ondřej 25. 11. 2026, 17:22: `?bench` domu na T460
+
+`xlab_gen.html?level=house_1&bench` (dům z kroku 26, ještě bez nádvoří a oken: 89 buněk, 1 099 entit), záznam `docs/navrhy/N-011-bench-T460-2026-11-25-1712-house.json`. Obraz 1 259 × 576 (576 řádků), mřížka světla 0,5 m.
+
+| T460, `house_1` | hodnota |
+|---|---|
+| vykreslení snímku, medián / 95 % / max (ms) | 2,86 / 5,0 / 44,95 |
+| volání kreslení, medián / 95 % / max | 56 / 186 / 674 (max ve schodišti a v chodbách přízemí a 1. patra) |
+| △ v pohledu, medián / 95 % / max | 13 568 / 54 582 / 148 284 |
+| krok simulace, medián / 95 % / max (ms) | 0,27 / 0,56 / 1,73 (fyzika 0,14) |
+| statické △ / díly ze sítí / jejich △ | 582 316 / 3 733 / 383 184 |
+| stavba světla při načtení | **73,4 s** (563 613 vzorků) |
+| rozestup snímků | 30 snímků/s (strop, který si `?bench` nastaví sám, N-011) |
+
+**Čtení:** vykreslení je v rozpočtu s rezervou (medián 2,86 ms; `complex_7` ve 14:53 měl 10,95 ms, ale na 1 080 řádcích, přímo srovnat nejde). Volání kreslení vyskočila na 674 ve schodišti a chodbách (horní mez T5 v sandboxu 182; zkouška A × B měří méně pohledů). △ v pohledu nejvýš 148 tisíc, pod mezí 300 tisíc. **Problém je načítání: stavba světla trvá na T460 73 s** (`complex_7` 36 s při mřížce 0,25 m). **Pro sešnu A:** u domu je stavba světla při načtení neúnosná; řešení je soubor zapečeného světla z xBake (B-T5 ho pro `house_1` dělá za 44 až 52 s v sandboxu) nebo stavba po buňkách až při vstupu.
+
 ### Ondřej 25. 11. 2026, 17:00
 
 Odpovědi na otázky po kroku 26: (1) `?bench` nad `house_1` **později**; (2) další krok **(a) zkouška N-112 na `complex_7` i (b) plazmová puška B3.1**; (3) **okna do bytů**, „rozšířit schodiště, využít prostor pod schody, přidat zábradlí ke schodům“; (4) rohožku **k dveřím**. Navíc: „udělat malé nádvoří kolem domu a schodové dveře do komplexu. Ať dům vypadá realisticky.“
