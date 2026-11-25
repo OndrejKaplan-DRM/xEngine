@@ -251,6 +251,14 @@ Odpovědi na otázky z konce kroku 25: (1) **nové kusy (a) i (b)**: sada pro by
 
 Čtu to takto: nová předvolba generátoru (dům o čtyřech podlažích, 1. a 2. podlaží laboratoře, 3. a 4. byty, schodiště mezi patry), jeden její level v `gen_demo` vedle stávajících, sada `kit_home` a nové kusy laboratoří a kanceláří v ní použité. Zkouška N-112 (dodatek znění 10) jde za tím.
 
+### Ondřej 25. 11. 2026, 17:00
+
+Odpovědi na otázky po kroku 26: (1) `?bench` nad `house_1` **později**; (2) další krok **(a) zkouška N-112 na `complex_7` i (b) plazmová puška B3.1**; (3) **okna do bytů**, „rozšířit schodiště, využít prostor pod schody, přidat zábradlí ke schodům“; (4) rohožku **k dveřím**. Navíc: „udělat malé nádvoří kolem domu a schodové dveře do komplexu. Ať dům vypadá realisticky.“
+
+Druhá iterace předmětů: vana s vydutím pro vodu, zrcadlo, které se leskne, polštář s nepravidelnostmi („nepatrné pokrčení, lehounké propadnutí uprostřed plochy“), mírné nepravidelnosti obecně; „přidej o 25 % trojúhelníků víc tak, abys získala dalších 100 % efektu … inventáři vdechni více života a hyperrealismu, avšak za minimální zvýšení množství použitých trojúhelníků“.
+
+Čtu to takto: krok 27 = dům (nádvoří kolem, vstup po schodech do přízemí, okna v bytech jako otvory jen pro pohled, `passable: false`, širší schodiště se zábradlím na ramenech, prostor pod rameny využitý, rohožka u vstupních dveří bytu); krok 28 = druhá iterace nových kusů (`kit_home`, nové obory, kanceláře) s mezí +25 % △ proti kroku 26; potom zkouška N-112 a plazmová puška.
+
 ### Dům o čtyřech podlažích, `kit_home` a nové obory (krok 26, Ondřej 14:47; `1398169` až `0d94c18`)
 
 Odpověď (1) z 14:47 obě varianty: **(a) byt** a **(b) další obory laboratoří a kanceláří**, a k tomu nový nezávislý level. Hotovo:

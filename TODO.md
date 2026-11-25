@@ -99,6 +99,11 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 **Ondřej 25. 11. 14:47:** nové kusy (a) byt i (b) obory laboratoří a kanceláří; nový nezávislý level, čtyřpodlažní dům (dole laboratoře, nahoře byty) s novým vybavením; `?bench` pustí později; hra do 80 MB (D-054).
 6. [x] předvolba `house` (dům o 4 podlažích: přízemí a 1. patro laboratoře, 2. a 3. patro byty, schodiště přes všechna podlaží), `kit_home` 147 kusů, 4 nové obory laboratoří (50 kusů) a 18 kusů kanceláří; level `house_1` v `gen_demo` (89 buněk, 8 bytů, 1 099 entit, nejvíc 243 736 △ vidět z buňky); regrese zelená (B_STAV, oddíl „Dům o čtyřech podlažích“; `1398169` až `0d94c18`)
 
+**Ondřej 25. 11. 17:00:** `?bench` domu později; dál (a) N-112 + (b) plazmová puška; okna do bytů, širší schodiště se zábradlím, prostor pod schody, rohožka k dveřím, malé nádvoří a vstup po schodech („ať dům vypadá realisticky“); druhá iterace předmětů (vana s vydutím, lesklé zrcadlo, polštáře s nepravidelnostmi, +25 % △ za +100 % efektu).
+7. [ ] dům: nádvoří, vstup po schodech, okna v bytech, širší schodiště se zábradlím, prostor pod schody, rohožka u dveří
+8. [ ] druhá iterace nových kusů (`kit_home`, obory, kanceláře): nepravidelnosti, vana, zrcadlo, polštáře; nejvýš +25 % △
+9. [ ] zkouška N-112 na `complex_7` (bod 2b) a plazmová puška B3.1
+
 **Čeká na jiné:** **N-015 pro svodnou** (přehled xView u vysokého levelu ukáže jen střechu) · **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
