@@ -100,13 +100,14 @@ Podrobně: `docs/sesny/B_STAV.md` na větvi `sesna-b` (oddíl „Sešna B04“),
 6. [x] předvolba `house` (dům o 4 podlažích: přízemí a 1. patro laboratoře, 2. a 3. patro byty, schodiště přes všechna podlaží), `kit_home` 147 kusů, 4 nové obory laboratoří (50 kusů) a 18 kusů kanceláří; level `house_1` v `gen_demo` (89 buněk, 8 bytů, 1 099 entit, nejvíc 243 736 △ vidět z buňky); regrese zelená (B_STAV, oddíl „Dům o čtyřech podlažích“; `1398169` až `0d94c18`)
 
 **Ondřej 25. 11. 17:00:** `?bench` domu později; dál (a) N-112 + (b) plazmová puška; okna do bytů, širší schodiště se zábradlím, prostor pod schody, rohožka k dveřím, malé nádvoří a vstup po schodech („ať dům vypadá realisticky“); druhá iterace předmětů (vana s vydutím, lesklé zrcadlo, polštáře s nepravidelnostmi, +25 % △ za +100 % efektu).
-7. [ ] dům: nádvoří, vstup po schodech, okna v bytech, širší schodiště se zábradlím, prostor pod schody, rohožka u dveří
-8. [ ] druhá iterace nových kusů (`kit_home`, obory, kanceláře): nepravidelnosti, vana, zrcadlo, polštáře; nejvýš +25 % △
+7. [x] dům: nádvoří, vstup po schodech, okna (byty průhledná, laboratoře matná), širší schodiště se zábradlím, prostor pod schody, rohožky u dveří bytů; `house_1` nejvíc 298 576 △ vidět z buňky (B_STAV, krok 27)
+8. [x] druhá iterace: vana a umyvadla s vydutou mísou, dřez v desce, zrcadla s odrazem, měkké polštáře, sedáky, peřiny; `kit_home` +11,9 % △; postel ve 101 ze 108 ložnic (B_STAV, krok 28)
 9. [ ] zkouška N-112 na `complex_7` (bod 2b) a plazmová puška B3.1
 
 **Čeká na jiné:** **N-015 pro svodnou** (přehled xView u vysokého levelu ukáže jen střechu) · **N-014 pro svodnou a sešnu A** (PVS do základu; zkouška, že nic nebliká) · **N-013 pro sešnu A** (sklo s okrajem a odleskem ve shaderu) · **N-012 pro svodnou** (rotační díl `lathe` a zaoblený kvádr `rbox` ve formátu, aby je zapekl xBake a viděl generátor; dnes .glb) · **N-011 pro sešnu A** (`?bench` kývá pohledem kvůli zpožděnému řízení robota a měřením sám srazí hru na 30 snímků/s; Ondřej 25. 11. 0:19) · sešna A: výběr interakce podle zasaženého uzlu (potom kartotéka a stůl jako jeden prefab, D-052) · otázka na Ondřeje: „vnitřní kompartmentizace“ = (a) přihrádky a police, nebo (b) kresba dřeva (pracuju s a).
 
 **Nedávno hotovo:**
+- 25. 11. dům s nádvořím, vchodem, okny a širším schodištěm; druhá iterace předmětů (Ondřej 17:00; `e37524b` až `e53ecd7`); `?bench` domu na T460 (17:22): vykreslení medián 2,86 ms, stavba světla 73 s
 - 25. 11. dům o čtyřech podlažích s byty a laboratořemi, `kit_home`, obory fyzika, elektronika, histologie, materiály, recepce, ředitelna, kuchyňka, archiv (Ondřej 14:47; `1398169` až `0d94c18`)
 - 25. 11. přístroje, nábytek a `kit_it` kus po kuse (Ondřej 1:29, 3 b); generátor ubírá věci z desek, když je z buňky vidět víc než 300 tisíc △ (`3191030` až `80fe066`)
 - 25. 11. rozpočet podle PVS (Ondřej 1:29, 2 a): B-T1 a nová B-T10, návrh N-014
