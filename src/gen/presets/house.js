@@ -165,14 +165,18 @@ export const house = {
           const room = corr === x ? y : x;
           return room.apt ? (room.entry ? 1 : 60) : 1;
         }
-        if (x.apt || y.apt) return x.apt === y.apt ? 0.5 : 200;
+        // uvnitř bytu vede cesta přes obytné místnosti, ložnice, dětský pokoj, pracovna a koupelna zůstávají koncové
+        const end = (c) => (['bath', 'bedroom', 'kids', 'study'].includes(c.role) ? 4 : 0);
+        if (x.apt || y.apt) return x.apt === y.apt ? 0.5 + end(x) + end(y) : 200;
         return 3;
       },
       loopChance(a, b) {
         if (a.role === 'stair' || b.role === 'stair' || a.kind === 'yard' || b.kind === 'yard') return 0;
         const corr = [a, b].find((c) => c.kind === 'corridor');
         if (corr) return (corr === a ? b : a).apt ? 0 : 0.08;
-        if (a.apt || b.apt) return a.apt === b.apt && a.role !== 'bath' && b.role !== 'bath' ? 0.15 : 0;
+        // smyčka (druhé dveře) jen mezi obytnými místnostmi bytu; ložnice, dětský pokoj, pracovna a koupelna mají jedny dveře
+        const quiet = (c) => ['bath', 'bedroom', 'kids', 'study'].includes(c.role);
+        if (a.apt || b.apt) return a.apt === b.apt && !quiet(a) && !quiet(b) ? 0.15 : 0;
         return 0.06;
       },
       windowAt: (c, s) => windowAt(c, s, isHome, isFlat),

@@ -159,6 +159,9 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
         } else cur += 20;
       }
     }
+    // co se nevešlo a má náhradu (item.alt, např. menší postel), zkusí se znovu s náhradou
+    const alts = items.filter((it) => it.alt).map((it) => ({ ...it, p: it.alt, alt: undefined }));
+    if (alts.length) packWalls(ci, alts, maxDepth);
   }
 
   /** Volně stojící věci v ploše místnosti, s uličkou kolem. */
@@ -404,15 +407,26 @@ export function furnish(preset, P, plan, S, catalog, rng, opts = {}) {
     const plan2 = preset.furniture(c, rng, catalog);
     if (!plan2) return;
     const before = S.entities.length;
-    if (plan2.underWindows) underWindows(ci, plan2.underWindows.p, plan2.underWindows.h);
-    if (plan2.rows && plan2.rowsFirst) rowsIn(ci, plan2.rows);
-    packWalls(ci, plan2.walls || [], plan2.maxDepth ?? 90);
-    if (plan2.rows && !plan2.rowsFirst) rowsIn(ci, plan2.rows);
-    scatter(ci, plan2.center || []);
-    ceilingItems(ci, plan2.ceiling || []);
-    while (S.entities.length > before && !passable(ci)) {
-      const gone = S.entities.pop();
-      S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);
+    const undo = (to) => {
+      while (S.entities.length > to) {
+        const gone = S.entities.pop();
+        S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);
+      }
+    };
+    // plan2.must: bez té věci (postel v ložnici) se místnost skládá znovu, nejvýš šestkrát (jiné pořadí zdí)
+    for (let attempt = 0; attempt < (plan2.must ? 6 : 1); attempt++) {
+      if (plan2.underWindows) underWindows(ci, plan2.underWindows.p, plan2.underWindows.h);
+      if (plan2.rows && plan2.rowsFirst) rowsIn(ci, plan2.rows);
+      packWalls(ci, plan2.walls || [], plan2.maxDepth ?? 90);
+      if (plan2.rows && !plan2.rowsFirst) rowsIn(ci, plan2.rows);
+      scatter(ci, plan2.center || []);
+      ceilingItems(ci, plan2.ceiling || []);
+      while (S.entities.length > before && !passable(ci)) {
+        const gone = S.entities.pop();
+        S.zones[ci] = S.zones[ci].filter((z) => z.e !== gone);
+      }
+      if (!plan2.must || S.entities.slice(before).some((e) => plan2.must.test(e.prefab)) || attempt === 5) break;
+      undo(before);
     }
     // tlačítko bez úkolu ovládá svítidla své místnosti
     for (const e of S.entities.slice(before)) {

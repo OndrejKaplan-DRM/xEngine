@@ -12,7 +12,7 @@
   },
   "parts": [
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_tub", "mat": "ceramic_white" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_water", "mat": "water_bath" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_drain", "mat": "steel_chrome" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_towel", "mat": "towel_teal" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bathtub_01_tap", "mat": "steel_chrome" }

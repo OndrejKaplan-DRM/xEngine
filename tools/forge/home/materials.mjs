@@ -59,6 +59,8 @@ export const HOME_MATERIALS = {
   floor_tile_bath: lit([0.35, 0.36, 0.37], 'tile', { rough: 0.3 }),
   wall_tile_bath: lit([0.72, 0.74, 0.74], 'tile', { rough: 0.2 }),
   floor_carpet_grey: lit([0.2, 0.2, 0.21], 'carpet', { rough: 1 }),
+  // voda ve vaně (krok 28): zelenomodrá, průsvitná, aby hladina byla vidět i na bílé keramice
+  water_bath: lit([0.18, 0.42, 0.5], 'water', { rough: 0.02, opacity: 0.6 }),
   // zrcadlo (krok 28): světlá skleněná plocha a ještě světlejší pruh odrazu (lesk bez mapy okolí, stupeň low)
   mirror_glass: lit([0.5, 0.56, 0.6], 'glass', { rough: 0.02 }),
   mirror_bright: lit([0.78, 0.82, 0.85], 'glass', { rough: 0.02 }),

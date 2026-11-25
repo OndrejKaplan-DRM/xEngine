@@ -42,6 +42,12 @@ const round = (r, chair) => ({ yaw: false, seat: chair, seats: [[0, r + 0.25, 18
 /** Fronta vybavení místnosti bytu (formát jako complex.furniture). */
 export function homePlan(c, rng, catalog) {
   if (!hasHome(catalog)) return null;
+  // ložnice, dětský pokoj a garsoniéra bez postele nejsou: rozmístění se zkusí znovu (furnish, must)
+  const plan = homePlan0(c, rng, catalog);
+  return plan && ['bedroom', 'kids', 'studio'].includes(c.role) ? { ...plan, must: /^(bed_|bunk_bed|crib)/ } : plan;
+}
+
+function homePlan0(c, rng, catalog) {
   const n = Math.max(3, Math.min(9, Math.round((c.w + c.d) / 170)));
   const take = (fixed, pool, k = n) => [...fixed, ...rng.shuffle(pool)].slice(0, k);
   const pick = (list) => rng.pick(list);
@@ -72,12 +78,13 @@ export function homePlan(c, rng, catalog) {
       return { walls: take([line(), { p: 'fridge_home_01' }], [{ p: 'bin_kitchen_01' }, { p: `kitchen_drawers_60_0${color}`, top: decor(1) }, { p: `kitchen_base_60_0${color}`, top: rng.shuffle(KITCHEN_TOPS).slice(0, 1), over: { p: `kitchen_wall_60_0${color}`, h: 145 } }, { p: 'fridge_tall_01' }, art(), { p: 'radiator_01', h: 15 }, { p: 'clock_wall_01', h: 185 }]), center: [c.area >= 14 && rng.chance(0.5) ? island() : dining(c.area < 11)], maxDepth: 70 };
     case 'bedroom':
       return {
-        walls: take([{ p: pick(['bed_double_01', 'bed_double_02', 'bed_double_03']) }, { p: pick(['nightstand_01', 'nightstand_02']), top: ['lamp_bedside_01', 'alarm_clock_01'] }], [{ p: pick(['wardrobe_2_01', 'wardrobe_3_01', 'wardrobe_sliding_01']) }, { p: 'dresser_01', top: decor(2) }, { p: 'mirror_floor_01' }, { p: 'laundry_basket_01' }, { p: pick(PLANTS) }, art(), { p: 'radiator_01', h: 15 }, { p: pick(['nightstand_01', 'nightstand_02']), top: ['lamp_bedside_01'] }]),
+        // postel první; když se manželská nevejde (dveře, okno), jednolůžko
+        walls: take([{ p: pick(['bed_double_01', 'bed_double_02', 'bed_double_03']), alt: 'bed_single_01' }, { p: pick(['nightstand_01', 'nightstand_02']), top: ['lamp_bedside_01', 'alarm_clock_01'] }], [{ p: pick(['wardrobe_2_01', 'wardrobe_3_01', 'wardrobe_sliding_01']) }, { p: 'dresser_01', top: decor(2) }, { p: 'mirror_floor_01' }, { p: 'laundry_basket_01' }, { p: pick(PLANTS) }, art(), { p: 'radiator_01', h: 15 }, { p: pick(['nightstand_01', 'nightstand_02']), top: ['lamp_bedside_01'] }]),
         maxDepth: 215,
       };
     case 'kids':
       return {
-        walls: take([{ p: c.area >= 11 && rng.chance(0.5) ? 'bunk_bed_01' : pick(['bed_single_01', 'bed_single_02']) }, { p: 'desk_kids_01', top: ['lamp_bedside_01', 'books_stack_01'], chair: 'chair_kids_01', chairX: -0.2 }], [{ p: 'shelf_toys_01', top: rng.shuffle(['teddy_01', 'toy_blocks_01']) }, { p: 'chest_toys_01' }, { p: 'wardrobe_2_01' }, { p: 'crib_01' }, art(), { p: 'radiator_01', h: 15 }]),
+        walls: take([{ p: c.area >= 11 && rng.chance(0.5) ? 'bunk_bed_01' : pick(['bed_single_01', 'bed_single_02']), alt: 'crib_01' }, { p: 'desk_kids_01', top: ['lamp_bedside_01', 'books_stack_01'], chair: 'chair_kids_01', chairX: -0.2 }], [{ p: 'shelf_toys_01', top: rng.shuffle(['teddy_01', 'toy_blocks_01']) }, { p: 'chest_toys_01' }, { p: 'wardrobe_2_01' }, { p: 'crib_01' }, art(), { p: 'radiator_01', h: 15 }]),
         center: rng.shuffle([{ p: 'bean_bag_01' }, { p: 'rocking_horse_01' }]).slice(0, c.area >= 12 ? 2 : 1),
         maxDepth: 215,
       };

@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_home`. Neupravovat ručně; zdroj je `tools/forge/home/*.mjs`.
 
-Prefabů: 163 · materiálů: 57 · trojúhelníků celkem: 90208
+Prefabů: 163 · materiálů: 58 · trojúhelníků celkem: 90208
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|

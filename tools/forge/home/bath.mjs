@@ -53,7 +53,7 @@ export function bath() {
     one('bathtub_01', 'Vana 170 × 75 cm s baterií', [
       // skořepina: zástěra, okraj, vydutá mísa 42 cm hluboká se sklonem ke dnu; voda do poloviny
       A('body', 'bathtub_01_tub', tubShell(0, 0, [0.85, 0.375, 0.04], [0.76, 0.3, 0.14], 0, 0.58, 0.42, 0.1, 4), 'ceramic_white'),
-      A('body', 'bathtub_01_water', waterIn(0, 0, [0.76, 0.3, 0.14], 0.58, 0.42, 0.22, 0.1, 4), 'liquid_water'),
+      A('body', 'bathtub_01_water', waterIn(0, 0, [0.76, 0.3, 0.14], 0.58, 0.42, 0.22, 0.1, 4), 'water_bath'),
       A('body', 'bathtub_01_drain', moved(cylinder(0.025, 0, 0.004, { seg: 10 }), mTranslate(0.6, 0.163, 0)), 'steel_chrome'),
       // složený ručník na okraji vany
       A('body', 'bathtub_01_towel', soft('bathtub_01_towel', [0.72, 0.58, -0.37], [0.84, 0.63, -0.05], { r: 0.015, nx: 2, ny: 1, nz: 4, puff: 0.006, wrinkle: 0.004, freq: 14 }), 'towel_teal'),
