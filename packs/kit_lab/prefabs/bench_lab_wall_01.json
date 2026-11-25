@@ -4,39 +4,35 @@
   "id": "bench_lab_wall_01",
   "title": "Laboratorní stůl ke zdi 1,2 m s nástavbou",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.601, -0.001, -0.376], "max": [0.601, 1.651, 0.401] },
+  "bounds": { "min": [-0.601, -0.001, -0.376], "max": [0.601, 1.662, 0.409] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.59, 0, -0.325], "max": [0.59, 0.1, 0.315], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.1, -0.355], "max": [0.6, 0.87, 0.355], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.596, 0.11, 0.355], "max": [-0.004, 0.86, 0.375], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.36, 0.78, 0.375], "max": [-0.24, 0.795, 0.4], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.004, 0.11, 0.355], "max": [0.596, 0.86, 0.375], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [0.24, 0.78, 0.375], "max": [0.36, 0.795, 0.4], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.874, -0.371], "max": [0.6, 0.896, 0.371], "mat": "bench_phenolic" },
-    { "node": "body", "shape": "box", "min": [-0.596, 0.87, -0.371], "max": [0.596, 0.9, 0.371], "mat": "bench_phenolic" },
-    { "node": "body", "shape": "box", "min": [-0.596, 0.874, -0.375], "max": [0.596, 0.896, 0.375], "mat": "bench_phenolic" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.9, -0.375], "max": [0.6, 1.65, -0.345], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.6, 1.3, -0.345], "max": [0.6, 1.32, -0.075], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 1.6, -0.345], "max": [0.6, 1.62, -0.075], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.55, 0.95, -0.345], "max": [0.55, 1.02, -0.315], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.52, 0.97, -0.315], "max": [-0.44, 1, -0.31], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0.97, -0.315], "max": [-0.14, 1, -0.31], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.08, 0.97, -0.315], "max": [0.16, 1, -0.31], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [0.38, 0.97, -0.315], "max": [0.46, 1, -0.31], "mat": "plastic_white" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_carcass", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_fronts", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_pulls", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_plinth", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_top", "mat": "bench_phenolic" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_back", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_posts", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_shelves", "mat": "steel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_lips", "mat": "steel_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_light", "mat": "emit_cool" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_rail", "mat": "aluminium" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_sockets", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bench_lab_wall_01_taps", "mat": "cap_blue" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.375], "max": [0.6, 1.65, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.375], "max": [0.6, 1.661, 0.408], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor", "top": 0.9 }
   },
-  "tris": 204,
+  "tris": 932,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#benches",

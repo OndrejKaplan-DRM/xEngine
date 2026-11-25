@@ -80,11 +80,10 @@ for (const [id, t] of Object.entries(THEMES)) {
     if (mount === 'wall' && bb.min[2] < -0.001) bad.push(`${p.id}: díly za počátkem (ve zdi)`);
   }
   ok(bad.length === 0, `${id}: jména, kategorie, do 1 500 △ (sestava 3 000), sítě v assets a v kolizích, umístění, kolize, materiály, klouby a rozměry`, bad.slice(0, 4).join(' | ') || `${prefabs.length} prefabů, ${prefabs.reduce((s, p) => s + p.tris, 0)} △, nejvíc ${Math.max(...prefabs.map((p) => p.tris))} △`);
-  // součet sady je jen přehled (rozhoduje mez prefabu a měření scény); pojistka proti nechtěnému nárůstu: nejvýš 2×
-  // stavu před přestavbou na hladké sítě (B04, 24. 11. 2026: kit_lab 93 580 △, kit_it 15 128 △)
-  const BEFORE = { kit_lab: 93580, kit_it: 15128 };
   const sum = prefabs.reduce((s, p) => s + p.tris, 0);
-  if (BEFORE[id]) ok(sum <= BEFORE[id] * 2, `${id}: trojúhelníků celkem nejvýš dvojnásobek stavu před přestavbou`, `${sum} △, ${((sum / BEFORE[id] - 1) * 100).toFixed(0)} % proti ${BEFORE[id]}; sítě ${(Object.values(kit.files).reduce((a, b) => a + b.length, 0) / 1024).toFixed(0)} kB`);
+  // Součet sady jen hlásí; rozpočet hlídá mez prefabu (zde) a co je z buňky vidět (B-T1, PVS). Pojistka proti tomu,
+  // aby se všechno blížilo mezi: průměr na prefab nejvýš 1 000 △ (Ondřej 25. 11.: přestavba kus po kuse, ≥ 300 kusů).
+  ok(sum / prefabs.length <= 1000, `${id}: průměrně nejvýš 1 000 △ na prefab (součet sady jen pro přehled)`, `${sum} △, průměr ${(sum / prefabs.length).toFixed(0)}; sítě ${(Object.values(kit.files).reduce((a, b) => a + b.length, 0) / 1024).toFixed(0)} kB`);
   const clash = Object.keys(kit.materials.materials).filter((m) => baseMats.has(m) || seenMats.has(m));
   for (const m of Object.keys(kit.materials.materials)) seenMats.add(m);
   ok(clash.length === 0 && Object.values(kit.materials.materials).every((m) => SURFACES.includes(m.surface)), `${id}: vlastní materiály se nepotkají s kit_base ani s jinou sadou a mají povrch pro zvuk`, clash.join(', ') || `${Object.keys(kit.materials.materials).length} materiálů`);

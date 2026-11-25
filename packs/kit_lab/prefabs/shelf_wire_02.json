@@ -4,59 +4,33 @@
   "id": "shelf_wire_02",
   "title": "Drátěný regál 0,9 m se zásobami",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.451, -0.001, -0.226], "max": [0.451, 1.996, 0.226] },
+  "bounds": { "min": [-0.457, -0.001, -0.23], "max": [0.457, 1.801, 0.23] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.225], "max": [-0.426, 1.8, -0.201], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0, 0.201], "max": [-0.426, 1.8, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.426, 0, -0.225], "max": [0.45, 1.8, -0.201], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.426, 0, 0.201], "max": [0.45, 1.8, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.12, -0.225], "max": [0.45, 0.145, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.52, -0.225], "max": [0.45, 0.545, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_220_y_-330_655_50", "mat": "glass_amber" },
-    { "node": "body", "shape": "box", "min": [-0.35, 0.765, 0.03], "max": [-0.31, 0.795, 0.07], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.2, 0.545, -0.125], "max": [-0.02, 0.665, 0.125], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.2, 0.625, 0.125], "max": [-0.02, 0.645, 0.127], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [0.04, 0.545, -0.06], "max": [0.18, 0.705, 0.06], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [0.13, 0.705, -0.02], "max": [0.17, 0.725, 0.02], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [0.24, 0.545, -0.15], "max": [0.42, 0.745, 0.15], "mat": "paper_kraft" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.92, -0.225], "max": [0.45, 0.945, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.42, 0.945, -0.125], "max": [-0.24, 1.065, 0.125], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.42, 1.025, 0.125], "max": [-0.24, 1.045, 0.127], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [-0.18, 0.945, -0.06], "max": [-0.04, 1.105, 0.06], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.09, 1.105, -0.02], "max": [-0.05, 1.125, 0.02], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [0.02, 0.945, -0.15], "max": [0.2, 1.145, 0.15], "mat": "paper_kraft" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_220_y_330_1055_50", "mat": "glass_amber" },
-    { "node": "body", "shape": "box", "min": [0.31, 1.165, 0.03], "max": [0.35, 1.195, 0.07], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.45, 1.32, -0.225], "max": [0.45, 1.345, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.4, 1.345, -0.06], "max": [-0.26, 1.505, 0.06], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [-0.31, 1.505, -0.02], "max": [-0.27, 1.525, 0.02], "mat": "cap_red" },
-    { "node": "body", "shape": "box", "min": [-0.2, 1.345, -0.15], "max": [-0.02, 1.545, 0.15], "mat": "paper_kraft" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_220_y_110_1455_50", "mat": "glass_amber" },
-    { "node": "body", "shape": "box", "min": [0.09, 1.565, 0.03], "max": [0.13, 1.595, 0.07], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.24, 1.345, -0.125], "max": [0.42, 1.465, 0.125], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.24, 1.425, 0.125], "max": [0.42, 1.445, 0.127], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [-0.45, 1.72, -0.225], "max": [0.45, 1.745, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.42, 1.745, -0.15], "max": [-0.24, 1.945, 0.15], "mat": "paper_kraft" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_220_y_-110_1855_50", "mat": "glass_amber" },
-    { "node": "body", "shape": "box", "min": [-0.13, 1.965, 0.03], "max": [-0.09, 1.995, 0.07], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.02, 1.745, -0.125], "max": [0.2, 1.865, 0.125], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [0.02, 1.825, 0.125], "max": [0.2, 1.845, 0.127], "mat": "label_band_blue" },
-    { "node": "body", "shape": "box", "min": [0.26, 1.745, -0.06], "max": [0.4, 1.905, 0.06], "mat": "plastic_hdpe" },
-    { "node": "body", "shape": "box", "min": [0.35, 1.905, -0.02], "max": [0.39, 1.925, 0.02], "mat": "cap_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_posts", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_feet", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_wire_132", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_wire_532", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_wire_932", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_wire_1332", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_wire_1732", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_boxes", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_bottles", "mat": "glass_amber" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_caps", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_02_jugs", "mat": "plastic_hdpe" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.225], "max": [0.45, 1.995, 0.225], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.456, 0, -0.229], "max": [0.456, 1.8, 0.229], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 780,
+  "tris": 1160,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#shelving",

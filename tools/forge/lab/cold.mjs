@@ -69,7 +69,7 @@ function upright(id, title, w, d, h, o) {
   if (o.ult) parts.push(A('door', `${k}_latch`, flatBox([dw - 0.1, dh * 0.45, t], [dw - 0.02, dh * 0.62, t + 0.03]), 'plastic_light'));
   // za sklem je vidět obsah: lahve a krabice na roštech
   if (o.glass) for (let i = 1; i <= 2; i++) body.push(A('body', `${k}_stock_${i}`, merge([0, 1, 2, 3].map((j) => (j % 2 ? T(cylinder(0.035, 0, 0.17 - (i % 2) * 0.04, { seg: 7 }), -w / 2 + 0.13 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / (shelves + 1) + 0.004, -0.04) : flatBox([-w / 2 + 0.09 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / (shelves + 1) + 0.004, -0.12], [-w / 2 + 0.17 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / 5 + 0.1, 0.0])))), i % 2 ? 'plastic_hdpe' : 'paper_kraft'));
-  body.push(hinges('body', `${k}_hng`, -w / 2 + 0.004, [pl + 0.12, top - 0.12], d / 2 - t / 2));
+  body.push(hinges('body', `${k}_hng`, -w / 2 + 0.009, [pl + 0.12, top - 0.12], d / 2 - t / 2));
   return moving(id, title, CAT, body, {
     node: 'door', at: [-w / 2 + 0.004, pl + 0.003, zf + 0.004], joint: 'swing', type: 'hinge', axis: [0, -1, 0], max: o.max || 110, kind: 'door', prompt: o.prompt,
     parts,

@@ -33,8 +33,8 @@ export function door(n, key, x0, x1, y0, y1, z0, t, o = {}) {
     const [mx, my] = o.window;
     // svislé vlysy zaoblené, vodorovné rovné (zaoblení příčlí mezi vlysy by nebylo vidět)
     const fr = merge([
-      roundedBox([x0, y0, z0], [x0 + mx, y1, z0 + t], o.r ?? 0.006, 1),
-      roundedBox([x1 - mx, y0, z0], [x1, y1, z0 + t], o.r ?? 0.006, 1),
+      o.flat ? flatBox([x0, y0, z0], [x0 + mx, y1, z0 + t]) : roundedBox([x0, y0, z0], [x0 + mx, y1, z0 + t], o.r ?? 0.006, 1),
+      o.flat ? flatBox([x1 - mx, y0, z0], [x1, y1, z0 + t]) : roundedBox([x1 - mx, y0, z0], [x1, y1, z0 + t], o.r ?? 0.006, 1),
       flatBox([x0 + mx - 0.001, y0, z0 + 0.001], [x1 - mx + 0.001, y0 + my, z0 + t - 0.001]),
       flatBox([x0 + mx - 0.001, y1 - my, z0 + 0.001], [x1 - mx + 0.001, y1, z0 + t - 0.001]),
     ]);
@@ -118,8 +118,8 @@ export function casters(n, key, w, d, h = 0.1, inset = 0.06) {
     for (const sz of [-1, 1]) {
       const x = sx * (w / 2 - inset);
       const z = sz * (d / 2 - inset);
-      wheels.push(T(moved(torus(r * 0.62, r * 0.38, 0, { seg: 12, n: 6 }), mRotate('z', 90)), x, r, z + r * 0.35));
-      forks.push(T(roundedBox([-0.018, r, -0.02], [0.018, h - 0.012, 0.02], 0.005, 1), x, 0, z + r * 0.2), T(cylinder(0.024, h - 0.012, h, { seg: 10 }), x, 0, z));
+      wheels.push(T(moved(torus(r * 0.62, r * 0.38, 0, { seg: 10, n: 4 }), mRotate('z', 90)), x, r, z + r * 0.35));
+      forks.push(T(flatBox([-0.018, r, -0.02], [0.018, h - 0.012, 0.02]), x, 0, z + r * 0.2), T(cylinder(0.024, h - 0.012, h, { seg: 8 }), x, 0, z));
     }
   }
   return [A(n, `${key}_wheels`, merge(wheels), 'rubber_black'), A(n, `${key}_forks`, merge(forks), 'steel_brushed')];
@@ -129,10 +129,10 @@ export function casters(n, key, w, d, h = 0.1, inset = 0.06) {
 export const plinth = (n, key, w, d, h, inset = 0.05, mat = 'plastic_anthracite') => A(n, `${key}_plinth`, flatBox([-w / 2 + 0.01, 0, -d / 2 + 0.02], [w / 2 - 0.01, h, d / 2 - inset]), mat);
 
 /** Polička nebo rošt uvnitř skříně: drátěný rošt (rám a podélné dráty jako tenké hranolky, z dálky vypadají jako drát). */
-export function wireShelf(n, key, x0, x1, z0, z1, y, mat = 'steel_chrome') {
+export function wireShelf(n, key, x0, x1, z0, z1, y, mat = 'steel_chrome', step = 0.1) {
   const t = 0.003;
   const g = [flatBox([x0, y - t, z0], [x1, y + t, z0 + 2 * t]), flatBox([x0, y - t, z1 - 2 * t], [x1, y + t, z1]), flatBox([x0, y - t, z0], [x0 + 2 * t, y + t, z1]), flatBox([x1 - 2 * t, y - t, z0], [x1, y + t, z1])];
-  const k = Math.max(3, Math.round((x1 - x0) / 0.06));
+  const k = Math.max(3, Math.round((x1 - x0) / step));
   for (let i = 1; i < k; i++) g.push(flatBox([x0 + ((x1 - x0) * i) / k - 0.0015, y - 0.0015, z0], [x0 + ((x1 - x0) * i) / k + 0.0015, y + 0.0015, z1]));
   return A(n, `${key}_wire_${Math.round(y * 1000)}`, merge(g), mat);
 }

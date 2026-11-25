@@ -36,8 +36,8 @@
     },
     {
       "path": "meshes/parts.glb",
-      "bytes": 1370516,
-      "sha256": "d3fef9a24558006c79e6aa2364754992beced9653e1701c5b06cb84d2025815a",
+      "bytes": 1240080,
+      "sha256": "1d6d92b433391bbf654662c1baeb4fd2d2bd79fd0482cd189fd9f076d85276fc",
       "license": "own",
       "source": "tools/forge/lab/bench.mjs",
       "author": "xForge (sešna B)"
@@ -52,8 +52,8 @@
     },
     {
       "path": "meshes/appl.glb",
-      "bytes": 578184,
-      "sha256": "a65734ed5f3147f1317bc87b633a3566b5c1b10c51005510e01f873e34db0332",
+      "bytes": 1464304,
+      "sha256": "fe8bca2635583f98184d117a3a1159a99f2ebbae76ae853d1d1b3cf92a33008b",
       "license": "own",
       "source": "tools/forge/lab/cold.mjs",
       "author": "xForge (sešna B)"

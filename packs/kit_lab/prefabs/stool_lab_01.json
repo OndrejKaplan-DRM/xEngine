@@ -4,36 +4,28 @@
   "id": "stool_lab_01",
   "title": "Laboratorní židle s opěradlem",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.224, -0.001, -0.263], "max": [0.271, 1.021, 0.263] },
+  "bounds": { "min": [-0.24, -0.001, -0.293], "max": [0.294, 1.041, 0.293] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [0.23, 0.03, -0.02], "max": [0.27, 0.07, 0.02], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.0572, 0.03, 0.2178], "max": [0.0972, 0.07, 0.2578], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.2224, 0.03, 0.1268], "max": [-0.1824, 0.07, 0.1668], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.2221, 0.03, -0.1672], "max": [-0.1821, 0.07, -0.1272], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [0.0576, 0.03, -0.2577], "max": [0.0976, 0.07, -0.2177], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_250_25_0", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_77_25_238", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-202_25_147", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_-202_25_-147", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_25_20_x_78_25_-238", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_570_y_0_310_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_200_60_y_0_620_0", "mat": "plastic_navy" },
-    { "node": "body", "shape": "box", "min": [-0.02, 0.65, -0.2], "max": [0.02, 0.87, -0.17], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.17, 0.82, -0.22], "max": [0.17, 1.02, -0.17], "mat": "plastic_navy" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_arms", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_piston", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_seat", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_backbar", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#stool_lab_01_back", "mat": "plastic_navy" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.223, 0, -0.262], "max": [0.27, 1.02, 0.262], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.239, 0, -0.292], "max": [0.293, 1.04, 0.292], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 724,
+  "tris": 872,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#fumehoodAndMore",

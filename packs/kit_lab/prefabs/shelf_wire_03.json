@@ -4,31 +4,29 @@
   "id": "shelf_wire_03",
   "title": "Drátěný regál 1,2 m",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.601, -0.001, -0.226], "max": [0.601, 1.801, 0.226] },
+  "bounds": { "min": [-0.607, -0.001, -0.23], "max": [0.607, 1.801, 0.23] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.225], "max": [-0.576, 1.8, -0.201], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0, 0.201], "max": [-0.576, 1.8, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.576, 0, -0.225], "max": [0.6, 1.8, -0.201], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.576, 0, 0.201], "max": [0.6, 1.8, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.12, -0.225], "max": [0.6, 0.145, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.52, -0.225], "max": [0.6, 0.545, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 0.92, -0.225], "max": [0.6, 0.945, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 1.32, -0.225], "max": [0.6, 1.345, 0.225], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.6, 1.72, -0.225], "max": [0.6, 1.745, 0.225], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_posts", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_feet", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_wire_132", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_wire_532", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_wire_932", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_wire_1332", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#shelf_wire_03_wire_1732", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.6, 0, -0.225], "max": [0.6, 1.8, 0.225], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.606, 0, -0.229], "max": [0.606, 1.8, 0.229], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 108,
+  "tris": 884,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#shelving",

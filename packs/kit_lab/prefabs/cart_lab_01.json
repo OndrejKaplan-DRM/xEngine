@@ -4,35 +4,30 @@
   "id": "cart_lab_01",
   "title": "Laboratorní vozík se dvěma policemi",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.381, -0.001, -0.245], "max": [0.381, 1.071, 0.245] },
+  "bounds": { "min": [-0.385, -0.001, -0.333], "max": [0.385, 1.071, 0.261] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_820_y_-360_480_-210", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_820_y_-360_480_210", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_820_y_360_480_-210", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_12_820_y_360_480_210", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_30_x_-360_35_-210", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_30_x_-360_35_210", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_30_x_360_35_-210", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_30_x_360_35_210", "mat": "rubber_black" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0.25, -0.23], "max": [0.38, 0.28, 0.23], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0.85, -0.23], "max": [0.38, 0.88, 0.23], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0.88, -0.23], "max": [0.38, 0.9, -0.21], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.215, 0.895, -0.045], "max": [-0.085, 0.985, 0.045], "mat": "plastic_navy" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_180_y_150_980_0", "mat": "glass_amber" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_posts", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_trays", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_lips", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_push_rail", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_wheels", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_forks", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_box", "mat": "plastic_navy" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cart_lab_01_bottle", "mat": "glass_amber" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.38, 0, -0.244], "max": [0.38, 1.07, 0.244], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.384, 0, -0.332], "max": [0.384, 1.07, 0.26], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 720,
+  "tris": 1216,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#fumehoodAndMore",
