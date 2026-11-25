@@ -13,6 +13,7 @@ import { swingBoth, portalDoorIds } from './swing.js';
 import { createAssets } from './assets.js';
 import { sampleBases } from './baked.js';
 import { inspectEntities } from './inspect.js';
+import { saveEntity, loadEntityState, loadBody } from './entsave.js';
 
 const CELL_CHECK_FRAMES = 16;
 
@@ -316,6 +317,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     s.level = props.level ?? 1;
     s.phase = 0;
     s.enabled = props.enabled ?? true;
+    s.hp = ent.comp.health ? ent.comp.health.hp : 0; // výdrž (A3.1); 0 = bez components.health
     for (const r of ent.ixs) {
       if (r.state === s) continue;
       Object.assign(r.state, { locked: s.locked, on: false, phase: 0, rep: 0 }); // props.locked zamyká všechny interakce
@@ -360,6 +362,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       for (const ent of list) {
         initial(ent);
         showLamp(ent);
+        if (!ent.state.enabled) sys.setEnabled(ent, false); // props.enabled: false (trosky čekající na zničení)
       }
     },
     unload() {
@@ -375,8 +378,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         initial(ent);
         settle(ent);
         showLamp(ent);
-        ent.whole?.setVisible(true);
-        for (const c of ent.colliders) phys.setColliderEnabled(c, true);
+        sys.setEnabled(ent, ent.state.enabled); // výchozí podle props.enabled (sebrané předměty, trosky)
         if (ent.body) {
           const h = ent.home;
           ent.body.setTranslation(phys.vec(h.x, h.y, h.z), true);
@@ -503,6 +505,36 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
       ent.state.enabled = on;
       ent.whole?.setVisible(on);
       for (const c of ent.colliders) phys.setColliderEnabled(c, on);
+      if (ent.body && ent.body.isEnabled() !== on) ent.body.setEnabled(on); // vypnuté těleso nepadá a nikoho netlačí
+    },
+    /**
+     * Entita mimo level: postaví se hned při načtení a čeká vypnutá (trosky breakInto, A3.1). Jen celé kusy
+     * (dynamické těleso, sebratelný předmět); pevné díly jdou do statických dávek a schovat je nejde. Vrací ji, nebo null.
+     */
+    addHidden(def) {
+      const pf = prefabs.get(def.prefab);
+      if (!pf || !(pf.components?.physics?.body === 'dynamic' || pf.components?.pickup)) {
+        warn(`skryta entita „${def.id}“ (prefab ${def.prefab}) musí být dynamická nebo sebratelná; vynechávám`);
+        return null;
+      }
+      const ent = instantiate({ ...def, props: { ...def.props, enabled: false } }, list.length);
+      list.push(ent);
+      byId.set(ent.id, ent);
+      initial(ent);
+      sys.setEnabled(ent, false);
+      return ent;
+    },
+    /** Postaví entitu do polohy jiné (trosky na místo zničené věci): dynamické těleso, nebo jen matice. */
+    placeLike(ent, like) {
+      if (!ent.body) return;
+      const src = like.body;
+      if (src) {
+        ent.body.setTranslation(src.translation(), true);
+        ent.body.setRotation(src.rotation(), true);
+        ent.body.setLinvel(src.linvel(), true);
+        ent.body.setAngvel(src.angvel(), true);
+      }
+      syncBody(ent);
     },
     /** Střed obalu entity ve světě (kam mířit pohledem); u pohyblivých dílů střed hlavního kloubového uzlu. */
     center(id) {
@@ -524,19 +556,7 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
     },
 
     snapshot() {
-      return list.map((ent) => {
-        const out = { s: { ...ent.state } };
-        if (ent.ixs.length > 1) out.x = ent.ixs.map((r) => ({ ...r.state })); // stav po interakcích (N-010)
-        if (ent.joints.length) out.j = ent.joints.map((j) => [j.value, j.vel, Number.isNaN(j.target) ? null : j.target, j.speed, j.active ? 1 : 0, j.from, j.blocked]);
-        if (ent.body) {
-          const p = ent.body.translation();
-          const q = ent.body.rotation();
-          const l = ent.body.linvel();
-          const a = ent.body.angvel();
-          out.b = [p.x, p.y, p.z, q.x, q.y, q.z, q.w, l.x, l.y, l.z, a.x, a.y, a.z, ent.body.isSleeping() ? 1 : 0];
-        }
-        return out;
-      });
+      return list.map(saveEntity);
     },
     restore(data) {
       active.length = 0;
@@ -544,35 +564,12 @@ export function createEntities({ phys, render, world, light, pack, assets = crea
         const d = data[i];
         settle(ent);
         if (!d) return;
-        Object.assign(ent.state, d.s);
-        if (ent.ixs.length > 1) (d.x || []).forEach((st, k) => ent.ixs[k] && Object.assign(ent.ixs[k].state, st));
-        (d.j || []).forEach((r, k) => {
-          const j = ent.joints[k];
-          if (!j) return;
-          j.value = r[0];
-          j.vel = r[1];
-          j.target = r[2] === null ? NaN : r[2];
-          j.speed = r[3];
-          j.active = !!r[4];
-          j.from = r[5] ?? j.value;
-          j.blocked = r[6] ?? 0;
-          j.held = false;
-          if (j.active) activate(ent);
-        });
+        loadEntityState(ent, d, activate);
         pose(ent, true);
         showLamp(ent);
         sys.setEnabled(ent, ent.state.enabled);
         if (ent.body && d.b) {
-          const b = d.b;
-          ent.body.setTranslation(phys.vec(b[0], b[1], b[2]), true);
-          tq.x = b[3];
-          tq.y = b[4];
-          tq.z = b[5];
-          tq.w = b[6];
-          ent.body.setRotation(tq, true);
-          ent.body.setLinvel(phys.vec(b[7], b[8], b[9]), true);
-          ent.body.setAngvel(phys.vec(b[10], b[11], b[12]), true);
-          if (b[13]) ent.body.sleep();
+          loadBody(ent.body, d.b, phys);
           syncBody(ent);
         }
       });

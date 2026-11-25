@@ -87,6 +87,42 @@ export function createNullRender({ isLit = () => true } = {}) {
         },
       };
     },
+    /** Zbraň v ruce (A3.1): jako addMover, ale mimo buňky; viewModel = { visible, matrix } pro testy. */
+    setViewModel(pieces) {
+      counts.viewTris = 0;
+      if (!pieces) {
+        sys.viewModel = null;
+        return null;
+      }
+      const vm = { visible: true, matrix: null };
+      sys.viewModel = vm;
+      return {
+        pieces: pieces.map((p) => {
+          const b = finishBatch(p.batch, lit(p.mat));
+          counts.viewTris += b.tris;
+          return { colors: b.colors, touch: () => counts.touches++ };
+        }),
+        setMatrix(m) {
+          vm.matrix = m;
+        },
+        setVisible(on) {
+          vm.visible = on;
+        },
+      };
+    },
+    viewModel: null,
+    /** Střely, výbuchy a záblesk: jen počty a poslední hodnoty (testy). */
+    setShots(n) {
+      counts.shots = n;
+    },
+    setBlasts(n) {
+      counts.blasts = n;
+    },
+    flash: [0, 0, 0, 0, 0, 0, 0],
+    setFlash(...v) {
+      sys.flash = v;
+      counts.flash = v[6] > 0 ? 1 : 0;
+    },
     addScreen({ cell }) {
       counts.screens++;
       drawables.push({ cells: [cell], meshes: 1, on: true });

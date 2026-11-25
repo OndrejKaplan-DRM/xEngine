@@ -1,7 +1,7 @@
 // xPlay: vstup. Převádí klávesy a myš na záměr (intent); hráč, testovací robot i budoucí záznam jsou jen různí
 // „řidiči“ téhož záměru (01_CORE, zásada 5). Systém nezná DOM: posluchače připojuje aplikace (src/app/main.js).
 
-import { ACTIONS, keyMap } from './actions.js';
+import { ACTIONS, keyMap, SLOT_ACTIONS } from './actions.js';
 
 /** Stupně otočení na jeden bod pohybu myši při citlivosti 1. Posun myši se nenásobí dt (10_CASE_FPS, F4). */
 export const LOOK_DEG_PER_PX = 0.08;
@@ -24,7 +24,9 @@ export function createInput() {
 
   /** Záměr pro právě běžící krok. Jeden objekt, přepisuje se; nikdo si ho nesmí schovávat. */
   // yaw, pitch: o kolik stupňů se má pohled otočit; mx, my: surový pohyb myši v bodech (manipulace s klouby)
-  const intent = { fwd: 0, side: 0, jump: false, jumpPressed: false, use: false, grab: false, grabPressed: false, yaw: 0, pitch: 0, mx: 0, my: 0 };
+  // alt: druhé tlačítko zbraně držené; zoomPressed: stisk přiblížení v tomto kroku; slot: stisknutý slot zbraně 0–9, nebo −1
+  const intent = { fwd: 0, side: 0, jump: false, jumpPressed: false, use: false, grab: false, grabPressed: false, alt: false, zoom: false, zoomPressed: false, slot: -1, yaw: 0, pitch: 0, mx: 0, my: 0 };
+  const slotIdx = SLOT_ACTIONS.map((id) => index[id]);
 
   const on = (id) => held[index[id]] | forced[index[id]] | latched[index[id]];
 
@@ -88,6 +90,18 @@ export function createInput() {
       const grab = on('grab');
       intent.grabPressed = !!grab && !prev[index.grab];
       intent.grab = !!grab;
+      intent.alt = !!on('alt');
+      const zoom = on('zoom');
+      intent.zoomPressed = !!zoom && !prev[index.zoom];
+      intent.zoom = !!zoom;
+      prev[index.zoom] = zoom;
+      intent.slot = -1;
+      for (let s = 0; s < 10; s++) {
+        const k = slotIdx[s];
+        const v = held[k] | forced[k] | latched[k];
+        if (v && !prev[k]) intent.slot = s;
+        prev[k] = v;
+      }
       pulseUse = false;
       prev[index.jump] = jump;
       prev[index.use] = use;

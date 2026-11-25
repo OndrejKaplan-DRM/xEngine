@@ -68,6 +68,21 @@ export function settingsDefs({ game, dev }) {
       probe: () => input.sensitivity,
     },
     {
+      id: 'zoomMode',
+      page: 'ovladani',
+      label: 'Přiblížení zbraně (klávesa Z)',
+      type: 'select',
+      def: 'hold',
+      options: [
+        { value: 'hold', label: 'Držet' },
+        { value: 'toggle', label: 'Přepínat' },
+      ],
+      apply: (v) => {
+        game.weapons.zoomMode = v;
+      },
+      probe: () => game.weapons.zoomMode,
+    },
+    {
       id: 'doorsAway',
       page: 'hra',
       label: 'Dveře se otvírají od hráče (platí od nové hry)',

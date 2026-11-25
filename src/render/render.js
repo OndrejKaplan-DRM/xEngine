@@ -9,20 +9,10 @@ import { createMaterials } from './materials.js';
 import { newBatch, appendMesh, finishBatch, noteSamples } from './batch.js';
 import { cameraVfov, hfovOf } from './fov.js';
 import { DEFAULT_ROWS } from './rows.js';
+import { toGeometry } from './geometry.js';
+import { createEffects } from './effects.js';
 
 const BACKGROUND = 0x0b0d12;
-
-/** Geometrie z hotové dávky (finishBatch). Barva vrcholů sdílí pole s výpočtem světla. */
-function toGeometry(b) {
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.BufferAttribute(b.positions, 3));
-  geo.setAttribute('normal', new THREE.BufferAttribute(b.normals, 3));
-  geo.setAttribute('uv', new THREE.BufferAttribute(b.uvs, 2));
-  if (b.colors) geo.setAttribute('color', new THREE.BufferAttribute(b.colors, 3).setUsage(THREE.DynamicDrawUsage));
-  geo.setIndex(new THREE.BufferAttribute(b.indices, 1));
-  geo.computeBoundingSphere();
-  return geo;
-}
 
 export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS }) {
   let exposure = 1;
@@ -41,22 +31,33 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
   scene.add(camera);
   const materials = createMaterials({ onChange: () => (dirty = true) }); // dokončená textura: překreslit
   const shutterMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide, fog: false, toneMapped: false });
+  const counts0 = { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0, viewTris: 0, shots: 0, flash: 0 };
 
   let E = null;
   let dirty = true;
   let levelRoot = null;
   let cells = new Map(); // id buňky → { group, pending: Map(materiál → dávka) }
   const statics = []; // hotové statické dávky: { cell, mat, positions, normals, colors, count, min, max, touch() }
-  const counts = { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 };
+  const counts = { ...counts0 };
+  const fx = createEffects({ scene, materials, counts }); // zbraň v ruce, střely, výbuchy, záblesk (A3.1)
   let viewFov = null; // dočasný svislý úhel (terminál, snímky); null = podle nastavení
   const screens = []; // obrazovky ve světě: { mesh, tex }
   const shared = []; // díly viditelné z více buněk (křídlo dveří v portálu, clona portálu): { group, cells, on }
   const view = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0 };
   let debug = null; // vývojářská vrstva: úsečky přes celou scénu
 
+  /** Svět a po vymazání hloubky zbraň v ruce; počty volání a trojúhelníků za oba průchody. */
+  function renderBoth() {
+    renderer.render(scene, camera);
+    fx.drawOverlay(renderer, sys.baseVfov, camera.aspect);
+  }
   function draw() {
     sys.beforeDraw?.(); // viditelnost po buňkách a světlo po vrcholech pro tento snímek (xWorld)
-    renderer.render(scene, camera);
+    const auto = renderer.info.autoReset;
+    renderer.info.autoReset = false; // dva průchody: počítat oba
+    if (auto) renderer.info.reset();
+    renderBoth();
+    renderer.info.autoReset = auto;
     counts.calls = renderer.info.render.calls;
     counts.tris = renderer.info.render.triangles;
     dirty = false;
@@ -81,7 +82,21 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
     beforeDraw: null,
     /** Vykreslí současný pohled znovu, beze změny stavu (měření ?bench). */
     redraw() {
-      renderer.render(scene, camera);
+      renderBoth();
+    },
+    /** Zbraň v ruce (effects.setViewModel): pieces = [{ mat, batch }], nebo null. */
+    setViewModel: (pieces) => fx.setViewModel(pieces, () => (dirty = true)),
+    setShots(n, data) {
+      fx.setShots(n, data);
+      if (n || counts.shots) dirty = true;
+    },
+    setBlasts(n, data) {
+      fx.setBlasts(n, data);
+      dirty = true;
+    },
+    setFlash(x, y, z, r, g, b, range) {
+      fx.setFlash(x, y, z, r, g, b, range);
+      dirty = true;
     },
     baseFov: 90,
     rows,
@@ -315,7 +330,8 @@ export function createRender({ canvas, antialias = false, rows = DEFAULT_ROWS })
       levelRoot = null;
       cells = new Map();
       statics.length = 0;
-      Object.assign(counts, { batches: 0, movers: 0, cells: 0, staticTris: 0, moverTris: 0, screens: 0, visibleCells: 0, calls: 0, tris: 0 });
+      fx.clear();
+      Object.assign(counts, { ...counts0, viewTris: counts.viewTris });
     },
     /** Které buňky se kreslí (viditelnost přes portály). null = všechny. */
     setVisibleCells(ids) {

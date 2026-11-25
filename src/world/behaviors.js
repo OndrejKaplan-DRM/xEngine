@@ -127,6 +127,8 @@ export function createBehaviors({ entities, io, world = null }) {
     emit: out,
     /** Kam jde vstup print: obrazovky patří vrstvě nad světem, ta si sem dosadí svou funkci (ent, text). */
     onPrint: null,
+    /** Kdo dostane sebranou věc (ent, components.pickup): výbava hráče patří vrstvě xPlay. */
+    onPickup: null,
     /**
      * Vstup entity (ze spojení nebo z „použít“). to = id interakce cíle (spojení `to`); bez něj jde vstup do všech
      * interakcí entity (zamknout celou kartotéku). Vrací false, když ho entita nezná.
@@ -188,6 +190,7 @@ export function createBehaviors({ entities, io, world = null }) {
           return api.input(ent, 'setLevel', next > 1 + EPS ? 0 : next, id) ? 'ok' : 'none';
         }
         case 'pickup':
+          api.onPickup?.(ent, ent.comp.pickup || {}); // zbraň, munice (src/play/weapons.js, A3.1)
           out(ent, 'picked', ent.comp.pickup?.amount, rec);
           entities.setEnabled(ent, false);
           return 'ok';

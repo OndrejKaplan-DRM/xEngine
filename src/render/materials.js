@@ -50,7 +50,35 @@ function whiteTexture() {
   return t;
 }
 
+/**
+ * Jediné efektové bodové světlo (záblesk ústí, výbuch; D-022): připočte se k barvě vrcholů osvětlených materiálů
+ * ve vertex shaderu. Osvětlení E = I · cos / d² × zeslabení PointLight three.js (decay 2, distance = dosah), do barvy
+ * vrcholu jde E / π jako u ostatního světla (D-049). Bez stínu; mimo záblesk stojí jen podmínku na vrchol.
+ */
+const FLASH_HEAD = 'uniform vec3 uFlashPos;\nuniform vec3 uFlashCol;\nuniform float uFlashRange;';
+const FLASH_VS = `
+#ifdef USE_COLOR
+if (uFlashRange > 0.0) {
+  vec3 fwp = (modelMatrix * vec4(position, 1.0)).xyz;
+  vec3 fl = uFlashPos - fwp;
+  float fd2 = max(dot(fl, fl), 1e-4);
+  float fd = sqrt(fd2);
+  if (fd < uFlashRange) {
+    vec3 fn = normalize(mat3(modelMatrix) * normal);
+    float fq = fd / uFlashRange;
+    float fa = 1.0 - fq * fq * fq * fq;
+    vColor.rgb += uFlashCol * (max(dot(fn, fl / fd), 0.0) * fa * fa / fd2);
+  }
+}
+#endif`;
+
 export function createMaterials({ onChange = null } = {}) {
+  const flash = { uFlashPos: { value: new THREE.Vector3() }, uFlashCol: { value: new THREE.Vector3() }, uFlashRange: { value: 0 } };
+  /** Jedna funkce pro všechny osvětlené materiály: three podle ní sdílí jeden program. */
+  const flashPatch = (sh) => {
+    Object.assign(sh.uniforms, flash);
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', `#include <common>\n${FLASH_HEAD}`).replace('#include <color_vertex>', `#include <color_vertex>${FLASH_VS}`);
+  };
   let defs = {};
   let assets = null;
   const cache = new Map();
@@ -134,7 +162,10 @@ export function createMaterials({ onChange = null } = {}) {
     const tex = d.albedo && d.model !== 'emissive' ? texture(d.albedo) : null;
     const map = tex ? { map: tex.tex } : {};
     let m;
-    if (d.model === 'lit') m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true, ...glass, ...map });
+    if (d.model === 'lit') {
+      m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, vertexColors: true, ...glass, ...map });
+      m.onBeforeCompile = flashPatch;
+    }
     else if (d.model === 'unlit') m = new THREE.MeshBasicMaterial({ color: new THREE.Color(...d.color), side, ...glass, ...map });
     else {
       // emissive: barva svitu krát síla; převod do rozsahu displeje udělá expozice a tónová křivka
@@ -169,6 +200,15 @@ export function createMaterials({ onChange = null } = {}) {
       assets = files;
     },
     has: (id) => id in defs,
+    /** Záblesk (effects.setFlash): poloha, barva × svítivost (cd), dosah; dosah 0 = zhasnuto. */
+    setFlash(x, y, z, r, g, b, range) {
+      flash.uFlashPos.value.set(x, y, z);
+      flash.uFlashCol.value.set(r / Math.PI, g / Math.PI, b / Math.PI);
+      flash.uFlashRange.value = range;
+    },
+    get flashOn() {
+      return flash.uFlashRange.value > 0;
+    },
     def: (id) => defs[id],
     isEmissive: (id) => defs[id]?.model === 'emissive',
     /** Materiál reaguje na světlo: jeho síť nese barvu vrcholů. */

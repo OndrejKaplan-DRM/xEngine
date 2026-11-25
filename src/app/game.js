@@ -18,9 +18,11 @@ import { createVisibility } from '../world/visibility.js';
 import { createLighting } from '../world/lighting.js';
 import { createOcclusion } from '../world/occlusion.js';
 import { createInteract } from '../play/interact.js';
+import { createCombat } from '../world/combat.js';
+import { createWeapons } from '../play/weapons.js';
 import { profileById, PROFILE_IDS } from '../play/profiles.js';
 
-export const VERSION = 'xEngine 0.1 · vlna 2, krok 6 (A02) · 2026-11-24';
+export const VERSION = 'xEngine 0.1 · vlna 2, krok 7 (A3.1 zbraně) · 2026-11-25';
 
 /**
  * @param {object} o
@@ -75,13 +77,16 @@ export function createGame({ pack, render, now }) {
   const player = createPlayer({ phys, world, render, input, session });
   const interact = createInteract({ phys, player, input, behave, entities, render });
   behave.onPrint = (ent, text) => interact.print(ent, text); // obrazovky patří vrstvě xPlay, svět o nich neví
+  const combat = createCombat({ phys, entities, behave, materials: pack.materials?.materials || {} });
+  const weapons = createWeapons({ pack, phys, player, input, interact, combat, render, light, assets });
+  behave.onPickup = (ent, p) => weapons.give(p.item, p.amount);
 
   /**
    * Načtení levelu: jediné místo, které zná pořadí. Fyzika → světlo (prázdné) → statický svět → (entity, spojení,
    * hráč) → sítě → jeden krok fyziky → vrstvy světla nad hotovými sítěmi.
    * Systémy, které level zajímá, mají load(ctx) a unload().
    */
-  const loadOrder = [light, world, entities, vis, io, player, interact];
+  const loadOrder = [light, world, entities, combat, vis, io, player, interact, weapons];
   let loaded = null;
   let builtBake = true; // s jakou volbou useBake se level postavil
   let builtLightmap = 'null'; // s jakou zkouškou textury světla
@@ -120,6 +125,8 @@ export function createGame({ pack, render, now }) {
   E.add(input);
   E.add(player);
   E.add(interact);
+  E.add(weapons);
+  E.add(combat);
   E.add(entities);
   E.add(phys);
   E.add(world);
@@ -162,6 +169,8 @@ export function createGame({ pack, render, now }) {
     behave,
     player,
     interact,
+    combat,
+    weapons,
     render,
     levelIds: [...levels.keys()],
     get,

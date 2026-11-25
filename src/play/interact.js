@@ -249,6 +249,8 @@ export function createInteract({ phys, player, input, behave, entities, render }
     after: ['player'],
     events: ['interact:used', 'interact:denied', 'interact:seated', 'interact:left'],
     stat,
+    /** Hráč drží zbraň (nastavuje systém weapons): zamčený ovladač pod zaměřovačem levé tlačítko neodmítá. */
+    armed: false,
     get target() {
       return target;
     },
@@ -259,6 +261,7 @@ export function createInteract({ phys, player, input, behave, entities, render }
     get seated() {
       return !!seat;
     },
+    /** Levé tlačítko právě drží ovladač (páka, ventil, zásuvka): zbraň nestřílí. */
     get manipulating() {
       return !!manip;
     },
@@ -348,8 +351,10 @@ export function createInteract({ phys, player, input, behave, entities, render }
         } else if (r === 'locked') E.emit('interact:denied', target.id);
         setTarget(target, targetIx); // stav se mohl změnit (zamčeno, sebráno)
       } else if (I.grabPressed && h) {
-        if (targetIx.state.locked) E.emit('interact:denied', target.id);
-        else if (targetIx.def.manipulate) grab(h);
+        // se zbraní v ruce patří levé tlačítko střelbě, jen ovladač pod zaměřovačem se dál chytá (A3.1)
+        if (targetIx.state.locked) {
+          if (!sys.armed) E.emit('interact:denied', target.id);
+        } else if (targetIx.def.manipulate) grab(h);
       }
     },
 

@@ -304,6 +304,15 @@ export function createLighting({ render, now = () => performance.now() }) {
       stat.movers = movers.length;
       return m;
     },
+    /** Díl odchází (zbraň v ruce se vyměnila). */
+    removeMover(m) {
+      if (!m) return;
+      const i = movers.indexOf(m);
+      if (i >= 0) movers.splice(i, 1);
+      const k = dirtyMovers.indexOf(m);
+      if (k >= 0) dirtyMovers.splice(k, 1);
+      stat.movers = movers.length;
+    },
     /** Díl se pohnul. */
     touchMover(m) {
       if (!m || m.dirty) return;
