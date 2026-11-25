@@ -2,7 +2,7 @@
 
 **Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1766f03` (znění 10 a D-056, D-057; sloučení `b852756`, 25. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 25. 11. 18:20, po sloučení znění 10): `npm test` **377**, `npm run test:a` **430 ve 29 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: naposledy „vlna 2, krok 6“.
+Poslední regrese (sandbox, 25. 11. večer, po N-010 v běhu): `npm test` **377**, `npm run test:a` **453 ve 30 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: naposledy „vlna 2, krok 6“.
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
@@ -11,7 +11,7 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 **Fronta podle Ondřeje (25. 11. 17:25):**
 - [x] 1. sloučit `origin/zaklad-2` (znění 10): bez konfliktu, testy zelené (`b852756`)
 - [x] 2. **D-049 hotovo** (`lighting.js`, `lightmap.js`, `baked.js`): okolní světlo `env.ambient` je E, do barvy vrcholu jde E / π (výpočet při načtení, zapečený soubor i textura světla). Test `a_44_bake`: barvy běhu = `composeColors` ze základu / π (poměrně 1,8e-7). **Pro svodnou:** (a) okolní světlo zlatého vzorku vynásob π; (b) xView zatím okolní světlo π nedělí (srovnání xLab × xView: jas 75,9 proti 85,7), ať dělí taky; (c) moje testy obrazu do té doby pouštějí xLab s okolním světlem × π (`test/a_lib/browser.cjs`, `AMBIENT_PI = true`); po změně dat to přepnu na `false`. Do té doby je xLab v místech bez přímého světla o něco tmavší.
-- [ ] 3. N-010 v běhu: interakce jen přes `interactionOf`, stav po interakcích, spojení `from` / `to` (sešna B čeká s kartotékou a stolem)
+- [x] 3. **N-010 v běhu hotovo** (D-052). Interakce čte běh jen přes `src/xspace/interact.js`: entita má `ixs` (záznam na interakci: `id`, `def`, `kind`, `joint`, `state`) a `door` (`doorInteraction`, portál, brána světla, ořez pohledem, „Dveře od hráče“). Hráč vybírá interakci zasaženým uzlem (`interactionOf`; pevný korpus nic), nápověda, dosah, tažení, zámek i klidný režim jsou z té interakce. Stav (zamčeno, zapnuto, fáze tlačítka, hlášená poloha) má každá interakce svůj; u jediné interakce je to dál `ent.state`, takže data s jedním objektem se chovají beze změny. Výstup nese id interakce, spojení s `from` bere jen tu, `to` doručí jen do té, bez `to` do všech. Uložení nese stav po interakcích (`x`). Test `a_15_multi` (22): kartotéka se čtyřmi zásuvkami v kopii zlatého vzorku, každá se otevře zvlášť (hráč míří na zásuvku), `from: d2` otevře dveře laboratoře a `d3` ne, `lock` s `to: d3` zamkne jen třetí, `unlock` bez `to` všechny, nahrání a nová hra. **Sešna B může kartotéku a stůl vrátit do jednoho prefabu.** Pro svodnou: robot zkoušky A × B (`test/t5_lib/robot.mjs`) čte `e.kind === 'door'` a `behave.mainJoint(e)`; obojí platí dál pro prefaby s jedinou interakcí (`kind` je druh jediné interakce, `mainJoint` její kloub; u seznamu `null`). Dveře portálu jsou spolehlivě `e.door` (`e.door.joint`), doporučuji přejít na to, než B pošle dveře se seznamem interakcí.
 - [ ] 4. A3.1 zkouška zbraní na plazmové pušce + `xlab.html` k vyzkoušení
 - [ ] 5. kostra v kroku přes `rigCompile` / `rigFollow` / `rigSolve` (N-102)
 - [ ] 6. textura světla ze souboru XLM1, až sešna B dodá zapečený `complex_7`; potom `?bench` na T460
@@ -142,16 +142,17 @@ Mapa modulů celého projektu je v `docs/01_ARCHITEKTURA.md`, oddíl 9. Tady jen
 - totožnost: `id`, `index` (pořadí v levelu, klíč pro spojení), `def`, `prefab`, `cell`;
 - kostra: `joints` (`value`, `vel`, `target`, `speed`, `active`, `held`, `from`, `blocked`), `guard` (D-025), `values` (id kloubu → hodnota pro `rigMatrices`), `nodeWorld`, `movers` (uzly, které se hýbou: matice, díl ve vykreslení, těleso, záznam ve světle);
 - stav: `state { locked, on, level, phase, enabled, rep }`, společný všem druhům;
-- součásti z prefabu: `comp` (`interact`, `light`, `physics`, `pickup`, `screen`), `kind` = `comp.interact.kind`;
+- interakce (N-010, D-052): `ixs` = `[{ id, def, kind, joint, state }]` v pořadí `interactions(prefab)`, `ixById`, `door` = interakce dveří portálu (`doorInteraction`) nebo `null`. U jediné interakce je `ixs[0].state === state` a kloub bez pole `joint` je první kloub; u seznamu má každá interakce vlastní `state { locked, on, phase, rep }`. Kterou interakci ovládá uzel, říká `behave.interactionAt(ent, uzel)` (= `interactionOf`);
+- součásti z prefabu: `comp` (`interact`, `light`, `physics`, `pickup`, `screen`), `kind` = druh jediné interakce (u seznamu `null`; jen kvůli zpětné slučitelnosti, nový kód čte `ixs`);
 - vazby: `body` a `home` (dynamické těleso), `colliders`, `light`, `links`.
 
 **Jak se součást hlásí ke svému systému.** Při načtení (`instantiate`) entita předá každému systému to jeho: vykreslení (`render.addStatic`, `render.addMover`), fyzice (`phys.addBody`, `phys.addCollider` s odkazem `{ kind: 'entity', ent, node }`), světlu (`light.addLight`, `light.addMover`). Chování podle `kind` je tabulka v `behaviors.js` (`init`, `use`, `input`, `onJoint`). Obrazovky a manipulaci drží `src/play/interact.js` a `terminal.js`.
 
-**Uložený stav** (`snapshot` systému `entities`): `s` = kopie `state`; `j` = pro každý kloub `[value, vel, target, speed, active, from, blocked]`; `b` = u dynamického tělesa 14 čísel. Zvlášť fronta spojení (`io`), spouštěče (`world`) a hráč. Neukládá se text terminálu, světlo (dopočítá se) a nic z vykreslení.
+**Uložený stav** (`snapshot` systému `entities`): `s` = kopie `state`; `x` = u seznamu interakcí kopie `state` každé interakce v pořadí `ixs`; `j` = pro každý kloub `[value, vel, target, speed, active, from, blocked]`; `b` = u dynamického tělesa 14 čísel. Zvlášť fronta spojení (`io`), spouštěče (`world`) a hráč. Neukládá se text terminálu, světlo (dopočítá se) a nic z vykreslení.
 
 **Události:** `io:fired`, `level:checkpoint`, `level:complete`, `level:message`, `interact:used`, `interact:denied`, `interact:seated`, `interact:left`, `player:jumped`, `player:landed`. Výstupy prefabů (`opened`, `on`, `changed`…) jdou rovnou do fronty spojení (`io.fire`).
 
-**Co bych před zmrazením změnila:** (1) `state` je jedna struktura pro všechny druhy; s tvory a zbraněmi poroste. (2) Entita drží odkazy na záznamy tří systémů; čistší by byl jeden „díl“ s jedním rozhraním. (3) Jedna interakce a jeden hlavní kloub na prefab je mez formátu verze 1; `behaviors.js` s ní počítá.
+**Co bych před zmrazením změnila:** (1) `state` je jedna struktura pro všechny druhy; s tvory a zbraněmi poroste. (2) Entita drží odkazy na záznamy tří systémů; čistší by byl jeden „díl“ s jedním rozhraním. (3) ~~Jedna interakce na prefab~~ vyřešeno N-010: `behaviors.js` pracuje se záznamy interakcí; `kind` a `mainJoint` zůstaly jen pro jedinou interakci.
 
 ## 5. Měření z T460
 

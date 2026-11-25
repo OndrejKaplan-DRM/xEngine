@@ -59,7 +59,9 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 
 **Teď (fronta podle Ondřeje 25. 11. 17:25):**
 - [x] sloučeno znění 10 základu (`b852756`): `npm test` 377, `test:a` 430, `test:axb` 37, 0 selhalo
-- [x] D-049 okolní světlo / π (svodná: okolní světlo zlatého vzorku × π a xView taky dělit π; A_STAV oddíl 1) → [ ] N-010 interakce v běhu (B čeká s kartotékou a stolem) → [ ] A3.1 plazmová puška + `xlab.html` (s opravou `?bench` podle N-011) → [ ] kostra v kroku (N-102) → [ ] sklo N-013 → [ ] textura světla XLM1 (až B dodá `complex_7`)
+- [x] D-049 okolní světlo / π (svodná: okolní světlo zlatého vzorku × π a xView taky dělit π; A_STAV oddíl 1)
+- [x] N-010 interakce v běhu (`a_15_multi`, 22): **sešna B může vrátit kartotéku a stůl do jednoho prefabu**; svodná: robot A × B ať bere dveře z `e.door` (A_STAV oddíl 1)
+- [ ] A3.1 plazmová puška + `xlab.html` (s opravou `?bench` podle N-011) → [ ] kostra v kroku (N-102) → [ ] sklo N-013 → [ ] textura světla XLM1 (až B dodá `complex_7`)
 - N-011 a N-013 (návrhy sešny B) přijaté, rozhodnutí v `A_STAV.md`, oddíl 1
 
 **Čeká na jiné:** sešna B: zapečený `complex_7` se souborem XLM1 (pro bod 6).

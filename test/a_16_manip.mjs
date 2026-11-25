@@ -204,7 +204,7 @@ ok(get('entity.e_lamp_lab.light').on && get('entity.e_lamp_lab.light').level ===
   E.tick(0);
   const before = { ...render.view };
   const pos = [...player.pos];
-  const st = entities.byId('e_desk').interact.station;
+  const st = entities.byId('e_desk').ixs[0].def.station;
   let seated = 0;
   let left = 0;
   E.on('interact:seated', () => seated++);
