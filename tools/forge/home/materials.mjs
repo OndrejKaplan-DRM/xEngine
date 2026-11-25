@@ -59,4 +59,12 @@ export const HOME_MATERIALS = {
   floor_tile_bath: lit([0.35, 0.36, 0.37], 'tile', { rough: 0.3 }),
   wall_tile_bath: lit([0.72, 0.74, 0.74], 'tile', { rough: 0.2 }),
   floor_carpet_grey: lit([0.2, 0.2, 0.21], 'carpet', { rough: 1 }),
+  // dům zvenku a nádvoří (krok 27)
+  facade_render: lit([0.58, 0.54, 0.47], 'concrete', { rough: 0.95 }),
+  facade_plinth: lit([0.22, 0.21, 0.2], 'stone', { rough: 0.9 }),
+  lawn_green: lit([0.07, 0.17, 0.05], 'grass', { rough: 1 }),
+  bark_brown: lit([0.09, 0.06, 0.04], 'wood', { rough: 1 }),
+  foliage_green: lit([0.06, 0.16, 0.05], 'grass', { rough: 0.9 }),
+  foliage_dark: lit([0.03, 0.1, 0.04], 'grass', { rough: 0.9 }),
+  glass_milky: lit([0.62, 0.66, 0.68], 'glass', { rough: 0.6 }),
 };

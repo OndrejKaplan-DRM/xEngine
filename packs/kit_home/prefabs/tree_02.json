@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tree_02",
+  "title": "Strom listnatý (javor) 4,5 m",
+  "category": "home.yard",
+  "bounds": { "min": [-1.337, -0.002, -1.592], "max": [1.009, 4.358, 1.242] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tree_02_trunk", "mat": "bark_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tree_02_crown", "mat": "foliage_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.8075, 0, -0.9204], "max": [0.812, 3.3559, 0.4857], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-1.3368, 2.2, -1.5915], "max": [1.0088, 4.3572, 1.2415], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 852,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

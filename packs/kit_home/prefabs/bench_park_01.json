@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bench_park_01",
+  "title": "Parková lavička s dřevěnými latěmi",
+  "category": "home.yard",
+  "bounds": { "min": [-0.901, -0.001, -0.355], "max": [0.901, 0.911, 0.182] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_park_01_slats", "mat": "wood_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bench_park_01_frame", "mat": "iron_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.9, 0, -0.354], "max": [0.9, 0.91, 0.181], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 852,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

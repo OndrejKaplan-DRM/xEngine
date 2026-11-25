@@ -1,0 +1,31 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "hedge_01",
+  "title": "Živý plot 1,6 m",
+  "category": "home.yard",
+  "bounds": { "min": [-0.805, -0.001, -0.311], "max": [0.8, 0.988, 0.311] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#hedge_01_leaves", "mat": "foliage_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.804, 0, -0.31], "max": [0.799, 0.987, 0.31], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 300,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "railing_stair_01",
+  "title": "Zábradlí ramene schodiště, stupně 1 až 10 (17 × 28 cm)",
+  "category": "home.window",
+  "bounds": { "min": [-0.001, 0.169, -0.031], "max": [2.801, 2.786, 0.031] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#railing_stair_01_rail", "mat": "wood_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#railing_stair_01_posts", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#railing_stair_01_bars", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#railing_stair_01_stringer", "mat": "steel_dark" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [0, 0.17, -0.03], "max": [0.56, 1.425, 0.03], "group": "world" },
+    { "node": "body", "shape": "box", "min": [0.56, 0.51, -0.03], "max": [1.12, 1.765, 0.03], "group": "world" },
+    { "node": "body", "shape": "box", "min": [1.12, 0.85, -0.03], "max": [1.68, 2.105, 0.03], "group": "world" },
+    { "node": "body", "shape": "box", "min": [1.68, 1.19, -0.03], "max": [2.24, 2.445, 0.03], "group": "world" },
+    { "node": "body", "shape": "box", "min": [2.24, 1.53, -0.03], "max": [2.8, 2.785, 0.03], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 364,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#windows",
+    "params": { "riser": 0.17, "tread": 0.28, "first": 1, "last": 10 },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

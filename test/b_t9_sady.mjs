@@ -73,7 +73,9 @@ for (const [id, t] of Object.entries(THEMES)) {
     for (const part of p.parts) if (!mats[part.mat]) bad.push(`${p.id}: materiál ${part.mat} neexistuje`);
     for (const j of p.rig.joints || []) if (!(kit.notes[p.id] || {})[j.id]) bad.push(`${p.id}.${j.id}: kloub bez zdůvodnění mezí`);
     const size = [0, 1, 2].map((k) => bb.max[k] - bb.min[k]);
-    if (Math.max(...size) > 4 || Math.min(...size) < 0.002) bad.push(`${p.id}: rozměr ${size.map((x) => x.toFixed(3)).join(' × ')} m mimo 2 mm až 4 m`);
+    // venkovní kusy nádvoří (strom, lampa) smějí do 8 m, interiér do 4 m
+    const maxSize = p.category === 'home.yard' ? 8 : 4;
+    if (Math.max(...size) > maxSize || Math.min(...size) < 0.002) bad.push(`${p.id}: rozměr ${size.map((x) => x.toFixed(3)).join(' × ')} m mimo 2 mm až ${maxSize} m`);
     const mount = p.components?.place?.mount;
     if ((mount === 'floor' || mount === 'top') && bb.min[1] < -0.001) bad.push(`${p.id}: díly pod počátkem (stojí na podlaze nebo na desce)`);
     if (mount === 'ceiling' && bb.max[1] > 0.001) bad.push(`${p.id}: díly nad počátkem (visí ze stropu)`);

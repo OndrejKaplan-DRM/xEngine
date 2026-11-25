@@ -1,0 +1,32 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "bin_outdoor_01",
+  "title": "Odpadkový koš venkovní",
+  "category": "home.yard",
+  "bounds": { "min": [-0.231, -0.001, -0.261], "max": [0.231, 0.851, 0.226] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bin_outdoor_01_body", "mat": "steel_painted" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#bin_outdoor_01_post", "mat": "iron_black" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.23, 0, -0.26], "max": [0.23, 0.85, 0.225], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 124,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

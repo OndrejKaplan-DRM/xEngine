@@ -1,0 +1,37 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "window_frosted_in_150_01",
+  "title": "Okno 150 × 130 cm s mléčným sklem, vnitřní polovina",
+  "category": "home.window",
+  "bounds": { "min": [-0.801, -0.006, -0.001], "max": [0.801, 1.301, 0.251] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#window_frosted_in_150_01_frame", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#window_frosted_in_150_01_sash", "mat": "lacquer_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#window_frosted_in_150_01_glass", "mat": "glass_milky" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#window_frosted_in_150_01_cover", "mat": "glass_milky" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#window_frosted_in_150_01_sill", "mat": "lacquer_white" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.75, 0, 0], "max": [0.75, 1.3, 0.06], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-0.8, -0.005, 0.06], "max": [0.8, 0.025, 0.25], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "opening", "opening": [1.5, 1.3] }
+  },
+  "tris": 300,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#windows",
+    "params": { "width": 1.5, "height": 1.3, "kind": "frosted_in" },
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

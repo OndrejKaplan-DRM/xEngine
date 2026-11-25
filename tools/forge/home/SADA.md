@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_home`. Neupravovat ručně; zdroj je `tools/forge/home/*.mjs`.
 
-Prefabů: 147 · materiálů: 48 · trojúhelníků celkem: 74568
+Prefabů: 163 · materiálů: 55 · trojúhelníků celkem: 81344
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -153,6 +153,22 @@ Prefabů: 147 · materiálů: 48 · trojúhelníků celkem: 74568
 | `stroller_01` | Dětský kočárek | home.hall | 0,98 × 1,01 × 0,51 | 602 | — | — |
 | `bike_01` | Jízdní kolo | home.hall | 1,72 × 0,96 × 0,5 | 564 | — | — |
 | `doormat_01` | Rohožka | home.hall | 0,8 × 0,01 × 0,5 | 108 | — | — |
+| `window_home_120_01` | Okno plastové 120 × 130 cm, průhledné | home.window | 1,3 × 1,34 × 0,41 | 408 | — | — |
+| `window_frosted_in_120_01` | Okno 120 × 130 cm s mléčným sklem, vnitřní polovina | home.window | 1,3 × 1,31 × 0,25 | 300 | — | — |
+| `window_frosted_out_120_01` | Okno 120 × 130 cm s mléčným sklem, vnější polovina | home.window | 1,26 × 1,34 × 0,16 | 204 | — | — |
+| `window_home_150_01` | Okno plastové 150 × 130 cm, průhledné | home.window | 1,6 × 1,34 × 0,41 | 408 | — | — |
+| `window_frosted_in_150_01` | Okno 150 × 130 cm s mléčným sklem, vnitřní polovina | home.window | 1,6 × 1,31 × 0,25 | 300 | — | — |
+| `window_frosted_out_150_01` | Okno 150 × 130 cm s mléčným sklem, vnější polovina | home.window | 1,56 × 1,34 × 0,16 | 204 | — | — |
+| `railing_stair_01` | Zábradlí ramene schodiště, stupně 1 až 10 (17 × 28 cm) | home.window | 2,8 × 2,62 × 0,06 | 364 | — | — |
+| `railing_stair_02` | Zábradlí ramene schodiště, stupně 11 až 19 (17 × 28 cm) | home.window | 2,52 × 2,45 × 0,06 | 340 | — | — |
+| `tree_01` | Strom listnatý (lípa) 5,5 m | home.yard | 3,1 × 5,29 × 3,47 | 852 | — | — |
+| `tree_02` | Strom listnatý (javor) 4,5 m | home.yard | 2,35 × 4,36 × 2,83 | 852 | — | — |
+| `hedge_01` | Živý plot 1,6 m | home.yard | 1,61 × 0,99 × 0,62 | 300 | — | — |
+| `lamp_post_01` | Lampa veřejného osvětlení 3,8 m | home.yard | 0,36 × 3,86 × 0,36 | 280 | — | — |
+| `bench_park_01` | Parková lavička s dřevěnými latěmi | home.yard | 1,8 × 0,91 × 0,54 | 852 | — | — |
+| `bike_rack_01` | Stojan na pět kol | home.yard | 1,25 × 0,82 × 0,17 | 880 | — | — |
+| `bin_outdoor_01` | Odpadkový koš venkovní | home.yard | 0,46 × 0,85 × 0,49 | 124 | — | — |
+| `canopy_entrance_01` | Stříška nad vchodem (sklo na ocelových konzolách) | home.yard | 2 × 0,82 × 1,1 | 108 | — | — |
 
 ## Meze kloubů: zdroj nebo úvaha
 

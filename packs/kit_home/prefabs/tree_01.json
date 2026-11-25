@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "tree_01",
+  "title": "Strom listnatý (lípa) 5,5 m",
+  "category": "home.yard",
+  "bounds": { "min": [-1.872, -0.002, -1.904], "max": [1.229, 5.283, 1.564] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tree_01_trunk", "mat": "bark_brown" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#tree_01_crown", "mat": "foliage_green" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-0.8176, 0, -0.9309], "max": [0.8177, 3.6232, 0.4902], "group": "world" },
+    { "node": "body", "shape": "box", "min": [-1.8718, 2.2, -1.9037], "max": [1.2289, 5.2825, 1.5636], "group": "world" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "floor" }
+  },
+  "tris": 852,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}

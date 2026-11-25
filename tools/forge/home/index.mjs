@@ -9,11 +9,12 @@ import { decor, tops } from './decor.mjs';
 import { units, dining, appliances } from './kitchen.mjs';
 import { bedroom, kids } from './bedroom.mjs';
 import { bath, hall } from './bath.mjs';
+import { windows, yard } from './outdoor.mjs';
 import { withFile } from '../lab/appliance.mjs';
 
 export const HOME_ID = 'kit_home';
 // sítě jdou do vlastního souboru sady (meshes/home.glb)
-export const HOME_MAKERS = [sofas, armchairs, tables, storage, decor, tops, units, dining, appliances, bedroom, kids, bath, hall].map((make) => () => withFile('home', make));
+export const HOME_MAKERS = [sofas, armchairs, tables, storage, decor, tops, units, dining, appliances, bedroom, kids, bath, hall, windows, yard].map((make) => () => withFile('home', make));
 
 export const buildHome = () =>
   buildTheme({ id: HOME_ID, title: 'Byt: obývák, kuchyň, ložnice, dětský pokoj, koupelna, předsíň (xForge)', version: '0.1.0', requires: ['kit_base', 'kit_lab'], makers: HOME_MAKERS, materials: HOME_MATERIALS });

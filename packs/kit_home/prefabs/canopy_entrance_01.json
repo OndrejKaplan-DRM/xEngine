@@ -1,0 +1,33 @@
+{
+  "xspace": 1,
+  "kind": "prefab",
+  "id": "canopy_entrance_01",
+  "title": "Stříška nad vchodem (sklo na ocelových konzolách)",
+  "category": "home.yard",
+  "bounds": { "min": [-1.001, -0.061, -0.001], "max": [1.001, 0.76, 1.101] },
+  "rig": {
+    "nodes": [
+      { "id": "body" }
+    ]
+  },
+  "parts": [
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#canopy_entrance_01_glass", "mat": "glass_pane" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#canopy_entrance_01_frame", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/home.glb#canopy_entrance_01_rods", "mat": "steel_brushed" }
+  ],
+  "colliders": [
+    { "node": "body", "shape": "box", "min": [-1, -0.06, 0], "max": [1, 0.759, 1.1], "group": "prop" }
+  ],
+  "components": {
+    "physics": { "body": "static" },
+    "place": { "mount": "wall", "height": 2.45 }
+  },
+  "tris": 108,
+  "source": {
+    "tool": "xforge",
+    "generator": "tools/forge/home/outdoor.mjs#yard",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-22"
+  }
+}
