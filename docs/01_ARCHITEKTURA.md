@@ -93,7 +93,7 @@ Každý prefab má `rig`: uzly a klouby. Platí pro dveře stejně jako pro tvor
 - Engine o „dveřích“ neví nic; ví, že kloub `hinge` jde od 0 do 105 stupňů a že interakce `door` ho smí pohánět.
 - U tvorů se ke kostře přidají klipy. Pořadí práce ve xForge: kostra → rozsahy kloubů → pohyby → teprve potom tvar a povrch.
 
-Omezení verze 1 (vědomé): jeden kloub na uzel a jedna interakce na prefab. Skříň se třemi zásuvkami jsou tři entity.
+Omezení verze 1 (vědomé): jeden kloub na uzel. Interakcí smí mít prefab víc (N-010, D-052, 25. 11. 2026): skříň se třemi zásuvkami je jeden prefab se třemi interakcemi a hráč ovládá tu, jejíž kloub hýbe zasaženým dílem (`interactionOf`).
 
 ## 7. Aréna v2 → xEngine
 
@@ -110,7 +110,7 @@ Omezení verze 1 (vědomé): jeden kloub na uzel a jedna interakce na prefab. Sk
 | obsah z nástrojů | Blender skripty na zakázku | generátory s parametry a seedem | 200 seedů bez nálezu |
 | regrese | asi 60 minut | testy dat v Node do sekundy, prohlížeč jen na obraz | čas `npm test` |
 
-Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`.
+Co se z Arény přebírá beze změny: Rapier a zkušenosti s ním (`arena-fyzika`), pohyb ve stylu Quake, pevný krok 120 Hz, slučování po materiálu, testování přes `sim()`. Co dalšího převzít (zbraně, výbuchy, zvuk, tvorové, modely) a komu: `docs/prevzeti/ARENA.md` (soupis z větve `hra`, v2.9, 24. 11. 2026).
 
 ## 8. Co se záměrně odkládá
 
@@ -118,51 +118,52 @@ Síťová hra. Venkovní terén s výškovou mapou (potřebuje nový tvar v xSpa
 
 ## 9. Moduly dnes
 
-Stav 24. 11. 2026. Sloupec „Kde“ říká, na které větvi modul žije: **základ** = `zaklad-2` (= `main`); **A**, **B** = jen na větvi sešny, do základu ještě nesloučeno. Co se právě dělá, je v `TODO.md`.
+Stav 24. 11. 2026 večer, po sloučení vlny 2 do základu (D-048): všechny moduly níže jsou v `zaklad-2` (= `main`). Sloupec „Vlastní“ říká, kdo modul mění. Co se právě dělá, je v `TODO.md`.
 
 ### Základ (mění jen svodná sešna)
 
 | Modul | Složka, hlavní soubory | Co dělá | Testy |
 |---|---|---|---|
 | xKernel | `src/kernel`: `engine.js`, `store.js`, `rng.js` | registr systémů, fáze a závislosti `after`, deklarované události, pevný krok 120 Hz, režimy, uložení stavu, náhoda přes `rngNext` | T0 |
-| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů), `load.js` (balíky a `mergePacks`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `light.js` (vzorec osvětlení), `rig.js` (matice koster) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), kontrola dokumentu polí |
+| xSpace | `src/xspace`: `formats.js` (jediná pravda o polích), `validate.js` (stálé kódy nálezů; tvar v `check.js`, prefab v `check-prefab.js`), `interact.js` (interakce prefabu: `interactions`, `interactionOf`, `doorInteraction`, N-010), `weapon.js` a `check-weapon.js` (zkušební zbraně: `rampValue`, `splashFalloff`, `pushDelta`, validátor, N-201), `load.js` (balíky, `mergePacks`, `materialFrom`), `geom.js` (kvádry, klíny, díly prefabů `partMesh` / `partTris` / `partCollider`, síť pro světlo `brushLightMesh` a `levelLightMeshes`), `samples.js` (vzorky světla levelu `levelSamples`, D-041), `light.js` (vzorec osvětlení), `bake.js` (čtení zapečeného světla, `doorOpenness`, D-044), `atlas.js` a `lightmap.js` (zkušební textura světla: atlas ploch, soubor XLM1, N-112), `body.js` (rozměry postavy, D-040), `pvs.js` (potenciálně viditelná množina buněk `levelPVS` a rozpočet viditelného `visibleTris`, N-014, D-057), `rig.js` (matice koster: `rigCompile` / `rigSolve` bez alokací, obálka `rigMatrices`, svázané klouby `jointFollow` / `rigFollow`) | formát dat a vše, co z něj musí A i B počítat stejně | T1 (včetně mutací), T1b až T1f, kontrola dokumentu polí |
 | xShell | `src/shell` | menu, pauza, nastavení z deklarací, katalog nabídek; engine nezná, mluví přes adaptér (D-006) | T4 (jen nastavení) |
 | zlatý vzorek | `packs/golden` (level xLab, 12 prefabů), generátor `tools/golden/make.mjs` | referenční data; výstup generátoru je bajtově shodný s repem | T1 |
 | xView | `tools/xview` → `dist/xview.html` | prohlížeč balíku: pět pohledů, vrstvy, validátor v prohlížeči | T2 |
 | xBench | `tools/xbench` → `dist/xbench.html` | měření stroje (28 případů); podle něj `06_ROZPOCTY` | T3 |
-| cíl `xlab_gen` | `tools/xlab_gen` → `dist/xlab_gen.html?level=N` | engine sešny A + balík sešny B; soubor, který Ondřej zkouší na T460 | T5 v prohlížeči |
+| cíl `xlab_gen` | `tools/xlab_gen` → `dist/xlab_gen.html?level=N` | engine + balík `gen_demo` sešny B i se soubory `kit_base` (textury, N-111); soubor, který Ondřej zkouší na T460 | T5 v prohlížeči |
 | zkouška A × B | `test/t5_axb.mjs`, `test/t5_lib/` (navigace a robot) | robot projde levely sešny B v enginu sešny A jen vstupy hráče | T5 (`npm run test:axb`) |
-| nástroje | `tools/xspace-check.mjs` (validátor), `tools/xspace-doc.mjs` (dokument polí), `tools/light-stat.mjs` (počty vzorků a T-spoje), `tools/run-tests.mjs`, `build.mjs` (cíle z `target.json`) | | |
+| nástroje | `tools/lib/read-pack.mjs` (čtení balíku, `files` pro N-111), `tools/xspace-check.mjs` (validátor), `tools/xspace-doc.mjs` (dokument polí), `tools/light-stat.mjs` (počty vzorků a T-spoje), `tools/run-tests.mjs`, `build.mjs` (cíle z `target.json`, soubory balíku jako base64) | | |
 
 ### Běh (sešna A)
 
-| Modul | Složka, hlavní soubory | Co dělá | Kde |
-|---|---|---|---|
-| xWorld | `src/world`: `world.js` (stavba levelu), `cells.js` a `visibility.js` (buňky, portály, ořez pohledem), `entities.js`, `behaviors.js`, `joints.js`, `io.js` (spojení výstup → vstup), `blocking.js` (D-025), `lightfield.js` a `lighting.js` (světlo po vrcholech, vrstvy), `occlusion.js` (zastínění a brány dveří), `facets.js`, `swing.js` (dveře od hráče, dočasné k N-109) | level z dat do scény a kolizí, entity, světlo | základ ve stavu vlny 1; světlo po vrcholech, brány a `swing.js` jen A |
-| xRender | `src/render`: `render.js`, `batch.js` (statické dávky po buňce a materiálu), `materials.js`, `fov.js` (zorné pole), `null.js` (vykreslení pro Node) | kreslí viditelné buňky, pevné řádky (D-023), clona portálu | `fov.js` jen A |
-| xPhys | `src/phys`: `phys.js`, `xform.js` | Rapier: svět, postava, tělesa, paprsky | základ (vlna 1), náprava kroku jen A |
-| xPlay | `src/play`: `player.js`, `move.js`, `profiles.js` (`arena`, `real`), `input.js`, `actions.js`, `interact.js` (použít, manipulovat), `terminal.js` (klidný režim, D-024) | hráč a interakce | základ (vlna 1), změny vlny 2 jen A |
-| aplikace | `src/app`: `main.js`, `game.js`, `settings.js`, `dev.js` (F3, F4), `hud.js`, `lock.js`, `bench.js` (`?bench`, F9) | sestavení hry `dist/xlab.html` a napojení na Shell | `bench.js` jen A |
+| Modul | Složka, hlavní soubory | Co dělá |
+|---|---|---|
+| xWorld | `src/world`: `world.js` (stavba levelu), `cells.js` a `visibility.js` (buňky, portály, ořez pohledem), `entities.js`, `behaviors.js` (dveře, ovladače, dveře od hráče), `joints.js`, `io.js` (spojení výstup → vstup), `blocking.js` (D-025), `lightfield.js` a `lighting.js` (světlo po vrcholech, vrstvy, okraj stínu po podílech), `occlusion.js` (zastínění a brány dveří; náhradní řešení, dokud běh nečte zapečený soubor), `facets.js`, `swing.js` (dveře od hráče pro data bez rozsahu na obě strany, N-109), `glb.js` (čtení `.glb` bez knihovny), `assets.js` (soubory balíku z `pack.files`) | level z dat do scény a kolizí, entity, světlo |
+| xRender | `src/render`: `render.js`, `batch.js` (statické dávky po buňce a materiálu), `materials.js` (textura × `color` / `albedoMean`, N-009), `opacity.js` (průhlednost, N-005), `fov.js` (zorné pole jako vodorovný úhel při 4 : 3), `rows.js` (pevné řádky se stropem výšky plátna, D-023, D-039), `null.js` (vykreslení pro Node) | kreslí viditelné buňky, clona portálu |
+| xPhys | `src/phys`: `phys.js`, `xform.js` | Rapier: svět, postava (odstup ze `src/xspace/body.js`), tělesa, paprsky, `trimesh` z `.glb` |
+| xPlay | `src/play`: `player.js`, `move.js`, `profiles.js` (`arena`, `real`; tělo ze základu), `input.js`, `actions.js`, `interact.js` (použít, manipulovat, klidný režim D-024), `terminal.js` (obsah obrazovky ve světě) | hráč a interakce |
+| aplikace | `src/app`: `main.js`, `game.js`, `settings.js`, `dev.js` (F3, F4), `hud.js`, `lock.js`, `bench.js` (`?bench`, F9), `probe.js` (sonda fyziky pro `?bench` a F3), `xlab_tex/` (zkušební cíl s texturami) | sestavení hry `dist/xlab.html` a napojení na Shell |
 
 ### Obsah a nástroje (sešna B)
 
-| Modul | Složka, hlavní soubory | Co dělá | Kde |
-|---|---|---|---|
-| xGen | `src/gen`: `layout.js`, `build.js`, `passage.js`, `furnish.js`, `catalog.js`, `body.js` (rozměry postavy, N-008), `presets/complex.js`, `presets/catacombs.js`, `cli.mjs` | generátor levelů ze seedu; 200 seedů bez nálezu | základ ve stavu vlny 1, `body.js` jen B |
-| xForge | `tools/forge`: `kit/*.mjs` (prefaby po druzích), `lib.mjs`, `materials.mjs`, `make-kit.mjs`, galerie → `dist/kit.html` | sada prefabů `packs/kit_base` (49 prefabů) | základ ve stavu vlny 1 |
-| xBake | `tools/bake`: výpočet vrstev, `format.mjs` (zápis), `read.mjs` (čtení, kandidát do základu), náhled → `dist/xbake.html` | zapečené světlo `levels/<id>.light.bin` (D-035) | jen B |
-| xDesigner | `tools/designer` → `dist/xgen.html` | prohlížeč vygenerovaných levelů; klikací designer zatím není | základ |
-| xSearcher | `tools/searcher/ZDROJE.md` | jen měření dosažitelnosti zdrojů; nástroj neexistuje | základ |
-| balíky | `packs/kit_base`, `packs/gen_demo` (tři levely: `complex_7`, `complex_21`, `catacombs_3`) | data pro hru a zkoušky | základ |
+| Modul | Složka, hlavní soubory | Co dělá |
+|---|---|---|
+| xGen | `src/gen`: `layout.js`, `build.js`, `passage.js`, `furnish.js`, `catalog.js`, `body.js` (rezerva generátoru nad postavou ze základu), `presets/complex.js`, `presets/catacombs.js`, `cli.mjs` | generátor levelů ze seedu; 200 seedů bez nálezu |
+| xForge | `tools/forge`: `kit/*.mjs` (prefaby po druzích), `lib.mjs`, `materials.mjs`, `textures.mjs` (textury sady z příjmu xSearcheru, zámek), `make-kit.mjs`, galerie → `dist/kit.html` (pohledy čistý, T460, grafická karta) | sada `packs/kit_base` (49 prefabů, 30 textur WebP 512 px) |
+| xBake | `tools/bake`: `bake.mjs` (vrstvy), `rays.mjs` (paprsky, stínění kvádry a kolizemi prefabů), `gates.mjs` (brány dveří, D-035), `format.mjs` (zápis a otisky), `scene.mjs`, `cli.mjs`, náhled → `dist/xbake.html` | zapečené světlo `levels/<id>.light.bin`; čtení je v základu (`src/xspace/bake.js`) |
+| xSearcher | `tools/searcher`: `find.mjs`, `sources/` (Poly Haven, ambientCG), `inbox.mjs`, `match.mjs`, `zip.mjs`, `http.mjs`, `ZDROJE.md` | hledání a příjem volných assetů CC0 do `packs/_inbox` se záznamem původu a licence |
+| xDesigner | `tools/designer` → `dist/xgen.html` | prohlížeč vygenerovaných levelů; klikací designer zatím není |
+| balíky | `packs/kit_base`, `packs/gen_demo` (tři levely: `complex_7`, `complex_21`, `catacombs_3`) | data pro hru a zkoušky |
 
-### Tok dat za běhu (stav po vlně 2 na větvích sešen)
+### Tok dat za běhu
 
 ```text
-balík (pack.json, levels/*.json, prefabs/*.json, materials.json)
-  └─ load.js + validate.js ─► world.js: kvádry → statické dávky (batch.js), kolize (phys.js)
-                                         entity → díly (partMesh), kolize (partCollider), klouby (rig.js)
-                                         vzorky světla (levelLightMeshes + pevné díly) → lightfield.js
-                                         zastínění (occlusion.js, paprsky Rapieru), brány dveří
+balík (pack.json, levels/*.json, prefabs/*.json, materials.json, assets: textury, .glb)
+  └─ load.js + validate.js (+ pack.files ze sestavení, N-111)
+       └─ world.js: kvádry → statické dávky (batch.js), kolize (phys.js)
+                    entity → díly (partMesh, glb.js), kolize (partCollider, trimesh), klouby (rig.js)
+                    vzorky světla (levelSamples: kvádry + pevné díly) → lightfield.js
+                    zastínění (occlusion.js, paprsky Rapieru), brány dveří (doorOpenness)
   └─ smyčka 120 Hz: input → sim (player, interakce) → physics (Rapier) → late (entity, io) → view (ořez, světlo, kreslení) → ui
-xBake (sešna B) dnes počítá totéž mimo hru a ukládá do levels/<id>.light.bin; běh soubor zatím nečte.
+xBake (sešna B) počítá vrstvy světla mimo hru do levels/<id>.light.bin; běh soubor zatím nečte (úkol sešny A, čtení je v src/xspace/bake.js).
 ```

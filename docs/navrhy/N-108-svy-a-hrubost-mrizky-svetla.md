@@ -43,4 +43,4 @@ K hrubosti stínu jsem ve své oblasti udělala dvě věci; švů se netýkají.
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+Varianta (a) a vynechání schovaných ploch přijaty a provedeny (D-037, 24. 11. 2026, `a37bd48`, `3380bf2`); švy na zlatém vzorku 128 → 0, varianta (b) není potřeba. Doplněk s polem `env.lightCell` zamítnut (D-043): mřížka vzorků zůstává 0,5 m, jemný stín má řešit textura světla (N-110).

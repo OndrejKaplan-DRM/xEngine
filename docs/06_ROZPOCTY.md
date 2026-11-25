@@ -133,7 +133,7 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | materiál | `MeshBasicMaterial` s barvou vrcholů; `MeshStandardMaterial` ne | měření | A | test |
 | vnitřní rozlišení | výchozí 768 řádků; volby 576, 768, 1080 | měření 0.2: interiér bez světel 2,4 ms v 768 a 4,4 ms v 1080 řádcích. O výchozích 1080 rozhodne až měření hry (`?bench`). | A | nastavení, `?bench` |
 | volání kreslení na pohled | ≤ 400 | měření 0.2 (400 volání 3,1 ms, 800 volání 5,4 ms) | A | `renderer.info`, test, T5 |
-| viditelné trojúhelníky | ≤ 300 tisíc | měření 0.2 (296 tis. = 3,8 ms, 95 % 7,2 ms; 594 tis. = 7,2 ms, 95 % 14,3 ms) | A, B | `renderer.info`, validátor |
+| viditelné trojúhelníky | ≤ 300 tisíc **z kterékoli buňky podle PVS** (D-057: `levelPVS`, `visibleTris`, `VISIBLE_TRIS_LOW`; všechny dveře otevřené, kvádry po síti světla) | měření 0.2 (296 tis. = 3,8 ms, 95 % 7,2 ms; 594 tis. = 7,2 ms, 95 % 14,3 ms). Ondřej 25. 11. 2026 v 1:29 sešně B: rozpočet podle toho, co je prokazatelně vidět. PVS je horní mez: `complex_7` po síti 0,25 m nejvýš 251 278 △ z buňky, T460 `?bench` 25. 11. 1:14 nejvýš 149 094 △ v pohledu (N-014) | A, B | `renderer.info`, T1f, B-T1 |
 | buňka mřížky světla | 0,5 m (xLab po D-037: 20 509 vzorků, 32 826 trojúhelníků; při 0,25 m 68 735 a 122 162; před D-037 to bylo 20 658 a 32 386, při 0,25 m 59 394 a 102 798) | spočteno ze zlatého vzorku | základ | `brushLightMesh` |
 | komprese textur (od vlny 2) | cíle S3TC a BPTC | měření | B | manifest |
 | krok simulace (120 Hz) | ≤ 2 ms | **měření ve hře 22. 11. 2026 mez překračuje:** 0,64 až 3,50 ms ve čtyřech pohledech levelů sešny B, z toho fyzika 0,60 až 3,10 ms (`docs/mereni/T460_2026-11-22_xlab_gen_F3.md`) | A | F3 a `?bench` na T460 |
@@ -142,11 +142,12 @@ Vykreslení má z 16,6 ms dostat nejvýš 10 ms; zbytek patří simulaci (dva kr
 | halda JavaScriptu | ≤ 400 MB | odhad | A | Chrome na T460 |
 | start do menu, načtení levelu | ≤ 5 s, ≤ 5 s | odhad | A | T460 |
 | výpočet vrstev světla při načtení xLabu | ≤ 2 s | odhad | A | T460 |
-| prefab | ≤ 500 △ běžný, ≤ 2 000 △ složitý | odhad | B | validátor |
+| prefab | ≤ 1 500 △; sestava (přístroj se sadou skla) ≤ 3 000 △ | Ondřej 25. 11. 2026 sešně B: o 50 % víc trojúhelníků, platí na prefab (volba 1 a); předtím odhad 500 běžný a 2 000 složitý | B | B-T9 |
 | buňka | ≤ 150 entit, ≤ 400 kvádrů | odhad | B | validátor |
 | generování levelu (50 místností) | ≤ 1 s v Node | odhad | B | test |
 | zapečení světla xLabu | ≤ 60 s v Node | odhad | B | test |
 | kód enginu ve hře (bez Rapieru a dat) | ≤ 1,5 MB | cíl | A | výpis sestavení |
+| celá hra (sestavení s balíky a daty) | ≤ 80 MB | Ondřej 25. 11. 2026 (D-054; předtím 25 MB) | B (data), A (kód) | výpis sestavení |
 | celá regrese základu | ≤ 3 min | cíl | svodná | `npm test` |
 
 Sandbox, ve kterém vznikají testy, kreslí softwarově na 2 jádrech. Jeho časy snímku s T460 nesouvisejí a nikde se neuvádějí jako výkon.

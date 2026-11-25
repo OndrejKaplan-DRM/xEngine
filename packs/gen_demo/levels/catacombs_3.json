@@ -13,200 +13,182 @@
     {
       "id": "c_chamber_01",
       "name": "Komora 1",
-      "bounds": { "min": [0, 0, 0], "max": [2.7, 2.7, 4.2] },
+      "bounds": { "min": [0, 0, 0], "max": [2.6, 2.9, 4] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_01",
       "name": "Chodba 1",
-      "bounds": { "min": [0, 0, 4.4], "max": [2.7, 2.4, 5.8] },
+      "bounds": { "min": [0, 0, 4.2], "max": [2.6, 2.7, 6] },
       "zone": "tunnel"
     },
     {
       "id": "c_cellar_01",
       "name": "Sklep 1",
-      "bounds": { "min": [0, 0, 6], "max": [2.7, 2.7, 8.6] },
-      "zone": "room_small"
-    },
-    {
-      "id": "c_cellar_02",
-      "name": "Sklep 2",
-      "bounds": { "min": [0, 0, 8.8], "max": [2.7, 2.8, 11.8] },
+      "bounds": { "min": [0, 0, 6.2], "max": [2.6, 2.9, 11.5] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_02",
       "name": "Chodba 2",
-      "bounds": { "min": [2.9, 0, 0], "max": [4.2, 2.3, 11.8] },
+      "bounds": { "min": [2.8, 0, 0], "max": [4.5, 2.6, 11.5] },
       "zone": "tunnel"
     },
     {
-      "id": "c_cellar_03",
-      "name": "Sklep 3",
-      "bounds": { "min": [4.4, 0, 0], "max": [8.1, 2.7, 3.2] },
+      "id": "c_chamber_02",
+      "name": "Komora 2",
+      "bounds": { "min": [4.7, 0, 0], "max": [8, 2.6, 3.6] },
       "zone": "room_small"
     },
     {
-      "id": "c_cellar_04",
-      "name": "Sklep 4",
-      "bounds": { "min": [4.4, 0, 3.4], "max": [8.1, 2.6, 6.3] },
+      "id": "c_niche_01",
+      "name": "Výklenek 1",
+      "bounds": { "min": [4.7, 0, 3.8], "max": [8, 2.7, 6.1] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_03",
       "name": "Chodba 3",
-      "bounds": { "min": [4.4, 0, 6.5], "max": [8.1, 2.3, 8] },
+      "bounds": { "min": [4.7, 0, 6.3], "max": [8, 2.8, 7.9] },
       "zone": "tunnel"
     },
     {
-      "id": "c_cellar_05",
-      "name": "Sklep 5",
-      "bounds": { "min": [4.4, 0, 8.2], "max": [8.1, 2.5, 11.8] },
+      "id": "c_cellar_02",
+      "name": "Sklep 2",
+      "bounds": { "min": [4.7, 0, 8.1], "max": [8, 2.8, 11.5] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_04",
       "name": "Chodba 4",
-      "bounds": { "min": [8.3, 0, 0], "max": [9.6, 2.4, 11.8] },
+      "bounds": { "min": [8.2, 0, 0], "max": [9.9, 2.6, 11.5] },
       "zone": "tunnel"
-    },
-    {
-      "id": "c_niche_01",
-      "name": "Výklenek 1",
-      "bounds": { "min": [9.8, 0, 0], "max": [12.1, 2.2, 2.8] },
-      "zone": "room_small"
     },
     {
       "id": "c_niche_02",
       "name": "Výklenek 2",
-      "bounds": { "min": [12.3, 0, 0], "max": [14.4, 2.4, 2.8] },
+      "bounds": { "min": [10.1, 0, 0], "max": [12.7, 2.6, 2] },
       "zone": "room_small"
     },
     {
-      "id": "c_cellar_06",
-      "name": "Sklep 6",
-      "bounds": { "min": [9.8, 0, 3], "max": [14.4, 2.4, 5.4] },
+      "id": "c_niche_03",
+      "name": "Výklenek 3",
+      "bounds": { "min": [10.1, 0, 2.2], "max": [12.7, 2.6, 4.2] },
+      "zone": "room_small"
+    },
+    {
+      "id": "c_cellar_03",
+      "name": "Sklep 3",
+      "bounds": { "min": [12.9, 0, 0], "max": [15.2, 2.7, 4.2] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_05",
       "name": "Chodba 5",
-      "bounds": { "min": [9.8, 0, 5.6], "max": [14.4, 2.4, 6.9] },
+      "bounds": { "min": [15.4, 0, 0], "max": [17.1, 2.8, 4.2] },
       "zone": "tunnel"
     },
     {
-      "id": "c_cellar_07",
-      "name": "Sklep 7",
-      "bounds": { "min": [9.8, 0, 7.1], "max": [14.4, 2.6, 9.2] },
+      "id": "c_cellar_04",
+      "name": "Sklep 4",
+      "bounds": { "min": [17.3, 0, 0], "max": [19.4, 2.6, 4.2] },
       "zone": "room_small"
     },
     {
-      "id": "c_cellar_08",
-      "name": "Sklep 8",
-      "bounds": { "min": [9.8, 0, 9.4], "max": [14.4, 2.8, 11.8] },
+      "id": "c_cellar_05",
+      "name": "Sklep 5",
+      "bounds": { "min": [19.6, 0, 0], "max": [21.8, 2.8, 4.2] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_06",
       "name": "Chodba 6",
-      "bounds": { "min": [14.6, 0, 0], "max": [16, 2.5, 11.8] },
+      "bounds": { "min": [10.1, 0, 4.4], "max": [21.8, 2.7, 6.2] },
       "zone": "tunnel"
     },
     {
-      "id": "c_cellar_09",
-      "name": "Sklep 9",
-      "bounds": { "min": [16.2, 0, 0], "max": [18.8, 2.5, 4] },
+      "id": "c_cellar_06",
+      "name": "Sklep 6",
+      "bounds": { "min": [10.1, 0, 6.4], "max": [13.9, 3, 8.8] },
       "zone": "room_small"
     },
     {
-      "id": "c_chamber_02",
-      "name": "Komora 2",
-      "bounds": { "min": [19, 0, 0], "max": [21.8, 2.8, 4] },
+      "id": "c_cellar_07",
+      "name": "Sklep 7",
+      "bounds": { "min": [10.1, 0, 9], "max": [13.9, 2.8, 11.5] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_07",
       "name": "Chodba 7",
-      "bounds": { "min": [16.2, 0, 4.2], "max": [21.8, 2.5, 5.7] },
+      "bounds": { "min": [14.1, 0, 6.4], "max": [16, 2.6, 11.5] },
       "zone": "tunnel"
     },
     {
       "id": "c_crypt_01",
       "name": "Krypta 1",
-      "bounds": { "min": [16.2, 0, 5.9], "max": [21.8, 2.9, 8.6] },
+      "bounds": { "min": [16.2, 0, 6.4], "max": [19.1, 3, 11.5] },
       "zone": "crypt"
     },
     {
-      "id": "c_crypt_02",
-      "name": "Krypta 2",
-      "bounds": { "min": [16.2, 0, 8.8], "max": [21.8, 3, 11.8] },
-      "zone": "crypt"
+      "id": "c_chamber_03",
+      "name": "Komora 3",
+      "bounds": { "min": [19.3, 0, 6.4], "max": [21.8, 2.8, 11.5] },
+      "zone": "room_small"
     },
     {
       "id": "c_corr_08",
       "name": "Chodba 8",
-      "bounds": { "min": [0, 0, 12], "max": [21.8, 2.4, 13.2] },
+      "bounds": { "min": [0, 0, 11.7], "max": [21.8, 2.6, 13.3] },
       "zone": "tunnel"
     },
     {
-      "id": "c_cellar_10",
-      "name": "Sklep 10",
-      "bounds": { "min": [0, 0, 13.4], "max": [4.1, 2.8, 15.8] },
+      "id": "c_chamber_04",
+      "name": "Komora 4",
+      "bounds": { "min": [0, 0, 13.5], "max": [4.6, 2.8, 15.9] },
       "zone": "room_small"
     },
     {
-      "id": "c_cellar_11",
-      "name": "Sklep 11",
-      "bounds": { "min": [0, 0, 16], "max": [4.1, 2.7, 18.9] },
+      "id": "c_cellar_08",
+      "name": "Sklep 8",
+      "bounds": { "min": [0, 0, 16.1], "max": [4.6, 2.6, 18.9] },
       "zone": "room_small"
     },
     {
       "id": "c_corr_09",
       "name": "Chodba 9",
-      "bounds": { "min": [4.3, 0, 13.4], "max": [5.7, 2.3, 18.9] },
+      "bounds": { "min": [4.8, 0, 13.5], "max": [6.6, 2.8, 18.9] },
       "zone": "tunnel"
     },
     {
-      "id": "c_crypt_03",
-      "name": "Krypta 3",
-      "bounds": { "min": [5.9, -0.54, 13.4], "max": [9.3, 3.1, 18.9] },
-      "zone": "crypt"
-    },
-    {
-      "id": "c_cellar_12",
-      "name": "Sklep 12",
-      "bounds": { "min": [9.5, 0, 13.4], "max": [12.1, 2.8, 18.9] },
-      "zone": "room_small"
-    },
-    {
-      "id": "c_corr_10",
-      "name": "Chodba 10",
-      "bounds": { "min": [12.3, 0, 13.4], "max": [13.7, 2.4, 18.9] },
-      "zone": "tunnel"
-    },
-    {
-      "id": "c_chamber_03",
-      "name": "Komora 3",
-      "bounds": { "min": [13.9, 0, 13.4], "max": [17, 2.8, 16.2] },
-      "zone": "room_small"
-    },
-    {
-      "id": "c_chamber_04",
-      "name": "Komora 4",
-      "bounds": { "min": [13.9, 0, 16.4], "max": [17, 2.4, 18.9] },
+      "id": "c_niche_04",
+      "name": "Výklenek 4",
+      "bounds": { "min": [6.8, 0, 13.5], "max": [9.9, 2.6, 15.8] },
       "zone": "room_small"
     },
     {
       "id": "c_chamber_05",
       "name": "Komora 5",
-      "bounds": { "min": [17.2, 0, 13.4], "max": [21.8, 2.6, 16.1] },
+      "bounds": { "min": [6.8, 0, 16], "max": [9.9, 2.6, 18.9] },
       "zone": "room_small"
     },
     {
-      "id": "c_cellar_13",
-      "name": "Sklep 13",
-      "bounds": { "min": [17.2, 0, 16.3], "max": [21.8, 2.6, 18.9] },
-      "zone": "room_small"
+      "id": "c_crypt_02",
+      "name": "Krypta 2",
+      "bounds": { "min": [10.1, -0.36, 13.5], "max": [14, 3.1, 18.9] },
+      "zone": "crypt"
+    },
+    {
+      "id": "c_crypt_03",
+      "name": "Krypta 3",
+      "bounds": { "min": [14.2, -0.72, 13.5], "max": [17.8, 3, 18.9] },
+      "zone": "crypt"
+    },
+    {
+      "id": "c_crypt_04",
+      "name": "Krypta 4",
+      "bounds": { "min": [18, -0.54, 13.5], "max": [21.8, 3.2, 18.9] },
+      "zone": "crypt"
     }
   ],
   "portals": [
@@ -214,540 +196,559 @@
       "id": "p_01",
       "a": "c_corr_01",
       "b": "c_corr_02",
-      "quad": [[2.8, 0, 4.55], [2.8, 0, 5.65], [2.8, 2.2, 5.65], [2.8, 2.2, 4.55]]
+      "quad": [[2.7, 0, 4.35], [2.7, 0, 5.85], [2.7, 2.2, 5.85], [2.7, 2.2, 4.35]]
     },
     {
       "id": "p_02",
       "a": "c_corr_02",
       "b": "c_corr_08",
-      "quad": [[3.05, 0, 11.9], [4.05, 0, 11.9], [4.05, 2.2, 11.9], [3.05, 2.2, 11.9]]
+      "quad": [[2.95, 0, 11.6], [4.35, 0, 11.6], [4.35, 2.2, 11.6], [2.95, 2.2, 11.6]]
     },
     {
       "id": "p_03",
       "a": "c_corr_08",
-      "b": "c_corr_10",
-      "quad": [[12.45, 0, 13.3], [13.55, 0, 13.3], [13.55, 2.2, 13.3], [12.45, 2.2, 13.3]]
+      "b": "c_corr_09",
+      "quad": [[4.95, 0, 13.4], [6.45, 0, 13.4], [6.45, 2.2, 13.4], [4.95, 2.2, 13.4]]
     },
     {
       "id": "p_04",
-      "a": "c_corr_02",
-      "b": "c_corr_03",
-      "quad": [[4.3, 0, 6.65], [4.3, 0, 7.85], [4.3, 2.2, 7.85], [4.3, 2.2, 6.65]]
+      "a": "c_corr_08",
+      "b": "c_niche_04",
+      "quad": [[7.35, 0, 13.4], [9.35, 0, 13.4], [9.35, 2, 13.4], [7.35, 2, 13.4]]
     },
     {
       "id": "p_05",
-      "a": "c_corr_03",
-      "b": "c_corr_04",
-      "quad": [[8.2, 0, 6.65], [8.2, 0, 7.85], [8.2, 2.2, 7.85], [8.2, 2.2, 6.65]]
+      "a": "c_corr_07",
+      "b": "c_corr_08",
+      "quad": [[14.25, 0, 11.6], [15.85, 0, 11.6], [15.85, 2.2, 11.6], [14.25, 2.2, 11.6]]
     },
     {
       "id": "p_06",
       "a": "c_corr_04",
-      "b": "c_niche_01",
-      "quad": [[9.7, 0, 0.4], [9.7, 0, 2.4], [9.7, 2, 2.4], [9.7, 2, 0.4]]
+      "b": "c_corr_08",
+      "quad": [[8.35, 0, 11.6], [9.75, 0, 11.6], [9.75, 2.2, 11.6], [8.35, 2.2, 11.6]]
     },
     {
       "id": "p_07",
-      "a": "c_corr_06",
-      "b": "c_corr_08",
-      "quad": [[14.75, 0, 11.9], [15.85, 0, 11.9], [15.85, 2.2, 11.9], [14.75, 2.2, 11.9]]
+      "a": "c_corr_03",
+      "b": "c_corr_04",
+      "quad": [[8.1, 0, 6.45], [8.1, 0, 7.75], [8.1, 2.2, 7.75], [8.1, 2.2, 6.45]]
     },
     {
       "id": "p_08",
-      "a": "c_corr_05",
-      "b": "c_corr_06",
-      "quad": [[14.5, 0, 5.75], [14.5, 0, 6.75], [14.5, 2.2, 6.75], [14.5, 2.2, 5.75]]
+      "a": "c_corr_04",
+      "b": "c_niche_02",
+      "quad": [[10, 0, 0.15], [10, 0, 1.85], [10, 2, 1.85], [10, 2, 0.15]]
     },
     {
       "id": "p_09",
-      "a": "c_niche_02",
-      "b": "c_corr_06",
-      "quad": [[14.5, 0, 0.4], [14.5, 0, 2.4], [14.5, 2, 2.4], [14.5, 2, 0.4]]
+      "a": "c_niche_01",
+      "b": "c_corr_03",
+      "quad": [[5.35, 0, 6.2], [7.35, 0, 6.2], [7.35, 2, 6.2], [5.35, 2, 6.2]]
     },
     {
       "id": "p_10",
-      "a": "c_corr_06",
-      "b": "c_corr_07",
-      "quad": [[16.1, 0, 4.35], [16.1, 0, 5.55], [16.1, 2.2, 5.55], [16.1, 2.2, 4.35]]
+      "a": "c_corr_04",
+      "b": "c_corr_06",
+      "quad": [[10, 0, 4.55], [10, 0, 6.05], [10, 2.2, 6.05], [10, 2.2, 4.55]]
     },
     {
       "id": "p_11",
-      "a": "c_corr_08",
-      "b": "c_corr_09",
-      "quad": [[4.45, 0, 13.3], [5.55, 0, 13.3], [5.55, 2.2, 13.3], [4.45, 2.2, 13.3]]
+      "a": "c_corr_05",
+      "b": "c_corr_06",
+      "quad": [[15.55, 0, 4.3], [16.95, 0, 4.3], [16.95, 2.2, 4.3], [15.55, 2.2, 4.3]]
     },
     {
       "id": "p_12",
-      "a": "c_crypt_02",
-      "b": "c_corr_08",
-      "quad": [[19.75, 0, 11.9], [20.95, 0, 11.9], [20.95, 2.1, 11.9], [19.75, 2.1, 11.9]]
+      "a": "c_niche_03",
+      "b": "c_corr_06",
+      "quad": [[10.4, 0, 4.3], [12.4, 0, 4.3], [12.4, 2, 4.3], [10.4, 2, 4.3]]
     },
     {
       "id": "p_13",
-      "a": "c_corr_08",
-      "b": "c_cellar_12",
-      "quad": [[10.7, 0, 13.3], [11.7, 0, 13.3], [11.7, 2.1, 13.3], [10.7, 2.1, 13.3]]
+      "a": "c_cellar_05",
+      "b": "c_corr_06",
+      "quad": [[20.25, 0, 4.3], [21.45, 0, 4.3], [21.45, 2.1, 4.3], [20.25, 2.1, 4.3]]
     },
     {
       "id": "p_14",
-      "a": "c_corr_04",
-      "b": "c_cellar_08",
-      "quad": [[9.7, 0, 10.45], [9.7, 0, 11.65], [9.7, 2.1, 11.65], [9.7, 2.1, 10.45]]
+      "a": "c_crypt_01",
+      "b": "c_corr_08",
+      "quad": [[17.9, 0, 11.6], [18.9, 0, 11.6], [18.9, 2.1, 11.6], [17.9, 2.1, 11.6]]
     },
     {
       "id": "p_15",
-      "a": "c_chamber_02",
-      "b": "c_corr_07",
-      "quad": [[19.45, 0, 4.1], [20.35, 0, 4.1], [20.35, 2.1, 4.1], [19.45, 2.1, 4.1]]
+      "a": "c_corr_04",
+      "b": "c_cellar_07",
+      "quad": [[10, 0, 10.05], [10, 0, 11.25], [10, 2.1, 11.25], [10, 2.1, 10.05]]
     },
     {
       "id": "p_16",
       "a": "c_corr_03",
-      "b": "c_cellar_05",
-      "quad": [[6.15, 0, 8.1], [7.45, 0, 8.1], [7.45, 2.1, 8.1], [6.15, 2.1, 8.1]]
+      "b": "c_cellar_02",
+      "quad": [[6.55, 0, 8], [7.45, 0, 8], [7.45, 2.1, 8], [6.55, 2.1, 8]]
     },
     {
       "id": "p_17",
-      "a": "c_cellar_02",
-      "b": "c_corr_08",
-      "quad": [[1, 0, 11.9], [2.3, 0, 11.9], [2.3, 2.1, 11.9], [1, 2.1, 11.9]]
+      "a": "c_chamber_04",
+      "b": "c_corr_09",
+      "quad": [[4.7, 0, 13.75], [4.7, 0, 15.05], [4.7, 2.1, 15.05], [4.7, 2.1, 13.75]]
     },
     {
       "id": "p_18",
-      "a": "c_corr_08",
-      "b": "c_crypt_03",
-      "quad": [[6.45, 0, 13.3], [7.55, 0, 13.3], [7.55, 2.1, 13.3], [6.45, 2.1, 13.3]]
+      "a": "c_cellar_01",
+      "b": "c_corr_08",
+      "quad": [[0.7, 0, 11.6], [2, 0, 11.6], [2, 2.1, 11.6], [0.7, 2.1, 11.6]]
     },
     {
       "id": "p_19",
-      "a": "c_corr_10",
-      "b": "c_chamber_04",
-      "quad": [[13.8, 0, 16.6], [13.8, 0, 17.5], [13.8, 2, 17.5], [13.8, 2, 16.6]],
-      "door": "e_door_01"
+      "a": "c_corr_09",
+      "b": "c_chamber_05",
+      "quad": [[6.7, 0, 17.3], [6.7, 0, 18.4], [6.7, 2.1, 18.4], [6.7, 2.1, 17.3]]
     },
     {
       "id": "p_20",
-      "a": "c_corr_06",
-      "b": "c_crypt_01",
-      "quad": [[16.1, 0, 6.45], [16.1, 0, 7.85], [16.1, 2.1, 7.85], [16.1, 2.1, 6.45]]
+      "a": "c_cellar_03",
+      "b": "c_corr_05",
+      "quad": [[15.3, 0, 2.55], [15.3, 0, 3.55], [15.3, 2, 3.55], [15.3, 2, 2.55]],
+      "door": "e_door_01"
     },
     {
       "id": "p_21",
       "a": "c_corr_08",
-      "b": "c_chamber_03",
-      "quad": [[14.2, 0, 13.3], [15.2, 0, 13.3], [15.2, 2.1, 13.3], [14.2, 2.1, 13.3]]
+      "b": "c_crypt_03",
+      "quad": [[15.9, 0, 13.4], [17.3, 0, 13.4], [17.3, 2.1, 13.4], [15.9, 2.1, 13.4]]
     },
     {
       "id": "p_22",
-      "a": "c_cellar_06",
+      "a": "c_cellar_04",
       "b": "c_corr_06",
-      "quad": [[14.5, 0, 4.05], [14.5, 0, 5.15], [14.5, 2.1, 5.15], [14.5, 2.1, 4.05]]
+      "quad": [[18.25, 0, 4.3], [19.25, 0, 4.3], [19.25, 2.1, 4.3], [18.25, 2.1, 4.3]]
     },
     {
       "id": "p_23",
-      "a": "c_cellar_11",
-      "b": "c_corr_09",
-      "quad": [[4.2, 0, 16.6], [4.2, 0, 17.5], [4.2, 2.1, 17.5], [4.2, 2.1, 16.6]]
+      "a": "c_corr_08",
+      "b": "c_crypt_02",
+      "quad": [[10.75, 0, 13.4], [11.85, 0, 13.4], [11.85, 2.1, 13.4], [10.75, 2.1, 13.4]]
     },
     {
       "id": "p_24",
-      "a": "c_corr_01",
-      "b": "c_cellar_01",
-      "quad": [[0.9, 0, 5.9], [2, 0, 5.9], [2, 2.1, 5.9], [0.9, 2.1, 5.9]]
+      "a": "c_chamber_03",
+      "b": "c_corr_08",
+      "quad": [[20.45, 0, 11.6], [21.35, 0, 11.6], [21.35, 2.1, 11.6], [20.45, 2.1, 11.6]]
     },
     {
       "id": "p_25",
-      "a": "c_cellar_04",
-      "b": "c_corr_04",
-      "quad": [[8.2, 0, 4.15], [8.2, 0, 5.05], [8.2, 2, 5.05], [8.2, 2, 4.15]],
-      "door": "e_door_02"
+      "a": "c_chamber_01",
+      "b": "c_corr_01",
+      "quad": [[1.1, 0, 4.1], [2.2, 0, 4.1], [2.2, 2.1, 4.1], [1.1, 2.1, 4.1]]
     },
     {
       "id": "p_26",
-      "a": "c_cellar_10",
-      "b": "c_corr_09",
-      "quad": [[4.2, 0, 13.95], [4.2, 0, 15.25], [4.2, 2.1, 15.25], [4.2, 2.1, 13.95]]
+      "a": "c_corr_04",
+      "b": "c_cellar_06",
+      "quad": [[10, 0, 6.75], [10, 0, 7.75], [10, 2, 7.75], [10, 2, 6.75]],
+      "door": "e_door_02"
     },
     {
       "id": "p_27",
-      "a": "c_corr_06",
-      "b": "c_cellar_09",
-      "quad": [[16.1, 0, 1.7], [16.1, 0, 2.6], [16.1, 2, 2.6], [16.1, 2, 1.7]],
-      "door": "e_door_03"
+      "a": "c_corr_08",
+      "b": "c_crypt_04",
+      "quad": [[18.25, 0, 13.4], [19.55, 0, 13.4], [19.55, 2.1, 13.4], [18.25, 2.1, 13.4]]
     },
     {
       "id": "p_28",
-      "a": "c_corr_05",
-      "b": "c_cellar_07",
-      "quad": [[12.2, 0, 7], [13.1, 0, 7], [13.1, 2, 7], [12.2, 2, 7]],
-      "door": "e_door_04"
+      "a": "c_cellar_08",
+      "b": "c_corr_09",
+      "quad": [[4.7, 0, 16.85], [4.7, 0, 17.85], [4.7, 2, 17.85], [4.7, 2, 16.85]],
+      "door": "e_door_03"
     },
     {
       "id": "p_29",
-      "a": "c_corr_08",
-      "b": "c_chamber_05",
-      "quad": [[19.15, 0, 13.3], [20.55, 0, 13.3], [20.55, 2.1, 13.3], [19.15, 2.1, 13.3]]
+      "a": "c_corr_02",
+      "b": "c_chamber_02",
+      "quad": [[4.6, 0, 0.35], [4.6, 0, 1.35], [4.6, 2, 1.35], [4.6, 2, 0.35]],
+      "door": "e_door_04"
     },
     {
       "id": "p_30",
-      "a": "c_chamber_05",
-      "b": "c_cellar_13",
-      "quad": [[17.65, 0, 16.2], [18.55, 0, 16.2], [18.55, 2, 16.2], [17.65, 2, 16.2]],
-      "door": "e_door_05"
+      "a": "c_chamber_02",
+      "b": "c_corr_04",
+      "quad": [[8.1, 0, 1.9], [8.1, 0, 3.3], [8.1, 2.1, 3.3], [8.1, 2.1, 1.9]]
     },
     {
       "id": "p_31",
-      "a": "c_chamber_01",
-      "b": "c_corr_02",
-      "quad": [[2.8, 0, 2.3], [2.8, 0, 3.2], [2.8, 2, 3.2], [2.8, 2, 2.3]],
-      "door": "e_door_06"
+      "a": "c_corr_01",
+      "b": "c_cellar_01",
+      "quad": [[0.45, 0, 6.1], [1.45, 0, 6.1], [1.45, 2, 6.1], [0.45, 2, 6.1]],
+      "door": "e_door_05"
     },
     {
       "id": "p_32",
-      "a": "c_corr_02",
-      "b": "c_cellar_03",
-      "quad": [[4.3, 0, 0.6], [4.3, 0, 2], [4.3, 2.1, 2], [4.3, 2.1, 0.6]]
+      "a": "c_corr_06",
+      "b": "c_corr_07",
+      "quad": [[14.25, 0, 6.3], [15.85, 0, 6.3], [15.85, 2.2, 6.3], [14.25, 2.2, 6.3]]
     },
     {
       "id": "p_33",
-      "a": "c_corr_04",
-      "b": "c_cellar_07",
-      "quad": [[9.7, 0, 7.5], [9.7, 0, 8.8], [9.7, 2.1, 8.8], [9.7, 2.1, 7.5]]
-    },
-    {
-      "id": "p_34",
-      "a": "c_cellar_01",
-      "b": "c_corr_02",
-      "quad": [[2.8, 0, 7.2], [2.8, 0, 8.1], [2.8, 2, 8.1], [2.8, 2, 7.2]],
-      "door": "e_door_07"
-    },
-    {
-      "id": "p_35",
-      "a": "c_cellar_01",
-      "b": "c_cellar_02",
-      "quad": [[0.4, 0, 8.7], [1.7, 0, 8.7], [1.7, 2.1, 8.7], [0.4, 2.1, 8.7]]
+      "a": "c_corr_06",
+      "b": "c_chamber_03",
+      "quad": [[20.15, 0, 6.3], [21.15, 0, 6.3], [21.15, 2, 6.3], [20.15, 2, 6.3]],
+      "door": "e_door_06"
     }
   ],
   "brushes": [
-    { "id": "b_floor_0001", "cell": "c_chamber_01", "min": [0, -0.2, 0], "max": [2.7, 0, 4.2], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0002", "cell": "c_chamber_01", "min": [0, 2.7, 0], "max": [2.7, 2.9, 4.2], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0003", "cell": "c_corr_01", "min": [0, -0.2, 4.4], "max": [2.7, 0, 5.8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0004", "cell": "c_corr_01", "min": [0, 2.4, 4.4], "max": [2.7, 2.6, 5.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0005", "cell": "c_cellar_01", "min": [0, -0.2, 6], "max": [2.7, 0, 8.6], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0006", "cell": "c_cellar_01", "min": [0, 2.7, 6], "max": [2.7, 2.9, 8.6], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0007", "cell": "c_cellar_02", "min": [0, -0.2, 8.8], "max": [2.7, 0, 11.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0008", "cell": "c_cellar_02", "min": [0, 2.8, 8.8], "max": [2.7, 3, 11.8], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0009", "cell": "c_corr_02", "min": [2.9, -0.2, 0], "max": [4.2, 0, 11.8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0010", "cell": "c_corr_02", "min": [2.9, 2.3, 0], "max": [4.2, 2.5, 11.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0011", "cell": "c_cellar_03", "min": [4.4, -0.2, 0], "max": [8.1, 0, 3.2], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0012", "cell": "c_cellar_03", "min": [4.4, 2.7, 0], "max": [8.1, 2.9, 3.2], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0013", "cell": "c_cellar_04", "min": [4.4, -0.2, 3.4], "max": [8.1, 0, 6.3], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0014", "cell": "c_cellar_04", "min": [4.4, 2.6, 3.4], "max": [8.1, 2.8, 6.3], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0015", "cell": "c_corr_03", "min": [4.4, -0.2, 6.5], "max": [8.1, 0, 8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0016", "cell": "c_corr_03", "min": [4.4, 2.3, 6.5], "max": [8.1, 2.5, 8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0017", "cell": "c_cellar_05", "min": [4.4, -0.2, 8.2], "max": [8.1, 0, 11.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0018", "cell": "c_cellar_05", "min": [4.4, 2.5, 8.2], "max": [8.1, 2.7, 11.8], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0019", "cell": "c_corr_04", "min": [8.3, -0.2, 0], "max": [9.6, 0, 11.8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0020", "cell": "c_corr_04", "min": [8.3, 2.4, 0], "max": [9.6, 2.6, 11.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0021", "cell": "c_niche_01", "min": [9.8, -0.2, 0], "max": [12.1, 0, 2.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0022", "cell": "c_niche_01", "min": [9.8, 2.2, 0], "max": [12.1, 2.4, 2.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0023", "cell": "c_niche_02", "min": [12.3, -0.2, 0], "max": [14.4, 0, 2.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0024", "cell": "c_niche_02", "min": [12.3, 2.4, 0], "max": [14.4, 2.6, 2.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0025", "cell": "c_cellar_06", "min": [9.8, -0.2, 3], "max": [14.4, 0, 5.4], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0026", "cell": "c_cellar_06", "min": [9.8, 2.4, 3], "max": [14.4, 2.6, 5.4], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0027", "cell": "c_corr_05", "min": [9.8, -0.2, 5.6], "max": [14.4, 0, 6.9], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0028", "cell": "c_corr_05", "min": [9.8, 2.4, 5.6], "max": [14.4, 2.6, 6.9], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0029", "cell": "c_cellar_07", "min": [9.8, -0.2, 7.1], "max": [14.4, 0, 9.2], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0030", "cell": "c_cellar_07", "min": [9.8, 2.6, 7.1], "max": [14.4, 2.8, 9.2], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0031", "cell": "c_cellar_08", "min": [9.8, -0.2, 9.4], "max": [14.4, 0, 11.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0032", "cell": "c_cellar_08", "min": [9.8, 2.8, 9.4], "max": [14.4, 3, 11.8], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0033", "cell": "c_corr_06", "min": [14.6, -0.2, 0], "max": [16, 0, 11.8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0034", "cell": "c_corr_06", "min": [14.6, 2.5, 0], "max": [16, 2.7, 11.8], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0035", "cell": "c_cellar_09", "min": [16.2, -0.2, 0], "max": [18.8, 0, 4], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0036", "cell": "c_cellar_09", "min": [16.2, 2.5, 0], "max": [18.8, 2.7, 4], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0037", "cell": "c_chamber_02", "min": [19, -0.2, 0], "max": [21.8, 0, 4], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0038", "cell": "c_chamber_02", "min": [19, 2.8, 0], "max": [21.8, 3, 4], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0039", "cell": "c_corr_07", "min": [16.2, -0.2, 4.2], "max": [21.8, 0, 5.7], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0040", "cell": "c_corr_07", "min": [16.2, 2.5, 4.2], "max": [21.8, 2.7, 5.7], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0041", "cell": "c_crypt_01", "min": [16.2, -0.2, 5.9], "max": [21.8, 0, 8.6], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0042", "cell": "c_crypt_01", "min": [16.2, 2.9, 5.9], "max": [21.8, 3.1, 8.6], "mat": "stone_block", "tag": "ceiling" },
-    { "id": "b_floor_0043", "cell": "c_crypt_02", "min": [16.2, -0.2, 8.8], "max": [21.8, 0, 11.8], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0044", "cell": "c_crypt_02", "min": [16.2, 3, 8.8], "max": [21.8, 3.2, 11.8], "mat": "stone_block", "tag": "ceiling" },
-    { "id": "b_floor_0045", "cell": "c_corr_08", "min": [0, -0.2, 12], "max": [21.8, 0, 13.2], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0046", "cell": "c_corr_08", "min": [0, 2.4, 12], "max": [21.8, 2.6, 13.2], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0047", "cell": "c_cellar_10", "min": [0, -0.2, 13.4], "max": [4.1, 0, 15.8], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0048", "cell": "c_cellar_10", "min": [0, 2.8, 13.4], "max": [4.1, 3, 15.8], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0049", "cell": "c_cellar_11", "min": [0, -0.2, 16], "max": [4.1, 0, 18.9], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0050", "cell": "c_cellar_11", "min": [0, 2.7, 16], "max": [4.1, 2.9, 18.9], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0051", "cell": "c_corr_09", "min": [4.3, -0.2, 13.4], "max": [5.7, 0, 18.9], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0052", "cell": "c_corr_09", "min": [4.3, 2.3, 13.4], "max": [5.7, 2.5, 18.9], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0053", "cell": "c_crypt_03", "min": [5.9, -0.74, 13.4], "max": [9.3, -0.54, 18.9], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0054", "cell": "c_crypt_03", "min": [5.9, 3.1, 13.4], "max": [9.3, 3.3, 18.9], "mat": "stone_block", "tag": "ceiling" },
-    { "id": "b_floor_0055", "cell": "c_cellar_12", "min": [9.5, -0.2, 13.4], "max": [12.1, 0, 18.9], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0056", "cell": "c_cellar_12", "min": [9.5, 2.8, 13.4], "max": [12.1, 3, 18.9], "mat": "brick_red", "tag": "ceiling" },
-    { "id": "b_floor_0057", "cell": "c_corr_10", "min": [12.3, -0.2, 13.4], "max": [13.7, 0, 18.9], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0058", "cell": "c_corr_10", "min": [12.3, 2.4, 13.4], "max": [13.7, 2.6, 18.9], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0059", "cell": "c_chamber_03", "min": [13.9, -0.2, 13.4], "max": [17, 0, 16.2], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0060", "cell": "c_chamber_03", "min": [13.9, 2.8, 13.4], "max": [17, 3, 16.2], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0061", "cell": "c_chamber_04", "min": [13.9, -0.2, 16.4], "max": [17, 0, 18.9], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0062", "cell": "c_chamber_04", "min": [13.9, 2.4, 16.4], "max": [17, 2.6, 18.9], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0063", "cell": "c_chamber_05", "min": [17.2, -0.2, 13.4], "max": [21.8, 0, 16.1], "mat": "stone_slab", "tag": "floor" },
-    { "id": "b_ceiling_0064", "cell": "c_chamber_05", "min": [17.2, 2.6, 13.4], "max": [21.8, 2.8, 16.1], "mat": "stone_rough", "tag": "ceiling" },
-    { "id": "b_floor_0065", "cell": "c_cellar_13", "min": [17.2, -0.2, 16.3], "max": [21.8, 0, 18.9], "mat": "dirt_packed", "tag": "floor" },
-    { "id": "b_ceiling_0066", "cell": "c_cellar_13", "min": [17.2, 2.6, 16.3], "max": [21.8, 2.8, 18.9], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0001", "cell": "c_chamber_01", "min": [0, -0.2, 0], "max": [2.6, 0, 4], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0002", "cell": "c_chamber_01", "min": [0, 2.9, 0], "max": [2.6, 3.1, 4], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0003", "cell": "c_corr_01", "min": [0, -0.2, 4.2], "max": [2.6, 0, 6], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0004", "cell": "c_corr_01", "min": [0, 2.7, 4.2], "max": [2.6, 2.9, 6], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0005", "cell": "c_cellar_01", "min": [0, -0.2, 6.2], "max": [2.6, 0, 11.5], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0006", "cell": "c_cellar_01", "min": [0, 2.9, 6.2], "max": [2.6, 3.1, 11.5], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0007", "cell": "c_corr_02", "min": [2.8, -0.2, 0], "max": [4.5, 0, 11.5], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0008", "cell": "c_corr_02", "min": [2.8, 2.6, 0], "max": [4.5, 2.8, 11.5], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0009", "cell": "c_chamber_02", "min": [4.7, -0.2, 0], "max": [8, 0, 3.6], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0010", "cell": "c_chamber_02", "min": [4.7, 2.6, 0], "max": [8, 2.8, 3.6], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0011", "cell": "c_niche_01", "min": [4.7, -0.2, 3.8], "max": [8, 0, 6.1], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0012", "cell": "c_niche_01", "min": [4.7, 2.7, 3.8], "max": [8, 2.9, 6.1], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0013", "cell": "c_corr_03", "min": [4.7, -0.2, 6.3], "max": [8, 0, 7.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0014", "cell": "c_corr_03", "min": [4.7, 2.8, 6.3], "max": [8, 3, 7.9], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0015", "cell": "c_cellar_02", "min": [4.7, -0.2, 8.1], "max": [8, 0, 11.5], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0016", "cell": "c_cellar_02", "min": [4.7, 2.8, 8.1], "max": [8, 3, 11.5], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0017", "cell": "c_corr_04", "min": [8.2, -0.2, 0], "max": [9.9, 0, 11.5], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0018", "cell": "c_corr_04", "min": [8.2, 2.6, 0], "max": [9.9, 2.8, 11.5], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0019", "cell": "c_niche_02", "min": [10.1, -0.2, 0], "max": [12.7, 0, 2], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0020", "cell": "c_niche_02", "min": [10.1, 2.6, 0], "max": [12.7, 2.8, 2], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0021", "cell": "c_niche_03", "min": [10.1, -0.2, 2.2], "max": [12.7, 0, 4.2], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0022", "cell": "c_niche_03", "min": [10.1, 2.6, 2.2], "max": [12.7, 2.8, 4.2], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0023", "cell": "c_cellar_03", "min": [12.9, -0.2, 0], "max": [15.2, 0, 4.2], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0024", "cell": "c_cellar_03", "min": [12.9, 2.7, 0], "max": [15.2, 2.9, 4.2], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0025", "cell": "c_corr_05", "min": [15.4, -0.2, 0], "max": [17.1, 0, 4.2], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0026", "cell": "c_corr_05", "min": [15.4, 2.8, 0], "max": [17.1, 3, 4.2], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0027", "cell": "c_cellar_04", "min": [17.3, -0.2, 0], "max": [19.4, 0, 4.2], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0028", "cell": "c_cellar_04", "min": [17.3, 2.6, 0], "max": [19.4, 2.8, 4.2], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0029", "cell": "c_cellar_05", "min": [19.6, -0.2, 0], "max": [21.8, 0, 4.2], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0030", "cell": "c_cellar_05", "min": [19.6, 2.8, 0], "max": [21.8, 3, 4.2], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0031", "cell": "c_corr_06", "min": [10.1, -0.2, 4.4], "max": [21.8, 0, 6.2], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0032", "cell": "c_corr_06", "min": [10.1, 2.7, 4.4], "max": [21.8, 2.9, 6.2], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0033", "cell": "c_cellar_06", "min": [10.1, -0.2, 6.4], "max": [13.9, 0, 8.8], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0034", "cell": "c_cellar_06", "min": [10.1, 3, 6.4], "max": [13.9, 3.2, 8.8], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0035", "cell": "c_cellar_07", "min": [10.1, -0.2, 9], "max": [13.9, 0, 11.5], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0036", "cell": "c_cellar_07", "min": [10.1, 2.8, 9], "max": [13.9, 3, 11.5], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0037", "cell": "c_corr_07", "min": [14.1, -0.2, 6.4], "max": [16, 0, 11.5], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0038", "cell": "c_corr_07", "min": [14.1, 2.6, 6.4], "max": [16, 2.8, 11.5], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0039", "cell": "c_crypt_01", "min": [16.2, -0.2, 6.4], "max": [19.1, 0, 11.5], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0040", "cell": "c_crypt_01", "min": [16.2, 3, 6.4], "max": [19.1, 3.2, 11.5], "mat": "stone_block", "tag": "ceiling" },
+    { "id": "b_floor_0041", "cell": "c_chamber_03", "min": [19.3, -0.2, 6.4], "max": [21.8, 0, 11.5], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0042", "cell": "c_chamber_03", "min": [19.3, 2.8, 6.4], "max": [21.8, 3, 11.5], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0043", "cell": "c_corr_08", "min": [0, -0.2, 11.7], "max": [21.8, 0, 13.3], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0044", "cell": "c_corr_08", "min": [0, 2.6, 11.7], "max": [21.8, 2.8, 13.3], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0045", "cell": "c_chamber_04", "min": [0, -0.2, 13.5], "max": [4.6, 0, 15.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0046", "cell": "c_chamber_04", "min": [0, 2.8, 13.5], "max": [4.6, 3, 15.9], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0047", "cell": "c_cellar_08", "min": [0, -0.2, 16.1], "max": [4.6, 0, 18.9], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0048", "cell": "c_cellar_08", "min": [0, 2.6, 16.1], "max": [4.6, 2.8, 18.9], "mat": "brick_red", "tag": "ceiling" },
+    { "id": "b_floor_0049", "cell": "c_corr_09", "min": [4.8, -0.2, 13.5], "max": [6.6, 0, 18.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0050", "cell": "c_corr_09", "min": [4.8, 2.8, 13.5], "max": [6.6, 3, 18.9], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0051", "cell": "c_niche_04", "min": [6.8, -0.2, 13.5], "max": [9.9, 0, 15.8], "mat": "dirt_packed", "tag": "floor" },
+    { "id": "b_ceiling_0052", "cell": "c_niche_04", "min": [6.8, 2.6, 13.5], "max": [9.9, 2.8, 15.8], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0053", "cell": "c_chamber_05", "min": [6.8, -0.2, 16], "max": [9.9, 0, 18.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0054", "cell": "c_chamber_05", "min": [6.8, 2.6, 16], "max": [9.9, 2.8, 18.9], "mat": "stone_rough", "tag": "ceiling" },
+    { "id": "b_floor_0055", "cell": "c_crypt_02", "min": [10.1, -0.56, 13.5], "max": [14, -0.36, 18.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0056", "cell": "c_crypt_02", "min": [10.1, 3.1, 13.5], "max": [14, 3.3, 18.9], "mat": "stone_block", "tag": "ceiling" },
+    { "id": "b_floor_0057", "cell": "c_crypt_03", "min": [14.2, -0.92, 13.5], "max": [17.8, -0.72, 18.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0058", "cell": "c_crypt_03", "min": [14.2, 3, 13.5], "max": [17.8, 3.2, 18.9], "mat": "stone_block", "tag": "ceiling" },
+    { "id": "b_floor_0059", "cell": "c_crypt_04", "min": [18, -0.74, 13.5], "max": [21.8, -0.54, 18.9], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_ceiling_0060", "cell": "c_crypt_04", "min": [18, 3.2, 13.5], "max": [21.8, 3.4, 18.9], "mat": "stone_block", "tag": "ceiling" },
+    {
+      "id": "b_wall_0061",
+      "cell": "c_cellar_01",
+      "min": [0, -0.2, 11.5],
+      "max": [0.7, 3.1, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0062",
+      "cell": "c_cellar_01",
+      "min": [0.7, 2.1, 11.5],
+      "max": [2, 3.1, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0063", "cell": "c_cellar_01", "min": [0.7, -0.2, 11.5], "max": [2, 0, 11.7], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0064",
+      "cell": "c_cellar_01",
+      "min": [2, -0.2, 11.5],
+      "max": [2.6, 3.1, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0065",
+      "cell": "c_corr_08",
+      "min": [2.6, -0.2, 11.5],
+      "max": [2.8, 2.8, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0066",
+      "cell": "c_corr_02",
+      "min": [2.8, -0.2, 11.5],
+      "max": [2.95, 2.8, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
     {
       "id": "b_wall_0067",
-      "cell": "c_cellar_02",
-      "min": [0, -0.2, 11.8],
-      "max": [1, 3, 12],
+      "cell": "c_corr_02",
+      "min": [2.95, 2.2, 11.5],
+      "max": [4.35, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
+    { "id": "b_floor_0068", "cell": "c_corr_02", "min": [2.95, -0.2, 11.5], "max": [4.35, 0, 11.7], "mat": "stone_slab", "tag": "floor" },
     {
-      "id": "b_wall_0068",
-      "cell": "c_cellar_02",
-      "min": [1, 2.1, 11.8],
-      "max": [2.3, 3, 12],
+      "id": "b_wall_0069",
+      "cell": "c_corr_02",
+      "min": [4.35, -0.2, 11.5],
+      "max": [4.5, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
-    { "id": "b_floor_0069", "cell": "c_cellar_02", "min": [1, -0.2, 11.8], "max": [2.3, 0, 12], "mat": "dirt_packed", "tag": "floor" },
     {
       "id": "b_wall_0070",
-      "cell": "c_cellar_02",
-      "min": [2.3, -0.2, 11.8],
-      "max": [2.7, 3, 12],
+      "cell": "c_corr_08",
+      "min": [4.5, -0.2, 11.5],
+      "max": [4.7, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
+      "faces": { "+z": "stone_block" }
     },
     {
       "id": "b_wall_0071",
-      "cell": "c_corr_08",
-      "min": [2.7, -0.2, 11.8],
-      "max": [2.9, 2.6, 12],
+      "cell": "c_cellar_02",
+      "min": [4.7, -0.2, 11.5],
+      "max": [8, 3, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "+z": "stone_block" }
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0072",
-      "cell": "c_corr_02",
-      "min": [2.9, -0.2, 11.8],
-      "max": [3.05, 2.6, 12],
+      "cell": "c_corr_08",
+      "min": [8, -0.2, 11.5],
+      "max": [8.2, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
+      "faces": { "+z": "stone_block" }
     },
     {
       "id": "b_wall_0073",
-      "cell": "c_corr_02",
-      "min": [3.05, 2.2, 11.8],
-      "max": [4.05, 2.6, 12],
+      "cell": "c_corr_04",
+      "min": [8.2, -0.2, 11.5],
+      "max": [8.35, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
-    { "id": "b_floor_0074", "cell": "c_corr_02", "min": [3.05, -0.2, 11.8], "max": [4.05, 0, 12], "mat": "stone_slab", "tag": "floor" },
     {
-      "id": "b_wall_0075",
-      "cell": "c_corr_02",
-      "min": [4.05, -0.2, 11.8],
-      "max": [4.2, 2.6, 12],
+      "id": "b_wall_0074",
+      "cell": "c_corr_04",
+      "min": [8.35, 2.2, 11.5],
+      "max": [9.75, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
+    { "id": "b_floor_0075", "cell": "c_corr_04", "min": [8.35, -0.2, 11.5], "max": [9.75, 0, 11.7], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0076",
-      "cell": "c_corr_08",
-      "min": [4.2, -0.2, 11.8],
-      "max": [4.4, 2.6, 12],
+      "cell": "c_corr_04",
+      "min": [9.75, -0.2, 11.5],
+      "max": [9.9, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "+z": "stone_block" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0077",
-      "cell": "c_cellar_05",
-      "min": [4.4, -0.2, 11.8],
-      "max": [8.1, 2.7, 12],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0078",
       "cell": "c_corr_08",
-      "min": [8.1, -0.2, 11.8],
-      "max": [8.3, 2.6, 12],
+      "min": [9.9, -0.2, 11.5],
+      "max": [10.1, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+z": "stone_block" }
     },
     {
+      "id": "b_wall_0078",
+      "cell": "c_cellar_07",
+      "min": [10.1, -0.2, 11.5],
+      "max": [13.9, 3, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
       "id": "b_wall_0079",
-      "cell": "c_corr_04",
-      "min": [8.3, -0.2, 11.8],
-      "max": [9.6, 2.6, 12],
+      "cell": "c_corr_08",
+      "min": [13.9, -0.2, 11.5],
+      "max": [14.1, 2.8, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0080",
+      "cell": "c_corr_07",
+      "min": [14.1, -0.2, 11.5],
+      "max": [14.25, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
-      "id": "b_wall_0080",
-      "cell": "c_corr_08",
-      "min": [9.6, -0.2, 11.8],
-      "max": [9.8, 2.6, 12],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "stone_block" }
-    },
-    {
       "id": "b_wall_0081",
-      "cell": "c_cellar_08",
-      "min": [9.8, -0.2, 11.8],
-      "max": [14.4, 3, 12],
+      "cell": "c_corr_07",
+      "min": [14.25, 2.2, 11.5],
+      "max": [15.85, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
-    {
-      "id": "b_wall_0082",
-      "cell": "c_corr_08",
-      "min": [14.4, -0.2, 11.8],
-      "max": [14.6, 2.6, 12],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "stone_block" }
-    },
+    { "id": "b_floor_0082", "cell": "c_corr_07", "min": [14.25, -0.2, 11.5], "max": [15.85, 0, 11.7], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0083",
-      "cell": "c_corr_06",
-      "min": [14.6, -0.2, 11.8],
-      "max": [14.75, 2.7, 12],
+      "cell": "c_corr_07",
+      "min": [15.85, -0.2, 11.5],
+      "max": [16, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0084",
-      "cell": "c_corr_06",
-      "min": [14.75, 2.2, 11.8],
-      "max": [15.85, 2.7, 12],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    { "id": "b_floor_0085", "cell": "c_corr_06", "min": [14.75, -0.2, 11.8], "max": [15.85, 0, 12], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0086",
-      "cell": "c_corr_06",
-      "min": [15.85, -0.2, 11.8],
-      "max": [16, 2.7, 12],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0087",
       "cell": "c_corr_08",
-      "min": [16, -0.2, 11.8],
-      "max": [16.2, 2.6, 12],
+      "min": [16, -0.2, 11.5],
+      "max": [16.2, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+z": "stone_block" }
     },
     {
+      "id": "b_wall_0085",
+      "cell": "c_crypt_01",
+      "min": [16.2, -0.2, 11.5],
+      "max": [17.9, 3.2, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0086",
+      "cell": "c_crypt_01",
+      "min": [17.9, 2.1, 11.5],
+      "max": [18.9, 3.2, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0087", "cell": "c_crypt_01", "min": [17.9, -0.2, 11.5], "max": [18.9, 0, 11.7], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0088",
-      "cell": "c_crypt_02",
-      "min": [16.2, -0.2, 11.8],
-      "max": [19.75, 3.2, 12],
+      "cell": "c_crypt_01",
+      "min": [18.9, -0.2, 11.5],
+      "max": [19.1, 3.2, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0089",
-      "cell": "c_crypt_02",
-      "min": [19.75, 2.1, 11.8],
-      "max": [20.95, 3.2, 12],
+      "cell": "c_corr_08",
+      "min": [19.1, -0.2, 11.5],
+      "max": [19.3, 2.8, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
+      "faces": { "+z": "stone_block" }
     },
-    { "id": "b_floor_0090", "cell": "c_crypt_02", "min": [19.75, -0.2, 11.8], "max": [20.95, 0, 12], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0090",
+      "cell": "c_chamber_03",
+      "min": [19.3, -0.2, 11.5],
+      "max": [20.45, 3, 11.7],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_rough", "+z": "stone_block" }
+    },
     {
       "id": "b_wall_0091",
-      "cell": "c_crypt_02",
-      "min": [20.95, -0.2, 11.8],
-      "max": [21.8, 3.2, 12],
+      "cell": "c_chamber_03",
+      "min": [20.45, 2.1, 11.5],
+      "max": [21.35, 3, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
+      "faces": { "-z": "stone_rough", "+z": "stone_block" }
     },
-    {
-      "id": "b_wall_0092",
-      "cell": "c_corr_08",
-      "min": [0, -0.2, 13.2],
-      "max": [4.1, 3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
-    },
+    { "id": "b_floor_0092", "cell": "c_chamber_03", "min": [20.45, -0.2, 11.5], "max": [21.35, 0, 11.7], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0093",
-      "cell": "c_corr_08",
-      "min": [4.1, -0.2, 13.2],
-      "max": [4.3, 2.6, 13.4],
+      "cell": "c_chamber_03",
+      "min": [21.35, -0.2, 11.5],
+      "max": [21.8, 3, 11.7],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block" }
+      "faces": { "-z": "stone_rough", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0094",
       "cell": "c_corr_08",
-      "min": [4.3, -0.2, 13.2],
-      "max": [4.45, 2.6, 13.4],
+      "min": [0, -0.2, 13.3],
+      "max": [4.6, 3, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
+      "faces": { "-z": "stone_block", "+z": "stone_rough" }
     },
     {
       "id": "b_wall_0095",
       "cell": "c_corr_08",
-      "min": [4.45, 2.2, 13.2],
-      "max": [5.55, 2.6, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    { "id": "b_floor_0096", "cell": "c_corr_08", "min": [4.45, -0.2, 13.2], "max": [5.55, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0097",
-      "cell": "c_corr_08",
-      "min": [5.55, -0.2, 13.2],
-      "max": [5.7, 2.6, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0098",
-      "cell": "c_corr_08",
-      "min": [5.7, -0.2, 13.2],
-      "max": [5.9, 2.6, 13.4],
+      "min": [4.6, -0.2, 13.3],
+      "max": [4.8, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
     {
+      "id": "b_wall_0096",
+      "cell": "c_corr_08",
+      "min": [4.8, -0.2, 13.3],
+      "max": [4.95, 3, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0097",
+      "cell": "c_corr_08",
+      "min": [4.95, 2.2, 13.3],
+      "max": [6.45, 3, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0098", "cell": "c_corr_08", "min": [4.95, -0.2, 13.3], "max": [6.45, 0, 13.5], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0099",
       "cell": "c_corr_08",
-      "min": [5.9, -0.74, 13.2],
-      "max": [6.45, 3.3, 13.4],
+      "min": [6.45, -0.2, 13.3],
+      "max": [6.6, 3, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
@@ -755,36 +756,36 @@
     {
       "id": "b_wall_0100",
       "cell": "c_corr_08",
-      "min": [6.45, 2.1, 13.2],
-      "max": [7.55, 3.3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    { "id": "b_floor_0101", "cell": "c_corr_08", "min": [6.45, -0.74, 13.2], "max": [7.55, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0102",
-      "cell": "c_corr_08",
-      "min": [7.55, -0.74, 13.2],
-      "max": [9.3, 3.3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0103",
-      "cell": "c_corr_08",
-      "min": [9.3, -0.2, 13.2],
-      "max": [9.5, 2.6, 13.4],
+      "min": [6.6, -0.2, 13.3],
+      "max": [6.8, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
     {
+      "id": "b_wall_0101",
+      "cell": "c_corr_08",
+      "min": [6.8, -0.2, 13.3],
+      "max": [7.35, 2.8, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    {
+      "id": "b_wall_0102",
+      "cell": "c_corr_08",
+      "min": [7.35, 2, 13.3],
+      "max": [9.35, 2.8, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    { "id": "b_floor_0103", "cell": "c_corr_08", "min": [7.35, -0.2, 13.3], "max": [9.35, 0, 13.5], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0104",
       "cell": "c_corr_08",
-      "min": [9.5, -0.2, 13.2],
-      "max": [10.7, 3, 13.4],
+      "min": [9.35, -0.2, 13.3],
+      "max": [9.9, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
@@ -792,36 +793,36 @@
     {
       "id": "b_wall_0105",
       "cell": "c_corr_08",
-      "min": [10.7, 2.1, 13.2],
-      "max": [11.7, 3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
-    },
-    { "id": "b_floor_0106", "cell": "c_corr_08", "min": [10.7, -0.2, 13.2], "max": [11.7, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0107",
-      "cell": "c_corr_08",
-      "min": [11.7, -0.2, 13.2],
-      "max": [12.1, 3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0108",
-      "cell": "c_corr_08",
-      "min": [12.1, -0.2, 13.2],
-      "max": [12.3, 2.6, 13.4],
+      "min": [9.9, -0.2, 13.3],
+      "max": [10.1, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
     {
+      "id": "b_wall_0106",
+      "cell": "c_corr_08",
+      "min": [10.1, -0.56, 13.3],
+      "max": [10.75, 3.3, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0107",
+      "cell": "c_corr_08",
+      "min": [10.75, 2.1, 13.3],
+      "max": [11.85, 3.3, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0108", "cell": "c_corr_08", "min": [10.75, -0.56, 13.3], "max": [11.85, 0, 13.5], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0109",
       "cell": "c_corr_08",
-      "min": [12.3, -0.2, 13.2],
-      "max": [12.45, 2.6, 13.4],
+      "min": [11.85, -0.56, 13.3],
+      "max": [14, 3.3, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "stone_block" }
@@ -829,202 +830,202 @@
     {
       "id": "b_wall_0110",
       "cell": "c_corr_08",
-      "min": [12.45, 2.2, 13.2],
-      "max": [13.55, 2.6, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    { "id": "b_floor_0111", "cell": "c_corr_08", "min": [12.45, -0.2, 13.2], "max": [13.55, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0112",
-      "cell": "c_corr_08",
-      "min": [13.55, -0.2, 13.2],
-      "max": [13.7, 2.6, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0113",
-      "cell": "c_corr_08",
-      "min": [13.7, -0.2, 13.2],
-      "max": [13.9, 2.6, 13.4],
+      "min": [14, -0.2, 13.3],
+      "max": [14.2, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
     {
-      "id": "b_wall_0114",
+      "id": "b_wall_0111",
       "cell": "c_corr_08",
-      "min": [13.9, -0.2, 13.2],
-      "max": [14.2, 3, 13.4],
+      "min": [14.2, -0.92, 13.3],
+      "max": [15.9, 3.2, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0112",
+      "cell": "c_corr_08",
+      "min": [15.9, 2.1, 13.3],
+      "max": [17.3, 3.2, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0113", "cell": "c_corr_08", "min": [15.9, -0.92, 13.3], "max": [17.3, 0, 13.5], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0114",
+      "cell": "c_corr_08",
+      "min": [17.3, -0.92, 13.3],
+      "max": [17.8, 3.2, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0115",
       "cell": "c_corr_08",
-      "min": [14.2, 2.1, 13.2],
-      "max": [15.2, 3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
-    },
-    { "id": "b_floor_0116", "cell": "c_corr_08", "min": [14.2, -0.2, 13.2], "max": [15.2, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0117",
-      "cell": "c_corr_08",
-      "min": [15.2, -0.2, 13.2],
-      "max": [17, 3, 13.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
-    },
-    {
-      "id": "b_wall_0118",
-      "cell": "c_corr_08",
-      "min": [17, -0.2, 13.2],
-      "max": [17.2, 2.6, 13.4],
+      "min": [17.8, -0.2, 13.3],
+      "max": [18, 2.8, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
     {
-      "id": "b_wall_0119",
+      "id": "b_wall_0116",
       "cell": "c_corr_08",
-      "min": [17.2, -0.2, 13.2],
-      "max": [19.15, 2.8, 13.4],
+      "min": [18, -0.74, 13.3],
+      "max": [18.25, 3.4, 13.5],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0117",
+      "cell": "c_corr_08",
+      "min": [18.25, 2.1, 13.3],
+      "max": [19.55, 3.4, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0118", "cell": "c_corr_08", "min": [18.25, -0.74, 13.3], "max": [19.55, 0, 13.5], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0119",
+      "cell": "c_corr_08",
+      "min": [19.55, -0.74, 13.3],
+      "max": [21.8, 3.4, 13.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0120",
-      "cell": "c_corr_08",
-      "min": [19.15, 2.1, 13.2],
-      "max": [20.55, 2.8, 13.4],
+      "cell": "c_chamber_02",
+      "min": [8, -0.2, 0],
+      "max": [8.2, 2.8, 1.9],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
     },
-    { "id": "b_floor_0121", "cell": "c_corr_08", "min": [19.15, -0.2, 13.2], "max": [20.55, 0, 13.4], "mat": "stone_slab", "tag": "floor" },
     {
-      "id": "b_wall_0122",
-      "cell": "c_corr_08",
-      "min": [20.55, -0.2, 13.2],
-      "max": [21.8, 2.8, 13.4],
+      "id": "b_wall_0121",
+      "cell": "c_chamber_02",
+      "min": [8, 2.1, 1.9],
+      "max": [8.2, 2.8, 3.3],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
     },
+    { "id": "b_floor_0122", "cell": "c_chamber_02", "min": [8, -0.2, 1.9], "max": [8.2, 0, 3.3], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0123",
-      "cell": "c_cellar_03",
-      "min": [8.1, -0.2, 0],
-      "max": [8.3, 2.9, 3.2],
+      "cell": "c_chamber_02",
+      "min": [8, -0.2, 3.3],
+      "max": [8.2, 2.8, 3.6],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0124",
       "cell": "c_corr_04",
-      "min": [8.1, -0.2, 3.2],
-      "max": [8.3, 2.6, 3.4],
+      "min": [8, -0.2, 3.6],
+      "max": [8.2, 2.8, 3.8],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
     {
       "id": "b_wall_0125",
-      "cell": "c_cellar_04",
-      "min": [8.1, -0.2, 3.4],
-      "max": [8.3, 2.8, 4.15],
+      "cell": "c_niche_01",
+      "min": [8, -0.2, 3.8],
+      "max": [8.2, 2.9, 6.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0126",
-      "cell": "c_cellar_04",
-      "min": [8.1, 2, 4.15],
-      "max": [8.3, 2.8, 5.05],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0127", "cell": "c_cellar_04", "min": [8.1, -0.2, 4.15], "max": [8.3, 0, 5.05], "mat": "dirt_packed", "tag": "floor" },
-    {
-      "id": "b_wall_0128",
-      "cell": "c_cellar_04",
-      "min": [8.1, -0.2, 5.05],
-      "max": [8.3, 2.8, 6.3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0129",
       "cell": "c_corr_04",
-      "min": [8.1, -0.2, 6.3],
-      "max": [8.3, 2.6, 6.5],
+      "min": [8, -0.2, 6.1],
+      "max": [8.2, 2.8, 6.3],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
     {
+      "id": "b_wall_0127",
+      "cell": "c_corr_03",
+      "min": [8, -0.2, 6.3],
+      "max": [8.2, 3, 6.45],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0128",
+      "cell": "c_corr_03",
+      "min": [8, 2.2, 6.45],
+      "max": [8.2, 3, 7.75],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
+    },
+    { "id": "b_floor_0129", "cell": "c_corr_03", "min": [8, -0.2, 6.45], "max": [8.2, 0, 7.75], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0130",
       "cell": "c_corr_03",
-      "min": [8.1, -0.2, 6.5],
-      "max": [8.3, 2.6, 6.65],
+      "min": [8, -0.2, 7.75],
+      "max": [8.2, 3, 7.9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0131",
-      "cell": "c_corr_03",
-      "min": [8.1, 2.2, 6.65],
-      "max": [8.3, 2.6, 7.85],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0132", "cell": "c_corr_03", "min": [8.1, -0.2, 6.65], "max": [8.3, 0, 7.85], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0133",
-      "cell": "c_corr_03",
-      "min": [8.1, -0.2, 7.85],
-      "max": [8.3, 2.6, 8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0134",
       "cell": "c_corr_04",
-      "min": [8.1, -0.2, 8],
-      "max": [8.3, 2.6, 8.2],
+      "min": [8, -0.2, 7.9],
+      "max": [8.2, 2.8, 8.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
     {
-      "id": "b_wall_0135",
-      "cell": "c_cellar_05",
-      "min": [8.1, -0.2, 8.2],
-      "max": [8.3, 2.7, 11.8],
+      "id": "b_wall_0132",
+      "cell": "c_cellar_02",
+      "min": [8, -0.2, 8.1],
+      "max": [8.2, 3, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red", "+x": "stone_block" }
     },
     {
+      "id": "b_wall_0133",
+      "cell": "c_corr_04",
+      "min": [9.9, -0.2, 0],
+      "max": [10.1, 2.8, 0.15],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0134",
+      "cell": "c_corr_04",
+      "min": [9.9, 2, 0.15],
+      "max": [10.1, 2.8, 1.85],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "brick_red" }
+    },
+    { "id": "b_floor_0135", "cell": "c_corr_04", "min": [9.9, -0.2, 0.15], "max": [10.1, 0, 1.85], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0136",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 0],
-      "max": [9.8, 2.6, 0.4],
+      "min": [9.9, -0.2, 1.85],
+      "max": [10.1, 2.8, 2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1032,54 +1033,54 @@
     {
       "id": "b_wall_0137",
       "cell": "c_corr_04",
-      "min": [9.6, 2, 0.4],
-      "max": [9.8, 2.6, 2.4],
+      "min": [9.9, -0.2, 2],
+      "max": [10.1, 2.8, 2.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0138",
+      "cell": "c_corr_04",
+      "min": [9.9, -0.2, 2.2],
+      "max": [10.1, 2.8, 4.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
-    { "id": "b_floor_0138", "cell": "c_corr_04", "min": [9.6, -0.2, 0.4], "max": [9.8, 0, 2.4], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0139",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 2.4],
-      "max": [9.8, 2.6, 2.8],
+      "min": [9.9, -0.2, 4.2],
+      "max": [10.1, 2.8, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
+      "faces": { "-x": "stone_block" }
     },
     {
       "id": "b_wall_0140",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 2.8],
-      "max": [9.8, 2.6, 3],
+      "min": [9.9, -0.2, 4.4],
+      "max": [10.1, 2.9, 4.55],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0141",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 3],
-      "max": [9.8, 2.6, 5.4],
+      "min": [9.9, 2.2, 4.55],
+      "max": [10.1, 2.9, 6.05],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
-    {
-      "id": "b_wall_0142",
-      "cell": "c_corr_04",
-      "min": [9.6, -0.2, 5.4],
-      "max": [9.8, 2.6, 5.6],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
+    { "id": "b_floor_0142", "cell": "c_corr_04", "min": [9.9, -0.2, 4.55], "max": [10.1, 0, 6.05], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0143",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 5.6],
-      "max": [9.8, 2.6, 6.9],
+      "min": [9.9, -0.2, 6.05],
+      "max": [10.1, 2.9, 6.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_block" }
@@ -1087,8 +1088,8 @@
     {
       "id": "b_wall_0144",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 6.9],
-      "max": [9.8, 2.6, 7.1],
+      "min": [9.9, -0.2, 6.2],
+      "max": [10.1, 2.8, 6.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block" }
@@ -1096,8 +1097,8 @@
     {
       "id": "b_wall_0145",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 7.1],
-      "max": [9.8, 2.8, 7.5],
+      "min": [9.9, -0.2, 6.4],
+      "max": [10.1, 3.2, 6.75],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1105,18 +1106,18 @@
     {
       "id": "b_wall_0146",
       "cell": "c_corr_04",
-      "min": [9.6, 2.1, 7.5],
-      "max": [9.8, 2.8, 8.8],
+      "min": [9.9, 2, 6.75],
+      "max": [10.1, 3.2, 7.75],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
-    { "id": "b_floor_0147", "cell": "c_corr_04", "min": [9.6, -0.2, 7.5], "max": [9.8, 0, 8.8], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0147", "cell": "c_corr_04", "min": [9.9, -0.2, 6.75], "max": [10.1, 0, 7.75], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0148",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 8.8],
-      "max": [9.8, 2.8, 9.2],
+      "min": [9.9, -0.2, 7.75],
+      "max": [10.1, 3.2, 8.8],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1124,8 +1125,8 @@
     {
       "id": "b_wall_0149",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 9.2],
-      "max": [9.8, 2.6, 9.4],
+      "min": [9.9, -0.2, 8.8],
+      "max": [10.1, 2.8, 9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block" }
@@ -1133,8 +1134,8 @@
     {
       "id": "b_wall_0150",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 9.4],
-      "max": [9.8, 3, 10.45],
+      "min": [9.9, -0.2, 9],
+      "max": [10.1, 3, 10.05],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1142,18 +1143,18 @@
     {
       "id": "b_wall_0151",
       "cell": "c_corr_04",
-      "min": [9.6, 2.1, 10.45],
-      "max": [9.8, 3, 11.65],
+      "min": [9.9, 2.1, 10.05],
+      "max": [10.1, 3, 11.25],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
-    { "id": "b_floor_0152", "cell": "c_corr_04", "min": [9.6, -0.2, 10.45], "max": [9.8, 0, 11.65], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0152", "cell": "c_corr_04", "min": [9.9, -0.2, 10.05], "max": [10.1, 0, 11.25], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0153",
       "cell": "c_corr_04",
-      "min": [9.6, -0.2, 11.65],
-      "max": [9.8, 3, 11.8],
+      "min": [9.9, -0.2, 11.25],
+      "max": [10.1, 3, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
@@ -1161,1412 +1162,1225 @@
     {
       "id": "b_wall_0154",
       "cell": "c_chamber_01",
-      "min": [2.7, -0.2, 0],
-      "max": [2.9, 2.9, 2.3],
+      "min": [2.6, -0.2, 0],
+      "max": [2.8, 3.1, 4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_rough", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0155",
-      "cell": "c_chamber_01",
-      "min": [2.7, 2, 2.3],
-      "max": [2.9, 2.9, 3.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0156", "cell": "c_chamber_01", "min": [2.7, -0.2, 2.3], "max": [2.9, 0, 3.2], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0157",
-      "cell": "c_chamber_01",
-      "min": [2.7, -0.2, 3.2],
-      "max": [2.9, 2.9, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0158",
       "cell": "c_corr_02",
-      "min": [2.7, -0.2, 4.2],
-      "max": [2.9, 2.5, 4.4],
+      "min": [2.6, -0.2, 4],
+      "max": [2.8, 2.8, 4.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
     {
+      "id": "b_wall_0156",
+      "cell": "c_corr_01",
+      "min": [2.6, -0.2, 4.2],
+      "max": [2.8, 2.9, 4.35],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0157",
+      "cell": "c_corr_01",
+      "min": [2.6, 2.2, 4.35],
+      "max": [2.8, 2.9, 5.85],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
+    },
+    { "id": "b_floor_0158", "cell": "c_corr_01", "min": [2.6, -0.2, 4.35], "max": [2.8, 0, 5.85], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0159",
       "cell": "c_corr_01",
-      "min": [2.7, -0.2, 4.4],
-      "max": [2.9, 2.6, 4.55],
+      "min": [2.6, -0.2, 5.85],
+      "max": [2.8, 2.9, 6],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0160",
-      "cell": "c_corr_01",
-      "min": [2.7, 2.2, 4.55],
-      "max": [2.9, 2.6, 5.65],
+      "cell": "c_corr_02",
+      "min": [2.6, -0.2, 6],
+      "max": [2.8, 2.8, 6.2],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
+      "faces": { "+x": "stone_block" }
     },
-    { "id": "b_floor_0161", "cell": "c_corr_01", "min": [2.7, -0.2, 4.55], "max": [2.9, 0, 5.65], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0161",
+      "cell": "c_cellar_01",
+      "min": [2.6, -0.2, 6.2],
+      "max": [2.8, 3.1, 11.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
     {
       "id": "b_wall_0162",
-      "cell": "c_corr_01",
-      "min": [2.7, -0.2, 5.65],
-      "max": [2.9, 2.6, 5.8],
+      "cell": "c_corr_02",
+      "min": [4.5, -0.2, 0],
+      "max": [4.7, 2.8, 0.35],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
     {
       "id": "b_wall_0163",
       "cell": "c_corr_02",
-      "min": [2.7, -0.2, 5.8],
-      "max": [2.9, 2.5, 6],
+      "min": [4.5, 2, 0.35],
+      "max": [4.7, 2.8, 1.35],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "+x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
-    {
-      "id": "b_wall_0164",
-      "cell": "c_cellar_01",
-      "min": [2.7, -0.2, 6],
-      "max": [2.9, 2.9, 7.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
+    { "id": "b_floor_0164", "cell": "c_corr_02", "min": [4.5, -0.2, 0.35], "max": [4.7, 0, 1.35], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0165",
-      "cell": "c_cellar_01",
-      "min": [2.7, 2, 7.2],
-      "max": [2.9, 2.9, 8.1],
+      "cell": "c_corr_02",
+      "min": [4.5, -0.2, 1.35],
+      "max": [4.7, 2.8, 3.6],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
-    { "id": "b_floor_0166", "cell": "c_cellar_01", "min": [2.7, -0.2, 7.2], "max": [2.9, 0, 8.1], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0166",
+      "cell": "c_corr_02",
+      "min": [4.5, -0.2, 3.6],
+      "max": [4.7, 2.8, 3.8],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block" }
+    },
     {
       "id": "b_wall_0167",
-      "cell": "c_cellar_01",
-      "min": [2.7, -0.2, 8.1],
-      "max": [2.9, 2.9, 8.6],
+      "cell": "c_corr_02",
+      "min": [4.5, -0.2, 3.8],
+      "max": [4.7, 2.9, 6.1],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
     {
       "id": "b_wall_0168",
       "cell": "c_corr_02",
-      "min": [2.7, -0.2, 8.6],
-      "max": [2.9, 2.5, 8.8],
+      "min": [4.5, -0.2, 6.1],
+      "max": [4.7, 2.8, 6.3],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "+x": "stone_block" }
+      "faces": { "-x": "stone_block" }
     },
     {
       "id": "b_wall_0169",
-      "cell": "c_cellar_02",
-      "min": [2.7, -0.2, 8.8],
-      "max": [2.9, 3, 11.8],
+      "cell": "c_corr_02",
+      "min": [4.5, -0.2, 6.3],
+      "max": [4.7, 3, 7.9],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0170",
       "cell": "c_corr_02",
-      "min": [4.2, -0.2, 0],
-      "max": [4.4, 2.9, 0.6],
+      "min": [4.5, -0.2, 7.9],
+      "max": [4.7, 2.8, 8.1],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
+      "faces": { "-x": "stone_block" }
     },
     {
       "id": "b_wall_0171",
       "cell": "c_corr_02",
-      "min": [4.2, 2.1, 0.6],
-      "max": [4.4, 2.9, 2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    { "id": "b_floor_0172", "cell": "c_corr_02", "min": [4.2, -0.2, 0.6], "max": [4.4, 0, 2], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0173",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 2],
-      "max": [4.4, 2.9, 3.2],
+      "min": [4.5, -0.2, 8.1],
+      "max": [4.7, 3, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "brick_red" }
     },
     {
-      "id": "b_wall_0174",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 3.2],
-      "max": [4.4, 2.5, 3.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0175",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 3.4],
-      "max": [4.4, 2.8, 6.3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0176",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 6.3],
-      "max": [4.4, 2.5, 6.5],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0177",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 6.5],
-      "max": [4.4, 2.5, 6.65],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0178",
-      "cell": "c_corr_02",
-      "min": [4.2, 2.2, 6.65],
-      "max": [4.4, 2.5, 7.85],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0179", "cell": "c_corr_02", "min": [4.2, -0.2, 6.65], "max": [4.4, 0, 7.85], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0180",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 7.85],
-      "max": [4.4, 2.5, 8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0181",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 8],
-      "max": [4.4, 2.5, 8.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0182",
-      "cell": "c_corr_02",
-      "min": [4.2, -0.2, 8.2],
-      "max": [4.4, 2.7, 11.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0183",
+      "id": "b_wall_0172",
       "cell": "c_chamber_01",
-      "min": [0, -0.2, 4.2],
-      "max": [2.7, 2.9, 4.4],
+      "min": [0, -0.2, 4],
+      "max": [1.1, 3.1, 4.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_rough", "+z": "stone_block" }
     },
     {
-      "id": "b_wall_0184",
+      "id": "b_wall_0173",
+      "cell": "c_chamber_01",
+      "min": [1.1, 2.1, 4],
+      "max": [2.2, 3.1, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_rough", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0174", "cell": "c_chamber_01", "min": [1.1, -0.2, 4], "max": [2.2, 0, 4.2], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0175",
+      "cell": "c_chamber_01",
+      "min": [2.2, -0.2, 4],
+      "max": [2.6, 3.1, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_rough", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0176",
       "cell": "c_corr_01",
-      "min": [0, -0.2, 5.8],
-      "max": [0.9, 2.9, 6],
+      "min": [0, -0.2, 6],
+      "max": [0.45, 3.1, 6.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    {
+      "id": "b_wall_0177",
+      "cell": "c_corr_01",
+      "min": [0.45, 2, 6],
+      "max": [1.45, 3.1, 6.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    { "id": "b_floor_0178", "cell": "c_corr_01", "min": [0.45, -0.2, 6], "max": [1.45, 0, 6.2], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0179",
+      "cell": "c_corr_01",
+      "min": [1.45, -0.2, 6],
+      "max": [2.6, 3.1, 6.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    {
+      "id": "b_wall_0180",
+      "cell": "c_niche_01",
+      "min": [4.7, -0.2, 6.1],
+      "max": [5.35, 3, 6.3],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0181",
+      "cell": "c_niche_01",
+      "min": [5.35, 2, 6.1],
+      "max": [7.35, 3, 6.3],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0182", "cell": "c_niche_01", "min": [5.35, -0.2, 6.1], "max": [7.35, 0, 6.3], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0183",
+      "cell": "c_niche_01",
+      "min": [7.35, -0.2, 6.1],
+      "max": [8, 3, 6.3],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0184",
+      "cell": "c_corr_03",
+      "min": [4.7, -0.2, 7.9],
+      "max": [6.55, 3, 8.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
     },
     {
       "id": "b_wall_0185",
-      "cell": "c_corr_01",
-      "min": [0.9, 2.1, 5.8],
-      "max": [2, 2.9, 6],
+      "cell": "c_corr_03",
+      "min": [6.55, 2.1, 7.9],
+      "max": [7.45, 3, 8.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
     },
-    { "id": "b_floor_0186", "cell": "c_corr_01", "min": [0.9, -0.2, 5.8], "max": [2, 0, 6], "mat": "stone_slab", "tag": "floor" },
+    { "id": "b_floor_0186", "cell": "c_corr_03", "min": [6.55, -0.2, 7.9], "max": [7.45, 0, 8.1], "mat": "stone_slab", "tag": "floor" },
     {
       "id": "b_wall_0187",
-      "cell": "c_corr_01",
-      "min": [2, -0.2, 5.8],
-      "max": [2.7, 2.9, 6],
+      "cell": "c_corr_03",
+      "min": [7.45, -0.2, 7.9],
+      "max": [8, 3, 8.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
     },
     {
       "id": "b_wall_0188",
-      "cell": "c_cellar_01",
-      "min": [0, -0.2, 8.6],
-      "max": [0.4, 3, 8.8],
+      "cell": "c_chamber_02",
+      "min": [4.7, -0.2, 3.6],
+      "max": [8, 2.9, 3.8],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
+      "faces": { "-z": "stone_rough", "+z": "brick_red" }
     },
     {
       "id": "b_wall_0189",
-      "cell": "c_cellar_01",
-      "min": [0.4, 2.1, 8.6],
-      "max": [1.7, 3, 8.8],
+      "cell": "c_niche_03",
+      "min": [10.1, -0.2, 4.2],
+      "max": [10.4, 2.9, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
     },
-    { "id": "b_floor_0190", "cell": "c_cellar_01", "min": [0.4, -0.2, 8.6], "max": [1.7, 0, 8.8], "mat": "dirt_packed", "tag": "floor" },
     {
-      "id": "b_wall_0191",
-      "cell": "c_cellar_01",
-      "min": [1.7, -0.2, 8.6],
-      "max": [2.7, 3, 8.8],
+      "id": "b_wall_0190",
+      "cell": "c_niche_03",
+      "min": [10.4, 2, 4.2],
+      "max": [12.4, 2.9, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
     },
+    { "id": "b_floor_0191", "cell": "c_niche_03", "min": [10.4, -0.2, 4.2], "max": [12.4, 0, 4.4], "mat": "dirt_packed", "tag": "floor" },
     {
       "id": "b_wall_0192",
-      "cell": "c_cellar_04",
-      "min": [4.4, -0.2, 6.3],
-      "max": [8.1, 2.8, 6.5],
+      "cell": "c_niche_03",
+      "min": [12.4, -0.2, 4.2],
+      "max": [12.7, 2.9, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "brick_red", "+z": "stone_block" }
     },
     {
       "id": "b_wall_0193",
-      "cell": "c_corr_03",
-      "min": [4.4, -0.2, 8],
-      "max": [6.15, 2.7, 8.2],
+      "cell": "c_corr_06",
+      "min": [12.7, -0.2, 4.2],
+      "max": [12.9, 2.9, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
+      "faces": { "+z": "stone_block" }
     },
     {
       "id": "b_wall_0194",
-      "cell": "c_corr_03",
-      "min": [6.15, 2.1, 8],
-      "max": [7.45, 2.7, 8.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
-    },
-    { "id": "b_floor_0195", "cell": "c_corr_03", "min": [6.15, -0.2, 8], "max": [7.45, 0, 8.2], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0196",
-      "cell": "c_corr_03",
-      "min": [7.45, -0.2, 8],
-      "max": [8.1, 2.7, 8.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0197",
       "cell": "c_cellar_03",
-      "min": [4.4, -0.2, 3.2],
-      "max": [8.1, 2.9, 3.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0198",
-      "cell": "c_niche_02",
-      "min": [14.4, -0.2, 0],
-      "max": [14.6, 2.7, 0.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0199",
-      "cell": "c_niche_02",
-      "min": [14.4, 2, 0.4],
-      "max": [14.6, 2.7, 2.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0200", "cell": "c_niche_02", "min": [14.4, -0.2, 0.4], "max": [14.6, 0, 2.4], "mat": "dirt_packed", "tag": "floor" },
-    {
-      "id": "b_wall_0201",
-      "cell": "c_niche_02",
-      "min": [14.4, -0.2, 2.4],
-      "max": [14.6, 2.7, 2.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0202",
-      "cell": "c_corr_06",
-      "min": [14.4, -0.2, 2.8],
-      "max": [14.6, 2.7, 3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0203",
-      "cell": "c_cellar_06",
-      "min": [14.4, -0.2, 3],
-      "max": [14.6, 2.7, 4.05],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0204",
-      "cell": "c_cellar_06",
-      "min": [14.4, 2.1, 4.05],
-      "max": [14.6, 2.7, 5.15],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0205", "cell": "c_cellar_06", "min": [14.4, -0.2, 4.05], "max": [14.6, 0, 5.15], "mat": "dirt_packed", "tag": "floor" },
-    {
-      "id": "b_wall_0206",
-      "cell": "c_cellar_06",
-      "min": [14.4, -0.2, 5.15],
-      "max": [14.6, 2.7, 5.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0207",
-      "cell": "c_corr_06",
-      "min": [14.4, -0.2, 5.4],
-      "max": [14.6, 2.7, 5.6],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0208",
-      "cell": "c_corr_05",
-      "min": [14.4, -0.2, 5.6],
-      "max": [14.6, 2.7, 5.75],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0209",
-      "cell": "c_corr_05",
-      "min": [14.4, 2.2, 5.75],
-      "max": [14.6, 2.7, 6.75],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0210", "cell": "c_corr_05", "min": [14.4, -0.2, 5.75], "max": [14.6, 0, 6.75], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0211",
-      "cell": "c_corr_05",
-      "min": [14.4, -0.2, 6.75],
-      "max": [14.6, 2.7, 6.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0212",
-      "cell": "c_corr_06",
-      "min": [14.4, -0.2, 6.9],
-      "max": [14.6, 2.7, 7.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0213",
-      "cell": "c_cellar_07",
-      "min": [14.4, -0.2, 7.1],
-      "max": [14.6, 2.8, 9.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0214",
-      "cell": "c_corr_06",
-      "min": [14.4, -0.2, 9.2],
-      "max": [14.6, 2.7, 9.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0215",
-      "cell": "c_cellar_08",
-      "min": [14.4, -0.2, 9.4],
-      "max": [14.6, 3, 11.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0216",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 0],
-      "max": [16.2, 2.7, 1.7],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0217",
-      "cell": "c_corr_06",
-      "min": [16, 2, 1.7],
-      "max": [16.2, 2.7, 2.6],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    { "id": "b_floor_0218", "cell": "c_corr_06", "min": [16, -0.2, 1.7], "max": [16.2, 0, 2.6], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0219",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 2.6],
-      "max": [16.2, 2.7, 4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0220",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 4],
-      "max": [16.2, 2.7, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0221",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 4.2],
-      "max": [16.2, 2.7, 4.35],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0222",
-      "cell": "c_corr_06",
-      "min": [16, 2.2, 4.35],
-      "max": [16.2, 2.7, 5.55],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0223", "cell": "c_corr_06", "min": [16, -0.2, 4.35], "max": [16.2, 0, 5.55], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0224",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 5.55],
-      "max": [16.2, 2.7, 5.7],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0225",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 5.7],
-      "max": [16.2, 2.7, 5.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0226",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 5.9],
-      "max": [16.2, 3.1, 6.45],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0227",
-      "cell": "c_corr_06",
-      "min": [16, 2.1, 6.45],
-      "max": [16.2, 3.1, 7.85],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0228", "cell": "c_corr_06", "min": [16, -0.2, 6.45], "max": [16.2, 0, 7.85], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0229",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 7.85],
-      "max": [16.2, 3.1, 8.6],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0230",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 8.6],
-      "max": [16.2, 2.7, 8.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0231",
-      "cell": "c_corr_06",
-      "min": [16, -0.2, 8.8],
-      "max": [16.2, 3.2, 11.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0232",
-      "cell": "c_cellar_06",
-      "min": [9.8, -0.2, 5.4],
-      "max": [14.4, 2.6, 5.6],
+      "min": [12.9, -0.2, 4.2],
+      "max": [15.2, 2.9, 4.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "brick_red", "+z": "stone_block" }
     },
     {
-      "id": "b_wall_0233",
+      "id": "b_wall_0195",
+      "cell": "c_corr_06",
+      "min": [15.2, -0.2, 4.2],
+      "max": [15.4, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0196",
       "cell": "c_corr_05",
-      "min": [9.8, -0.2, 6.9],
-      "max": [12.2, 2.8, 7.1],
+      "min": [15.4, -0.2, 4.2],
+      "max": [15.55, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0197",
+      "cell": "c_corr_05",
+      "min": [15.55, 2.2, 4.2],
+      "max": [16.95, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0198", "cell": "c_corr_05", "min": [15.55, -0.2, 4.2], "max": [16.95, 0, 4.4], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0199",
+      "cell": "c_corr_05",
+      "min": [16.95, -0.2, 4.2],
+      "max": [17.1, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0200",
+      "cell": "c_corr_06",
+      "min": [17.1, -0.2, 4.2],
+      "max": [17.3, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0201",
+      "cell": "c_cellar_04",
+      "min": [17.3, -0.2, 4.2],
+      "max": [18.25, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0202",
+      "cell": "c_cellar_04",
+      "min": [18.25, 2.1, 4.2],
+      "max": [19.25, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0203", "cell": "c_cellar_04", "min": [18.25, -0.2, 4.2], "max": [19.25, 0, 4.4], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0204",
+      "cell": "c_cellar_04",
+      "min": [19.25, -0.2, 4.2],
+      "max": [19.4, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0205",
+      "cell": "c_corr_06",
+      "min": [19.4, -0.2, 4.2],
+      "max": [19.6, 2.9, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0206",
+      "cell": "c_cellar_05",
+      "min": [19.6, -0.2, 4.2],
+      "max": [20.25, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0207",
+      "cell": "c_cellar_05",
+      "min": [20.25, 2.1, 4.2],
+      "max": [21.45, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0208", "cell": "c_cellar_05", "min": [20.25, -0.2, 4.2], "max": [21.45, 0, 4.4], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0209",
+      "cell": "c_cellar_05",
+      "min": [21.45, -0.2, 4.2],
+      "max": [21.8, 3, 4.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0210",
+      "cell": "c_corr_06",
+      "min": [10.1, -0.2, 6.2],
+      "max": [13.9, 3.2, 6.4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block", "+z": "brick_red" }
+    },
+    {
+      "id": "b_wall_0211",
+      "cell": "c_corr_06",
+      "min": [13.9, -0.2, 6.2],
+      "max": [14.1, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0212",
+      "cell": "c_corr_06",
+      "min": [14.1, -0.2, 6.2],
+      "max": [14.25, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0213",
+      "cell": "c_corr_06",
+      "min": [14.25, 2.2, 6.2],
+      "max": [15.85, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    { "id": "b_floor_0214", "cell": "c_corr_06", "min": [14.25, -0.2, 6.2], "max": [15.85, 0, 6.4], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0215",
+      "cell": "c_corr_06",
+      "min": [15.85, -0.2, 6.2],
+      "max": [16, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0216",
+      "cell": "c_corr_06",
+      "min": [16, -0.2, 6.2],
+      "max": [16.2, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0217",
+      "cell": "c_corr_06",
+      "min": [16.2, -0.2, 6.2],
+      "max": [19.1, 3.2, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0218",
+      "cell": "c_corr_06",
+      "min": [19.1, -0.2, 6.2],
+      "max": [19.3, 2.9, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block" }
+    },
+    {
+      "id": "b_wall_0219",
+      "cell": "c_corr_06",
+      "min": [19.3, -0.2, 6.2],
+      "max": [20.15, 3, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+    },
+    {
+      "id": "b_wall_0220",
+      "cell": "c_corr_06",
+      "min": [20.15, 2, 6.2],
+      "max": [21.15, 3, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+    },
+    { "id": "b_floor_0221", "cell": "c_corr_06", "min": [20.15, -0.2, 6.2], "max": [21.15, 0, 6.4], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0222",
+      "cell": "c_corr_06",
+      "min": [21.15, -0.2, 6.2],
+      "max": [21.8, 3, 6.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block", "+z": "stone_rough" }
+    },
+    {
+      "id": "b_wall_0223",
+      "cell": "c_cellar_03",
+      "min": [15.2, -0.2, 0],
+      "max": [15.4, 3, 2.55],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0224",
+      "cell": "c_cellar_03",
+      "min": [15.2, 2, 2.55],
+      "max": [15.4, 3, 3.55],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    { "id": "b_floor_0225", "cell": "c_cellar_03", "min": [15.2, -0.2, 2.55], "max": [15.4, 0, 3.55], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0226",
+      "cell": "c_cellar_03",
+      "min": [15.2, -0.2, 3.55],
+      "max": [15.4, 3, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0227",
+      "cell": "c_corr_05",
+      "min": [17.1, -0.2, 0],
+      "max": [17.3, 3, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0228",
+      "cell": "c_niche_02",
+      "min": [12.7, -0.2, 0],
+      "max": [12.9, 2.9, 2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0229",
+      "cell": "c_cellar_03",
+      "min": [12.7, -0.2, 2],
+      "max": [12.9, 2.9, 2.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0230",
+      "cell": "c_niche_03",
+      "min": [12.7, -0.2, 2.2],
+      "max": [12.9, 2.9, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0231",
+      "cell": "c_niche_02",
+      "min": [10.1, -0.2, 2],
+      "max": [12.7, 2.8, 2.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "brick_red", "+z": "brick_red" }
+    },
+    {
+      "id": "b_wall_0232",
+      "cell": "c_cellar_04",
+      "min": [19.4, -0.2, 0],
+      "max": [19.6, 3, 4.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0233",
+      "cell": "c_cellar_06",
+      "min": [13.9, -0.2, 6.4],
+      "max": [14.1, 3.2, 8.8],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0234",
-      "cell": "c_corr_05",
-      "min": [12.2, 2, 6.9],
-      "max": [13.1, 2.8, 7.1],
+      "cell": "c_corr_07",
+      "min": [13.9, -0.2, 8.8],
+      "max": [14.1, 2.8, 9],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
+      "faces": { "+x": "stone_block" }
     },
-    { "id": "b_floor_0235", "cell": "c_corr_05", "min": [12.2, -0.2, 6.9], "max": [13.1, 0, 7.1], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0235",
+      "cell": "c_cellar_07",
+      "min": [13.9, -0.2, 9],
+      "max": [14.1, 3, 11.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
     {
       "id": "b_wall_0236",
-      "cell": "c_corr_05",
-      "min": [13.1, -0.2, 6.9],
-      "max": [14.4, 2.8, 7.1],
+      "cell": "c_corr_07",
+      "min": [16, -0.2, 6.4],
+      "max": [16.2, 3.2, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "brick_red" }
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
     {
       "id": "b_wall_0237",
-      "cell": "c_niche_01",
-      "min": [9.8, -0.2, 2.8],
-      "max": [12.1, 2.6, 3],
+      "cell": "c_cellar_06",
+      "min": [10.1, -0.2, 8.8],
+      "max": [13.9, 3.2, 9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "brick_red", "+z": "brick_red" }
     },
     {
       "id": "b_wall_0238",
-      "cell": "c_cellar_06",
-      "min": [12.1, -0.2, 2.8],
-      "max": [12.3, 2.6, 3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0239",
-      "cell": "c_niche_02",
-      "min": [12.3, -0.2, 2.8],
-      "max": [14.4, 2.6, 3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0240",
-      "cell": "c_niche_01",
-      "min": [12.1, -0.2, 0],
-      "max": [12.3, 2.6, 2.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0241",
-      "cell": "c_cellar_07",
-      "min": [9.8, -0.2, 9.2],
-      "max": [14.4, 3, 9.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0242",
-      "cell": "c_cellar_09",
-      "min": [16.2, -0.2, 4],
-      "max": [18.8, 2.7, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0243",
-      "cell": "c_corr_07",
-      "min": [18.8, -0.2, 4],
-      "max": [19, 2.7, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0244",
-      "cell": "c_chamber_02",
-      "min": [19, -0.2, 4],
-      "max": [19.45, 3, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0245",
-      "cell": "c_chamber_02",
-      "min": [19.45, 2.1, 4],
-      "max": [20.35, 3, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "stone_block" }
-    },
-    { "id": "b_floor_0246", "cell": "c_chamber_02", "min": [19.45, -0.2, 4], "max": [20.35, 0, 4.2], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0247",
-      "cell": "c_chamber_02",
-      "min": [20.35, -0.2, 4],
-      "max": [21.8, 3, 4.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0248",
-      "cell": "c_corr_07",
-      "min": [16.2, -0.2, 5.7],
-      "max": [21.8, 3.1, 5.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0249",
-      "cell": "c_cellar_09",
-      "min": [18.8, -0.2, 0],
-      "max": [19, 3, 4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_rough" }
-    },
-    {
-      "id": "b_wall_0250",
       "cell": "c_crypt_01",
-      "min": [16.2, -0.2, 8.6],
-      "max": [21.8, 3.2, 8.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block", "+z": "stone_block" }
-    },
-    {
-      "id": "b_wall_0251",
-      "cell": "c_cellar_12",
-      "min": [12.1, -0.2, 13.4],
-      "max": [12.3, 3, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0252",
-      "cell": "c_corr_10",
-      "min": [13.7, -0.2, 13.4],
-      "max": [13.9, 3, 16.2],
+      "min": [19.1, -0.2, 6.4],
+      "max": [19.3, 3.2, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
     {
-      "id": "b_wall_0253",
-      "cell": "c_corr_10",
-      "min": [13.7, -0.2, 16.2],
-      "max": [13.9, 2.6, 16.4],
+      "id": "b_wall_0239",
+      "cell": "c_crypt_02",
+      "min": [14, -0.92, 13.5],
+      "max": [14.2, 3.3, 18.9],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0240",
+      "cell": "c_chamber_04",
+      "min": [4.6, -0.2, 13.5],
+      "max": [4.8, 3, 13.75],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0241",
+      "cell": "c_chamber_04",
+      "min": [4.6, 2.1, 13.75],
+      "max": [4.8, 3, 15.05],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
+    },
+    { "id": "b_floor_0242", "cell": "c_chamber_04", "min": [4.6, -0.2, 13.75], "max": [4.8, 0, 15.05], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0243",
+      "cell": "c_chamber_04",
+      "min": [4.6, -0.2, 15.05],
+      "max": [4.8, 3, 15.9],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0244",
+      "cell": "c_corr_09",
+      "min": [4.6, -0.2, 15.9],
+      "max": [4.8, 3, 16.1],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0245",
+      "cell": "c_cellar_08",
+      "min": [4.6, -0.2, 16.1],
+      "max": [4.8, 3, 16.85],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0246",
+      "cell": "c_cellar_08",
+      "min": [4.6, 2, 16.85],
+      "max": [4.8, 3, 17.85],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    { "id": "b_floor_0247", "cell": "c_cellar_08", "min": [4.6, -0.2, 16.85], "max": [4.8, 0, 17.85], "mat": "dirt_packed", "tag": "floor" },
+    {
+      "id": "b_wall_0248",
+      "cell": "c_cellar_08",
+      "min": [4.6, -0.2, 17.85],
+      "max": [4.8, 3, 18.9],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
+    {
+      "id": "b_wall_0249",
+      "cell": "c_corr_09",
+      "min": [6.6, -0.2, 13.5],
+      "max": [6.8, 3, 15.8],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "brick_red" }
+    },
+    {
+      "id": "b_wall_0250",
+      "cell": "c_corr_09",
+      "min": [6.6, -0.2, 15.8],
+      "max": [6.8, 3, 16],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block" }
     },
     {
+      "id": "b_wall_0251",
+      "cell": "c_corr_09",
+      "min": [6.6, -0.2, 16],
+      "max": [6.8, 3, 17.3],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_rough" }
+    },
+    {
+      "id": "b_wall_0252",
+      "cell": "c_corr_09",
+      "min": [6.6, 2.1, 17.3],
+      "max": [6.8, 3, 18.4],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block", "+x": "stone_rough" }
+    },
+    { "id": "b_floor_0253", "cell": "c_corr_09", "min": [6.6, -0.2, 17.3], "max": [6.8, 0, 18.4], "mat": "stone_slab", "tag": "floor" },
+    {
       "id": "b_wall_0254",
-      "cell": "c_corr_10",
-      "min": [13.7, -0.2, 16.4],
-      "max": [13.9, 2.6, 16.6],
+      "cell": "c_corr_09",
+      "min": [6.6, -0.2, 18.4],
+      "max": [6.8, 3, 18.9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_rough" }
     },
     {
       "id": "b_wall_0255",
-      "cell": "c_corr_10",
-      "min": [13.7, 2, 16.6],
-      "max": [13.9, 2.6, 17.5],
+      "cell": "c_chamber_04",
+      "min": [0, -0.2, 15.9],
+      "max": [4.6, 3, 16.1],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_rough" }
+      "faces": { "-z": "stone_rough", "+z": "brick_red" }
     },
-    { "id": "b_floor_0256", "cell": "c_corr_10", "min": [13.7, -0.2, 16.6], "max": [13.9, 0, 17.5], "mat": "stone_slab", "tag": "floor" },
+    {
+      "id": "b_wall_0256",
+      "cell": "c_niche_04",
+      "min": [9.9, -0.56, 13.5],
+      "max": [10.1, 3.3, 15.8],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "brick_red", "+x": "stone_block" }
+    },
     {
       "id": "b_wall_0257",
-      "cell": "c_corr_10",
-      "min": [13.7, -0.2, 17.5],
-      "max": [13.9, 2.6, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "stone_rough" }
-    },
-    {
-      "id": "b_wall_0258",
-      "cell": "c_cellar_10",
-      "min": [4.1, -0.2, 13.4],
-      "max": [4.3, 3, 13.95],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0259",
-      "cell": "c_cellar_10",
-      "min": [4.1, 2.1, 13.95],
-      "max": [4.3, 3, 15.25],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0260", "cell": "c_cellar_10", "min": [4.1, -0.2, 13.95], "max": [4.3, 0, 15.25], "mat": "dirt_packed", "tag": "floor" },
-    {
-      "id": "b_wall_0261",
-      "cell": "c_cellar_10",
-      "min": [4.1, -0.2, 15.25],
-      "max": [4.3, 3, 15.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    {
-      "id": "b_wall_0262",
-      "cell": "c_corr_09",
-      "min": [4.1, -0.2, 15.8],
-      "max": [4.3, 2.5, 16],
+      "cell": "c_crypt_02",
+      "min": [9.9, -0.56, 15.8],
+      "max": [10.1, 3.3, 16],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
     {
-      "id": "b_wall_0263",
-      "cell": "c_cellar_11",
-      "min": [4.1, -0.2, 16],
-      "max": [4.3, 2.9, 16.6],
+      "id": "b_wall_0258",
+      "cell": "c_chamber_05",
+      "min": [9.9, -0.56, 16],
+      "max": [10.1, 3.3, 18.9],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-x": "stone_rough", "+x": "stone_block" }
     },
     {
-      "id": "b_wall_0264",
-      "cell": "c_cellar_11",
-      "min": [4.1, 2.1, 16.6],
-      "max": [4.3, 2.9, 17.5],
+      "id": "b_wall_0259",
+      "cell": "c_niche_04",
+      "min": [6.8, -0.2, 15.8],
+      "max": [9.9, 2.8, 16],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
-    },
-    { "id": "b_floor_0265", "cell": "c_cellar_11", "min": [4.1, -0.2, 16.6], "max": [4.3, 0, 17.5], "mat": "dirt_packed", "tag": "floor" },
-    {
-      "id": "b_wall_0266",
-      "cell": "c_cellar_11",
-      "min": [4.1, -0.2, 17.5],
-      "max": [4.3, 2.9, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "brick_red", "+x": "stone_block" }
+      "faces": { "-z": "brick_red", "+z": "stone_rough" }
     },
     {
-      "id": "b_wall_0267",
-      "cell": "c_corr_09",
-      "min": [5.7, -0.74, 13.4],
-      "max": [5.9, 3.3, 18.9],
+      "id": "b_wall_0260",
+      "cell": "c_crypt_03",
+      "min": [17.8, -0.92, 13.5],
+      "max": [18, 3.4, 18.9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "stone_block", "+x": "stone_block" }
     },
+    { "id": "b_wall_0261", "cell": "c_chamber_01", "min": [-0.2, -0.2, -0.2], "max": [0, 3.1, 0], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0268",
-      "cell": "c_cellar_10",
-      "min": [0, -0.2, 15.8],
-      "max": [4.1, 3, 16],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0269",
-      "cell": "c_crypt_03",
-      "min": [9.3, -0.74, 13.4],
-      "max": [9.5, 3.3, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0270",
-      "cell": "c_chamber_03",
-      "min": [17, -0.2, 13.4],
-      "max": [17.2, 3, 16.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough", "+x": "stone_rough" }
-    },
-    {
-      "id": "b_wall_0271",
-      "cell": "c_chamber_03",
-      "min": [17, -0.2, 16.1],
-      "max": [17.2, 3, 16.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough" }
-    },
-    { "id": "b_wall_0272", "cell": "c_chamber_03", "min": [17, -0.2, 16.2], "max": [17.2, 3, 16.3], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0273",
-      "cell": "c_cellar_13",
-      "min": [17, -0.2, 16.3],
-      "max": [17.2, 2.8, 16.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0274",
-      "cell": "c_chamber_04",
-      "min": [17, -0.2, 16.4],
-      "max": [17.2, 2.8, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough", "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0275",
-      "cell": "c_chamber_03",
-      "min": [13.9, -0.2, 16.2],
-      "max": [17, 3, 16.4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "stone_rough" }
-    },
-    {
-      "id": "b_wall_0276",
-      "cell": "c_chamber_05",
-      "min": [17.2, -0.2, 16.1],
-      "max": [17.65, 2.8, 16.3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "brick_red" }
-    },
-    {
-      "id": "b_wall_0277",
-      "cell": "c_chamber_05",
-      "min": [17.65, 2, 16.1],
-      "max": [18.55, 2.8, 16.3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "brick_red" }
-    },
-    { "id": "b_floor_0278", "cell": "c_chamber_05", "min": [17.65, -0.2, 16.1], "max": [18.55, 0, 16.3], "mat": "stone_slab", "tag": "floor" },
-    {
-      "id": "b_wall_0279",
-      "cell": "c_chamber_05",
-      "min": [18.55, -0.2, 16.1],
-      "max": [21.8, 2.8, 16.3],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_rough", "+z": "brick_red" }
-    },
-    { "id": "b_wall_0280", "cell": "c_chamber_01", "min": [-0.2, -0.2, -0.2], "max": [0, 2.9, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0281",
+      "id": "b_wall_0262",
       "cell": "c_chamber_01",
       "min": [0, -0.2, -0.2],
-      "max": [2.7, 2.9, 0],
+      "max": [2.6, 3.1, 0],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+z": "stone_rough" }
     },
-    { "id": "b_wall_0282", "cell": "c_chamber_01", "min": [2.7, -0.2, -0.2], "max": [2.9, 2.9, 0], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0263", "cell": "c_chamber_01", "min": [2.6, -0.2, -0.2], "max": [2.8, 3.1, 0], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0283",
+      "id": "b_wall_0264",
       "cell": "c_corr_02",
-      "min": [2.9, -0.2, -0.2],
-      "max": [4.2, 2.5, 0],
+      "min": [2.8, -0.2, -0.2],
+      "max": [4.5, 2.8, 0],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+z": "stone_block" }
     },
-    { "id": "b_wall_0284", "cell": "c_corr_02", "min": [4.2, -0.2, -0.2], "max": [4.4, 2.9, 0], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0265", "cell": "c_corr_02", "min": [4.5, -0.2, -0.2], "max": [4.7, 2.8, 0], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0285",
-      "cell": "c_cellar_03",
-      "min": [4.4, -0.2, -0.2],
-      "max": [8.1, 2.9, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "brick_red" }
-    },
-    { "id": "b_wall_0286", "cell": "c_cellar_03", "min": [8.1, -0.2, -0.2], "max": [8.3, 2.9, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0287",
-      "cell": "c_corr_04",
-      "min": [8.3, -0.2, -0.2],
-      "max": [9.6, 2.6, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "stone_block" }
-    },
-    { "id": "b_wall_0288", "cell": "c_corr_04", "min": [9.6, -0.2, -0.2], "max": [9.8, 2.6, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0289",
-      "cell": "c_niche_01",
-      "min": [9.8, -0.2, -0.2],
-      "max": [12.1, 2.4, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "brick_red" }
-    },
-    { "id": "b_wall_0290", "cell": "c_niche_01", "min": [12.1, -0.2, -0.2], "max": [12.3, 2.6, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0291",
-      "cell": "c_niche_02",
-      "min": [12.3, -0.2, -0.2],
-      "max": [14.4, 2.6, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "brick_red" }
-    },
-    { "id": "b_wall_0292", "cell": "c_niche_02", "min": [14.4, -0.2, -0.2], "max": [14.6, 2.7, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0293",
-      "cell": "c_corr_06",
-      "min": [14.6, -0.2, -0.2],
-      "max": [16, 2.7, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "stone_block" }
-    },
-    { "id": "b_wall_0294", "cell": "c_corr_06", "min": [16, -0.2, -0.2], "max": [16.2, 2.7, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0295",
-      "cell": "c_cellar_09",
-      "min": [16.2, -0.2, -0.2],
-      "max": [18.8, 2.7, 0],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+z": "brick_red" }
-    },
-    { "id": "b_wall_0296", "cell": "c_cellar_09", "min": [18.8, -0.2, -0.2], "max": [19, 3, 0], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0297",
+      "id": "b_wall_0266",
       "cell": "c_chamber_02",
-      "min": [19, -0.2, -0.2],
+      "min": [4.7, -0.2, -0.2],
+      "max": [8, 2.8, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_rough" }
+    },
+    { "id": "b_wall_0267", "cell": "c_chamber_02", "min": [8, -0.2, -0.2], "max": [8.2, 2.8, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0268",
+      "cell": "c_corr_04",
+      "min": [8.2, -0.2, -0.2],
+      "max": [9.9, 2.8, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    { "id": "b_wall_0269", "cell": "c_corr_04", "min": [9.9, -0.2, -0.2], "max": [10.1, 2.8, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0270",
+      "cell": "c_niche_02",
+      "min": [10.1, -0.2, -0.2],
+      "max": [12.7, 2.8, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "brick_red" }
+    },
+    { "id": "b_wall_0271", "cell": "c_niche_02", "min": [12.7, -0.2, -0.2], "max": [12.9, 2.9, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0272",
+      "cell": "c_cellar_03",
+      "min": [12.9, -0.2, -0.2],
+      "max": [15.2, 2.9, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "brick_red" }
+    },
+    { "id": "b_wall_0273", "cell": "c_cellar_03", "min": [15.2, -0.2, -0.2], "max": [15.4, 3, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0274",
+      "cell": "c_corr_05",
+      "min": [15.4, -0.2, -0.2],
+      "max": [17.1, 3, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "stone_block" }
+    },
+    { "id": "b_wall_0275", "cell": "c_corr_05", "min": [17.1, -0.2, -0.2], "max": [17.3, 3, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0276",
+      "cell": "c_cellar_04",
+      "min": [17.3, -0.2, -0.2],
+      "max": [19.4, 2.8, 0],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+z": "brick_red" }
+    },
+    { "id": "b_wall_0277", "cell": "c_cellar_04", "min": [19.4, -0.2, -0.2], "max": [19.6, 3, 0], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0278",
+      "cell": "c_cellar_05",
+      "min": [19.6, -0.2, -0.2],
       "max": [21.8, 3, 0],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "+z": "stone_rough" }
+      "faces": { "+z": "brick_red" }
     },
-    { "id": "b_wall_0298", "cell": "c_chamber_02", "min": [21.8, -0.2, -0.2], "max": [22, 3, 0], "mat": "stone_rough", "tag": "wall" },
-    { "id": "b_wall_0299", "cell": "c_cellar_11", "min": [-0.2, -0.2, 18.9], "max": [0, 2.9, 19.1], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0279", "cell": "c_cellar_05", "min": [21.8, -0.2, -0.2], "max": [22, 3, 0], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0280", "cell": "c_cellar_08", "min": [-0.2, -0.2, 18.9], "max": [0, 2.8, 19.1], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0300",
-      "cell": "c_cellar_11",
+      "id": "b_wall_0281",
+      "cell": "c_cellar_08",
       "min": [0, -0.2, 18.9],
-      "max": [4.1, 2.9, 19.1],
+      "max": [4.6, 2.8, 19.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "brick_red" }
     },
-    { "id": "b_wall_0301", "cell": "c_cellar_11", "min": [4.1, -0.2, 18.9], "max": [4.3, 2.9, 19.1], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0282", "cell": "c_cellar_08", "min": [4.6, -0.2, 18.9], "max": [4.8, 3, 19.1], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0302",
+      "id": "b_wall_0283",
       "cell": "c_corr_09",
-      "min": [4.3, -0.2, 18.9],
-      "max": [5.7, 2.5, 19.1],
+      "min": [4.8, -0.2, 18.9],
+      "max": [6.6, 3, 19.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_block" }
     },
-    { "id": "b_wall_0303", "cell": "c_corr_09", "min": [5.7, -0.74, 18.9], "max": [5.9, 3.3, 19.1], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0284", "cell": "c_corr_09", "min": [6.6, -0.2, 18.9], "max": [6.8, 3, 19.1], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0304",
-      "cell": "c_crypt_03",
-      "min": [5.9, -0.74, 18.9],
-      "max": [9.3, 3.3, 19.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block" }
-    },
-    { "id": "b_wall_0305", "cell": "c_crypt_03", "min": [9.3, -0.74, 18.9], "max": [9.5, 3.3, 19.1], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0306",
-      "cell": "c_cellar_12",
-      "min": [9.5, -0.2, 18.9],
-      "max": [12.1, 3, 19.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "brick_red" }
-    },
-    { "id": "b_wall_0307", "cell": "c_cellar_12", "min": [12.1, -0.2, 18.9], "max": [12.3, 3, 19.1], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0308",
-      "cell": "c_corr_10",
-      "min": [12.3, -0.2, 18.9],
-      "max": [13.7, 2.6, 19.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-z": "stone_block" }
-    },
-    { "id": "b_wall_0309", "cell": "c_corr_10", "min": [13.7, -0.2, 18.9], "max": [13.9, 2.6, 19.1], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0310",
-      "cell": "c_chamber_04",
-      "min": [13.9, -0.2, 18.9],
-      "max": [17, 2.6, 19.1],
+      "id": "b_wall_0285",
+      "cell": "c_chamber_05",
+      "min": [6.8, -0.2, 18.9],
+      "max": [9.9, 2.8, 19.1],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-z": "stone_rough" }
     },
-    { "id": "b_wall_0311", "cell": "c_chamber_04", "min": [17, -0.2, 18.9], "max": [17.2, 2.8, 19.1], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0286", "cell": "c_chamber_05", "min": [9.9, -0.56, 18.9], "max": [10.1, 3.3, 19.1], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0312",
-      "cell": "c_cellar_13",
-      "min": [17.2, -0.2, 18.9],
-      "max": [21.8, 2.8, 19.1],
+      "id": "b_wall_0287",
+      "cell": "c_crypt_02",
+      "min": [10.1, -0.56, 18.9],
+      "max": [14, 3.3, 19.1],
       "mat": "stone_rough",
       "tag": "wall",
-      "faces": { "-z": "brick_red" }
+      "faces": { "-z": "stone_block" }
     },
-    { "id": "b_wall_0313", "cell": "c_cellar_13", "min": [21.8, -0.2, 18.9], "max": [22, 2.8, 19.1], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0288", "cell": "c_crypt_02", "min": [14, -0.92, 18.9], "max": [14.2, 3.3, 19.1], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0314",
+      "id": "b_wall_0289",
+      "cell": "c_crypt_03",
+      "min": [14.2, -0.92, 18.9],
+      "max": [17.8, 3.2, 19.1],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block" }
+    },
+    { "id": "b_wall_0290", "cell": "c_crypt_03", "min": [17.8, -0.92, 18.9], "max": [18, 3.4, 19.1], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0291",
+      "cell": "c_crypt_04",
+      "min": [18, -0.74, 18.9],
+      "max": [21.8, 3.4, 19.1],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-z": "stone_block" }
+    },
+    { "id": "b_wall_0292", "cell": "c_crypt_04", "min": [21.8, -0.74, 18.9], "max": [22, 3.4, 19.1], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0293",
       "cell": "c_chamber_01",
       "min": [-0.2, -0.2, 0],
-      "max": [0, 2.9, 4.2],
+      "max": [0, 3.1, 4],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_rough" }
     },
-    { "id": "b_wall_0315", "cell": "c_chamber_01", "min": [-0.2, -0.2, 4.2], "max": [0, 2.9, 4.4], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0294", "cell": "c_chamber_01", "min": [-0.2, -0.2, 4], "max": [0, 3.1, 4.2], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0316",
+      "id": "b_wall_0295",
       "cell": "c_corr_01",
-      "min": [-0.2, -0.2, 4.4],
-      "max": [0, 2.6, 5.8],
+      "min": [-0.2, -0.2, 4.2],
+      "max": [0, 2.9, 6],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
-    { "id": "b_wall_0317", "cell": "c_corr_01", "min": [-0.2, -0.2, 5.8], "max": [0, 2.9, 6], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0296", "cell": "c_corr_01", "min": [-0.2, -0.2, 6], "max": [0, 3.1, 6.2], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0318",
+      "id": "b_wall_0297",
       "cell": "c_cellar_01",
-      "min": [-0.2, -0.2, 6],
-      "max": [0, 2.9, 8.6],
+      "min": [-0.2, -0.2, 6.2],
+      "max": [0, 3.1, 11.5],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "brick_red" }
     },
-    { "id": "b_wall_0319", "cell": "c_cellar_01", "min": [-0.2, -0.2, 8.6], "max": [0, 3, 8.8], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0298", "cell": "c_cellar_01", "min": [-0.2, -0.2, 11.5], "max": [0, 3.1, 11.7], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0320",
-      "cell": "c_cellar_02",
-      "min": [-0.2, -0.2, 8.8],
-      "max": [0, 3, 11.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "brick_red" }
-    },
-    { "id": "b_wall_0321", "cell": "c_cellar_02", "min": [-0.2, -0.2, 11.8], "max": [0, 3, 12], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0322",
+      "id": "b_wall_0299",
       "cell": "c_corr_08",
-      "min": [-0.2, -0.2, 12],
-      "max": [0, 2.6, 13.2],
+      "min": [-0.2, -0.2, 11.7],
+      "max": [0, 2.8, 13.3],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "stone_block" }
     },
-    { "id": "b_wall_0323", "cell": "c_corr_08", "min": [-0.2, -0.2, 13.2], "max": [0, 3, 13.4], "mat": "stone_rough", "tag": "wall" },
+    { "id": "b_wall_0300", "cell": "c_corr_08", "min": [-0.2, -0.2, 13.3], "max": [0, 3, 13.5], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0324",
-      "cell": "c_cellar_10",
-      "min": [-0.2, -0.2, 13.4],
-      "max": [0, 3, 15.8],
+      "id": "b_wall_0301",
+      "cell": "c_chamber_04",
+      "min": [-0.2, -0.2, 13.5],
+      "max": [0, 3, 15.9],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "+x": "stone_rough" }
+    },
+    { "id": "b_wall_0302", "cell": "c_chamber_04", "min": [-0.2, -0.2, 15.9], "max": [0, 3, 16.1], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0303",
+      "cell": "c_cellar_08",
+      "min": [-0.2, -0.2, 16.1],
+      "max": [0, 2.8, 18.9],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "+x": "brick_red" }
     },
-    { "id": "b_wall_0325", "cell": "c_cellar_10", "min": [-0.2, -0.2, 15.8], "max": [0, 3, 16], "mat": "stone_rough", "tag": "wall" },
     {
-      "id": "b_wall_0326",
-      "cell": "c_cellar_11",
-      "min": [-0.2, -0.2, 16],
-      "max": [0, 2.9, 18.9],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "+x": "brick_red" }
-    },
-    {
-      "id": "b_wall_0327",
-      "cell": "c_chamber_02",
+      "id": "b_wall_0304",
+      "cell": "c_cellar_05",
       "min": [21.8, -0.2, 0],
-      "max": [22, 3, 4],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough" }
-    },
-    { "id": "b_wall_0328", "cell": "c_chamber_02", "min": [21.8, -0.2, 4], "max": [22, 3, 4.2], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0329",
-      "cell": "c_corr_07",
-      "min": [21.8, -0.2, 4.2],
-      "max": [22, 2.7, 5.7],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    { "id": "b_wall_0330", "cell": "c_corr_07", "min": [21.8, -0.2, 5.7], "max": [22, 3.1, 5.9], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0331",
-      "cell": "c_crypt_01",
-      "min": [21.8, -0.2, 5.9],
-      "max": [22, 3.1, 8.6],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    { "id": "b_wall_0332", "cell": "c_crypt_01", "min": [21.8, -0.2, 8.6], "max": [22, 3.2, 8.8], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0333",
-      "cell": "c_crypt_02",
-      "min": [21.8, -0.2, 8.8],
-      "max": [22, 3.2, 11.8],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    { "id": "b_wall_0334", "cell": "c_crypt_02", "min": [21.8, -0.2, 11.8], "max": [22, 3.2, 12], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0335",
-      "cell": "c_corr_08",
-      "min": [21.8, -0.2, 12],
-      "max": [22, 2.6, 13.2],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_block" }
-    },
-    { "id": "b_wall_0336", "cell": "c_corr_08", "min": [21.8, -0.2, 13.2], "max": [22, 2.8, 13.4], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0337",
-      "cell": "c_chamber_05",
-      "min": [21.8, -0.2, 13.4],
-      "max": [22, 2.8, 16.1],
-      "mat": "stone_rough",
-      "tag": "wall",
-      "faces": { "-x": "stone_rough" }
-    },
-    { "id": "b_wall_0338", "cell": "c_chamber_05", "min": [21.8, -0.2, 16.1], "max": [22, 2.8, 16.3], "mat": "stone_rough", "tag": "wall" },
-    {
-      "id": "b_wall_0339",
-      "cell": "c_cellar_13",
-      "min": [21.8, -0.2, 16.3],
-      "max": [22, 2.8, 18.9],
+      "max": [22, 3, 4.2],
       "mat": "stone_rough",
       "tag": "wall",
       "faces": { "-x": "brick_red" }
     },
-    { "id": "b_stair_0340", "cell": "c_crypt_03", "min": [6.25, -0.54, 13.68], "max": [7.75, -0.36, 13.96], "mat": "stone_slab", "tag": "stair" },
-    { "id": "b_stair_0341", "cell": "c_crypt_03", "min": [6.25, -0.54, 13.4], "max": [7.75, -0.18, 13.68], "mat": "stone_slab", "tag": "stair" }
+    { "id": "b_wall_0305", "cell": "c_cellar_05", "min": [21.8, -0.2, 4.2], "max": [22, 3, 4.4], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0306",
+      "cell": "c_corr_06",
+      "min": [21.8, -0.2, 4.4],
+      "max": [22, 2.9, 6.2],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block" }
+    },
+    { "id": "b_wall_0307", "cell": "c_corr_06", "min": [21.8, -0.2, 6.2], "max": [22, 3, 6.4], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0308",
+      "cell": "c_chamber_03",
+      "min": [21.8, -0.2, 6.4],
+      "max": [22, 3, 11.5],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_rough" }
+    },
+    { "id": "b_wall_0309", "cell": "c_chamber_03", "min": [21.8, -0.2, 11.5], "max": [22, 3, 11.7], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0310",
+      "cell": "c_corr_08",
+      "min": [21.8, -0.2, 11.7],
+      "max": [22, 2.8, 13.3],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block" }
+    },
+    { "id": "b_wall_0311", "cell": "c_corr_08", "min": [21.8, -0.74, 13.3], "max": [22, 3.4, 13.5], "mat": "stone_rough", "tag": "wall" },
+    {
+      "id": "b_wall_0312",
+      "cell": "c_crypt_04",
+      "min": [21.8, -0.74, 13.5],
+      "max": [22, 3.4, 18.9],
+      "mat": "stone_rough",
+      "tag": "wall",
+      "faces": { "-x": "stone_block" }
+    },
+    { "id": "b_stair_0313", "cell": "c_crypt_03", "min": [15.7, -0.72, 14.06], "max": [17.5, -0.54, 14.34], "mat": "stone_slab", "tag": "stair" },
+    { "id": "b_stair_0314", "cell": "c_crypt_03", "min": [15.7, -0.72, 13.78], "max": [17.5, -0.36, 14.06], "mat": "stone_slab", "tag": "stair" },
+    { "id": "b_stair_0315", "cell": "c_crypt_03", "min": [15.7, -0.72, 13.5], "max": [17.5, -0.18, 13.78], "mat": "stone_slab", "tag": "stair" },
+    { "id": "b_stair_0316", "cell": "c_crypt_02", "min": [10.55, -0.36, 13.5], "max": [12.05, -0.18, 13.78], "mat": "stone_slab", "tag": "stair" },
+    { "id": "b_stair_0317", "cell": "c_crypt_04", "min": [18.05, -0.54, 13.78], "max": [19.75, -0.36, 14.06], "mat": "stone_slab", "tag": "stair" },
+    { "id": "b_stair_0318", "cell": "c_crypt_04", "min": [18.05, -0.54, 13.5], "max": [19.75, -0.18, 13.78], "mat": "stone_slab", "tag": "stair" }
   ],
   "entities": [
-    { "id": "e_door_01", "prefab": "door_plank_01", "cell": "c_corr_10", "pos": [13.8, 0, 17.05], "rot": [0, -90, 0] },
-    { "id": "e_door_02", "prefab": "door_plank_01", "cell": "c_cellar_04", "pos": [8.2, 0, 4.6], "rot": [0, 90, 0] },
-    { "id": "e_door_03", "prefab": "door_plank_01", "cell": "c_corr_06", "pos": [16.1, 0, 2.15], "rot": [0, -90, 0] },
-    { "id": "e_door_04", "prefab": "door_plank_01", "cell": "c_corr_05", "pos": [12.65, 0, 7], "rot": [0, 180, 0] },
-    { "id": "e_door_05", "prefab": "door_plank_01", "cell": "c_chamber_05", "pos": [18.1, 0, 16.2], "rot": [0, 180, 0] },
-    { "id": "e_door_06", "prefab": "door_plank_01", "cell": "c_chamber_01", "pos": [2.8, 0, 2.75], "rot": [0, 90, 0] },
-    { "id": "e_door_07", "prefab": "door_plank_01", "cell": "c_cellar_01", "pos": [2.8, 0, 7.65], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_01", "prefab": "torch_wall_01", "cell": "c_chamber_01", "pos": [0.001, 1.6, 1.19], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_02", "prefab": "torch_wall_01", "cell": "c_corr_01", "pos": [0.66, 1.6, 4.401], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_03", "prefab": "torch_wall_01", "cell": "c_cellar_01", "pos": [2.699, 1.6, 6.79], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_04", "prefab": "torch_wall_01", "cell": "c_cellar_02", "pos": [0.001, 1.6, 10.14], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_05", "prefab": "torch_wall_01", "cell": "c_corr_02", "pos": [2.901, 1.6, 4.1], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_06", "prefab": "torch_wall_01", "cell": "c_corr_02", "pos": [4.199, 1.6, 9.72], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_07", "prefab": "torch_wall_01", "cell": "c_cellar_03", "pos": [7.17, 1.6, 3.199], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_08", "prefab": "torch_wall_01", "cell": "c_cellar_04", "pos": [5.61, 1.6, 3.401], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_09", "prefab": "torch_wall_01", "cell": "c_cellar_05", "pos": [4.401, 1.6, 9.89], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_10", "prefab": "torch_wall_01", "cell": "c_corr_04", "pos": [9.599, 1.6, 2.88], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_11", "prefab": "torch_wall_01", "cell": "c_corr_04", "pos": [8.301, 1.6, 6.23], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_12", "prefab": "torch_wall_01", "cell": "c_cellar_06", "pos": [11.5, 1.6, 3.001], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_13", "prefab": "torch_wall_01", "cell": "c_corr_05", "pos": [9.801, 1.6, 5.96], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_14", "prefab": "torch_wall_01", "cell": "c_cellar_07", "pos": [13.45, 1.6, 7.101], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_15", "prefab": "torch_wall_01", "cell": "c_cellar_08", "pos": [13.79, 1.6, 11.799], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_16", "prefab": "torch_wall_01", "cell": "c_corr_06", "pos": [14.601, 1.6, 9.96], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_17", "prefab": "torch_wall_01", "cell": "c_corr_06", "pos": [15.999, 1.6, 3.58], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_18", "prefab": "torch_wall_01", "cell": "c_cellar_09", "pos": [16.201, 1.6, 3.27], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_19", "prefab": "torch_wall_01", "cell": "c_chamber_02", "pos": [20.86, 1.6, 3.999], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_20", "prefab": "torch_wall_01", "cell": "c_corr_07", "pos": [17.96, 1.6, 4.201], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_21", "prefab": "torch_wall_01", "cell": "c_crypt_01", "pos": [16.201, 1.6, 8.07], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_22", "prefab": "torch_wall_01", "cell": "c_crypt_02", "pos": [18.56, 1.6, 8.801], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_23", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [21.799, 1.6, 12.61], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_24", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [16.21, 1.6, 12.001], "rot": [0, 0, 0] },
-    { "id": "e_torch_wall_25", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [0.001, 1.6, 12.61], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_26", "prefab": "torch_wall_01", "cell": "c_cellar_10", "pos": [1.68, 1.6, 15.799], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_27", "prefab": "torch_wall_01", "cell": "c_cellar_11", "pos": [2.79, 1.6, 18.899], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_28", "prefab": "torch_wall_01", "cell": "c_corr_09", "pos": [4.301, 1.6, 18.32], "rot": [0, 90, 0] },
-    { "id": "e_torch_wall_29", "prefab": "torch_wall_01", "cell": "c_crypt_03", "pos": [9.299, 1.06, 15.95], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_30", "prefab": "torch_wall_01", "cell": "c_cellar_12", "pos": [12.099, 1.6, 16.35], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_31", "prefab": "torch_wall_01", "cell": "c_corr_10", "pos": [13.699, 1.6, 15.72], "rot": [0, -90, 0] },
-    { "id": "e_torch_wall_32", "prefab": "torch_wall_01", "cell": "c_chamber_03", "pos": [16.47, 1.6, 16.199], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_33", "prefab": "torch_wall_01", "cell": "c_chamber_04", "pos": [14.35, 1.6, 18.899], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_34", "prefab": "torch_wall_01", "cell": "c_chamber_05", "pos": [20.65, 1.6, 16.099], "rot": [0, 180, 0] },
-    { "id": "e_torch_wall_35", "prefab": "torch_wall_01", "cell": "c_cellar_13", "pos": [18.7, 1.6, 18.899], "rot": [0, 180, 0] },
-    { "id": "e_table_work_01", "prefab": "table_work_01", "cell": "c_chamber_01", "pos": [1.2, 0, 3.779], "rot": [0, 180, 0] },
-    { "id": "e_chair_plain_01", "prefab": "chair_plain_01", "cell": "c_chamber_01", "pos": [1.2, 0, 2.979], "rot": [0, 360, 0] },
-    { "id": "e_chest_wood_01", "prefab": "chest_wood_01", "cell": "c_chamber_01", "pos": [2.198, 0, 0.85], "rot": [0, -90, 0] },
-    { "id": "e_cabinet_door_01", "prefab": "cabinet_door_01", "cell": "c_chamber_01", "pos": [2.479, 0, 1.8], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_01", "prefab": "barrel_wood_01", "cell": "c_chamber_01", "pos": [0.5569, 0, 0.377], "rot": [0, 0, 0] },
-    { "id": "e_crate_plank_01", "prefab": "crate_plank_01", "cell": "c_cellar_02", "pos": [0.4, 0, 11.479], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_02", "prefab": "barrel_wood_01", "cell": "c_cellar_02", "pos": [2.2569, 0, 9.177], "rot": [0, 0, 0] },
-    { "id": "e_barrel_wood_03", "prefab": "barrel_wood_01", "cell": "c_cellar_02", "pos": [0.377, 0, 10.4569], "rot": [0, 90, 0] },
-    { "id": "e_crate_plank_02", "prefab": "crate_plank_01", "cell": "c_cellar_03", "pos": [7.779, 0, 0.6], "rot": [0, -90, 0] },
-    { "id": "e_crate_large_01", "prefab": "crate_large_01", "cell": "c_cellar_03", "pos": [7.679, 0, 1.75], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_04", "prefab": "barrel_wood_01", "cell": "c_cellar_03", "pos": [7.723, 0, 2.7069], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_02", "prefab": "chest_wood_01", "cell": "c_cellar_03", "pos": [4.902, 0, 2.65], "rot": [0, 90, 0] },
-    { "id": "e_barrel_wood_05", "prefab": "barrel_wood_01", "cell": "c_cellar_03", "pos": [5.5569, 0, 2.823], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_06", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [7.723, 0, 5.6569], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_03", "prefab": "chest_wood_01", "cell": "c_cellar_04", "pos": [5.05, 0, 3.902], "rot": [0, 0, 0] },
-    { "id": "e_barrel_wood_07", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [6.1069, 0, 3.777], "rot": [0, 0, 0] },
-    { "id": "e_barrel_wood_08", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [5.1569, 0, 5.923], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_09", "prefab": "barrel_wood_01", "cell": "c_cellar_05", "pos": [5.1569, 0, 8.577], "rot": [0, 0, 0] },
-    { "id": "e_chest_wood_04", "prefab": "chest_wood_01", "cell": "c_cellar_05", "pos": [7.598, 0, 9.95], "rot": [0, -90, 0] },
-    { "id": "e_crate_plank_03", "prefab": "crate_plank_01", "cell": "c_cellar_05", "pos": [7.779, 0, 10.75], "rot": [0, -90, 0] },
-    { "id": "e_crate_plank_04", "prefab": "crate_plank_01", "cell": "c_niche_01", "pos": [11.5, 0, 2.479], "rot": [0, 180, 0] },
-    { "id": "e_chest_wood_05", "prefab": "chest_wood_01", "cell": "c_niche_01", "pos": [11.55, 0, 0.502], "rot": [0, 0, 0] },
-    { "id": "e_crate_plank_05", "prefab": "crate_plank_01", "cell": "c_niche_02", "pos": [12.8, 0, 0.321], "rot": [0, 0, 0] },
-    { "id": "e_barrel_wood_10", "prefab": "barrel_wood_01", "cell": "c_niche_02", "pos": [12.677, 0, 1.1569], "rot": [0, 90, 0] },
-    { "id": "e_crate_large_02", "prefab": "crate_large_01", "cell": "c_cellar_06", "pos": [10.221, 0, 3.9], "rot": [0, 90, 0] },
-    { "id": "e_crate_plank_06", "prefab": "crate_plank_01", "cell": "c_cellar_06", "pos": [10.121, 0, 4.95], "rot": [0, 90, 0] },
-    { "id": "e_crate_plank_07", "prefab": "crate_plank_01", "cell": "c_cellar_06", "pos": [10.121, 0.6, 4.95], "rot": [0, 91, 0] },
-    { "id": "e_barrel_wood_11", "prefab": "barrel_wood_01", "cell": "c_cellar_06", "pos": [11.1569, 0, 3.377], "rot": [0, 0, 0] },
-    { "id": "e_chest_wood_06", "prefab": "chest_wood_01", "cell": "c_cellar_07", "pos": [11.65, 0, 8.698], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_12", "prefab": "barrel_wood_01", "cell": "c_cellar_07", "pos": [12.5069, 0, 8.823], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_13", "prefab": "barrel_wood_01", "cell": "c_cellar_07", "pos": [13.3769, 0, 8.823], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_14", "prefab": "barrel_wood_01", "cell": "c_cellar_07", "pos": [14.023, 0, 7.5569], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_15", "prefab": "barrel_wood_01", "cell": "c_cellar_08", "pos": [14.023, 0, 10.0569], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_07", "prefab": "chest_wood_01", "cell": "c_cellar_08", "pos": [13.898, 0, 11.22], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_16", "prefab": "barrel_wood_01", "cell": "c_cellar_08", "pos": [10.5569, 0, 9.777], "rot": [0, 0, 0] },
-    { "id": "e_crate_large_03", "prefab": "crate_large_01", "cell": "c_cellar_08", "pos": [11.52, 0, 9.821], "rot": [0, 0, 0] },
-    { "id": "e_barrel_wood_17", "prefab": "barrel_wood_01", "cell": "c_cellar_08", "pos": [12.5269, 0, 9.777], "rot": [0, 0, 0] },
-    { "id": "e_crate_plank_08", "prefab": "crate_plank_01", "cell": "c_cellar_08", "pos": [11.4, 0, 11.479], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_18", "prefab": "barrel_wood_01", "cell": "c_cellar_09", "pos": [16.577, 0, 0.7569], "rot": [0, 90, 0] },
-    { "id": "e_barrel_wood_19", "prefab": "barrel_wood_01", "cell": "c_cellar_09", "pos": [16.577, 0, 3.1269], "rot": [0, 90, 0] },
-    { "id": "e_crate_plank_09", "prefab": "crate_plank_01", "cell": "c_cellar_09", "pos": [17.3, 0, 0.321], "rot": [0, 0, 0] },
-    { "id": "e_crate_plank_10", "prefab": "crate_plank_01", "cell": "c_cellar_09", "pos": [17.3, 0.6, 0.321], "rot": [0, -3, 0] },
-    { "id": "e_crate_large_04", "prefab": "crate_large_01", "cell": "c_cellar_09", "pos": [17.5, 0, 3.579], "rot": [0, 180, 0] },
-    { "id": "e_table_work_02", "prefab": "table_work_01", "cell": "c_chamber_02", "pos": [19.421, 0, 1], "rot": [0, 90, 0] },
-    { "id": "e_chair_plain_02", "prefab": "chair_plain_01", "cell": "c_chamber_02", "pos": [20.221, 0, 1], "rot": [0, 270, 0] },
-    { "id": "e_chest_wood_08", "prefab": "chest_wood_01", "cell": "c_chamber_02", "pos": [21.05, 0, 3.498], "rot": [0, 180, 0] },
-    { "id": "e_cabinet_door_02", "prefab": "cabinet_door_01", "cell": "c_chamber_02", "pos": [21.579, 0, 0.55], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_20", "prefab": "barrel_wood_01", "cell": "c_chamber_02", "pos": [21.423, 0, 1.4069], "rot": [0, -90, 0] },
-    { "id": "e_sarcophagus_01", "prefab": "sarcophagus_01", "cell": "c_crypt_01", "pos": [18.6, 0, 8.079], "rot": [0, 180, 0] },
-    { "id": "e_bench_stone_01", "prefab": "bench_stone_01", "cell": "c_crypt_01", "pos": [20.86, 0, 8.359], "rot": [0, 180, 0] },
-    { "id": "e_sarcophagus_02", "prefab": "sarcophagus_01", "cell": "c_crypt_02", "pos": [16.721, 0, 10.3], "rot": [0, 90, 0] },
-    { "id": "e_chest_wood_09", "prefab": "chest_wood_01", "cell": "c_crypt_02", "pos": [18.25, 0, 11.298], "rot": [0, 180, 0] },
-    { "id": "e_bench_stone_02", "prefab": "bench_stone_01", "cell": "c_crypt_02", "pos": [21.559, 0, 10], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_21", "prefab": "barrel_wood_01", "cell": "c_cellar_10", "pos": [0.4569, 0, 15.423], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_22", "prefab": "barrel_wood_01", "cell": "c_cellar_10", "pos": [1.3269, 0, 15.423], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_23", "prefab": "barrel_wood_01", "cell": "c_cellar_10", "pos": [2.3969, 0, 15.423], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_24", "prefab": "barrel_wood_01", "cell": "c_cellar_10", "pos": [0.377, 0, 14.1569], "rot": [0, 90, 0] },
-    { "id": "e_crate_plank_11", "prefab": "crate_plank_01", "cell": "c_cellar_10", "pos": [1.1, 0, 13.721], "rot": [0, 0, 0] },
-    { "id": "e_crate_plank_12", "prefab": "crate_plank_01", "cell": "c_cellar_11", "pos": [0.6, 0, 18.579], "rot": [0, 180, 0] },
-    { "id": "e_crate_plank_13", "prefab": "crate_plank_01", "cell": "c_cellar_11", "pos": [0.6, 0.6, 18.579], "rot": [0, 179, 0] },
-    { "id": "e_crate_large_05", "prefab": "crate_large_01", "cell": "c_cellar_11", "pos": [1.7, 0, 18.479], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_25", "prefab": "barrel_wood_01", "cell": "c_cellar_11", "pos": [2.9069, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_26", "prefab": "barrel_wood_01", "cell": "c_cellar_11", "pos": [3.723, 0, 18.0569], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_27", "prefab": "barrel_wood_01", "cell": "c_cellar_11", "pos": [0.6569, 0, 16.377], "rot": [0, 0, 0] },
-    { "id": "e_sarcophagus_03", "prefab": "sarcophagus_01", "cell": "c_crypt_03", "pos": [8.779, -0.54, 14.6], "rot": [0, -90, 0] },
-    { "id": "e_sarcophagus_04", "prefab": "sarcophagus_01", "cell": "c_crypt_03", "pos": [8.779, -0.54, 17.01], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_10", "prefab": "chest_wood_01", "cell": "c_crypt_03", "pos": [6.402, -0.54, 15.45], "rot": [0, 90, 0] },
-    { "id": "e_bench_stone_03", "prefab": "bench_stone_01", "cell": "c_crypt_03", "pos": [6.141, -0.54, 16.9], "rot": [0, 90, 0] },
-    { "id": "e_barrel_wood_28", "prefab": "barrel_wood_01", "cell": "c_cellar_12", "pos": [10.1569, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_29", "prefab": "barrel_wood_01", "cell": "c_cellar_12", "pos": [11.0769, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_crate_plank_14", "prefab": "crate_plank_01", "cell": "c_cellar_12", "pos": [11.779, 0, 15], "rot": [0, -90, 0] },
-    { "id": "e_barrel_wood_30", "prefab": "barrel_wood_01", "cell": "c_cellar_12", "pos": [11.723, 0, 15.8069], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_11", "prefab": "chest_wood_01", "cell": "c_cellar_12", "pos": [11.598, 0, 16.92], "rot": [0, -90, 0] },
-    { "id": "e_table_work_03", "prefab": "table_work_01", "cell": "c_chamber_03", "pos": [16.579, 0, 14.5], "rot": [0, -90, 0] },
-    { "id": "e_chair_plain_03", "prefab": "chair_plain_01", "cell": "c_chamber_03", "pos": [15.779, 0, 14.5], "rot": [0, 90, 0] },
-    { "id": "e_cabinet_door_03", "prefab": "cabinet_door_01", "cell": "c_chamber_03", "pos": [14.45, 0, 15.979], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_31", "prefab": "barrel_wood_01", "cell": "c_chamber_03", "pos": [15.4069, 0, 15.823], "rot": [0, 180, 0] },
-    { "id": "e_chest_wood_12", "prefab": "chest_wood_01", "cell": "c_chamber_03", "pos": [16.27, 0, 15.698], "rot": [0, 180, 0] },
-    { "id": "e_table_work_04", "prefab": "table_work_01", "cell": "c_chamber_04", "pos": [14.8, 0, 18.479], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_32", "prefab": "barrel_wood_01", "cell": "c_chamber_04", "pos": [16.0069, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_cabinet_door_04", "prefab": "cabinet_door_01", "cell": "c_chamber_04", "pos": [15.55, 0, 16.621], "rot": [0, 0, 0] },
-    { "id": "e_bench_stone_04", "prefab": "bench_stone_01", "cell": "c_chamber_04", "pos": [16.759, 0, 17.4], "rot": [0, -90, 0] },
-    { "id": "e_table_work_05", "prefab": "table_work_01", "cell": "c_chamber_05", "pos": [21.379, 0, 14.6], "rot": [0, -90, 0] },
-    { "id": "e_chest_wood_13", "prefab": "chest_wood_01", "cell": "c_chamber_05", "pos": [19.35, 0, 15.598], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_33", "prefab": "barrel_wood_01", "cell": "c_chamber_05", "pos": [20.5069, 0, 15.723], "rot": [0, 180, 0] },
-    { "id": "e_crate_large_06", "prefab": "crate_large_01", "cell": "c_cellar_13", "pos": [18.1, 0, 18.479], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_34", "prefab": "barrel_wood_01", "cell": "c_cellar_13", "pos": [19.0569, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_barrel_wood_35", "prefab": "barrel_wood_01", "cell": "c_cellar_13", "pos": [20.1769, 0, 18.523], "rot": [0, 180, 0] },
-    { "id": "e_chest_wood_14", "prefab": "chest_wood_01", "cell": "c_cellar_13", "pos": [21.29, 0, 18.398], "rot": [0, 180, 0] },
-    { "id": "e_crate_plank_15", "prefab": "crate_plank_01", "cell": "c_cellar_13", "pos": [19.1, 0, 16.621], "rot": [0, 0, 0] }
+    { "id": "e_door_01", "prefab": "door_plank_01", "cell": "c_cellar_03", "pos": [15.3, 0, 3.05], "rot": [0, 90, 0] },
+    { "id": "e_door_02", "prefab": "door_plank_01", "cell": "c_corr_04", "pos": [10, 0, 7.25], "rot": [0, -90, 0] },
+    { "id": "e_door_03", "prefab": "door_plank_01", "cell": "c_cellar_08", "pos": [4.7, 0, 17.35], "rot": [0, 90, 0] },
+    { "id": "e_door_04", "prefab": "door_plank_01", "cell": "c_corr_02", "pos": [4.6, 0, 0.85], "rot": [0, -90, 0] },
+    { "id": "e_door_05", "prefab": "door_plank_01", "cell": "c_corr_01", "pos": [0.95, 0, 6.1], "rot": [0, 180, 0] },
+    { "id": "e_door_06", "prefab": "door_plank_01", "cell": "c_corr_06", "pos": [20.65, 0, 6.3], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_01", "prefab": "torch_wall_01", "cell": "c_chamber_01", "pos": [0.001, 1.6, 1.14], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_02", "prefab": "torch_wall_01", "cell": "c_corr_01", "pos": [0.64, 1.6, 4.201], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_03", "prefab": "torch_wall_01", "cell": "c_cellar_01", "pos": [2.599, 1.6, 8.22], "rot": [0, -90, 0] },
+    { "id": "e_torch_wall_04", "prefab": "torch_wall_01", "cell": "c_corr_02", "pos": [2.801, 1.6, 7.39], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_05", "prefab": "torch_wall_01", "cell": "c_corr_02", "pos": [4.499, 1.6, 4.53], "rot": [0, -90, 0] },
+    { "id": "e_torch_wall_06", "prefab": "torch_wall_01", "cell": "c_chamber_02", "pos": [4.701, 1.6, 2.24], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_07", "prefab": "torch_wall_01", "cell": "c_corr_03", "pos": [4.701, 1.6, 7.43], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_08", "prefab": "torch_wall_01", "cell": "c_cellar_02", "pos": [4.701, 1.6, 9.69], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_09", "prefab": "torch_wall_01", "cell": "c_corr_04", "pos": [8.55, 1.6, 0.001], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_10", "prefab": "torch_wall_01", "cell": "c_corr_04", "pos": [8.201, 1.6, 4.48], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_11", "prefab": "torch_wall_01", "cell": "c_cellar_03", "pos": [13.48, 1.6, 0.001], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_12", "prefab": "torch_wall_01", "cell": "c_corr_05", "pos": [17.099, 1.6, 2.56], "rot": [0, -90, 0] },
+    { "id": "e_torch_wall_13", "prefab": "torch_wall_01", "cell": "c_cellar_04", "pos": [18.33, 1.6, 0.001], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_14", "prefab": "torch_wall_01", "cell": "c_cellar_05", "pos": [19.601, 1.6, 2.98], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_15", "prefab": "torch_wall_01", "cell": "c_corr_06", "pos": [17.64, 1.6, 6.199], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_16", "prefab": "torch_wall_01", "cell": "c_corr_06", "pos": [13.75, 1.6, 4.401], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_17", "prefab": "torch_wall_01", "cell": "c_cellar_06", "pos": [12.43, 1.6, 6.401], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_18", "prefab": "torch_wall_01", "cell": "c_cellar_07", "pos": [10.92, 1.6, 9.001], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_19", "prefab": "torch_wall_01", "cell": "c_corr_07", "pos": [15.999, 1.6, 8.61], "rot": [0, -90, 0] },
+    { "id": "e_torch_wall_20", "prefab": "torch_wall_01", "cell": "c_crypt_01", "pos": [18.6, 1.6, 6.401], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_21", "prefab": "torch_wall_01", "cell": "c_chamber_03", "pos": [19.72, 1.6, 6.401], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_22", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [0.001, 1.6, 12.14], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_23", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [19.84, 1.6, 13.299], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_24", "prefab": "torch_wall_01", "cell": "c_corr_08", "pos": [20.12, 1.6, 11.701], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_25", "prefab": "torch_wall_01", "cell": "c_chamber_04", "pos": [2.43, 1.6, 15.899], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_26", "prefab": "torch_wall_01", "cell": "c_cellar_08", "pos": [3.43, 1.6, 18.899], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_27", "prefab": "torch_wall_01", "cell": "c_corr_09", "pos": [4.801, 1.6, 15.55], "rot": [0, 90, 0] },
+    { "id": "e_torch_wall_28", "prefab": "torch_wall_01", "cell": "c_chamber_05", "pos": [9.899, 1.6, 18.05], "rot": [0, -90, 0] },
+    { "id": "e_torch_wall_29", "prefab": "torch_wall_01", "cell": "c_crypt_02", "pos": [12.79, 1.24, 18.899], "rot": [0, 180, 0] },
+    { "id": "e_torch_wall_30", "prefab": "torch_wall_01", "cell": "c_crypt_03", "pos": [14.77, 0.88, 13.501], "rot": [0, 0, 0] },
+    { "id": "e_torch_wall_31", "prefab": "torch_wall_01", "cell": "c_crypt_04", "pos": [21.15, 1.06, 18.899], "rot": [0, 180, 0] },
+    { "id": "e_table_work_01", "prefab": "table_work_01", "cell": "c_chamber_01", "pos": [2.179, 0, 1], "rot": [0, -90, 0] },
+    { "id": "e_chair_plain_01", "prefab": "chair_plain_01", "cell": "c_chamber_01", "pos": [1.379, 0, 1], "rot": [0, 90, 0] },
+    { "id": "e_barrel_wood_01", "prefab": "barrel_wood_01", "cell": "c_chamber_01", "pos": [2.223, 0, 2.4069], "rot": [0, -90, 0] },
+    { "id": "e_chest_wood_01", "prefab": "chest_wood_01", "cell": "c_chamber_01", "pos": [0.65, 0, 0.502], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_02", "prefab": "barrel_wood_01", "cell": "c_cellar_01", "pos": [2.0569, 0, 6.577], "rot": [0, 0, 0] },
+    { "id": "e_crate_large_01", "prefab": "crate_large_01", "cell": "c_cellar_01", "pos": [0.421, 0, 8], "rot": [0, 90, 0] },
+    { "id": "e_barrel_wood_03", "prefab": "barrel_wood_01", "cell": "c_cellar_01", "pos": [0.377, 0, 9.2069], "rot": [0, 90, 0] },
+    { "id": "e_table_work_02", "prefab": "table_work_01", "cell": "c_chamber_02", "pos": [5.7, 0, 3.179], "rot": [0, 180, 0] },
+    { "id": "e_chair_plain_02", "prefab": "chair_plain_01", "cell": "c_chamber_02", "pos": [5.7, 0, 2.379], "rot": [0, 360, 0] },
+    { "id": "e_barrel_wood_04", "prefab": "barrel_wood_01", "cell": "c_chamber_02", "pos": [6.4569, 0, 0.377], "rot": [0, 0, 0] },
+    { "id": "e_cabinet_door_01", "prefab": "cabinet_door_01", "cell": "c_chamber_02", "pos": [7.32, 0, 0.221], "rot": [0, 0, 0] },
+    { "id": "e_chest_wood_02", "prefab": "chest_wood_01", "cell": "c_chamber_02", "pos": [5.202, 0, 2.05], "rot": [0, 90, 0] },
+    { "id": "e_barrel_wood_05", "prefab": "barrel_wood_01", "cell": "c_niche_01", "pos": [5.1569, 0, 4.177], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_06", "prefab": "barrel_wood_01", "cell": "c_cellar_02", "pos": [5.2569, 0, 11.123], "rot": [0, 180, 0] },
+    { "id": "e_crate_large_02", "prefab": "crate_large_01", "cell": "c_cellar_02", "pos": [6.17, 0, 11.079], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_01", "prefab": "crate_plank_01", "cell": "c_cellar_02", "pos": [7.07, 0, 11.179], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_02", "prefab": "crate_plank_01", "cell": "c_cellar_02", "pos": [7.07, 0.6, 11.179], "rot": [0, 180, 0] },
+    { "id": "e_chest_wood_03", "prefab": "chest_wood_01", "cell": "c_cellar_02", "pos": [7.498, 0, 9.85], "rot": [0, -90, 0] },
+    { "id": "e_barrel_wood_07", "prefab": "barrel_wood_01", "cell": "c_cellar_02", "pos": [5.2569, 0, 8.477], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_08", "prefab": "barrel_wood_01", "cell": "c_cellar_02", "pos": [5.077, 0, 9.2569], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_03", "prefab": "crate_plank_01", "cell": "c_niche_02", "pos": [11.8, 0, 0.321], "rot": [0, 0, 0] },
+    { "id": "e_bench_stone_01", "prefab": "bench_stone_01", "cell": "c_niche_02", "pos": [12.459, 0, 1], "rot": [0, -90, 0] },
+    { "id": "e_chest_wood_04", "prefab": "chest_wood_01", "cell": "c_niche_03", "pos": [10.65, 0, 2.702], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_09", "prefab": "barrel_wood_01", "cell": "c_niche_03", "pos": [11.8069, 0, 2.577], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_10", "prefab": "barrel_wood_01", "cell": "c_cellar_03", "pos": [13.3569, 0, 3.823], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_04", "prefab": "crate_plank_01", "cell": "c_cellar_03", "pos": [14.879, 0, 0.6], "rot": [0, -90, 0] },
+    { "id": "e_barrel_wood_11", "prefab": "barrel_wood_01", "cell": "c_cellar_03", "pos": [14.823, 0, 1.6069], "rot": [0, -90, 0] },
+    { "id": "e_crate_large_03", "prefab": "crate_large_01", "cell": "c_cellar_03", "pos": [13.321, 0, 0.6], "rot": [0, 90, 0] },
+    { "id": "e_chest_wood_05", "prefab": "chest_wood_01", "cell": "c_cellar_03", "pos": [13.402, 0, 1.85], "rot": [0, 90, 0] },
+    { "id": "e_chest_wood_06", "prefab": "chest_wood_01", "cell": "c_cellar_04", "pos": [18.898, 0, 0.55], "rot": [0, -90, 0] },
+    { "id": "e_barrel_wood_12", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [19.023, 0, 1.6569], "rot": [0, -90, 0] },
+    { "id": "e_barrel_wood_13", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [17.677, 0, 0.7569], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_05", "prefab": "crate_plank_01", "cell": "c_cellar_04", "pos": [17.621, 0, 1.62], "rot": [0, 90, 0] },
+    { "id": "e_barrel_wood_14", "prefab": "barrel_wood_01", "cell": "c_cellar_04", "pos": [17.677, 0, 2.5269], "rot": [0, 90, 0] },
+    { "id": "e_barrel_wood_15", "prefab": "barrel_wood_01", "cell": "c_cellar_05", "pos": [20.1569, 0, 0.377], "rot": [0, 0, 0] },
+    { "id": "e_chest_wood_07", "prefab": "chest_wood_01", "cell": "c_cellar_05", "pos": [21.12, 0, 0.502], "rot": [0, 0, 0] },
+    { "id": "e_crate_plank_06", "prefab": "crate_plank_01", "cell": "c_cellar_05", "pos": [19.921, 0, 1.2], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_07", "prefab": "crate_plank_01", "cell": "c_cellar_05", "pos": [19.921, 0.6, 1.2], "rot": [0, 93, 0] },
+    { "id": "e_crate_plank_08", "prefab": "crate_plank_01", "cell": "c_cellar_06", "pos": [10.5, 0, 8.479], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_16", "prefab": "barrel_wood_01", "cell": "c_cellar_06", "pos": [11.4569, 0, 8.423], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_17", "prefab": "barrel_wood_01", "cell": "c_cellar_06", "pos": [12.5769, 0, 8.423], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_18", "prefab": "barrel_wood_01", "cell": "c_cellar_06", "pos": [13.3469, 0, 8.423], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_19", "prefab": "barrel_wood_01", "cell": "c_cellar_06", "pos": [11.7569, 0, 6.777], "rot": [0, 0, 0] },
+    { "id": "e_chest_wood_08", "prefab": "chest_wood_01", "cell": "c_cellar_07", "pos": [11.85, 0, 10.998], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_09", "prefab": "crate_plank_01", "cell": "c_cellar_07", "pos": [12.75, 0, 11.179], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_20", "prefab": "barrel_wood_01", "cell": "c_cellar_07", "pos": [10.6569, 0, 9.377], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_21", "prefab": "barrel_wood_01", "cell": "c_cellar_07", "pos": [11.4769, 0, 9.377], "rot": [0, 0, 0] },
+    { "id": "e_sarcophagus_01", "prefab": "sarcophagus_01", "cell": "c_crypt_01", "pos": [17.6, 0, 6.921], "rot": [0, 0, 0] },
+    { "id": "e_bench_stone_02", "prefab": "bench_stone_01", "cell": "c_crypt_01", "pos": [18.859, 0, 8.8], "rot": [0, -90, 0] },
+    { "id": "e_table_work_03", "prefab": "table_work_01", "cell": "c_chamber_03", "pos": [19.721, 0, 8.5], "rot": [0, 90, 0] },
+    { "id": "e_chair_plain_03", "prefab": "chair_plain_01", "cell": "c_chamber_03", "pos": [20.521, 0, 8.5], "rot": [0, 270, 0] },
+    { "id": "e_barrel_wood_22", "prefab": "barrel_wood_01", "cell": "c_chamber_03", "pos": [19.677, 0, 9.9569], "rot": [0, 90, 0] },
+    { "id": "e_chest_wood_09", "prefab": "chest_wood_01", "cell": "c_chamber_03", "pos": [19.802, 0, 10.87], "rot": [0, 90, 0] },
+    { "id": "e_table_work_04", "prefab": "table_work_01", "cell": "c_chamber_04", "pos": [1.2, 0, 13.921], "rot": [0, 0, 0] },
+    { "id": "e_chair_plain_04", "prefab": "chair_plain_01", "cell": "c_chamber_04", "pos": [1.2, 0, 14.721], "rot": [0, 180, 0] },
+    { "id": "e_chest_wood_10", "prefab": "chest_wood_01", "cell": "c_chamber_04", "pos": [2.8, 0, 14.002], "rot": [0, 0, 0] },
+    { "id": "e_barrel_wood_23", "prefab": "barrel_wood_01", "cell": "c_chamber_04", "pos": [0.6569, 0, 15.523], "rot": [0, 180, 0] },
+    { "id": "e_crate_plank_10", "prefab": "crate_plank_01", "cell": "c_cellar_08", "pos": [4.279, 0, 18.4], "rot": [0, -90, 0] },
+    { "id": "e_barrel_wood_24", "prefab": "barrel_wood_01", "cell": "c_cellar_08", "pos": [0.4569, 0, 18.523], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_25", "prefab": "barrel_wood_01", "cell": "c_cellar_08", "pos": [1.4269, 0, 18.523], "rot": [0, 180, 0] },
+    { "id": "e_barrel_wood_26", "prefab": "barrel_wood_01", "cell": "c_niche_04", "pos": [7.177, 0, 15.2569], "rot": [0, 90, 0] },
+    { "id": "e_crate_plank_11", "prefab": "crate_plank_01", "cell": "c_niche_04", "pos": [9.579, 0, 15.1], "rot": [0, -90, 0] },
+    { "id": "e_table_work_05", "prefab": "table_work_01", "cell": "c_chamber_05", "pos": [9.479, 0, 17.1], "rot": [0, -90, 0] },
+    { "id": "e_chair_plain_05", "prefab": "chair_plain_01", "cell": "c_chamber_05", "pos": [8.679, 0, 17.1], "rot": [0, 90, 0] },
+    { "id": "e_cabinet_door_02", "prefab": "cabinet_door_01", "cell": "c_chamber_05", "pos": [9.679, 0, 18.6], "rot": [0, -90, 0] },
+    { "id": "e_chest_wood_11", "prefab": "chest_wood_01", "cell": "c_chamber_05", "pos": [7.55, 0, 16.502], "rot": [0, 0, 0] },
+    { "id": "e_sarcophagus_02", "prefab": "sarcophagus_01", "cell": "c_crypt_02", "pos": [10.621, -0.36, 15.9], "rot": [0, 90, 0] },
+    { "id": "e_bench_stone_04", "prefab": "bench_stone_01", "cell": "c_crypt_02", "pos": [10.341, -0.36, 17.91], "rot": [0, 90, 0] },
+    { "id": "e_sarcophagus_03", "prefab": "sarcophagus_01", "cell": "c_crypt_02", "pos": [11.8, -0.36, 18.379], "rot": [0, 180, 0] },
+    { "id": "e_chest_wood_12", "prefab": "chest_wood_01", "cell": "c_crypt_02", "pos": [13.41, -0.36, 18.398], "rot": [0, 180, 0] },
+    { "id": "e_sarcophagus_04", "prefab": "sarcophagus_01", "cell": "c_crypt_03", "pos": [17.279, -0.72, 16.5], "rot": [0, -90, 0] },
+    { "id": "e_chest_wood_13", "prefab": "chest_wood_01", "cell": "c_crypt_03", "pos": [17.298, -0.72, 18.36], "rot": [0, -90, 0] },
+    { "id": "e_bench_stone_05", "prefab": "bench_stone_01", "cell": "c_crypt_03", "pos": [14.441, -0.72, 14.7], "rot": [0, 90, 0] },
+    { "id": "e_bench_stone_06", "prefab": "bench_stone_01", "cell": "c_crypt_04", "pos": [20.6, -0.54, 13.741], "rot": [0, 0, 0] },
+    { "id": "e_sarcophagus_05", "prefab": "sarcophagus_01", "cell": "c_crypt_04", "pos": [21.279, -0.54, 15.2], "rot": [0, -90, 0] }
   ],
   "lights": [
     {
       "id": "l_001",
       "cell": "c_chamber_01",
       "type": "point",
-      "pos": [0.351, 2.05, 1.19],
+      "pos": [0.351, 2.05, 1.14],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2576,7 +2390,7 @@
       "id": "l_002",
       "cell": "c_corr_01",
       "type": "point",
-      "pos": [0.66, 2.05, 4.751],
+      "pos": [0.64, 2.05, 4.551],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2586,7 +2400,7 @@
       "id": "l_003",
       "cell": "c_cellar_01",
       "type": "point",
-      "pos": [2.349, 2.05, 6.79],
+      "pos": [2.249, 2.05, 8.22],
       "color": [1, 0.62, 0.32],
       "intensity": 8,
       "range": 7,
@@ -2594,20 +2408,29 @@
     },
     {
       "id": "l_004",
-      "cell": "c_cellar_02",
+      "cell": "c_corr_02",
       "type": "point",
-      "pos": [0.351, 2.05, 10.14],
+      "pos": [3.151, 2.05, 7.39],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
-    { "id": "l_005", "cell": "c_corr_02", "type": "point", "pos": [3.251, 2.05, 4.1], "color": [1, 0.62, 0.32], "intensity": 9, "range": 7, "cast": true },
     {
-      "id": "l_006",
+      "id": "l_005",
       "cell": "c_corr_02",
       "type": "point",
-      "pos": [3.849, 2.05, 9.72],
+      "pos": [4.149, 2.05, 4.53],
+      "color": [1, 0.62, 0.32],
+      "intensity": 9,
+      "range": 7,
+      "cast": true
+    },
+    {
+      "id": "l_006",
+      "cell": "c_chamber_02",
+      "type": "point",
+      "pos": [5.051, 2.05, 2.24],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2615,19 +2438,19 @@
     },
     {
       "id": "l_007",
-      "cell": "c_cellar_03",
+      "cell": "c_corr_03",
       "type": "point",
-      "pos": [7.17, 2.05, 2.849],
+      "pos": [5.051, 2.05, 7.43],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_008",
-      "cell": "c_cellar_04",
+      "cell": "c_cellar_02",
       "type": "point",
-      "pos": [5.61, 2.05, 3.751],
+      "pos": [5.051, 2.05, 9.69],
       "color": [1, 0.62, 0.32],
       "intensity": 8,
       "range": 7,
@@ -2635,39 +2458,39 @@
     },
     {
       "id": "l_009",
-      "cell": "c_corr_03",
-      "type": "point",
-      "pos": [6.25, 2, 7.25],
-      "color": [1, 0.62, 0.32],
-      "intensity": 5.3999999999999995,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_010",
-      "cell": "c_cellar_05",
-      "type": "point",
-      "pos": [4.751, 2.05, 9.89],
-      "color": [1, 0.62, 0.32],
-      "intensity": 8,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_011",
       "cell": "c_corr_04",
       "type": "point",
-      "pos": [9.249, 2.05, 2.88],
+      "pos": [8.55, 2.05, 0.351],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
-      "id": "l_012",
+      "id": "l_010",
       "cell": "c_corr_04",
       "type": "point",
-      "pos": [8.651, 2.05, 6.23],
+      "pos": [8.551, 2.05, 4.48],
+      "color": [1, 0.62, 0.32],
+      "intensity": 9,
+      "range": 7,
+      "cast": true
+    },
+    {
+      "id": "l_011",
+      "cell": "c_cellar_03",
+      "type": "point",
+      "pos": [13.48, 2.05, 0.351],
+      "color": [1, 0.62, 0.32],
+      "intensity": 8,
+      "range": 7,
+      "cast": true
+    },
+    {
+      "id": "l_012",
+      "cell": "c_corr_05",
+      "type": "point",
+      "pos": [16.749, 2.05, 2.56],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2675,9 +2498,9 @@
     },
     {
       "id": "l_013",
-      "cell": "c_cellar_06",
+      "cell": "c_cellar_04",
       "type": "point",
-      "pos": [11.5, 2.05, 3.351],
+      "pos": [18.33, 2.05, 0.351],
       "color": [1, 0.62, 0.32],
       "intensity": 8,
       "range": 7,
@@ -2685,79 +2508,79 @@
     },
     {
       "id": "l_014",
-      "cell": "c_corr_05",
+      "cell": "c_cellar_05",
       "type": "point",
-      "pos": [10.151, 2.05, 5.96],
+      "pos": [19.951, 2.05, 2.98],
       "color": [1, 0.62, 0.32],
-      "intensity": 9,
+      "intensity": 8,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_015",
-      "cell": "c_cellar_07",
+      "cell": "c_corr_06",
       "type": "point",
-      "pos": [13.45, 2.05, 7.451],
+      "pos": [17.64, 2.05, 5.849],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_016",
-      "cell": "c_cellar_08",
+      "cell": "c_corr_06",
       "type": "point",
-      "pos": [13.79, 2.05, 11.449],
+      "pos": [13.75, 2.05, 4.751],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_017",
-      "cell": "c_corr_06",
+      "cell": "c_cellar_06",
       "type": "point",
-      "pos": [14.951, 2.05, 9.96],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_018",
-      "cell": "c_corr_06",
-      "type": "point",
-      "pos": [15.649, 2.05, 3.58],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_019",
-      "cell": "c_cellar_09",
-      "type": "point",
-      "pos": [16.551, 2.05, 3.27],
+      "pos": [12.43, 2.05, 6.751],
       "color": [1, 0.62, 0.32],
       "intensity": 8,
       "range": 7,
       "cast": true
     },
     {
-      "id": "l_020",
-      "cell": "c_chamber_02",
+      "id": "l_018",
+      "cell": "c_cellar_07",
       "type": "point",
-      "pos": [20.86, 2.05, 3.649],
+      "pos": [10.92, 2.05, 9.351],
+      "color": [1, 0.62, 0.32],
+      "intensity": 8,
+      "range": 7,
+      "cast": true
+    },
+    {
+      "id": "l_019",
+      "cell": "c_corr_07",
+      "type": "point",
+      "pos": [15.649, 2.05, 8.61],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
-      "id": "l_021",
-      "cell": "c_corr_07",
+      "id": "l_020",
+      "cell": "c_crypt_01",
       "type": "point",
-      "pos": [17.96, 2.05, 4.551],
+      "pos": [18.6, 2.05, 6.751],
+      "color": [1, 0.62, 0.32],
+      "intensity": 12,
+      "range": 7,
+      "cast": true
+    },
+    {
+      "id": "l_021",
+      "cell": "c_chamber_03",
+      "type": "point",
+      "pos": [19.72, 2.05, 6.751],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2765,21 +2588,21 @@
     },
     {
       "id": "l_022",
-      "cell": "c_crypt_01",
+      "cell": "c_corr_08",
       "type": "point",
-      "pos": [16.551, 2.05, 8.07],
+      "pos": [0.351, 2.05, 12.14],
       "color": [1, 0.62, 0.32],
-      "intensity": 12,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_023",
-      "cell": "c_crypt_02",
+      "cell": "c_corr_08",
       "type": "point",
-      "pos": [18.56, 2.05, 9.151],
+      "pos": [19.84, 2.05, 12.949],
       "color": [1, 0.62, 0.32],
-      "intensity": 12,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
@@ -2787,7 +2610,7 @@
       "id": "l_024",
       "cell": "c_corr_08",
       "type": "point",
-      "pos": [21.449, 2.05, 12.61],
+      "pos": [20.12, 2.05, 12.051],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2795,9 +2618,9 @@
     },
     {
       "id": "l_025",
-      "cell": "c_corr_08",
+      "cell": "c_chamber_04",
       "type": "point",
-      "pos": [16.21, 2.05, 12.351],
+      "pos": [2.43, 2.05, 15.549],
       "color": [1, 0.62, 0.32],
       "intensity": 9,
       "range": 7,
@@ -2805,41 +2628,41 @@
     },
     {
       "id": "l_026",
-      "cell": "c_corr_08",
+      "cell": "c_cellar_08",
       "type": "point",
-      "pos": [0.351, 2.05, 12.61],
+      "pos": [3.43, 2.05, 18.549],
       "color": [1, 0.62, 0.32],
-      "intensity": 9,
+      "intensity": 8,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_027",
-      "cell": "c_cellar_10",
+      "cell": "c_corr_09",
       "type": "point",
-      "pos": [1.68, 2.05, 15.449],
+      "pos": [5.151, 2.05, 15.55],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_028",
-      "cell": "c_cellar_11",
+      "cell": "c_chamber_05",
       "type": "point",
-      "pos": [2.79, 2.05, 18.549],
+      "pos": [9.549, 2.05, 18.05],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 9,
       "range": 7,
       "cast": true
     },
     {
       "id": "l_029",
-      "cell": "c_corr_09",
+      "cell": "c_crypt_02",
       "type": "point",
-      "pos": [4.651, 2.05, 18.32],
+      "pos": [12.79, 1.69, 18.549],
       "color": [1, 0.62, 0.32],
-      "intensity": 9,
+      "intensity": 12,
       "range": 7,
       "cast": true
     },
@@ -2847,7 +2670,7 @@
       "id": "l_030",
       "cell": "c_crypt_03",
       "type": "point",
-      "pos": [8.949, 1.51, 15.95],
+      "pos": [14.77, 1.33, 13.851],
       "color": [1, 0.62, 0.32],
       "intensity": 12,
       "range": 7,
@@ -2855,61 +2678,11 @@
     },
     {
       "id": "l_031",
-      "cell": "c_cellar_12",
+      "cell": "c_crypt_04",
       "type": "point",
-      "pos": [11.749, 2.05, 16.35],
+      "pos": [21.15, 1.51, 18.549],
       "color": [1, 0.62, 0.32],
-      "intensity": 8,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_032",
-      "cell": "c_corr_10",
-      "type": "point",
-      "pos": [13.349, 2.05, 15.72],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_033",
-      "cell": "c_chamber_03",
-      "type": "point",
-      "pos": [16.47, 2.05, 15.849],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_034",
-      "cell": "c_chamber_04",
-      "type": "point",
-      "pos": [14.35, 2.05, 18.549],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_035",
-      "cell": "c_chamber_05",
-      "type": "point",
-      "pos": [20.65, 2.05, 15.749],
-      "color": [1, 0.62, 0.32],
-      "intensity": 9,
-      "range": 7,
-      "cast": true
-    },
-    {
-      "id": "l_036",
-      "cell": "c_cellar_13",
-      "type": "point",
-      "pos": [18.7, 2.05, 18.549],
-      "color": [1, 0.62, 0.32],
-      "intensity": 8,
+      "intensity": 12,
       "range": 7,
       "cast": true
     }
@@ -2918,8 +2691,8 @@
     {
       "id": "t_checkpoint",
       "cell": "c_corr_08",
-      "min": [9.4, 0, 11.1],
-      "max": [12.4, 2.2, 14.1],
+      "min": [9.4, 0, 11],
+      "max": [12.4, 2.2, 14],
       "once": true,
       "io": [
         { "on": "enter", "target": "@level", "input": "checkpoint" }
@@ -2927,10 +2700,11 @@
     }
   ],
   "spawns": [
-    { "id": "sp_player", "kind": "player", "pos": [3.55, 0, 5.9], "yaw": 0 },
-    { "id": "sp_enemy_1", "kind": "enemy", "pos": [20.23, 0, 7.03], "yaw": 90, "what": "dummy" },
-    { "id": "sp_enemy_2", "kind": "enemy", "pos": [20.22, 0, 9.94], "yaw": 90, "what": "dummy" },
-    { "id": "sp_enemy_3", "kind": "enemy", "pos": [7.32, -0.54, 15.93], "yaw": 90, "what": "dummy" }
+    { "id": "sp_player", "kind": "player", "pos": [3.65, 0, 5.75], "yaw": 90 },
+    { "id": "sp_enemy_1", "kind": "enemy", "pos": [17.34, 0, 8.99], "yaw": 90, "what": "dummy" },
+    { "id": "sp_enemy_2", "kind": "enemy", "pos": [12.76, -0.36, 15.65], "yaw": 180, "what": "dummy" },
+    { "id": "sp_enemy_3", "kind": "enemy", "pos": [15.32, -0.72, 16.28], "yaw": 90, "what": "dummy" },
+    { "id": "sp_enemy_4", "kind": "enemy", "pos": [20.06, -0.54, 17.05], "yaw": 180, "what": "dummy" }
   ],
   "source": {
     "tool": "gen",

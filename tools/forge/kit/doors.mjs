@@ -1,11 +1,33 @@
 // xForge, sada kit_base: dveře, brána a okno. Počátek = střed prahu otvoru, rovina dveří je místní XY,
 // prochází se podél Z. Panty jsou na straně −X a křídlo se otevírá do −Z (kladný úhel kolem +Y).
 // Rozměr v názvu je stavební otvor; zárubeň z něj ubere 5 cm z každé strany a shora.
+// Zavřené dveře nesmějí mít průhlednou škvíru: engine místnost za zavřenými dveřmi portálu nekreslí (N-107).
+// Mezery kolem křídla (5 mm po stranách, 10 mm nahoře a dole) proto kryjí dorazy zárubně a prahová lišta.
 
 import { box, boxc, cyl, cbox, collide, node, hinge, slider, definePrefab, IO } from '../lib.mjs';
 
 const FR = 0.05; // šířka zárubně
 const HALF = 0.11; // polovina hloubky zárubně: zeď 0,2 m a 1 cm přesah na každé straně
+
+const STOP = 0.015; // o kolik doraz přesahuje okraj křídla
+const SLOT = 0.002; // vůle mezi dorazem a tím, co z líce křídla nejvíc vyčnívá
+const STOP_D = 0.013; // tloušťka dorazu
+const SILL_H = 0.012; // prahová lišta: o 2 mm vyšší než mezera pod křídlem
+
+/**
+ * Dorazy zárubně a prahová lišta. Dorazy leží za křídlem na straně +Z (křídlo se otevírá do −Z) a přesahují
+ * jeho okraj o STOP; lišta leží pod křídlem. x0, x1 = světlý otvor; t = jak daleko od roviny dveří sahá křídlo
+ * i s kováním na líci +Z. Bez kolize: křídlu nepřekážejí a postava je přejde.
+ */
+function seals(x0, x1, h, t, mat, { left = true, right = true } = {}) {
+  const z0 = t + SLOT;
+  const z1 = z0 + STOP_D;
+  const top = h - FR - 0.01 - STOP;
+  const out = [box('frame', [x0, 0, -0.015], [x1, SILL_H, 0.015], mat), box('frame', [x0, top, z0], [x1, h - FR, z1], mat)];
+  if (left) out.push(box('frame', [x0, 0, z0], [x0 + 0.005 + STOP, top, z1], mat));
+  if (right) out.push(box('frame', [x1 - 0.005 - STOP, 0, z0], [x1, top, z1], mat));
+  return out;
+}
 
 const jamb = (x0, x1, h, mat) => box('frame', [x0, 0, -HALF], [x1, h, HALF], mat);
 const head = (x0, x1, h, mat) => box('frame', [x0, h - FR, -HALF], [x1, h, HALF], mat);
@@ -25,7 +47,7 @@ export function doorHinged(o = {}) {
   const nodes = [node('frame'), node('leaf', 'frame', [-w / 2 + FR, 0, 0]), node('handle', 'leaf', [lw - 0.07, 1.05, 0])];
   const joints = [hinge('swing', 'leaf', [0, 1, 0], 0, p.max, { damping: 4, speed: 120, drive: 'both' }), hinge('latch', 'handle', [0, 0, 1], 0, 30, { spring: 60, damping: 2, drive: 'manual' })];
   const leaf = box('leaf', [0.005, 0.01, -0.02], [lw - 0.005, lh, 0.02], p.leaf);
-  const parts = [jamb(-w / 2, -w / 2 + FR, h, p.frame), jamb(w / 2 - FR, w / 2, h, p.frame), head(-w / 2 + FR, w / 2 - FR, h, p.frame), leaf];
+  const parts = [jamb(-w / 2, -w / 2 + FR, h, p.frame), jamb(w / 2 - FR, w / 2, h, p.frame), head(-w / 2 + FR, w / 2 - FR, h, p.frame), ...seals(-w / 2 + FR, w / 2 - FR, h, 0.023, p.frame), leaf];
   for (const z of [0.02, -0.023]) {
     if (p.style === 'panel') parts.push(box('leaf', [0.12, 0.2, z], [lw - 0.12, 0.92, z + 0.003], p.inset), box('leaf', [0.12, 1.14, z], [lw - 0.12, lh - 0.18, z + 0.003], p.inset));
     else parts.push(box('leaf', [0.005, 0.01, z], [lw - 0.005, 0.26, z + 0.003], p.trim));
@@ -53,11 +75,12 @@ export function doorHinged(o = {}) {
 
 /** Prkenné dveře s kováním a kruhem místo kliky (sklepy, katakomby). */
 export function doorPlank(o = {}) {
-  const p = { id: 'door_plank_01', title: 'Dveře prkenné s kováním 0,9 × 2,0 m', width: 0.9, height: 2, max: 100, ...o };
+  const p = { id: 'door_plank_01', title: 'Dveře prkenné s kováním 1,0 × 2,0 m', width: 1, height: 2, max: 100, ...o };
   const { width: w, height: h } = p;
   const lw = w - 2 * FR;
   const lh = h - FR - 0.01;
-  const parts = [jamb(-w / 2, -w / 2 + FR, h, 'wood_old'), jamb(w / 2 - FR, w / 2, h, 'wood_old'), head(-w / 2 + FR, w / 2 - FR, h, 'wood_old')];
+  const parts = [jamb(-w / 2, -w / 2 + FR, h, 'wood_old'), jamb(w / 2 - FR, w / 2, h, 'wood_old'), head(-w / 2 + FR, w / 2 - FR, h, 'wood_old'), ...seals(-w / 2 + FR, w / 2 - FR, h, 0.027, 'wood_old')];
+  parts.push(box('leaf', [0.005, 0.01, -0.016], [lw - 0.005, lh, 0.016], 'wood_old')); // jádro křídla: spáry mezi prkny nejsou průhledné
   const n = 5;
   const pw = (lw - 0.01) / n;
   for (let i = 0; i < n; i++) parts.push(box('leaf', [0.005 + i * pw + 0.002, 0.01, -0.02], [0.005 + (i + 1) * pw - 0.002, lh, 0.02], i % 2 ? 'wood_oak' : 'wood_old'));
@@ -93,6 +116,9 @@ export function doorSliding(o = {}) {
     box('frame', [w / 2 - FR, 0, -HALF], [w / 2, h, -0.035], p.frame), // pravá zárubeň má štěrbinu pro křídlo
     box('frame', [w / 2 - FR, 0, 0.035], [w / 2, h, HALF], p.frame),
     head(-w / 2 + FR, w / 2 - FR, h, p.frame),
+    ...seals(-w / 2 + FR, w / 2 - FR, h, 0.028, p.frame, { left: false, right: false }), // po stranách křídlo zajíždí do stojek
+    box('frame', [w / 2 - FR, lh, -0.035], [w / 2, h, 0.035], p.frame), // štěrbina ve stojce je jen tak vysoká jako křídlo
+    box('frame', [w / 2 - FR, 0, -0.015], [w / 2, SILL_H, 0.015], p.frame), // prahová lišta pokračuje štěrbinou
     box('frame', [-0.06, h - 0.04, HALF], [0.06, h - 0.015, HALF + 0.006], 'emit_green'),
     box('frame', [-0.06, h - 0.04, -HALF - 0.006], [0.06, h - 0.015, -HALF], 'emit_green'),
     leaf,
@@ -120,6 +146,8 @@ export function doorSliding(o = {}) {
 /**
  * Jedno křídlo dvoukřídlých dveří 1,8 × 2,1 m. Formát verze 1 má jednu interakci a jeden kloub na prefab,
  * proto jsou dvoukřídlé dveře dvě entity se stejným počátkem (střed celého otvoru), svázané spojením opened → open.
+ * Jedno křídlo samo otvor nezakryje, proto má `seeThrough`: dveře portálu, které ho zavírají pro průchod a zvuk,
+ * ale ne pro pohled (kontrakt, N-107). Až bude v základu `follow` (N-002), budou z toho jedny dveře se dvěma křídly.
  */
 export function doorDoubleLeaf(o = {}) {
   const p = { side: 'l', width: 1.8, height: 2.1, leaf: 'steel_painted', frame: 'steel_dark', trim: 'steel_brushed', max: 95, ...o };
@@ -132,9 +160,11 @@ export function doorDoubleLeaf(o = {}) {
   const lx = (a, b) => span(-s * a, -s * b); // místní X křídla: od pantu ke středu otvoru
   const lbox = (a, b, y0, y1, z0, z1, mat) => box('leaf', [lx(a, b)[0], y0, z0], [lx(a, b)[1], y1, z1], mat);
   const leaf = lbox(0.005, lw, 0.01, lh, -0.022, 0.022, p.leaf);
-  const parts = [jamb(...span(s * half, s * (half - FR)), h, p.frame), head(...span(s * (half - FR), 0), h, p.frame), leaf, lbox(lw / 2 - 0.14, lw / 2 + 0.14, 1.3, 1.75, -0.026, 0.026, 'glass_pane')];
+  const parts = [jamb(...span(s * half, s * (half - FR)), h, p.frame), head(...span(s * (half - FR), 0), h, p.frame), ...seals(...span(s * (half - FR), 0), h, 0.025, p.frame, { left: s < 0, right: s > 0 }), leaf, lbox(lw / 2 - 0.14, lw / 2 + 0.14, 1.3, 1.75, -0.026, 0.026, 'glass_pane')];
   for (const z of [0.022, -0.025]) parts.push(lbox(0.005, lw, 0.01, 0.26, z, z + 0.003, p.trim));
   for (const z of [0.05, -0.05]) parts.push(lbox(lw - 0.1, lw - 0.07, 0.9, 1.25, z - 0.012, z + 0.012, p.trim), lbox(lw - 0.1, lw - 0.07, 0.92, 0.95, Math.min(z, 0), Math.max(z, 0), p.trim), lbox(lw - 0.1, lw - 0.07, 1.2, 1.23, Math.min(z, 0), Math.max(z, 0), p.trim));
+  // krycí lišta na pravém křídle překrývá spáru mezi křídly (8 mm) ze strany, kam se dveře otevírají
+  if (s > 0) parts.push(lbox(lw - 0.026, lw + 0.016, 0.01, lh, -0.03, -0.022, p.trim));
   const side = p.side === 'l' ? 'levé' : 'pravé';
   return definePrefab(
     {
@@ -145,7 +175,7 @@ export function doorDoubleLeaf(o = {}) {
       joints: [hinge('swing', 'leaf', [0, -s, 0], 0, p.max, { damping: 5, speed: 110, drive: 'both' })],
       parts,
       colliders: [collide(leaf), cbox('frame', [span(s * half, s * (half - FR))[0], 0, -HALF], [span(s * half, s * (half - FR))[1], h, HALF])],
-      components: { ...doorParts, interact: { kind: 'door', joint: 'swing', prompt: 'Otevřít', range: 1.8, manipulate: true } },
+      components: { ...doorParts, interact: { kind: 'door', joint: 'swing', prompt: 'Otevřít', range: 1.8, manipulate: true, seeThrough: true } },
       ...IO.door,
       gen: 'doors.mjs#doorDoubleLeaf',
       params: { width: w, height: h, side: p.side },

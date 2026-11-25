@@ -1,7 +1,10 @@
 // Kontroly vygenerovaného levelu nad rámec validátoru: počítají se jen z dat levelu a sady,
 // ne z vnitřností generátoru. Každá kontrola vrací seznam problémů (prázdný = v pořádku).
+// Šířky průchodů se měří skutečným hráčem levelu (profil pohybu enginu a odstup kontroléru, b_lib/player.mjs).
 
 import { inBounds } from '../../src/xspace/index.js';
+import { playerOf } from './player.mjs';
+import { doorPass } from './door-pass.mjs';
 
 const EPS = 1e-6;
 const hit = (p, q, eps = 0.001) => [0, 1, 2].every((k) => Math.min(p.max[k], q.max[k]) - Math.max(p.min[k], q.min[k]) > eps);
@@ -22,10 +25,25 @@ export function portalInfo(level, p) {
   return { k, o, plane: ext[k][0], lo, hi, c0: ext[o][0], c1: ext[o][1], sill: ext[1][0], top: ext[1][1], A, B };
 }
 
-/** Portály: uprostřed zdi, práh pod otvorem, volný průchod, dveře sedí do otvoru. */
-export function checkPortals(level, catalog) {
+/** Entity dveří stojící ve středu prahu portálu (dvoukřídlé dveře jsou dvě; pole portal.door se k tomu nepoužívá). */
+export function portalDoors(level, catalog, p, f = portalInfo(level, p)) {
+  if (f.k === undefined) return [];
+  return level.entities.filter((e) => isDoor(catalog, e) && Math.abs(e.pos[f.k] - f.plane) < 0.011 && Math.abs(e.pos[f.o] - (f.c0 + f.c1) / 2) < 0.011 && Math.abs(e.pos[1] - f.sill) < 0.011);
+}
+
+const passCache = new Map();
+/** Světlost otevřených dveří pro kapsli hráče (m); podle prefabů, otvoru a tloušťky zdi se počítá jednou. */
+function doorClear(catalog, prefabIds, w, wall, player) {
+  const key = `${prefabIds.join('+')}|${w.toFixed(3)}|${wall.toFixed(3)}|${player.step}|${player.height}`;
+  if (!passCache.has(key)) passCache.set(key, doorPass(prefabIds.map((id) => catalog.get(id)), w, wall, player).clear);
+  return passCache.get(key);
+}
+
+/** Portály: uprostřed zdi, práh pod otvorem, volný průchod na šířku hráče, dveře sedí do otvoru. */
+export function checkPortals(level, catalog, player = playerOf(level.profile)) {
   const out = [];
   const entById = new Map(level.entities.map((e) => [e.id, e]));
+  const W = player.width;
   for (const p of level.portals) {
     const f = portalInfo(level, p);
     if (f.k === undefined) {
@@ -42,10 +60,10 @@ export function checkPortals(level, catalog) {
         if (!solidAt(level, pt)) out.push(`${p.id}: pod otvorem chybí práh (díra v podlaze)`);
       }
     }
-    // průchod: 0,6 m na každou stranu od zdi nesmí nic stát (kromě dveří tohoto portálu)
+    // průchod: na šířku hráče na každou stranu od zdi nesmí nic stát (kromě dveří tohoto portálu)
     const pass = { min: [0, f.sill + 0.03, 0], max: [0, f.top - 0.03, 0] };
-    pass.min[f.k] = f.lo - 0.6;
-    pass.max[f.k] = f.hi + 0.6;
+    pass.min[f.k] = f.lo - W;
+    pass.max[f.k] = f.hi + W;
     pass.min[f.o] = f.c0 + 0.02;
     pass.max[f.o] = f.c1 - 0.02;
     for (const b of level.brushes) if (b.col !== false && hit(b, pass)) out.push(`${p.id}: průchod zatarasil kvádr ${b.id}`);
@@ -53,8 +71,14 @@ export function checkPortals(level, catalog) {
       if (isDoor(catalog, e) && Math.abs(e.pos[f.k] - f.plane) < 0.01 && e.pos[f.o] > f.c0 && e.pos[f.o] < f.c1) continue;
       if (hit(restBox(catalog, e), pass)) out.push(`${p.id}: v průchodu stojí ${e.id}`);
     }
-    if (p.door) {
-      const d = entById.get(p.door);
+    const here = portalDoors(level, catalog, p, f);
+    if (p.door && !here.includes(entById.get(p.door))) out.push(`${p.id}: dveře ${p.door} nestojí ve středu prahu`);
+    if (here.length > 2) out.push(`${p.id}: v otvoru stojí ${here.length} dveří`);
+    if (here.length >= 1 && !p.door) out.push(`${p.id}: dveře ${here[0].id} nejsou zapsané jako dveře portálu (navigace je nenajde)`);
+    // šířka pro hráče: volný otvor celý, dveře otevřené na doraz (kruh v půdorysu; 1 cm je nejistota mřížky)
+    const clear = here.length ? doorClear(catalog, here.map((d) => d.prefab), f.c1 - f.c0, f.hi - f.lo, player) : f.c1 - f.c0;
+    if (clear < W - (here.length ? 0.01 : 1e-6)) out.push(`${p.id}: průchod ${clear.toFixed(2)} m je užší než hráč (${W.toFixed(2)} m)`);
+    for (const d of here) {
       const op = catalog.opening(d.prefab);
       if (Math.abs(d.pos[f.o] - (f.c0 + f.c1) / 2) > 0.001 || Math.abs(d.pos[1] - f.sill) > 0.001 || Math.abs(d.pos[f.k] - f.plane) > 0.001) out.push(`${p.id}: dveře ${d.id} nestojí ve středu prahu`);
       if (Math.abs(op.w / 100 - (f.c1 - f.c0)) > 0.011 || Math.abs(op.h / 100 - (f.top - f.sill)) > 0.011) out.push(`${p.id}: otvor ${(f.c1 - f.c0).toFixed(2)} × ${(f.top - f.sill).toFixed(2)} m nesedí na dveře ${d.prefab}`);
@@ -136,15 +160,16 @@ export function checkPlacement(level, catalog) {
 }
 
 /**
- * Průchodnost uvnitř buněk: mezi všemi otvory jedné buňky vede po podlaze cesta široká aspoň 0,6 m.
+ * Průchodnost uvnitř buněk: mezi všemi otvory jedné buňky vede po podlaze cesta široká aspoň jako hráč
+ * (kapsle s odstupem kontroléru; u dnešního profilu 0,74 m).
  * Mřížka 0,1 m; překážka je cokoli, co stojí mezi 0,25 a 1,7 m nad podlahou (schody a prahy se dají vyjít).
  * Buňky přes víc pater a buňky s plošinou se přeskakují (mají víc úrovní podlahy).
  */
-export function checkPassable(level, catalog) {
+export function checkPassable(level, catalog, player = playerOf(level.profile)) {
   const out = [];
   let tested = 0;
   const G = 0.1;
-  const R = 0.3;
+  const R = player.r;
   for (const cell of level.cells) {
     const mine = level.portals.filter((p) => p.a === cell.id || p.b === cell.id);
     if (mine.length < 2) continue;
@@ -196,20 +221,40 @@ export function checkPassable(level, catalog) {
       seen[i * nz + j] = 1;
       stack.push([i + 1, j], [i - 1, j], [i, j + 1], [i, j - 1]);
     }
-    for (const e of entries) if (!seen[e.i * nz + e.j]) out.push(`${cell.id}: od ${entries[0].id} k ${e.id} nevede cesta široká 0,6 m`);
+    for (const e of entries) if (!seen[e.i * nz + e.j]) out.push(`${cell.id}: od ${entries[0].id} k ${e.id} nevede cesta široká ${player.width.toFixed(2)} m`);
   }
   return { problems: out, tested };
 }
 
-/** Všechny kontroly naráz. */
-export function inspectLevel(raw, catalog) {
+/** Pravidla obsahu z rozměrů buněk: strop aspoň 2,6 m, chodba aspoň 1,6 m široká (počítáno jen z dat levelu). */
+export function checkContentRules(level, minCeil = 2.6, minCorr = 1.6) {
+  const out = [];
+  let ceil = Infinity;
+  let corr = Infinity;
+  for (const c of level.cells) {
+    const h = c.bounds.max[1] - c.bounds.min[1];
+    ceil = Math.min(ceil, h);
+    if (h < minCeil - EPS) out.push(`${c.id}: světlá výška ${h.toFixed(2)} m`);
+    if (!c.id.startsWith('c_corr')) continue;
+    const w = Math.min(c.bounds.max[0] - c.bounds.min[0], c.bounds.max[2] - c.bounds.min[2]);
+    corr = Math.min(corr, w);
+    if (w < minCorr - EPS) out.push(`${c.id}: chodba široká ${w.toFixed(2)} m`);
+  }
+  return { problems: out, minCeil: ceil, minCorr: corr };
+}
+
+/** Všechny kontroly naráz. Hráč se bere z profilu levelu, pokud ho volající nedá. */
+export function inspectLevel(raw, catalog, player = playerOf(raw.profile)) {
   const level = { ...raw, entities: raw.entities || [], portals: raw.portals || [], brushes: raw.brushes || [] };
   const st = checkStairs(level);
-  const pass = checkPassable(level, catalog);
+  const pass = checkPassable(level, catalog, player);
+  const rules = checkContentRules(level);
   return {
-    problems: [...checkReach(level), ...checkPortals(level, catalog), ...checkSpawns(level, catalog), ...st.problems, ...checkPlacement(level, catalog), ...pass.problems],
+    problems: [...checkReach(level), ...checkPortals(level, catalog, player), ...checkSpawns(level, catalog), ...st.problems, ...checkPlacement(level, catalog), ...pass.problems],
     stairs: st.stairs,
     ramps: st.ramps,
     passableCells: pass.tested,
+    rules,
+    player,
   };
 }

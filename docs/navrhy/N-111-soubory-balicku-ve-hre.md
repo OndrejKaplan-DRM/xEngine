@@ -45,4 +45,4 @@ Engine čte `pack.files`, když je v balíku. Bez nich se díl `mesh` nepostaví
 
 ## Rozhodnutí
 
-(vyplní svodná sešna)
+Přijato (D-046, 24. 11. 2026): body 1 až 4 provedeny v základu (`pack.files`, `readPackFull(dir, { files: true })`, vkládání v `build.mjs`, `materialFrom`), validátor hlídá textury materiálů v `assets`. Kontrola uzlu za `#` v `.glb` odložena (potřebuje čtení glTF v základu). Strop velikosti (`assetsMax`) až s většími variantami textur od sešny B; do té doby se vkládá, co manifest uvádí.

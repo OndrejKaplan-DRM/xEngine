@@ -17,6 +17,7 @@
     "button_red": { "model": "lit", "color": [0.75, 0.08, 0.06], "rough": 0.4, "metal": 0, "uvScale": 1, "surface": "plastic" },
     "hazard_yellow": { "model": "lit", "color": [0.9, 0.72, 0.05], "rough": 0.6, "metal": 0, "uvScale": 1, "surface": "metal" },
     "light_panel": { "model": "emissive", "color": [1, 0.95, 0.85], "emissive": [1, 0.92, 0.8], "emissiveStrength": 4, "surface": "glass" },
-    "screen_glow": { "model": "emissive", "color": [0.1, 0.5, 0.35], "emissive": [0.15, 0.9, 0.6], "emissiveStrength": 2, "surface": "glass" }
+    "screen_glow": { "model": "emissive", "color": [0.1, 0.5, 0.35], "emissive": [0.15, 0.9, 0.6], "emissiveStrength": 2, "surface": "glass" },
+    "plasma_glow": { "model": "emissive", "color": [0.3, 0.85, 1], "emissive": [0.4, 0.95, 1], "emissiveStrength": 3, "surface": "glass" }
   }
 }

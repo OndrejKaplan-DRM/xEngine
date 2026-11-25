@@ -12,7 +12,10 @@ import { validatePack, mergePacks } from '../src/xspace/index.js';
 import { checkPackDir } from '../tools/lib/read-pack.mjs';
 import { kitAsPack } from '../tools/forge/kit/index.mjs';
 import { makeChecker, span } from './b_lib/check.mjs';
-import { inspectLevel } from './b_lib/level-checks.mjs';
+import { inspectLevel, portalDoors } from './b_lib/level-checks.mjs';
+import { doorLeaks } from './b_lib/door-cover.mjs';
+import { playerOf, PROFILE_IDS } from './b_lib/player.mjs';
+import { BODY, bodyWidth, passRadius } from '../src/gen/body.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEEDS = Number(process.env.B_SEEDS || 200);
@@ -66,6 +69,18 @@ function asPack(level) {
   ok(b.brushes.filter((x) => x.tag === 'stair').length === 4 && b.brushes.some((x) => x.shape === 'wedge' && x.rise === '-x'), 'stavebnice: čtyři stupně a klín rampy');
 }
 
+// ---- postava: generátor staví pro hráče, jakého má engine ---------------------------------------
+{
+  // rozměry jsou v generátoru na jednom místě (src/gen/body.js) a předvolby je jen předávají dál
+  const mine = { radius: BODY.radius / 100, skin: BODY.skin / 100 };
+  const real = PROFILE_IDS.map(playerOf);
+  const widest = Math.max(...real.map((p) => p.width));
+  ok(real.every((p) => mine.radius >= p.radius - 1e-9 && mine.skin >= p.skin - 1e-9) && bodyWidth() / 100 >= widest - 1e-9, 'postava generátoru není menší než hráč enginu (profil pohybu a odstup kontroléru)', `generátor ${(bodyWidth() / 100).toFixed(2)} m, engine ${real.map((p) => `${p.profile} ${p.width.toFixed(2)} m`).join(', ')}`);
+  ok(Object.values(PRESETS).every((p) => p.params({}).body === BODY) && passRadius() * 2 > widest, 'předvolby berou postavu z body.js a cestu místností hledají s rezervou', `cesta ${(passRadius() * 2).toFixed(2)} m, hráč ${widest.toFixed(2)} m`);
+  const code = ['passage.js', 'furnish.js', 'build.js'].map((f) => readFileSync(path.join(root, 'src/gen', f), 'utf8')).join('\n');
+  ok(!/R\s*=\s*0\.\d/.test(code), 'poloměr postavy není v kódu generátoru napsaný číslem');
+}
+
 // ---- 200 seedů × předvolby ------------------------------------------------------------------
 const RUNS = [
   { preset: 'complex', opts: {}, n: SEEDS, name: 'complex (dvě patra)' },
@@ -74,9 +89,12 @@ const RUNS = [
   { preset: 'complex', opts: { puzzle: true }, n: Math.ceil(SEEDS / 4), name: 'complex s hádankou' },
 ];
 let slowest = 0;
+const portalDoorPrefabs = new Set();
 const usedAll = new Set();
 for (const run of RUNS) {
-  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [] };
+  const agg = { cells: [], doors: [], ms: [], attempt: [], entities: [], brushes: [], passable: [], ceil: [], corr: [] };
+  let walker = null;
+  const ruleBreaks = [];
   const findings = {};
   const problems = [];
   const fails = [];
@@ -96,14 +114,19 @@ for (const run of RUNS) {
     const { level, info } = made;
     agg.ms.push(ms);
     agg.cells.push(level.cells.length);
-    agg.doors.push(level.portals.filter((p) => p.door).length);
+    agg.doors.push(level.portals.filter((p) => portalDoors(level, catalog, p).length > 0).length);
+    for (const p of level.portals) if (p.door) portalDoorPrefabs.add(level.entities.find((e) => e.id === p.door).prefab);
     agg.attempt.push(info.attempt);
     agg.entities.push(level.entities.length);
     agg.brushes.push(level.brushes.length);
     const res = validatePack(asPack(level));
     for (const x of [...res.errors, ...res.warnings]) findings[x.code] = (findings[x.code] || 0) + 1;
     const insp = inspectLevel(level, catalog);
+    walker = insp.player;
     agg.passable.push(insp.passableCells);
+    agg.ceil.push(insp.rules.minCeil);
+    if (Number.isFinite(insp.rules.minCorr)) agg.corr.push(insp.rules.minCorr);
+    for (const p of insp.rules.problems.slice(0, 2)) ruleBreaks.push(`seed ${seed}: ${p}`);
     for (const p of insp.problems.slice(0, 2)) problems.push(`seed ${seed}: ${p}`);
     if (insp.stairs + insp.ramps > 0) withStairs++;
     if (level.entities.some((e) => e.props && e.props.locked)) puzzles++;
@@ -116,7 +139,8 @@ for (const run of RUNS) {
   ok(Math.min(...agg.cells) >= 20 && Math.max(...agg.cells) <= 60, `${run.name}: 20 až 60 buněk`, span(agg.cells));
   ok(Math.min(...agg.doors) >= 3, `${run.name}: aspoň troje dveře v portálech`, span(agg.doors));
   ok(withStairs === n, `${run.name}: každý level má schod nebo rampu`, `${withStairs} z ${n}`);
-  ok(problems.length === 0, `${run.name}: prahy, průchody, schody, rozmístění a průchodnost místností`, problems.slice(0, 3).join(' | ') || `průchodnost ověřena v ${span(agg.passable)} buňkách na level`);
+  ok(problems.length === 0, `${run.name}: prahy, průchody, schody, rozmístění a průchodnost místností`, problems.slice(0, 3).join(' | ') || `cesta široká ${walker.width.toFixed(2)} m (profil ${walker.profile}) ověřena v ${span(agg.passable)} buňkách na level`);
+  ok(ruleBreaks.length === 0, `${run.name}: strop nikde pod 2,6 m, chodba nikde užší než 1,6 m`, ruleBreaks.slice(0, 3).join(' | ') || `nejnižší strop ${Math.min(...agg.ceil).toFixed(2)} m, nejužší chodba ${Math.min(...agg.corr).toFixed(2)} m`);
   ok(Math.max(...agg.ms) < 1000, `${run.name}: generování pod 1 s`, `${span(agg.ms, 1)} ms; kvádrů ${span(agg.brushes)}, entit ${span(agg.entities)}`);
   if (run.opts.puzzle) ok(puzzles >= n * 0.9, `${run.name}: zamčená místnost s pákou`, `${puzzles} z ${n}`);
   if (!run.opts.puzzle && !run.opts.floors) ok(prefabsUsed.size >= (run.preset === 'complex' ? 25 : 8), `${run.name}: generátor rozmisťuje prefaby sady`, `${prefabsUsed.size} různých prefabů z ${catalog.ids.length}`);
@@ -126,6 +150,16 @@ for (const run of RUNS) {
   // okno a mřížová brána čekají na návrh N-003 (portál jen pro pohled); všechno ostatní ze sady generátor umí postavit
   const unused = catalog.ids.filter((id) => !usedAll.has(id));
   ok(unused.every((id) => ['window_sash_01', 'gate_iron_01'].includes(id)), 'generátory dohromady použijí každý prefab sady kromě těch, které čekají na N-003', `nepoužité: ${unused.join(', ') || 'žádné'}`);
+}
+
+{
+  // engine zavřenými dveřmi portálu zavírá pohled (N-107): entita v portal.door musí otvor zakrýt sama, nebo mít seeThrough
+  const through = (id) => catalog.get(id).components.interact.seeThrough === true;
+  const bad = [...portalDoorPrefabs].filter((id) => {
+    const op = catalog.opening(id);
+    return !through(id) && doorLeaks([catalog.get(id)], op.w / 100, op.h / 100).leaks.length > 0;
+  });
+  ok(portalDoorPrefabs.size > 0 && bad.length === 0, 'dveře zapsané v portal.door zakryjí otvor samy, nebo mají seeThrough (zkouška paprsky)', bad.join(' ') || [...portalDoorPrefabs].sort().map((id) => (through(id) ? `${id} (seeThrough)` : id)).join(' '));
 }
 
 // ---- 50 místností do 1 s ---------------------------------------------------------------------

@@ -1,0 +1,723 @@
+{
+  "note": "Vyrábí tools/forge/textures.mjs z příjmu xSearcheru; ručně neupravovat. mean = průměrná barva hotového souboru lineárně; gain = color materiálu / mean (zesílení, které galerie použije místo násobení barvou, návrh N-009).",
+  "size": 512,
+  "hueLimit": 1.35,
+  "files": {
+    "textures/castle_wall_varriation_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 72834,
+      "sha256": "a1739b914bac04b1de2b096a8546e8cf8dd50d1f1a86a27c41828e8dfbd6cda0",
+      "px": 512,
+      "mean": [0.2337, 0.2337, 0.2337],
+      "from": {
+        "source": "polyhaven",
+        "id": "castle_wall_varriation",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/castle_wall_varriation/castle_wall_varriation_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/castle_wall_varriation",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "castle_wall_varriation_diff_2k.jpg",
+        "originalSha256": "47d50ed57e111e3abfbd367872b5d23e3ab128c45b7172886752ce985f5b9f2b"
+      }
+    },
+    "textures/castle_wall_varriation_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 115966,
+      "sha256": "8e068b868d5ae292d426ccc92c15ec45d6bfd2371f089a0c2f05887cb9936914",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "castle_wall_varriation",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/castle_wall_varriation/castle_wall_varriation_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/castle_wall_varriation",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "castle_wall_varriation_nor_gl_2k.jpg",
+        "originalSha256": "b78d76a84e3b37a936f8bd3fb870f8740f3e0c5dd56179cef4b35bd1341a4ee5"
+      }
+    },
+    "textures/concrete_floor_worn_001_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 12328,
+      "sha256": "d14ecc52fc981226f3fdf4172432fc65b5abe6accd625ceb358580c8be9b5741",
+      "px": 512,
+      "mean": [0.0922, 0.0957, 0.0885],
+      "from": {
+        "source": "polyhaven",
+        "id": "concrete_floor_worn_001",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_worn_001/concrete_floor_worn_001_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/concrete_floor_worn_001",
+        "author": "Dimitrios Savva, Rico Cilliers",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "concrete_floor_worn_001_diff_2k.jpg",
+        "originalSha256": "e29b45cdcd6d02fae3c087c456196ffa750779a9b62e7071aa3831dc322a0cc4"
+      }
+    },
+    "textures/concrete_floor_worn_001_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 6478,
+      "sha256": "a30ffa6ff0a008b2b3b0c669d75e432750932ea0afdbe61480698495c9cd8dd0",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "concrete_floor_worn_001",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/concrete_floor_worn_001/concrete_floor_worn_001_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/concrete_floor_worn_001",
+        "author": "Dimitrios Savva, Rico Cilliers",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "concrete_floor_worn_001_nor_gl_2k.jpg",
+        "originalSha256": "3b782137e34d63fd59b2e92b4e27b2ee4d082caf9dd23f00dc7ab4da5513daef"
+      }
+    },
+    "textures/diamondplate008c_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 24716,
+      "sha256": "6812efb4d3d67fafd6dd717ab5955a378a8deabb0708c849870ab35e7e350acc",
+      "px": 512,
+      "mean": [0.1483, 0.153, 0.1658],
+      "from": {
+        "source": "ambientcg",
+        "id": "DiamondPlate008C",
+        "url": "https://ambientcg.com/get?file=DiamondPlate008C_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/DiamondPlate008C",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "DiamondPlate008C_2K-JPG_Color.jpg",
+        "originalSha256": "32e9095912fe48f36ce23f1da00cddd69dd9cce9c589a7f914cf75411146adb6"
+      }
+    },
+    "textures/diamondplate008c_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 62126,
+      "sha256": "4ccb379b59333aaece16a79eeb64cd7f6a52601a44bd85269f4b63039a92bfa2",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "DiamondPlate008C",
+        "url": "https://ambientcg.com/get?file=DiamondPlate008C_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/DiamondPlate008C",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "DiamondPlate008C_2K-JPG_NormalGL.jpg",
+        "originalSha256": "0937e3896dbea87cd1b9334e0bcaa9752f6ab155e3dea10e8d9f715637579827"
+      }
+    },
+    "textures/ground110_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 101694,
+      "sha256": "c0f05ee21a640fe924eb5ab67f5341156e9a59d9a61a8338391fbd9872027fe1",
+      "px": 512,
+      "mean": [0.1417, 0.1178, 0.0909],
+      "from": {
+        "source": "ambientcg",
+        "id": "Ground110",
+        "url": "https://ambientcg.com/get?file=Ground110_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Ground110",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Ground110_2K-JPG_Color.jpg",
+        "originalSha256": "a7f64f1eaa5f7980c000556b4c87a2244c6285720ef8c8d95c5aa5e5e781c8c3"
+      }
+    },
+    "textures/ground110_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 130068,
+      "sha256": "656482f7eedfc29ad728e02feb49f0bc740db50d44cb838341996a5ded14b448",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Ground110",
+        "url": "https://ambientcg.com/get?file=Ground110_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Ground110",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Ground110_2K-JPG_NormalGL.jpg",
+        "originalSha256": "36d9399921e465bb9e9d96612a92408643cf6e54dc364a5c01968c07f2b41f5a"
+      }
+    },
+    "textures/kitchen_wood_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 60348,
+      "sha256": "a81a8bb8f537edc419597804f9c876eeb4037df3d7b15e59e41abde3b12d6af0",
+      "px": 512,
+      "mean": [0.1658, 0.1159, 0.071],
+      "from": {
+        "source": "polyhaven",
+        "id": "kitchen_wood",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/kitchen_wood",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "kitchen_wood_diff_2k.jpg",
+        "originalSha256": "da11d51f48e4a85959b6c45ac6a6f50e78bc0aac73f094ddbe1040d71633c4e6"
+      }
+    },
+    "textures/kitchen_wood_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 18534,
+      "sha256": "bb982dbef5a5e32b47a8aa067532003894e77b8adc0075381ba07ac73812d40c",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "kitchen_wood",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/kitchen_wood/kitchen_wood_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/kitchen_wood",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "kitchen_wood_nor_gl_2k.jpg",
+        "originalSha256": "4b861a9f40d9f3570cdf023ea873c8da74d710982406884e6f718769f1fac5f6"
+      }
+    },
+    "textures/metal009_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 12616,
+      "sha256": "33a0ee778fbe26d01767d4db4e3a3aab65c41d896b372d0ee0b4832750f01674",
+      "px": 512,
+      "mean": [0.2892, 0.2991, 0.316],
+      "from": {
+        "source": "ambientcg",
+        "id": "Metal009",
+        "url": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Metal009",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Metal009_2K-JPG_Color.jpg",
+        "originalSha256": "209d3bb050be9f58c5af179d9712fa7799567a4cd50afd338d37674bdcff765b"
+      }
+    },
+    "textures/metal009_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 2348,
+      "sha256": "1d4f493fb1b7d796dd0698ac2ac76a01c66047b2c27a80553aa7d024e52c7b00",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Metal009",
+        "url": "https://ambientcg.com/get?file=Metal009_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Metal009",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Metal009_2K-JPG_NormalGL.jpg",
+        "originalSha256": "8773d9e97a4b057ced3e538d8ecc6069d27c8948191d61daf79b9ad93d93e3b3"
+      }
+    },
+    "textures/oak_veneer_01_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 25006,
+      "sha256": "8511e428139cc4d47f06aaa0ff20e304729c01dd09592e6fc844f67f166a43c1",
+      "px": 512,
+      "mean": [0.2345, 0.2345, 0.2345],
+      "from": {
+        "source": "polyhaven",
+        "id": "oak_veneer_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/oak_veneer_01",
+        "author": "Jenelle van Heerden",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "oak_veneer_01_diff_2k.jpg",
+        "originalSha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4"
+      }
+    },
+    "textures/oak_veneer_01_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 6036,
+      "sha256": "ef054f3badfdf0ca7d138475adb60ad28492f22cc7585bbf3392ebdd3e535dc1",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "oak_veneer_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/oak_veneer_01",
+        "author": "Jenelle van Heerden",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "oak_veneer_01_nor_gl_2k.jpg",
+        "originalSha256": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9"
+      }
+    },
+    "textures/old_linoleum_flooring_01_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 26894,
+      "sha256": "42d98d080f7d1f00bdb11b891b1175fd35bd783a904b34670ea43d4c95a6dc84",
+      "px": 512,
+      "mean": [0.2679, 0.2679, 0.2679],
+      "from": {
+        "source": "polyhaven",
+        "id": "old_linoleum_flooring_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_linoleum_flooring_01/old_linoleum_flooring_01_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/old_linoleum_flooring_01",
+        "author": "Charlotte Baglioni",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "old_linoleum_flooring_01_diff_2k.jpg",
+        "originalSha256": "ef60d08efe91b2c79fa215affd73e2ba7e81ae175a61651e6bd9f2f3ff3607f5"
+      }
+    },
+    "textures/old_linoleum_flooring_01_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 3242,
+      "sha256": "ade6ff813f9a01f31924eb59b9278e849a22c36f5f5198380fcd1cffee7aa17a",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "old_linoleum_flooring_01",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_linoleum_flooring_01/old_linoleum_flooring_01_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/old_linoleum_flooring_01",
+        "author": "Charlotte Baglioni",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "old_linoleum_flooring_01_nor_gl_2k.jpg",
+        "originalSha256": "9d3d36b6d6961b3b98dc33590cacccf54be4ca0a9910e2801f84782457183097"
+      }
+    },
+    "textures/old_planks_02_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 21636,
+      "sha256": "b898803f651fa1a97e9adddf67bcbbb1f119a94a5cea9272129e2d3e506043a3",
+      "px": 512,
+      "mean": [0.1223, 0.092, 0.0634],
+      "from": {
+        "source": "polyhaven",
+        "id": "old_planks_02",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/old_planks_02",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "old_planks_02_diff_2k.jpg",
+        "originalSha256": "04191d71093db79b378b6b16d0f7c51560294cfd8b7c15d20456d154eb5811d7"
+      }
+    },
+    "textures/old_planks_02_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 38092,
+      "sha256": "a6813711c6b1010fbb3bfbc5fed06f12f1d811857ff0fb6b5fff635395e82fc8",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "old_planks_02",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_planks_02/old_planks_02_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/old_planks_02",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "old_planks_02_nor_gl_2k.jpg",
+        "originalSha256": "4a18fab38628fa7a800f3d3f6aa29bdaea4c01711738718ec6286fb392a1aa1f"
+      }
+    },
+    "textures/painted_plaster_wall_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 15014,
+      "sha256": "e38f4860a63d0f31cb670bd3a98ef2a2b1c096d648a4bc1627465ce1c7271d25",
+      "px": 512,
+      "mean": [0.4075, 0.3664, 0.349],
+      "from": {
+        "source": "polyhaven",
+        "id": "painted_plaster_wall",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/painted_plaster_wall",
+        "author": "Amal Kumar",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "painted_plaster_wall_diff_2k.jpg",
+        "originalSha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be"
+      }
+    },
+    "textures/painted_plaster_wall_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 38474,
+      "sha256": "742534f9fbc67d6e43728716c7b8eaea592bf587d60c64064569f2c12178ea87",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "painted_plaster_wall",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/painted_plaster_wall",
+        "author": "Amal Kumar",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "painted_plaster_wall_nor_gl_2k.jpg",
+        "originalSha256": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1"
+      }
+    },
+    "textures/red_brick_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 36044,
+      "sha256": "78910c54e0fde6ad1a2becd828785f67bdb2cca3f3a5b655c7cba630fa97fc6c",
+      "px": 512,
+      "mean": [0.2767, 0.1377, 0.0849],
+      "from": {
+        "source": "polyhaven",
+        "id": "red_brick",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_brick/red_brick_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/red_brick",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "red_brick_diff_2k.jpg",
+        "originalSha256": "a1ae5ba7e63026971ceaf68ebbcf8982d9c2dadde1c99996c49b8ac1160af995"
+      }
+    },
+    "textures/red_brick_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 89150,
+      "sha256": "8698ecea76d211cebd216ddb7a6bceeed02fca44d2a134cb18622481daa88e0c",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "red_brick",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/red_brick/red_brick_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/red_brick",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "red_brick_nor_gl_2k.jpg",
+        "originalSha256": "dd2ce5b5c42f04f02fce555d53eae42503733a0a42e76ae9a18bfb9d0680da5b"
+      }
+    },
+    "textures/rusty_painted_metal_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 11162,
+      "sha256": "a1d8bb5c5c95b5fccef473857a06b1418b6396fa240dc69ebfc3ca3206826afd",
+      "px": 512,
+      "mean": [0.0695, 0.0693, 0.0695],
+      "from": {
+        "source": "polyhaven",
+        "id": "rusty_painted_metal",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rusty_painted_metal/rusty_painted_metal_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/rusty_painted_metal",
+        "author": "Amal Kumar",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "rusty_painted_metal_diff_2k.jpg",
+        "originalSha256": "883118fafabb56304f9e33ea2da3c183379b1c1b1c5a4702fdc335b0cf84614f"
+      }
+    },
+    "textures/rusty_painted_metal_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 7392,
+      "sha256": "3ab8cb93d9f48a4de7214fe44b626d0e8d30952aca83c4c5ed583267bd883978",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "rusty_painted_metal",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rusty_painted_metal/rusty_painted_metal_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/rusty_painted_metal",
+        "author": "Amal Kumar",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "rusty_painted_metal_nor_gl_2k.jpg",
+        "originalSha256": "2289c10422d5082aea3cf37661008b281c4aec20f6d0b574df6d7887573eb70c"
+      }
+    },
+    "textures/sandstone_blocks_05_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 75138,
+      "sha256": "3bd4cb01b9dbd08db7888f47c1e0558d8ddbccfbbbcbc3b303095d0b0dc128c6",
+      "px": 512,
+      "mean": [0.3626, 0.3625, 0.3626],
+      "from": {
+        "source": "polyhaven",
+        "id": "sandstone_blocks_05",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sandstone_blocks_05/sandstone_blocks_05_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/sandstone_blocks_05",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "sandstone_blocks_05_diff_2k.jpg",
+        "originalSha256": "46c0be03ddf94e2eee4cc4ce3aa5526dedfcb85f41e78ea95017640164596602"
+      }
+    },
+    "textures/sandstone_blocks_05_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 127386,
+      "sha256": "89022e28eccb02d4e115d879e60d9cc55b45e4b087fee1917776cb89357caefa",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "sandstone_blocks_05",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sandstone_blocks_05/sandstone_blocks_05_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/sandstone_blocks_05",
+        "author": "Rob Tuytel",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "sandstone_blocks_05_nor_gl_2k.jpg",
+        "originalSha256": "df63ca75c87476f8ba0c6a3fab3fb841d590da2e5877a753815f20e1f091da1e"
+      }
+    },
+    "textures/stone_brick_wall_001_albedo_gray.512.webp": {
+      "kind": "albedo-gray",
+      "bytes": 49712,
+      "sha256": "900afa2a3658377b3ba8d1c61e715d7f8c1731ae0719fd84393063bf0bbb2f47",
+      "px": 512,
+      "mean": [0.0585, 0.0585, 0.0585],
+      "from": {
+        "source": "polyhaven",
+        "id": "stone_brick_wall_001",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_brick_wall_001/stone_brick_wall_001_diff_2k.jpg",
+        "page": "https://polyhaven.com/a/stone_brick_wall_001",
+        "author": "Dimitrios Savva, Rico Cilliers",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "stone_brick_wall_001_diff_2k.jpg",
+        "originalSha256": "2374d49b7de8046226f67ff97eecc4f558ebe3372ec5b854f0211816af87c050"
+      }
+    },
+    "textures/stone_brick_wall_001_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 108436,
+      "sha256": "529d4c340eb0fbb443bcf0149696961f3a0c8e6db76fb5257a267506fad3babb",
+      "px": 512,
+      "from": {
+        "source": "polyhaven",
+        "id": "stone_brick_wall_001",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/stone_brick_wall_001/stone_brick_wall_001_nor_gl_2k.jpg",
+        "page": "https://polyhaven.com/a/stone_brick_wall_001",
+        "author": "Dimitrios Savva, Rico Cilliers",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "stone_brick_wall_001_nor_gl_2k.jpg",
+        "originalSha256": "daa4abd418cc0bf1144c32e588fecbbd5f573e380a125a910f6c67b9725f20ab"
+      }
+    },
+    "textures/tiles107_albedo.512.webp": {
+      "kind": "albedo",
+      "bytes": 5732,
+      "sha256": "b32c5d3e895857109886ade94a8fae8907aca1379661ded406873d308822074b",
+      "px": 512,
+      "mean": [0.9463, 0.9435, 0.943],
+      "from": {
+        "source": "ambientcg",
+        "id": "Tiles107",
+        "url": "https://ambientcg.com/get?file=Tiles107_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Tiles107",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Tiles107_2K-JPG_Color.jpg",
+        "originalSha256": "a74664ca3721976b9407d5b1bba65534f616eb2519ae16d76b4ec5f426530bdb"
+      }
+    },
+    "textures/tiles107_normal.512.webp": {
+      "kind": "normal",
+      "bytes": 13656,
+      "sha256": "85e4613b7eaa9751873ef17bea801826d29e78158a34871ab340d7290b395d90",
+      "px": 512,
+      "from": {
+        "source": "ambientcg",
+        "id": "Tiles107",
+        "url": "https://ambientcg.com/get?file=Tiles107_2K-JPG.zip",
+        "page": "https://ambientcg.com/a/Tiles107",
+        "author": "ambientCG",
+        "license": "CC0-1.0",
+        "date": "2026-11-24",
+        "original": "Tiles107_2K-JPG_NormalGL.jpg",
+        "originalSha256": "063e5e1ad15fadcf7453a2b6be8cb80d5d88da8aa79068f894a39f1414fef4db"
+      }
+    }
+  },
+  "materials": {
+    "brick_red": {
+      "source": "polyhaven:red_brick",
+      "albedo": "textures/red_brick_albedo.512.webp",
+      "normal": "textures/red_brick_normal.512.webp",
+      "uvScale": 1.4,
+      "mode": "color",
+      "hue": 1.3037,
+      "gain": [1.6263, 1.7429, 2.1201]
+    },
+    "concrete_dark": {
+      "source": "polyhaven:concrete_floor_worn_001",
+      "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "normal": "textures/concrete_floor_worn_001_normal.512.webp",
+      "uvScale": 3,
+      "mode": "color",
+      "hue": 1.1214,
+      "gain": [2.9284, 2.8213, 3.1638]
+    },
+    "concrete_raw": {
+      "source": "polyhaven:concrete_floor_worn_001",
+      "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "normal": "textures/concrete_floor_worn_001_normal.512.webp",
+      "uvScale": 3,
+      "mode": "color",
+      "hue": 1.0381,
+      "gain": [5.423, 5.2247, 5.4237]
+    },
+    "concrete_smooth": {
+      "source": "polyhaven:concrete_floor_worn_001",
+      "albedo": "textures/concrete_floor_worn_001_albedo.512.webp",
+      "normal": "textures/concrete_floor_worn_001_normal.512.webp",
+      "uvScale": 3,
+      "mode": "color",
+      "hue": 1.0543,
+      "gain": [4.3384, 4.1797, 4.4068]
+    },
+    "dirt_packed": {
+      "source": "ambientcg:Ground110",
+      "albedo": "textures/ground110_albedo.512.webp",
+      "normal": "textures/ground110_normal.512.webp",
+      "uvScale": 2.1,
+      "mode": "color",
+      "hue": 1.1547,
+      "gain": [1.9054, 1.7827, 1.6502]
+    },
+    "lino_grey": {
+      "source": "polyhaven:old_linoleum_flooring_01",
+      "albedo": "textures/old_linoleum_flooring_01_albedo_gray.512.webp",
+      "normal": "textures/old_linoleum_flooring_01_normal.512.webp",
+      "uvScale": 1.99,
+      "mode": "gray",
+      "hue": 5.1285,
+      "gain": [1.6424, 1.7171, 1.6424]
+    },
+    "metal_floor": {
+      "source": "ambientcg:DiamondPlate008C",
+      "albedo": "textures/diamondplate008c_albedo.512.webp",
+      "normal": "textures/diamondplate008c_normal.512.webp",
+      "uvScale": 1,
+      "mode": "color",
+      "hue": 1.0248,
+      "gain": [2.2252, 2.2222, 2.1713]
+    },
+    "plaster_green": {
+      "source": "polyhaven:painted_plaster_wall",
+      "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "normal": "textures/painted_plaster_wall_normal.512.webp",
+      "uvScale": 2,
+      "mode": "color",
+      "hue": 1.3047,
+      "gain": [1.2761, 1.6648, 1.5473]
+    },
+    "plaster_grey": {
+      "source": "polyhaven:painted_plaster_wall",
+      "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "normal": "textures/painted_plaster_wall_normal.512.webp",
+      "uvScale": 2,
+      "mode": "color",
+      "hue": 1.13,
+      "gain": [1.5215, 1.6921, 1.7192]
+    },
+    "plaster_light": {
+      "source": "polyhaven:painted_plaster_wall",
+      "albedo": "textures/painted_plaster_wall_albedo.512.webp",
+      "normal": "textures/painted_plaster_wall_normal.512.webp",
+      "uvScale": 2,
+      "mode": "color",
+      "hue": 1.0983,
+      "gain": [1.9632, 2.1561, 2.1203]
+    },
+    "steel_brushed": {
+      "source": "ambientcg:Metal009",
+      "albedo": "textures/metal009_albedo.512.webp",
+      "normal": "textures/metal009_normal.512.webp",
+      "uvScale": 1,
+      "mode": "color",
+      "hue": 1.0264,
+      "gain": [2.1438, 2.1398, 2.0886]
+    },
+    "steel_dark": {
+      "source": "ambientcg:Metal009",
+      "albedo": "textures/metal009_albedo.512.webp",
+      "normal": "textures/metal009_normal.512.webp",
+      "uvScale": 1,
+      "mode": "color",
+      "hue": 1.0677,
+      "gain": [0.6224, 0.6352, 0.6646]
+    },
+    "steel_painted": {
+      "source": "polyhaven:rusty_painted_metal",
+      "albedo": "textures/rusty_painted_metal_albedo_gray.512.webp",
+      "normal": "textures/rusty_painted_metal_normal.512.webp",
+      "uvScale": 2.2,
+      "mode": "gray",
+      "hue": 8.3165,
+      "gain": [5.1799, 6.0606, 6.7626]
+    },
+    "stone_block": {
+      "source": "polyhaven:stone_brick_wall_001",
+      "albedo": "textures/stone_brick_wall_001_albedo_gray.512.webp",
+      "normal": "textures/stone_brick_wall_001_normal.512.webp",
+      "uvScale": 2.5,
+      "mode": "gray",
+      "hue": 2.1867,
+      "gain": [7.1795, 6.8376, 6.3248]
+    },
+    "stone_pale": {
+      "source": "polyhaven:sandstone_blocks_05",
+      "albedo": "textures/sandstone_blocks_05_albedo_gray.512.webp",
+      "normal": "textures/sandstone_blocks_05_normal.512.webp",
+      "uvScale": 3,
+      "mode": "gray",
+      "hue": 1.605,
+      "gain": [1.6547, 1.6, 1.4617]
+    },
+    "stone_rough": {
+      "source": "polyhaven:castle_wall_varriation",
+      "albedo": "textures/castle_wall_varriation_albedo_gray.512.webp",
+      "normal": "textures/castle_wall_varriation_normal.512.webp",
+      "uvScale": 2,
+      "mode": "gray",
+      "hue": 1.4435,
+      "gain": [1.4121, 1.3265, 1.2409]
+    },
+    "tile_grey": {
+      "source": "ambientcg:Tiles107",
+      "albedo": "textures/tiles107_albedo.512.webp",
+      "normal": "textures/tiles107_normal.512.webp",
+      "uvScale": 1,
+      "mode": "color",
+      "hue": 1.1038,
+      "gain": [0.5284, 0.5617, 0.5832]
+    },
+    "tile_white": {
+      "source": "ambientcg:Tiles107",
+      "albedo": "textures/tiles107_albedo.512.webp",
+      "normal": "textures/tiles107_normal.512.webp",
+      "uvScale": 1,
+      "mode": "color",
+      "hue": 1.028,
+      "gain": [0.8665, 0.8903, 0.8908]
+    },
+    "wood_oak": {
+      "source": "polyhaven:oak_veneer_01",
+      "albedo": "textures/oak_veneer_01_albedo_gray.512.webp",
+      "normal": "textures/oak_veneer_01_normal.512.webp",
+      "uvScale": 1.83,
+      "mode": "gray",
+      "hue": 1.4732,
+      "gain": [2.1322, 1.5352, 0.8529]
+    },
+    "wood_old": {
+      "source": "polyhaven:old_planks_02",
+      "albedo": "textures/old_planks_02_albedo.512.webp",
+      "normal": "textures/old_planks_02_normal.512.webp",
+      "uvScale": 2,
+      "mode": "color",
+      "hue": 1.296,
+      "gain": [2.0442, 1.8478, 1.5773]
+    },
+    "wood_pine": {
+      "source": "polyhaven:kitchen_wood",
+      "albedo": "textures/kitchen_wood_albedo.512.webp",
+      "normal": "textures/kitchen_wood_normal.512.webp",
+      "uvScale": 0.6,
+      "mode": "color",
+      "hue": 1.2325,
+      "gain": [4.3426, 5.0043, 5.3521]
+    }
+  }
+}

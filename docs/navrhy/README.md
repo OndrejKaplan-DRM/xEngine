@@ -4,7 +4,7 @@ Sešna A ani B nemění soubory základu ani soubory druhé sešny. Když něco 
 
 ## Postup
 
-1. Soubor `N-<číslo>-<téma>.md` v této složce, číslo další volné (obě sešny číslují ve vlastní řadě: A od 101, B od 001, aby se nesrazily).
+1. Soubor `N-<číslo>-<téma>.md` v této složce, číslo další volné (každá sešna čísluje ve vlastní řadě: B od 001, A od 101, svodná od 201, aby se nesrazily; svodná tak píše zadání zkoušky nového formátu).
 2. Dočasné řešení ve vlastní složce, za přepínačem nebo ve vlastním poli, které validátor ohlásí jen jako varování `shape.unknown`.
 3. Práce pokračuje. Na rozhodnutí se nečeká.
 
@@ -60,18 +60,18 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 |---|---|---|
 | N-001 zapečené světlo | přijat se změnou: dveře v portálech nestíní, světlo zadržuje brána za běhu (23. 11. 2026). Znění 2: brána jako seznam dveří a pole `doors` v hlavičce přijaty; soubor ponese i pevné díly prefabů (24. 11. 2026) | D-035, D-041, D-044; čtení a skládání v `src/xspace/bake.js`, pořadí vzorků `levelSamples` |
 | N-007 zakrytí otvoru dveřmi | bod 1 přijat (zakrytí ze všech dílů), bod 2 zamítnut (seznam entit u portálu) (23. 11. 2026) | D-036 |
-| N-002 svázané klouby | přijat, základ dluží | D-034 |
+| N-002 svázané klouby | přijat, proveden 24. 11. 2026 | D-034; `rig.joints[].follow`, `jointFollow` v `rig.js`, validátor `rig.follow`, `rig.followCycle`, T1 |
 | N-003 portál jen pro pohled, průhledné dveře | přijat | `formats.js`, validátor, T1 |
 | N-004 údaje pro rozmisťování | přijat | `components.place`, T1 |
 | N-005 průhlednost materiálu | přijat | `materials[].opacity`, T1 |
 | N-006 stupně kvality a vrstvy vzhledu | přijat po částech | D-029, D-030 |
 | N-101 díly prefabu v `geom.js` | přijat a proveden 23. 11. 2026 | `partMesh`, `partCollider`, `partTris`, `CYL_SEGMENTS`; xView je používá; T1 |
-| N-102 `rigMatrices` bez alokací | přijat, základ dluží | D-034 |
+| N-102 `rigMatrices` bez alokací | **proveden** 24. 11. 2026 (`rigCompile`, `rigValues`, `rigFollow`, `rigSolve`) | D-034 |
 | N-103 výchozí rychlost kloubu | přijaty body 1 a 2, varování odloženo | `JOINT_TRAVEL_SECONDS`, kontrakty |
 | N-104 dosah interakce | přijat | kontrakty |
 | N-105 přesvícený xLab | přijat, provede se po převodu světla | D-034 |
 | N-106 plocha obrazovky | přijat | `screen.offset`, zlatý vzorek |
-| N-107 dveře musí zakrýt portál | přijat s úpravou | kontrakty; pravidlo validátoru dluží základ (způsob výpočtu podle N-007, D-036) |
+| N-107 dveře musí zakrýt portál | přijat s úpravou | kontrakty; pravidlo validátoru `portal.door.cover` provedeno 24. 11. 2026 (`src/xspace/cover.js`, D-036) |
 | N-108 švy a hrubost mřížky světla | přijata varianta (a) a vynechání schovaných ploch; provedeno 24. 11. 2026. Doplněk sešny A (pole `env.lightCell`) zamítnut 24. 11. 2026 | D-037, D-043; `brushLightMesh` znění 2, `brushHiddenFaces`, `levelLightMeshes`; test švů sešny A hlásí 0 bodů, varianta (b) není potřeba |
 
 
@@ -80,5 +80,19 @@ Tohle formát verze 1 vědomě neumí; kdo na to narazí, napíše návrh:
 | Návrh | Výsledek | Kde je to v základu |
 |---|---|---|
 | N-008 rozměry postavy v základu (B) | přijat a proveden | D-040; `src/xspace/body.js`, varování `portal.narrow` |
-| N-109 dveře se otvírají od hráče (A) | přijat (Ondřej 24. 11. 02:26: „ať to jde do dat“) | D-042; věta v kontraktech, `doorOpenness`; zlatý vzorek ±105° až po úpravě testů sešny A |
-| N-110 světlo v textuře (A) | směr přijat, formát až po zkoušce na hale xLabu (5 cm a 10 cm, `?bench` na T460); zkouška až po A2.5 a A2.6 (Ondřej 24. 11. 02:26) | D-043 |
+| N-109 dveře se otvírají od hráče (A) | přijat (Ondřej 24. 11. 02:26: „ať to jde do dat“) | D-042; věta v kontraktech, `doorOpenness`; zlatý vzorek `door_hinged_01` ±105° (24. 11. večer) |
+| N-110 světlo v textuře (A) | **přijat, bod 5 cm** (Ondřej 25. 11. 0:00); zapéká xBake, velikost bodu je pole dat, `low` smí zmenšit na 10 cm; formát a kódování se zmrazí po zkoušce celého `complex_7` v xBake | D-043, D-050 |
+| N-009 barva materiálu s texturou (B) | přijata varianta a1 (`color` = průměr povrchu, pole `albedoMean`) | D-045; `formats.js`, validátor `mat.albedoMean`, T1 |
+| N-010 víc interakcí v prefabu (B) | **přijata varianta a a provedena** 25. 11. 2026: `components.interact` jako seznam s `id`, výběr podle zasaženého uzlu (`interactionOf`), `from` / `to` ve spojeních | D-052; `src/xspace/interact.js`, validátor `interact.id`, `interact.jointTwice`, `interact.solo`, `io.from`, `io.to`, T1c |
+| N-111 soubory balíku ve hře (A) | přijat, body 1 až 4 provedeny; kontrola uzlu v `.glb` a strop velikosti odloženy | D-046; `read-pack.mjs`, `build.mjs`, `load.js` (`materialFrom`), validátor `ref.asset` pro textury, T1 |
+| N-112 textura světla ve formátu a v xBake (A) | **přijat** 25. 11. 2026, zkušební: atlas ploch a soubor XLM1 v základu; zmrazí se po zkoušce celého `complex_7` (B zapeče, A přečte a změří) | D-050, D-055; `atlas.js`, `lightmap.js`, pole `baked.lightmap`, T1e |
+| N-201 zbraně, munice a události boje (svodná) | **přijat ke zkoušce** 25. 11. 2026: zkušební druhy `ammo` a `weapon`, plazmová puška ve zlatém vzorku; zmrazí se po zkoušce sešen A a B | D-051, D-053; `formats.js`, `weapon.js`, `check-weapon.js`, T1d |
+
+## Rozhodnuto ve vlně 2 (svodná sešna main 04, 25. 11. 2026)
+
+Návrhy N-012 až N-015 leží na větvi `sesna-b`; oddíl „Rozhodnutí“ v jejich souborech se doplní při sloučení.
+
+| Návrh | Rozhodnutí | Kde |
+|---|---|---|
+| N-014 prokazatelná viditelnost, PVS (B) | **přijat**: `levelPVS`, `visibleTris` a rozpočet ≤ 300 tisíc △ z buňky v základu; nezávislá kontrola nadmnožiny náhodnými úsečkami; zkouška horní a dolní meze pro sešnu A (dodatek znění 11) | D-057; `src/xspace/pvs.js`, T1f, `06_ROZPOCTY.md` |
+| N-015 přehled xView u vysokého levelu (B) | **přijat a proveden**: kamera přehledu a půdorysu nad nejvyšším místem levelu, přepínač podlaží s řezem | D-056; `tools/xview/main.js` (xView 0.2), T2 |

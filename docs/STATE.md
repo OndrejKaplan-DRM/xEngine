@@ -1,10 +1,94 @@
 # Stav
 
-**Verze:** základ 2, znění 4 · 24. 11. 2026 · větev `zaklad-2` (shodná s `main`)
+**Verze:** základ 2, znění 10 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 10 základu 2 (25. 11. 2026 v noci): atlas a soubor textury světla (N-112)
+
+Ondřej 0:49: hra smí mít až 80 MB (D-054), další krok základu (a) N-112. Rozhodnutí D-055.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| atlas ploch: `lightmapLayout` (mapy ze vzorků `levelSamples`, UV 1 každého vzorku, otisk), `lightmapTexels` (body na ploše pro xBake), `lightmapDilation` (okraje map) | `src/xspace/atlas.js` (330 řádků) | T1e: opakovatelnost, mapy se nepřekrývají, UV vrcholu uvnitř mapy a čtyři body filtru kolem mají hodnotu, body leží v rovině mapy, po 5 cm 3,90× víc bodů než po 10 cm |
+| soubor XLM1: `encodeLightmap`, `decodeLightmap`, `composeLightmap`, half float | `src/xspace/lightmap.js` (206 řádků) | T1e: zápis a čtení přes gzip, chyba half float pod 0,1 %, skládání světel a bran |
+| pole `level.baked.lightmap` (`file`, `texel`, `atlas`); zapečené soubory mimo `assets` hlásí `ref.asset` | `formats.js` (588 řádků), `validate.js` | T1e |
+| atlas na datech (sandbox, počty) | xLab: po 10 cm 1 024 × 1 024, 381 915 bodů; po 5 cm 2 048 × 1 024, 1 489 446 bodů. `complex_7` (`gen_demo` na `main`): po 10 cm 2 048 × 2 048, 1 066 190 bodů (25,4 %); po 5 cm 4 096 × 2 048, 3 915 567 bodů (46,7 %), 14 863 map, okraj 1 816 102 bodů | `node` nad balíky, čas atlasu a bodů v sandboxu 0,5 s, okraj 0,35 s |
+| regrese na `main` (`eb84574`) | **1 000 kontrol, 0 selhalo**: základ 357, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 0:56 až 1:01 |
+
+Paměť grafiky pro `complex_7` po 5 cm v half float RGBA by byla 64 MB (4 096 × 2 048 × 8 B; výpočet, ne měření). Co z toho unese T460, ukáže až zkouška: B zapeče, A přečte a změří `?bench`.
+
+## Znění 9 základu 2 (25. 11. 2026 v noci): zkušební formát zbraní (N-201)
+
+Podle Ondřejova pořadí D-051 (nejdřív zbraně). Rozhodnutí D-053.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| zkušební druhy souborů `ammo` a `weapon`, pole manifestu `ammo` a `weapons`, typ hodnoty podle nabití `{ min, max, curve? }`; načtení a spojení balíků | `formats.js` (580 řádků), `load.js`, `check.js` | T1 (spojený balík vidí zbraně a munici závislosti), T1d |
+| validátor zbraní: `ref.ammo`, `ref.prefab` (model v ruce), `weapon.projectile`, `weapon.range`, `weapon.charge`, `weapon.ammo`, `weapon.slot`, `pack.dupeWeapon`, `pickup.item` | `src/xspace/check-weapon.js` | T1d: 19 mutací |
+| vzorce `rampValue`, `splashFalloff`, `pushDelta` (`PUSH_MASS` 800 kg podle Arény) | `src/xspace/weapon.js` | T1d: nabitá koule = vzorce Arény pro nabití 0 až 1 (rozdíl < 1e-9) |
+| plazmová puška ve zlatém vzorku: munice `cells` (200), zbraň `plasma_rifle_01`, model v ruce `wpn_plasma_rifle_01`, zbraň na zemi `pickup_plasma_rifle_01` (40 článků) jako entita `e_plasma` ve startovní místnosti, materiál `plasma_glow` | `tools/golden/make.mjs`, `packs/golden` | `xspace-check --strict` 0 nálezů; vzorků světla xLabu beze změny 22 111 (sebratelná věc vzorky nemá, D-041) |
+| regrese na `main` (`9aaedd9` + oprava pravidla `pack.missingFile` u munice) | **984 kontrol, 0 selhalo**: základ 341, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 0:16 až 0:21; skupina B po opravě znovu 0:25 |
+
+**Sloučení nanečisto** `main` `0e77921` + `sesna-a` `17b8176` + `sesna-b` `5ed1070` (25. 11. 0:24 až 0:30): bez konfliktu, **1 059 kontrol, 0 selhalo** (základ 341, A 430, B 248, A × B 40). Obě sešny tedy mohou znění 9 sloučit.
+
+Past při zavádění: test sešny B `b_t7_searcher` skládá balík z manifestu zlatého vzorku a odebere jen `materials`, `prefabs` a `levels`; nové pole `ammo` v manifestu pak hlásilo `pack.missingFile`. Pravidlo teď hlásí chybějící soubor munice jen u balíku z `loadPack` (`ammo: null`); sešna B má test upravit (dodatek znění 9).
+
+## Znění 8 základu 2 (25. 11. 2026 v noci): víc interakcí v prefabu (N-010)
+
+Ondřej 25. 11. 0:00: textura světla (a) bod 5 cm (D-050), převzetí z Arény (a) nejdřív zbraně (D-051). N-010 přijat ve variantě a (D-052).
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| `components.interact` jako seznam s `id`; `interactions`, `interactionById`, `interactionOf` (podle zasaženého uzlu, předek bez kloubu, svázaný kloub), `doorInteraction`; `from` / `to` ve spojeních | `src/xspace/interact.js`, `formats.js`, `check-prefab.js`, `validate.js` | T1c: 27 kontrol (kartotéka se čtyřmi zásuvkami jako jeden prefab, 14 mutací, cesty nálezů); zlatý vzorek a balíky sešny B (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo` ze `sesna-b` `9b00112`) bez nálezu |
+| `validate.js` (587 řádků) rozdělen podle odpovědnosti | `check.js` (108: tvar), `check-prefab.js` (174: prefab), `validate.js` (346: materiály, level, balík) | T1 beze změny 155 kontrol |
+| regrese na `main` (`3f0ae44`) | **953 kontrol, 0 selhalo**: základ 310, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, 0:06 až 0:11 |
+
+## Znění 7 základu 2 (24. 11. 2026 pozdě v noci): kostry bez alokací (N-102)
+
+Ondřej ve 23:38: další krok (b) N-102; kód staré hry (a) jen Aréna v2.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| `rigCompile`, `rigValues`, `rigFollow`, `rigSolve`; `rigMatrices` je obálka nad nimi | `src/xspace/rig.js` (262 řádků) | T1b: 40 případů na prefabech zlatého vzorku, rozdíl proti původnímu výpočtu 0; mimo testy 802 případů na 478 prefabech (`golden`, `kit_base`, `kit_lab`, `kit_it` ze `sesna-b` `42b7dae`), rozdíl 0; `rigFollow` = `jointFollow` |
+| testy koster odděleny z T1 (608 řádků, přes mez 600) | `test/t1b_rig.mjs` (134 řádků), `test/t1_xspace.mjs` (502), `package.json` `test:node` | `npm test`: T1 155 + T1b 14 = 169 jako před rozdělením |
+| regrese na `main` (`c4bac67`) | **926 kontrol, 0 selhalo**: základ 283, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, 23:41 až 23:46 |
+| Aréna v2 připojena jen pro čtení | `OndrejKaplan-DRM/Arena`, větev `hra` `a04e8c0` (v2.9) | soupis v `docs/prevzeti/ARENA.md` |
+
+Rychlost `rigSolve` jen pro představu (sandbox, o T460 nic neříká): 100 000 kroků kostry se 4 uzly a 3 klouby 62 ms. Sešna A zatím volá `rigMatrices` v kroku (`src/world/entities.js`); přechod je v dodatku znění 7 ve `START_A.md`.
+
+## Znění 6 základu 2 (24. 11. 2026 v noci): zakrytí dveří a svázané klouby
+
+Ondřej ve 21:19: další krok (a). Provedeno:
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| pravidlo validátoru `portal.door.cover` (D-036): kolmý průmět neprůhledných dílů `box` dveří v klidové poloze (`rest`, N-109) do roviny portálu pokryje otvor; neplatí pro `seeThrough` | `src/xspace/cover.js`, `validate.js` | T1 (dvě mutace); zlatý vzorek měl u `door_hinged_01` škvíru 1 cm (616 cm²), viditelné křídlo je teď přes celý otvor; `gen_demo` (main i `sesna-b`): 94 portálů s dveřmi, škvíra nikde |
+| svázané klouby `rig.joints[].follow` a `jointFollow` (N-002) | `formats.js`, `rig.js`, `validate.js` | T1 (dvoukřídlé dveře jako jeden prefab, řetěz, ořez, pět mutací) |
+| regrese na `main` (`1cf0261`) | **923 kontrol, 0 selhalo**: základ 280, A 405, B 201, A × B 37 | testy po skupinách |
+| balíky sešny B ve stavu `42b7dae` (`kit_base`, `kit_lab`, `kit_it`, `kit_all`, `gen_demo`) | 0 chyb, 0 varování s novými pravidly | `xspace-check --strict` |
+| sloučení nanečisto `main` (`6d0a9e0`) + `sesna-a` `38c1c07` + `sesna-b` `3f45c21` | bez konfliktu; 982 kontrol, **1 selhala**: `b_t8_zasuvky` (spodní zásuvka kartotéky se neotevře). Selže stejně na samotné `sesna-b` `3f45c21` (commit „rozpracováno“: generátor vybavuje i ze sad `kit_lab` a `kit_it`), tedy rozpracovaný stav sešny B, ne základ. Ostatní: základ 280, A 417 ve 27 sadách, B 8 z 9 sad, A × B 40 | testy po skupinách, 21:30 až 21:36 |
+
+## Znění 5 základu 2 (24. 11. 2026 večer): sloučená vlna 2
+
+Ondřej v 19:57: sloučit vlnu 2 teď (D-048). Větev zůstává `zaklad-2`, vlna 2 nekončí.
+
+| Krok | Výsledek | Čím ověřeno |
+|---|---|---|
+| vlastnictví složek | sešny nesáhly mimo své složky; výjimky podle pravidel: `TODO.md` (svůj oddíl), `package.json` (sešna B přidala `sharp` 0.35.5 do `devDependencies`) | `git diff --name-only` proti základu |
+| sloučení `sesna-a` (`85d6a6d`) a `sesna-b` (`ba16d8d`) | bez konfliktu (obě si předtím vzaly znění 4) | `d6f2982`; zámek balíků obnoven |
+| regrese po sloučení | **909 kontrol, 0 selhalo**: základ 266, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách, sandbox, 20:00 až 20:04 |
+| dveře zlatého vzorku na obě strany (N-109, D-042) | `door_hinged_01` ±105° | `3b558bc`; skupiny A, B, A × B zelené |
+| N-009 (D-045) | `albedoMean` ve formátu, validátor `mat.albedoMean` | T1 |
+| N-111 (D-046) | soubory balíku v sestavení (`pack.files`), `materialFrom`, validátor textur materiálů (`ref.asset`) | T1; `dist/xlab_gen.html` 7 061 kB, z toho 30 textur `kit_base` (1 287 kB, v base64 1 717 kB) |
+| regrese na `main` (`9a1f7cd`) | **913 kontrol, 0 selhalo**: základ 270, A 405, B 201, A × B 37 | testy po skupinách, 20:12 až 20:17 |
+| rozhodnutí | D-045 až D-049 (N-009, N-111, světlo za dveřmi se `seeThrough`, sloučení, okolní světlo jako E) | `DECISIONS.md`; oddíly „Rozhodnutí“ v souborech N-001, N-007, N-008, N-009, N-108 až N-111 |
+
+Co sloučení přineslo (podrobně `TODO.md` a `*_STAV.md`): sešna A světlo po vrcholech se zastíněním a branami dveří, pevné řádky se stropem výšky plátna, `?bench`, nápravu kroku fyziky, nová pole (A2.5), díly `.glb` a textury (A2.6 na zkušebních datech), zorné pole jako vodorovný úhel, dveře od hráče; sešna B průchodnost 0,74 m, xBake podle D-035, xSearcher (příjem textur CC0), 30 textur sady `kit_base`.
+
+**Hra na T460 po vlně 2** (Ondřejův `?bench`, 24. 11. 19:39 až 19:47, sestavení sešny A „krok 5“; podrobně `A_STAV.md`, oddíl 5.1): čas grafiky `draw.ms` medián xLab 576 řádků 2,29 ms, `complex_7` 576 řádků 2,26 ms, xLab 1 080 řádků 5,57 ms (95 % 7,38 ms). Krok simulace 0,22 až 0,45 ms medián. Stavba světla `complex_7` při startu 13,1 s výpočtu. Všechny tři běhy měly 30 snímků/s při práci snímku 7 až 12 ms; nejspíš Úspora energie v Chrome (neověřeno).
 
 ## Znění 4 základu 2 (24. 11. 2026, svodná sešna main 03)
 
@@ -100,16 +184,16 @@ Hra z vlny 1 drží 60 snímků/s. Krok simulace je 0,64 až 3,50 ms proti mezi 
 
 Sešna A má z vlny 1 otevřené: skok v profilu `arena` na nový stisk, zablokované dveře (D-025), oddíl „Rozhraní entit“ (D-026). Sešna B: katakomby podle volby 2 b, B1.3 xBake nezačato, B1.4 xSearcher jen měření zdrojů.
 
-## Stav větví sešen (24. 11. 2026 v 16:33)
+## Stav větví sešen (24. 11. 2026 ve 20:20)
 
-Obě sešny běží. Do `zaklad-2` jejich práce z vlny 2 **nepatří**; je to stav pro příští sloučení. Co právě dělají: jejich oddíly v `TODO.md` na jejich větvích.
+Obě sešny běží. Práce vlny 2 do `85d6a6d` (A) a `ba16d8d` (B) je v základu; co přibylo potom, je stav pro příští sloučení. Co právě dělají: jejich oddíly v `TODO.md` na jejich větvích.
 
 | Větev | Hlava | Základ, na kterém stojí | Stav vlny 2 podle jejich `*_STAV.md` |
 |---|---|---|---|
-| `sesna-a` | `c7a2a64` | znění 3 a D-038 (`0af8c25`); dodatek znění 4 ještě ne | A2.1 až A2.5 hotovo (světlo po vrcholech, obraz a `?bench`, krok fyziky, dluhy vlny 1, nová pole základu); zorné pole jako vodorovný úhel; dveře od hráče jako nastavení; A2.6 a A2.7 nezačato |
-| `sesna-b` | `4aeeeb4` | znění 3 (`a995347`); D-038 ještě ne | B2.1, B2.3 (xSearcher: 10 textur CC0 v `packs/_inbox`) a B2.6 (xBake podle D-035) hotovo; B2.2, B2.4, B2.5, B2.7 nezačato |
+| `sesna-a` | `3250dd6` | znění 4 (`36faf65`); znění 5 ještě ne | nad rámec sloučeného: běh čte zapečené světlo ze souboru v pořadí `levelSamples` (`652f7ea`; barvy shodné s výpočtem, poměrně do 1e-7), F3 a `?bench` to hlásí; regrese 417 kontrol A |
+| `sesna-b` | `5e03d87` | znění 4 (`36faf65`); znění 5 ještě ne | nad rámec sloučeného: barvy materiálů podle albeda skutečných povrchů a expozice předvoleb (Ondřejova volba 1 a), bohatší tvary prefabů (Ondřejova volba 3 a, první dávka) |
 
-Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 4“ výše (855 kontrol, 0 selhalo).
+Obě hlavy jdou se základem sloučit bez konfliktu (`git merge-tree`, 20:20); testy nad nimi jsem nepouštěla.
 
 ## Co je hotové (základ 1)
 
@@ -125,14 +209,13 @@ Výsledek sloučení nanečisto s těmito hlavami je v oddíle „Znění 4“ v
 | rozpočty z měření T460 | `docs/06_ROZPOCTY.md`, `docs/mereni/` | změřeno 22. 11. 2026 |
 | dokumenty: vize, architektura, kontrakty, názvosloví, rozdělení sešen, parita, rozpočty, požadavky, rozhodnutí | `docs/` | dokument polí se generuje a hlídá testem |
 
-`npm test`: 266 kontrol; celá regrese na `main` (základ, A, B, A × B): 662 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
+`npm test`: 280 kontrol; celá regrese na `main` (základ, A, B, A × B): 923 kontrol, 0 selhalo (Node 22, Chromium bez grafické karty, 24. 11. 2026 v noci). Pozor: `npm run test:all` je řetěz `&&` a u první chybné skupiny skončí; při hledání chyb pouštěj skupiny zvlášť.
 
 ## Co hotové není
 
-- **Engine vlny 2 v základu.** Na `main` je engine sešny A z vlny 1 (světlo po pixelech); světlo po vrcholech, `?bench`, náprava kroku fyziky a nová pole jsou jen na `sesna-a`. Sloučení vlny 2 čeká na Ondřejovo slovo (`TODO.md`).
+- **Zapečené světlo ve hře.** Běh ho čte jen na `sesna-a` (od `652f7ea`); xBake zatím nezapéká pevné díly prefabů (D-041) a balíky soubor `.light.bin` nenesou. Okolní světlo: sešna A ho má dělit π (D-049).
 - Shell je přestěhovaný, ne zapojený. Jeho zkoušky v prohlížeči a zkouška katalogu zůstaly ve `vibe-game-frameworks`.
-- Běh zapečený soubor nečte. Čtení je v základu (`bake.js`), xBake je na `sesna-b`; pevné díly prefabů do souboru xBake ještě nezapéká (D-041).
-- Načítání `.glb`, textury ve hře, zvuk, tvorové, editor. Pravidlo validátoru `portal.door.cover` (D-036) a svázané klouby (N-002).
+- Zvuk, tvorové, editor. Svázané klouby v enginu (sešna A) a dvoukřídlé dveře jako jeden prefab (sešna B); víc interakcí v prefabu (N-010, nerozhodnuto).
 
 ## Neověřeno
 

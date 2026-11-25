@@ -20,14 +20,15 @@ html,body{margin:0;height:100%;background:#0b0d12;color:#d8dbe2;font:14px/1.45 s
 #bar input[type=range]{width:150px}
 #top{position:absolute;left:12px;top:12px;display:flex;gap:6px}
 button.b{background:#1a1f2b;color:#d8dbe2;border:1px solid #2f3647;border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
-button.b:hover{border-color:#5dcaa5}button.b.on{background:#12352b;border-color:#5dcaa5;color:#fff}
+button.b:hover{border-color:#5dcaa5}button.b.on{background:#12352b;border-color:#5dcaa5;color:#fff}button.b:disabled{opacity:.45;cursor:default}
+#top .gap{width:14px}#tex{align-self:center;color:#8b93a5;font-size:12px;margin-left:6px}
 #info h2{margin:0 0 2px;font-size:17px;font-weight:600;color:#fff}
 #info code{color:#9fd8c3;font-size:12px}
 #info table{border-collapse:collapse;width:100%;margin:8px 0;font-size:13px}
 #info td{padding:3px 0;vertical-align:top;border-top:1px solid #1d2330}
 #info td:first-child{color:#8b93a5;width:96px;padding-right:8px}
-.joint{margin:10px 0;padding:8px 10px;background:#141926;border-radius:6px;font-size:13px}
-.joint b{color:#fff;font-weight:600}.joint p{margin:4px 0 0;color:#aab2c5}
+.joint,.mats{margin:10px 0;padding:8px 10px;background:#141926;border-radius:6px;font-size:13px}
+.joint b,.mats b{color:#fff;font-weight:600}.joint p,.mats p{margin:4px 0 0;color:#aab2c5}
 #ver{color:#8b93a5;font-size:12px;margin:0 14px 6px}
 #hint{color:#8b93a5;font-size:12px;margin-top:14px}
 </style>
@@ -37,7 +38,7 @@ button.b:hover{border-color:#5dcaa5}button.b.on{background:#12352b;border-color:
   <div id="list"><div id="ver"></div></div>
   <div id="stage">
     <canvas id="c"></canvas>
-    <div id="top"><button class="b" id="mode-one">Jeden prefab</button><button class="b" id="mode-all">Celá sada</button><button class="b" id="man">Postava 1,8 m</button></div>
+    <div id="top"><button class="b" id="mode-one">Jeden prefab</button><button class="b" id="mode-all">Celá sada</button><button class="b" id="man">Postava 1,8 m</button><span class="gap"></span><button class="b look" data-look="clean">Čistý</button><button class="b look" data-look="t460">T460</button><button class="b look" data-look="gpu">Grafická karta</button><span id="tex"></span></div>
     <div id="bar"></div>
   </div>
   <div id="info"></div>

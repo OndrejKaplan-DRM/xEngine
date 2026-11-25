@@ -1,0 +1,47 @@
+{
+  "xspace": 1,
+  "kind": "weapon",
+  "id": "plasma_rifle_01",
+  "title": "Plazmová puška",
+  "slot": 1,
+  "ammo": "cells",
+  "view": { "prefab": "wpn_plasma_rifle_01", "pos": [0.22, -0.215, -0.48], "rot": [0, 180, 0], "muzzle": [0, 0.01, 0.38] },
+  "zoom": { "fov": 45 },
+  "primary": {
+    "kind": "projectile",
+    "cooldown": 0.1,
+    "cost": 1,
+    "spread": 0.46,
+    "damage": 12,
+    "projectile": { "speed": 45, "life": 4 },
+    "splash": { "radius": 1, "damage": 6 },
+    "recoil": 0.12,
+    "noise": 30
+  },
+  "alt": {
+    "kind": "projectile",
+    "cooldown": 0.5,
+    "cost": { "min": 5, "max": 20 },
+    "damage": 0,
+    "projectile": {
+      "speed": { "min": 14, "max": 40 },
+      "life": 6
+    },
+    "splash": {
+      "radius": { "min": 2.5, "max": 5.5 },
+      "damage": { "min": 30, "max": 200, "curve": "square" },
+      "push": { "min": 12, "max": 33, "curve": "square" }
+    },
+    "charge": { "time": 2, "release": 2.6 },
+    "recoil": 1,
+    "noise": 40
+  },
+  "source": {
+    "tool": "golden",
+    "generator": "tools/golden/make.mjs",
+    "license": "own",
+    "author": "Kristína (Claude) pro Ondřeje Kaplana",
+    "date": "2026-11-25",
+    "url": "https://github.com/OndrejKaplan-DRM/Arena (větev hra, arena2/src/game/weapons.js a projectiles.js)"
+  }
+}

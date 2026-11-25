@@ -3,6 +3,7 @@
 // Obal (bounds) a počet trojúhelníků se počítají z dat, nikdo je nepíše ručně.
 // Matice koster bere z src/xspace/rig.js (jedna pravda), čísla zaokrouhluje jako zlatý vzorek.
 
+import { partTris } from '../../src/xspace/index.js';
 import { CYL_SIDES, partPoints, boundsAt } from '../../src/gen/measure.js';
 import { r4, V, source } from '../../src/gen/util.js';
 
@@ -30,8 +31,8 @@ const strip = ({ rest, ...o }) => o;
 // ---- měření ------------------------------------------------------------------------------
 // Body dílů a obal pro dané polohy kloubů jsou v src/gen/measure.js (používá je i generátor levelů).
 
-export { CYL_SIDES, partPoints, boundsAt };
-export const partTris = (p) => (p.shape === 'box' ? 12 : CYL_SIDES * 4);
+// Počet trojúhelníků dílu je v základu (partTris v src/xspace/geom.js, N-101); odtud se jen předává dál.
+export { CYL_SIDES, partPoints, boundsAt, partTris };
 
 /** Vzorky poloh kloubů: klid, každý kloub zvlášť po 15° (posuv po čtvrtinách), a všechny naráz v krajních polohách. */
 export function jointSamples(joints = []) {

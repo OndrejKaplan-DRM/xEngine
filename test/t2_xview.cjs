@@ -14,6 +14,9 @@ const { launch, open, ok, saveDataUrl, finish } = require('./h.cjs');
 
     const views = await page.evaluate(() => __xview.views);
     ok(views.join(' ') === 'iso top start lab hall', 'prohlížeč nabízí pět pohledů', views.join(' '));
+    // N-015: podlaží se skládají z buněk; xLab má jedno, přepínač podlaží se proto neukáže
+    const fl = await page.evaluate(() => ({ n: __xview.floors.length, buttons: document.querySelectorAll('#floors button').length, after: (__xview.floor(5), __xview.storey()) }));
+    ok(fl.n === 1 && fl.buttons === 0 && fl.after === -1, 'xLab má jedno podlaží, bez přepínače; neplatné podlaží = celý level', JSON.stringify(fl));
 
     for (const v of views) {
       const r = await page.evaluate((name) => {

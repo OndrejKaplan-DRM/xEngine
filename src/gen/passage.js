@@ -1,6 +1,7 @@
 // Průchodnost místnosti: vede mezi všemi jejími otvory po podlaze cesta široká aspoň 2 × R?
 // Mřížka 10 cm nad půdorysem buňky; překážka je pevná věc mezi 0,25 a 1,7 m nad podlahou.
 // Generátor tím hlídá, že nábytek nezatarasí průchod; nezávislou kontrolu téhož má test B-T1.
+// R nemá výchozí hodnotu schválně: dává ho předvolba z rozměrů postavy (body.js, passRadius).
 
 const G = 0.1;
 
@@ -8,9 +9,10 @@ const G = 0.1;
  * @param cell { min: [x, z], max: [x, z], y0 } v centimetrech
  * @param sides otvory buňky: [{ run, face, n, c0, c1 }] v centimetrech
  * @param solids kvádry překážek v metrech: [{ min, max }]
- * @param R poloměr postavy s rezervou v metrech
+ * @param R poloměr postavy s odstupem kontroléru a rezervou v metrech
  */
-export function openingsConnected(cell, sides, solids, R = 0.32) {
+export function openingsConnected(cell, sides, solids, R) {
+  if (!(R > 0)) throw new Error('openingsConnected: chybí poloměr postavy');
   if (sides.length < 2) return true;
   const [x0, z0, x1, z1] = [cell.min[0] / 100, cell.min[1] / 100, cell.max[0] / 100, cell.max[1] / 100];
   const y0 = cell.y0 / 100;

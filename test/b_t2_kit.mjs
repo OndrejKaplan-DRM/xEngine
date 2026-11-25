@@ -8,11 +8,18 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkPackDir, readPackDir } from '../tools/lib/read-pack.mjs';
 import { FREE_LICENSES, SURFACES, rigMatrices } from '../src/xspace/index.js';
-import { buildKit } from '../tools/forge/kit/index.mjs';
+import { buildKit, TEXTURES } from '../tools/forge/kit/index.mjs';
+import { MATERIALS } from '../tools/forge/materials.mjs';
+import { TEXTURE_PLAN, TEXTURE_SIZE, HUE_LIMIT } from '../tools/forge/kit/textures.mjs';
+import { webpSize } from './b_lib/webp.mjs';
+import { createHash } from 'node:crypto';
 import { partTris, jointSamples, boundsAt } from '../tools/forge/lib.mjs';
 import { kitDoc } from '../tools/forge/doc.mjs';
 import { makeCatalog } from '../src/gen/index.js';
 import { makeChecker } from './b_lib/check.mjs';
+import { doorLeaks } from './b_lib/door-cover.mjs';
+import { doorPass } from './b_lib/door-pass.mjs';
+import { playerOf, PROFILE_IDS } from './b_lib/player.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const KIT = path.join(root, 'packs/kit_base');
@@ -167,6 +174,41 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
   ok(bad.length === 0, 'dveře, kliky, desky stolů, sedáky a zábradlí mají rozměry z reality', bad.slice(0, 3).join(' | '));
 }
 
+// ---- zavřené dveře zakrývají otvor (engine místnost za zavřenými dveřmi portálu nekreslí, N-107)
+{
+  const doors = prefabs.filter((p) => p.category === 'arch.door' && p.id !== 'gate_iron_01'); // mříž je průhledná z podstaty
+  const single = doors.filter((p) => !p.source.params.side);
+  const wings = doors.filter((p) => p.source.params.side);
+  const res1 = single.map((p) => [p.id, doorLeaks([p], p.source.params.width, p.source.params.height)]);
+  const leaky = res1.filter(([, r]) => r.leaks.length);
+  ok(single.length >= 4 && leaky.length === 0, 'zavřené jednokřídlé a posuvné dveře zakryjí celý otvor (zkouška paprsky)', leaky.map(([id, r]) => `${id}: ${r.leaks.length} paprsků, ${r.text}`).join(' | ') || `${single.length} druhů dveří, ${res1.reduce((n, [, r]) => n + r.rays, 0)} paprsků, žádný neprošel`);
+  const pair = doorLeaks(wings, wings[0].source.params.width, wings[0].source.params.height);
+  ok(wings.length === 2 && pair.leaks.length === 0, 'dvoukřídlé dveře: obě křídla spolu zakryjí celý otvor', pair.text || `${pair.rays} paprsků`);
+  const alone = wings.map((p) => doorLeaks([p], p.source.params.width, p.source.params.height).leaks.length);
+  const flag = (p) => p.components.interact.seeThrough === true;
+  ok(alone.every((n) => n > 0) && wings.every(flag) && !single.some(flag), 'dvoukřídlé dveře: jedno křídlo samo otvor nezakryje, proto má seeThrough; plné dveře ho nemají', alone.join(' a ') + ' paprsků projde jedním křídlem');
+  const sillOk = doors.every((p) => p.parts.some((q) => q.node === 'frame' && q.shape === 'box' && q.min[1] === 0 && q.max[1] <= 0.015 && q.max[1] > 0.01));
+  const noCol = doors.every((p) => (p.colliders || []).every((c) => !(c.node === 'frame' && c.max[1] <= 0.015)));
+  ok(sillOk && noCol, 'prahová lišta je nejvýš 15 mm vysoká a nemá kolizi (postava ji přejde)');
+}
+
+// ---- otevřenými dveřmi projde hráč (kapsle s odstupem kontroléru; kruh v půdorysu, mřížka 1 cm)
+{
+  const players = PROFILE_IDS.map(playerOf);
+  const need = Math.max(...players.map((p) => p.width));
+  const body = { step: Math.min(...players.map((p) => p.step)), height: Math.max(...players.map((p) => p.height)) };
+  const doors = prefabs.filter((p) => p.category === 'arch.door');
+  const single = doors.filter((p) => !p.source.params.side);
+  const wings = doors.filter((p) => p.source.params.side);
+  const got = single.map((p) => [p.id, doorPass([p], p.source.params.width, 0.2, body).clear]);
+  got.push(['door_dleft_01 + door_dright_01', doorPass(wings, wings[0].source.params.width, 0.2, body).clear]);
+  const tight = got.filter(([, c]) => c < need + 0.05);
+  ok(tight.length === 0, `otevřenými dveřmi projde hráč široký ${need.toFixed(2)} m s rezervou aspoň 5 cm`, got.map(([id, c]) => `${id} ${c.toFixed(2)} m`).join(', '));
+  const rough = single.map((p) => [p.id, catalog.clearWidth(p.id) / 100, got.find(([id]) => id === p.id)[1]]);
+  const off = rough.filter(([, a, b]) => Math.abs(a - b) > 0.03);
+  ok(off.length === 0, 'světlost dveří, kterou si počítá generátor z obalů, sedí na měření kruhem do 3 cm', off.map(([id, a, b]) => `${id}: ${a.toFixed(2)} × ${b.toFixed(2)} m`).join(' | '));
+}
+
 // ---- původ, licence, materiály, jména
 {
   ok(pack.manifest.free === true && prefabs.every((p) => FREE_LICENSES.includes(p.source.license) && p.source.tool === 'xforge'), 'všechny prefaby jsou vlastní dílo (licence own, nástroj xforge)');
@@ -178,6 +220,46 @@ ok(MOVING.every((id) => joints(byId.get(id)).length > 0), 'každý předmět, kt
   const clashP = prefabs.filter((p) => golden.prefabs.some((g) => g.data.id === p.id)).map((p) => p.id);
   const clashM = Object.keys(mats).filter((id) => golden.materials.materials[id]);
   ok(clashP.length === 0 && clashM.length === 0, 'žádné id se neshoduje se zlatým vzorkem (balíky jdou spojit)', [...clashP, ...clashM].join(' '));
+}
+
+// ---- textury (B2.4): odvozené z příjmu xSearcheru, 512 px pro stupeň low, otisky a původ v zámku
+{
+  const mats = pack.materials.materials;
+  const assets = new Map((pack.manifest.assets || []).map((a) => [a.path, a]));
+  const lockFiles = Object.entries(TEXTURES.files);
+  const textured = Object.keys(TEXTURES.materials);
+  ok(textured.length >= 15 && textured.join(',') === Object.keys(TEXTURE_PLAN).sort().join(','), 'materiály s texturou odpovídají plánu', `${textured.length} materiálů`);
+  const sizes = lockFiles.map(([rel]) => [rel, webpSize(readFileSync(path.join(KIT, rel)))]);
+  const big = sizes.filter(([, d]) => !d || d.w > TEXTURE_SIZE || d.h > TEXTURE_SIZE);
+  ok(big.length === 0 && TEXTURE_SIZE <= 512, `každá textura je WebP nejvýš ${TEXTURE_SIZE} × ${TEXTURE_SIZE} px (stupeň low)`, big.map(([r, d]) => `${r} ${d ? d.w + '×' + d.h : 'není WebP'}`).join(', ') || `${sizes.length} souborů`);
+  const bad = lockFiles.filter(([rel, f]) => {
+    const buf = readFileSync(path.join(KIT, rel));
+    const a = assets.get(rel);
+    return !a || a.bytes !== buf.length || a.sha256 !== f.sha256 || createHash('sha256').update(buf).digest('hex') !== f.sha256;
+  });
+  ok(bad.length === 0 && assets.size === lockFiles.length, 'pack.json.assets, zámek a soubory na disku mají stejné velikosti a otisky', bad.map(([r]) => r).join(', '));
+  const lic = [...assets.values()].filter((a) => a.license !== 'CC0-1.0' || !a.source.startsWith('https://') || !a.author);
+  ok(pack.manifest.free === true && lic.length === 0, 'každá textura má licenci CC0-1.0, autora a adresu originálu; balík je free', lic.map((a) => a.path).join(', '));
+  const used = new Set(textured.flatMap((m) => [TEXTURES.materials[m].albedo, TEXTURES.materials[m].normal]));
+  ok(lockFiles.every(([rel]) => used.has(rel)), 'v balíku není textura, kterou žádný materiál nepoužívá');
+  const wrong = textured.filter((m) => {
+    const t = TEXTURES.materials[m];
+    const x = mats[m];
+    return x.albedo !== t.albedo || x.normal !== t.normal || x.uvScale !== t.uvScale || String(x.color) !== String(MATERIALS[m].color) || x.rough !== MATERIALS[m].rough;
+  });
+  ok(wrong.length === 0, 'materiál s texturou má albedo, normal a uvScale ze zámku; barva a drsnost zůstaly', wrong.join(', '));
+  const plain = Object.keys(MATERIALS).filter((m) => !TEXTURES.materials[m]);
+  ok(plain.every((m) => JSON.stringify(mats[m]) === JSON.stringify(MATERIALS[m])), 'materiály bez textury jsou beze změny', `${plain.length} materiálů`);
+  const modes = textured.filter((m) => {
+    const t = TEXTURES.materials[m];
+    const f = TEXTURES.files[t.albedo];
+    const g = MATERIALS[m].color.map((c, i) => c / f.mean[i]);
+    return (t.mode === 'gray') !== (f.kind === 'albedo-gray') || Math.abs(Math.max(...g) / Math.min(...g) - (t.mode === 'gray' ? Math.max(...g) / Math.min(...g) : t.hue)) > 1e-3 || (t.mode === 'color' && t.hue > HUE_LIMIT) || (t.mode === 'gray' && t.hue <= HUE_LIMIT) || g.some((x, i) => Math.abs(x - t.gain[i]) > 1e-3 * x);
+  });
+  ok(modes.length === 0, `šedá kresba právě tam, kde odstín nesedí víc než ×${HUE_LIMIT}; zesílení = barva / průměr textury`, `${textured.filter((m) => TEXTURES.materials[m].mode === 'gray').join(', ')} v šedi`);
+  const gal = readFileSync(path.join(root, 'tools/forge/gallery/textures.js'), 'utf8');
+  ok(lockFiles.every(([rel]) => gal.includes(`'../../../packs/kit_base/${rel}' with { type: 'bytes' }`)) && (gal.match(/^import /gm) || []).length === lockFiles.length, 'modul textur galerie odpovídá zámku');
+  console.log(`      textury: ${lockFiles.length} souborů, ${(lockFiles.reduce((s, [, f]) => s + f.bytes, 0) / 1024).toFixed(1)} kB`);
 }
 
 process.exit(finish());

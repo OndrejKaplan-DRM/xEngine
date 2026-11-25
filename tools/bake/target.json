@@ -1,0 +1,1 @@
+{ "id": "xbake", "entry": "view.js", "template": "view.html", "pack": "../../packs/golden" }

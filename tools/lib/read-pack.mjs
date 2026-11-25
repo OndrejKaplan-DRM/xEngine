@@ -13,17 +13,45 @@ export async function readPackDir(dir) {
 /**
  * Balík spojený s balíky z requires. Ty se hledají jako sousední adresáře pojmenované svým id
  * (packs/golden vyžaduje kit_base → packs/kit_base). Bez requires vrací totéž co readPackDir.
+ * opts.files: přidá `files` = { "<id balíku>/<cesta>": Uint8Array } se soubory z `assets` hlavního balíku
+ * i všech z requires (N-111). Chybějící soubor se přeskočí; velikost a otisk hlídá checkPackDir.
  */
-export async function readPackFull(dir) {
+export async function readPackFull(dir, opts = {}) {
   const main = await readPackDir(dir);
   const want = Array.isArray(main.manifest?.requires) ? main.manifest.requires : [];
-  if (!want.length) return main;
-  const deps = [];
-  for (const id of want) {
-    const dep = await readPackDir(path.join(dir, '..', id));
-    if (dep.manifest) deps.push(dep);
+  const all = [[main, dir]];
+  let out = main;
+  if (want.length) {
+    const deps = [];
+    for (const id of want) {
+      const depDir = path.join(dir, '..', id);
+      const dep = await readPackDir(depDir);
+      if (dep.manifest) {
+        deps.push(dep);
+        all.push([dep, depDir]);
+      }
+    }
+    out = mergePacks(main, deps);
   }
-  return mergePacks(main, deps);
+  if (opts.files) out.files = await readAssetFiles(all);
+  return out;
+}
+
+/** Soubory z `assets` balíků: [[balík, adresář], …] → { "<id>/<cesta>": Uint8Array }. */
+async function readAssetFiles(list) {
+  const files = {};
+  for (const [pack, dir] of list) {
+    const id = pack.manifest?.id;
+    for (const a of Array.isArray(pack.manifest?.assets) ? pack.manifest.assets : []) {
+      if (!a || typeof a.path !== 'string') continue;
+      try {
+        files[`${id}/${a.path}`] = new Uint8Array(await readFile(path.join(dir, a.path)));
+      } catch {
+        /* chybějící soubor ohlásí checkPackDir (file.missing) */
+      }
+    }
+  }
+  return files;
 }
 
 /** Tvar a smysl dat + soubory na disku (existence, velikost, otisk). */

@@ -11,11 +11,11 @@
       { "id": "leaf", "parent": "frame", "pos": [-0.5, 0, 0] }
     ],
     "joints": [
-      { "id": "hinge", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": 0, "max": 105, "rest": 0, "damping": 4, "speed": 120, "drive": "both" }
+      { "id": "hinge", "node": "leaf", "type": "hinge", "axis": [0, 1, 0], "min": -105, "max": 105, "rest": 0, "damping": 4, "speed": 120, "drive": "both" }
     ]
   },
   "parts": [
-    { "node": "leaf", "shape": "box", "min": [0.01, 0.01, -0.02], "max": [0.99, 2.09, 0.02], "mat": "wood_dark" },
+    { "node": "leaf", "shape": "box", "min": [0, 0, -0.02], "max": [1, 2.1, 0.02], "mat": "wood_dark" },
     { "node": "leaf", "shape": "box", "min": [0.86, 1, 0.02], "max": [0.94, 1.04, 0.08], "mat": "steel" },
     { "node": "leaf", "shape": "box", "min": [0.86, 1, -0.08], "max": [0.94, 1.04, -0.02], "mat": "steel" }
   ],
