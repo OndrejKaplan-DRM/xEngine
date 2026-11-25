@@ -9,7 +9,7 @@ Jediný přehled napříč sešnami. Podrobnosti jsou jinde (odkazy u řádků);
 - Řádek = jedna věc, kdo, stav, kde je podrobně. Čísla jen změřená, s místem měření.
 - Čerstvý oddíl sešny je na její větvi, než se sloučí: `git show origin/sesna-a:TODO.md`, `git show origin/sesna-b:TODO.md`.
 
-**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 10 (25. 11. 2026 v noci; vlna 2 sloučená v polovině). Hlavy sešen 25. 11. v 16:25: `sesna-a` = `17b8176` (0:02; základ sloučený naposledy u znění 5), `sesna-b` = `36653bc` (16:20; znění 10 sloučené). Regrese na `main`: 1 000 kontrol, 0 selhalo (`docs/STATE.md`); `npm test` na čistém klonu v 16:25: 357, 0 selhalo.
+**Základ:** `zaklad-2` = `main` = `integrace-1`, základ 2 znění 11 (25. 11. 2026 večer; vlna 2 sloučená v polovině). Hlavy sešen 25. 11. večer: `sesna-a` = `17b8176` (0:02; má základ ze znění 4), `sesna-b` = `e37524b` (znění 10 sloučené). Regrese na `main`: 1 051 kontrol, 0 selhalo; sloučení nanečisto se zněním 11 bez konfliktu, 1 selhání v B-T5 (čas zapečení `house_1`, ne základ) (`docs/STATE.md`).
 
 ## Čeká na Ondřeje
 
@@ -49,9 +49,18 @@ Podrobně: `docs/STATE.md`, dluhy a pořadí `docs/sesny/START_SVOD.md`, rozhodn
 
 - [x] atlas ploch a soubor textury světla (N-112, D-055, `atlas.js`, `lightmap.js`, T1e; regrese 1 000 kontrol, 0 selhalo)
 
+**Hotovo 25. 11. večer (main 04, znění 11):**
+- [x] N-015 přehled xView u vysokého levelu a přepínač podlaží (D-056, xView 0.2, T2)
+- [x] N-014 PVS v základu (`src/xspace/pvs.js`, D-057, T1f s nezávislou kontrolou nadmnožiny); rozpočet ≤ 300 tisíc △ z buňky
+- [x] `formats.js` rozdělen (`schema.js`, `formats-weapon.js`), navenek beze změny
+- [x] N-012 díly `lathe` a `rbox` (D-058, `src/xspace/solids.js`, T1g; bit po bitu jako xForge)
+- [x] zpráva pro sešnu A (Ondřej ji vloží); dodatky znění 11 ve `START_A.md` a `START_B.md`; regrese 1 051, 0 selhalo
+
 **Předávka main 03:** `docs/sesny/predavky/main03_predavka_2026-11-25.md` (25. 11. 1:04). **Teď:** čeká na sešny: zkouška zbraní (A3.1, B3.1) a zkouška textury světla na celém `complex_7` (B zapeče, A přečte a změří); potom zmrazit oba zkušební formáty (D-030). Mezitím zvuk z Arény (Z-2, D-051).
 
-**Další na řadě:** svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
+**Nálezy pro sešnu B ze sloučení nanečisto (25. 11. večer):** B-T5 a B-T10 končí `finish();` bez `process.exit(...)`, jejich selhání skupina nepozná; mez 60 s u zapečení `house_1` je v sandboxu těsná (43,8 až 82,4 s).
+
+**Další na řadě:** až sešna A dožene znění 6 až 11: zvuk z Arény (Z-2, D-051), svítivosti zlatého vzorku (N-105) → `rig.noSpeed` (N-103) → zmrazit pole N-006 (D-030) → zkoušky Shellu → xBench (strop 22,5 až 25,2 ms) → `REQUIREMENTS.md` a `05_PARITA_2003.md` → úprava skillu `xengine` po sloučení.
 
 ## Sešna A (běh)
 

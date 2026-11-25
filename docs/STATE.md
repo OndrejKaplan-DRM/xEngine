@@ -1,10 +1,26 @@
 # Stav
 
-**Verze:** základ 2, znění 10 · 25. 11. 2026 v noci · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
+**Verze:** základ 2, znění 11 · 25. 11. 2026 večer · větev `zaklad-2` (shodná s `main`) · vlna 2 sloučená v polovině (D-048)
 **Co se dělá a co čeká na koho:** `TODO.md` (D-038). Tady je stav základu, čísla a co je ověřené.
 **Další krok:** vlna 2, sešny A a B podle oddílu „vlna 2“ a dodatků nahoře v `docs/sesny/START_A.md` a `START_B.md`.
 
 Základ 2 = znění 2 základu 1 + sloučená vlna 1 (sešna A `230b3ee`, sešna B `754f46d`) + zkouška A × B + rozhodnuté návrhy a rozpory (D-029 až D-034) + rozpočty podle tří běhů xBench 0.2.
+
+## Znění 11 základu 2 (25. 11. 2026 večer, svodná main 04): návrhy sešny B N-015, N-014, N-012
+
+Ondřej v 17:00: další krok základu návrhy sešny B (zvuk z Arény a N-105 počkají, až sešna A dožene znění 6 až 10); „vnitřní kompartmentizace“ obojí; body 6/ až 8/ zadání potvrzené beze změny. Rozhodnutí D-056 až D-058.
+
+| Co | Kde | Ověřeno |
+|---|---|---|
+| N-015 (D-056): kamera přehledu a půdorysu nad nejvyšším místem levelu; přepínač podlaží (buňky podle výšky podlahy, nové podlaží ≥ 2 m nad předchozím), řez rovinou 2 cm pod podlahou dalšího podlaží | `tools/xview/main.js` (xView 0.2, 286 řádků) | T2 16 kontrol, pět snímků xLabu bajtově shodných s předchozí verzí; `house_1` ze `sesna-b` `36653bc`: přehled 3 → 85 odstínů, podlaží 1 až 4 shora (snímky v sandboxu) |
+| N-014 (D-057): `levelPVS`, `portalSegment`, `visibleTris`, `VISIBLE_TRIS_LOW` = 300 000; kód ze sešny B beze změny výpočtu, `fitPVS` zůstává v generátoru; rozpočet „≤ 300 tisíc △ z buňky podle PVS“ | `src/xspace/pvs.js` (198 řádků), `06_ROZPOCTY.md` | T1f 19 kontrol: umělé levely (chodba, roh, dva rohy, nahoru a dolů), souměrnost, **nezávislá kontrola nadmnožiny**: 171 000 náhodných úseček mezi body buněk v okolí do 4 portálů, 3 147 neprotne žádný kvádr, 946 z nich spojuje nesousední buňky, mimo PVS 0. Na datech `sesna-b` (i `house_1`) totéž: 0 mimo PVS; `house_1` nejvíc 243 736 △ z `c_stair_01`, stejně jako sešna B |
+| `formats.js` rozdělen (588 → 489 řádků): stavebnice popisu `schema.js` (21), zkušební zbraně `formats-weapon.js` (107) | `src/xspace` | 31 exportů `formats.js` shodných (JSON) před a po; `docs/02a_XSPACE_pole.md` beze změny |
+| N-012 (D-058): díly `lathe` (profil, `seg` 6–64, `crease`, `arc`, `axis`, `center`) a `rbox` (`min`, `max`, `radius`, `steps` 1–4); pevné díly nesou vzorky světla (`STATIC_SHAPES`); validátor `part.profile`, `part.radius` | `src/xspace/solids.js` (190), `geom.js` (503), `samples.js`, `formats.js`, `check-prefab.js`, `02_KONTRAKTY.md` | síť bit po bitu jako xForge sešny B (52 případů); T1g 31 kontrol: uzavřené sítě, líc ven (objem válce = objem hranolu na 1e-9), meze, osa a střed, výseč, počty △ (rbox 108, 300, 588, 972), vzorky a atlas (rovné plochy v atlasu, oblé po vrcholech), 11 mutací; zlatý vzorek beze změny |
+| regrese na `main` (`00cee81`) | **1 051 kontrol, 0 selhalo**: základ 408, A 405 ve 26 sadách, B 201 v 7 sadách, A × B 37 | testy po skupinách 17:21 až 17:27 (čas kontejneru) |
+
+**Sloučení nanečisto** `main` `a599acb` + `sesna-a` `17b8176` + `sesna-b` `e37524b` (17:27 až 17:41): bez konfliktu; základ 411 (T1f 22 se čtyřmi levely `gen_demo` sešny B), A 430 ve 29 sadách, A × B 50, vše 0 selhalo; **B 296 v 10 sadách, 1 selhala**: B-T5 „levely z generátoru se zapečou do 60 s“, `house_1` 82,4 s (180 072 vzorků; sešna B sama naměřila 43,8 až 52,3 s; v tomto běhu byl i `complex_7` 42,5 s proti 28,1 s, tedy pomalejší sandbox). Počty vzorků se sloučením nezměnily, sešna B díly `lathe` a `rbox` zatím nepoužívá. Není to chyba základu, ale dva nálezy pro sešnu B: mez času je těsná a **B-T5 a B-T10 končí `finish();` bez `process.exit(...)`**, takže jejich selhání skupina B nepozná (`Skupina b: 10 z 10 sad prošlo`, návratový kód 0).
+
+Past: push tří větví jedním příkazem skončil 25. 11. v 17:01 chybou serveru `fatal error in commit_refs_rules` (nepřešla žádná); push `main` samotné a potom `zaklad-2` s `integrace-1` prošel.
 
 ## Znění 10 základu 2 (25. 11. 2026 v noci): atlas a soubor textury světla (N-112)
 
