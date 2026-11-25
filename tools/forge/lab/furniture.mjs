@@ -3,11 +3,10 @@
 // nerezový bioreaktor 50 a 200 l, skleněný duplikovaný reaktor 20 a 50 l v rámu). Rozměry úvahou z katalogů
 // laboratorního nábytku a reaktorů, neměřeno. Pracovní deska 0,9 m (laboratoř ve stoje, zadání sady).
 
-import { box, boxc, cyl } from '../lib.mjs';
-import { A, shell, door, barHandle, rail, lock, screen, casters, wireShelf, top, merge, roundedBox, flatBox, cylinder, torus, tube, lathe, moved, mTranslate, mRotate, at } from './appliance.mjs';
+import { A, shell, door, barHandle, rail, lock, screen, casters, wireShelf, top, merge, T, roundedBox, flatBox, cylinder, torus, tube, lathe, moved, mTranslate, mRotate, at } from './appliance.mjs';
 import { cone } from '../mesh/solids.mjs';
-import { bevelBox } from '../shapes.mjs';
-import { simple, moving, panel, vessel, staticFloor } from './common.mjs';
+import { simple, moving, panel, staticFloor } from './common.mjs';
+import { vesselGeom, liquidGeom } from './glassware.mjs';
 
 const CAT = 'lab.furniture';
 const gen = (f) => `lab/furniture.mjs#${f}`;
@@ -266,7 +265,7 @@ export function fumehoodAndMore() {
   ], { gen: gen('fumehoodAndMore'), components: staticFloor() });
   const sh = 'shower_emergency_01';
   const shower = simple(sh, 'Nouzová sprcha s oční sprchou', CAT, [
-    A('body', `${sh}_base`, moved(cylinder(0.15, 0, 0.02, { edge: 0.005, n: 1, seg: 14 }), mTranslate(0, 0, 0)), 'paint_yellow'),
+    A('body', `${sh}_base`, cylinder(0.15, 0, 0.02, { edge: 0.005, n: 1, seg: 14 }), 'paint_yellow'),
     A('body', `${sh}_pipe`, tube([[0, 0.02, 0], [0, 2.2, 0], [0, 2.2, 0.3]], 0.02, 8, { bend: 0.08, bendSeg: 4 }), 'paint_yellow'),
     A('body', `${sh}_head`, moved(lathe([[0.02, 0.06], [0.06, 0.04, 'c'], [0.13, 0.0, 'c'], [0, 0]], { seg: 16 }), mTranslate(0, 2.1, 0.3)), 'paint_green'),
     A('body', `${sh}_eye`, merge([tube([[0, 1.0, 0], [0, 1.0, 0.3]], 0.014, 6), moved(lathe([[0.03, 0], [0.13, 0.05, 'c'], [0.13, 0.06, 'c'], [0, 0.06]], { seg: 16 }), mTranslate(0, 0.98, 0.3))]), 'paint_green'),
@@ -278,19 +277,74 @@ export function fumehoodAndMore() {
 
 /** Bioreaktory: stolní se skleněnou nádobou na řídicí věži (jedna a dvě nádoby), nerezový 50 l a 200 l; skleněné duplikované reaktory 20 a 50 l v rámu. */
 export function reactors() {
-  const glassVessel = (x, liq) => [...vessel('body', [[0.02, 0.07], [0.32, 0.07]], 'glass_lab', 0.65, liq).map((p) => ({ ...p, center: [x, p.center[1], 0] })), cyl('body', [x, 0.34, 0], 0.08, 0.03, 'y', 'steel_brushed'), cyl('body', [x, 0.42, 0], 0.035, 0.12, 'y', 'plastic_anthracite'), cyl('body', [x, 0.01, 0], 0.09, 0.02, 'y', 'steel_dark')];
-  const tower = [...bevelBox('body', [-0.4, 0, -0.18], [-0.12, 0.65, 0.18], 'plastic_white', 0.01), box('body', [-0.38, 0.45, 0.18], [-0.14, 0.6, 0.182], 'emit_display'), ...[0, 1, 2].map((i) => cyl('body', [-0.34 + i * 0.08, 0.3, 0.2], 0.03, 0.04, 'z', 'plastic_light'))];
-  const benchOne = simple('bioreactor_bench_01', 'Stolní bioreaktor se skleněnou nádobou', CAT, [...tower, ...glassVessel(0.05, 'liquid_yellow')], { gen: gen('reactors') });
-  const benchTwo = simple('bioreactor_bench_02', 'Stolní bioreaktor se dvěma nádobami', CAT, [...tower, ...glassVessel(0.0, 'liquid_yellow'), ...glassVessel(0.2, 'liquid_pink')], { gen: gen('reactors') });
-  const steel = [[50, 0.22, 0.6], [200, 0.33, 1.0]].map(([l, r, hv], v) => {
+  // stolní: nádoba 2 l (průměr 13 cm) na nerezové patce, víko s porty a motorem, hadičky z peristaltických čerpadel věže
+  const glassVessel = (k, x, liq) => {
+    const v = vesselGeom([[0, 0], [0.065, 0, 0.012], [0.065, 0.25]], { wall: 0.003, seg: 16, lipN: 2 });
+    return [
+      A('body', `${k}_vessel`, T(v.geom, x, 0.03, 0), 'glass_lab'),
+      A('body', `${k}_liq`, T(liquidGeom(v.inner, 0.16, { seg: 16, flat: true }), x, 0.03, 0), liq),
+      A('body', `${k}_foot`, moved(lathe([[0, 0], [0.085, 0, 'c'], [0.085, 0.03, 'c'], [0.068, 0.034], [0, 0.034]], { seg: 16 }), mTranslate(x, 0, 0)), 'steel_brushed'),
+      A('body', `${k}_head`, moved(cylinder(0.08, 0, 0.025, { seg: 16, edge: 0.004, n: 1 }), mTranslate(x, 0.28, 0)), 'steel_brushed'),
+      A('body', `${k}_ports`, merge([0, 1, 2, 3].map((i) => moved(cylinder(0.007, 0, 0.04, { seg: 6 }), mTranslate(x + Math.cos(i * 1.571 + 0.4) * 0.055, 0.305, Math.sin(i * 1.571 + 0.4) * 0.055)))), 'steel_chrome'),
+      A('body', `${k}_motor`, moved(cylinder(0.035, 0, 0.12, { seg: 12, edge: 0.006, n: 1 }), mTranslate(x, 0.305, 0)), 'plastic_anthracite'),
+      A('body', `${k}_shaft`, moved(cylinder(0.005, 0, 0.24, { seg: 6 }), mTranslate(x, 0.05, 0)), 'steel_chrome'),
+      A('body', `${k}_hoses`, merge([0, 1].map((i) => tube([[-0.12, 0.3 - i * 0.08, 0.2], [-0.06, 0.32 - i * 0.08, 0.2], [x + Math.cos(i * 1.571 + 0.4) * 0.055, 0.42, Math.sin(i * 1.571 + 0.4) * 0.055], [x + Math.cos(i * 1.571 + 0.4) * 0.055, 0.345, Math.sin(i * 1.571 + 0.4) * 0.055]], 0.003, 4, { bend: 0.04, bendSeg: 2 }))), 'plastic_pp_thin'),
+    ];
+  };
+  const tower = (k) => [
+    shell('body', `${k}_tower`, [-0.4, 0.01, -0.18], [-0.12, 0.65, 0.18], 'plastic_white', 0.015),
+    ...screen('body', `${k}_scr`, -0.38, -0.14, 0.45, 0.62, 0.18, { led: 'emit_green' }),
+    A('body', `${k}_pumps`, merge([0, 1, 2].map((i) => moved(cylinder(0.03, 0, 0.035, { seg: 12, edge: 0.004, n: 1 }), at(mTranslate(-0.34 + i * 0.08, 0.3, 0.18), mRotate('x', 90))))), 'plastic_light'),
+    A('body', `${k}_rotors`, merge([0, 1, 2].map((i) => moved(cylinder(0.018, 0, 0.008, { seg: 8 }), at(mTranslate(-0.34 + i * 0.08, 0.3, 0.215), mRotate('x', 90))))), 'steel_chrome'),
+    A('body', `${k}_feet`, merge([-1, 1].flatMap((sz) => [-0.37, -0.15].map((x) => moved(cylinder(0.012, 0, 0.01, { seg: 6 }), mTranslate(x, 0, sz * 0.15))))), 'rubber_black'),
+  ];
+  const b1 = 'bioreactor_bench_01';
+  const b2 = 'bioreactor_bench_02';
+  const benchOne = simple(b1, 'Stolní bioreaktor se skleněnou nádobou', CAT, [...tower(b1), ...glassVessel(b1, 0.05, 'liquid_yellow')], { gen: gen('reactors'), params: { assembly: true } }); // věž se sadou skla
+  const benchTwo = simple(b2, 'Stolní bioreaktor se dvěma nádobami', CAT, [...tower(b2), ...glassVessel(`${b2}_a`, 0.0, 'liquid_yellow'), ...glassVessel(`${b2}_b`, 0.2, 'liquid_pink')], { gen: gen('reactors'), params: { assembly: true } }); // věž se dvěma sadami skla
+  const steel = [[50, 0.22, 0.6], [200, 0.33, 1.0]].map(([l, r, hv]) => {
+    const k = `bioreactor_steel_${l}_01`;
     const y0 = 0.55;
-    const parts = [...[0, 1, 2].map((i) => box('body', [Math.cos(i * 2.094) * r * 0.8 - 0.025, 0, Math.sin(i * 2.094) * r * 0.8 - 0.025], [Math.cos(i * 2.094) * r * 0.8 + 0.025, y0 + 0.1, Math.sin(i * 2.094) * r * 0.8 + 0.025], 'steel_brushed')), ...vessel('body', [[y0, r * 0.5], [y0 + 0.08, r], [y0 + hv, r], [y0 + hv + 0.1, r * 0.6]], 'steel_brushed', 0, null), cyl('body', [0, y0 + hv + 0.2, 0], 0.07, 0.2, 'y', 'plastic_anthracite'), cyl('body', [r * 0.6, y0 + hv + 0.14, 0.0], 0.03, 0.1, 'y', 'steel_brushed'), cyl('body', [0, y0 + hv * 0.5, r + 0.01], 0.06, 0.02, 'z', 'glass_tinted'), box('body', [r + 0.15, 0, -0.3], [r + 0.75, 1.8, 0.3], 'plastic_white'), box('body', [r + 0.2, 1.3, 0.3], [r + 0.7, 1.7, 0.302], 'emit_display'), ...panel('body', 0.3, r + 0.2, r + 0.7, 1.0, 1.25, 4)];
-    return simple(`bioreactor_steel_${l}_01`, `Nerezový bioreaktor ${l} l s řídicí skříní`, CAT, parts, { gen: gen('reactors'), ...floor() });
+    const parts = [
+      A('body', `${k}_legs`, merge([0, 1, 2].map((i) => tube([[Math.cos(i * 2.094) * r * 0.85, 0.02, Math.sin(i * 2.094) * r * 0.85], [Math.cos(i * 2.094) * r * 0.85, y0 + 0.15, Math.sin(i * 2.094) * r * 0.85]], 0.022, 8))), 'steel_brushed'),
+      A('body', `${k}_pads`, merge([0, 1, 2].map((i) => moved(cylinder(0.04, 0, 0.02, { seg: 8 }), mTranslate(Math.cos(i * 2.094) * r * 0.85, 0, Math.sin(i * 2.094) * r * 0.85)))), 'rubber_black'),
+      A('body', `${k}_vessel`, lathe([[0.03, y0 - 0.02], [r * 0.6, y0 + 0.02, 'c'], [r * 0.95, y0 + 0.07], [r, y0 + 0.12], [r, y0 + hv], [r * 0.95, y0 + hv + 0.05], [r * 0.6, y0 + hv + 0.1, 'c'], [0, y0 + hv + 0.12]], { seg: 22 }), 'steel_brushed'),
+      A('body', `${k}_valve`, merge([moved(cylinder(0.03, 0, 0.06, { seg: 10 }), mTranslate(0, y0 - 0.08, 0)), moved(cylinder(0.01, 0, 0.12, { seg: 8 }), at(mTranslate(0, y0 - 0.06, 0), mRotate('x', 90)))]), 'steel_chrome'),
+      A('body', `${k}_motor`, moved(lathe([[0, 0], [0.08, 0, 'c'], [0.08, 0.22, 'c'], [0.06, 0.25], [0, 0.25]], { seg: 14 }), mTranslate(0, y0 + hv + 0.11, 0)), 'plastic_anthracite'),
+      A('body', `${k}_vent`, moved(cylinder(0.03, 0, 0.12, { seg: 10, edge: 0.005, n: 1 }), mTranslate(r * 0.6, y0 + hv + 0.08, 0)), 'steel_brushed'),
+      A('body', `${k}_sight`, moved(cylinder(0.06, 0, 0.02, { seg: 14, edge: 0.004, n: 1 }), at(mTranslate(0, y0 + hv * 0.5, r - 0.005), mRotate('x', 90))), 'glass_tinted'),
+      A('body', `${k}_sightring`, moved(torus(0.063, 0.008, 0, { seg: 14, n: 3 }), at(mTranslate(0, y0 + hv * 0.5, r + 0.012), mRotate('x', 90))), 'steel_chrome'),
+      A('body', `${k}_pipes`, merge([tube([[r + 0.15, 1.1, 0.1], [r - 0.02, 1.1, 0.1], [r - 0.02, y0 + hv + 0.02, 0.1]], 0.015, 8, { bend: 0.06, bendSeg: 2 }), tube([[r + 0.15, 0.4, -0.1], [r * 0.5, 0.4, -0.1], [r * 0.5, y0 + 0.05, -0.1]], 0.015, 8, { bend: 0.06, bendSeg: 2 })]), 'steel_chrome'),
+      shell('body', `${k}_cab`, [r + 0.15, 0.04, -0.3], [r + 0.75, 1.8, 0.3], 'plastic_white', 0.015),
+      A('body', `${k}_plinth`, flatBox([r + 0.17, 0, -0.28], [r + 0.73, 0.04, 0.26]), 'plastic_anthracite'),
+      ...screen('body', `${k}_scr`, r + 0.2, r + 0.7, 1.3, 1.7, 0.3, { led: 'emit_green' }),
+      ...panel('body', 0.3, r + 0.2, r + 0.7, 1.0, 1.25, 4),
+    ];
+    return simple(k, `Nerezový bioreaktor ${l} l s řídicí skříní`, CAT, parts, { gen: gen('reactors'), ...floor() });
   });
   const jacket = [[20, 0.17, 0.45], [50, 0.24, 0.65]].map(([l, r, hv]) => {
+    const k = `reactor_jacketed_${l}_01`;
     const y0 = 0.55;
-    const parts = [...[-1, 1].flatMap((sx) => [-1, 1].map((sz) => box('body', [sx * 0.4 - 0.02, 0, sz * 0.32 - 0.02], [sx * 0.4 + 0.02, 2.1, sz * 0.32 + 0.02], 'steel_brushed'))), box('body', [-0.42, y0 + hv + 0.12, -0.34], [0.42, y0 + hv + 0.16, 0.34], 'steel_brushed'), ...vessel('body', [[y0 - 0.12, 0.04], [y0, r], [y0 + hv, r]], 'glass_lab', 0.55, 'liquid_amber'), cyl('body', [0, y0 + hv * 0.5, 0], r + 0.03, hv * 0.8, 'y', 'glass_tinted'), cyl('body', [0, y0 + hv + 0.25, 0], 0.08, 0.2, 'y', 'steel_dark'), cyl('body', [0.2, y0 + hv + 0.6, 0], 0.04, 0.6, 'y', 'glass_lab'), cyl('body', [0, y0 - 0.2, 0], 0.02, 0.15, 'y', 'glass_lab')];
-    return simple(`reactor_jacketed_${l}_01`, `Skleněný duplikovaný reaktor ${l} l v rámu`, CAT, parts, { gen: gen('reactors'), ...floor() });
+    const inner = vesselGeom([[0.03, -0.12], [r * 0.7, -0.05, 0.04], [r, 0.02, 0.02], [r, hv]], { wall: 0.005, seg: 18, lipN: 2 });
+    const outer = vesselGeom([[0.04, -0.15], [r * 0.75, -0.08, 0.05], [r + 0.03, 0.0, 0.03], [r + 0.03, hv * 0.85], [r, hv * 0.9]], { wall: 0.004, seg: 18, lipN: 1, accents: false });
+    const coil = [];
+    for (let i = 0; i <= 16; i++) coil.push([0.2 + Math.cos(i * 1.3) * 0.025, y0 + hv + 0.35 + i * 0.022, Math.sin(i * 1.3) * 0.025]);
+    const parts = [
+      A('body', `${k}_frame`, merge([...[-1, 1].flatMap((sx) => [-1, 1].map((sz) => flatBox([sx * 0.4 - 0.02, 0, sz * 0.32 - 0.02], [sx * 0.4 + 0.02, 2.1, sz * 0.32 + 0.02]))), ...[0.12, 2.06].flatMap((y) => [-1, 1].map((sz) => flatBox([-0.42, y, sz * 0.32 - 0.02], [0.42, y + 0.04, sz * 0.32 + 0.02])))]), 'steel_brushed'),
+      A('body', `${k}_shelf`, flatBox([-0.42, y0 + hv + 0.12, -0.34], [0.42, y0 + hv + 0.16, 0.34]), 'steel_brushed'),
+      A('body', `${k}_clamp`, merge([flatBox([-0.42, y0 + hv * 0.6, -0.34], [0.42, y0 + hv * 0.6 + 0.03, -0.3]), flatBox([-0.015, y0 + hv * 0.6, -0.32], [0.015, y0 + hv * 0.6 + 0.03, -(r + 0.03)])]), 'steel_brushed'),
+      A('body', `${k}_inner`, T(inner.geom, 0, y0, 0), 'glass_lab'),
+      A('body', `${k}_jacket`, T(outer.geom, 0, y0, 0), 'glass_tinted'),
+      A('body', `${k}_liq`, T(liquidGeom(inner.inner, hv * 0.55, { seg: 18, flat: true }), 0, y0, 0), 'liquid_amber'),
+      A('body', `${k}_lid`, moved(cylinder(r + 0.035, 0, 0.04, { seg: 18, edge: 0.006, n: 1 }), mTranslate(0, y0 + hv, 0)), 'steel_brushed'),
+      A('body', `${k}_motor`, moved(lathe([[0, 0], [0.08, 0, 'c'], [0.08, 0.2, 'c'], [0.05, 0.22], [0, 0.22]], { seg: 14 }), mTranslate(0, y0 + hv + 0.16, 0)), 'steel_dark'),
+      A('body', `${k}_condenser`, moved(vesselGeom([[0.012, 0], [0.04, 0.03, 0.01], [0.04, 0.4, 0.01], [0.012, 0.43]], { wall: 0.002, seg: 12, lipN: 1, accents: false }).geom, mTranslate(0.2, y0 + hv + 0.3, 0)), 'glass_lab'),
+      A('body', `${k}_coil`, tube(coil, 0.004, 4, { caps: false }), 'glass_thin'),
+      A('body', `${k}_neck`, tube([[0.2, y0 + hv + 0.04, 0], [0.2, y0 + hv + 0.3, 0]], 0.012, 8), 'glass_lab'),
+      A('body', `${k}_outlet`, merge([tube([[0, y0 - 0.15, 0], [0, y0 - 0.32, 0]], 0.012, 8), moved(cylinder(0.025, 0, 0.04, { seg: 10 }), mTranslate(0, y0 - 0.28, 0))]), 'ptfe'),
+      A('body', `${k}_hoses`, merge([tube([[r + 0.03, y0 + 0.05, 0], [0.38, y0 + 0.05, 0.1], [0.38, 0.2, 0.2]], 0.01, 6, { bend: 0.08, bendSeg: 2 }), tube([[r + 0.03, y0 + hv * 0.8, 0], [0.38, y0 + hv * 0.8, -0.1], [0.38, 0.2, -0.2]], 0.01, 6, { bend: 0.08, bendSeg: 2 })]), 'rubber_black'),
+    ];
+    return simple(k, `Skleněný duplikovaný reaktor ${l} l v rámu`, CAT, parts, { gen: gen('reactors'), ...floor(), params: { assembly: true } }); // rám se sadou skla
   });
   return [benchOne, benchTwo, ...steel, ...jacket];
 }

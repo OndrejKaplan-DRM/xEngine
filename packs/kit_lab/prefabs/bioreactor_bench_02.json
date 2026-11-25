@@ -4,42 +4,53 @@
   "id": "bioreactor_bench_02",
   "title": "Stolní bioreaktor se dvěma nádobami",
   "category": "lab.furniture",
-  "bounds": { "min": [-0.401, -0.001, -0.181], "max": [0.292, 0.651, 0.221] },
+  "bounds": { "min": [-0.401, -0.001, -0.181], "max": [0.287, 0.651, 0.224] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0.01, -0.17], "max": [-0.12, 0.64, 0.17], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.39, 0, -0.17], "max": [-0.13, 0.65, 0.17], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.39, 0.01, -0.18], "max": [-0.13, 0.64, 0.18], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0.45, 0.18], "max": [-0.14, 0.6, 0.182], "mat": "emit_display" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-340_300_200", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-260_300_200", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_z_-180_300_200", "mat": "plastic_light" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_300_y_0_170_0", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_68_193_y_0_119_0", "mat": "liquid_yellow" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_30_y_0_340_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_120_y_0_420_0", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_0_10_0", "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_70_300_y_200_170_0", "mat": "glass_lab" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_68_193_y_200_119_0", "mat": "liquid_pink" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_80_30_y_200_340_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_35_120_y_200_420_0", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_90_20_y_200_10_0", "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_tower_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_scr_bezel", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_scr_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_scr_led", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_pumps", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_rotors", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_feet", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_vessel", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_vessel_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_vessel_glint", "mat": "glass_glint" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_liq", "mat": "liquid_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_foot", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_head", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_ports", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_motor", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_shaft", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_a_hoses", "mat": "plastic_pp_thin" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_vessel", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_vessel_rim", "mat": "glass_rim" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_vessel_glint", "mat": "glass_glint" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_liq", "mat": "liquid_pink" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_foot", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_head", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_ports", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_motor", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_shaft", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bioreactor_bench_02_b_hoses", "mat": "plastic_pp_thin" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.18], "max": [0.291, 0.65, 0.22], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.18], "max": [0.286, 0.65, 0.223], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 1440,
+  "tris": 2836,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/furniture.mjs#reactors",
+    "params": { "assembly": true },
     "license": "own",
     "author": "Kristína (Claude) pro Ondřeje Kaplana",
     "date": "2026-11-22"

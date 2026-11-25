@@ -4,36 +4,31 @@
   "id": "terrarium_desert_01",
   "title": "Terárium pouštní",
   "category": "lab.animal",
-  "bounds": { "min": [-0.501, -0.001, -0.251], "max": [0.501, 1.241, 0.251] },
+  "bounds": { "min": [-0.501, -0.001, -0.251], "max": [0.501, 1.243, 0.251] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.5, 0.006, -0.244], "max": [0.5, 0.744, 0.244], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.494, 0, -0.244], "max": [0.494, 0.75, 0.244], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.494, 0.006, -0.25], "max": [0.494, 0.744, 0.25], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.5, 0.75, -0.25], "max": [0.5, 0.76, 0.25], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.5, 0.76, -0.25], "max": [-0.49, 1.21, 0.25], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [0.49, 0.76, -0.25], "max": [0.5, 1.21, 0.25], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.49, 0.76, -0.25], "max": [0.49, 1.21, -0.24], "mat": "stone_rough" },
-    { "node": "body", "shape": "box", "min": [-0.49, 0.76, 0.24], "max": [0, 1.21, 0.25], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [0, 0.76, 0.235], "max": [0.49, 1.21, 0.245], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.5, 1.21, -0.25], "max": [0.5, 1.24, 0.25], "mat": "steel_dark" },
-    { "node": "body", "shape": "box", "min": [-0.48, 0.76, -0.23], "max": [0.48, 0.8, 0.23], "mat": "dirt_packed" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.8, -0.12], "max": [-0.11, 0.88, 0.02], "mat": "stone_block" },
-    { "node": "body", "shape": "box", "min": [0.19, 0.795, 0], "max": [0.31, 0.845, 0.1], "mat": "stone_block" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_50_60_y_200_1180_-50", "mat": "emit_fire" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_cab_shell", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_frame", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_back", "mat": "stone_rough" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_mesh", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_sand", "mat": "dirt_packed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_rocks", "mat": "stone_block" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_lamp", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#terrarium_desert_01_bulb", "mat": "emit_fire" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.25], "max": [0.5, 1.24, 0.25], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.5, 0, -0.25], "max": [0.5, 1.242, 0.25], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 252,
+  "tris": 670,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#terraria",

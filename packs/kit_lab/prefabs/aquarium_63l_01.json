@@ -4,34 +4,35 @@
   "id": "aquarium_63l_01",
   "title": "Akvárium 63 l na stolku",
   "category": "lab.animal",
-  "bounds": { "min": [-0.306, -0.001, -0.156], "max": [0.306, 1.081, 0.156] },
+  "bounds": { "min": [-0.306, -0.001, -0.156], "max": [0.306, 1.081, 0.185] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.006, -0.144], "max": [0.3, 0.694, 0.144], "mat": "wood_oak" },
-    { "node": "body", "shape": "box", "min": [-0.294, 0, -0.144], "max": [0.294, 0.7, 0.144], "mat": "wood_oak" },
-    { "node": "body", "shape": "box", "min": [-0.294, 0.006, -0.15], "max": [0.294, 0.694, 0.15], "mat": "wood_oak" },
-    { "node": "body", "shape": "box", "min": [-0.28, 0.05, 0.15], "max": [0.28, 0.66, 0.155], "mat": "wood_oak" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.7, -0.15], "max": [0.3, 1.05, 0.15], "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.29, 0.705, -0.14], "max": [0.29, 0.75, 0.14], "mat": "stone_pale" },
-    { "node": "body", "shape": "box", "min": [-0.292, 0.75, -0.142], "max": [0.292, 1.008, 0.142], "mat": "liquid_water" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0.75, -0.095], "max": [-0.18, 0.89, -0.055], "mat": "paint_green" },
-    { "node": "body", "shape": "box", "min": [0.18, 0.75, -0.095], "max": [0.22, 0.89, -0.055], "mat": "paint_green" },
-    { "node": "body", "shape": "box", "min": [-0.305, 1.05, -0.155], "max": [0.305, 1.08, 0.155], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.25, 1.048, -0.075], "max": [0.25, 1.05, 0.075], "mat": "emit_cool" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_15_210_y_240_910_-110", "mat": "plastic_anthracite" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_cab_shell", "mat": "wood_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_plinth", "mat": "wood_old" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_d0_leaf", "mat": "wood_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_d1_leaf", "mat": "wood_oak" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_knobs", "mat": "brass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_glass", "mat": "glass_lab" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_seams", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_ground", "mat": "stone_pale" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_water", "mat": "liquid_water" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_plants", "mat": "paint_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_lid", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_light", "mat": "emit_cool" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#aquarium_63l_01_filter", "mat": "plastic_anthracite" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.305, 0, -0.155], "max": [0.305, 1.08, 0.155], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.305, 0, -0.155], "max": [0.305, 1.08, 0.184], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 196,
+  "tris": 1036,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#aquaria",

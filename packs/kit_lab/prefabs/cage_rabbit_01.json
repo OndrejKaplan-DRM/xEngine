@@ -4,38 +4,27 @@
   "id": "cage_rabbit_01",
   "title": "Klec pro králíka na stojanu",
   "category": "lab.animal",
-  "bounds": { "min": [-0.451, -0.001, -0.301], "max": [0.451, 0.961, 0.301] },
+  "bounds": { "min": [-0.453, -0.001, -0.303], "max": [0.453, 0.966, 0.303] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.45, 0.4, -0.3], "max": [0.45, 0.42, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [-0.43, 0.95, -0.28], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0, 0.28], "max": [-0.43, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.43, 0, -0.3], "max": [0.45, 0.95, -0.28], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.43, 0, 0.28], "max": [0.45, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.45, 0.95, -0.3], "max": [0.45, 0.96, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.42, 0.42, -0.28], "max": [0.42, 0.46, 0.28], "mat": "paper_kraft" },
-    { "node": "body", "shape": "box", "min": [-0.44, 0.42, 0.29], "max": [-0.435, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.33, 0.42, 0.29], "max": [-0.325, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.22, 0.42, 0.29], "max": [-0.215, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.11, 0.42, 0.29], "max": [-0.105, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0, 0.42, 0.29], "max": [0.005, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.11, 0.42, 0.29], "max": [0.115, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.22, 0.42, 0.29], "max": [0.225, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.33, 0.42, 0.29], "max": [0.335, 0.95, 0.3], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [0.44, 0.42, 0.29], "max": [0.445, 0.95, 0.3], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_rabbit_01_frame", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_rabbit_01_tray", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_rabbit_01_wires", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_rabbit_01_hay", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_rabbit_01_bowl", "mat": "steel_chrome" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.45, 0, -0.3], "max": [0.45, 0.96, 0.3], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.452, 0, -0.302], "max": [0.452, 0.965, 0.302], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 192,
+  "tris": 588,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#cages",

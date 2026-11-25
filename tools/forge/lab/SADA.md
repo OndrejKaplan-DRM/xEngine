@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240328
+Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 255496
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -258,10 +258,10 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240328
 | `fridge_lab_glass_01` | Laboratorní lednice s prosklenými dveřmi | lab.cold | 0,95 × 1,85 × 1,19 | 1392 | swing: 0° až 115° | door |
 | `freezer_lab_20_01` | Laboratorní mrazák −20 °C | lab.cold | 0,95 × 1,85 × 1,19 | 1340 | swing: 0° až 115° | door |
 | `fridge_undercounter_01` | Podstolová lednice | lab.cold | 0,95 × 0,82 × 1,14 | 1088 | swing: 0° až 115° | door |
-| `freezer_chest_ult_01` | Truhlicový mrazák −80 °C | lab.cold | 1,6 × 1,8 × 0,94 | 198 | lid: 0° až 80° | door |
-| `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,8 × 1,13 × 0,8 | 1144 | — | — |
-| `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 492 | swing: 0° až 100° | door |
-| `freezer_walkin_01` | Mrazicí komora −20 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 492 | swing: 0° až 100° | door |
+| `freezer_chest_ult_01` | Truhlicový mrazák −80 °C | lab.cold | 1,63 × 1,8 × 0,95 | 894 | lid: 0° až 80° | door |
+| `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,8 × 1,13 × 0,8 | 1094 | — | — |
+| `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 1292 | swing: 0° až 100° | door |
+| `freezer_walkin_01` | Mrazicí komora −20 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 1292 | swing: 0° až 100° | door |
 | `bench_lab_wall_01` | Laboratorní stůl ke zdi 1,2 m s nástavbou | lab.furniture | 1,2 × 1,66 × 0,78 | 932 | — | — |
 | `bench_lab_wall_02` | Laboratorní stůl ke zdi 1,5 m s nástavbou | lab.furniture | 1,5 × 1,66 × 0,78 | 1032 | — | — |
 | `bench_lab_wall_03` | Laboratorní stůl ke zdi 1,8 m s nástavbou | lab.furniture | 1,8 × 1,66 × 0,78 | 1044 | — | — |
@@ -279,26 +279,26 @@ Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 240328
 | `stool_lab_high_01` | Vysoká laboratorní židle s kruhem pro nohy | lab.furniture | 0,53 × 0,83 × 0,59 | 880 | — | — |
 | `cart_lab_01` | Laboratorní vozík se dvěma policemi | lab.furniture | 0,77 × 1,07 × 0,59 | 1216 | — | — |
 | `shower_emergency_01` | Nouzová sprcha s oční sprchou | lab.furniture | 0,3 × 2,22 × 0,58 | 544 | — | — |
-| `bioreactor_bench_01` | Stolní bioreaktor se skleněnou nádobou | lab.furniture | 0,54 × 0,65 × 0,4 | 864 | — | — |
-| `bioreactor_bench_02` | Stolní bioreaktor se dvěma nádobami | lab.furniture | 0,69 × 0,65 × 0,4 | 1440 | — | — |
-| `bioreactor_steel_50_01` | Nerezový bioreaktor 50 l s řídicí skříní | lab.furniture | 1,19 × 1,8 × 0,61 | 976 | — | — |
-| `bioreactor_steel_200_01` | Nerezový bioreaktor 200 l s řídicí skříní | lab.furniture | 1,41 × 1,85 × 0,68 | 976 | — | — |
-| `reactor_jacketed_20_01` | Skleněný duplikovaný reaktor 20 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 1132 | — | — |
-| `reactor_jacketed_50_01` | Skleněný duplikovaný reaktor 50 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 1148 | — | — |
-| `aquarium_63l_01` | Akvárium 63 l na stolku | lab.animal | 0,61 × 1,08 × 0,31 | 196 | — | — |
-| `aquarium_112l_01` | Akvárium 112 l na stolku | lab.animal | 0,81 × 1,13 × 0,36 | 208 | — | — |
-| `aquarium_270l_01` | Akvárium 270 l na stolku | lab.animal | 1,21 × 1,18 × 0,51 | 220 | — | — |
-| `aquarium_rack_zebrafish_01` | Regál nádrží pro chov dánií | lab.animal | 1,24 × 1,9 × 0,44 | 448 | — | — |
-| `terrarium_desert_01` | Terárium pouštní | lab.animal | 1 × 1,24 × 0,5 | 252 | — | — |
-| `terrarium_tropical_01` | Terárium tropické s rostlinami | lab.animal | 0,6 × 1,76 × 0,6 | 212 | — | — |
-| `cage_ivc_mouse_01` | Individuálně větraná klec pro myši | lab.animal | 0,21 × 0,17 × 0,37 | 124 | — | — |
-| `cage_ivc_rat_01` | Individuálně větraná klec pro potkany | lab.animal | 0,27 × 0,23 × 0,46 | 124 | — | — |
-| `rack_ivc_01` | Regál individuálně větraných klecí s ventilační jednotkou | lab.animal | 1,76 × 2,2 × 0,65 | 1124 | — | — |
-| `cage_rabbit_01` | Klec pro králíka na stojanu | lab.animal | 0,9 × 0,96 × 0,6 | 192 | — | — |
-| `passbox_wall_01` | Průchozí box do zdi s blokováním dvířek | lab.animal | 0,93 × 0,66 × 0,87 | 84 | swing: 0° až 110° | door |
-| `isolator_glovebox_01` | Izolátor s rukavicemi (třída III) | lab.animal | 1,75 × 1,9 × 0,86 | 854 | — | — |
-| `shower_decon_01` | Dekontaminační sprcha (průchozí kabina) | lab.animal | 1,1 × 2,35 × 1,1 | 276 | — | — |
-| `bin_biohazard_01` | Nádoba na infekční odpad s víkem | lab.animal | 0,47 × 1,06 × 0,49 | 48 | lid: 0° až 80° | door |
+| `bioreactor_bench_01` | Stolní bioreaktor se skleněnou nádobou | lab.furniture | 0,54 × 0,65 × 0,41 | 1784 | — | — |
+| `bioreactor_bench_02` | Stolní bioreaktor se dvěma nádobami | lab.furniture | 0,69 × 0,65 × 0,41 | 2836 | — | — |
+| `bioreactor_steel_50_01` | Nerezový bioreaktor 50 l s řídicí skříní | lab.furniture | 1,19 × 1,8 × 0,61 | 1466 | — | — |
+| `bioreactor_steel_200_01` | Nerezový bioreaktor 200 l s řídicí skříní | lab.furniture | 1,41 × 1,91 × 0,68 | 1466 | — | — |
+| `reactor_jacketed_20_01` | Skleněný duplikovaný reaktor 20 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 2148 | — | — |
+| `reactor_jacketed_50_01` | Skleněný duplikovaný reaktor 50 l v rámu | lab.furniture | 0,84 × 2,1 × 0,68 | 2184 | — | — |
+| `aquarium_63l_01` | Akvárium 63 l na stolku | lab.animal | 0,61 × 1,08 × 0,34 | 1036 | — | — |
+| `aquarium_112l_01` | Akvárium 112 l na stolku | lab.animal | 0,81 × 1,13 × 0,39 | 1156 | — | — |
+| `aquarium_270l_01` | Akvárium 270 l na stolku | lab.animal | 1,21 × 1,18 × 0,54 | 1276 | — | — |
+| `aquarium_rack_zebrafish_01` | Regál nádrží pro chov dánií | lab.animal | 1,24 × 1,9 × 0,44 | 784 | — | — |
+| `terrarium_desert_01` | Terárium pouštní | lab.animal | 1 × 1,24 × 0,5 | 670 | — | — |
+| `terrarium_tropical_01` | Terárium tropické s rostlinami | lab.animal | 0,6 × 1,76 × 0,61 | 1004 | — | — |
+| `cage_ivc_mouse_01` | Individuálně větraná klec pro myši | lab.animal | 0,22 × 0,18 × 0,37 | 352 | — | — |
+| `cage_ivc_rat_01` | Individuálně větraná klec pro potkany | lab.animal | 0,27 × 0,24 × 0,46 | 352 | — | — |
+| `rack_ivc_01` | Regál individuálně větraných klecí s ventilační jednotkou | lab.animal | 1,76 × 2,2 × 0,65 | 1360 | — | — |
+| `cage_rabbit_01` | Klec pro králíka na stojanu | lab.animal | 0,91 × 0,97 × 0,61 | 588 | — | — |
+| `passbox_wall_01` | Průchozí box do zdi s blokováním dvířek | lab.animal | 0,94 × 0,66 × 0,88 | 600 | swing: 0° až 110° | door |
+| `isolator_glovebox_01` | Izolátor s rukavicemi (třída III) | lab.animal | 1,76 × 1,9 × 0,81 | 1330 | — | — |
+| `shower_decon_01` | Dekontaminační sprcha (průchozí kabina) | lab.animal | 1,1 × 2,35 × 1,1 | 984 | — | — |
+| `bin_biohazard_01` | Nádoba na infekční odpad s víkem | lab.animal | 0,47 × 1,06 × 0,5 | 444 | lid: 0° až 80° | door |
 
 ## Meze kloubů: zdroj nebo úvaha
 

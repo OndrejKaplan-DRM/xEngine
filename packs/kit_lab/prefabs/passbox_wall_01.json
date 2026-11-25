@@ -4,7 +4,7 @@
   "id": "passbox_wall_01",
   "title": "Průchozí box do zdi s blokováním dvířek",
   "category": "lab.animal",
-  "bounds": { "min": [-0.553, -0.001, -0.001], "max": [0.381, 0.661, 0.872] },
+  "bounds": { "min": [-0.56, -0.001, -0.001], "max": [0.381, 0.661, 0.874] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,17 +15,18 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.35, 0.03, 0], "max": [0.35, 0.63, 0.25], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.38, 0, 0.25], "max": [0.38, 0.66, 0.27], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.3, 0.63, 0.25], "max": [-0.1, 0.65, 0.275], "mat": "emit_green" },
-    { "node": "body", "shape": "box", "min": [-0.32, 0.08, 0.01999999999999999], "max": [0.32, 0.1, 0.23], "mat": "steel_dark" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.6, 0.52, 0.025], "mat": "steel_brushed" },
-    { "node": "door", "shape": "box", "min": [0.08, 0.12, 0.025], "max": [0.52, 0.42, 0.027], "mat": "glass_tinted" },
-    { "node": "door", "shape": "box", "min": [0.52, 0.22, 0.025], "max": [0.56, 0.32, 0.05], "mat": "steel_dark" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_chamber", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_flange", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_lamp_g", "mat": "emit_green" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_lamp_r", "mat": "emit_red" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_shelf", "mat": "steel_dark" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_door_frame", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_door_pane", "mat": "glass_tinted" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#passbox_wall_01_door_handle", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.38, 0, 0], "max": [0.38, 0.66, 0.275], "group": "world" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.6, 0.52, 0.05], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.38, 0, 0], "max": [0.38, 0.66, 0.274], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.601, 0.54, 0.057], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -34,7 +35,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 84,
+  "tris": 600,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#quarantine",

@@ -4559,7 +4559,7 @@
     { "id": "e_rack_conical_15_01", "prefab": "rack_conical_15_01", "cell": "c_bio_01", "pos": [2.624, 4.3, 21.47], "rot": [0, -90, 0] },
     { "id": "e_box_gloves_02", "prefab": "box_gloves_01", "cell": "c_bio_01", "pos": [2.598, 4.3, 21.6885], "rot": [0, -90, 0] },
     { "id": "e_autoclave_floor_01", "prefab": "autoclave_floor_01", "cell": "c_bio_01", "pos": [0.525, 3.4, 21.729], "rot": [0, 180, 0] },
-    { "id": "e_bin_biohazard_01", "prefab": "bin_biohazard_01", "cell": "c_bio_01", "pos": [1.185, 3.4, 21.95], "rot": [0, 180, 0] },
+    { "id": "e_bin_biohazard_01", "prefab": "bin_biohazard_01", "cell": "c_bio_01", "pos": [1.186, 3.4, 21.945], "rot": [0, 180, 0] },
     { "id": "e_freezer_ult_04", "prefab": "freezer_ult_01", "cell": "c_bio_01", "pos": [0.498, 3.4, 18.632], "rot": [0, 90, 0] },
     { "id": "e_desk_office_03", "prefab": "desk_office_01", "cell": "c_office_03", "pos": [5.829, 3.4, 17.7], "rot": [0, -90, 0] },
     { "id": "e_drawer_desk_07", "prefab": "drawer_desk_01", "cell": "c_office_03", "pos": [5.509, 3.51, 18.19], "rot": [0, -90, 0] },

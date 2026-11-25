@@ -4,7 +4,7 @@
   "id": "bin_biohazard_01",
   "title": "Nádoba na infekční odpad s víkem",
   "category": "lab.animal",
-  "bounds": { "min": [-0.236, -0.001, -0.23], "max": [0.236, 1.059, 0.261] },
+  "bounds": { "min": [-0.237, -0.001, -0.235], "max": [0.237, 1.061, 0.261] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,14 +15,15 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.2], "max": [0.225, 0.65, 0.2], "mat": "cap_yellow" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.02, 0.2], "max": [0.08, 0.05, 0.26], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.1, 0.325, 0.2], "max": [0.1, 0.4875, 0.202], "mat": "label_band_red" },
-    { "node": "lid", "shape": "box", "min": [-0.235, 0, 0], "max": [0.235, 0.03, 0.41], "mat": "cap_red" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_biohazard_01_body", "mat": "cap_yellow" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_biohazard_01_base", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_biohazard_01_pedal", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#bin_biohazard_01_label", "mat": "label_band_red" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#bin_biohazard_01_lid", "mat": "cap_red" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.2], "max": [0.225, 0.65, 0.26], "group": "prop" },
-    { "node": "lid", "shape": "box", "min": [-0.235, 0, 0], "max": [0.235, 0.03, 0.41], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.225, 0, -0.2], "max": [0.225, 0.651, 0.26], "group": "prop" },
+    { "node": "lid", "shape": "box", "min": [-0.236, 0, 0], "max": [0.236, 0.035, 0.411], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -31,7 +32,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 48,
+  "tris": 444,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#quarantine",

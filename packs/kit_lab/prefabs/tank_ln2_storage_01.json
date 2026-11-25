@@ -4,33 +4,31 @@
   "id": "tank_ln2_storage_01",
   "title": "Zásobník kapalného dusíku na pojízdném podstavci",
   "category": "lab.cold",
-  "bounds": { "min": [-0.401, -0.001, -0.401], "max": [0.401, 1.132, 0.401] },
+  "bounds": { "min": [-0.401, 0, -0.401], "max": [0.401, 1.131, 0.401] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_400_60_y_0_90_0", "mat": "steel_dark" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_330_30_0", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_0_30_330", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_-330_30_0", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_30_40_x_0_30_-330", "mat": "rubber_black" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_340_730_y_0_485_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_270_150_y_0_925_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_175_50_y_0_1025_0", "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_160_80_y_0_1090_0", "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.08, 0.55, 0.335], "max": [0.08, 0.7, 0.345], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.06, 0.6, 0.345], "max": [0.06, 0.66, 0.347], "mat": "emit_display" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_dolly", "mat": "steel_dark" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_casters", "mat": "rubber_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_forks", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_body", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_cap", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_valves", "mat": "brass" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_monitor", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_lcd", "mat": "emit_display" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#tank_ln2_storage_01_label", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.4, 0, -0.4], "max": [0.4, 1.131, 0.4], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.4, 0.001, -0.4], "max": [0.4, 1.13, 0.4], "group": "world" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "floor" }
   },
-  "tris": 1144,
+  "tris": 1094,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#chestAndLn2",

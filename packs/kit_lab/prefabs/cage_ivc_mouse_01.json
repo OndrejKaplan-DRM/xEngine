@@ -4,28 +4,28 @@
   "id": "cage_ivc_mouse_01",
   "title": "Individuálně větraná klec pro myši",
   "category": "lab.animal",
-  "bounds": { "min": [-0.106, -0.001, -0.186], "max": [0.106, 0.171, 0.186] },
+  "bounds": { "min": [-0.108, -0.001, -0.187], "max": [0.108, 0.182, 0.187] },
   "rig": {
     "nodes": [
       { "id": "body" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.1, 0, -0.18], "max": [0.1, 0.14, 0.18], "mat": "plastic_ps" },
-    { "node": "body", "shape": "box", "min": [-0.095, 0.002, -0.175], "max": [0.095, 0.03, 0.175], "mat": "paper_kraft" },
-    { "node": "body", "shape": "box", "min": [-0.105, 0.14, -0.185], "max": [0.105, 0.17, 0.185], "mat": "plastic_light" },
-    { "node": "body", "shape": "box", "min": [-0.07, 0.1, -0.15], "max": [0.07, 0.105, 0], "mat": "steel_brushed" },
-    { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#cyl_20_100_x_50_120_90", "mat": "glass_lab" },
-    { "node": "body", "shape": "box", "min": [-0.04, 0.07, 0.18], "max": [0.04, 0.098, 0.182], "mat": "label_paper" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_tub", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_bedding", "mat": "paper_kraft" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_lid", "mat": "plastic_light" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_filter", "mat": "steel_brushed" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_bottle", "mat": "plastic_ps" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#cage_ivc_mouse_01_card", "mat": "label_paper" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.105, 0, -0.185], "max": [0.105, 0.17, 0.185], "group": "prop" }
+    { "node": "body", "shape": "box", "min": [-0.107, 0, -0.186], "max": [0.107, 0.181, 0.186], "group": "prop" }
   ],
   "components": {
     "physics": { "body": "static" },
     "place": { "mount": "top" }
   },
-  "tris": 124,
+  "tris": 352,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/animal.mjs#cages",

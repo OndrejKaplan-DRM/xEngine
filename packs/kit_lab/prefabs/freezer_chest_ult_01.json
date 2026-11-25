@@ -4,7 +4,7 @@
   "id": "freezer_chest_ult_01",
   "title": "Truhlicový mrazák −80 °C",
   "category": "lab.cold",
-  "bounds": { "min": [-0.801, -0.001, -0.499], "max": [0.801, 1.795, 0.441] },
+  "bounds": { "min": [-0.832, -0.001, -0.502], "max": [0.801, 1.801, 0.447] },
   "rig": {
     "nodes": [
       { "id": "body" },
@@ -15,21 +15,25 @@
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.8, 0.015, -0.385], "max": [0.8, 0.935, 0.385], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.785, 0, -0.385], "max": [0.785, 0.95, 0.385], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.785, 0.015, -0.4], "max": [0.785, 0.935, 0.4], "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_plinth", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_kick_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_kick_slats", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#panel_400_400_750_750_870", "mat": "plastic_anthracite" },
     { "node": "body", "shape": "box", "min": [0.406, 0.804, 0.402], "max": [0.61, 0.864, 0.4035], "mat": "emit_display" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btn_400_400_750_750_870_0", "mat": "cap_green" },
     { "node": "body", "shape": "mesh", "mesh": "meshes/parts.glb#btns_400_400_750_750_870_3", "mat": "plastic_light" },
-    { "node": "lid", "shape": "box", "min": [-0.8, 0.01, 0.01], "max": [0.8, 0.09, 0.79], "mat": "plastic_white" },
-    { "node": "lid", "shape": "box", "min": [-0.79, 0, 0.01], "max": [0.79, 0.1, 0.79], "mat": "plastic_white" },
-    { "node": "lid", "shape": "box", "min": [-0.79, 0.01, 0], "max": [0.79, 0.09, 0.8], "mat": "plastic_white" },
-    { "node": "lid", "shape": "box", "min": [-0.3, 0.04, 0.8], "max": [0.3, 0.07, 0.84], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_lock", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_keyhole", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_port", "mat": "plastic_anthracite" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_lid", "mat": "plastic_white" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_gasket", "mat": "rubber_black" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_handle", "mat": "steel_brushed" },
+    { "node": "lid", "shape": "mesh", "mesh": "meshes/appl.glb#freezer_chest_ult_01_hinges", "mat": "steel_brushed" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.8, 0, -0.4], "max": [0.8, 0.95, 0.41], "group": "world" },
-    { "node": "lid", "shape": "box", "min": [-0.8, 0, 0], "max": [0.8, 0.1, 0.84], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.831, 0, -0.4], "max": [0.8, 0.95, 0.41], "group": "world" },
+    { "node": "lid", "shape": "box", "min": [-0.8, 0, -0.02], "max": [0.8, 0.1, 0.846], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -38,7 +42,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 198,
+  "tris": 894,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#chestAndLn2",
