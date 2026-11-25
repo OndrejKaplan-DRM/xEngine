@@ -2,7 +2,8 @@
 // výška 198,1 cm; tools/forge/lab/ROZMERY.md), ostatní úvaha z praxe. Ondřej: „Komorový mrazák s pentlicí“ = chladicí
 // komora s pásovou clonou za dveřmi. Dvířka mají kloub se zdůvodněním.
 
-import { box, boxc, cyl, collide } from '../lib.mjs';
+import { box, boxc, cyl, collide, cbox } from '../lib.mjs';
+import { A, shell, door, barHandle, lock, grille, screen, feet, plinth, wireShelf, hinges, merge, T, roundedBox, flatBox, cylinder, moved, mTranslate, mRotate, at } from './appliance.mjs';
 import { bevelBox } from '../shapes.mjs';
 import { simple, moving, panel, vessel, staticFloor } from './common.mjs';
 
@@ -10,25 +11,76 @@ const CAT = 'lab.cold';
 const gen = (f) => `lab/cold.mjs#${f}`;
 const FLOOR = { mount: 'floor' };
 
-/** Skříň s dvířky na levém pantu: plášť, sokl, panel nahoře, dvířka s madlem; o.glass = prosklená dvířka. */
+/**
+ * Skříň s dvířky na levém pantu (lednice, mrazák): dutý plášť se zaoblenými hranami (dvířka odhalí vnitřek),
+ * sokl s mřížkou kompresoru, stavitelné nožky, dvířka s těsněním, dlouhé madlo, zámek a panty; uvnitř drátěné
+ * rošty, u mrazáku −80 °C vnitřní izolovaná dvířka. o.glass = prosklená dvířka, o.panel = ovládací panel nad dvířky.
+ */
 function upright(id, title, w, d, h, o) {
-  const body = [...bevelBox('body', [-w / 2, 0.06, -d / 2], [w / 2, h, d / 2 - 0.07], o.mat || 'plastic_white', 0.012), box('body', [-w / 2 + 0.02, 0, -d / 2 + 0.05], [w / 2 - 0.02, 0.06, d / 2 - 0.12], 'plastic_anthracite')];
-  if (o.panel) body.push(...panel('body', d / 2 - 0.07, -w / 2 + 0.06, w / 2 - 0.06, h - 0.16, h - 0.04, 3));
-  if (o.inner) for (let i = 1; i < 5; i++) body.push(box('body', [-w / 2 + 0.05, 0.06 + (i * (h - 0.3)) / 5, -d / 2 + 0.06], [w / 2 - 0.05, 0.08 + (i * (h - 0.3)) / 5, d / 2 - 0.1], 'steel_brushed'));
-  const dh = h - (o.panel ? 0.2 : 0.1);
-  const door = [box('door', [0, 0, 0], [w - 0.01, dh, 0.07], o.mat || 'plastic_white'), box('door', [w - 0.08, dh * 0.45, 0.07], [w - 0.05, dh * 0.7, 0.1], 'steel_brushed')];
-  if (o.glass) door.push(box('door', [0.06, dh * 0.08, 0.07], [w - 0.12, dh * 0.92, 0.072], 'glass_tinted'));
+  const k = id;
+  const mat = o.mat || 'plastic_white';
+  const pl = 0.09; // sokl
+  const t = 0.06; // dvířka
+  const zf = d / 2 - t - 0.004; // čelo pláště
+  const wall = 0.05;
+  const top = o.panel ? h - 0.14 : h;
+  const body = [
+    shell('body', `${k}_l`, [-w / 2, pl, -d / 2], [-w / 2 + wall, h, zf], mat, 0.01),
+    shell('body', `${k}_r`, [w / 2 - wall, pl, -d / 2], [w / 2, h, zf], mat, 0.01),
+    shell('body', `${k}_t`, [-w / 2 + wall - 0.002, top - wall, -d / 2], [w / 2 - wall + 0.002, h, zf], mat, 0.01),
+    A('body', `${k}_bb`, merge([flatBox([-w / 2 + wall, pl, -d / 2], [w / 2 - wall, pl + wall, zf]), flatBox([-w / 2 + wall, pl, -d / 2], [w / 2 - wall, h, -d / 2 + wall])]), mat),
+    // vnitřek (bílá vana) a rošty
+    A('body', `${k}_liner`, merge([flatBox([-w / 2 + wall, pl + wall, -d / 2 + wall], [w / 2 - wall, pl + wall + 0.002, zf - 0.01]), flatBox([-w / 2 + wall, pl + wall, -d / 2 + wall], [w / 2 - wall, top - wall, -d / 2 + wall + 0.002])]), 'liner_white'),
+    plinth('body', k, w, d, pl, 0.07),
+    ...grille('body', `${k}_kick`, -w / 2 + 0.06, w / 2 - 0.06, 0.02, pl - 0.015, d / 2 - 0.069, 5),
+  ]; // nožky schová sokl
+  const inner = (top - wall) - (pl + wall);
+  const shelves = 3;
+  for (let i = 1; i <= shelves; i++) {
+    const y = pl + wall + (i * inner) / (shelves + 1);
+    if (o.ult) continue; // mrazák −80 °C má místo roštů vnitřní dvířka
+    else body.push(wireShelf('body', k, -w / 2 + wall + 0.01, w / 2 - wall - 0.01, -d / 2 + wall + 0.02, zf - 0.03, y));
+  }
+  if (o.ult) {
+    // vnitřní izolovaná dvířka (pět oddílů) s malými knoflíky
+    const doors = [];
+    const knobs = [];
+    for (let i = 0; i < 5; i++) {
+      const y0 = pl + wall + 0.01 + (i * (inner - 0.02)) / 5;
+      const y1 = y0 + (inner - 0.02) / 5 - 0.008;
+      doors.push(flatBox([-w / 2 + wall + 0.012, y0, zf - 0.03], [w / 2 - wall - 0.012, y1, zf - 0.008]));
+      knobs.push(moved(cylinder(0.012, 0, 0.02, { seg: 6 }), at(mTranslate(w / 2 - wall - 0.06, (y0 + y1) / 2, zf - 0.008), mRotate('x', 90))));
+    }
+    body.push(A('body', `${k}_innerdoors`, merge(doors), 'liner_white'), A('body', `${k}_innerknobs`, merge(knobs), 'plastic_light'));
+  }
+  if (o.panel) {
+    body.push(shell('body', `${k}_head`, [-w / 2, h - 0.14, zf - 0.02], [w / 2, h, d / 2], mat, 0.012));
+    body.push(...screen('body', `${k}_scr`, -w / 2 + 0.06, -w / 2 + 0.26, h - 0.115, h - 0.03, d / 2, { buttons: o.ult ? 4 : 0, led: 'emit_green' }));
+    if (o.ult) body.push(...grille('body', `${k}_hv`, w / 2 - 0.3, w / 2 - 0.06, h - 0.11, h - 0.035, d / 2, 4));
+  }
+  const dh = top - pl - 0.006; // výška dvířek
+  const dw = w - 0.008;
+  const leaf = door('door', `${k}_door`, 0, dw, 0, dh, 0, t, { mat, gasket: true, window: o.glass ? [0.07, 0.08] : null, glass: 'glass_tinted' });
+  const parts = [
+    ...leaf,
+    barHandle('door', `${k}_door`, dw - 0.06, dh * 0.35, dh * 0.75, t, { rad: 0.011, off: 0.045 }),
+    ...lock('door', `${k}_door`, dw - 0.06, dh * 0.3, t),
+  ];
+  if (o.ult) parts.push(A('door', `${k}_latch`, flatBox([dw - 0.1, dh * 0.45, t], [dw - 0.02, dh * 0.62, t + 0.03]), 'plastic_light'));
+  // za sklem je vidět obsah: lahve a krabice na roštech
+  if (o.glass) for (let i = 1; i <= 2; i++) body.push(A('body', `${k}_stock_${i}`, merge([0, 1, 2, 3].map((j) => (j % 2 ? T(cylinder(0.035, 0, 0.17 - (i % 2) * 0.04, { seg: 7 }), -w / 2 + 0.13 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / (shelves + 1) + 0.004, -0.04) : flatBox([-w / 2 + 0.09 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / (shelves + 1) + 0.004, -0.12], [-w / 2 + 0.17 + j * ((w - 0.26) / 3), pl + wall + (i * inner) / 5 + 0.1, 0.0])))), i % 2 ? 'plastic_hdpe' : 'paper_kraft'));
+  body.push(hinges('body', `${k}_hng`, -w / 2 + 0.004, [pl + 0.12, top - 0.12], d / 2 - t / 2));
   return moving(id, title, CAT, body, {
-    node: 'door', at: [-w / 2 + 0.005, 0.07, d / 2 - 0.07], joint: 'swing', type: 'hinge', axis: [0, -1, 0], max: o.max || 110, kind: 'door', prompt: o.prompt,
-    parts: door,
+    node: 'door', at: [-w / 2 + 0.004, pl + 0.003, zf + 0.004], joint: 'swing', type: 'hinge', axis: [0, -1, 0], max: o.max || 110, kind: 'door', prompt: o.prompt,
+    parts,
     note: o.note,
-  }, { gen: gen(o.fn), place: FLOOR, group: 'world' });
+  }, { gen: gen(o.fn), place: FLOOR, group: 'world', colliders: [cbox('body', [-w / 2, 0, -d / 2], [w / 2, h, zf])] });
 }
 
 /** Mrazáky −80 °C ve třech šířkách (500, 600 a 700 krabic), laboratorní lednice (plná a prosklená), mrazák −20 °C, podstolová lednice. */
 export function uprights() {
   const ult = [[0.864, '500'], [1.006, '600'], [1.148, '700']].map(([w, n], v) =>
-    upright(`freezer_ult_${String(v + 1).padStart(2, '0')}`, `Mrazák −80 °C na ${n} krabic`, w, 0.955, 1.981, { panel: true, inner: true, fn: 'uprights', prompt: 'Otevřít mrazák', max: 120, note: 'Vnější dveře mrazáku −80 °C se otvírají o 90 až 180°, uvnitř jsou ještě vnitřní dvířka; 120°. Úvaha podle katalogu výrobce, neměřeno.' }),
+    upright(`freezer_ult_${String(v + 1).padStart(2, '0')}`, `Mrazák −80 °C na ${n} krabic`, w, 0.955, 1.981, { panel: true, ult: true, fn: 'uprights', prompt: 'Otevřít mrazák', max: 120, note: 'Vnější dveře mrazáku −80 °C se otvírají o 90 až 180°, uvnitř jsou ještě vnitřní dvířka; 120°. Úvaha podle katalogu výrobce, neměřeno.' }),
   );
   const note = 'Dveře laboratorní lednice nebo mrazáku na pantu se otvírají asi o 110 až 130°; 115°. Úvaha, neměřeno.';
   return [

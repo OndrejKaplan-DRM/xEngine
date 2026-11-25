@@ -4,31 +4,38 @@
   "id": "fridge_undercounter_01",
   "title": "Podstolová lednice",
   "category": "lab.cold",
-  "bounds": { "min": [-0.635, -0.001, -0.301], "max": [0.301, 0.821, 0.826] },
+  "bounds": { "min": [-0.651, -0.001, -0.301], "max": [0.301, 0.821, 0.839] },
   "rig": {
     "nodes": [
       { "id": "body" },
-      { "id": "door", "parent": "body", "pos": [-0.295, 0.07, 0.23] }
+      { "id": "door", "parent": "body", "pos": [-0.296, 0.093, 0.24] }
     ],
     "joints": [
       { "id": "swing", "node": "door", "type": "hinge", "axis": [0, -1, 0], "min": 0, "max": 115, "rest": 0, "damping": 4, "drive": "manual" }
     ]
   },
   "parts": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0.072, -0.288], "max": [0.3, 0.808, 0.218], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.288, 0.06, -0.288], "max": [0.288, 0.82, 0.218], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.288, 0.072, -0.3], "max": [0.288, 0.808, 0.23], "mat": "plastic_white" },
-    { "node": "body", "shape": "box", "min": [-0.28, 0, -0.25], "max": [0.28, 0.06, 0.18], "mat": "plastic_anthracite" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.164, -0.24], "max": [0.25, 0.184, 0.2], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.268, -0.24], "max": [0.25, 0.288, 0.2], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.372, -0.24], "max": [0.25, 0.392, 0.2], "mat": "steel_brushed" },
-    { "node": "body", "shape": "box", "min": [-0.25, 0.476, -0.24], "max": [0.25, 0.496, 0.2], "mat": "steel_brushed" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.59, 0.72, 0.07], "mat": "plastic_white" },
-    { "node": "door", "shape": "box", "min": [0.52, 0.324, 0.07], "max": [0.55, 0.504, 0.1], "mat": "steel_brushed" }
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_l_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_r_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_t_shell", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_bb", "mat": "plastic_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_liner", "mat": "liner_white" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_plinth", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_kick_vent", "mat": "plastic_black" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_kick_slats", "mat": "plastic_anthracite" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_wire_298", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_wire_455", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_wire_612", "mat": "steel_chrome" },
+    { "node": "body", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_hng_hinges", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_door_leaf", "mat": "plastic_white" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_door_gasket", "mat": "rubber_black" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_door_handle", "mat": "steel_brushed" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_door_lock", "mat": "steel_chrome" },
+    { "node": "door", "shape": "mesh", "mesh": "meshes/appl.glb#fridge_undercounter_01_door_keyhole", "mat": "plastic_black" }
   ],
   "colliders": [
-    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.82, 0.23], "group": "world" },
-    { "node": "door", "shape": "box", "min": [0, 0, 0], "max": [0.59, 0.72, 0.1], "group": "world" }
+    { "node": "body", "shape": "box", "min": [-0.3, 0, -0.3], "max": [0.3, 0.82, 0.236], "group": "world" },
+    { "node": "door", "shape": "box", "min": [0, 0, -0.006], "max": [0.592, 0.724, 0.115], "group": "world" }
   ],
   "components": {
     "physics": { "body": "kinematic" },
@@ -37,7 +44,7 @@
   },
   "inputs": ["open", "close", "toggle", "lock", "unlock"],
   "outputs": ["opened", "closed", "locked", "unlocked"],
-  "tris": 120,
+  "tris": 1196,
   "source": {
     "tool": "xforge",
     "generator": "tools/forge/lab/cold.mjs#uprights",

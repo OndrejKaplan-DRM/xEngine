@@ -2,7 +2,7 @@
 
 Generováno příkazem `node tools/forge/make-pack.mjs kit_lab`. Neupravovat ručně; zdroj je `tools/forge/lab/*.mjs`.
 
-Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
+Prefabů: 293 · materiálů: 54 · trojúhelníků celkem: 189248
 
 | Prefab | Název | Kategorie | Obal š × v × h (m) | △ | Klouby | Interakce |
 |---|---|---|---|---|---|---|
@@ -251,13 +251,13 @@ Prefabů: 293 · materiálů: 49 · trojúhelníků celkem: 181016
 | `washer_labware_01` | Myčka laboratorního skla pod pult | lab.large | 0,6 × 0,85 × 1,21 | 192 | drop: 0° až 90° | door |
 | `ice_maker_01` | Výrobník šupinového ledu | lab.large | 0,5 × 0,9 × 0,63 | 60 | — | — |
 | `water_ultrapure_01` | Úprava ultračisté vody na zeď s výdejním ramenem | lab.large | 0,36 × 0,5 × 0,43 | 188 | — | — |
-| `freezer_ult_01` | Mrazák −80 °C na 500 krabic | lab.cold | 1,37 × 1,98 × 1,74 | 234 | swing: 0° až 120° | door |
-| `freezer_ult_02` | Mrazák −80 °C na 600 krabic | lab.cold | 1,59 × 1,98 × 1,88 | 234 | swing: 0° až 120° | door |
-| `freezer_ult_03` | Mrazák −80 °C na 700 krabic | lab.cold | 1,8 × 1,98 × 2,03 | 234 | swing: 0° až 120° | door |
-| `fridge_lab_tall_01` | Laboratorní lednice | lab.cold | 0,94 × 1,85 × 1,18 | 120 | swing: 0° až 115° | door |
-| `fridge_lab_glass_01` | Laboratorní lednice s prosklenými dveřmi | lab.cold | 0,94 × 1,85 × 1,18 | 132 | swing: 0° až 115° | door |
-| `freezer_lab_20_01` | Laboratorní mrazák −20 °C | lab.cold | 0,94 × 1,85 × 1,18 | 234 | swing: 0° až 115° | door |
-| `fridge_undercounter_01` | Podstolová lednice | lab.cold | 0,94 × 0,82 × 1,13 | 120 | swing: 0° až 115° | door |
+| `freezer_ult_01` | Mrazák −80 °C na 500 krabic | lab.cold | 1,39 × 1,98 × 1,75 | 1400 | swing: 0° až 120° | door |
+| `freezer_ult_02` | Mrazák −80 °C na 600 krabic | lab.cold | 1,6 × 1,98 × 1,89 | 1400 | swing: 0° až 120° | door |
+| `freezer_ult_03` | Mrazák −80 °C na 700 krabic | lab.cold | 1,82 × 1,98 × 2,04 | 1400 | swing: 0° až 120° | door |
+| `fridge_lab_tall_01` | Laboratorní lednice | lab.cold | 0,95 × 1,85 × 1,19 | 1196 | swing: 0° až 115° | door |
+| `fridge_lab_glass_01` | Laboratorní lednice s prosklenými dveřmi | lab.cold | 0,95 × 1,85 × 1,19 | 1500 | swing: 0° až 115° | door |
+| `freezer_lab_20_01` | Laboratorní mrazák −20 °C | lab.cold | 0,95 × 1,85 × 1,19 | 1448 | swing: 0° až 115° | door |
+| `fridge_undercounter_01` | Podstolová lednice | lab.cold | 0,95 × 0,82 × 1,14 | 1196 | swing: 0° až 115° | door |
 | `freezer_chest_ult_01` | Truhlicový mrazák −80 °C | lab.cold | 1,6 × 1,8 × 0,94 | 198 | lid: 0° až 80° | door |
 | `tank_ln2_storage_01` | Zásobník kapalného dusíku na pojízdném podstavci | lab.cold | 0,8 × 1,13 × 0,8 | 1144 | — | — |
 | `coldroom_walkin_01` | Chladicí komora +4 °C s pásovou clonou | lab.cold | 2 × 2,3 × 2,91 | 492 | swing: 0° až 100° | door |

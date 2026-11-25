@@ -30,6 +30,11 @@ export const LAB_MATERIALS = {
   plastic_white: lit([0.77, 0.78, 0.77], 'plastic', { rough: 0.5 }), // plášť přístrojů
   plastic_light: lit([0.55, 0.57, 0.58], 'plastic', { rough: 0.5 }), // světle šedé díly přístrojů
   plastic_anthracite: lit([0.06, 0.065, 0.07], 'plastic', { rough: 0.45 }), // tmavé panely
+  plastic_black: lit([0.025, 0.026, 0.028], 'plastic', { rough: 0.5 }), // černé díly (nožky, mřížky, tlačítka)
+  steel_chrome: lit([0.62, 0.63, 0.64], 'metal', { rough: 0.15, metal: 1 }), // chromované madlo, drátěný rošt
+  aluminium: lit([0.5, 0.51, 0.52], 'metal', { rough: 0.35, metal: 1 }), // eloxovaný hliník (profily, lišty)
+  steel_white: lit([0.72, 0.73, 0.72], 'metal', { rough: 0.45, metal: 0.2 }), // bíle lakovaný plech (skříně, nábytek)
+  liner_white: lit([0.8, 0.81, 0.8], 'plastic', { rough: 0.35 }), // vnitřek lednic a mrazáků
   plastic_navy: lit([0.03, 0.07, 0.18], 'plastic', { rough: 0.45 }),
   plastic_teal: lit([0.03, 0.3, 0.33], 'plastic', { rough: 0.45 }),
   plastic_lime: lit([0.35, 0.6, 0.08], 'plastic', { rough: 0.45 }),
