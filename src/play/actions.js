@@ -6,11 +6,11 @@ export const ACTIONS = [
   { id: 'back', label: 'Vzad', keys: ['KeyS', 'ArrowDown'] },
   { id: 'left', label: 'Vlevo', keys: ['KeyA', 'ArrowLeft'] },
   { id: 'right', label: 'Vpravo', keys: ['KeyD', 'ArrowRight'] },
-  { id: 'jump', label: 'Skok', keys: ['Space', 'Mouse2'] },
+  { id: 'jump', label: 'Skok', keys: ['Space'] }, // pravé tlačítko patří druhé střelbě (Ondřej 27. 11., volba 1 b)
   { id: 'use', label: 'Použít', keys: ['KeyE', 'Enter'] },
   // levé tlačítko: uchopí ovladač pod zaměřovačem (páka, ventil, zásuvka), jinak střílí ze zbraně v ruce (A3.1)
   { id: 'grab', label: 'Střelba, uchopit a hýbat', keys: ['Mouse0'] },
-  { id: 'alt', label: 'Druhá střelba (nabíjení)', keys: ['KeyF', 'Mouse1'] },
+  { id: 'alt', label: 'Druhá střelba (nabíjení)', keys: ['Mouse2', 'KeyF'] },
   { id: 'zoom', label: 'Přiblížení', keys: ['KeyZ'] },
   ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n) => ({ id: `slot${n}`, label: `Zbraň ${n}`, keys: [`Digit${n}`] })),
 ];

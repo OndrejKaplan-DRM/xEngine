@@ -56,7 +56,7 @@ async function boot() {
     return `${w.title}${game.weapons.zoomed ? ' · přiblíženo' : ''}\n${k >= 0 ? `nabíjení ${Math.round(k * 100)} %   ` : ''}${unit ? `${unit}: ` : ''}${n}`;
   }
   E.on('weapon:switched', (e) => {
-    if (e.weapon) hud.notify(`${game.weapons.current.title}: střelba ${keyLabel('grab')}, nabíjení ${keyLabel('alt')} (podržet), přiblížení ${keyLabel('zoom')}`, 6);
+    if (e.weapon) hud.notify(`${game.weapons.current.title}: střelba ${keyLabel('grab')}, nabíjení ${keyLabel('alt')} (podržet), přiblížení ${keyLabel('zoom')} (zapnout a vypnout)`, 6);
   });
 
   let lostAt = -Infinity;
@@ -189,7 +189,6 @@ async function boot() {
       } else game.interact.pointer(...toView(e), e.button === 0); // bez zámku: kurzor systému
       return;
     }
-    if (e.button === 1) e.preventDefault(); // prostřední tlačítko = druhá střelba, ne posouvání stránky
     input.key(`Mouse${e.button}`, true);
   });
   addEventListener('mouseup', (e) => input.key(`Mouse${e.button}`, false));

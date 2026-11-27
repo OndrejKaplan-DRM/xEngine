@@ -6,6 +6,7 @@ import { h, makeGame, loadPack, fmt } from './a_lib/node.mjs';
 import { pushDelta, rampValue } from '../src/xspace/index.js';
 import { cameraVfov } from '../src/render/fov.js';
 import { settingsDefs } from '../src/app/settings.js';
+import { ACTIONS } from '../src/play/actions.js';
 
 const { ok } = h;
 const RAD = Math.PI / 180;
@@ -269,31 +270,37 @@ game.sim(0.2);
   ok(grabbed && get('weapons.stat').fired === shots0, 'se zbraní v ruce levé tlačítko nad ventilem ventil uchopí a nestřílí', `uchopeno ${grabbed}, výstřelů ${get('weapons.stat').fired - shots0}`);
 }
 
-// ---- přiblížení: držet i přepínat; nastavení apply / probe
+// ---- přiblížení: výchozí přepínat (Ondřej 27. 11.), nastavení „držet“; apply / probe
 {
   step(); // po výběru zbraně
   const zoomV = cameraVfov(W.zoom.fov, game.render.aspect);
   const baseV = game.render.baseVfov;
+  const def = settingsDefs({ game, dev: false }).find((s) => s.id === 'zoomMode');
+  const press = () => {
+    input.hold('zoom', true);
+    step();
+    input.hold('zoom', false);
+    step(3);
+    return game.render.fov;
+  };
+  const on = press();
+  const off = press();
+  ok(def.def === 'toggle' && weapons.zoomMode === 'toggle' && Math.abs(on - zoomV) < 1e-9 && Math.abs(off - baseV) < 1e-9, `výchozí přepínat: stisk Z přiblíží na ${W.zoom.fov}° vodorovně při 4 : 3 (jako nastavení zorného pole), další stisk vrátí`, `${fmt(on, 2)}° → ${fmt(off, 2)}° svisle`);
+  def.apply('hold');
+  const probed = def.probe();
   input.hold('zoom', true);
   step();
   const zIn = game.render.fov;
   input.hold('zoom', false);
   step();
-  ok(Math.abs(zIn - zoomV) < 1e-9 && Math.abs(game.render.fov - baseV) < 1e-9, `přiblížení Z: vodorovně ${W.zoom.fov}° při 4 : 3 (jako nastavení zorného pole), po puštění zpět`, `${fmt(zIn, 2)}° → ${fmt(game.render.fov, 2)}° svisle`);
-  const def = settingsDefs({ game, dev: false }).find((s) => s.id === 'zoomMode');
-  def.apply('toggle');
-  const probed = def.probe();
-  input.hold('zoom', true);
-  step();
-  input.hold('zoom', false);
-  step(3);
-  const on = game.render.fov;
-  input.hold('zoom', true);
-  step();
-  input.hold('zoom', false);
-  step();
-  ok(probed === 'toggle' && Math.abs(on - zoomV) < 1e-9 && Math.abs(game.render.fov - baseV) < 1e-9, 'nastavení „přepínat“: stisk zapne, další vypne (apply / probe)', `probe ${probed}`);
+  ok(probed === 'hold' && Math.abs(zIn - zoomV) < 1e-9 && Math.abs(game.render.fov - baseV) < 1e-9, 'nastavení „držet“: přiblíženo jen při držení (apply / probe)', `probe ${probed}`);
   def.apply(def.def);
+}
+
+// ---- druhá střelba na pravém tlačítku, skok jen mezerníkem (Ondřej 27. 11.)
+{
+  const keys = new Map(ACTIONS.map((a) => [a.id, a.keys]));
+  ok(keys.get('alt')[0] === 'Mouse2' && !keys.get('jump').includes('Mouse2'), 'pravé tlačítko = druhá střelba; skok jen mezerníkem', `alt ${keys.get('alt').join(', ')}; skok ${keys.get('jump').join(', ')}`);
 }
 
 // ---- uložení se střelou v letu

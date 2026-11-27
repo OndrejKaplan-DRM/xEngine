@@ -2,9 +2,9 @@
 // tlačítko střílí, druhé nabíjí), přiblížení, zbraň v ruce a záblesk. Hodnoty jsou data balíku (weapons/*.json),
 // vzorce podle nabití jen rampValue ze src/xspace/weapon.js. Náhoda rozptylu jen přes rngNext.
 //
-// Ovládání (moje volba, zapsaná v A_STAV): levé tlačítko střílí, když hráč zrovna nedrží ovladač (páka, ventil,
-// zásuvka pod zaměřovačem se dál chytá levým); druhá střelba F nebo prostřední tlačítko; přiblížení Z (držet,
-// nebo přepínat podle nastavení); zbraně klávesami 1–0 (číslo = slot v datech).
+// Ovládání: levé tlačítko střílí, když hráč zrovna nedrží ovladač (páka, ventil, zásuvka pod zaměřovačem se dál
+// chytá levým); druhá střelba pravé tlačítko (nebo F); přiblížení Z, výchozí přepínat (Ondřej 27. 11.: 1 b, 2 b);
+// zbraně klávesami 1–0 (číslo = slot v datech).
 
 import { rngNext } from '../kernel/index.js';
 import { rampValue, entityMatrix, mat4Point, rigMatrices } from '../xspace/index.js';
@@ -17,9 +17,9 @@ import { createProjectiles } from './projectiles.js';
 const RAD = Math.PI / 180;
 const AIM_MAX = 1000; // m: dosah paprsku, kterým se hledá bod pod zaměřovačem
 const RNG_SEED = 0x5eed2b1;
-// záblesk (obraz; odhad, ladit podle oka na T460): svítivost cd, dosah m, doba s. Lampa xLabu má 60 cd ve 3 m
-// (6,7 lx); 8 cd z ústí 0,7 m před zdí dá zdi asi 16 lx na 0,05 s
-const FLASH = { primary: [8, 5, 0.05], alt: [40, 8, 0.09], blast: [300, 10, 0.12] };
+// záblesk (obraz; ladí se podle oka na T460): svítivost cd, dosah m, doba s. Lampa xLabu má 60 cd ve 3 m
+// (6,7 lx). Ondřej 27. 11. (volba 3 c): silnější než 8 cd → 20 cd (ústí 0,7 m před zdí dá zdi asi 40 lx na 0,06 s)
+const FLASH = { primary: [20, 6, 0.06], alt: [100, 10, 0.1], blast: [600, 12, 0.14] };
 const FLASH_COLOR = [0.45, 0.7, 1];
 const BLAST_TIME = 0.28; // s: koule výbuchu doroste a zmizí
 const KICK_M = 0.06; // m: zákluz 1 = posun zbraně o 6 cm k oku
@@ -295,7 +295,7 @@ export function createWeapons({ pack, phys, player, input, interact, combat, ren
     stat,
     projectiles,
     /** Přiblížení: 'hold' = jen při držení klávesy, 'toggle' = stisk zapne, další vypne. */
-    zoomMode: 'hold',
+    zoomMode: 'toggle',
     /** Schovat zbraň v ruce (snímky testů, budoucí cutscény). */
     hidden: false,
     init(engine) {

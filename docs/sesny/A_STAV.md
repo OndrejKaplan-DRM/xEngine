@@ -36,9 +36,9 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Moje volby (zapsané podle zadání):**
 - Levé tlačítko střílí; ovladač pod zaměřovačem v dosahu (páka, ventil, zásuvka, křídlo dveří) se levým dál chytá a v tu chvíli se nestřílí. Se zbraní v ruce zamčený ovladač levé tlačítko neodmítá (střílí se).
-- Druhá střelba **F** nebo prostřední tlačítko (pravé tlačítko je od vlny 1 skok). Přiblížení **Z**, výchozí „držet“. Zbraně **1–0** podle `slot`, opakovaný stisk přepíná uvnitř slotu podle `order`.
+- ~~Druhá střelba F nebo prostřední tlačítko; přiblížení výchozí „držet“~~ → Ondřej 27. 11.: druhá střelba **pravé tlačítko** (a F), skok jen mezerníkem; přiblížení **Z** výchozí „přepínat“. Zbraně **1–0** podle `slot`, opakovaný stisk přepíná uvnitř slotu podle `order`.
 - Hlavní střela s plošným poškozením nepřidá plošné poškození entitě, kterou zasáhla přímo (jako Quake); odhození ano. Jinak by terč dostal dva `hit` z jedné rány a lampa by se přepnula dvakrát.
-- Záblesk: 8 cd na 0,05 s (hlavní), 40 cd (nabitá koule), výbuch od poloměru 2 m 300 cd. Odhad, ladit podle oka na T460.
+- Záblesk (Ondřej 27. 11.: silnější): 20 cd na 0,06 s (hlavní), 100 cd (nabitá koule), výbuch od poloměru 2 m 600 cd. Ladí se podle oka na T460.
 - Zbraň v ruce se nasvítí jako pohyblivý díl v místě oka (natočená jako zbraň), ne v místě zbraně: zbraň u zdi by jinak ležela ve zdi a ztmavla.
 - Výbuch kryjí jen kvádry levelu (`SOLID`); zavřené dveře a bedny ne.
 
@@ -72,7 +72,9 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 - [ ] N-112 (textura světla 5 cm ve formátu): čeká na svodnou (atlas, formát) a sešnu B (xBake); běh potom
 - [ ] výchozí rozlišení 1080 řádků, pokud se vejde do 10 ms (Ondřejova volba 4 b); rozhodne `?bench` bez vyhlazování
 
-**Čeká na Ondřeje:** nic otevřeného.
+**Ondřej 27. 11. 10:54 (otázky ke kroku 7):** (1) **b** druhá střelba na pravém tlačítku (a dál F), skok jen mezerníkem; (2) **b** přiblížení Z výchozí přepínat (nastavení „držet“ zůstává); (3) **c** záblesk silnější: 20 cd hlavní, 100 cd nabitá koule, 600 cd výbuch (dřív 8 / 40 / 300), doba 0,06 / 0,1 / 0,14 s; (4) `?bench` na T460 se zbraní pošle později. Provedeno (`a_31_weapons` 29). Dále: **FireLab** (repo `FireClaudeOpus5.5`, fyzika a oheň) a **Starý pivovar** (repo `PivovarPrivateClaude`, prostředí a prefaby, které mám používat) jsou další vývoj nad xEngine; podklady pošle Ondřej a jsou v jejich repech.
+
+**Čeká na Ondřeje:** `?bench` na T460 se zbraní; podklady k FireLab a Starému pivovaru.
 
 **Rozhodnutí o návrzích sešny B (25. 11.):**
 - **N-011 přijato.** Sešna B má pravdu a moje vysvětlení bylo špatné: 30 snímků/s v `?bench` od kroku 5 nezpůsobovala Úspora energie v Chrome, ale samo měření. Dávka opakovaných vykreslení pro `draw.ms` (12 až 40 ms) se přičítá ke každému snímku: 16 až 21 ms práce + ≥ 12 ms dávky ≈ 33 ms. Kývání pohledu je zpoždění robota o jeden krok (vstup čte otočení z minulého kroku; zesílení 1 → kmit 20 Hz). Oprava: robot počítá s otočením, které ještě nebylo použité; `draw.ms` jen v každém 10. snímku a rozestup snímků jen ze snímků bez dávky; zorné pole do `env` a do věty výsledku; měřit až po dostavění světla. Z dosavadních běhů platí `draw.ms`, `step`, `calls`, `tris`; rozestup snímků a „30 snímků/s“ ne.
@@ -431,7 +433,7 @@ Vlna 2:
 
 ## 11. Otázky pro Ondřeje
 
-**25. 11. v noci, ke kroku 7 (A3.1):** (1) druhá střelba na F a prostřední tlačítko, nebo (b) na pravé tlačítko a skok jen mezerníkem; (2) přiblížení (a) držet Z, nebo (b) přepínat; (3) záblesk ústí (a) tak akorát, (b) slabší, (c) silnější; (4) `?bench` na T460 se střelbou: pošli JSON.
+**25. 11. v noci, ke kroku 7 (A3.1):** zodpovězeno 27. 11. (1 b, 2 b, 3 c, `?bench` později; oddíl 1).
 
 Zodpovězeno 24. 11. 02:26: nejdřív A2.5 a A2.6, textura světla potom; dveře od hráče ano, ať to jde do dat. Zodpovězeno 24. 11. 19:49: zorné pole (a) použitelné, terminál (a) funguje, černé boky (a) počkat na odražené světlo ze zapečeného souboru. 21:13: výchozí rozlišení (a) zůstává 768 řádků. Otevřené jsou v oddílu 1 („Čeká na Ondřeje“).
 

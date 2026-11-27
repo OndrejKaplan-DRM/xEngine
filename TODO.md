@@ -65,7 +65,8 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - [x] kostra v kroku (N-102, `a_14_rig` 4); svázané klouby (N-002) se v běhu hýbou: **sešna B může poslat `door_double_01`**
 - [x] sklo N-013 (`a_32_glass` 4): **sešna B může vyřadit namalované pruhy odlesku**
 - [ ] textura světla XLM1: čeká na zapečený `complex_7` od sešny B
-- [ ] Ondřej: `?bench` se zbraní na T460 a otázky ke kroku 7 (A_STAV oddíl 11)
+- [x] Ondřej 27. 11.: druhá střelba pravým tlačítkem, skok jen mezerníkem, přiblížení přepínat, záblesk silnější (provedeno)
+- [ ] Ondřej: `?bench` se zbraní na T460 (později); podklady k FireLab (`FireClaudeOpus5.5`) a Starému pivovaru (`PivovarPrivateClaude`)
 - N-011 a N-013 (návrhy sešny B) přijaté, rozhodnutí v `A_STAV.md`, oddíl 1
 
 **Čeká na jiné:** sešna B: zapečený `complex_7` se souborem XLM1 (pro bod 6).

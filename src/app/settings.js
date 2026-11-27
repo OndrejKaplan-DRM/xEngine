@@ -72,7 +72,7 @@ export function settingsDefs({ game, dev }) {
       page: 'ovladani',
       label: 'Přiblížení zbraně (klávesa Z)',
       type: 'select',
-      def: 'hold',
+      def: 'toggle', // Ondřej 27. 11., volba 2 b
       options: [
         { value: 'hold', label: 'Držet' },
         { value: 'toggle', label: 'Přepínat' },
