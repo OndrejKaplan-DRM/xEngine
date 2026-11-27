@@ -75,6 +75,8 @@ Podrobně: `docs/sesny/A_STAV.md` na větvi `sesna-a` (oddíl 1 „Kde jsme“, 
 - [x] A3.1 plazmová puška (`a_31_weapons` 28, `a_31_view` 7) a `?bench` podle N-011 se střelbou (`a_18_bench` 13); `xlab.html` krok 7 u Ondřeje; formátové nesoulady pro svodnou v A_STAV oddíl 1a (bedna `damaged`/`broken` místo `hit`/`destroyed`, pevná entita s `health` nejde schovat)
 - [x] kostra v kroku (N-102, `a_14_rig` 4); svázané klouby (N-002) se v běhu hýbou: **sešna B může poslat `door_double_01`**
 - [x] sklo N-013 (`a_32_glass` 4): **sešna B může vyřadit namalované pruhy odlesku**
+- [x] znění 11 sloučeno (27. 11.); N-012 beze změny kódu; **N-014: viditelnost omezená PVS a zkouška horní/dolní meze** (`a_17_pvs` 7, `?bench`); sešna B: spára v `complex_7` u `c_tech_03` (A_STAV oddíl 1); svodná: T5 může zapnout `game.checkPvs`
+- [ ] FireLab `fx.fire` jako submodul podle `FireClaudeOpus5.5/integrations/xengine/SESNA_A.md` (čeká na Ondřejovo potvrzení)
 - [ ] textura světla XLM1: čeká na zapečený `complex_7` od sešny B
 - [x] Ondřej 27. 11.: druhá střelba pravým tlačítkem, skok jen mezerníkem, přiblížení přepínat, záblesk silnější (provedeno)
 - [ ] Ondřej: `?bench` se zbraní na T460 (později); podklady k FireLab (`FireClaudeOpus5.5`) a Starému pivovaru (`PivovarPrivateClaude`)

@@ -1,12 +1,17 @@
 # Stav sešny A (běh)
 
-**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1766f03` (znění 10 a D-056, D-057; sloučení `b852756`, 25. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
+**Vlna:** 2 · **Větev:** `sesna-a` · **Základ:** sloučeno `zaklad-2` = `1f2e623` (znění 11; sloučení `a6d06af`, 27. 11.) · **Stav:** 25. 11. 2026, 18:30 · **Model:** od 24. 11. odpoledne Opus 5.5 (předtím Fable 5.2; přerušení limitem, práce v repu se neztratila)
 
-Poslední regrese (sandbox, 26. 11. v noci, po N-013): `npm test` **377**, `npm run test:a` **501 ve 34 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: „vlna 2, krok 7 (A3.1 zbraně)“. 
+Poslední regrese (sandbox, 27. 11., po znění 11 a N-014): `npm test` **408**, `npm run test:a` **510 ve 35 sadách**, `npm run test:axb` **37**, vše 0 selhalo. Sestavení pro Ondřeje: „vlna 2, krok 7 (A3.1 zbraně)“. 
 
 Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ píšu já). Tenhle soubor má nahoře totéž podrobněji, pod tím deník rozhodnutí, stavbu, měření a historii.
 
 ## 1. Kde jsme (čti první)
+
+**Znění 11 (dodatek START_A z 25. 11. večer), 27. 11.:**
+- [x] sloučeno `origin/zaklad-2` = `1f2e623` bez konfliktu (`a6d06af`); `npm test`, `test:a`, `test:axb` zelené
+- [x] **N-012 (D-058) díly `lathe` a `rbox`:** beze změny kódu. Síť dá `partMesh` (volá ji `assets.js`), pevné díly a pořadí vzorků bere `baked.js` ze `staticPartIndices` už od D-041.
+- [x] **N-014 (D-057) prokazatelná viditelnost:** `src/world/pvscheck.js` (zkouška) a omezení ve `visibility.js`. Horní mez: kreslené buňky ⊆ `levelPVS(level).get(buňka kamery)`; oko do 0,3 m od otvoru portálu (dveře) smí i PVS buňky za ním (počítá se zvlášť). Dolní mez: mřížka 64 × 36 paprsků z oka (`SIGHT_RAY`) a zasažená **plocha** kvádru musí jít do dávky aspoň jedné kreslené buňky (`world.brushFaces`: plocha se kreslí v buňkách, které ji vidí). Paprsek štěrbinou kolize zavřených dveří se nepočítá (kolize křídla je užší než křídlo, otvor kryje clona); paprsek, který dopadl mimo vzduch všech buněk, je **spára v datech** (`holes`), ne chyba viditelnosti. **Viditelnost teď prochází jen buňky z PVS** (obdélníky portálů jsou hrubší než přímka skrz otvory; `vis.usePvs`), `levelPVS` se počítá při načtení (sandbox `complex_7` 33 ms). Test `a_17_pvs.mjs` (7): xLab se zavřenými a otevřenými dveřmi, `complex_7`; pohledy ze středů buněk (8 směrů, 3 sklony) a 1 m před každým portálem i v jeho rovině. Bez omezení PVS kreslil `complex_7` v 10 pohledech z 1 668 až o 2 buňky navíc; průměr kreslených buněk se tím skoro nemění (2,64). `?bench` zkoušku dělá v každém 10. snímku mimo měřený čas (`pvs` ve výsledku, `a_18_bench`). **Pro sešnu B:** `complex_7` má spáru mezi stropem `c_tech_03` (y 3,0), zdí ke `c_corr_03` a podlahou `b_floor_0083` (y 3,2) u [22,67; 3,19; 5,19]: paprsek z `c_tech_03` jí prošel do prázdna. **Pro svodnou:** robot T5 může zkoušku zapnout `game.checkPvs = true` a číst `game.pvsCheck.stat` (`upperFails`, `lowerFails`, `holes`).
 
 **Fronta podle Ondřeje (25. 11. 17:25):**
 - [x] 1. sloučit `origin/zaklad-2` (znění 10): bez konfliktu, testy zelené (`b852756`)
@@ -74,7 +79,11 @@ Přehled napříč sešnami je v kořenovém `TODO.md` (oddíl „Sešna A“ p�
 
 **Ondřej 27. 11. 10:54 (otázky ke kroku 7):** (1) **b** druhá střelba na pravém tlačítku (a dál F), skok jen mezerníkem; (2) **b** přiblížení Z výchozí přepínat (nastavení „držet“ zůstává); (3) **c** záblesk silnější: 20 cd hlavní, 100 cd nabitá koule, 600 cd výbuch (dřív 8 / 40 / 300), doba 0,06 / 0,1 / 0,14 s; (4) `?bench` na T460 se zbraní pošle později. Provedeno (`a_31_weapons` 29). Dále: **FireLab** (repo `FireClaudeOpus5.5`, fyzika a oheň) a **Starý pivovar** (repo `PivovarPrivateClaude`, prostředí a prefaby, které mám používat) jsou další vývoj nad xEngine; podklady pošle Ondřej a jsou v jejich repech.
 
-**Čeká na Ondřeje:** `?bench` na T460 se zbraní; podklady k FireLab a Starému pivovaru.
+**FireLab a Starý pivovar (přečteno 27. 11.):**
+- **FireLab** (`FireClaudeOpus5.5`, `19e2cfc`): `integrations/xengine/SESNA_A.md` je zadání pro sešnu A. Systém jádra `fx.fire` (fáze `late`), světlo ohně přes můj `light` (po vrcholech, na low 1 světlo ohně), poslouchá `combat:exploded` (plazma nic), `heatFlux` pro poškození, uložení hry. Krok: mělký **git submodul** v `src/app/firelab` (návrh přesunu do `vendor/` pro svodnou), zapojení v `game.js`, testy Node a prohlížeč, `?bench&fire=campfire|barrel`. Podle souboru to Ondřej rozhodl 27. 11.; čekám na jeho potvrzení zprávou.
+- **Starý pivovar** (`PivovarPrivateClaude`, `ec45306`): spin-off z `main` `1f2e623`, tedy **bez** mé práce od 25. 11. (N-010, A3.1, N-102, N-013, N-014). Má vlastní zbraně z Arény (`src/pivovar/arms.js`, druhý průchod v `render.js`), stupeň `mid` (shader povrchu, sondy odrazů, MSAA), svítilnu, dřep, běh, sloty 1–7 a FireLab (`src/pivovar/fire/firelab.js`). Do xEngine se změny vracejí návrhem (P-001). Rozchází se s A3.1 (sloty, klávesy, zbraně jako kód, ne data) a s `materials.js` (záblesk, sklo); až se bude slučovat, je třeba rozhodnout, čí cesta platí.
+
+**Čeká na Ondřeje:** `?bench` na T460 se zbraní; potvrzení FireLab v sešně A (submodul) a pořadí proti textuře světla.
 
 **Rozhodnutí o návrzích sešny B (25. 11.):**
 - **N-011 přijato.** Sešna B má pravdu a moje vysvětlení bylo špatné: 30 snímků/s v `?bench` od kroku 5 nezpůsobovala Úspora energie v Chrome, ale samo měření. Dávka opakovaných vykreslení pro `draw.ms` (12 až 40 ms) se přičítá ke každému snímku: 16 až 21 ms práce + ≥ 12 ms dávky ≈ 33 ms. Kývání pohledu je zpoždění robota o jeden krok (vstup čte otočení z minulého kroku; zesílení 1 → kmit 20 Hz). Oprava: robot počítá s otočením, které ještě nebylo použité; `draw.ms` jen v každém 10. snímku a rozestup snímků jen ze snímků bez dávky; zorné pole do `env` a do věty výsledku; měřit až po dostavění světla. Z dosavadních běhů platí `draw.ms`, `step`, `calls`, `tris`; rozestup snímků a „30 snímků/s“ ne.
