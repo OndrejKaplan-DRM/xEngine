@@ -17,6 +17,7 @@ import { createBehaviors } from '../world/behaviors.js';
 import { createVisibility } from '../world/visibility.js';
 import { createLighting } from '../world/lighting.js';
 import { createOcclusion } from '../world/occlusion.js';
+import { createPvsCheck } from '../world/pvscheck.js';
 import { createInteract } from '../play/interact.js';
 import { createCombat } from '../world/combat.js';
 import { createWeapons } from '../play/weapons.js';
@@ -86,6 +87,7 @@ export function createGame({ pack, render, now }) {
   let envWait = 0;
   render.beforeDraw = () => {
     vis.update();
+    if (game.checkPvs) pvsCheck.check(); // zkouška N-014 v každém snímku (testy; ?bench ji dělá mimo měřený čas)
     light.flush();
     if (lightmap && lightmap.lm.update()) lightmap.view.refresh();
     // průměrná záře levelu pro odraz skla (N-013): po změně světla, nejvýš jednou za 60 snímků
@@ -102,6 +104,7 @@ export function createGame({ pack, render, now }) {
   io.behave = behave;
   const player = createPlayer({ phys, world, render, input, session });
   const interact = createInteract({ phys, player, input, behave, entities, render });
+  const pvsCheck = createPvsCheck({ vis, phys, render, world, player }); // N-014: kreslené buňky proti PVS (testy, ?bench)
   behave.onPrint = (ent, text) => interact.print(ent, text); // obrazovky patří vrstvě xPlay, svět o nich neví
   const combat = createCombat({ phys, entities, behave, materials: pack.materials?.materials || {} });
   const weapons = createWeapons({ pack, phys, player, input, interact, combat, render, light, assets });
@@ -128,6 +131,7 @@ export function createGame({ pack, render, now }) {
     const ctx = { level, pack, session, io };
     for (const sys of loadOrder) sys.load?.(ctx);
     occlusion.load(ctx, entities);
+    pvsCheck.load(level);
     render.closeStatic();
     phys.settle();
     builtBake = game.useBake;
@@ -180,6 +184,8 @@ export function createGame({ pack, render, now }) {
     /** Zkouška textury světla (N-110): null, nebo { texel: 0,05 | 0,1 (m), cells: [id buněk] }; platí od načtení levelu. */
     lightmap: null,
     lightmapStat: null,
+    /** Zkouška viditelnosti proti PVS v každém snímku (N-014); výsledky v pvsCheck.stat. */
+    checkPvs: false,
     E,
     pack,
     assets,
@@ -197,6 +203,7 @@ export function createGame({ pack, render, now }) {
     interact,
     combat,
     weapons,
+    pvsCheck,
     render,
     levelIds: [...levels.keys()],
     get,

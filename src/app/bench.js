@@ -169,6 +169,7 @@ export function createBench({ game, lock, root }) {
       level: { id: session.levelId, profile: session.profileId, cells: cells.length, entities: entities.list.length, lights: st.lights, lightGrid: world.stat.lightCell, lightSamples: st.samples, lightSoftened: st.softened, staticTris: render.counts?.staticTris, ...assetLine(game, render), lightPrepMs: +st.prepMs.toFixed(1), lightBuildMs: +st.buildMs.toFixed(1), lightBaked: st.baked, lightBakeNote: st.bakeNote, lightmap: game.lightmapStat },
       run: { seconds: +elapsed.toFixed(1), frames: n, steps, waypoints: route.length, teleports, walkSteps, turnFlips: flips },
       frame: { workMs: summary(work, n), intervalMs: g, intervalFrames: gaps, fps: g.median ? +(1000 / g.median).toFixed(1) : 0, note: 'rozestup jen ze snímků, před kterými nebyla dávka měření vykreslení (N-011)' },
+      pvs: { ...game.pvsCheck.stat, grid: '64 × 36', note: 'N-014: horní mez = kreslené buňky ⊆ PVS buňky kamery, dolní mez = buňka každého kvádru zasaženého paprskem z oka se kreslí; kontroluje se v každém 10. snímku' },
       weapon: fireOn ? { ...shots, note: 'robot střílí hlavním režimem při rozhlížení v buňkách (A3.1)' } : null,
       step: { ms: summary(stepMs, n), perFrame: n ? +(steps / n).toFixed(2) : 0, note: 'klouzavý průměr času jednoho kroku simulace (120 Hz); sys = totéž po systémech', sys: pr.sys },
       phys: pr.phys,
@@ -295,6 +296,7 @@ export function createBench({ game, lock, root }) {
       gl.readPixels(0, 0, 1, 1, 6408, 5121, px);
       const batch = performance.now() - t2;
       drawMs[draws++] = batch / repeat;
+      game.pvsCheck.check(); // N-014: kreslené buňky proti PVS, mimo měřený čas (snímek po dávce se nepočítá)
       if (batch < 12 && repeat < 16) repeat *= 2;
       else if (batch > 40 && repeat > 1) repeat /= 2;
       render.counts.calls = calls0;
@@ -334,6 +336,7 @@ export function createBench({ game, lock, root }) {
       light.finish();
       openUp();
       game.sim(2); // dveře dojedou, bedny si sednou
+      game.pvsCheck.load(session.level); // čísla zkoušky N-014 jen z tohoto měření
       // zbraň (A3.1): robot dostane první zbraň balíku a střílí při rozhlížení; ?bench&fire=0 bez střelby
       const wpn = (game.pack.weapons || [])[0]?.data;
       fireOn = opts.fire !== false && !!wpn;

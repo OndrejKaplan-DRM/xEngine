@@ -4,6 +4,10 @@
 // a jejich otvor zakryje clona (render.addShutter), aby škvírou kolem křídla neprosvítalo pozadí.
 // Světla se tu neřeší: svítí po vrcholech (lighting.js) a zavřené dveře je zadrží bránou vrstvy (occlusion.js).
 // Výpočet je čistá aritmetika bez knihoven a bez alokací; běží před každým vykreslením (render.beforeDraw).
+// Prokazatelná viditelnost (N-014, D-057): buňka mimo levelPVS(buňka kamery) se neprochází, i když by ji obdélníky
+// portálů pustily (obdélník je hrubší než přímka skrz otvory). Oko ve dveřích (PASS) bere i PVS buňky za nimi.
+
+import { levelPVS } from '../xspace/index.js';
 
 const NEAR = 0.02; // m; ořez mnohoúhelníku portálu rovinou před okem
 const PASS = 0.3; // m; oko takhle blízko otvoru portálu ho nezužuje (stojím ve dveřích)
@@ -20,8 +24,12 @@ export function createVisibility({ world, entities, render }) {
   let onPath = new Uint8Array(0);
   let cameraCell = -1;
   let visits = 0;
+  let pvs = null; // Map id buňky → Set id (levelPVS)
+  let pvsIdx = []; // index buňky → Int32Array indexů buněk v jejím PVS
+  let allowed = null; // Uint8Array podle buněk: kam smí pohled tento snímek (PVS)
+  let allowedNow = null; // allowed, nebo null (bez omezení) pro právě běžící visit
   const visibleIds = new Set();
-  const stat = { updates: 0, visits: 0, cells: 0 };
+  const stat = { updates: 0, visits: 0, cells: 0, pvsCut: 0, pvsMs: 0 };
   // pohled
   const eye = [0, 0, 0];
   const R = [1, 0, 0];
@@ -135,8 +143,13 @@ export function createVisibility({ world, entities, render }) {
         if (nx1 > p.rect[2]) p.rect[2] = nx1;
         if (ny1 > p.rect[3]) p.rect[3] = ny1;
       }
+      const nc = p.a === ci ? p.b : p.a;
+      if (allowedNow && !allowedNow[nc]) {
+        stat.pvsCut++;
+        continue; // z buňky kamery prokazatelně neviditelná (N-014)
+      }
       onPath[pi] = 1;
-      visit(p.a === ci ? p.b : p.a, nx0, ny0, nx1, ny1, depth + 1);
+      visit(nc, nx0, ny0, nx1, ny1, depth + 1);
       onPath[pi] = 0;
     }
   }
@@ -152,6 +165,10 @@ export function createVisibility({ world, entities, render }) {
     },
     get portals() {
       return portals;
+    },
+    /** Buňky, které se v posledním update() kreslily (Set id; jen pro čtení). */
+    get visibleSet() {
+      return visibleIds;
     },
 
     load(ctx) {
@@ -179,12 +196,25 @@ export function createVisibility({ world, entities, render }) {
       visible = new Uint8Array(cells.length);
       onPath = new Uint8Array(portals.length);
       cameraCell = -1;
+      const t0 = globalThis.performance?.now?.() ?? 0;
+      pvs = levelPVS(ctx.level);
+      stat.pvsMs = (globalThis.performance?.now?.() ?? 0) - t0;
+      pvsIdx = cells.map((c) => Int32Array.from([...(pvs.get(c.id) || [])].map((id) => cellIndex.get(id))));
+      allowed = new Uint8Array(cells.length);
     },
     unload() {
       cells = [];
       portals = [];
       cameraCell = -1;
+      pvs = null;
+      pvsIdx = [];
     },
+    /** PVS levelu (Map id buňky → Set id buněk; levelPVS ze základu). */
+    get pvs() {
+      return pvs;
+    },
+    /** false = obdélníky portálů bez omezení PVS (srovnání). */
+    usePvs: true,
 
     /** Přepočet pro současný pohled vykreslení. Volá se před každým snímkem; výsledek jde rovnou do xRender. */
     update() {
@@ -232,6 +262,24 @@ export function createVisibility({ world, entities, render }) {
       cameraCell = c ? cellIndex.get(c.id) : -1;
       visible.fill(0);
       visits = 0;
+      // buňky, které smí pohled projít: PVS buňky kamery, a stojí-li oko ve dveřích, i PVS buňky za nimi
+      const lim = sys.usePvs && cameraCell >= 0 ? allowed : null;
+      if (lim) {
+        lim.fill(0);
+        const mark = (ci) => {
+          const L = pvsIdx[ci];
+          for (let k = 0; k < L.length; k++) lim[L[k]] = 1;
+        };
+        mark(cameraCell);
+        for (let i = 0; i < portals.length; i++) {
+          const p = portals[i];
+          if (eye[0] > p.min[0] - PASS && eye[0] < p.max[0] + PASS && eye[1] > p.min[1] - PASS && eye[1] < p.max[1] + PASS && eye[2] > p.min[2] - PASS && eye[2] < p.max[2] + PASS) {
+            mark(p.a);
+            mark(p.b);
+          }
+        }
+      }
+      allowedNow = lim;
       if (cameraCell >= 0) visit(cameraCell, -1, -1, 1, 1, 0);
       else visible.fill(1);
       stat.visits = visits;

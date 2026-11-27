@@ -33,6 +33,8 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
      * Projeví se při dalším načtení levelu (stat.lightCell říká, s čím je level postavený).
      */
     lightCell: LIGHT_CELL,
+    /** id kvádru → plochy [{ n: normála, cells: buňky, do jejichž dávek plocha jde }] (zkouška viditelnosti N-014). */
+    brushFaces: new Map(),
     get level() {
       return level;
     },
@@ -51,6 +53,7 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
       render.setDefs(matDefs, assets); // textury barvy (albedo) bere vykreslení ze souborů balíku
       render.openLevel({ env: level.env, cells });
       const keys = new Set();
+      sys.brushFaces.clear();
       Object.assign(stat, { brushes: 0, brushColliders: 0, brushTris: 0, drawnTris: 0, batchKeys: 0, lightCell: sys.lightCell, brushSamples: 0, brushCounts: [] });
       // vzorky světla levelu podle kontraktu (D-037): mřížka na násobcích buňky ve světě, bez ploch schovaných v jiném kvádru
       const brushes = level.brushes || [];
@@ -65,16 +68,21 @@ export function createWorld({ phys, render, light, pack, assets = null }) {
         stat.brushCounts.push([b.id, n]);
         stat.brushSamples += n;
         if (m) {
+          const faces = [];
           for (const g of m.groups) {
             const matId = (b.faces && b.faces[g.face]) || b.mat;
             // plocha jde do dávky každé buňky, která ji vidí (stěna mezi dvěma místnostmi má dvě strany)
-            for (const cellId of faceCells(m, g, b, cells, seenBy)) {
+            faceCells(m, g, b, cells, seenBy);
+            const ni = m.indices[g.start] * 3;
+            faces.push({ n: [m.normals[ni], m.normals[ni + 1], m.normals[ni + 2]], cells: [...seenBy] }); // zkouška N-014
+            for (const cellId of seenBy) {
               render.addStatic(cellId, matId, m, g.start, g.count, null, uvScale(matId), base);
               keys.add(`${cellId}|${matId}`);
               stat.drawnTris += g.count / 3;
             }
             stat.brushTris += g.count / 3;
           }
+          sys.brushFaces.set(b.id, faces);
         }
         if (b.col !== false) {
           const c = brushCollider(b);
